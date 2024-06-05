@@ -39,14 +39,14 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:/itwillbs/p2c3/Test2/mapper/*Mapper.xml"></property>
+		<property name="mapperLocations" value="classpath:/itwillbs/p2c3/class_will/mapper/*Mapper.xml"></property>
 	</bean>
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
-	<mybatis-spring:scan base-package="itwillbs.p2c3.Test2"/>
+	<mybatis-spring:scan base-package="itwillbs.p2c3.class_will"/>
 	
 </beans>
 

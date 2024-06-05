@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>itwillbs.p2c3</groupId>
-	<artifactId>Test2</artifactId>
-	<name>Test2</name>
+	<artifactId>class_will</artifactId>
+	<name>class_will</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

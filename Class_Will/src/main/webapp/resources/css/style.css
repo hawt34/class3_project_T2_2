@@ -115,8 +115,8 @@ body{
 
 /*** Navbar Start ***/
 .navbar .navbar-nav .nav-link {
-    padding: 0px 15px;
-    font-size: 25px;
+    padding: 0px 20px;
+    font-size: 30px;
     transition: .5s;
 }
 
@@ -126,10 +126,19 @@ body{
     background: black;
 }
 
-.navbar, .navbar-nav, .nav-link:hover,
-.navbar, .navbar-nav, .nav-link.active,
-.navbar, .navbar-nav, .nav-link:hover, .nav-link.active {
-    color: var(--bs-light);
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active,
+.navbar .navbar-nav .nav-link:hover .nav-link.active {
+    color: var(--bs-black);
+}
+
+.navbar-nav>a:hover{
+	background: white;
+	border-radius: 5px;
+}
+.navbar-nav>div:hover{
+	background: white;
+	border-radius: 5px;
 }
 
 .navbar .dropdown-toggle::after {
@@ -139,6 +148,7 @@ body{
     font-weight: 700;
     vertical-align: middle;
     margin-left: 8px;
+    color: var(--bs-body);
 }
 
 @media (min-width: 1200px) {
@@ -152,10 +162,19 @@ body{
         transition: .5s;
         opacity: 0;
     }
+    
+}
+@media (max-width: 1200px) {
+  #navbarCollapse{
+	background: lightgray;
+	border-radius: 10px;
+  }
+    
 }
 
+
 .dropdown .dropdown-menu a:hover {
-    background: var(--bs-body);
+    background: gray;
     color: var(--bs-light);
 }
 
@@ -216,7 +235,9 @@ body{
 .carousel-control-prev {
     margin-left: 20px;
 }
-
+.fa-bard{
+	width: 50px;
+}
 .page-header {
     position: relative;
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../${pageContext.request.contextPath}/resources/img/cart-page-header-img.jpg);
@@ -230,13 +251,21 @@ body{
     .page-header {
         margin-top: 152px !important;
     }
+   
 }
 
 @media (max-width: 992px) {
     .hero-header,
     .page-header {
-        margin-top: 97px !important;
+        margin-top: 152px !important;
     }
+     #navbarCollapse{
+	background: lightgray;
+	border-radius: 10px;
+	}
+	.fixed-top{
+		background: black;
+	}
 }
 /*** Hero Header end ***/
 

@@ -40,7 +40,7 @@
 		<beans:property name="defaultEncoding" value="UTF-8"></beans:property>
 	</beans:bean>
 	
-	<context:component-scan base-package="itwillbs.p2c3.Test2" />
+	<context:component-scan base-package="itwillbs.p2c3.class_will" />
 	
 	<tx:annotation-driven/>
 	

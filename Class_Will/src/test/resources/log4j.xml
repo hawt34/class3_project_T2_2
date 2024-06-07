@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="itwillbs.p2c3.Test2">
+	<logger name="itwillbs.p2c3.class_will">
 		<level value="info" />
 	</logger>
 	

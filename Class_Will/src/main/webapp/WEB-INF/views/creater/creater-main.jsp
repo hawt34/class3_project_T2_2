@@ -143,34 +143,69 @@
 							<!-- 크리에이터 인사 문구 -->
 							<div class="col-md-12 text-center h2 mb-4">반가워요 6ellMin 님</div>
 							
-							<div class="creator-event ">
+							<!-- 크리에이터 이벤트 -->
+							<div class="creator-event">
 							
 								<div class="card col-md-10 my-2 ">
 								  <div class="card-body">
-								    <h6 class="card-title" style="color:black;">[업데이트] CLASS101 클래스 및 신규 상품 오픈 지원 재개 안내</h6>
-								    <div class="d-flex justify-content-between">
-									    <p class="card-text">중단되었던 크리에이터 지원이 재개되었어요!!</p> 
+								    <h6 class="card-title">[업데이트] CLASS101 클래스 및 신규 상품 오픈 지원 재개 안내</h6>
+								    <div class="d-flex justify-content-between card-content">
+									    <p class="card-text word-break">중단되었던 크리에이터 지원이 재개되었어요!!</p> 
 									    <a href="#" class="btn btn-primary">상세보기</a>
 								    </div>
 								  </div>
 								</div>
 								<div class="card col-md-10 my-2">
 								  <div class="card-body">
-								    <h6 class="card-title" style="color:black;">[신규 런칭] 모임으로 배움을 확장하다!</h6>
-								    <div class="d-flex justify-content-between">
+								    <h6 class="card-title">[신규 런칭] 모임으로 배움을 확장하다!</h6>
+								    <div class="d-flex justify-content-between card-content">
 									    <p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 									    <a href="#" class="btn btn-primary">상세보기</a>
 								    </div>
 								  </div>
 								</div>
 							</div>
+
+							<div class="creator-main-table col-md-10 my-5">
+								<table>
+									<thead>
+										<tr>
+											<th>공지사항</th>
+											<th>날짜</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>존나중요한 공지 드립니다 빡집중하세여</td>
+											<td>2024-06-12</td>
+										</tr>
+										<tr>
+											<td>존나중요한 공지 드립니다 빡집중하세여</td>
+											<td>2024-06-12</td>
+										</tr>
+										<tr>
+											<td>존나중요한 공지 드립니다 빡집중하세여</td>
+											<td>2024-06-12</td>
+										</tr>
+										<tr>
+											<td>존나중요한 공지 드립니다 빡집중하세여</td>
+											<td>2024-06-12</td>
+										</tr>
+										<tr>
+											<td>존나중요한 공지 드립니다 빡집중하세여 이렇게 길게 쓰면 </td>
+											<td>2024-06-12</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						
 						</div>
 					</div>
 
 
 
 <!-- 					<div class="col-12"> -->
-<!-- 						<div class="pagination d-flex justify-content-center mt-5"> -->
+<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
 <!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
 <!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
 <!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->

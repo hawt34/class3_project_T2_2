@@ -32,18 +32,17 @@
     </head>
 
     <body>
-    
-    	<!-- Spinner Start -->
-        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-            <div class="spinner-grow text-white" role="status"></div>
-        </div>
-        <!-- Spinner End -->
-        
         <!-- header Start -->
 		<header>
         	<jsp:include page="/WEB-INF/views/inc/header.jsp"/>
 		</header>
 		<!-- header End -->
+		
+		<!-- Spinner Start (로딩시 뜨는 동그라미)-->
+	        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+	            <div class="spinner-grow text-white" role="status"></div>
+	        </div>
+        <!-- Spinner End -->
 
         <!-- Hero Start -->
         <div class="container-fluid hero-header py-5">

@@ -29,6 +29,12 @@ public class MainController {
 	public String shopDetail() {
 		return "shop-detail";
 	}
+
+	// creater-main으로
+	@GetMapping("creater-main")
+	public String createrMain() {
+		return "creater/creater-main";
+	}
 	
 	
 

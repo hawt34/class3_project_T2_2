@@ -59,7 +59,7 @@
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">Creator</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="#">Home</a></li>
+			<li class="breadcrumb-item"><a href="main">Home</a></li>
 			<li class="breadcrumb-item active text-white">크리에이터 페이지</li>
 		</ol>
 	</div>
@@ -67,7 +67,7 @@
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">Creator Service</h1>
+			<h1 class="mb-4">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 <!-- 					<div class="row g-4"> -->
@@ -139,8 +139,31 @@
 <!-- 								</div> -->
 <!-- 							</div> -->
 						</div>
-						<div class="col-lg-9 creator-body ">
-								<div class="col-md-12 text-center">여기를 이제 메인으로 쓸거임</div>
+						<div class="col-lg-9 creator-body">
+							<!-- 크리에이터 인사 문구 -->
+							<div class="col-md-12 text-center h2 mb-4">반가워요 6ellMin 님</div>
+							
+							<div class="creator-event ">
+							
+								<div class="card col-md-10 my-2 ">
+								  <div class="card-body">
+								    <h6 class="card-title" style="color:black;">[업데이트] CLASS101 클래스 및 신규 상품 오픈 지원 재개 안내</h6>
+								    <div class="d-flex justify-content-between">
+									    <p class="card-text">중단되었던 크리에이터 지원이 재개되었어요!!</p> 
+									    <a href="#" class="btn btn-primary">상세보기</a>
+								    </div>
+								  </div>
+								</div>
+								<div class="card col-md-10 my-2">
+								  <div class="card-body">
+								    <h6 class="card-title" style="color:black;">[신규 런칭] 모임으로 배움을 확장하다!</h6>
+								    <div class="d-flex justify-content-between">
+									    <p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+									    <a href="#" class="btn btn-primary">상세보기</a>
+								    </div>
+								  </div>
+								</div>
+							</div>
 						</div>
 					</div>
 

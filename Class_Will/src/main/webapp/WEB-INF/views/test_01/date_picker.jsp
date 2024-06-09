@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
  html .ui-button.ui-state-disabled:hover,
  html .ui-button.ui-state-disabled:active { border: 0px solid #c5c5c5; background-color: transparent; font-weight: normal; color: #454545; text-align: center; } 
 
- .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 14px; padding: 0px; font-weight: bold; } 
+ .ui-datepicker .ui-datepicker-title { margin: 0 0em; line-height: 16px; text-align: center; font-size: 20px; padding: 0px; font-weight: bold; } 
 
  .ui-datepicker { display: none; background-color: #fff; border-radius: 4px; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px; padding-bottom: 10px; width: 300px; box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.1); } 
 
@@ -151,6 +152,61 @@
 	box-shadow: 0px 0px 5px #444;
 }
 
+.class_headcount {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+.countText {
+	width:100px;
+}
+.reserve1 {
+	margin-left:7px;
+}
+.minusBtn {
+	background: none;
+	border: none;
+	background-image: url("${pageContext.request.contextPath}/resources/img/minusBtn.png");
+	background-size: cover;
+	width: 25px;
+	height: 25px;
+}
+
+.addBtn {
+	background: none;
+	border: none;
+	background-image: url("${pageContext.request.contextPath}/resources/img/addBtn.png");
+	background-size: cover;
+	width: 26px;
+	height: 26px;
+}
+
+.class_price {
+	margin-top: 30px;
+	display: flex;
+	justify-content: flex-end;
+}
+.reserve2 {
+	font-size: 0.9rem;
+	margin-right: 10px;
+}
+.class_btn {
+	margin: 15px;
+}
+.class_btn > input {
+	border: none;
+	border-radius: 5px;
+	background: black;
+	color:white;
+	width:100%;
+	height:30px;
+	text-align: center;
+}
+.disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
 
  
 </style>
@@ -162,19 +218,66 @@
 		<div class="col-md-8">
 		</div>
 		<div class="col-md-4">
-			<div id="datepicker" class="datepicker"></div>
-			<input type="hidden" value="" name="reservation_date" id="datepicker_val">
-			
-			<div class="reservation_headcount">
-				<input type="button" value="-">
-				<input type="text">
-				<input type="button" value="+">
-			</div>
-			
+			<form action="" >
+				<div id="datepicker" class="datepicker"></div>
+				<input type="hidden" value="" name="class_date" id="datepicker_val">
+				
+				<!-- 인원 수 체크 -->
+				<div class="class_headcount">
+					<span>인원 수 선택</span>
+					<input class="reserve1 minusBtn" type="button" id="headcount_prev">
+					<input class="reserve1 countText" type="text" name="" id="class_count" value="1">
+					<input class="reserve1 addBtn" type="button" id="headcount_next">
+				</div>
+				
+				<!-- 예약 금액 -->
+				<div class="class_price">
+					<b class="reserve2">예약 금액</b>
+					1인당: <span class="reserve_price" id="reserve_price">&nbsp;40000만 원</span>
+				</div>
+				<!-- 결제하기 버튼 -->
+				<div class="class_btn">
+					<input type="submit" value="클래스 신청하기">
+				</div>
+			</form>
 		</div>
 	</div>
 
 </div>
+<script type="text/javascript">
+$(function() {
+	let count = $("#class_count");
+	let prev = $("#headcount_prev");
+	let next = $("#headcount_next");
+// 	count.val("1");
+	function updateCount() {
+		let currentValue = parseInt(count.val());
+		if(currentValue <= 1) {
+			prev.prop('disabled', true);
+			prev.addClass("disabled");
+		} else {
+			prev.prop('disabled', false);
+			prev.removeClass("disabled")
+		}
+	}
+	
+	updateCount();
+	 
+	next.click(function() {
+		let currentValue = parseInt(count.val());
+		count.val(currentValue + 1);
+		updateCount();
+	});
+	prev.click(function() {
+		let currentValue = parseInt(count.val());
+		if(currentValue > 1) {
+			count.val(currentValue - 1);
+		}
+		updateCount();
+	});
+	
+});
+</script>
 <script>
 $(function() {
 	$("#datepicker").datepicker();
@@ -198,11 +301,11 @@ $.datepicker.setDefaults({
 		  console.log(dateText);
 		  console.log(inst);
           // 선택된 날짜를 표시하기 위해 이 부분이 필요합니다.
-          $('#datepicker .ui-datepicker-current-day .ui-state-active').css({
-              'background-color': 'black',
-              'color': 'white',
-              'border-radius': '50%'
-          });
+//           $('#datepicker .ui-datepicker-current-day .ui-state-active').css({
+//               'background-color': 'black',
+//               'color': 'white',
+//               'border-radius': '50%'
+//           });
 
           // 선택된 날짜를 yyyy-MM-dd HH:mm 형식으로 포맷팅
           var selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);

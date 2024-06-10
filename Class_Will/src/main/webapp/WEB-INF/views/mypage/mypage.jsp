@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Insert title here</title>
+<title>클래스윌 마이페이지</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script
@@ -52,12 +52,13 @@ body {
 	color: white;
 }
 
-#wrap {
-	width: 1200px;
-	height: 700px;
-	margin: 0 auto;
-	border: 1px solid skyblue;
-}
+  #wrap {  
+  	width: 100%;  
+	
+  	height: 700px;  
+  	margin: 0 auto;  
+ 	border: 1px solid skyblue;  
+  }  
 
 header {
 	width: 100%;
@@ -72,14 +73,17 @@ nav {
 footer {
 	width: 100%;
 	height: 100%;
-	clear: both;
+	clear: both; 
 }
 
 aside {
-	width: 30%;
-	float: left; height : 700px;
-	border: 1px solid red;
+	width: 380px;
+	float: left; 
+	height : 700px;
+	border: 2px solid blue;
 	height: 700px;
+	display: block;
+	
 }
 
 #aside1 {
@@ -122,7 +126,8 @@ aside {
 
 #welcome2 {
 	width: 200px;
-	height: 40px; flex-direction : row;
+	height: 40px; 
+	flex-direction : row;
 	border: 1px solid skyblue;
 	flex-direction: row;
 }
@@ -143,14 +148,14 @@ aside {
 #aside5 {
 	width: 340px;
 	height: 100px;
-	border: 1px solid red;
+	border: 1px solid blue;
 	margin-top: 20px;
 }
 
 #profileButton {
 	width: 340px;
 	height: 100px;
-	border: 1px solid red;
+	border: 1px solid white;
 	margin-top: 30px;
 	text-align: center;
 	font-size: 25px;
@@ -164,64 +169,51 @@ aside {
 	justify-content: space-between;
 	padding: 16px;
 	width: 336px;
-	border: 1px solid red;
+	border: 1px solid yellow;
 	margin-bottom: 16px; /* 각 카테고리 요소들 사이의 간격 추가 */
 }
 
+
 section {
-	display: grid;
-	flex-wrap: wrap;
+	display: grid;  
 	grid-auto-rows: 160px; /* 그리드 행의 높이를 160px로 설정 */
-	grid-template-columns: 370px 370px; /* 그리드 열의 너비를 370px로 설정 */
+/* 	flex-wrap: wrap;  */
+  	grid-template-columns: 1fr 1fr; 	
+  	border: 1px solid green;
+	
+	margin-left: 200px;
 }
 
-@media ( max-width 1220px) {
-	aside {
-		width: 40%;
-	}
-	section {
-		width: 60%;
-	}
+@media (max-width:1200px) {
+  section {
+    margin-left: 24px;
+    grid-template-columns: 1fr;
+    
+  }
+  
+ 
 }
 
-@media ( max-width :768px) {
-	aside {
-		width: 30%;
-	}
-	section {
-		grid-template-columns: 1fr; /* 한 줄에 하나씩 아이템이 나오도록 설정 */
-	}
-	section > * {
-		margin-top: 20px; /* 그리드 아이템들의 상단 마진을 추가하여 간격을 조정 */
-		margin-left: 20px;
-	}
+
+@media (max-width: 780px) {
+	
+  aside {
+    width: 30%; /* 원래대로 복원 */
+  }
+  section {
+    max-width: calc(100% - 30%);
+   	width: 100%; /* 1열로 설정 */
+    grid-template-columns: 1fr; /* 930px부터는 1열로 설정 */
+    clear: both;
+  }
 }
 
-@media ( max-width :480px) {
-	 #wrap {
-        display: flex;
-        flex-direction: column;
-        
-        
-    }
-
-    aside {
-        width: 100%;
-          flex-shrink: 0; 
-    }
-
-    section {
-        flex-grow: 1; /* 부모 컨테이너의 남은 공간을 차지하도록 설정 */
-           height: 100%; /* 부모 컨테이너의 높이를 가득 채우도록 설정 */
-        overflow-y: auto;
-    }
-}
 </style>	
 </head>
 <body>
 	<div id="wrap">
 		<header>
-			<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+<%-- 			<jsp:include page="/WEB-INF/views/inc/header.jsp" /> --%>
 		</header>
 		<nav><i class="fas fa-user fa-2x"></i>
 		프로필

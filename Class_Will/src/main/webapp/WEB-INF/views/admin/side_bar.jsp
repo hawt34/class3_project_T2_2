@@ -12,7 +12,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="test2">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -24,7 +24,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="test2">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>대쉬보드</span></a>
             </li>
@@ -47,7 +47,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리 :</h6>
-                        <a class="collapse-item" href="buttons.html">리스트</a>
+                        <a class="collapse-item" href="test3">리스트</a>
                         <a class="collapse-item" href="cards.html">삭제</a>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">클래스 관리:</h6>
-                        <a class="collapse-item" href="utilities-color.html">리스트</a>
+                        <a class="collapse-item" href="test4">리스트</a>
                         <a class="collapse-item" href="utilities-border.html">머시기</a>
                         <a class="collapse-item" href="utilities-animation.html">저시기</a>
                         <a class="collapse-item" href="utilities-other.html">쳌</a>
@@ -167,7 +167,6 @@
 <!--                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> -->
 <!--                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> -->
 <!--             </div> -->
-
         </ul>
 </body>
 </html>

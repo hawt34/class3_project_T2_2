@@ -38,9 +38,8 @@
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/creator-main.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css" rel="stylesheet">
 </head>
 <body>
 
@@ -65,11 +64,7 @@
 	</div>
 	<!-- Single Page Header End -->
 
-	<div class="container-fluid fruite">
-		<div class="container">
-			<h1 class="mb-4">Creator Center</h1>
-			<div class="row g-4">
-				<div class="col-lg-12">
+<!-- 셀렉트박스 -->
 <!-- 					<div class="row g-4"> -->
 <!-- 						<div class="col-xl-3"> -->
 <!-- 							<div -->
@@ -85,68 +80,22 @@
 <!-- 							</div> -->
 <!-- 						</div> -->
 <!-- 					</div> -->
+	<div class="container-fluid fruite">
+		<div class="container">
+			<h1 class="mb-4">Creator Center</h1>
+			<div class="row g-4">
+				<div class="col-lg-12">
 					<div class="row g-4">
-						<div class="col-lg-3">
-							<div class="row g-4">
-								<div class="col-lg-12">
-									<div class="mb-3">
-										<h4>Categories</h4>
-										<ul class="list-unstyled fruite-categorie">
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>Home</a>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>클래스</a>
-													<span>(5)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>후기관리</a>
-													<span>(5)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>클래스분석</a>
-													<span>(2)</span>
-												</div>
-											</li>
-											<li>
-												<div class="d-flex justify-content-between fruite-name">
-													<a href="#"><i class="fas fa-apple-alt me-2"></i>클래스정산</a>
-													<span>(8)</span>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-<!-- 							<div class="col-lg-12"> -->
-<!-- 								<div class="position-relative"> -->
-<!-- 									<img -->
-<%-- 										src="${pageContext.request.contextPath}/resources/img/banner-fruits.jpg" --%>
-<!-- 										class="img-fluid w-100 rounded" alt=""> -->
-<!-- 									<div class="position-absolute" -->
-<!-- 										style="top: 50%; right: 10px; transform: translateY(-50%);"> -->
-<!-- 										<h3 class="text-secondary fw-bold"> -->
-<!-- 											Fresh <br> Fruits <br> Banner -->
-<!-- 										</h3> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-						</div>
+						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
+
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-4">반가워요 6ellMin 님</div>
+							<div class="col-md-12 text-center h2 mb-5">반가워요 6ellMin 님</div>
 							
 							<!-- 크리에이터 이벤트 -->
-							<div class="creator-event">
+							<div class="creator-event mt-5">
 							
-								<div class="card col-md-10 my-2 ">
+								<div class="card col-md-10 my-2">
 								  <div class="card-body">
 								    <h6 class="card-title">[업데이트] CLASS101 클래스 및 신규 상품 오픈 지원 재개 안내</h6>
 								    <div class="d-flex justify-content-between card-content">

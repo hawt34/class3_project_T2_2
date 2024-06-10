@@ -17,13 +17,16 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/payment.css">
 <style>
+:root {
+	--bs-accordion-active-bg: white; /* 초기화 또는 원하는 색상으로 설정 */
+}
 #back_button {
 	border: 0;
 	background: none;
 	background-image: url("${pageContext.request.contextPath}/resources/img/left_arrow.png");
 	background-size: cover;
-	width:25px;
-	height: 25px;
+	width:20px;
+	height: 20px;
 }
 </style>
 </head>
@@ -32,7 +35,7 @@
 		<div class="row">
 			<div class="payment_title">
 				<input type="button" id="back_button" onclick="history.back()">
-				<h3>클래스 결제</h3>
+				<h5>클래스 결제</h5>
 			</div>
 		</div>
 		<div class="row">
@@ -105,7 +108,7 @@
 					</div>
 				</div>
 				<!-- 결제 안내 -->
-				<div class="row ">
+				<div class="row">
 					<div class="accordion" id="accordionExample">
 						<div class="accordion-item">
 							<h2 class="accordion-header">
@@ -129,8 +132,32 @@
 					</div>
 				</div>
 				<!-- 결제 정보 -->
-				<div class="row">
+				<div class="card">
+					<h5 class="card-header">결제 정보</h5>
+					<div class="card-body">
+						<h6 class="card-title">원데이 클래스 수강권 1매</h6>
+						<p class="card-text text-end"><span class="font_color">40000</span>만원</p>
+						<p class="card-text text-end"><span class="font_color">1</span>명</p>
+						<p class="card-text text-end">소계:&nbsp; <span class="font_color">4</span>만원</p>
+					<hr>
+						<h6 class="card-title">쿠폰</h6>
+						<h6 class="card-title text-end">사용가능 쿠폰: <span class="font_color">0</span>개</h6>
+						<div class="col d-flex justify-content-end">
+							<a href="#" class="btn btn-dark">쿠폰 조회</a>
+						</div>
+					<hr>
+						<h6 class="card-title">크레딧</h6>
+						<h6 class="card-title text-end">보유 <span class="font_color">0</span>원</h6>
+						<div class="col d-flex justify-content-end">
+							<input type="text" placeholder="크레딧">
+							<input type="button" value="전부 사용">
+						</div>
+					<hr>
+						<p class="card-text text-end">총 결제 금액: <span class="font_color">40000</span>만원</p>
+						<a href="#" class="btn btn-dark text-center">결제하기</a>
+					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>

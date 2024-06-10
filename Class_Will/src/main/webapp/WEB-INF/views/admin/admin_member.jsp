@@ -257,7 +257,10 @@
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
-
+					<div>
+					    <button class="category-btn" data-category="member">회원</button>
+					    <button class="category-btn" data-category="teacher">강사</button>
+					</div>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">

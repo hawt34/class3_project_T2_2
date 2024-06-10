@@ -249,10 +249,8 @@
                 
                 <div class="container-fluid">
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">클래스 리스트</h1>
+                        <h1 class="h3 mb-0 text-gray-800">카테고리 리스트</h1>
                             <div class="btn-group">
-                            <button id="btn-download" class="btn btn-success btn-sm">엑셀 다운로드</button>
-                            <button id="btn-upload" class="btn btn-primary btn-sm">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
@@ -309,7 +307,7 @@
                     email: 'jane.doe@example.com',
                     registrationDate: '2023-02-01',
                     status: 'Inactive'
-                }	
+                }
                 // 더 많은 회원 데이터 추가 가능
             ];
             

@@ -21,7 +21,6 @@ public class AdminController {
 	
 	@GetMapping("Admin/Class")
 	public String adminClass() {
-		
 		return "admin/admin_class";
 	}
 	
@@ -37,5 +36,5 @@ public class AdminController {
 		return "admin/admin_csc";
 	}
 	
-	
 }
+	

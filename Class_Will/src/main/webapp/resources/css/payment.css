@@ -1,0 +1,25 @@
+body {
+	background: black;
+}
+.card {
+	margin-top: 15px;
+}
+.payment_title {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.card-header {
+	color: black;
+}
+.card-title {
+	color: black;	
+}
+.accordion {
+	margin-top: 15px;
+}
+.accordion-item {
+	width: 100%;
+	max-width: 600px;
+}

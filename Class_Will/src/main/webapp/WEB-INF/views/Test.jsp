@@ -1196,6 +1196,7 @@
         </div>
         <!-- Copyright End -->
         <a href="datePicker">picker</a>
+        <a href="payment">payment</a>
 
 
 

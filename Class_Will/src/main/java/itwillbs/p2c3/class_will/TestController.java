@@ -10,6 +10,10 @@ public class TestController {
 	public String dateP() {
 		return "test_01/date_picker";
 	}
+	@GetMapping("payment")
+	public String payment() {
+		return "test_01/payment";
+	}
 	
 	
 }

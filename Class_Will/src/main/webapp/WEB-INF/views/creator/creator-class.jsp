@@ -38,8 +38,10 @@
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css" rel="stylesheet">
 </head>
 <body>
 
@@ -59,27 +61,12 @@
 		<h1 class="text-center text-white display-6">Creator</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
 			<li class="breadcrumb-item"><a href="main">Home</a></li>
-			<li class="breadcrumb-item active text-white">크리에이터 페이지</li>
+			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
+			<li class="breadcrumb-item active text-white">클래스</li>
 		</ol>
 	</div>
 	<!-- Single Page Header End -->
 
-<!-- 셀렉트박스 -->
-<!-- 					<div class="row g-4"> -->
-<!-- 						<div class="col-xl-3"> -->
-<!-- 							<div -->
-<!-- 								class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4"> -->
-<!-- 								<label for="fruits">Default Sorting:</label> <select id="fruits" -->
-<!-- 									name="fruitlist" class="border-0 form-select-sm bg-light me-3" -->
-<!-- 									form="fruitform"> -->
-<!-- 									<option value="volvo">Nothing</option> -->
-<!-- 									<option value="saab">Popularity</option> -->
-<!-- 									<option value="opel">Organic</option> -->
-<!-- 									<option value="audi">Fantastic</option> -->
-<!-- 								</select> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
 	<div class="container-fluid fruite">
 		<div class="container">
 			<h1 class="mb-4">Creator Center</h1>
@@ -89,80 +76,79 @@
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5">반가워요 6ellMin 님</div>
-							
-							<!-- 크리에이터 이벤트 -->
-							<div class="creator-event mt-5">
-							
-								<div class="card col-md-10 my-2">
-								  <div class="card-body">
-								    <h6 class="card-title">[업데이트] CLASS101 클래스 및 신규 상품 오픈 지원 재개 안내</h6>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text word-break">중단되었던 크리에이터 지원이 재개되었어요!!</p> 
-									    <a href="#" class="btn btn-primary">상세보기</a>
-								    </div>
-								  </div>
+							<!-- 	셀렉트박스 -->
+							<div class="col-md-12 d-flex justify-content-center">
+								<div class="col-xl-8">
+									<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
+										<select id="fruits"
+											name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
+											form="fruitform">
+											<option value="volvo">Nothing</option>
+											<option value="saab">Popularitasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</option>
+											<option value="opel">Organic</option>
+											<option value="audi">Fantastic</option>
+										</select>
+									</div>
+									<hr>
 								</div>
-								<div class="card col-md-10 my-2">
-								  <div class="card-body">
-								    <h6 class="card-title">[신규 런칭] 모임으로 배움을 확장하다!</h6>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-									    <a href="#" class="btn btn-primary">상세보기</a>
-								    </div>
-								  </div>
+							</div>
+							
+							<div class="creator-main-table col-md-10 mb-5">
+								<!-- 등록버튼 -->
+								<div class="mb-3" align="right">
+									<button class="category-btn classReg" value="respond">클래스등록</button>
 								</div>
+								<!-- 테이블 -->
+								<div class="card text-center">
+									<div class="card-body p-2">
+										<table>
+											<thead>
+												<tr>
+													<th>제목</th>
+													<th>상태</th>
+													<th>카테고리</th>
+													<th>노출여부</th>
+													<th>생성일</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>당신도 할 수 있다! css 클래스</td>
+													<td>제작중</td>
+													<td>IT,개발</td>
+													<td>비공개</td>
+													<td>2024-06-10</td>
+												</tr>
+												<tr>
+													<td>당신도 할 수 있다! css 클래스</td>
+													<td>제작중</td>
+													<td>IT,개발</td>
+													<td>비공개</td>
+													<td>2024-06-10</td>
+												</tr>
+							
+											</tbody>
+										</table>
+									</div>
+								</div>
+
 							</div>
 
-							<div class="creator-main-table col-md-10 my-5">
-								<table>
-									<thead>
-										<tr>
-											<th>공지사항</th>
-											<th>날짜</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여 이렇게 길게 쓰면 </td>
-											<td>2024-06-12</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						
 						</div>
 					</div>
 
 
 
-<!-- 					<div class="col-12"> -->
-<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
-<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
-<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
-<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
-<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
-<!-- 							<a href="#" class="rounded">&raquo;</a> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-					
+					<!-- 					<div class="col-12"> -->
+					<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
+					<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
+					<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
+					<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
+					<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
+					<!-- 							<a href="#" class="rounded">&raquo;</a> -->
+					<!-- 						</div> -->
+					<!-- 					</div> -->
+
 				</div>
 			</div>
 		</div>
@@ -191,6 +177,11 @@
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
+	<script type="text/javascript">	
+		
+	</script>
+
 
 </body>
 </html>

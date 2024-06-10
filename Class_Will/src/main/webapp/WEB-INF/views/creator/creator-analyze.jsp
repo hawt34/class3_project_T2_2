@@ -38,9 +38,8 @@
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-analyze.css" rel="stylesheet">
 </head>
 <body>
 
@@ -65,22 +64,6 @@
 	</div>
 	<!-- Single Page Header End -->
 
-<!-- 셀렉트박스 -->
-<!-- 					<div class="row g-4"> -->
-<!-- 						<div class="col-xl-3"> -->
-<!-- 							<div -->
-<!-- 								class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4"> -->
-<!-- 								<label for="fruits">Default Sorting:</label> <select id="fruits" -->
-<!-- 									name="fruitlist" class="border-0 form-select-sm bg-light me-3" -->
-<!-- 									form="fruitform"> -->
-<!-- 									<option value="volvo">Nothing</option> -->
-<!-- 									<option value="saab">Popularity</option> -->
-<!-- 									<option value="opel">Organic</option> -->
-<!-- 									<option value="audi">Fantastic</option> -->
-<!-- 								</select> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
 	<div class="container-fluid fruite">
 		<div class="container">
 			<h1 class="mb-4">Creator Center</h1>
@@ -90,80 +73,57 @@
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5">반가워요 6ellMin 님</div>
-							
-							<!-- 크리에이터 이벤트 -->
-							<div class="creator-event mt-5">
-							
-								<div class="card col-md-10 my-2">
-								  <div class="card-body">
-								    <h6 class="card-title">[업데이트] CLASS101 클래스 및 신규 상품 오픈 지원 재개 안내</h6>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text word-break">중단되었던 크리에이터 지원이 재개되었어요!!</p> 
-									    <a href="#" class="btn btn-primary">상세보기</a>
-								    </div>
-								  </div>
-								</div>
-								<div class="card col-md-10 my-2">
-								  <div class="card-body">
-								    <h6 class="card-title">[신규 런칭] 모임으로 배움을 확장하다!</h6>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-									    <a href="#" class="btn btn-primary">상세보기</a>
-								    </div>
-								  </div>
+						<!-- 	셀렉트박스 -->
+							<div class="col-md-12 d-flex justify-content-center mb-5">
+								<div class="col-xl-8">
+									<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
+										<select id="fruits"
+											name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
+											form="fruitform">
+											<option value="volvo">Nothing</option>
+											<option value="saab">Populari</option>
+											<option value="opel">Organic</option>
+											<option value="audi">Fantastic</option>
+										</select>
+									</div>
+									<hr>
 								</div>
 							</div>
+							<div class="admin_dashboard d-flex justify-content-center">
+							<div class="admin_main_center_card" onclick="location.href='#'">
+								<div class="admin_main_card" align="left">진행한강의</div>
+								<div align="right" class="card_num">
+									<a href="#">0건</a>
+								</div>
+							</div>
+							<div class="admin_main_center_card" onclick="location.href='#'">
+								<div class="admin_main_card" align="left">참여회원수</div>
+								<div align="right" class="card_num">
+									<a href="#">0건</a>
+								</div>
+							</div>
+							<div class="admin_main_center_card" onclick="location.href='#'">
+								<div class="admin_main_card" align="left">총 후기 수</div>
+								<div align="right" class="card_num">
+									<a href="#">0건</a>
+								</div>
+							</div>
+							<div class="admin_main_center_card" onclick="location.href='#'">
+								<div class="admin_main_card" align="left">예약 수</div>
+								<div align="right" class="card_num">
+									<a href="#">0건</a>
+								</div>
+							</div>
+						</div>
 
 							<div class="creator-main-table col-md-10 my-5">
-								<table>
-									<thead>
-										<tr>
-											<th>공지사항</th>
-											<th>날짜</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여 이렇게 길게 쓰면 </td>
-											<td>2024-06-12</td>
-										</tr>
-									</tbody>
-								</table>
+								<div class="admin_main_chart">
+									<canvas id="myChart" height="100px"></canvas>
+								</div>
 							</div>
 						
 						</div>
 					</div>
-
-
-
-<!-- 					<div class="col-12"> -->
-<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
-<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
-<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
-<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
-<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
-<!-- 							<a href="#" class="rounded">&raquo;</a> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-					
 				</div>
 			</div>
 		</div>
@@ -192,6 +152,53 @@
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	
+		<script type="text/javascript">
+		var ctx = document.getElementById("myChart").getContext('2d');
+		/*
+		- Chart를 생성하면서, 
+		- ctx를 첫번째 argument로 넘겨주고, 
+		- 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
+		 */
+		
+		// 랜덤색상 생성 
+		function getRandomColor() {
+			const rColor = Math.floor(Math.random() * 128 + 128);
+		    const gColor = Math.floor(Math.random() * 128 + 128);
+		    const bColor = Math.floor(Math.random() * 128 + 128);
+		    return 'rgba(' + rColor + ',' + gColor + ',' + bColor + ', 0.3)';
+		}
+
+		var chartColors = function() {
+		    return getRandomColor();
+		};
+		 
+		var myChart = new Chart(ctx,
+			{
+				type : 'bar',
+				data : {
+					labels : ['1월', '2월','3월','4월','5월','6월'],
+					datasets : [ {
+						label : '월간 매출 데이터',
+						data : [2000, 3000, 2500, 1600, 2500, 3100],
+						backgroundColor : chartColors,
+						borderColor : 0,
+						borderWidth : 1
+					} ]
+				},
+				options : {
+					maintainAspectRatio : true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+					scales : {
+						y : [ {
+							ticks : {
+								beginAtZero : true
+							}
+						} ]
+					}
+				}
+			});
+	</script>
 
 </body>
 </html>

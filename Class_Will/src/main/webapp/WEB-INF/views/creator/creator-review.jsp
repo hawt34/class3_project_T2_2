@@ -76,17 +76,18 @@
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<div class="creator-main-table col-md-10 my-5">
+							<div class="creator-main-table col-md-10 mb-5">
 								
 								<!-- 	셀렉트박스 -->
-								<div class="row g-5">
-									<div class="col-xl-3">
-										<div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-											<label for="class_name">클래스 :</label> <select id="fruits"
-												name="fruitlist" class="border-0 form-select-sm bg-light me-3"
+								<div class="g-5">
+									<div class="col-xl-12">
+										<div class="bg-light rounded py-2 d-flex justify-content-between mb-4">
+											<label class="class_name ps-3">클래스</label> 
+											<select id="fruits"
+												name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
 												form="fruitform">
 												<option value="volvo">Nothing</option>
-												<option value="saab">Popularity</option>
+												<option value="saab">Popularitasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</option>
 												<option value="opel">Organic</option>
 												<option value="audi">Fantastic</option>
 											</select>
@@ -94,7 +95,7 @@
 									</div>
 								</div>
 								<!-- 상단 카테고리 -->
-								<div>
+								<div class="mt-5">
 									<button class="category-btn reviewType" value="respond">응답후기</button>
 									<button class="category-btn reviewType" value="respond">미응답후기</button>
 								</div>

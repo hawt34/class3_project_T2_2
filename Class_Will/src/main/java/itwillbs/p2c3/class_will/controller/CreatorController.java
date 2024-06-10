@@ -1,4 +1,4 @@
-package itwillbs.p2c3.class_will;
+package itwillbs.p2c3.class_will.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

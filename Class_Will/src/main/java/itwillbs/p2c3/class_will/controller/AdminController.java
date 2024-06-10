@@ -18,15 +18,11 @@ public class AdminController {
 		
 		return "admin/admin_member";
 	}
-<<<<<<< HEAD
-	
+
 	@GetMapping("test4")
 	public String test4() {
 		
 		return "admin/admin_class";
 	}
-	
-	
-=======
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 }
+	

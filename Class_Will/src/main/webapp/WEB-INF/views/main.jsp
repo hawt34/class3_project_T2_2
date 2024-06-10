@@ -774,8 +774,8 @@
         <div class="container-fluid testimonial py-5">
             <div class="container py-5">
                 <div class="testimonial-header text-center">
-                    <h4 class="text-primary">Our Testimonial</h4>
-                    <h1 class="display-5 mb-5 text-dark">Our Client Saying!</h1>
+                    <h4 class="text-primary">원데이클래스 후기</h4>
+                    <h1 class="display-5 mb-5 text-dark">베스트 후기</h1>
                 </div>
                 <div class="owl-carousel testimonial-carousel">
                     <div class="testimonial-item img-border-radius bg-light rounded p-4">

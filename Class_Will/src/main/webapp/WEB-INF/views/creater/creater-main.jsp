@@ -45,7 +45,7 @@
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->

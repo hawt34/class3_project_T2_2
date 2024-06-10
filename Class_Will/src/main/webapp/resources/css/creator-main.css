@@ -1,0 +1,58 @@
+@charset "UTF-8";
+.creator-event > .card{
+	padding-left: 10px;
+	margin: 0px auto;
+	word-break: keep-all;
+}
+.card-content > a{
+	width: 100px;
+	height: 40px;
+}
+
+.card-body > h6{
+	color: black;
+}
+.creator-body{
+	margin: 0 auto;
+}
+.creator-main-table{
+	margin: 0 auto;
+}
+table {
+	border-collapse: collapse;
+	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
+	background-color: white;
+	width: 100%;
+	border-radius: 10px;
+	font-size: 15px;
+}
+
+/* 테이블 행 */
+th, td {
+	padding: 20px 8px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+}
+
+th {
+	background-color: #eee;
+	color: black;
+}
+
+/* 테이블 올렸을 때 */
+tbody tr:hover {
+	background-color: white;
+	opacity: 0.9;
+	cursor: pointer;
+}
+
+/* 테이블 비율 */
+th:nth-child(1), td:nth-child(1) {
+	padding-left: 20px;
+	word-break: keep-all;
+}
+
+th:nth-child(2), td:nth-child(2) {
+	width: 130px;
+	text-align:center;
+}

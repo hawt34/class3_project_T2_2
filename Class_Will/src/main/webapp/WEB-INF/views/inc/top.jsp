@@ -34,7 +34,7 @@
                             </div>
                             <a href="shop" class="nav-item nav-link">shop</a>
                             <a href="shop-detail" class="nav-item nav-link">shop-detail</a>
-                            <a href="creater-main" class="nav-item nav-link">클래스등록</a>
+                            <a href="creator-main" class="nav-item nav-link">클래스등록</a>
                         </div>
                         <div class="d-flex m-2 me-0">
                             <button class="btn-search btn border border-light btn-md-square rounded-circle me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-light"></i></button>

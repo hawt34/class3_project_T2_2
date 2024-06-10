@@ -198,13 +198,23 @@ section {
 }
 
 @media ( max-width :480px) {
-	aside {
-		width: 10%;
-	}
-	section {
-		grid-template-columns: 1fr; /* 한 줄에 하나씩 아이템이 나오도록 설정 */
-	}
-	
+	 #wrap {
+        display: flex;
+        flex-direction: column;
+        
+        
+    }
+
+    aside {
+        width: 100%;
+          flex-shrink: 0; 
+    }
+
+    section {
+        flex-grow: 1; /* 부모 컨테이너의 남은 공간을 차지하도록 설정 */
+           height: 100%; /* 부모 컨테이너의 높이를 가득 채우도록 설정 */
+        overflow-y: auto;
+    }
 }
 </style>	
 </head>

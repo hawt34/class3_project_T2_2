@@ -76,64 +76,56 @@
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
+						<!-- 등록버튼 -->
+							<div class="mb-3 col-md-12" align="right">
+								<button class="category-btn classReg" value="respond">클래스등록</button>
+							</div>
 							<!-- 	셀렉트박스 -->
-							<div class="col-md-12 d-flex justify-content-center">
-								<div class="col-xl-8">
-									<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
-										<select id="fruits"
-											name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
-											form="fruitform">
-											<option value="volvo">Nothing</option>
-											<option value="saab">Popularitasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdsdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasd</option>
-											<option value="opel">Organic</option>
-											<option value="audi">Fantastic</option>
-										</select>
+							<div class="col-md-12 searchBox" align="center">
+								<div class="col-xl-12">
+									<div class="bg-light creator-class-searchBox py-3 px-3">
+										<div class="creator-class-search">
+											<form action="#" class="d-flex justify-content-between">
+												<input type="text" name="searchKeyword" class="col-md-10 rounded" placeholder="클래스 이름을 입력하세요" value="">
+												<input type="submit" class="btn btn-dark" value="검색">
+											</form>
+										</div>
 									</div>
-									<hr>
 								</div>
 							</div>
 							
-							<div class="creator-main-table col-md-10 mb-5">
-								<!-- 등록버튼 -->
-								<div class="mb-3" align="right">
-									<button class="category-btn classReg" value="respond">클래스등록</button>
-								</div>
+							<div class="creator-main-table col-xl-12 mb-5">
+								
 								<!-- 테이블 -->
-								<div class="card text-center">
-									<div class="card-body p-2">
-										<table>
-											<thead>
-												<tr>
-													<th>제목</th>
-													<th>상태</th>
-													<th>카테고리</th>
-													<th>노출여부</th>
-													<th>생성일</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>당신도 할 수 있다! css 클래스</td>
-													<td>제작중</td>
-													<td>IT,개발</td>
-													<td>비공개</td>
-													<td>2024-06-10</td>
-												</tr>
-												<tr>
-													<td>당신도 할 수 있다! css 클래스</td>
-													<td>제작중</td>
-													<td>IT,개발</td>
-													<td>비공개</td>
-													<td>2024-06-10</td>
-												</tr>
-							
-											</tbody>
-										</table>
-									</div>
-								</div>
-
+								<table>
+									<thead>
+										<tr>
+											<th>제목</th>
+											<th>상태</th>
+											<th>카테고리</th>
+											<th>노출여부</th>
+											<th>생성일</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>당신도 할 수 있다! css 클래스</td>
+											<td>제작중</td>
+											<td>IT,개발</td>
+											<td>비공개</td>
+											<td>2024-06-10</td>
+										</tr>
+										<tr>
+											<td>당신도 할 수 있다! css 클래스</td>
+											<td>제작중</td>
+											<td>IT,개발</td>
+											<td>비공개</td>
+											<td>2024-06-10</td>
+										</tr>
+					
+									</tbody>
+								</table>
 							</div>
-
 						</div>
 					</div>
 

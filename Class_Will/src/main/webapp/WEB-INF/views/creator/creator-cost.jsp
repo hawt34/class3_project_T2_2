@@ -38,9 +38,8 @@
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
-	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-cost.css" rel="stylesheet">
 </head>
 <body>
 
@@ -60,27 +59,12 @@
 		<h1 class="text-center text-white display-6">Creator</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
 			<li class="breadcrumb-item"><a href="main">Home</a></li>
-			<li class="breadcrumb-item active text-white">크리에이터 페이지</li>
+			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
+			<li class="breadcrumb-item active text-white">클래스정산</li>
 		</ol>
 	</div>
 	<!-- Single Page Header End -->
 
-<!-- 셀렉트박스 -->
-<!-- 					<div class="row g-4"> -->
-<!-- 						<div class="col-xl-3"> -->
-<!-- 							<div -->
-<!-- 								class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4"> -->
-<!-- 								<label for="fruits">Default Sorting:</label> <select id="fruits" -->
-<!-- 									name="fruitlist" class="border-0 form-select-sm bg-light me-3" -->
-<!-- 									form="fruitform"> -->
-<!-- 									<option value="volvo">Nothing</option> -->
-<!-- 									<option value="saab">Popularity</option> -->
-<!-- 									<option value="opel">Organic</option> -->
-<!-- 									<option value="audi">Fantastic</option> -->
-<!-- 								</select> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
 	<div class="container-fluid fruite">
 		<div class="container">
 			<h1 class="mb-4">Creator Center</h1>
@@ -89,81 +73,61 @@
 					<div class="row g-4">
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
-						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5">반가워요 6ellMin 님</div>
+						<div class="col-lg-9 creator-body" align="center">
+						<!-- 	셀렉트박스 -->
+							<div class="col-md-6  mb-5" >
+								<div class="col-xl-8">
+									<div class="bg-light rounded py-2 mb-4">
+										<label for="monthPicker"></label>
+    									<input type="month" id="monthPicker" name="monthPicker">
+									</div>
+									<hr>
+								</div>
+							</div>
 							
-							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
 							
-								<div class="card col-md-10 my-2">
+								<div class="card col-md-8 mt-2 mb-5">
 								  <div class="card-body">
-								    <h6 class="card-title">[업데이트] CLASS101 클래스 및 신규 상품 오픈 지원 재개 안내</h6>
+								    <p class="card-title h6" align="left">총수익</p>
 								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text word-break">중단되었던 크리에이터 지원이 재개되었어요!!</p> 
+									    <p class="card-text word-break h4">금액: 42000000 원</p> 
 									    <a href="#" class="btn btn-primary">상세보기</a>
 								    </div>
+									<p class="card-text word-break " align="left">정산기간 : 0월 한달간</p> 
 								  </div>
 								</div>
-								<div class="card col-md-10 my-2">
+								<hr class="col-md-8">
+								<h5 class="col-md-8 mt-5" align="left">상세정산</h5>
+								<div class="card col-md-8 my-2">
 								  <div class="card-body">
-								    <h6 class="card-title">[신규 런칭] 모임으로 배움을 확장하다!</h6>
+								    <div class="d-flex justify-content-start card-content">
+									    <p class="card-text">상태&nbsp;:</p>
+									    <p class="card-text">&nbsp;지급완료</p>
+								    </div>
 								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-									    <a href="#" class="btn btn-primary">상세보기</a>
+									    <p class="card-text h6">원데이클래스 수익&nbsp;:</p>
+									    <p class="card-text h6">&nbsp;2400000 원</p>
+								    </div>
+								    <div class="d-flex justify-content-between card-content">
+									    <p class="card-text h6">정기클래스 수익&nbsp;:</p>
+									    <p class="card-text h6">&nbsp;2300000 원</p>
+								    </div>
+								    <div class="d-flex justify-content-between card-content">
+									    <p class="card-text h6">부가세&nbsp;:</p>
+									    <p class="card-text h6">&nbsp;300000 원</p>
+								    </div>
+								    <div class="d-flex justify-content-between card-content">
+									    <p class="card-text h4">합계&nbsp;:</p>
+									    <p class="card-text h4">&nbsp;4200000 원</p>
 								    </div>
 								  </div>
 								</div>
 							</div>
 
-							<div class="creator-main-table col-md-10 my-5">
-								<table>
-									<thead>
-										<tr>
-											<th>공지사항</th>
-											<th>날짜</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여</td>
-											<td>2024-06-12</td>
-										</tr>
-										<tr>
-											<td>존나중요한 공지 드립니다 빡집중하세여 이렇게 길게 쓰면 </td>
-											<td>2024-06-12</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
 						
 						</div>
 					</div>
-
-
-
-<!-- 					<div class="col-12"> -->
-<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
-<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
-<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
-<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
-<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
-<!-- 							<a href="#" class="rounded">&raquo;</a> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-					
 				</div>
 			</div>
 		</div>
@@ -192,6 +156,27 @@
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+        const monthPicker = document.getElementById('monthPicker');
+        const today = new Date();
+
+        // Ensure the date object is correct
+        console.log("Today's date object:", today);
+        
+        // Correctly retrieve year and month
+        const year = today.getFullYear();
+        console.log('Year:' +  year); // Debugging output
+        const month = String(today.getMonth()).padStart(2, '0'); // Ensure month is two digits
+        console.log('Month: ' + month); // Debugging output
+
+        // Set default value to current month
+        const currentMonth = year + '-' + month;
+        
+        monthPicker.value = currentMonth;
+        monthPicker.max = currentMonth;
+    });
+	</script>
 
 </body>
 </html>

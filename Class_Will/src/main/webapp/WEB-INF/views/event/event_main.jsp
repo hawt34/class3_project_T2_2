@@ -210,7 +210,8 @@ main {
 	<div class="row event_flow">
 <%-- 		<c:forEach var="eventList" items="${eventList}" > --%>
 			<c:forEach begin="1" end="10">
-			<div class="item movie-event" onclick="event_detail(${eventList.event_num})">
+<%-- 			<div class="item movie-event" onclick="event_detail(${eventList.event_num})"> --%>
+			<div class="item movie-event" onclick="event_detail()">
 				<div class="imgBox">
 <%-- 					<img src="${pageContext.request.contextPath}/resources/upload/${eventList.event_thumbnail}" alt="썸네일"/> --%>
 					<img src="${pageContext.request.contextPath}/resources/img/best-product-6.jpg" alt="썸네일"/>
@@ -241,8 +242,11 @@ main {
 <!-- Template Javascript -->
 <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 <script type="text/javascript">
-	function event_detail(event_num) {
-		location.href='eventDetail?event_num=' + event_num;
+// 	function event_detail(event_num) {
+// 		location.href='eventDetail?event_num=' + event_num;
+// 	} 
+	function event_detail() {
+		location.href='eventDetail';
 	} 
 	
 	$(function() {

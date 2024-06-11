@@ -10,4 +10,9 @@ public class EventController {
 	public String eventMain() {
 		return "event/event_main";
 	}
+	
+	@GetMapping("eventDetail")
+	public String eventDetail() {
+		return "event/event_detail";
+	}
 }

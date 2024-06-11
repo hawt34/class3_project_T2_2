@@ -323,7 +323,7 @@
                 visiblePages: 5, // 보이는 페이지 수
                 centerAlign: true
             });
-
+			
             // 상세보기, 수정하기, 삭제 버튼
             class ActionRenderer {
                 constructor(props) {
@@ -333,9 +333,7 @@
                     viewButton.className = 'btn btn-primary btn-sm';
                     viewButton.innerText = '상세보기';
                     viewButton.addEventListener('click', () => {
-                        alert(`회원 ID: ${props.value}\n회원 이름: ${props.row.name}\n이메일: ${props.row.email}`);
-                        // 여기에 상세보기 페이지로 이동하는 로직을 추가할 수 있습니다.
-                        // 예를 들어, location.href = `/member/details/${props.value}`;
+                        window.open("CscDetail", "상세정보", "width=700px,height=800px")
                     });
 
                     const editButton = document.createElement('button');

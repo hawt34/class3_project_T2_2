@@ -39,9 +39,60 @@
 <link href="${pageContext.request.contextPath}/resources/css/style.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
+	rel="stylesheet">
+<style>
+body {
+	
+}
+
+table {
+	border-collapse: collapse;
+	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
+	background-color: white;
+	width: 100%;
+	border-radius: 10px;
+	font-size: 15px;
+}
+
+/* 테이블 행 */
+th, td {
+	padding: 15px 8px;
+	border-bottom: 1px solid #ddd;
+	color: black;
+}
+
+th {
+	background-color: #eee;
+	color: black;
+}
+
+td>a {
+	display: -webkit-box;
+	word-wrap: break-word;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* 테이블 올렸을 때 */
+tbody tr:hover {
+	background-color: white;
+	opacity: 0.9;
+	cursor: pointer;
+}
+
+/* 테이블 비율 */
+th:nth-child(1), td:nth-child(1) {
+	padding-left: 20px;
+}
+
+th:nth-child(2), td:nth-child(2) {
+	width: 130px;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 
@@ -58,89 +109,66 @@
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">Creator</h1>
+		<h1 class="text-center text-white display-6">
+			마이페이지<i class="bi bi-cart-check"></i>내가 신청한 클래스
+		</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
 			<li class="breadcrumb-item"><a href="main">Home</a></li>
-			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
-			<li class="breadcrumb-item active text-white">클래스</li>
+
 		</ol>
 	</div>
-	<!-- Single Page Header End -->
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">Creator Center</h1>
+			<h1 class="mb-4">MY PAGE</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
-						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
+						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-						<!-- 등록버튼 -->
-							<div class="mb-3 col-md-12" align="right">
-								<button class="category-btn classReg" value="respond">클래스등록</button>
-							</div>
-							<!-- 	셀렉트박스 -->
-							<div class="col-md-12 searchBox" align="center">
-								<div class="col-xl-12">
-									<div class="bg-light creator-class-searchBox py-3 px-3">
-										<div class="creator-class-search">
-											<form action="#" class="d-flex justify-content-between">
-												<input type="text" name="searchKeyword" class="col-md-10 rounded" placeholder="클래스 이름을 입력하세요" value="">
-												<input type="submit" class="btn btn-dark" value="검색">
-											</form>
-										</div>
-									</div>
+							<!-- 크리에이터 인사 문구 -->
+							<div class="col-md-12 text-center h2 mb-5">열심히 성장 중인 *** 님</div>
+
+							<!-- 크리에이터 이벤트 -->
+							<div class="creator-event mt-5">
+
+								<div class="container">
+									<h2>신청한 클래스</h2>
+									<p>클래스 정보</p>
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>신청 클래스</th>
+												<th>강의 진도</th>
+												<th>결제 상태</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>라면 </td>
+												<td>면 꼬들</td>
+												<td>john@example.com</td>
+											</tr>
+											<tr>
+												<td>짜파게티</td>
+												<td>국물없게</td>
+												<td>mary@example.com</td>
+											</tr>
+											<tr>
+												<td>삼양불닭</td>
+												<td>너무 매움</td>
+												<td>july@example.com</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-							</div>
-							
-							<div class="creator-main-table col-xl-12 mb-5">
-								
-								<!-- 테이블 -->
-								<table>
-									<thead>
-										<tr>
-											<th>제목</th>
-											<th>상태</th>
-											<th>카테고리</th>
-											<th>노출여부</th>
-											<th>생성일</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>당신도 할 수 있다! css 클래스</td>
-											<td>제작중</td>
-											<td>IT,개발</td>
-											<td>비공개</td>
-											<td>2024-06-10</td>
-										</tr>
-										<tr>
-											<td>당신도 할 수 있다! css 클래스</td>
-											<td>제작중</td>
-											<td>IT,개발</td>
-											<td>비공개</td>
-											<td>2024-06-10</td>
-										</tr>
-					
-									</tbody>
-								</table>
+
 							</div>
 						</div>
+
 					</div>
-
-
-
-					<!-- 					<div class="col-12"> -->
-					<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
-					<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
-					<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
-					<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
-					<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
-					<!-- 							<a href="#" class="rounded">&raquo;</a> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
-
 				</div>
 			</div>
 		</div>
@@ -169,11 +197,6 @@
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	
-	<script type="text/javascript">	
-		
-	</script>
-
 
 </body>
 </html>

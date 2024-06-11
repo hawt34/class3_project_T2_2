@@ -18,7 +18,7 @@
 <!--             </div> -->
             <div class="container px-0 top-cate">
                 <nav class="navbar navbar-expand-xl">
-                    <a href="main" class="navbar-brand"><img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="180px"></a>
+                    <a href="main" class="navbar-brand"><img src="${pageContext.request.contextPath}/resources/img/클래스로고2.png" width="180px"></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>

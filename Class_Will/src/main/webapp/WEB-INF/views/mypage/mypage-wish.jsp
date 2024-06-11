@@ -45,6 +45,7 @@
 body {
 	
 }
+
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
@@ -108,7 +109,9 @@ th:nth-child(2), td:nth-child(2) {
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">마이페이지</h1>
+		<h1 class="text-center text-white display-6">
+			마이페이지<i class="bi bi-emoji-heart-eyes"></i>위시리스트
+		</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
 			<li class="breadcrumb-item"><a href="main">Home</a></li>
 
@@ -125,93 +128,47 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5">반가워요 *** 님</div>
+							<div class="col-md-12 text-center h2 mb-5"> *** 님을 이 클래스를 좋아해요</div>
 
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
 
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">나의 취향</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text word-break">블라블라</p>
-											<a href="myPre" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
+								<div class="container">
+									<h2>Hover Rows</h2>
+									<p>The .table-hover class enables a hover state (grey
+										background on mouse over) on table rows:</p>
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Firstname</th>
+												<th>Lastname</th>
+												<th>Email</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>John</td>
+												<td>Doe</td>
+												<td>john@example.com</td>
+											</tr>
+											<tr>
+												<td>Mary</td>
+												<td>Moe</td>
+												<td>mary@example.com</td>
+											</tr>
+											<tr>
+												<td>July</td>
+												<td>Dooley</td>
+												<td>july@example.com</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">위시리스트</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">좋아하는 것</p>
-											<a href="myWish" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">윌페이??</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="#" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">내가 신청한 클래스</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="myClass" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">나의 클래스 후기</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="myReview" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"></h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="#" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">회원정보변경</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="#" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">회원탈퇴</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="#" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
+
 							</div>
-
-
-
 						</div>
+
 					</div>
-
-
-
-
 				</div>
 			</div>
 		</div>

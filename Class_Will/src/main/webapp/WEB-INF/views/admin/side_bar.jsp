@@ -15,7 +15,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath }/Admin">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <img src="${pageContext.request.contextPath}/resources/img/클래스로고2.png" width="80px">
                 </div>
                 <div class="sidebar-brand-text mx-3">Class Will</div>
             </a>

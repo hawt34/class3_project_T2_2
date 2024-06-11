@@ -2,120 +2,32 @@
     pageEncoding="UTF-8"%>
 <!-- 본문 시작 -->
 <!-- Navbar start -->
-<div class="container-fluid fixed-top">
+<div class="container-fluid">
     <div class="container px-0 top-cate">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid  text-center">
-            
-				<div class="row">
-					<div class="col">
-						<div class="collapse navbar-collapse justify-content-end" id="navbarNavLarge">
-				             <ul class="navbar-nav">
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#"><i class="bi bi-list"></i>카테고리</a>
-				                 </li>
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#">이벤트</a>
-				                 </li>
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#">BEST</a>
-				                 </li>
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#">내 주변 클래스</a>
-				                 </li>
-				             </ul>
-						</div> <!-- collapse -->
-					</div> <!-- col -->
-					<div class="col">
-						<!--  메인 로고 -->
-		                <a class="navbar-brand" href="main">
-		                    <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
-		                </a>
-		                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-		                    <span class="fa fa-bars text-primary"></span>
-		                </button>
-					</div> <!-- col -->
-					<div class="col">
-						<div class="collapse navbar-collapse justify-content-end" id="navbarNavLarge">
-						    <ul class="navbar-nav">
-						        <li class="nav-item">
-						            <a class="nav-link" href="#">클래스등록</a>
-						        </li>
-						        <li class="nav-item">
-						            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
-						        </li>
-						        <li class="nav-item">
-						            <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
-						        </li>
-						        <li class="nav-item">
-						            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
-						        </li>
-						    </ul>
-						</div> <!-- collapse -->
-					</div> <!-- col -->
-				</div> <!-- row -->
-	
-            
-            	
-            
-            	
-                
-                
-                
-                
-                <!--  오프캔버스  -->
-                <div class="offcanvas offcanvas-start" id="navbarNav">
-                    <div class="offcanvas-header">
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        <!-- 본문 시작 -->
-        <!-- Navbar start -->
-        <div class="container-fluid fixed-top">
-<!--             <div class="container topbar bg-primary d-none d-lg-block"> -->
-<!--                 <div class="d-flex justify-content-between"> -->
-<!--                     <div class="top-info ps-2"> -->
-<!--                         <small class="me-3"><i class="fas fa-map-marker-alt me-2 text-secondary"></i> <a href="#" class="text-white">123 Street, New York</a></small> -->
-<!--                         <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">Email@Example.com</a></small> -->
-<!--                     </div> -->
-<!--                     <div class="top-link pe-2"> -->
-<!--                         <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a> -->
-<!--                         <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a> -->
-<!--                         <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-            <div class="container px-0 top-cate">
-                <nav class="navbar navbar-expand-xl">
-                    <a href="main" class="navbar-brand"><img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="180px"></a>
-                    <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                        <span class="fa fa-bars text-primary"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <div class="navbar-nav mx-auto">
-                            <a href="main" class="nav-item nav-link">Home</a>
-                            <div class="nav-item dropdown">
-                                <a href="shop" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">shop</a>
-                                <div class="dropdown-menu m-0 bg-white rounded-0">
-                                    <a href="chackout" class="dropdown-item">Chackout</a>
-                                    <a href="404" class="dropdown-item">404 Page</a>
-                                </div>
-                            </div>
-                            <a href="shop" class="nav-item nav-link">shop</a>
-                            <a href="shop-detail" class="nav-item nav-link">shop-detail</a>
-                            <a href="creator-main" class="nav-item nav-link">클래스등록</a>
-                            <a href="event" class="nav-item nav-link">이벤트</a>
-                        </div>
-                        <div class="d-flex m-2 me-0">
-                            <button class="btn-search btn border border-light btn-md-square rounded-circle me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-light"></i></button>
-                            <a href="#" class="position-relative me-4 my-auto">
-                                <i class="fa fa-shopping-bag fa-2x"></i>
-                                <span class="position-absolute bg-light rounded-circle d-flex align-items-center justify-content-center text-body px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
-                            </a>
-                            <a href="myPage" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i>
-                            </a>
-                        </div>
+            <div class="container-fluid">
+                <div class="row w-100 align-items-center">
+                    <!-- 왼쪽 네비게이션 영역 -->
+                    <div class="col-4 d-none d-lg-flex justify-content-start">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="bi bi-list"></i> 카테고리</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">이벤트</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="offcanvas-body">
+
+                    <!-- 가운데 로고 영역 (큰 화면) -->
+                    <div class="col-4 d-none d-lg-flex justify-content-center">
+                        <a class="navbar-brand" href="main">
+                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
+                        </a>
+                    </div>
+
+                    <!-- 오른쪽 네비게이션 영역 -->
+                    <div class="col-4 d-none d-lg-flex justify-content-end">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">클래스등록</a>
@@ -127,14 +39,57 @@
                                 <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
+                            	<a class="nav-link" href="member_login">로그인</a>
+<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
                             </li>
                         </ul>
                     </div>
-                </div><!-- offcanvas -->
-                
-                
+
+                    <!-- 로고와 햄버거 버튼 (작은 화면) -->
+                    <div class="col-8 d-flex d-lg-none justify-content-start">
+                        <a class="navbar-brand" href="main">
+                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
+                        </a>
+                    </div>
+                    <div class="col-4 d-flex d-lg-none justify-content-end">
+<!--                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav"> -->
+<!--                             <span class="navbar-toggler-icon"></span> -->
+<!--                         </button> -->
+                         <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
+	                        <span class="fa fa-bars text-primary"></span>
+	                    </button>
+                    </div>
+                </div>
             </div>
+
+            <!-- 오프캔버스 -->
+            <div class="offcanvas offcanvas-start" id="top-offcanvas" style="background-color: #333;">
+                <div class="offcanvas-header">
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">카테고리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">이벤트</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">클래스등록</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div> <!-- offcanvas -->
         </nav>
     </div>
 </div>

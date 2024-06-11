@@ -24,6 +24,38 @@
 
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+
+<!-- 부트스트랩 CSS, JS -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css">
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+
+<style type="text/css">
+	
+	* {
+		background-color: black;
+	}
+	
+	article {
+		margin: 0 auto;
+		padding: 0 auto;
+	}
+	
+	.login-form {
+		width: 500px;
+	}
+	
+	#btnSub {
+		background-color: white;
+	}
+	
+	.regex{
+		font-size: 10px;
+		color: white;
+	}
+	
+	
+
+</style>
 </head>
 <body>
 	<header>
@@ -31,21 +63,23 @@
 	</header>
 	
 	<article>
-		<div class="">
+		<div class="container login-form">
 			<h2>로그인</h2>
-			<form action="" method="get">
+			<form action="member_login" method="POST">
 				<div class="input-group mb-3">
 				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
 				  <input type="text" class="form-control" >
 				</div>
+				<div></div>
 				<div class="input-group mb-3">
 				  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
 				  <input type="text" class="form-control"  >
 				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
 <!-- 				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span> -->
 				</div>
+				<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
 				<div>
-					<input type="submit">
+					<input type="submit" id="btnSub">
 				</div>
 			</form>
 		

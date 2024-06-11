@@ -31,7 +31,7 @@
 	position: fixed;
     right: 50px;
     bottom: 100px;
-   position: fixed;
+    position: fixed;
     right: 50px;
     bottom: 50px;
     display: flex;
@@ -130,7 +130,7 @@ body{
 /*** Navbar Start ***/
 .navbar .navbar-nav .nav-link {
     padding: 0px 20px;
-    font-size: 20px;
+    font-size: 18px;
     transition: .5s;
 }
 

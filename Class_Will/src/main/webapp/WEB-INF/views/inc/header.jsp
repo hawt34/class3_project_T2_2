@@ -35,6 +35,7 @@
                             <a href="shop" class="nav-item nav-link">shop</a>
                             <a href="shop-detail" class="nav-item nav-link">shop-detail</a>
                             <a href="creator-main" class="nav-item nav-link">클래스등록</a>
+                            <a href="event" class="nav-item nav-link">이벤트</a>
                         </div>
                         <div class="d-flex m-2 me-0">
                             <button class="btn-search btn border border-light btn-md-square rounded-circle me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-light"></i></button>
@@ -42,7 +43,7 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-light rounded-circle d-flex align-items-center justify-content-center text-body px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto">
+                            <a href="myPage" class="my-auto">
                                 <i class="fas fa-user fa-2x"></i>
                             </a>
                         </div>

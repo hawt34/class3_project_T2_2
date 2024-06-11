@@ -59,7 +59,8 @@
 		<h1 class="text-center text-white display-6">Creator</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
 			<li class="breadcrumb-item"><a href="main">Home</a></li>
-			<li class="breadcrumb-item active text-white">크리에이터 페이지</li>
+			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
+			<li class="breadcrumb-item active text-white">클래스분석</li>
 		</ol>
 	</div>
 	<!-- Single Page Header End -->
@@ -89,32 +90,32 @@
 									<hr>
 								</div>
 							</div>
-							<div class="admin_dashboard d-flex justify-content-center">
-							<div class="admin_main_center_card" onclick="location.href='#'">
-								<div class="admin_main_card" align="left">진행한강의</div>
-								<div align="right" class="card_num">
-									<a href="#">0건</a>
+							<div class="admin_dashboard" align="center">
+								<div class="admin_main_center_card" onclick="location.href='#'">
+									<div class="admin_main_card" align="left">진행한강의</div>
+									<div align="right" class="card_num">
+										<a href="#">0건</a>
+									</div>
+								</div>
+								<div class="admin_main_center_card" onclick="location.href='#'">
+									<div class="admin_main_card" align="left">참여회원수</div>
+									<div align="right" class="card_num">
+										<a href="#">0건</a>
+									</div>
+								</div>
+								<div class="admin_main_center_card" onclick="location.href='#'">
+									<div class="admin_main_card" align="left">총 후기수</div>
+									<div align="right" class="card_num">
+										<a href="#">0건</a>
+									</div>
+								</div>
+								<div class="admin_main_center_card" onclick="location.href='#'">
+									<div class="admin_main_card" align="left">누적예약 수</div>
+									<div align="right" class="card_num">
+										<a href="#">0건</a>
+									</div>
 								</div>
 							</div>
-							<div class="admin_main_center_card" onclick="location.href='#'">
-								<div class="admin_main_card" align="left">참여회원수</div>
-								<div align="right" class="card_num">
-									<a href="#">0건</a>
-								</div>
-							</div>
-							<div class="admin_main_center_card" onclick="location.href='#'">
-								<div class="admin_main_card" align="left">총 후기 수</div>
-								<div align="right" class="card_num">
-									<a href="#">0건</a>
-								</div>
-							</div>
-							<div class="admin_main_center_card" onclick="location.href='#'">
-								<div class="admin_main_card" align="left">예약 수</div>
-								<div align="right" class="card_num">
-									<a href="#">0건</a>
-								</div>
-							</div>
-						</div>
 
 							<div class="creator-main-table col-md-10 my-5">
 								<div class="admin_main_chart">
@@ -163,28 +164,30 @@
 		 */
 		
 		// 랜덤색상 생성 
-		function getRandomColor() {
-			const rColor = Math.floor(Math.random() * 128 + 128);
-		    const gColor = Math.floor(Math.random() * 128 + 128);
-		    const bColor = Math.floor(Math.random() * 128 + 128);
-		    return 'rgba(' + rColor + ',' + gColor + ',' + bColor + ', 0.3)';
-		}
+// 		function getRandomColor() {
+// 			const rColor = Math.floor(Math.random() * 128 + 128);
+// 		    const gColor = Math.floor(Math.random() * 128 + 128);
+// 		    const bColor = Math.floor(Math.random() * 128 + 128);
+// 		    return 'rgba(' + rColor + ',' + gColor + ',' + bColor + ', 0.3)';
+// 		}
 
-		var chartColors = function() {
-		    return getRandomColor();
-		};
+// 		var chartColors = function() {
+// 		    return getRandomColor();
+// 		};
 		 
 		var myChart = new Chart(ctx,
 			{
-				type : 'bar',
+				type : 'line',
 				data : {
-					labels : ['1월', '2월','3월','4월','5월','6월'],
+					labels : ['1월', '2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 					datasets : [ {
 						label : '월간 매출 데이터',
-						data : [2000, 3000, 2500, 1600, 2500, 3100],
-						backgroundColor : chartColors,
-						borderColor : 0,
-						borderWidth : 1
+						data : [2000, 3000, 2500, 2000, 2500, 3100, 2000, 3000, 2500, 2000, 2500, 3100],
+// 						backgroundColor : chartColors,
+// 						borderColor : chartColors,
+						borderColor : 'rgb(192, 20, 20)',
+// 						borderWidth : 1
+						tension: 0.01
 					} ]
 				},
 				options : {

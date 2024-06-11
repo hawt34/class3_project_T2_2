@@ -36,5 +36,9 @@ public class AdminController {
 		return "admin/admin_csc";
 	}
 	
+	@GetMapping("Admin/CscDetail")
+	public String adminCscDetail() {
+		return "admin/admin_csc_detail";
+	}
 }
 	

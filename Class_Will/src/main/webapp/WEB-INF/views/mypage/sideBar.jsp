@@ -8,12 +8,12 @@
 										<ul class="list-unstyled fruite-categorie">
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-main" class="h5 mb-3"><i class="fas fa-apple-alt me-2"></i>Home</a>
+													<a href="creator-main" class="h5 mb-3"><i class="fas fa-user fa-1x"></i>Home</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-class" class="h5"><i class="fas fa-apple-alt me-2"></i>나의취향</a>
+													<a href="creator-class" class="h5"><i class="fas fa-user fa-1x"></i>나의취향</a>
 													<span>(5)</span>
 												</div>
 											</li>

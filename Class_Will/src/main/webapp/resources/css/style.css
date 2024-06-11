@@ -14,11 +14,13 @@
 
  .back-to-top {
     position: fixed;
+    right: 30px;
+    bottom: 200px;
     left: 30px;
     bottom: 30px;
     display: flex;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     align-items: center;
     justify-content: center;
     transition: 0.5s;
@@ -26,6 +28,9 @@
 }
 
 .chatbot {
+	position: fixed;
+    right: 50px;
+    bottom: 100px;
    position: fixed;
     right: 50px;
     bottom: 50px;
@@ -269,12 +274,19 @@ body{
         margin-top: 152px !important;
     }
      #navbarCollapse{
+		background: lightgray;
+		border-radius: 10px;
+	}
+	.fixed-top{
+		background: black;
+	}
    background: lightgray;
    border-radius: 10px;
    }
    .fixed-top{
       background: black;
    }
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 }
 /*** Hero Header end ***/
 

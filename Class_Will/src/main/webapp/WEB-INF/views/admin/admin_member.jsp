@@ -300,14 +300,14 @@
         document.addEventListener('DOMContentLoaded', function () {
             const data = [
                 {
-                    id: 1,
+                    id: 'ABC112',
                     name: 'John Doe',
                     email: 'john.doe@example.com',
                     registrationDate: '2023-01-01',
                     status: 'Active'
                 },
                 {
-                    id: 2,
+                    id: 'BBC33423',
                     name: 'Jane Doe',
                     email: 'jane.doe@example.com',
                     registrationDate: '2023-02-01',
@@ -331,7 +331,7 @@
                     el.className = 'btn btn-primary btn-sm';
                     el.innerText = '상세보기';
                     el.addEventListener('click', () => {
-                        alert(`회원 ID: ${props.value}\n회원 이름: ${props.row.name}\n이메일: ${props.row.email}`);
+                        window.open("MemberDetail","회원 상세보기", "height='600px', width='800px'");
                         // 여기에 상세보기 페이지로 이동하는 로직을 추가할 수 있습니다.
                         // 예를 들어, location.href = `/member/details/${props.value}`;
                     });
@@ -351,11 +351,11 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                    { header: 'ID', name: 'id' , editor: 'text'},
-                    { header: 'Name', name: 'name' , editor: 'text'},
-                    { header: 'Email', name: 'email' , editor: 'text'},
-                    { header: 'Registration Date', name: 'registrationDate' , editor: 'text'},
-                    { header: 'Status', name: 'status' , editor: 'text'},
+                    { header: '아이디', name: 'id' , editor: 'text'},
+                    { header: '이름', name: 'name' , editor: 'text'},
+                    { header: '이메일', name: 'email' , editor: 'text'},
+                    { header: '가입일', name: 'registrationDate' , editor: 'text'},
+                    { header: '회원상태', name: 'status' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',

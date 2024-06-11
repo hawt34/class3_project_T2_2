@@ -20,7 +20,7 @@
     }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 2000, 'easeInOutExpo');
+        $('html, body').animate({scrollTop: 0}, 500, 'easeInOutExpo');
         return false;
     });
 

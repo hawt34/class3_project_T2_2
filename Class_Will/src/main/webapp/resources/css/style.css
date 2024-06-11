@@ -14,7 +14,7 @@
 
  .back-to-top {
     position: fixed;
-    right: 30px;
+    left: 30px;
     bottom: 30px;
     display: flex;
     width: 45px;
@@ -24,9 +24,20 @@
     transition: 0.5s;
     z-index: 99;
 }
+
+.chatbot {
+   position: fixed;
+    right: 50px;
+    bottom: 50px;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+}
 /*** Spinner End ***/
 body{
-	background: black;
+   background: black;
 }
 /*** Button Start ***/
 .btn {
@@ -114,7 +125,7 @@ body{
 /*** Navbar Start ***/
 .navbar .navbar-nav .nav-link {
     padding: 0px 20px;
-    font-size: 30px;
+    font-size: 20px;
     transition: .5s;
 }
 
@@ -131,12 +142,12 @@ body{
 }
 
 .navbar-nav>a:hover{
-	background: white;
-	border-radius: 5px;
+   background: white;
+   border-radius: 5px;
 }
 .navbar-nav>div:hover{
-	background: white;
-	border-radius: 5px;
+   background: white;
+   border-radius: 5px;
 }
 
 .navbar .dropdown-toggle::after {
@@ -164,8 +175,8 @@ body{
 }
 @media (max-width: 1200px) {
   #navbarCollapse{
-	background: lightgray;
-	border-radius: 10px;
+   background: lightgray;
+   border-radius: 10px;
   }
     
 }
@@ -198,7 +209,7 @@ body{
     background-size: cover;
 }
 .carousel-item > img{
-	width: 800px;
+   width: 800px;
 }
 .carousel-item {
     position: relative;
@@ -234,7 +245,7 @@ body{
     margin-left: 20px;
 }
 .fa-bard{
-	width: 50px;
+   width: 50px;
 }
 .page-header {
     position: relative;
@@ -258,12 +269,12 @@ body{
         margin-top: 152px !important;
     }
      #navbarCollapse{
-	background: lightgray;
-	border-radius: 10px;
-	}
-	.fixed-top{
-		background: black;
-	}
+   background: lightgray;
+   border-radius: 10px;
+   }
+   .fixed-top{
+      background: black;
+   }
 }
 /*** Hero Header end ***/
 

@@ -7,9 +7,32 @@
 <meta charset="UTF-8">
 <title>부기무비 이벤트</title>
 <!-- 부트스트랩 CSS, JS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css">
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css"> --%>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script> --%>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="" name="keywords">
+<meta content="" name="description">
+
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+
+<!-- Icon Font Stylesheet -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<!-- Libraries Stylesheet -->
+<link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Stylesheet -->
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
 
@@ -17,7 +40,12 @@
   font-family: "Nanum Gothic", sans-serif;
   font-weight: 400;
   font-style: normal;
+  
+  
 }
+
+
+
 main {
 	width: 1400px;
 	margin: 0 auto;
@@ -37,13 +65,17 @@ main {
 	padding: 0;
 }
 
-.container {
-	display: flex;
-	flex-flow: row wrap;
-	align-content: flex-start;
+ .event_flow { 
+ 	display: flex; 
+ 	flex-flow: row wrap; 
+ 	align-content: flex-start; 
+ } 
+ 
+.margin_use {
+	margin-top: 200px;
 }
 
-/* item에 hidden 처리하기. */
+/* item에 hidden 처리하기.*/
 .item {
 	width: 360px;
 	aspect-ratio: 10/6;
@@ -168,169 +200,104 @@ main {
 </style>
 </head>
 <body>
-
-	<header>
-		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
-	</header>
-
-	<main>
-		<div class="event_title">
-			<h1>이벤트페이지</h1>
-		</div>
-		
-		
-		<div class="category-bar">
-		  <button class="category-btn active EventType" value="0">전체이벤트</button>
-		  <c:forEach var="eventType" items="${eventTypeList}">
-		  	<button class="category-btn EventType" value="${eventType.event_type_num}">${eventType.event_type_name}</button>
-		  </c:forEach>
-<!-- 		  <button class="category-btn movieEvent">영화이벤트</button> -->
-<!-- 		  <button class="category-btn theaterEvent">극장이벤트</button> -->
-<!-- 		  <button class="category-btn discountEvent">할인이벤트</button> -->
-		</div>
-		<div class="container eventMain">
-			<c:forEach var="eventList" items="${eventList}" >
-				<div class="item movie-event" onclick="event_detail(${eventList.event_num})">
-					<div class="imgBox">
-						<img src="${pageContext.request.contextPath}/resources/upload/${eventList.event_thumbnail}" alt="썸네일"/>
-					</div>
-					<div class="textBox">
-						<p class="textBox_name">${eventList.event_subject}</p>
-						<p class="textBox_price">${eventList.event_start}  ~  ${eventList.event_end}</p>
-					</div>
+<header>
+	<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
+</header>
+<div class="container">
+	<div class="row margin_use mx-4">
+		<h1 class="display-6 text-white">이벤트</h1>
+	</div>
+	<div class="row event_flow">
+<%-- 		<c:forEach var="eventList" items="${eventList}" > --%>
+			<c:forEach begin="1" end="10">
+			<div class="item movie-event" onclick="event_detail(${eventList.event_num})">
+				<div class="imgBox">
+<%-- 					<img src="${pageContext.request.contextPath}/resources/upload/${eventList.event_thumbnail}" alt="썸네일"/> --%>
+					<img src="${pageContext.request.contextPath}/resources/img/best-product-6.jpg" alt="썸네일"/>
 				</div>
-			</c:forEach>
-		</div>
-		
-<!-- 		<div class="event_cate_title"> -->
-<!-- 			<h3>영화 이벤트</h3> -->
-<!-- 		</div> -->
-<!-- 		<div align="right"> -->
-<!-- 			<button type="button" class="btn btn-outline-primary" id="ShowMoreBtn">더 보기</button> -->
-<!-- 		</div> -->
-<!-- 		<div class="container"> -->
-<%-- 			<c:set var="movieEvent"/> --%>
-<%-- 			<c:forEach var="movieEvent" items="${movieEventList}" varStatus="loop" begin="0" end="2"> --%>
-<%-- 				<div class="item movie-event" onclick="event_detail(${movieEvent.event_num})"> --%>
-<!-- 					<div class="imgBox"> -->
-<%-- 						<img src="${pageContext.request.contextPath}/resources/images/${movieEvent.event_thumbnail}" alt="썸네일" onclick="location.href='eventDetail?event_num?=${movieEvent.event_num}'"/> --%>
-<!-- 					</div> -->
-<!-- 					<div class="textBox"> -->
-<%-- 						<p class="textBox_name">${movieEvent.event_subject}</p> --%>
-<%-- 						<p class="textBox_price">${movieEvent.event_start}  ~  ${movieEvent.event_end}</p> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 			</c:forEach> --%>
-<!-- 		</div> -->
-		
-		
-<!-- 		<div class="event_cate_title"> -->
-<!-- 			<h3>극장이벤트</h3> -->
-<!-- 		</div> -->
-<!-- 		<div align="right"> -->
-<!-- 			<button type="button" class="btn btn-outline-primary" id="TheaterShowMoreBtn">더 보기</button> -->
-<!-- 		</div> -->
-<!-- 		<div class="container"> -->
-		
-<%-- 			<c:forEach var="theaterEvent" items="${theaterEventList}"  varStatus="loop" begin="0" end="2"> --%>
-<%-- 				<div class="item theater-event" onclick="event_detail(${theaterEvent.event_num})"> --%>
-<!-- 					<div class="imgBox"> -->
-<%-- 						<img src="${pageContext.request.contextPath}/resources/images/${theaterEvent.event_thumbnail}" alt="썸네일" onclick="location.href='eventDetail?event_num?=${theaterEvent.event_num}'"/> --%>
-<!-- 					</div> -->
-<!-- 					<div class="textBox"> -->
-<%-- 						<p class="textBox_name">${theaterEvent.event_subject}</p> --%>
-<%-- 						<p class="textBox_price">${theaterEvent.event_start}  ~  ${theaterEvent.event_end}</p> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 			</c:forEach> --%>
-			
-<!-- 		</div> -->
-<!-- 		<div class="event_cate_title"> -->
-<!-- 			<h3>할인이벤트</h3> -->
-<!-- 		</div> -->
-<!-- 		<div align="right"> -->
-<!-- 			<button type="button" class="btn btn-outline-primary" id="DiscountShowMoreBtn">더 보기</button> -->
-<!-- 		</div> -->
-<!-- 		<div class="container"> -->
-		
-<%-- 			<c:forEach var="discountEvent" items="${discountEventList}" varStatus="loop" begin="0" end="2"> --%>
-<%-- 				<div class="item discount-event" onclick="event_detail(${discountEvent.event_num})"> --%>
-<!-- 					<div class="imgBox"> -->
-<%-- 						<img src="${pageContext.request.contextPath}/resources/images/${discountEvent.event_thumbnail}" alt="썸네일" onclick="location.href='eventDetail?event_num?=${discountEvent.event_num}'"/> --%>
-<!-- 					</div> -->
-<!-- 					<div class="textBox"> -->
-<%-- 						<p class="textBox_name">${discountEvent.event_subject}</p> --%>
-<%-- 						<p class="textBox_price">${discountEvent.event_start}  ~  ${discountEvent.event_end}</p> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 			</c:forEach> --%>
-			
-<!-- 		</div> -->
-	</main>
+				<div class="textBox">
+<%-- 					<p class="textBox_name">${eventList.event_subject}</p> --%>
+					<p class="textBox_name">11111111111</p>
+<%-- 					<p class="textBox_price">${eventList.event_start}  ~  ${eventList.event_end}</p> --%>
+					<p class="textBox_price">2024-06-01  ~  2024-06-30</p>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+	
+</div>
 
-	<footer>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
-	</footer>
-	<script type="text/javascript">
-		function event_detail(event_num) {
-			location.href='eventDetail?event_num=' + event_num;
-		} 
-		
-		$(function() {
-			$('.category-btn').click(function() {
-				$('.category-btn').removeClass('active');
-				$(this).addClass('active');
-			});
-			$('.category-btn').hover(
-				function() {
-			    	$(this).addClass('hover');
-			    },
-			    function() {
-			    	$(this).removeClass('hover');
-			    }
-			);
-			
-			$('.EventType').click(function() {
-				$.ajax({
-					type: "get",
-					url: "eventType",
-// 					dataType: "JSON",
-					data : {
-						eventType : $('button.active').val()
-					},
-					success: function(data) {
-						console.log(data)
-						$(".eventMain").empty();
-						var eventHtml = '<div class="container eventMain">';
-		                data.forEach(function(eventList) {
-		                    eventHtml += '<div class="item movie-event" onclick="event_detail(' + eventList.event_num + ')">' +
-		                                    '<div class="imgBox">' +
-		                                        '<img src="resources/upload/' + eventList.event_thumbnail + '" alt="썸네일"/>' +
-		                                    '</div>' +
-		                                    '<div class="textBox">' +
-		                                        '<p class="textBox_name">' + eventList.event_subject + '</p>' +
-		                                        '<p class="textBox_price">' + eventList.event_start + ' ~ ' + eventList.event_end + '</p>' +
-		                                    '</div>' +
-		                                '</div>';
-		                });
-		                eventHtml += '</div>';
-		                $(".eventMain").append(eventHtml);
-						
-						
-					},
-					error: function() {
-						alert("이벤트 오류!");
-					}
-				});
-			});
-			
-			
-			
+<footer>
+	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
+</footer>
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<script type="text/javascript">
+	function event_detail(event_num) {
+		location.href='eventDetail?event_num=' + event_num;
+	} 
+	
+	$(function() {
+		$('.category-btn').click(function() {
+			$('.category-btn').removeClass('active');
+			$(this).addClass('active');
 		});
+		$('.category-btn').hover(
+			function() {
+		    	$(this).addClass('hover');
+		    },
+		    function() {
+		    	$(this).removeClass('hover');
+		    }
+		);
+		
+// 		$('.EventType').click(function() {
+// 			$.ajax({
+// 				type: "get",
+// 				url: "eventType",
+// // 					dataType: "JSON",
+// 				data : {
+// 					eventType : $('button.active').val()
+// 				},
+// 				success: function(data) {
+// 					console.log(data)
+// 					$(".eventMain").empty();
+// 					var eventHtml = '<div class="container eventMain">';
+// 	                data.forEach(function(eventList) {
+// 	                    eventHtml += '<div class="item movie-event" onclick="event_detail(' + eventList.event_num + ')">' +
+// 	                                    '<div class="imgBox">' +
+// 	                                        '<img src="resources/upload/' + eventList.event_thumbnail + '" alt="썸네일"/>' +
+// 	                                    '</div>' +
+// 	                                    '<div class="textBox">' +
+// 	                                        '<p class="textBox_name">' + eventList.event_subject + '</p>' +
+// 	                                        '<p class="textBox_price">' + eventList.event_start + ' ~ ' + eventList.event_end + '</p>' +
+// 	                                    '</div>' +
+// 	                                '</div>';
+// 	                });
+// 	                eventHtml += '</div>';
+// 	                $(".eventMain").append(eventHtml);
+					
+					
+// 				},
+// 				error: function() {
+// 					alert("이벤트 오류!");
+// 				}
+// 			});
+// 		});
 		
 		
 		
-	</script>
+	});
+		
+</script>
 
 </body>
 </html>

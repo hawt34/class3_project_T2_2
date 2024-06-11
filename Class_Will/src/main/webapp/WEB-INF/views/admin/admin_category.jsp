@@ -18,24 +18,24 @@
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Toast UI Grid CSS -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
-	
-	<!-- Toast UI Grid Script -->
-	<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-	
-	<!-- Toast UI Pagination CSS -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+    
+    <!-- Toast UI Grid Script -->
+    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+    
+    <!-- Toast UI Pagination CSS -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
-	<!-- Toast UI Pagination Script -->
-	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <!-- Toast UI Pagination Script -->
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
 </head>
 <body id="page-top">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-<%-- <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/side_bar.jsp"></jsp:include> --%>
-<jsp:include page="side_bar.jsp"></jsp:include>
+    <!-- 사이드 바 포함 -->
+    <jsp:include page="side_bar.jsp"></jsp:include>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -248,22 +248,34 @@
                 <!-- End of Topbar -->
                 
                 <div class="container-fluid">
-                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">카테고리 리스트</h1>
-                            <div class="btn-group">
-                            <input type="file" id="file-input" style="display:none;" />
-                            <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12">
-                            <div id="grid"></div>
-                            <div id="pagination"></div>
-                        </div>
-                    </div>
-
+				   <div class="d-sm-flex align-items-center justify-content-between mb-4">
+					    <h1 class="h3 mb-0 text-gray-800">카테고리 리스트</h1>
+					    <div class="input-group" style="width:20%">
+					        <input type="text" class="form-control bg-light border-0 small" placeholder="검색"
+					            aria-label="Search" aria-describedby="basic-addon2" style="border:1px solid black">
+					        <div class="input-group-append">
+					            <button class="btn btn-primary" type="button">
+					                <i class="fas fa-search fa-sm"></i>
+					            </button>
+					        </div>
+					    </div>
+					    <div class="btn-group">
+					        <button id="btn-delete" class="btn btn-danger btn-sm">삭제</button> <!-- 삭제 버튼 추가 -->
+					        <input type="file" id="file-input" style="display:none;" />
+					        <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
+					    </div>
+					</div>
+				
+				    <!-- Content Row -->
+				    <div class="row">
+				        <div class="col-xl-12 col-lg-12">
+				            <div id="grid"></div>
+				            <div id="pagination"></div>
+				            <button id="add-category" class="btn btn-primary btn-sm mt-3">카테고리 추가</button>
+				        </div>
+				    </div>
+				</div>
+                
                 </div>
                 <!-- /.container-fluid -->
 
@@ -292,94 +304,89 @@
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const data = [
-                {
-                    id: 1,
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    registrationDate: '2023-01-01',
-                    status: 'Active'
-                },
-                {
-                    id: 2,
-                    name: 'Jane Doe',
-                    email: 'jane.doe@example.com',
-                    registrationDate: '2023-02-01',
-                    status: 'Inactive'
-                }
-                // 더 많은 회원 데이터 추가 가능
-            ];
-            
-            // 페이징을 위한 Pagination 인스턴스 생성
-            const pagination = new tui.Pagination(document.getElementById('pagination'), {
-                totalItems: data.length,
-                itemsPerPage: 10, // 페이지당 항목 수
-                visiblePages: 5, // 보이는 페이지 수
-                centerAlign: true
-            });
-
-            // 상세보기 버튼
-            class ButtonRenderer {
-                constructor(props) {
-                    const el = document.createElement('button');
-                    el.className = 'btn btn-primary btn-sm';
-                    el.innerText = '상세보기';
-                    el.addEventListener('click', () => {
-                        alert(`회원 ID: ${props.value}\n회원 이름: ${props.row.name}\n이메일: ${props.row.email}`);
-                        // 여기에 상세보기 페이지로 이동하는 로직을 추가할 수 있습니다.
-                        // 예를 들어, location.href = `/member/details/${props.value}`;
-                    });
-                    this.el = el;
-                }
-                getElement() {
-                    return this.el;
-                }
-                render(props) {
-                    this.el.dataset.rowKey = props.rowKey;
-                    this.el.dataset.columnName = props.columnName;
-                    this.el.value = props.value;
-                }
-            }
-
-            const grid = new tui.Grid({
-                el: document.getElementById('grid'),
-                data: data,
-                columns: [
-                    { header: 'ID', name: 'id' , editor: 'text'},
-                    { header: 'Name', name: 'name' , editor: 'text'},
-                    { header: 'Email', name: 'email' , editor: 'text'},
-                    { header: 'Registration Date', name: 'registrationDate' , editor: 'text'},
-                    { header: 'Status', name: 'status' , editor: 'text'},
-                    {
-                        header: 'Action',
-                        name: 'action',
-                        renderer: {
-                            type: ButtonRenderer
-                        }
-                    }
-                ],
-                rowHeaders: ['rowNum'],
-                pageOptions: {
-                    useClient: true, // 클라이언트 사이드 페이징 사용
-                    perPage: 10 // 페이지당 항목 수
-                },
-                bodyHeight: 400
-            });
-            
-            // 페이지 변경 이벤트
-            pagination.on('beforeMove', function (event) {
-                const currentPage = event.page;
-                const startRow = (currentPage - 1) * 10;
-                const endRow = startRow + 10;
-
-                grid.resetData(data.slice(startRow, endRow));
-            });
-            
-            // 초기 데이터 설정
-            grid.resetData(data.slice(0, 10));
-        });
-    </script>
+	    document.addEventListener('DOMContentLoaded', function () {
+	        const data = [
+	            {
+	                id: 1,
+	                largeCategory: '가전',
+	                mediumCategory: '주방가전',
+	                smallCategory: '냉장고'
+	            },
+	            {
+	                id: 2,
+	                largeCategory: '가구',
+	                mediumCategory: '침실가구',
+	                smallCategory: '침대'
+	            }
+	            // 더 많은 데이터 추가 가능
+	        ];
+	        
+	        const itemsPerPage = 10;
+	        const pagination = new tui.Pagination(document.getElementById('pagination'), {
+	            totalItems: data.length,
+	            itemsPerPage: itemsPerPage, // 페이지당 항목 수
+	            visiblePages: 5, // 보이는 페이지 수
+	            centerAlign: true
+	        });
 	
+	        const grid = new tui.Grid({
+	            el: document.getElementById('grid'),
+	            data: data,
+	            columns: [
+	                { header: '대분류', name: 'largeCategory', editor: 'text' },
+	                { header: '중분류', name: 'mediumCategory', editor: 'text' },
+	                { header: '소분류', name: 'smallCategory', editor: 'text' }
+	            ],
+	            rowHeaders: ['checkbox'], // 첫 번째 컬럼을 체크박스로 설정
+	            pageOptions: {
+	                useClient: true, // 클라이언트 사이드 페이징 사용
+	                perPage: itemsPerPage // 페이지당 항목 수
+	            },
+	            bodyHeight: 400
+	        });
+	        
+	        pagination.on('beforeMove', function (event) {
+	            const currentPage = event.page;
+	            const startRow = (currentPage - 1) * itemsPerPage;
+	            const endRow = startRow + itemsPerPage;
+	
+	            grid.resetData(data.slice(startRow, endRow));
+	        });
+	        
+	        grid.resetData(data.slice(0, itemsPerPage));
+	
+	        document.getElementById('add-category').addEventListener('click', function () {
+	            const newRow = {
+	                id: data.length + 1, // 새로운 ID 할당
+	                largeCategory: '',
+	                mediumCategory: '',
+	                smallCategory: ''
+	            };
+	            data.push(newRow); // 데이터 배열에 새 행 추가
+	
+	            document.getElementById('btn-delete').addEventListener('click', function () {
+	                const checkedRows = grid.getCheckedRows();
+	                checkedRows.forEach(row => {
+	                    const index = data.findIndex(item => item.id === row.id);
+	                    if (index > -1) {
+	                        data.splice(index, 1); // 데이터 배열에서 행 삭제
+	                    }
+	                });
+
+	                const currentPage = pagination.getCurrentPage();
+	                const startRow = (currentPage - 1) * itemsPerPage;
+	                const endRow = startRow + itemsPerPage;
+
+	                // 그리드 데이터 업데이트
+	                grid.resetData(data.slice(startRow, endRow));
+
+	                // 페이징 업데이트
+	                pagination.reset(data.length);
+	            });
+	        });
+	    });
+
+    </script>
+    
 </body>
 </html>

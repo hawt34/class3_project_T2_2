@@ -40,5 +40,10 @@ public class AdminController {
 	public String adminCscDetail() {
 		return "admin/admin_csc_detail";
 	}
+	
+	@GetMapping("Admin/MemberDetail")
+	public String adminMemberDetail() {
+		return "admin/admin_member_detail";
+	}
 }
 	

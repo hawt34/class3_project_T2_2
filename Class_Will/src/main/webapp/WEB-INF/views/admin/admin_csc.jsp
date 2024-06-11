@@ -18,16 +18,16 @@
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Toast UI Grid CSS -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
-	
-	<!-- Toast UI Grid Script -->
-	<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-	
-	<!-- Toast UI Pagination CSS -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+    
+    <!-- Toast UI Grid Script -->
+    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+    
+    <!-- Toast UI Pagination CSS -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
-	<!-- Toast UI Pagination Script -->
-	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <!-- Toast UI Pagination Script -->
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
 </head>
 <body id="page-top">
 
@@ -249,18 +249,18 @@
                 
                 <div class="container-fluid">
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">회원관리 리스트</h1>
+                        <h1 class="h3 mb-0 text-gray-800">고객센터 리스트</h1>
                             <div class="btn-group">
-                            <button id="btn-download" class="btn btn-success btn-sm">엑셀 다운로드</button>
-                            <button id="btn-upload" class="btn btn-primary btn-sm">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
-					<div>
-					    <button class="category-btn" data-category="member">회원</button>
-					    <button class="category-btn" data-category="teacher">강사</button>
-					</div>
+                    <div>
+                        <button class="category-btn" data-category="all">전체</button>
+                        <button class="category-btn" data-category="notice">공지사항</button>
+                        <button class="category-btn" data-category="faq">FAQ</button>
+                        <button class="category-btn" data-category="oto">1:1문의</button>
+                    </div>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
@@ -324,18 +324,44 @@
                 centerAlign: true
             });
 
-            // 상세보기 버튼
-            class ButtonRenderer {
+            // 상세보기, 수정하기, 삭제 버튼
+            class ActionRenderer {
                 constructor(props) {
-                    const el = document.createElement('button');
-                    el.className = 'btn btn-primary btn-sm';
-                    el.innerText = '상세보기';
-                    el.addEventListener('click', () => {
+                    const container = document.createElement('div');
+                    
+                    const viewButton = document.createElement('button');
+                    viewButton.className = 'btn btn-primary btn-sm';
+                    viewButton.innerText = '상세보기';
+                    viewButton.addEventListener('click', () => {
                         alert(`회원 ID: ${props.value}\n회원 이름: ${props.row.name}\n이메일: ${props.row.email}`);
                         // 여기에 상세보기 페이지로 이동하는 로직을 추가할 수 있습니다.
                         // 예를 들어, location.href = `/member/details/${props.value}`;
                     });
-                    this.el = el;
+
+                    const editButton = document.createElement('button');
+                    editButton.className = 'btn btn-warning btn-sm ml-2';
+                    editButton.innerText = '수정하기';
+                    editButton.addEventListener('click', () => {
+                        alert(`수정할 회원 ID: ${props.value}`);
+                        // 여기에 수정하기 페이지로 이동하는 로직을 추가할 수 있습니다.
+                        // 예를 들어, location.href = `/member/edit/${props.value}`;
+                    });
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'btn btn-danger btn-sm ml-2';
+                    deleteButton.innerText = '삭제하기';
+                    deleteButton.addEventListener('click', () => {
+                        if (confirm(`회원 ID: ${props.value}\n정말로 삭제하시겠습니까?`)) {
+                            // 여기에 삭제 로직을 추가할 수 있습니다.
+                            alert('삭제되었습니다.');
+                        }
+                    });
+
+                    container.appendChild(viewButton);
+                    container.appendChild(editButton);
+                    container.appendChild(deleteButton);
+                    
+                    this.el = container;
                 }
                 getElement() {
                     return this.el;
@@ -360,7 +386,7 @@
                         header: 'Action',
                         name: 'action',
                         renderer: {
-                            type: ButtonRenderer
+                            type: ActionRenderer
                         }
                     }
                 ],
@@ -385,6 +411,6 @@
             grid.resetData(data.slice(0, 10));
         });
     </script>
-	
+    
 </body>
 </html>

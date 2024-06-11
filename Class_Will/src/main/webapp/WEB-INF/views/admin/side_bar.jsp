@@ -6,17 +6,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/b43f956240.js" crossorigin="anonymous"></script>
 </head>
 <body>
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath }/Admin">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Class Will</div>
             </a>
 
             <!-- Divider -->
@@ -24,7 +25,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="${pageContext.request.contextPath }/Admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>대쉬보드</span></a>
             </li>
@@ -41,14 +42,14 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
+                    <i class="fa-solid fa-user"></i>
                     <span>회원 관리</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리 :</h6>
-                        <a class="collapse-item" href="buttons.html">리스트</a>
-                        <a class="collapse-item" href="cards.html">삭제</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Member">회원 리스트</a>
+                        <a class="collapse-item" href="cards.html">강사 리스트</a>
                     </div>
                 </div>
             </li>
@@ -57,14 +58,14 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClass"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fa-solid fa-school"></i>
                     <span>클래스 관리</span>
                 </a>
                 <div id="collapseClass" class="collapse" aria-labelledby="headingClass"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">클래스 관리:</h6>
-                        <a class="collapse-item" href="utilities-color.html">리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Class">리스트</a>
                         <a class="collapse-item" href="utilities-border.html">머시기</a>
                         <a class="collapse-item" href="utilities-animation.html">저시기</a>
                         <a class="collapse-item" href="utilities-other.html">쳌</a>
@@ -76,14 +77,14 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
                     aria-expanded="true" aria-controls="collapseCategory">
-                    <i class="fas fa-fw fa-wrench"></i>
+                    <i class="fa-solid fa-magnifying-glass"></i>
                     <span>카테고리 관리</span>
                 </a>
                 <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">카테고리 관리:</h6>
-                        <a class="collapse-item" href="utilities-color.html">리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Category">리스트</a>
                         <a class="collapse-item" href="utilities-border.html">머시기</a>
                         <a class="collapse-item" href="utilities-animation.html">저시기</a>
                         <a class="collapse-item" href="utilities-other.html">쳌</a>
@@ -95,24 +96,28 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCsc"
                     aria-expanded="true" aria-controls="collapseCsc">
-                    <i class="fas fa-fw fa-wrench"></i>
+                   <i class="fa-solid fa-handshake"></i>
                     <span>고객센터 관리</span>
                 </a>
                 <div id="collapseCsc" class="collapse" aria-labelledby="headingCsc"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">고객센터 관리:</h6>
-                        <a class="collapse-item" href="utilities-color.html">리스트</a>
-                        <a class="collapse-item" href="utilities-border.html">머시기</a>
-                        <a class="collapse-item" href="utilities-animation.html">저시기</a>
-                        <a class="collapse-item" href="utilities-other.html">쳌</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Csc">전체 리스트</a>
+                        <a class="collapse-item" href="utilities-animation.html">공지사항 리스트</a>
+                        <a class="collapse-item" href="utilities-other.html">FAQ 리스트</a>
+                        <a class="collapse-item" href="utilities-other.html">1:1문의 리스트</a>
                     </div>
                 </div>
             </li>
 
-            <!-- Divider -->
-<!--             <hr class="sidebar-divider"> -->
-
+            
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="${pageContext.request.contextPath}">
+                <i class="fa-solid fa-house"></i>
+                <span>메인 페이지</span></a>
+            </li>
             <!-- Heading -->
 <!--             <div class="sidebar-heading"> -->
 <!--                 Addons -->
@@ -167,7 +172,6 @@
 <!--                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p> -->
 <!--                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a> -->
 <!--             </div> -->
-
         </ul>
 </body>
 </html>

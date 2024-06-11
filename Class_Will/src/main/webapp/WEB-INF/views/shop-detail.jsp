@@ -41,7 +41,7 @@
 
 		<!-- header Start -->
 		<header>
-        	<jsp:include page="/WEB-INF/views/inc/header.jsp"/>
+        	<jsp:include page="/WEB-INF/views/inc/top.jsp"/>
 		</header>
 		<!-- header End -->
 

@@ -249,18 +249,13 @@
                 
                 <div class="container-fluid">
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">회원관리 리스트</h1>
+                        <h1 class="h3 mb-0 text-gray-800">카테고리 리스트</h1>
                             <div class="btn-group">
-                            <button id="btn-download" class="btn btn-success btn-sm">엑셀 다운로드</button>
-                            <button id="btn-upload" class="btn btn-primary btn-sm">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
-					<div>
-					    <button class="category-btn" data-category="member">회원</button>
-					    <button class="category-btn" data-category="teacher">강사</button>
-					</div>
+
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">

@@ -5,56 +5,51 @@
 <div class="container-fluid fixed-top">
     <div class="container px-0 top-cate">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid  text-center">
-            
-				<div class="row">
-					<div class="col">
-						<div class="collapse navbar-collapse justify-content-end" id="navbarNavLarge">
-				             <ul class="navbar-nav">
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#"><i class="bi bi-list"></i>카테고리</a>
-				                 </li>
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#">이벤트</a>
-				                 </li>
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#">BEST</a>
-				                 </li>
-				                 <li class="nav-item">
-				                     <a class="nav-link" href="#">내 주변 클래스</a>
-				                 </li>
-				             </ul>
-						</div> <!-- collapse -->
-					</div> <!-- col -->
-					<div class="col">
-						<!--  메인 로고 -->
-		                <a class="navbar-brand" href="main">
-		                    <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
-		                </a>
-		                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-		                    <span class="fa fa-bars text-primary"></span>
-		                </button>
-					</div> <!-- col -->
-					<div class="col">
-						<div class="collapse navbar-collapse justify-content-end" id="navbarNavLarge">
-						    <ul class="navbar-nav">
-						        <li class="nav-item">
-						            <a class="nav-link" href="#">클래스등록</a>
-						        </li>
-						        <li class="nav-item">
-						            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
-						        </li>
-						        <li class="nav-item">
-						            <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
-						        </li>
-						        <li class="nav-item">
-						            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
-						        </li>
-						    </ul>
-						</div> <!-- collapse -->
-					</div> <!-- col -->
-				</div> <!-- row -->
-	
+            <div class="container-fluid justify-content-center"> <!-- 중앙 정렬 -->
+                <!-- 브랜드 로고 -->
+                <a class="navbar-brand" href="main">
+                    <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
+                </a>
+            </div>
+        </nav>
+        
+        <!-- 네비바 -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid justify-content-between"> <!-- 양쪽 정렬 -->
+                <div class="collapse navbar-collapse" id="navbarNavLarge">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-list"></i>카테고리</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">이벤트</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">BEST</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">내 주변 클래스</a>
+                        </li>
+                    </ul>
+                </div> <!-- collapse -->
+                
+                <div class="collapse navbar-collapse" id="navbarNavLarge">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">클래스등록</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
+                        </li>
+                    </ul>
+                </div> <!-- collapse -->
+            </div>
             
             	
             
@@ -64,7 +59,7 @@
                 
                 
                 <!--  오프캔버스  -->
-                <div class="offcanvas offcanvas-start" id="navbarNav">
+                <div class="offcanvas offcanvas-start" id="navbarNav" style="background-color: #333;">
                     <div class="offcanvas-header">
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
@@ -87,7 +82,6 @@
                 </div><!-- offcanvas -->
                 
                 
-            </div>
         </nav>
     </div>
 </div>

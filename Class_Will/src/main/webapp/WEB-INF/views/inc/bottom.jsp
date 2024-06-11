@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5" style="background-color: #333;">
             <div class="container py-5">
                 <div class="pb-4 mb-4" style="border-top: 1px solid white ;">
                     <div class="row g-4">

@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Fruitables - Vegetable Website Template</title>
+        <title>클래스윌</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -88,37 +88,12 @@
             <div class="container py-5">
                 <div class="tab-class text-center">
                     <div class="row g-4">
-                        <div class="col-lg-4 text-start">
-                            <h1>Our Organic Products</h1>
+                        <div class="col-lg-8 text-start">
+                            <h2>오늘의 TOP10</h2>
                         </div>
-                        <div class="col-lg-8 text-end">
-                            <ul class="nav nav-pills d-inline-flex text-center mb-5">
-                                <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-1">
-                                        <span class="text-dark" style="width: 130px;">All Products</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
-                                        <span class="text-dark" style="width: 130px;">Vegetables</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-3">
-                                        <span class="text-dark" style="width: 130px;">Fruits</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-4">
-                                        <span class="text-dark" style="width: 130px;">Bread</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-5">
-                                        <span class="text-dark" style="width: 130px;">Meat</span>
-                                    </a>
-                                </li>
-                            </ul>
+                        <div class="col-lg-4 text-end">
+                        	<a class="d-flex"><i class="bi bi-chevron-left" style="size: 50px;"></i></a>
+                        	<a class="d-flex"><i class="bi bi-chevron-right" style="size: 50px;"></i></a>
                         </div>
                     </div>
                     <div class="tab-content">
@@ -863,6 +838,11 @@
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        
+        <!-- chatbot -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle chatbot">
+        	<img src="${pageContext.request.contextPath}/resources/img/chatbot.png" width="100px" alt="chatbot">
+        </a>   
 
         
     <!-- JavaScript Libraries -->

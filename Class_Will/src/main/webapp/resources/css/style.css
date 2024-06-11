@@ -15,14 +15,25 @@
  .back-to-top {
     position: fixed;
     right: 30px;
-    bottom: 30px;
+    bottom: 200px;
     display: flex;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     align-items: center;
     justify-content: center;
     transition: 0.5s;
     z-index: 99;
+}
+
+.chatbot {
+	position: fixed;
+    right: 50px;
+    bottom: 100px;
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
 }
 /*** Spinner End ***/
 body{
@@ -114,7 +125,7 @@ body{
 /*** Navbar Start ***/
 .navbar .navbar-nav .nav-link {
     padding: 0px 20px;
-    font-size: 30px;
+    font-size: 20px;
     transition: .5s;
 }
 
@@ -258,8 +269,8 @@ body{
         margin-top: 152px !important;
     }
      #navbarCollapse{
-	background: lightgray;
-	border-radius: 10px;
+		background: lightgray;
+		border-radius: 10px;
 	}
 	.fixed-top{
 		background: black;

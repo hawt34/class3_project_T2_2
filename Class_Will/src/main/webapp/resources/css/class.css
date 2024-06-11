@@ -56,9 +56,17 @@
 .box1 {
 	margin-top : 10px;
 }
-.box2{
+.box2 {
     padding: 5px; /* 상하좌우 padding을 줄임 */
     margin: 0; /* margin을 0으로 설정하여 불필요한 여백 제거 */
     text-align: center; /* 텍스트를 가로로 가운데 정렬 */
 }
-
+.box3 {
+	margin-top : 20px;
+	padding : 2px;
+	text-align : center;
+}
+.btn {
+	font-size: 90%; /* 기본 텍스트 크기 */
+	white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}

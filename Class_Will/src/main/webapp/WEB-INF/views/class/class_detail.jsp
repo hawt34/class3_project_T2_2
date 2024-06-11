@@ -3,8 +3,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>프로그램 상세</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class.css">
+<title>클래스 상세</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class_detail.css">
 <!-- Libraries Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -564,21 +564,25 @@
 		    	
 		    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
 			    	<div class="row">
-				    	<div class="col-md-4 btn">
-					    	<button type="button" class="btn btn-outline-light w-100">♡5214</button>
+				    	<div class="col-md-4 btn mx-auto">
+					    	<button type="button" class="btn btn-light w-100">
+					    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" style="width : 25px; height : 25px">5214
+					    	</button>
 					    </div>
-				    	<div class="col-md-4 btn">
-					    	<button type="button" class="btn btn-outline-light w-100">공유하기</button>
+				    	<div class="col-md-4 btn mx-auto">
+					    	<button type="button" class="btn btn-light w-100">
+					    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" style="width : 25px; height : 25px">공유하기
+					    	</button>
 						</div>
-				    	<div class="col-md-4 btn">
-					    	<button type="button" class="btn btn-outline-light w-100">Light</button>
+				    	<div class="col-md-4 btn mx-auto">
+					    	<button type="button" class="btn btn-light w-100">Light</button>
 				    	</div>
 			    	</div>
 			    </div> <!-- 좋아요, 공유버튼 -->
 			    <div class="col-md-12">
 		    		<button type="button" class="btn btn-light w-100">신청하기</button>
 		    	</div>
-	    	</div><!-- box1 -->
+	    	</div>
 	    </div> <!-- 오른쪽 강의 소개  -->
     </div><!-- row box2-->
 </div><!-- container -->

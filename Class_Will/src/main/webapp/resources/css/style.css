@@ -16,6 +16,8 @@
     position: fixed;
     right: 30px;
     bottom: 200px;
+    left: 30px;
+    bottom: 30px;
     display: flex;
     width: 40px;
     height: 40px;
@@ -29,6 +31,9 @@
 	position: fixed;
     right: 50px;
     bottom: 100px;
+   position: fixed;
+    right: 50px;
+    bottom: 50px;
     display: flex;
     width: 50px;
     height: 50px;
@@ -37,7 +42,7 @@
 }
 /*** Spinner End ***/
 body{
-	background: black;
+   background: black;
 }
 /*** Button Start ***/
 .btn {
@@ -142,12 +147,12 @@ body{
 }
 
 .navbar-nav>a:hover{
-	background: white;
-	border-radius: 5px;
+   background: white;
+   border-radius: 5px;
 }
 .navbar-nav>div:hover{
-	background: white;
-	border-radius: 5px;
+   background: white;
+   border-radius: 5px;
 }
 
 .navbar .dropdown-toggle::after {
@@ -175,8 +180,8 @@ body{
 }
 @media (max-width: 1200px) {
   #navbarCollapse{
-	background: lightgray;
-	border-radius: 10px;
+   background: lightgray;
+   border-radius: 10px;
   }
     
 }
@@ -209,7 +214,7 @@ body{
     background-size: cover;
 }
 .carousel-item > img{
-	width: 800px;
+   width: 800px;
 }
 .carousel-item {
     position: relative;
@@ -245,7 +250,7 @@ body{
     margin-left: 20px;
 }
 .fa-bard{
-	width: 50px;
+   width: 50px;
 }
 .page-header {
     position: relative;
@@ -275,6 +280,13 @@ body{
 	.fixed-top{
 		background: black;
 	}
+   background: lightgray;
+   border-radius: 10px;
+   }
+   .fixed-top{
+      background: black;
+   }
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 }
 /*** Hero Header end ***/
 

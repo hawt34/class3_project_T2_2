@@ -297,19 +297,19 @@
         document.addEventListener('DOMContentLoaded', function () {
             const data = [
                 {
-                    id: 1,
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    registrationDate: '2023-01-01',
-                    status: 'Active'
+                	code: 15615615,
+                    name: '함께해요 목공예',
+                    type: '일일 클래스',
+                    category: '목공예',
+                    teacher: 'John Doe'
                 },
                 {
-                    id: 2,
-                    name: 'Jane Doe',
-                    email: 'jane.doe@example.com',
-                    registrationDate: '2023-02-01',
-                    status: 'Inactive'
-                }	
+                	code: 3363646,
+                    name: '함께해요 수영',
+                    type: '일일 클래스',
+                    category: '수영',
+                    teacher: 'John Doe'
+                }
                 // 더 많은 회원 데이터 추가 가능
             ];
             
@@ -348,11 +348,11 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                    { header: 'ID', name: 'id' , editor: 'text'},
-                    { header: 'Name', name: 'name' , editor: 'text'},
-                    { header: 'Email', name: 'email' , editor: 'text'},
-                    { header: 'Registration Date', name: 'registrationDate' , editor: 'text'},
-                    { header: 'Status', name: 'status' , editor: 'text'},
+                    { header: '클래스코드', name: 'code' , editor: 'text'},
+                    { header: '클래스이름', name: 'name' , editor: 'text'},
+                    { header: '클래스구분', name: 'type' , editor: 'text'},
+                    { header: '카테고리', name: 'category' , editor: 'text'},
+                    { header: '강사이름', name: 'teacher' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',

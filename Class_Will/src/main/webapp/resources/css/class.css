@@ -1,11 +1,72 @@
 @charset "UTF-8";
 
-.container1{
+.container{
 	height : 1500px;
 	width: 1200px;
 	margin: auto;
+/* 	margin-top : 50px; */
 }
 
-/* .box1{ */
-/* 	height : auto; */
-/* } */
+.sticky-nav {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: black;
+    z-index: 1000;
+}
+
+.nav-container {
+	display : flex;
+	flex-direction : row;
+	width : 100%;
+	margin : 0;
+	background-color : black;
+	list-style-type : none;
+/* 	padding: 0px 20px; */
+	padding: 0px;
+	font-size: 15px;
+	transition: .5s;
+	
+/*   height: 100px; 원하는 높이로 조정 */
+/*   padding-top: 0; */
+/*   padding-bottom: 0; */
+}
+
+.nav-item {
+	display: inline-block; /* 인라인 블록으로 설정하여 텍스트 가운데 정렬 */
+	padding : 15px;
+	cursor : pointer;
+	width: 100%; /* 부모의 너비를 100%로 설정 */
+}
+.nav-item a{
+	text-align : center;
+	text-decoration : none;
+	color : white;
+/* 	padding : 15px; */
+}
+.nav1 {
+	position : sticky;
+	top : 0;
+}
+
+.content {
+	top : 40px;
+}
+
+.box1 {
+	margin-top : 10px;
+}
+.box2 {
+    padding: 5px; /* 상하좌우 padding을 줄임 */
+    margin: 0; /* margin을 0으로 설정하여 불필요한 여백 제거 */
+    text-align: center; /* 텍스트를 가로로 가운데 정렬 */
+}
+.box3 {
+	margin-top : 20px;
+	padding : 2px;
+	text-align : center;
+}
+.btn {
+	font-size: 90%; /* 기본 텍스트 크기 */
+	white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+}

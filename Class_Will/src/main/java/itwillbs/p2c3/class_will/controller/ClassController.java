@@ -10,5 +10,6 @@ public class ClassController {
 	@GetMapping("Class/Detail")
 	public String classDetail() {
 		return"class/class_detail";
+//		return"class/NewFile";
 	}
 }

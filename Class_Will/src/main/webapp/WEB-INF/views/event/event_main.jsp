@@ -170,7 +170,7 @@ main {
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/admin_header.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
 
 	<main>
@@ -269,7 +269,7 @@ main {
 	</main>
 
 	<footer>
-		<jsp:include page="/WEB-INF/views/inc/admin_footer.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
 	</footer>
 	<script type="text/javascript">
 		function event_detail(event_num) {

@@ -107,11 +107,45 @@
                         <a class="collapse-item" href="utilities-animation.html">공지사항 리스트</a>
                         <a class="collapse-item" href="utilities-other.html">FAQ 리스트</a>
                         <a class="collapse-item" href="utilities-other.html">1:1문의 리스트</a>
+                        <a class="collapse-item" href="utilities-other.html">이벤트 리스트</a>
+                    </div>
+                </div>
+            </li>
+            
+            
+            <!-- Nav Item - 결제관리 -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePay"
+                    aria-expanded="true" aria-controls="collapsePay">
+                 	 <i class="fa-solid fa-coins"></i>
+                    <span>결제 관리</span>
+                </a>
+                <div id="collapsePay" class="collapse" aria-labelledby="headingPay"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">결제 관리:</h6>
+                        <a class="collapse-item" href="utilities-animation.html">일반 결제</a>
+                        <a class="collapse-item" href="utilities-other.html">크레딧 결제</a>
+                    </div>
+                </div>
+            </li>
+            
+            <!-- Nav Item - 챗봇관리 -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseChatbot"
+                    aria-expanded="true" aria-controls="collapseChatbot">
+                   <i class="fa-solid fa-robot"></i>
+                    <span>챗봇 관리</span>
+                </a>
+                <div id="collapseChatbot" class="collapse" aria-labelledby="headingChatbot"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">챗봇 관리:</h6>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Csc">프롬프트 관리</a>
                     </div>
                 </div>
             </li>
 
-            
             <hr class="sidebar-divider">
             <li class="nav-item active">
                 <a class="nav-link" href="${pageContext.request.contextPath}">

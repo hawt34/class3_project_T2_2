@@ -42,6 +42,9 @@
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
 	rel="stylesheet">
 <style>
+body {
+	
+}
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
@@ -114,7 +117,7 @@ th:nth-child(2), td:nth-child(2) {
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">마이페이지</h1>
+			<h1 class="mb-4">MY PAGE</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
@@ -147,7 +150,7 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">쿠폰</h6>
+										<h6 class="card-title">윌페이??</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
@@ -165,7 +168,7 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">회</h6>
+										<h6 class="card-title">내가 쓴 강의 후기</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
@@ -174,7 +177,7 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">클래스 크레딧???</h6>
+										<h6 class="card-title"></h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
@@ -183,7 +186,7 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">[신규 런칭] 모임으로 배움을 확장하다!</h6>
+										<h6 class="card-title">회원정보변경</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
@@ -192,7 +195,7 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">[신규 런칭] 모임으로 배움을 확장하다!</h6>
+										<h6 class="card-title">회원탈퇴</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>

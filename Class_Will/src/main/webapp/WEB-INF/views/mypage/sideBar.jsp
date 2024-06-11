@@ -8,48 +8,48 @@
 										<ul class="list-unstyled fruite-categorie">
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-main" class="h5 mb-3"><i class="fas fa-user fa-1x"></i>Home</a>
+													<a href="" class="h5 mb-3"><i class="fas fa-user fa-1x"></i>Home</a>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-class" class="h5"><i class="fas fa-user fa-1x"></i>나의취향</a>
+													<a href="" class="h5"><i class="bi bi-heart"></i>나의취향</a>
 													<span>(5)</span>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-review" class="h5"><i class="fas fa-apple-alt me-2"></i>위시리스트</a>
+													<a href="" class="h5"><i class="bi bi-emoji-heart-eyes"></i>위시리스트</a>
 													<span>(5)</span>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-analyze" class="h5"><i class="fas fa-apple-alt me-2"></i>쿠폰</a>
+													<a href="" class="h5"><i class="bi bi-wallet"></i>윌페이</a>
 													<span>(2)</span>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-cost" class="h5"><i class="fas fa-apple-alt me-2"></i>내가 신청한 클래스</a>
+													<a href="" class="h5"><i class="bi bi-cart-check"></i>내가 신청한 클래스</a>
 													<span>(8)</span>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-cost" class="h5"><i class="fas fa-apple-alt me-2"></i>클래스 후기쓰기</a>
+													<a href="" class="h5"><i class="bi bi-pencil-square"></i>클래스 후기쓰기</a>
 													<span>(8)</span>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-cost" class="h5"><i class="fas fa-apple-alt me-2"></i>클래스정산</a>
+													<a href="" class="h5"><i class="bi bi-gear"></i>회원정보수정</a>
 													<span>(8)</span>
 												</div>
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
-													<a href="creator-cost" class="h5"><i class="fas fa-apple-alt me-2"></i>클래스정산</a>
+													<a href="" class="h5"><i class="bi bi-person-x-fill"></i>회원탈퇴</a>
 													<span>(8)</span>
 												</div>
 											</li>

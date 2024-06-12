@@ -14,7 +14,7 @@
                                 <a class="nav-link" href="#"><i class="bi bi-list"></i> 카테고리</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">이벤트</a>
+                                <a class="nav-link" href="event">이벤트</a>
                             </li>
                         </ul>
                     </div>

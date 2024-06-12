@@ -116,7 +116,6 @@ th:nth-child(2), td:nth-child(2) {
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">MY PAGE</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">

@@ -42,7 +42,7 @@
 	
 	.join-form {
 		width: 500px;
-		padding: 20px;
+		padding: 30px;
 		
 	}
 	
@@ -55,7 +55,11 @@
 	
 	.auth-choice {
 		display: flex;
-		margin: auto;
+	}
+	
+	.auth-detail {
+		border-style: none;
+		
 	}
 	
 	
@@ -73,68 +77,71 @@
 			<form action="member_join" method="POST">
 				<h2>회원가입</h2>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="floatingInput" >
+					<input type="text" class="form-control" id="name" name="name" placeholder="name">
 					<label for="floatingInput">이름</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+					<input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
 					<label for="floatingInput">이메일</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+					<input type="password" class="form-control" id="passwd" name="passwd" placeholder="Password">
 					<label for="floatingPassword">비밀번호</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="floatingInput" >
-					<label for="floatingInput">휴대전화</label>
-					<button class="btn btn-outline-secondary" type="button" id="button-addon1">인증번호 전송</button>
+					<input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="010-1234-5678">
+					<label for="floatingPassword">휴대전화</label>
+					<button class="btn btn-outline-secondary" type="button" id="phone-auth-btn">인증번호 전송</button>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+					<input type="text" class="form-control" id="auth_number" name="auth_number" placeholder="123456">
 					<label for="floatingInput">인증번호</label>
 				</div>
 				
 				<fieldset>
 					<h3>서비스 정책</h3>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="" id="allCheck" name="allCheck">
 						<label class="form-check-label" for="flexCheckDefault">
 							전체동의
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="" id="ageAgree" name="ageAgree">
 						<label class="form-check-label" for="flexCheckDefault">
 							만14세 이상입니다.(필수)
 						</label>
+						<button class="auth-detail" onclick="">내용보기</button>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="" id="serviceAgree" name="serviceAgree">
 						<label class="form-check-label" for="flexCheckDefault">
 							서비스 이용약관 동의 (필수)
 						</label>
+						<button class="auth-detail" onclick="">내용보기</button>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="" id="personerAgree" name="personerAgree">
 						<label class="form-check-label" for="flexCheckDefault">
 							개인정보 수집 및 이용 동의 (필수)
 						</label>
+						<button class="auth-detail" onclick="">내용보기</button>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="" id="marketing" name="marketing">
 						<label class="form-check-label" for="flexCheckDefault">
 							마케팅 수신 동의 (선택)
 						</label>
 					</div>
 					<div class="auth-choice">
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+							<input class="form-check-input" type="checkbox" value="" id="emailAgree" name="emailAgree">
 							<label class="form-check-label" for="flexCheckDefault">
 								이메일 수신
 							</label>
 						</div>
 						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+							<input class="form-check-input" type="checkbox" value="" id="messegeAgree" name="messegeAgree">
 							<label class="form-check-label" for="flexCheckDefault">
 								문자 수신
 							</label>

@@ -40,7 +40,7 @@
 		padding: 0 auto;
 	}
 	
-	.login-form {
+	.reset-form {
 		width: 500px;
 		padding: 30px;
 	}
@@ -49,7 +49,7 @@
 		background-color: white;
 	}
 	
-	.regex{
+	.regex{ 
 		font-size: 12px;
 		color: white;
 	}
@@ -64,27 +64,22 @@
 	</header>
 	
 	<article>
-		<div class="container login-form">
-			<h2>로그인</h2>
-			<form action="member_login" method="POST">
+		<div class="container reset-form">
+			<form action="reset_passwd" method="POST">
+				<h2>비밀번호 찾기</h2>
+				<p>가입하신 이메일 주소를 입력해 주세요.</p>
+				<p>	이메일 주소로 비밀번호를 재설정할 수 있는 이메일을 보내드립니다.</p>
+				<p>	발송된 이메일의 비밀번호 재설정은 10분 간 유효합니다.</p>
 				<div class="input-group mb-3">
 				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="이메일">
-				</div>
-				<div></div>
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="비밀번호" >
-				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
-<!-- 				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span> -->
+				  <input type="text" class="form-control"  placeholder="이메일">
 				</div>
 				<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
 				<div>
-					<input type="submit" id="btnSub" value="로그인">
+					<input type="submit" id="btnSub" value="전송하기">
 				</div>
 			</form>
-			<p><a href="reset_passwd">비밀번호 찾기</a></p>
-			클래스윌이 처음이신가요? <a href="member_join"><b>가입하기</b></a>
+			<a href="member_login"><b>로그인하기</b></a>
 		
 		</div>
 	</article>

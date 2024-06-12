@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- 본문 시작 -->
 <!-- Navbar start -->
-<div class="container-fluid fixed-top">
+<div class="container-fluid">
     <div class="container px-0 top-cate">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">

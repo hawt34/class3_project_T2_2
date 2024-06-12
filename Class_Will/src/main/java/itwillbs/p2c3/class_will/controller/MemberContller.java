@@ -41,14 +41,19 @@ public class MemberContller {
 	}
 	
 	// 비밀번호 재설정
+	@GetMapping("reset_passwd")
+	public String resetPasswdFrom() {
+		
+		
+		return "member/reset_passwd_form";
+	}
+	
+
 	
 	
 	
 	
 	
-	
-	
-	// 아이디 찾기
 	
 	
 	

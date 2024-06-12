@@ -148,6 +148,29 @@
 											</div>
 											<input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
 										</div>
+										<div class="col-md-12 mt-2 mb-3">
+											<label for="class_name">클래스 가격(원)</label> 
+											<input type="text" name="class_name" id="class_name" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
+											<div class="invalid-feedback">클래스명을 입력해주세요.</div>
+										</div>
+										
+									</div>
+									
+									<div class="classReg-calc my-3">
+										<div class="h4">클래스 커리큘럼</div>
+										<div class="classReg-calc-form">
+											<p class="h6">1차시</p>
+											<div class="col-md-12 my-2">
+												<label for="class_name">커리큘럼명</label> 
+												<input type="text" name="class_name" id="class_name" class="form-control" required />
+												<div class="invalid-feedback">커리큘럼명을 입력해주세요.</div>
+											</div>
+											<div class="col-md-12 my-2">
+												<label for="class_name">커리큘럼 내용</label> 
+												<input type="text" name="class_name" id="class_name" class="form-control" required />
+												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
+											</div>
+										</div>
 									</div>
 									
 									<hr class="mb-4">
@@ -201,80 +224,64 @@
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	<script type="text/javascript">	
-	document.addEventListener('DOMContentLoaded', () => {
-	    const items = document.querySelectorAll('.item');
-	    const form = document.querySelector('.validation-form');
-	    const selectedItemsInput = document.getElementById('selected-items');
-
-	    items.forEach(item => {
-	        item.addEventListener('click', () => {
-	            item.classList.toggle('selected');
-	            updateSelectedItems();
-	        });
-	    });
-
-	    form.addEventListener('submit', (event) => {
-	        updateSelectedItems();
-	    });
-
-	    function updateSelectedItems() {
-	        const selectedItems = Array.from(items)
-	            .filter(item => item.classList.contains('selected'))
-	            .map(item => item.getAttribute('data-value'));
-
-	        selectedItemsInput.value = selectedItems.join(',');
-	    }
-	    
-	});
+		// 카테고리 다중선택
+		document.addEventListener('DOMContentLoaded', () => {
+		    const items = document.querySelectorAll('.item');
+		    const form = document.querySelector('.validation-form');
+		    const selectedItemsInput = document.getElementById('selected-items');
 	
+		    items.forEach(item => {
+		        item.addEventListener('click', () => {
+		            item.classList.toggle('selected');
+		            updateSelectedItems();
+		        });
+		    });
 	
-	$('#summernote').summernote({
-		  height: 300,                 // 에디터 높이
-		  minHeight: null,             // 최소 높이
-		  maxHeight: null,             // 최대 높이
-		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-		  lang: "ko-KR",					// 한글 설정
-		  placeholder: '최대3000자까지 쓸 수 있습니다'	,//placeholder 설정
-		  toolbar: [
-				    // [groupName, [list of button]]
-				    ['fontname', ['fontname']],
-				    ['fontsize', ['fontsize']],
-				    ['color', ['color']],
-				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-				    ['para', ['ul', 'ol', 'paragraph']],
-				    ['height', ['height']]
-				  ],
-				fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-				fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-	          
-	});
+		    form.addEventListener('submit', (event) => {
+		        updateSelectedItems();
+		    });
+	
+		    function updateSelectedItems() {
+		        const selectedItems = Array.from(items)
+		            .filter(item => item.classList.contains('selected'))
+		            .map(item => item.getAttribute('data-value'));
+	
+		        selectedItemsInput.value = selectedItems.join(',');
+		    }
+		    
+		});
+		
+		// 썸머노트 설정
+		$('#summernote').summernote({
+			  height: 300,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대3000자까지 쓸 수 있습니다'	,//placeholder 설정
+			  toolbar: [
+					    // [groupName, [list of button]]
+					    ['fontname', ['fontname']],
+					    ['fontsize', ['fontsize']],
+					    ['color', ['color']],
+					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+					    ['para', ['ul', 'ol', 'paragraph']],
+					    ['height', ['height']]
+					  ],
+					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+		          
+		});
 	</script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-	
+		// 주소검색
 	    function search_address() {
 	        new daum.Postcode({ // daum.Postcode 객체 생성
-	        	// 주소검색 창에서 주소 검색 후 검색된 주소를 사용자가 클릭하면
-	        	// oncomplete 이벤트에 의해 해당 이벤트 뒤의 익명함수가 실행(호출됨)
-	        	// => 사용자가 호출하는 것이 아니라 API 가 함수를 호출하게 됨(callback(콜백) 함수)
 	            oncomplete: function(data) {
-	                // 클릭(선택)된 주소에 대한 정보(객체)가 익명함수 파라미터 data 에 전달됨
-	                // => data.xxx 형식으로 각 주소 정보에 접근 가능
 	                console.log(data);
-	                // 1) 우편번호(= 국가기초구역번호 = zonecode 속성값) 가져와서 
-	                //    우편번호 입력란(postCode)에 출력
 	                document.fr.post_code.value = data.zonecode;
-	        		// 2) 기본주소(address 속성값) 가져와서 기본주소 항목(address1)에 출력
-// 	        		document.fr.address1.value = data.address; // 기본주소
-// 	        		document.fr.address1.value = data.roadAddress; // 도로명주소
-	        		// 만약, 해당 주소에 대한 건물명(buildingName 속성값)이 존재할 경우(널스트링 아닐 때)
-	        		// 기본주소 뒤에 건물명을 결합하여 출력
-	        		// ex) 기본주소 : 부산 부산진구 동천로 109
-	        		//     건물명 : 삼한골든게이트
-	        		//     => 부산 부산진구 동천로 109 (삼한골든게이트)
 	        		let address = data.address; // 기본주소 변수에 저장
-	        		// 건물명이 존재할 경우(buildingName 속성값이 널스트링이 아닐 경우)
-	        		// 기본주소 뒤에 건물명 결합
 	        		if(data.buildingName != "") {
 	        			address += " (" + data.buildingName + ")";
 	        		}

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
@@ -65,67 +65,90 @@ td > img{
 }
 
 .margin_use {
-	margin-top: 200px;
+	margin-top: 40px;
+}
+.tab-pane {
+	margin-top: 20px;
 }
 
 </style>
 </head>
 <body>
 <header>
-	<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 </header>
 <div class="container">
 	<div class="row margin_use mx-5">
 		<p class="fs-4 text-white"><i class="fa-duotone fa-gift"></i>친구 초대 이벤트</p>	
 	</div>
+	<div class="row">
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">초대 메일 발송</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">추천 코드 입력</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+				<h5> 초대 메일 발송 </h5>
+				<p>초대 하실 친구분의 메일 계정을 입력해 주세요</p>
+				<p>나의 추천인 코드 : 665D8A3D55C6795E4783BE5B</p>
+				<p>친구 초대 메일 발송하기</p>
+				<input type="text" placeholder="이메일">
+				<input type="button" value="이메일 발송하기">
+			</div>
+			<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+				<h5> 초대 메일 발송 </h5>
+				<p>초대해 주신 친구 분의 코드를 입력해 주세요</p>
+				<input type="text" placeholder="코드">
+				<input type="button" value="코드입력">
+			</div>
+			<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+				
+			</div>
+		</div>
+	</div><!-- row 끝 -->
+	<div align="center">
+		<button type="submit" class="btn btn-outline-primary" id="searchBtn" onclick="goEventMain()">목록으로</button>
+	</div>
 </div>
 
-	<main>
-		<table class="eventTable">
-			<tr>
-				<td style="background:black; color: white;">이벤트</td>
-				<td colspan="3">${event.event_subject}</td>
-			</tr>
-			<tr>
-				<td style="background:black; color: white;">등록날짜</td>
-				<td><fmt:formatDate value="${event.event_reg_date}" pattern="yyyy-MM-dd"/></td>
-				<td style="background:black; color: white;">이벤트기간</td>
-				<td><fmt:formatDate value="${event.event_start_date}" pattern="yyyy-MM-dd"/> ~ <fmt:formatDate value="${event.event_end_date}" pattern="yyyy-MM-dd"/></td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<c:if test="${not empty event.event_image}">
-						<img alt="본문이미지" src="${pageContext.request.contextPath}/resources/upload/${event.event_image}"
-							<c:if test="${event.event_type_name eq '할인이벤트'}"> 
-								onclick="giveCoupon(${event.coupon_type_num}, ${event.event_num})"
-							</c:if>
-						>
-					</c:if>
-				</td>
-			</tr>
-		</table>
+	
 
-		<div align="center">
-			<button type="submit" class="btn btn-outline-primary" id="searchBtn" onclick="goEventMain()">목록으로</button>
-		</div>
 
-	</main>
 
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 </footer>
+<!-- JavaScript Libraries -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
+<script type="text/javascript">
+	function goEventMain() {
+		location.href="event";
+	}
 	
-	<script type="text/javascript">
-		function giveCoupon(coupon_type_num, event_num) {
-			location.href = "giveCoupon?coupon_type_num=" + coupon_type_num + "&event_num=" + event_num;
-		}
-		
-		function goEventMain() {
-			location.href="event";
-		}
-		
-		
-	</script>
+	
+</script>
 
 
 </body>

@@ -72,7 +72,7 @@ main {
  } 
  
 .margin_use {
-	margin-top: 200px;
+	margin-top: 100px;
 }
 
 /* item에 hidden 처리하기.*/
@@ -201,7 +201,7 @@ main {
 </head>
 <body>
 <header>
-	<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 </header>
 <div class="container">
 	<div class="row margin_use mx-4">

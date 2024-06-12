@@ -10,8 +10,8 @@
 <!-- 부트스트랩 - js,css -->
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css"> --%>
 <%-- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script> --%>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/payment.css">
@@ -62,7 +62,7 @@
 </head>
 <body>
 <header>
-	<jsp:include page="/WEB-INF/views/inc/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 </header>
 	<div class="container margin_use">
 		<div class="row">
@@ -179,7 +179,11 @@
 						</div>
 					<hr>
 						<p class="card-text text-end">총 결제 금액: <span class="font_color">40000</span>만원</p>
-						<a href="#" class="btn btn-dark text-center">결제하기</a>
+						<div class="row">
+							<div class="col d-flex justify-content-center">
+								<a href="#" class="btn btn-dark w-100">결제하기</a>
+							</div>
+						</div>
 					</div>
 				</div>
 				
@@ -189,5 +193,20 @@
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 </footer>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>

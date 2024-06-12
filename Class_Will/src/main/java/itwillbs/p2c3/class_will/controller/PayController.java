@@ -8,14 +8,14 @@ public class PayController {
 	
 	@GetMapping("datePicker")
 	public String dateP() {
-		return "test_01/date_picker";
+		return "payment/date_picker";
 	}
 	@GetMapping("payment")
 	public String payment() {
-		return "test_01/payment";
+		return "payment/payment";
 	}
 	@GetMapping("paymentFinal")
 	public String paymentFinal() {
-		return "test_01/payment_final";
+		return "payment/payment_final";
 	}
 }

@@ -25,6 +25,9 @@
 .classReg-calc-form{
 	background: white;
 }
+.classReg-calc-form > p{
+	color: black;
+}
 
 #item-list {
     display: flex;

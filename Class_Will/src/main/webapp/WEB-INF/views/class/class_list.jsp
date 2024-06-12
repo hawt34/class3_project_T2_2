@@ -40,7 +40,7 @@
 			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0 d-flex">
 				<div class="card shadow-sm border-0 rounded flex-fill">
 					<div class="card-body p-0">
-						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
 						<div class="card-body d-flex flex-column fixed-size">
 							<div class="classCategory">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>

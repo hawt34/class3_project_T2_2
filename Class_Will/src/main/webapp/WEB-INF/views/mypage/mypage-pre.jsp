@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Insert title here</title>
+<title>나의 취향</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -96,7 +96,7 @@ th:nth-child(2), td:nth-child(2) {
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
@@ -109,10 +109,6 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">마이페이지<i class="bi bi-heart"></i> 나의 취향</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
-
-		</ol>
 	</div>
 
 	<div class="container-fluid fruite">
@@ -135,7 +131,7 @@ th:nth-child(2), td:nth-child(2) {
 										<h6 class="card-title">내가 선호하는 지역</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text word-break">블라블라</p>
-											
+											<a href="" class="h6" style="color: black;"><i class="bi bi-gear"></i>수정하기</a>
 										</div>
 									</div>
 								</div>
@@ -144,7 +140,7 @@ th:nth-child(2), td:nth-child(2) {
 										<h6 class="card-title">내가 선호하는 컨텐츠</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">좋아하는 것</p>
-											
+											<a href="" class="h6" style="color: black;"><i class="bi bi-gear"></i>수정하기</a>	
 										</div>
 									</div>
 								</div>

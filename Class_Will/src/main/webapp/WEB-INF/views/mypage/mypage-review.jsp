@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Insert title here</title>
+<title>나의 클래스 후기</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -97,7 +97,7 @@ th:nth-child(2), td:nth-child(2) {
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
@@ -112,10 +112,6 @@ th:nth-child(2), td:nth-child(2) {
 		<h1 class="text-center text-white display-6">
 			마이페이지<i class="bi bi-pencil-square"></i>나의 클래스 후기
 		</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
-
-		</ol>
 	</div>
 
 	<div class="container-fluid fruite">

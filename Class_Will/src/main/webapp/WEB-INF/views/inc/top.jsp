@@ -30,7 +30,7 @@
                     <div class="col-4 d-none d-lg-flex justify-content-end">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">클래스등록</a>
+                                <a class="nav-link" href="creator-main">클래스등록</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
@@ -76,7 +76,7 @@
                             <a class="nav-link" href="#">이벤트</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">클래스등록</a>
+                            <a class="nav-link" href="creator-main">클래스등록</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-search"></i></a>

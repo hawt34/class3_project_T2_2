@@ -20,7 +20,7 @@ public class MemberContller {
 	public String memberLoginPro() {
 		
 		
-		return "";
+		return "redirect:/";
 	}
 	
 	
@@ -37,7 +37,7 @@ public class MemberContller {
 	public String memberJoinPro() {
 		
 		
-		return "";
+		return "member/login_form";
 	}
 	
 	// 비밀번호 재설정

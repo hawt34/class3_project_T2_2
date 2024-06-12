@@ -31,8 +31,8 @@
 
 <style type="text/css">
 	
-	* {
-		background-color: black;
+	body {
+		background: black; 
 	}
 	
 	article {
@@ -79,9 +79,10 @@
 				</div>
 				<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
 				<div>
-					<input type="submit" id="btnSub">
+					<input type="submit" id="btnSub" value="로그인">
 				</div>
 			</form>
+			<p>클래스윌이 처음이신가요? </p><a href="member_join"><b>가입하기</b></a>
 		
 		</div>
 	</article>

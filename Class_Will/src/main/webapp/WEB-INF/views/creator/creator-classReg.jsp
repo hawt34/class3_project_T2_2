@@ -91,14 +91,9 @@
 								<form class="validation-form" novalidate action="admin_movie_reg_pro" name="fr" method="post" onsubmit="return confirm('영화를 등록하시겠습니까?');">
 									<!-- 	셀렉트박스 -->
 									<div class="col-md-12 mb-2" align="center">
-										<div class="col-xl-6">
-											<div class="bg-light rounded py-2 mb-4">
-												<select id="fruits"
-													name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
-													form="fruitform">
-													<option value="oneday">원데이클래스</option>
-													<option value="long-term">장기클래스</option>
-												</select>
+										<div class="col-xl-6 mb-5">
+											<div>
+												<h3>클래스등록</h3>
 											</div>
 											<hr>
 										</div>
@@ -109,51 +104,84 @@
 											<p>작성상태 :</p>
 											<p>&nbsp;작성중</p>
 										</div>
-										<div class="col-md-12 mt-2 mb-3">
-											<label for="class_name">클래스 제목</label> 
-											<input type="text" name="class_name" id="class_name" class="form-control" required />
-											<div class="invalid-feedback">클래스명을 입력해주세요.</div>
-										</div>
-										<div class="mb-3">
-											<label for="movie_status">카테고리 선택</label> 
-											<div id="item-list" class="d-flex">
-										    	<button type="button" class="item" data-value="1">도자기</button>
-							                    <button type="button" class="item" data-value="2">드로잉</button>
-							                    <button type="button" class="item" data-value="3">공예</button>
-							                    <button type="button" class="item" data-value="4">IT</button>
-							                    <button type="button" class="item" data-value="5">체험</button>
-										    </div>
-										     <input type="hidden" id="selected-items" name="selectedItems" value="">
-											<div class="invalid-feedback">카테고리를 선택해주세요.</div>
-										</div>
-										<div class="col-md-12 mb-3">
-											<label for="movie_name">커버이미지</label> 
-											<input type="file" name="movie_name" id="movie_name" class="form-control" required />
-											<div class="invalid-feedback">커버이미지 입력해주세요.</div>
-										</div>
-										<div class="mb-3">
-											<label for="class-content">클래스 소개</label> 
-											<textarea name="editordata" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea>
-											<div class="invalid-feedback">내용을 입력해주세요.</div>
-										</div>
-										<div class="col-md-12 mt-2 mb-3">
-											<label for="postCode">주소</label><br>
-											<div class="d-flex justify-content-between">
-												<div class="col-md-3">
-										    		<input type="text" id="post_code" name="member_post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
-												</div>
-												<div class="col-md-9">
-													<input type="text" id="address1" name="member_address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
-												</div>
+										<div class="classReg-basic-form">
+											<div class="col-md-12 mt-2 my-4">
+												<label for="class_name" class="h6">클래스 제목</label> 
+												<input type="text" name="class_name" id="class_name" class="form-control" required />
+												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
 											</div>
-											<input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+											<div class="col-md-12 my-4">
+												<label for="class_type" class="h6">클래스타입</label> 
+												<select name="class_type" id="class_type" class="form-control" required>
+													<option value="0">미선택</option>
+														<option value="1">원데이클래스</option>
+														<option value="1">장기클래스</option>
+												</select>
+												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+											</div>
+											<div class="col-md-12 my-4">
+												<label for="class_cate" class="h6">카테고리</label> 
+												<select name="class_category" id="class_cate" class="form-control" required>
+													<option value="0">미선택</option>
+														<option value="1">도자기</option>
+														<option value="1">드로잉</option>
+														<option value="1">공예</option>
+														<option value="1">IT</option>
+														<option value="1">체험</option>
+												</select>
+												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+											</div>
+											
+											<div class="my-4">
+												<label for="class-hashtag" class="h6">해쉬태그 선택</label> 
+												<div id="item-list" class="d-flex">
+											    	<button type="button" class="item" data-value="1">#혼자가능</button>
+								                    <button type="button" class="item" data-value="2">#드로잉</button>
+								                    <button type="button" class="item" data-value="3">#나도css고수</button>
+								                    <button type="button" class="item" data-value="4">#드린이</button>
+								                    <button type="button" class="item" data-value="5">#I성향추천</button>
+											    </div>
+											     <input type="hidden" id="selected-items" name="selectedItems" value="">
+												<div class="invalid-feedback">카테고리를 선택해주세요.</div>
+											</div>
+											<div class="col-md-12 my-4">
+												<label for="creator-cover-image" class="h6">커버이미지</label> 
+												<input type="file" name="creator-cover-image" id="creator-cover-image" class="form-control" required />
+												<div class="invalid-feedback">커버이미지 입력해주세요.</div>
+											</div>
+											<div class="col-md-12 my-4">
+												<label for="creator-main-image" class="h6">본문이미지</label> 
+												<input type="file" name="creator-main-image" id="creator-main-image" class="form-control" required />
+												<div class="invalid-feedback">본문이미지를 입력해주세요.</div>
+											</div>
+											<div class="my-4">
+												<label for="class-content" class="h6">클래스 소개</label> 
+												<textarea name="editordata" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea>
+												<div class="invalid-feedback">내용을 입력해주세요.</div>
+											</div>
+											<div class="col-md-12 my-4">
+												<label for="postCode" class="h6">주소</label><br>
+												<div class="d-flex justify-content-between">
+													<div class="col-md-3">
+											    		<input type="text" id="post_code" name="member_post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
+													</div>
+													<div class="col-md-9">
+														<input type="text" id="address1" name="member_address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
+													</div>
+												</div>
+												<input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+											</div>
+											<div class="col-md-12 my-4">
+												<label for="class_name" class="h6">회당 클래스가격(원)</label> 
+												<input type="text" name="class_name" id="class_name" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
+												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
+											</div>
+											<div class="col-md-6 my-4">
+												<label for="class-participate" class="h6">참여가능 인원</label> 
+												<input type="number" name="class-participate" id="class-participate" class="form-control my-1" min="1" required />
+												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
+											</div>
 										</div>
-										<div class="col-md-12 mt-2 mb-3">
-											<label for="class_name">클래스 가격(원)</label> 
-											<input type="text" name="class_name" id="class_name" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
-											<div class="invalid-feedback">클래스명을 입력해주세요.</div>
-										</div>
-										
 									</div>
 									
 									<div class="classReg-calc my-3">
@@ -164,14 +192,32 @@
 										<div class="classReg-calc-form">
 											<p class="h6">1차시</p>
 											<div class="col-md-12 my-2">
-												<label for="class_calc_name">커리큘럼명</label> 
+												<label for="class_calc_name" class="h6">커리큘럼명</label> 
 												<input type="text" name="class_name" id="class_calc_name" class="form-control" required />
 												<div class="invalid-feedback">커리큘럼명을 입력해주세요.</div>
 											</div>
 											<div class="col-md-12 my-2">
-												<label for="class_calc_content">커리큘럼 내용</label> 
+												<label for="class_calc_content" class="h6">커리큘럼 내용</label> 
 												<input type="text" name="class_calc_content" class="class_calc_content" class="form-control" required />
 <!-- 												<textarea name="editordata" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea> -->
+												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="classReg-creator-info my-3">
+										<div class="d-flex justify-content-between">
+											<div class="h4">크리에이터 정보</div>
+										</div>
+										<div class="classReg-calc-form">
+											<div class="col-md-12 my-2">
+												<p class="h6">크리에이터 닉네임</p>
+												<input type="text" name="class_name" id="class_calc_name" class="form-control" required />
+												<div class="invalid-feedback">닉네임을 입력해주세요.</div>
+											</div>
+											<div class="col-md-12 my-2">
+												<label for="class_calc_content" class="h6">크리에이터 소개</label> 
+												<input type="text" name="class_calc_content" class="class_calc_content" class="form-control" required />
 												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
 											</div>
 										</div>
@@ -254,6 +300,20 @@
 		    }
 		    
 		});
+		// 참여인원 처리
+		 $(document).ready(function() {
+            $('#class-participate').on('input', function() {
+                if ($(this).val() <= 0) {
+                    $(this).val(''); // 값이 0 이하일 경우 비움
+                }
+            });
+
+            $('#class-participate').on('keypress', function(e) {
+                if (e.key === '-' || (e.key === '0' && $(this).val() === '')) {
+                    e.preventDefault(); // '-'나 맨 처음에 '0' 입력을 막음
+                }
+            });
+        });
 		
 		// 썸머노트 설정
 		$('#summernote').summernote({

@@ -8,45 +8,45 @@
 				<ul class="list-unstyled fruite-categorie">
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="myPage" class="h5 mb-3"><i class="fas fa-user fa-1x"></i>mypage</a>
+							<a href="my-page" class="h5 mb-3"> mypage</a>
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="myPre" class="h5"><i class="bi bi-heart"></i>나의 취향</a> <span>(5)</span>
+							<a href="my-pre" class="h5"><i class="bi bi-heart"></i>&nbsp; 나의 취향</a> 
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="myWish" class="h5"><i class="bi bi-emoji-heart-eyes"></i>관심 클래스</a> <span>(5)</span>
+							<a href="my-wish" class="h5"><i class="bi bi-emoji-heart-eyes"></i>&nbsp; 관심 클래스</a> 
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="" class="h5"><i class="bi bi-wallet"></i>윌페이</a> <span>(2)</span>
+							<a href="my-credit" class="h5"><i class="bi bi-wallet"></i>&nbsp; 윌페이</a> 
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="myClass" class="h5"><i class="bi bi-cart-check"></i>내가
-								신청한 클래스</a> <span>(8)</span>
+							<a href="my-class" class="h5"><i class="bi bi-cart-check"></i>&nbsp; 내가
+								신청한 클래스</a> 
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="myReview" class="h5"><i class="bi bi-pencil-square"></i>나의
-								클래스 후기</a> <span>(8)</span>
+							<a href="my-review" class="h5"><i class="bi bi-pencil-square"></i>&nbsp; 나의
+								클래스 후기</a> 
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="" class="h5"><i class="bi bi-gear"></i>회원정보변경</a> <span>(8)</span>
+							<a href="" class="h5"><i class="bi bi-gear"></i>&nbsp; 회원정보변경</a> 
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="" class="h5"><i class="bi bi-person-x-fill"></i>회원탈퇴</a>
-							<span>(8)</span>
+							<a href="" class="h5"><i class="bi bi-person-x-fill"></i>&nbsp; 회원탈퇴</a>
+						
 						</div>
 					</li>
 				</ul>

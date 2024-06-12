@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>클래스윌 로그인</title>
+<title>클래스윌 회원가입</title>
 </head>
 <body>
 

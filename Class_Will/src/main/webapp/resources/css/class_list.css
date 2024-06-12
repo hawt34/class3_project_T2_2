@@ -6,9 +6,9 @@
 	margin: auto;
 }
 
-.card-body {
-	height : 200px;	
-}
+/* .card-body { */
+/* 	height : 200px;	 */
+/* } */
 
 .card-body h5{
 	color : black;
@@ -91,6 +91,6 @@
 }
 
 .classPic {
-	height: 300px; /* 원하는 높이 설정 */
-	object-fit: cover; /* 이미지가 잘릴 경우, 비율을 유지하고 가운데 정렬 */
+	height: 300px; 
+	object-fit: cover;
 }

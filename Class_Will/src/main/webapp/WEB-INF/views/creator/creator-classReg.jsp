@@ -157,17 +157,21 @@
 									</div>
 									
 									<div class="classReg-calc my-3">
-										<div class="h4">클래스 커리큘럼</div>
+										<div class="d-flex justify-content-between">
+											<div class="h4">클래스 커리큘럼</div>
+											<div class="h6">+ 추가하기</div>
+										</div>
 										<div class="classReg-calc-form">
 											<p class="h6">1차시</p>
 											<div class="col-md-12 my-2">
-												<label for="class_name">커리큘럼명</label> 
-												<input type="text" name="class_name" id="class_name" class="form-control" required />
+												<label for="class_calc_name">커리큘럼명</label> 
+												<input type="text" name="class_name" id="class_calc_name" class="form-control" required />
 												<div class="invalid-feedback">커리큘럼명을 입력해주세요.</div>
 											</div>
 											<div class="col-md-12 my-2">
-												<label for="class_name">커리큘럼 내용</label> 
-												<input type="text" name="class_name" id="class_name" class="form-control" required />
+												<label for="class_calc_content">커리큘럼 내용</label> 
+												<input type="text" name="class_calc_content" class="class_calc_content" class="form-control" required />
+<!-- 												<textarea name="editordata" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea> -->
 												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
 											</div>
 										</div>
@@ -256,7 +260,7 @@
 			  height: 300,                 // 에디터 높이
 			  minHeight: null,             // 최소 높이
 			  maxHeight: null,             // 최대 높이
-			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
 			  lang: "ko-KR",					// 한글 설정
 			  placeholder: '최대3000자까지 쓸 수 있습니다'	,//placeholder 설정
 			  toolbar: [
@@ -267,6 +271,24 @@
 					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
 					    ['para', ['ul', 'ol', 'paragraph']],
 					    ['height', ['height']]
+					  ],
+					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+		          
+		});
+		$('.class_calc_content').summernote({
+			  height: 100,                 // 에디터 높이
+			  minHeight: null,             // 최소 높이
+			  maxHeight: null,             // 최대 높이
+			  focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
+			  lang: "ko-KR",					// 한글 설정
+			  placeholder: '최대500자까지 쓸 수 있습니다'	,//placeholder 설정
+			  toolbar: [
+					    // [groupName, [list of button]]
+					    ['fontname', ['fontname']],
+					    ['fontsize', ['fontsize']],
+					    ['style', ['bold', 'italic', 'underline', 'clear']],
+					    ['para', ['ul', 'ol']],
 					  ],
 					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']

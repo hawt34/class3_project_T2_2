@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CreatorController {
 
+	// creator-main으로
+	@GetMapping("creator-main")
+	public String createrMain() {
+		return "creator/creator-main";
+	}
+	
 	// creater-class로
 	@GetMapping("creator-class")
 	public String createrClass() {

@@ -30,7 +30,6 @@ table {
 	font-size: 15px;
 	border-radius: 10px;
 	text-align:center;
-	
 }
 
 /* 테이블 행 */
@@ -63,7 +62,6 @@ tbody tr:hover {
 
 /* 테이블 비율 */
 th:nth-child(1), td:nth-child(1) {
-	width: 520px;
 }
 th:nth-child(2), td:nth-child(2) {
 	width: 80px;

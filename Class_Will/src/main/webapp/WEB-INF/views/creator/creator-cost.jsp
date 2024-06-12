@@ -90,9 +90,8 @@
 								<div class="card col-md-8 mt-2 mb-5">
 								  <div class="card-body">
 								    <p class="card-title h6" align="left">총수익</p>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text word-break h4">금액: 42000000 원</p> 
-									    <a href="#" class="btn btn-primary">상세보기</a>
+								    <div class="d-flex justify-content-center card-content">
+									    <p class="card-text word-break h4 mb-3">금액: 42000000 원</p> 
 								    </div>
 									<p class="card-text word-break " align="left">정산기간 : 0월 한달간</p> 
 								  </div>

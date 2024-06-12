@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- 본문 시작 -->
 <!-- Navbar start -->
-<div class="container-fluid">
+<div class="container-fluid fixed-top">
     <div class="container px-0 top-cate">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -33,7 +33,7 @@
                                 <a class="nav-link" href="#">클래스등록</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>

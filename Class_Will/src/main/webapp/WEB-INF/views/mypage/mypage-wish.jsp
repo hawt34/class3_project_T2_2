@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Insert title here</title>
+<title>나의 관심클래스</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -97,7 +97,7 @@ th:nth-child(2), td:nth-child(2) {
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
@@ -110,31 +110,24 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">
-			마이페이지<i class="bi bi-emoji-heart-eyes"></i>위시리스트
+			마이페이지<i class="bi bi-emoji-heart-eyes"></i>관심클래스
 		</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
-
-		</ol>
 	</div>
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">MY PAGE</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
 						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5"> *** 님을 이 클래스를 좋아해요</div>
+							<div class="col-md-12 text-center h2 mb-5"> *** 님은 이런 클래스를 관심있게 보고 있어요</div>
 
-							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
 
 								<div class="container">
-									<h2>Hover Rows</h2>
+									<h2>관심 클래스</h2>
 									<p>The .table-hover class enables a hover state (grey
 										background on mouse over) on table rows:</p>
 									<table class="table table-hover">

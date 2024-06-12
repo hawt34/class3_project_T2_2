@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="utf-8">
-        <title>CLASS-WILL Main</title>
+        <title>클래스윌</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -864,7 +864,7 @@
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
         <!-- chatbot -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot.png" width="150px" alt="chatbot" ></a>   
+        <a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-5.png" width="80px" alt="chatbot" ></a>   
 
         
     <!-- JavaScript Libraries -->

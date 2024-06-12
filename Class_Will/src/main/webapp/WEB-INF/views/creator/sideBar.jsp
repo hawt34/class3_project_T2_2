@@ -3,6 +3,7 @@
 						<div class="col-lg-3">
 							<div class="row g-4">
 								<div class="col-lg-12">
+									<hr>
 									<div class="mb-3">
 										<h3>Categories</h3>
 										<ul class="list-unstyled fruite-categorie">
@@ -37,6 +38,7 @@
 											</li>
 										</ul>
 									</div>
+									<hr>
 								</div>
 							</div>
 								<!-- 이미지 베너 -->

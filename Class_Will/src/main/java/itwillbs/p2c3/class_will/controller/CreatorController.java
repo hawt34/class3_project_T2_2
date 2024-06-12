@@ -11,6 +11,11 @@ public class CreatorController {
 	public String createrClass() {
 		return "creator/creator-class";
 	}
+	// creater-class 등록페이지로
+	@GetMapping("creator-classReg")
+	public String createrClassReg() {
+		return "creator/creator-classReg";
+	}
 	// creater-review로
 	@GetMapping("creator-review")
 	public String createrReview() {

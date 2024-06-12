@@ -78,7 +78,8 @@
 						<div class="col-lg-9 creator-body">
 						<!-- 등록버튼 -->
 							<div class="mb-3 col-md-12" align="right">
-								<button class="category-btn classReg" value="respond">클래스등록</button>
+								<button class="category-btn classReg" value="respond" onclick="location.href='creator-classReg'">클래스등록</button>
+								<button class="category-btn classReg" value="respond" onclick="location.href='creator-classPlan'">클래스일정</button>
 							</div>
 							<!-- 	셀렉트박스 -->
 							<div class="col-md-12 searchBox" align="center">

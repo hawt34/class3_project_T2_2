@@ -33,9 +33,16 @@
 
 
 </style>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+        <!-- chatbot -->
+        <a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-2.png" width="150px" alt="chatbot" ></a>   
+        
+        
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5" style="background-color: #333;">
-            <div class="container py-5" style="border-top: 1px solid white ;">
+            <div class="container py-5" style="border-top: 1px solid white;">
                 <div class="container text-center">
 					<div class="row">
 						<div class="col-4 col-sm-9">
@@ -149,3 +156,10 @@
             </div>
         </div>
         <!-- Footer End -->
+    <script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>

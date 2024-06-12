@@ -861,10 +861,10 @@
         	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"/>
 		</footer>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
-        <!-- chatbot -->
-        <a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-5.png" width="80px" alt="chatbot" ></a>   
+<!--         Back to Top -->
+<!--         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>    -->
+<!--         chatbot -->
+<%--         <a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-5.png" width="80px" alt="chatbot" ></a>    --%>
 
         
     <!-- JavaScript Libraries -->

@@ -6,9 +6,9 @@
 	margin: auto;
 }
 
-/* .card-body { */
-/* 	height : 200px;	 */
-/* } */
+.card-body {
+	height : 525px;	
+}
 
 .card-body h5{
 	color : black;
@@ -29,9 +29,9 @@
 	margin-top: auto;
 }
 
-.classPrice {
-	text-align : right;
-}
+/* .classInfo { */
+/* 	text-align : right; */
+/* } */
 
 .createrName {
 	display: flex;
@@ -50,6 +50,7 @@
 
 .className {
 	margin-top: 10px; /* 상단 여백 조정 */
+	flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
 }
 
 .custom {
@@ -93,4 +94,19 @@
 .classPic {
 	height: 300px; 
 	object-fit: cover;
+}
+
+/* .classInfo { */
+/* 	margin_bottom : 10px; */
+/* } */
+.add {
+	text-align : left;
+}
+
+.price{
+	text-align : right;
+}
+
+.classInfo {
+	margin-top: auto; /* 위의 모든 요소 다음에 배치되도록 설정 */
 }

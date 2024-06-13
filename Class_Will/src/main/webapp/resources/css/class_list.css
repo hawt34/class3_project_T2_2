@@ -6,21 +6,68 @@
 	margin: auto;
 }
 
+.classInfo {
+	margin-bottom : 0px; /* 위의 모든 요소 다음에 배치되도록 설정 */
+}
+
 .card-body {
-	height : 450px;	
+	height : 410px;	
 }
 
 .card-bodys {
 	padding : 15px;
-	
 }
-.card-body h5 {
+
+.card-body h6 {
 	color : black;
+	font-weight: bold;
 }
 
 .card-body p{
 	color : black;
 }
+
+.classPic {
+	height: 225px; 
+	object-fit: cover;
+}
+
+.className {
+	margin-top: 2px; /* 상단 여백 조정 */
+	flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
+	height: 60px;
+/* 	white-space: nowrap;       텍스트가 한 줄로 표시되도록 합니다 */
+	overflow: hidden;          /* 넘치는 텍스트를 숨깁니다 */
+	text-overflow: ellipsis;   /* 넘치는 텍스트를 '...'으로 표시합니다 */
+	
+}
+
+.createrName {
+	display: flex;
+	align-items: center;
+}
+
+.createrName img {
+	width: 30px;
+	height: 30px;
+}
+
+.createrName p {
+	margin-left: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
+	margin-bottom: 0; /* 기본 하단 여백 제거 */
+	font-size : 0.9em;
+}
+
+.classCategory {
+	padding-bottom : 5px;
+}
+
+.category {
+	font-size : 0.8em !important;
+}
+/* .classCard { */
+/* 	padding : 30px; */
+/* } */
 
 /* .fixed-size { */
 /* 	height: 250px; 원하는 높이로 설정 */
@@ -36,33 +83,6 @@
 /* .classInfo { */
 /* 	text-align : right; */
 /* } */
-
-.createrName {
-	display: flex;
-	align-items: center;
-}
-
-.createrName img {
-	width: 30px;
-	height: 30px;
-}
-
-.createrName p {
-	margin-left: 10px; /* 이미지와 텍스트 사이의 간격 조정 */
-	margin-bottom: 0; /* 기본 하단 여백 제거 */
-}
-
-.className {
-	margin-top: 10px; /* 상단 여백 조정 */
-	flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
-	height: 65px;
-/* 	white-space: nowrap;       텍스트가 한 줄로 표시되도록 합니다 */
-	overflow: hidden;          /* 넘치는 텍스트를 숨깁니다 */
-	text-overflow: ellipsis;   /* 넘치는 텍스트를 '...'으로 표시합니다 */
-	
-}
-
-
 
 .custom {
 	/* 원하는 스타일을 여기에 추가하세요 */
@@ -94,18 +114,6 @@
 	cursor: not-allowed; /* 커서 스타일 변경 */
 }
 
-.classCategory {
-	padding-bottom : 5px;
-}
-
-.category {
-	font-size : 0.8em !important;
-}
-
-.classPic {
-	height: 250px; 
-	object-fit: cover;
-}
 
 /* .classInfo { */
 /* 	margin_bottom : 10px; */
@@ -118,6 +126,30 @@
 	text-align : right;
 }
 
-.classInfo {
-	margin-bottom : 0px; /* 위의 모든 요소 다음에 배치되도록 설정 */
+.box1 {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+/*     justify-content: center; 가로 중앙 정렬, 필요에 따라 사용 */
+    height: 60px; /* box1의 높이를 100%로 설정 */
+}
+
+.selectBox {
+/*     margin: 0; 마진 제거 */
+    height: auto; /* 높이 자동 조절 */
+    margin-left : 90px;
+    opacity : 0.9;
+}
+
+.classCount{
+	color : white;
+/* 	margin-left : 60px; */
+	margin : 20px;
+    height: auto; /* 높이 자동 조절 */
+}
+
+.classCount p{
+	color : white;
+	margin-left : 40px;
+	font-size : 1.1em;
+	font-weight: bold;
 }

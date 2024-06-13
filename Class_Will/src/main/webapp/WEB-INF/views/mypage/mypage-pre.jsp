@@ -36,7 +36,7 @@
 	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css"
+<link href="${pageContext.request.contextPath}/resources/css/myPage.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
@@ -120,11 +120,11 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5"> *** 님은 ??을 선호해요</div>
+							
 
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-
+								<div class="col-md-12 text-center h2 mb-5"> *** 님은 ??을 선호해요</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
 										<h6 class="card-title">내가 선호하는 지역</h6>

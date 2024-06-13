@@ -36,7 +36,7 @@
 	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css"
+<link href="${pageContext.request.contextPath}/resources/css/myPage.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
@@ -110,7 +110,7 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">
-			마이페이지<i class="bi bi-wallet"></i>윌 페이
+			마이페이지<i class="bi bi-wallet"></i>윌페이
 		</h1>
 		
 	</div>
@@ -124,14 +124,13 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5">열심히 성장 중인 *** 님</div>
-
+						
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-
+								<div class="col-md-12 text-center h2 mb-5">윌페이 사용 내역</div>	
 								<div class="container">
-									<h2>신청한 클래스</h2>
-									<p>클래스 정보</p>
+									<h2>윌페이</h2>
+									<p>사용 내역</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>

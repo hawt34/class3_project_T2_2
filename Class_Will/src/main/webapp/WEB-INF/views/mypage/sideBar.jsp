@@ -7,6 +7,9 @@
 			
 				<ul class="list-unstyled fruite-categorie">
 					<li>
+					<img src="${pageContext.request.contextPath}/resources/img/joon.jpg" style="width : 150px; height : 150px">
+					</li>
+					<li>
 						<div class="d-flex justify-content-between fruite-name">
 							<a href="my-page" class="h5 mb-3"> mypage</a>
 						</div>

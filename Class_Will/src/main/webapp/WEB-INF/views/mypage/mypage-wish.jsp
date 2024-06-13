@@ -36,7 +36,7 @@
 	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css"
+<link href="${pageContext.request.contextPath}/resources/css/myPage.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
@@ -122,10 +122,10 @@ th:nth-child(2), td:nth-child(2) {
 						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<div class="col-md-12 text-center h2 mb-5"> *** 님은 이런 클래스를 관심있게 보고 있어요</div>
+							
 
 							<div class="creator-event mt-5">
-
+								<div class="col-md-12 text-center h2 mb-5"> *** 님은 이런 클래스를 관심있게 보고 있어요</div>
 								<div class="container">
 									<h2>관심 클래스</h2>
 									<p>The .table-hover class enables a hover state (grey

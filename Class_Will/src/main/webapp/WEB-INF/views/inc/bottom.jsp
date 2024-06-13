@@ -52,11 +52,11 @@
 								</div>
 								<div class="col-8 col-mb-6">
 									<ul class="bottom-ul">
-										<li class="bottom-menu"><a href="notice">공지사항</a></li>
-										<li class="bottom-menu"><a href="FAQ">FAQ</a></li>
-										<li class="bottom-menu"><a href="use_info">이용약관</a></li>
-										<li class="bottom-menu"><a href="privacy_info">개인정보처리방침</a></li>
-										<li class="bottom-menu"><a href="refund_info">환불규정</a></li>
+										<li class="bottom-menu"><a href="">공지사항</a></li>
+										<li class="bottom-menu"><a href="">FAQ</a></li>
+										<li class="bottom-menu"><a href="use-info">이용약관</a></li>
+										<li class="bottom-menu"><a href="privacy-info">개인정보처리방침</a></li>
+										<li class="bottom-menu"><a href="refund-info">환불규정</a></li>
 									</ul>
 								</div>
 							</div>

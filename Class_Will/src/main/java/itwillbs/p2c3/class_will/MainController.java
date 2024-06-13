@@ -34,40 +34,5 @@ public class MainController {
 	
 	
 	
-	
-	
-	// use_info로
-	@GetMapping("use_info")
-	public String useInfo() {
-		return "notice/use_info";
-	}
-	
-	// notice로
-	@GetMapping("notice")
-	public String notice() {
-		return "notice/notice";
-	}
-	
-	// use_info로
-	@GetMapping("FAQ")
-	public String FAQ() {
-		return "notice/FAQ";
-	}
-	
-	// privacy_info로
-	@GetMapping("privacy_info")
-	public String privacyInfo() {
-		return "notice/privacy_info";
-	}
-	
-	// refund_info로
-	@GetMapping("refund_info")
-	public String refundInfo() {
-		return "notice/refund_info";
-	}
-	
-	
-	
-	
 
 }

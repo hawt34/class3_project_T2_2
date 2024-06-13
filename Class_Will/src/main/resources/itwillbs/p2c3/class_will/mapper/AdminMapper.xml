@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="itwillbs.p2c3.class_will.mapper.AdminMapper">
+	<select id="selectMemberList" resultType="map">
+		SELECT *
+		FROM MEMBER
+		WHERE member_type = #{type}
+	</select>
+	
+	<select id="selectMemberInfo" resultType="map">
+		SELECT *
+		FROM MEMBER
+		WHERE member_code = #{member_code}
+	</select>
+	
+	<select id="selectColumnNames" resultType="String">
+		SELECT COLUMN_NAME 
+		FROM INFORMATION_SCHEMA.COLUMNS 
+		WHERE TABLE_NAME = #{tableName}
+	</select>
+	
+	<select id="selectTable" resultType="map">
+		SELECT * 
+		FROM ${tableName}
+	</select>
+	
+	
+</mapper>

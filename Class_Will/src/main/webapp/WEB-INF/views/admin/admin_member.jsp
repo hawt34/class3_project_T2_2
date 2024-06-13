@@ -251,15 +251,15 @@
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">회원관리 리스트</h1>
                             <div class="btn-group">
-                            <button id="btn-download" class="btn btn-success btn-sm">엑셀 다운로드</button>
+                            <button id="btn-download" class="btn btn-success btn-sm" onclick="downloadExcel('MEMBER', '전체 회원 리스트', false)">엑셀 다운로드</button>
                             <button id="btn-upload" class="btn btn-primary btn-sm">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
 					<div>
-					    <button class="category-btn" data-category="member">회원</button>
-					    <button class="category-btn" data-category="teacher">강사</button>
+					    <button class="category-btn" data-category="member" onclick="location.href='admin-member?type=member'">회원</button>
+					    <button class="category-btn" data-category="teacher"onclick="location.href='admin-member?type=teacher'">강사</button>
 					</div>
                     <!-- Content Row -->
                     <div class="row">
@@ -297,43 +297,34 @@
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
     <script>
+    
+    function downloadExcel(tableName, title, currentPageOnly) {
+        const url = "downloadExcel?tableName=" + tableName + "&title=" + title + "&currentPageOnly=" + currentPageOnly;
+        window.location.href = url;
+    }
+    
+    
         document.addEventListener('DOMContentLoaded', function () {
-            const data = [
-                {
-                    id: 'ABC112',
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    registrationDate: '2023-01-01',
-                    status: 'Active'
-                },
-                {
-                    id: 'BBC33423',
-                    name: 'Jane Doe',
-                    email: 'jane.doe@example.com',
-                    registrationDate: '2023-02-01',
-                    status: 'Inactive'
-                }
-                // 더 많은 회원 데이터 추가 가능
-            ];
-            
-            // 페이징을 위한 Pagination 인스턴스 생성
+            // JSP에서 모델 속성으로 전달된 JSON 데이터를 가져옵니다.
+            const data = ${jo_list};
+
             const pagination = new tui.Pagination(document.getElementById('pagination'), {
                 totalItems: data.length,
-                itemsPerPage: 10, // 페이지당 항목 수
-                visiblePages: 5, // 보이는 페이지 수
+                itemsPerPage: 10,
+                visiblePages: 5,
                 centerAlign: true
             });
 
-            // 상세보기 버튼
             class ButtonRenderer {
                 constructor(props) {
                     const el = document.createElement('button');
                     el.className = 'btn btn-primary btn-sm';
                     el.innerText = '상세보기';
                     el.addEventListener('click', () => {
-                        window.open("MemberDetail","회원 상세보기", "height='600px', width='800px'");
-                        // 여기에 상세보기 페이지로 이동하는 로직을 추가할 수 있습니다.
-                        // 예를 들어, location.href = `/member/details/${props.value}`;
+                        const rowKey = props.grid.getIndexOfRow(props.rowKey);
+                        const rowData = props.grid.getRow(rowKey);
+                        const memberCode = rowData.member_code;
+                        window.open("admin-member-detail?member_code=" + memberCode, "회원 상세보기", "height=600px, width=800px");
                     });
                     this.el = el;
                 }
@@ -351,11 +342,11 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                    { header: '아이디', name: 'id' , editor: 'text'},
-                    { header: '이름', name: 'name' , editor: 'text'},
-                    { header: '이메일', name: 'email' , editor: 'text'},
-                    { header: '가입일', name: 'registrationDate' , editor: 'text'},
-                    { header: '회원상태', name: 'status' , editor: 'text'},
+                    { header: '이메일(아이디)', name: 'member_email', editor: 'text' },
+                    { header: '이름', name: 'member_name', editor: 'text' },
+                    { header: '닉네임', name: 'member_nickname', editor: 'text' },
+                    { header: '가입일', name: 'member_reg_date', editor: 'text' },
+                    { header: '회원상태', name: 'member_status', editor: 'text' },
                     {
                         header: 'Action',
                         name: 'action',
@@ -366,13 +357,12 @@
                 ],
                 rowHeaders: ['rowNum'],
                 pageOptions: {
-                    useClient: true, // 클라이언트 사이드 페이징 사용
-                    perPage: 10 // 페이지당 항목 수
+                    useClient: true,
+                    perPage: 10
                 },
                 bodyHeight: 400
             });
-            
-            // 페이지 변경 이벤트
+
             pagination.on('beforeMove', function (event) {
                 const currentPage = event.page;
                 const startRow = (currentPage - 1) * 10;
@@ -380,11 +370,9 @@
 
                 grid.resetData(data.slice(startRow, endRow));
             });
-            
-            // 초기 데이터 설정
+
             grid.resetData(data.slice(0, 10));
         });
     </script>
-	
 </body>
 </html>

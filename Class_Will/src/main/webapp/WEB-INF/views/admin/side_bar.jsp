@@ -13,9 +13,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath }/Admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath }/admin">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <img src="${pageContext.request.contextPath}/resources/img/클래스로고2.png" width="80px">
+                    <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="80px">
                 </div>
                 <div class="sidebar-brand-text mx-3">Class Will</div>
             </a>
@@ -25,7 +25,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath }/Admin">
+                <a class="nav-link" href="${pageContext.request.contextPath }/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>대쉬보드</span></a>
             </li>
@@ -48,8 +48,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리 :</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Member">회원 리스트</a>
-                        <a class="collapse-item" href="cards.html">강사 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin-member?type=member">회원 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-member?type=teacher">강사 리스트</a>
                     </div>
                 </div>
             </li>
@@ -65,10 +65,10 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">클래스 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Class">리스트</a>
-                        <a class="collapse-item" href="utilities-border.html">머시기</a>
-                        <a class="collapse-item" href="utilities-animation.html">저시기</a>
-                        <a class="collapse-item" href="utilities-other.html">쳌</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">머시기</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">저시기</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">쳌</a>
                     </div>
                 </div>
             </li>
@@ -84,10 +84,10 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">카테고리 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Category">리스트</a>
-                        <a class="collapse-item" href="utilities-border.html">머시기</a>
-                        <a class="collapse-item" href="utilities-animation.html">저시기</a>
-                        <a class="collapse-item" href="utilities-other.html">쳌</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">머시기</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">저시기</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">쳌</a>
                     </div>
                 </div>
             </li>
@@ -103,11 +103,11 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">고객센터 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Csc">전체 리스트</a>
-                        <a class="collapse-item" href="utilities-animation.html">공지사항 리스트</a>
-                        <a class="collapse-item" href="utilities-other.html">FAQ 리스트</a>
-                        <a class="collapse-item" href="utilities-other.html">1:1문의 리스트</a>
-                        <a class="collapse-item" href="utilities-other.html">이벤트 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">전체 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">공지사항 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">FAQ 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">1:1문의 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">이벤트 리스트</a>
                     </div>
                 </div>
             </li>

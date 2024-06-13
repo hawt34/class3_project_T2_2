@@ -94,43 +94,43 @@ body {
 				<hr>
 					<div class="row mb-3">
 						<div class="col-md-6">
-							<div class="subject">아이디</div>
-							<input type="text" id="pay_num" class="form-control" value="wnsgur3435" readonly />
+							<div class="subject">회원 코드</div>
+							<input type="text" id="pay_num" class="form-control" value="${member.member_code }" readonly />
 						</div>
 						<div class="col-md-6">
-							<div class="subject">이름</div>
-							<input type="text" id="res_code" class="form-control" value="전준혁" readonly />
+							<div class="subject">이메일</div>
+							<input type="text" id="res_code" class="form-control" value="${member.member_email }" readonly />
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-md-6">
-							<div class="subject">이메일</div>
-							<input type="text" id="member_id" class="form-control" value="wnsgur3435@naver.com" readonly />
+							<div class="subject">이름</div>
+							<input type="text" id="member_id" class="form-control" value="${member.member_name }" readonly />
 						</div>
 						<div class="col-md-6">
 							<div class="subject">닉네임</div>
-							<input type="text" id="movie_name" class="form-control" value="${reserveDetail.movie_name}" readonly />
+							<input type="text" id="movie_name" class="form-control" value="${member.member_nickname}" readonly />
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-md-6">
-							<div class="subject">전화번호</div>
-							<input type="text" id="theaterInfo" class="form-control" value="01099629976" readonly />
+							<div class="subject">가입일</div>
+							<input type="text" id="theaterInfo" class="form-control" value="${member.member_reg_date}" readonly />
 						</div>
 						<div class="col-md-6">
 							<div class="subject">회원 상태</div>
-							<input type="text" id="booth_num" class="form-control" value="활동중" readonly />
+							<input type="text" id="booth_num" class="form-control" value="${member.member_status}" readonly />
 						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-md-6">
-							<div class="subject">주소</div>
-							<input type="text" id="res_seat" class="form-control" value="부산광역시/금정구금사동/23123" readonly />
+							<div class="subject">회원 타입</div>
+							<input type="text" id="res_seat" class="form-control" value="${member.member_type}" readonly />
 						</div>
-						<div class="col-md-6">
-							<div class="subject">관심카테고리</div>
-							<input type="date" id="movie_date" class="form-control" value="목공예/하모예" readonly />
-						</div>
+<!-- 						<div class="col-md-6"> -->
+<!-- 							<div class="subject">관심카테고리</div> -->
+<!-- 							<input type="date" id="movie_date" class="form-control" value="목공예/하모예" readonly /> -->
+<!-- 						</div> -->
 					</div>
 <!-- 					<div class="row mb-3"> -->
 <!-- 						<div class="col-md-6"> -->

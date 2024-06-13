@@ -4,14 +4,14 @@
 	<div class="row g-4">
 		<div class="col-lg-12">
 			<div class="mb-3">
-			
+				<div>
+					<img src="${pageContext.request.contextPath}/resources/img/joon.jpg" style="width : 150px; height : 150px">
+				</div>
+					
 				<ul class="list-unstyled fruite-categorie">
 					<li>
-					<img src="${pageContext.request.contextPath}/resources/img/joon.jpg" style="width : 150px; height : 150px">
-					</li>
-					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="my-page" class="h5 mb-3"> mypage</a>
+							<a href="my-page" class="h5"><i class="fas fa-user fa-1x"></i>&nbsp; mypage</a>
 						</div>
 					</li>
 					<li>

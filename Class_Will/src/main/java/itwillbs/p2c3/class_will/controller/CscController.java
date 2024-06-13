@@ -31,4 +31,24 @@ public class CscController {
 	}
 	
 	
+	@GetMapping("use-info")
+	public String useInfo() {
+		
+		return "csc/csc_privacy_info";
+	}
+	
+	@GetMapping("privacy-info")
+	public String privacyInfo() {
+		
+		return "csc/csc_refund_info";
+	}
+	
+	@GetMapping("refund-info")
+	public String refundInfo() {
+		
+		return "csc/csc_use_info";
+	}
+	
+	
+	
 }

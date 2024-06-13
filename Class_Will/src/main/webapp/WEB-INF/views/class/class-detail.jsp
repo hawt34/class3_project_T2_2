@@ -29,12 +29,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<!-- 헤더 -->
-<div >
-<!-- <header> -->
-<%--     <jsp:include page="../inc/header.jsp" /> --%>
-<!-- </header> -->
-</div>
+<header>
+    <jsp:include page="../inc/top.jsp" />
+</header>
 <div class="container-xl container">
     <div class="row col-md-12">
 		<!-- 캐러셀 시작 -->

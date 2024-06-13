@@ -17,14 +17,38 @@
 	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
 }
 
-.classReg-basic, .classReg-calc, .classReg-calc-form{
+.classReg-basic, .classReg-calc, .classReg-calc-form, .classReg-creator-info, .classReg-basic-form{
 	padding: 20px;
-	border: 1px solid white;
 	border-radius: 10px;
 }
-.classReg-calc-form{
+.classReg-basic{
 	background: white;
 }
+.classReg-basic-form{
+	border: 1px solid lightgray;
+}
+.classReg-calc{
+	background: white;	
+}
+.h4, .h6{
+	color: black;
+}
+label{
+	color: black;	
+/* 	margin-top: 5px; */
+}
+.classReg-calc-form{
+/* 	background: white; */
+	border: 1px solid lightgray;
+	border-radius: 10px;
+}
+.classReg-calc-form > p{
+	color: black;
+}
+.classReg-creator-info{
+	background: white;
+}
+
 
 #item-list {
     display: flex;
@@ -32,11 +56,12 @@
 }
 
 .item {
-    flex: 0 1 calc(20% - 10px); /* 5개를 한 줄에 표시, 사이 간격을 고려하여 크기 조정 */
+/*     flex: 0 1 calc(20% - 10px); 5개를 한 줄에 표시, 사이 간격을 고려하여 크기 조정 */
     box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기를 계산 */
     padding: 0px 10px;
     margin: 5px;
-    border: 1px solid #ddd;
+/*     border: 1px solid #ddd; */
+    border: none;
     cursor: pointer;
     user-select: none; /* Prevent text selection on double click */
     display: inline-block;
@@ -59,7 +84,7 @@
 }
 .remove-button {
     background-color: #ff4d4d;
-    color: white;
+    color: black;
     border: none;
     padding: 5px 10px;
     cursor: pointer;

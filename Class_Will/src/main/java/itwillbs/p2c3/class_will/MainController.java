@@ -30,11 +30,8 @@ public class MainController {
 		return "shop-detail";
 	}
 
-	// creator-main으로
-	@GetMapping("creator-main")
-	public String createrMain() {
-		return "creator/creator-main";
-	}
+
+	
 	
 	
 

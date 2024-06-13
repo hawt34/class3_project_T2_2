@@ -36,7 +36,7 @@
 	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css"
+<link href="${pageContext.request.contextPath}/resources/css/myPage.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
@@ -45,7 +45,6 @@
 body {
 	
 }
-
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
@@ -125,32 +124,58 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5">반가워요 *** 님</div>
 
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-
+								<div class="col-md-12 text-center h2 mb-5">반가워요 *** 님</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">나의 취향</h6>
+										<h6 class="card-title"><i class="bi bi-heart"></i>&nbsp;나의 취향</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text word-break">블라블라</p>
-											<a href="myPre" class="btn btn-primary">상세보기</a>
+											<a href="my-pre" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">관심 클래스</h6>
+										<h6 class="card-title"><i class="bi bi-emoji-heart-eyes"></i>&nbsp;관심 클래스</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">관심있는 클래스</p>
-											<a href="myWish" class="btn btn-primary">상세보기</a>
+											<a href="my-wish" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">윌페이??</h6>
+										<h6 class="card-title"><i class="bi bi-wallet"></i>&nbsp;윌페이</h6>
+										<div class="d-flex justify-content-between card-content">
+											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<a href="my-credit" class="btn btn-primary">상세보기</a>
+										</div>
+									</div>
+								</div>
+								<div class="card col-md-10 my-2">
+									<div class="card-body">
+										<h6 class="card-title"><i class="bi bi-cart-check"></i>&nbsp;내가 신청한 클래스</h6>
+										<div class="d-flex justify-content-between card-content">
+											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<a href="my-class" class="btn btn-primary">상세보기</a>
+										</div>
+									</div>
+								</div>
+								<div class="card col-md-10 my-2">
+									<div class="card-body">
+										<h6 class="card-title"><i class="bi bi-pencil-square"></i>&nbsp;나의 클래스 후기</h6>
+										<div class="d-flex justify-content-between card-content">
+											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<a href="my-review" class="btn btn-primary">상세보기</a>
+										</div>
+									</div>
+								</div>
+								<div class="card col-md-10 my-2">
+									<div class="card-body">
+										<h6 class="card-title"><i class="bi bi-gear"></i>&nbsp;회원정보변경</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
@@ -159,34 +184,7 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
-										<h6 class="card-title">내가 신청한 클래스</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="myClass" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">나의 클래스 후기</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="myReview" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">회원정보변경</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
-											<a href="#" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title">회원탈퇴</h6>
+										<h6 class="card-title"><i class="bi bi-person-x-fill"></i>&nbsp;회원탈퇴</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>

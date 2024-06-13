@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>나의 관심클래스</title>
+<title>나의 클래스</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -110,8 +110,9 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">
-			마이페이지<i class="bi bi-emoji-heart-eyes"></i>관심클래스
+			마이페이지<i class="bi bi-wallet"></i>윌페이
 		</h1>
+		
 	</div>
 
 	<div class="container-fluid fruite">
@@ -122,36 +123,38 @@ th:nth-child(2), td:nth-child(2) {
 						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							
-
+							<!-- 크리에이터 인사 문구 -->
+						
+							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5"> *** 님은 이런 클래스를 관심있게 보고 있어요</div>
+								<div class="col-md-12 text-center h2 mb-5">윌페이 사용 내역</div>	
 								<div class="container">
-									<h2>관심 클래스</h2>
-									<p>The .table-hover class enables a hover state (grey
-										background on mouse over) on table rows:</p>
+									<h2>윌페이</h2>
+									<p>사용 내역</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<th>Firstname</th>
-												<th>Lastname</th>
-												<th>Email</th>
+												<th>신청 클래스</th>
+												<th>강의 진도</th>
+												<th>결제 상태</th>
+												<th>크레딧충전</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td>John</td>
-												<td>Doe</td>
+												<td>라면 </td>
+												<td>면 꼬들</td>
 												<td>john@example.com</td>
+												<td><a href="payment" class="btn btn-primary">충전</a></td>
 											</tr>
 											<tr>
-												<td>Mary</td>
-												<td>Moe</td>
+												<td>짜파게티</td>
+												<td>국물없게</td>
 												<td>mary@example.com</td>
 											</tr>
 											<tr>
-												<td>July</td>
-												<td>Dooley</td>
+												<td>삼양불닭</td>
+												<td>너무 매움</td>
 												<td>july@example.com</td>
 											</tr>
 										</tbody>

@@ -7,16 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ClassController {
 	
 	// 클래스 리스트
-	@GetMapping("Class/List")
+	@GetMapping("class-list")
 	public String classList() {
-		return"class/class_list";
+		return"class/class-list";
 	}
 	
 	
 	// 클래스 디테일
-	@GetMapping("Class/Detail")
+	@GetMapping("class-detail")
 	public String classDetail() {
-		return"class/class_detail";
-//		return"class/NewFile";
+		return"class/class-detail";
 	}
 }

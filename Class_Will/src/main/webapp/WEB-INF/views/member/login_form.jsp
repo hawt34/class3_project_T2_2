@@ -23,21 +23,21 @@
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
 
 <!-- 부트스트랩 CSS, JS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css">
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
 	
-	body {
-		background: black; 
-	}
+/* 	body { */
+/* 		background: black;  */
+/* 	} */
 	
 	article {
 		margin: 0 auto;
 		padding: 0 auto;
+		height: 3000px;
 	}
 	
 	.login-form {

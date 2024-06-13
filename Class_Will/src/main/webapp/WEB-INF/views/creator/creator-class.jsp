@@ -96,7 +96,6 @@
 							</div>
 							
 							<div class="creator-main-table col-xl-12 mb-5">
-								
 								<!-- 테이블 -->
 								<table>
 									<thead>

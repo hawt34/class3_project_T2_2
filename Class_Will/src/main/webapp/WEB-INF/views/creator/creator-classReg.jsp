@@ -113,9 +113,16 @@
 											<div class="col-md-12 my-4">
 												<label for="class_type" class="h6">클래스타입</label> 
 												<select name="class_type" id="class_type" class="form-control" required>
-													<option value="0">미선택</option>
-														<option value="1">원데이클래스</option>
-														<option value="1">장기클래스</option>
+													<option value="1">원데이클래스</option>
+													<option value="2">장기클래스</option>
+												</select>
+												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+											</div>
+											<div class="col-md-12 my-4">
+												<label for="class_show" class="h6">공개여부</label> 
+												<select name="class_show" id="class_show" class="form-control" required>
+													<option value="1">공개</option>
+													<option value="2">비공개</option>
 												</select>
 												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
 											</div>

@@ -111,8 +111,8 @@
 											</thead>
 											<tbody>
 												<tr>
-													<td class="">
-														<a>너무 재미있고 최고입니다 ㅎㅎ</a>
+													<td class="creator-review-subject">
+														<a onclick="creatorReview()">너무 재미있고 최고입니다 ㅎㅎ</a>
 													</td>
 													<td>
 														2024-05-11
@@ -201,6 +201,10 @@
 		    }
 		);
 	});		
+	
+	function creatorReview() {
+		window.open("creator-review-form", "pop", "width=700, height=700, left=700, top=50");
+	}
 		
 	</script>
 

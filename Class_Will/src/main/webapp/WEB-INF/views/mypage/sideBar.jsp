@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <div class="col-lg-3">
 	<div class="row g-4">
 		<div class="col-lg-12">
@@ -13,7 +14,7 @@
 
 				<input type="button" value="이미지등록" class="btn btn-primary"
 					onclick="openUploadModal()">
-
+				
 				<ul class="list-unstyled fruite-categorie">
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
@@ -91,8 +92,7 @@
 		</div>
 	</div>
 </div>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>

@@ -73,7 +73,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="uploadModalLabel">이미지 업로드</h5>
+				<h5 class="modal-title" id="uploadModalLabel" style="color: black;">이미지 업로드</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close" onclick="closeUploadModal()">
 					<span aria-hidden="true">&times;</span>
@@ -96,10 +96,42 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+
 	function openUploadModal() {
 		$('#uploadModal').modal('show');
 	}
+
+	// 모달 닫기 함수
 	function closeUploadModal() {
 		$('#uploadModal').modal('hide');
 	}
+	$(document).ready(function() {
+		// 이미지 업로드 form submit 처리
+		$('#uploadForm').on('submit', function(event) {
+			event.preventDefault();
+
+			var formData = new FormData(this);
+
+			$.ajax({
+				url : 'upload_image', // 서버측 업로드 경로
+				type : 'POST',
+				data : formData,
+				contentType : false,
+				processData : false,
+				success : function(response) {
+					alert('이미지 업로드 성공!');
+					closeUploadModal(); // 성공 시 모달 닫기
+				},
+				error : function(response) {
+					alert('이미지 업로드 실패!');
+				}
+			});
+		});
+
+// 		// 모달이 닫힐 때 form 리셋
+// 		$('#uploadModal').on('hidden.bs.modal', function(e) {
+// 			$(this).find('form')[0].reset(); // form 초기화
+// 		});
+
+	});
 </script>

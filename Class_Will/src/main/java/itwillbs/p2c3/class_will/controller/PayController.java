@@ -14,8 +14,15 @@ public class PayController {
 	public String payment() {
 		return "payment/payment";
 	}
-	@GetMapping("paymentFinal")
+	@GetMapping("payment-final")
 	public String paymentFinal() {
 		return "payment/payment_final";
 	}
+	
+	@GetMapping("will-pay-charge")
+	public String willPayCharging() {
+		return "payment/will_pay_charge";
+	}
+	
+	
 }

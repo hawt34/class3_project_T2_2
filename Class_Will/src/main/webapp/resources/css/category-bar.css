@@ -97,8 +97,6 @@
     border:none;
 }
 
-.selectBox {
-}
 
 /* .choose { */
 /* 	cursor: pointer; */
@@ -137,11 +135,17 @@
 
 
 
-.choose {
+.chooseDiv {
 /*     padding-right: 40px; 이미지 공간 확보를 위해 오른쪽 패딩 추가 */
     box-sizing: border-box; /* padding이 width에 포함되도록 설정 */
     text-align: left;
     width : 150px;
+}
+
+.chooseResult {
+	width : 110px;
+	height : 35px;
+	font-size : 0.9em;
 }
 
 .position-relative {
@@ -151,7 +155,7 @@
 .xicon {
     position: absolute;
     top: 25%;
-    right: 20px; /* input의 오른쪽 끝에서 약간 떨어진 위치 */
+    right: 33px; /* input의 오른쪽 끝에서 약간 떨어진 위치 */
 /*     transform: translateY(-50%); */
     transform: translateX(-10%);
     cursor: pointer;

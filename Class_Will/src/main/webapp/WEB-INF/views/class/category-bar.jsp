@@ -92,20 +92,20 @@
 <!-- 	</div> -->
 	<div class="row mx-5">
 	<!-- <div class="mx-5"> -->
-	    <div class="mt-3 col-md-2 position-relative choose">
-	        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="카테고리1" readonly>
+	    <div class="mt-3 col-md-2 position-relative chooseDiv">
+	        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리1" readonly>
 	        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
 	    </div>
-	    <div class="mt-3 col-md-2 position-relative choose">
-	        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="카테고리2" readonly>
+	    <div class="mt-3 col-md-2 position-relative chooseDiv">
+	        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리2" readonly>
 	        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
 	    </div>
-	    <div class="mt-3 col-md-2 position-relative choose">
-	        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="카테고리3" readonly>
+	    <div class="mt-3 col-md-2 position-relative chooseDiv">
+	        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리3" readonly>
 	        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
 	    </div>
-	    <div class="mt-3 col-md-2 position-relative choose">
-	        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="카테고리4" readonly>
+	    <div class="mt-3 col-md-2 position-relative chooseDiv">
+	        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리4" readonly>
 	        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
 	    </div>
 	</div>

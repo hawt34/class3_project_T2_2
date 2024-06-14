@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
-<div class="container-xl container">
+<div class="container-xl container1">
 <!-- 	<div class="col-md-2"> -->
 
 <!-- 	</div> -->

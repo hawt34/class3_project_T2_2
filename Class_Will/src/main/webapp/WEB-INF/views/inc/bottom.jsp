@@ -71,7 +71,7 @@
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 	<!-- chatbot -->
-	<a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-icon2.png" width="120px" alt="chatbot" ></a>   
+<%-- 	<a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-icon2.png" width="150px" alt="chatbot" ></a>    --%>
         
         
     <!-- Footer Start -->
@@ -135,3 +135,31 @@
 
     <!-- Template Javascript -->
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    
+    <script>
+		(function(){
+			var w=window;
+			if(w.ChannelIO){
+				return w.console.error("ChannelIO script included twice.");
+			}
+			var ch=function(){ch.c(arguments);};
+			ch.q=[];
+			ch.c=function(args){
+				ch.q.push(args);
+			};
+			w.ChannelIO=ch;
+			function l(){if(w.ChannelIOInitialized){return;}
+			w.ChannelIOInitialized=true;
+			var s=document.createElement("script");
+			s.type="text/javascript";
+			s.async=true;
+			s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";
+			var x=document.getElementsByTagName("script")[0];
+			if(x.parentNode){x.parentNode.insertBefore(s,x);}}
+			if(document.readyState==="complete"){l();}
+			else{w.addEventListener("DOMContentLoaded",l);
+			w.addEventListener("load",l);}})();
+		ChannelIO('boot', {
+			"pluginKey": "e4e4b39e-51da-4d32-b93f-b4e5dcacd689" // fill your plugin key
+		});
+	</script>

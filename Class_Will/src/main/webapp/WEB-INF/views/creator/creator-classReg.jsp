@@ -88,7 +88,7 @@
 
 						<div class="col-lg-9 creator-body" >
 							<div class="creator-main-table col-xl-8 mb-5 ">
-								<form class="validation-form" novalidate action="admin_movie_reg_pro" name="fr" method="post" onsubmit="return confirm('영화를 등록하시겠습니까?');">
+								<form class="validation-form" novalidate action="admin_movie_reg_pro" name="fr" method="post" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
 									<!-- 	셀렉트박스 -->
 									<div class="col-md-12 mb-2" align="center">
 										<div class="col-xl-6 mb-5">
@@ -150,6 +150,8 @@
 											    </div>
 											     <input type="hidden" id="selected-items" name="selectedItems" value="">
 												<div class="invalid-feedback">카테고리를 선택해주세요.</div>
+												<button id="add-input-button">해쉬태그 추가</button>
+    											<div id="button-container" class="button-container"></div>
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="creator-cover-image" class="h6">커버이미지</label> 
@@ -382,6 +384,58 @@
 	        }).open();
 	    }
 	</script>
+	<script>
+        document.getElementById('add-input-button').addEventListener('click', function() {
+        	event.preventDefault();
+            addInput();
+        });
+
+        function addInput() {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'dynamic-input';
+            input.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    const value = input.value.trim();
+                    if (value) {
+                        createButton(value, input.parentElement);
+                    }
+                }
+            });
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'x';
+            removeButton.className = 'remove-button';
+            removeButton.addEventListener('click', function() {
+                input.parentElement.remove();
+            });
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'button-wrapper';
+            wrapper.appendChild(input);
+            wrapper.appendChild(removeButton);
+
+            document.getElementById('button-container').appendChild(wrapper);
+            input.focus();
+        }
+
+        function createButton(text, wrapper) {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.className = 'dynamic-button';
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'x';
+            removeButton.className = 'remove-button';
+            removeButton.addEventListener('click', function() {
+                wrapper.remove();
+            });
+
+            wrapper.innerHTML = '';
+            wrapper.appendChild(button);
+            wrapper.appendChild(removeButton);
+        }
+   </script>
 
 
 </body>

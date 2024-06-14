@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>클래스윌 로그인</title>
+
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,21 +20,17 @@
 <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Template Stylesheet -->
-<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
 
 <!-- 부트스트랩 CSS, JS -->
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
 	
-/* 	body { */
-/* 		background: black;  */
-/* 	} */
+ 	body { 
+ 		background: black;  
+ 	} 
 	
 	article {
 		margin: 0 auto;
@@ -49,7 +47,7 @@
 		background-color: white;
 	}
 	
-	.regex{
+	.regex {
 		font-size: 12px;
 		color: white;
 	}
@@ -92,5 +90,13 @@
 	<footer>
       	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"/>
 	</footer>
+	
+	<script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>

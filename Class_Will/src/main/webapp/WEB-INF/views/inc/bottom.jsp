@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
-
+	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
+	
 	.class-will-bottom {
 		background: black;
-		
+		font-family: "Nanum Gothic", sans-serif; 
 	}
 	
 	.bottom-ul {
@@ -125,15 +126,9 @@
                 </div>
             </div>
         </div>
-	</div>        
+	</div><!-- class-will-bottom -->        
    <!-- Footer End -->
-    <script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
     <script>
 		(function(){

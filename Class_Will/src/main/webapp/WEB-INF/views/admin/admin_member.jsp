@@ -265,7 +265,8 @@
 	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
 
     <script>
-    	var grid; // 전역 변수로 선언
+	    let grid;
+	
 	    document.addEventListener('DOMContentLoaded', function () {
 	        const data = ${jo_list};
 	
@@ -275,7 +276,8 @@
 	            visiblePages: 5,
 	            centerAlign: true
 	        });
-	
+			
+	        
 	        class ButtonRenderer {
 	            constructor(props) {
 	                const el = document.createElement('button');
@@ -354,38 +356,45 @@
 	            xhr.send(formData);
 	        });
 	
-
-	    });
+	        // 적용 버튼 클릭 이벤트 처리
+	        document.getElementById('btn-apply').addEventListener('click', function () {
+	            applyChanges();
+	        });
 	
+	        function applyChanges() {
+	            const modifiedData = grid.getModifiedRows();
+	            
+	            fetch('applyChanges', {
+	                method: 'POST',
+	                headers: {
+	                    'Content-Type': 'application/json;charset=UTF-8'
+	                },
+	                body: JSON.stringify(modifiedData)
+	            })
+	            .then(response => response.json())
+	            .then(data => {
+	                if (data.success) {
+	                    alert('변경 사항이 성공적으로 적용되었습니다.');
+	                    location.reload();
+	                } else {
+	                    alert('변경 사항 적용 실패: ' + data.message);
+	                }
+	            })
+	            .catch(error => {
+	                console.error('Error:', error);
+	                alert('변경 사항 적용 실패: 서버 오류');
+	            });
+	        }
+	    });
+	    
 	    function downloadExcel(tableName, title, currentPageOnly) {
 	        const url = "downloadExcel?tableName=" + tableName + "&title=" + title + "&currentPageOnly=" + currentPageOnly;
 	        window.location.href = url;
 	    }
-	
+	    
 	    function excelFormDownload(tableName, title) {
 	        window.location.href = "excelFormDownload?tableName=" + tableName + "&title=" + title;
 	    }
-	    
-        // 적용 버튼 클릭 이벤트 처리
-        function applyChanges() {
-            const gridData = grid.getData();
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'applyChanges', true);
-            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    alert('변경 사항이 성공적으로 적용되었습니다.');
-                    location.reload();
-                } else {
-                    alert('변경 사항 적용 실패: ' + xhr.responseText);
-                }
-            };
-
-            xhr.send(JSON.stringify(gridData));
-        	
-        };
-
     </script>
     
     <!-- 엑셀 업로드 모달 창 -->

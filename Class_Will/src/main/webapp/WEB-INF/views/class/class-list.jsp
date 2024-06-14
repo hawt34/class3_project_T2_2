@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>클래스 상세</title>
+<title>클래스 리스트</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class_list.css">
 <!-- Libraries Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     var heartOverlays = document.querySelectorAll(".heart-overlay");
     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
-    var toggledSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
 
     heartOverlays.forEach(function(heartOverlay) {
         heartOverlay.addEventListener("click", function() {
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (img.src.includes("heart_full.png")) {
                     img.src = originalSrc;
                 } else {
-                    img.src = toggledSrc;
+                    img.src = changeSrc;
                 }
                 img.classList.remove("fade");
             }, 300); 
@@ -60,6 +60,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- 	</div> -->
 	<div class="col-md-12">
+	<div class="row">
+	    <jsp:include page="category-bar.jsp"></jsp:include>
+	</div>
 	<div class="row">
 		<div class="col-md-9">
 			<div class="classCount">

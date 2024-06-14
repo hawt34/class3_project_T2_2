@@ -120,6 +120,7 @@
     align-items: center; /* 수직 중앙 정렬 */
 /*     justify-content: center; 가로 중앙 정렬, 필요에 따라 사용 */
     height: 60px; /* box1의 높이를 100%로 설정 */
+/*     padding-left : 30px; */
 }
 
 .selectBox {

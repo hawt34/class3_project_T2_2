@@ -130,10 +130,6 @@
     	list-style: none;
     }
     
-    .top-ul li {
-    	align-content: flex-start;
-    }
-    
     .big-category {
     	font-weight: bold;
     }
@@ -144,6 +140,24 @@
     
     }
     
+    .collapse-category .col {
+    display: flex;
+    flex-direction: column;
+	}
+	
+	.collapse-category .big-category {
+	    flex-shrink: 0;
+	    margin-bottom: 10px;
+	}
+	
+	.collapse-category .top-ul {
+	    padding-left: 0;
+	}
+	
+	.collapse-category .top-ul li {
+	    list-style: none;
+	}
+	    
 	/*** Top Navbar End ***/
 </style>
 
@@ -190,6 +204,7 @@
 	        <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	            <div class="container-fluid">
 	                <div class="row w-100 align-items-center">
+	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
 	                    <div class="col-5 d-none d-lg-flex justify-content-start">
 	                        <ul class="navbar-nav">
@@ -305,95 +320,107 @@
 	</div>
 	<!-- Modal Search End -->
 	
-	<!-- 분야 카테고리 -->
+<!-- 분야 카테고리 -->
 	<div class="container-fluid">
-		<div class="collapse collapse-category" id="collapse-category">
-			<div class="card card-body collapse-category">
-		  		<div class="container">
-					<div class="row">
-						<div class="col">
-							<a href="class-list"><span class="big-category">드로잉</span></a>
-							<ul class="top-ul">
-								<li><a href="">소묘</a></li>
-								<li><a href="">펜화</a></li>
-								<li><a href="">캘리그라피</a></li>
-								<li><a href="">수채화</a></li>
-								<li><a href="">동양화</a></li>
-								<li><a href="">민화</a></li>
-								<li><a href="">일러스트</a></li>
-								<li><a href="">디지털</a></li>
-							</ul>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">드로잉</span></a>
-							<ul class="top-ul">
-								<li><a href="">소묘</a></li>
-								<li><a href="">펜화</a></li>
-								<li><a href="">캘리그라피</a></li>
-								<li><a href="">수채화</a></li>
-								<li><a href="">동양화</a></li>
-								<li><a href="">민화</a></li>
-								<li><a href="">일러스트</a></li>
-								<li><a href="">디지털</a></li>
-							</ul>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">드로잉</span></a>
-							<ul class="top-ul">
-								<li><a href="">소묘</a></li>
-								<li><a href="">펜화</a></li>
-								<li><a href="">캘리그라피</a></li>
-								<li><a href="">수채화</a></li>
-								<li><a href="">동양화</a></li>
-								<li><a href="">민화</a></li>
-								<li><a href="">일러스트</a></li>
-								<li><a href="">디지털</a></li>
-							</ul>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">드로잉</span></a>
-							<ul class="top-ul">
-								<li><a href="">소묘</a></li>
-								<li><a href="">펜화</a></li>
-								<li><a href="">캘리그라피</a></li>
-								<li><a href="">수채화</a></li>
-								<li><a href="">동양화</a></li>
-								<li><a href="">민화</a></li>
-								<li><a href="">일러스트</a></li>
-								<li><a href="">디지털</a></li>
-							</ul>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">드로잉</span></a>
-							<ul class="top-ul">
-								<li><a href="">소묘</a></li>
-								<li><a href="">펜화</a></li>
-								<li><a href="">캘리그라피</a></li>
-								<li><a href="">수채화</a></li>
-								<li><a href="">동양화</a></li>
-								<li><a href="">민화</a></li>
-								<li><a href="">일러스트</a></li>
-								<li><a href="">디지털</a></li>
-							</ul>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">드로잉</span></a>
-							<ul class="top-ul">
-								<li><a href="">소묘</a></li>
-								<li><a href="">펜화</a></li>
-								<li><a href="">캘리그라피</a></li>
-								<li><a href="">수채화</a></li>
-								<li><a href="">동양화</a></li>
-								<li><a href="">민화</a></li>
-								<li><a href="">일러스트</a></li>
-								<li><a href="">디지털</a></li>
-							</ul>
-						</div>
-					</div><!-- row -->
-				</div>
-			</div>
-		</div>
-	</div>	
+	    <div class="collapse collapse-category" id="collapse-category">
+	        <div class="card card-body collapse-category">
+	            <div class="container">
+	                <div class="row">
+	                    <div class="col">
+	                        <div>
+	                            <a href="class-list"><span class="big-category">드로잉</span></a>
+	                            <ul class="top-ul">
+	                                <li><a href="">소묘</a></li>
+	                                <li><a href="">펜화</a></li>
+	                                <li><a href="">캘리그라피</a></li>
+	                                <li><a href="">수채화</a></li>
+	                                <li><a href="">동양화</a></li>
+	                                <li><a href="">민화</a></li>
+	                                <li><a href="">일러스트</a></li>
+	                                <li><a href="">디지털</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                    <div class="col">
+	                        <div>
+	                            <a href="class-list"><span class="big-category">드로잉</span></a>
+	                            <ul class="top-ul">
+	                                <li><a href="">소묘</a></li>
+	                                <li><a href="">펜화</a></li>
+	                                <li><a href="">캘리그라피</a></li>
+	                                <li><a href="">수채화</a></li>
+	                                <li><a href="">동양화</a></li>
+	                                <li><a href="">민화</a></li>
+	                                <li><a href="">일러스트</a></li>
+	                                <li><a href="">디지털</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                    <div class="col">
+	                        <div>
+	                            <a href="class-list"><span class="big-category">드로잉</span></a>
+	                            <ul class="top-ul">
+	                                <li><a href="">소묘</a></li>
+	                                <li><a href="">펜화</a></li>
+	                                <li><a href="">캘리그라피</a></li>
+	                                <li><a href="">수채화</a></li>
+	                                <li><a href="">동양화</a></li>
+	                                <li><a href="">민화</a></li>
+	                                <li><a href="">일러스트</a></li>
+	                                <li><a href="">디지털</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                    <div class="col">
+	                        <div>
+	                            <a href="class-list"><span class="big-category">드로잉</span></a>
+	                            <ul class="top-ul">
+	                                <li><a href="">소묘</a></li>
+	                                <li><a href="">펜화</a></li>
+	                                <li><a href="">캘리그라피</a></li>
+	                                <li><a href="">수채화</a></li>
+	                                <li><a href="">동양화</a></li>
+	                                <li><a href="">민화</a></li>
+	                                <li><a href="">일러스트</a></li>
+	                                <li><a href="">디지털</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                    <div class="col">
+	                        <div>
+	                            <a href="class-list"><span class="big-category">드로잉</span></a>
+	                            <ul class="top-ul">
+	                                <li><a href="">소묘</a></li>
+	                                <li><a href="">펜화</a></li>
+	                                <li><a href="">캘리그라피</a></li>
+	                                <li><a href="">수채화</a></li>
+	                                <li><a href="">동양화</a></li>
+	                                <li><a href="">민화</a></li>
+	                                <li><a href="">일러스트</a></li>
+	                                <li><a href="">디지털</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                    <div class="col">
+	                        <div>
+	                            <a href="class-list"><span class="big-category">드로잉</span></a>
+	                            <ul class="top-ul">
+	                                <li><a href="">소묘</a></li>
+	                                <li><a href="">펜화</a></li>
+	                                <li><a href="">캘리그라피</a></li>
+	                                <li><a href="">수채화</a></li>
+	                                <li><a href="">동양화</a></li>
+	                                <li><a href="">민화</a></li>
+	                                <li><a href="">일러스트</a></li>
+	                                <li><a href="">디지털</a></li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                </div><!-- row -->
+	            </div>
+	        </div>
+	    </div> <!-- collapse-category -->
+	</div>  
 	
 	<!-- 지역 카테고리 -->
 	<div class="container container-fluid">

@@ -33,6 +33,12 @@
  		
  		
  	} 
+ 	
+ 	article {
+ 		height: 1500px;
+ 		
+ 	}
+ 	
 	
 	
 	
@@ -46,28 +52,14 @@
 	</header>
 	
 	<article>
-		<div class="container login-form">
-			<h2>로그인</h2>
-			<form action="member-login" method="POST">
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="이메일">
-				</div>
-				<div></div>
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="비밀번호" >
-				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
-<!-- 				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span> -->
-				</div>
-				<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
-				<div>
-					<input type="submit" id="btnSub" value="로그인">
-				</div>
-			</form>
-			<p><a href="reset-passwd">비밀번호 찾기</a></p>
-			클래스윌이 처음이신가요? <a href="member-join"><b>가입하기</b></a>
-		
+		<div class="container">
+			
+			
+			
+			
+			
+			
+			
 		</div>
 	</article>
 
@@ -85,5 +77,29 @@
 	
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
+	<script type="text/javascript">
+		document.addEventListener("DOMContentLoaded", function() {
+		    var heartOverlays = document.querySelectorAll(".heart-overlay");
+		    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+		    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+		
+		    heartOverlays.forEach(function(heartOverlay) {
+		        heartOverlay.addEventListener("click", function() {
+		            var img = this;
+		            img.classList.add("fade");
+		
+		            setTimeout(function() {
+		                if (img.src.includes("heart_full.png")) {
+		                    img.src = originalSrc;
+		                } else {
+		                    img.src = changeSrc;
+		                }
+		                img.classList.remove("fade");
+		            }, 300); 
+		        });
+		    });
+		});
+	</script>
 </body>
 </html>

@@ -21,15 +21,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
 
-<!-- Libraries Stylesheet -->
-<link
-	href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-
-
 <!-- Customized Bootstrap Stylesheet -->
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
@@ -109,16 +100,16 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>당신도 할 수 있다! css 클래스</td>
+											<td><a>당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스</a></td>
 											<td>제작중</td>
-											<td>IT,개발</td>
+											<td>개발</td>
 											<td>비공개</td>
 											<td>2024-06-10</td>
 										</tr>
 										<tr>
-											<td>당신도 할 수 있다! css 클래스</td>
+											<td><a>당신도 할 수 있다! css 클래스</a></td>
 											<td>제작중</td>
-											<td>IT,개발</td>
+											<td>IT</td>
 											<td>비공개</td>
 											<td>2024-06-10</td>
 										</tr>
@@ -158,14 +149,6 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>

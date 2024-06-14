@@ -88,9 +88,13 @@
 							        
 							        <div class="creator-plan-bottom">
 							        
-								        <div class="creator-plan-time" align="center">
-								        	시작시간 : <input type="time" class="me-5">
-								        	종료시간 : <input type="time">
+								        <div class="creator-plan-time d-flex justify-content-evenly">
+								        	<div>
+								        		시작시간 : <input type="time">
+								        	</div>
+								        	<div>
+								        		종료시간 : <input type="time">
+								        	</div>
 								        </div>
 								        <div align="center" class="mb-3">
 								        	<button type="submit" class="creator-plan-submitBtn">등록하기</button>

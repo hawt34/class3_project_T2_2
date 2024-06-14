@@ -71,7 +71,7 @@
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 	<!-- chatbot -->
-	<a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-icon2.png" width="150px" alt="chatbot" ></a>   
+	<a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-icon2.png" width="120px" alt="chatbot" ></a>   
         
         
     <!-- Footer Start -->

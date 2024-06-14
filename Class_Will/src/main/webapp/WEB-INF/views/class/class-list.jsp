@@ -13,7 +13,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,10 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </head>
 <body>
-<div class="container-xl container">
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
+<div class="container-xl container">
 <!-- 	<div class="col-md-2"> -->
 
 <!-- 	</div> -->

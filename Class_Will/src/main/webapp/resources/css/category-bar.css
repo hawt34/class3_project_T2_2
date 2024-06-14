@@ -1,5 +1,59 @@
 @charset "UTF-8";
 
+/* .height{ */
+/*     height: 80px; */
+/* } */
+
+/* .form{ */
+/*     position: relative; */
+/* } */
+
+/* .form .fa-search{ */
+/*     position: absolute; */
+/*     top:15px; */
+/*     left: 20px; */
+/*     color: #9ca3af; */
+/* } */
+
+/* .form span{ */
+/* 	position: absolute; */
+/*     right: 17px; */
+/*     top: 13px; */
+/*     padding: 2px; */
+/*     border-left: 1px solid #d1d5db; */
+/* } */
+
+/* .left-pan{ */
+/*     padding-left: 7px; */
+/* } */
+
+/* .left-pan i{ */
+/*    padding-left: 10px; */
+/* } */
+
+/* .form-input{ */
+/*     height: 45px; */
+/*     width: 200px; */
+/*     text-indent: 33px; */
+/*     border-radius: 100px; */
+/* } */
+
+/* .form-input:focus{ */
+/*     box-shadow: none; */
+/*     border:none; */
+/* } */
+
+/* .selectBox { */
+/* 	margin-left : 0; */
+/* } */
+
+/* .categoryBar .row.padded-row { */
+/*     padding-right: 36px; 원하는 padding-right 값 */
+/* } */
+
+
+/* =========================================== */
+
 .height{
     height: 80px;
 }
@@ -46,11 +100,62 @@
 .selectBox {
 }
 
+/* .choose { */
+/* 	cursor: pointer; */
+/* 	width : 120px; */
+/* 	padding-right: 30px; */
+/* } */
+
+/* .xicon { */
+/* 	height : 15px; */
+/* 	width : 15px; */
+/* } */
+
+
+/* .choose { */
+/*     width: 150px; */
+/*     padding-right: 40px; 이미지 공간 확보를 위해 오른쪽 패딩 추가 */
+/*     box-sizing: border-box; padding이 width에 포함되도록 설정 */
+/*     text-align : left; */
+/* } */
+
+/* .position-relative { */
+/*     position: relative; */
+/* } */
+
+/* .xicon { */
+/*     position: absolute; */
+/*     top: 25%; */
+/*     right: 65px; input의 오른쪽 끝에서 약간 떨어진 위치 */
+/* /*     transform: translateY(-30%); */ 
+/*     transform: translateX(-10%); */
+/*     cursor: pointer; */
+/*     width: 20px; 이미지 크기 조절 */
+/*     height: 20px; 이미지 크기 조절 */
+/* } */
 
 
 
 
+.choose {
+/*     padding-right: 40px; 이미지 공간 확보를 위해 오른쪽 패딩 추가 */
+    box-sizing: border-box; /* padding이 width에 포함되도록 설정 */
+    text-align: left;
+    width : 150px;
+}
 
+.position-relative {
+    position: relative;
+}
 
-
+.xicon {
+    position: absolute;
+    top: 25%;
+    right: 20px; /* input의 오른쪽 끝에서 약간 떨어진 위치 */
+/*     transform: translateY(-50%); */
+    transform: translateX(-10%);
+    cursor: pointer;
+    width: 20px; /* 이미지 크기 조절 */
+    height: 20px; /* 이미지 크기 조절 */
+}
 

@@ -65,7 +65,7 @@
 	
 	<article>
 		<div class="container reset-form">
-			<form action="reset_passwd" method="POST">
+			<form action="reset-passwd" method="POST">
 				<h2>비밀번호 찾기</h2>
 				<p>가입하신 이메일 주소를 입력해 주세요.</p>
 				<p>	이메일 주소로 비밀번호를 재설정할 수 있는 이메일을 보내드립니다.</p>

@@ -66,7 +66,7 @@
 	<article>
 		<div class="container login-form">
 			<h2>로그인</h2>
-			<form action="member_login" method="POST">
+			<form action="member-login" method="POST">
 				<div class="input-group mb-3">
 				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
 				  <input type="text" class="form-control" placeholder="이메일">
@@ -83,8 +83,8 @@
 					<input type="submit" id="btnSub" value="로그인">
 				</div>
 			</form>
-			<p><a href="reset_passwd">비밀번호 찾기</a></p>
-			클래스윌이 처음이신가요? <a href="member_join"><b>가입하기</b></a>
+			<p><a href="reset-passwd">비밀번호 찾기</a></p>
+			클래스윌이 처음이신가요? <a href="member-join"><b>가입하기</b></a>
 		
 		</div>
 	</article>

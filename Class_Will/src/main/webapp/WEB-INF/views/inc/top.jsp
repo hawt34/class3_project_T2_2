@@ -67,7 +67,31 @@
 	  }
 	  
 	    
-	}
+	}   
+	
+	.navbar-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navbar-toggler {
+        border: none;
+        background: none;
+    }
+
+    .navbar-toggler:focus {
+        outline: none;
+    }
+
+    .navbar-toggler-icon {
+        background-image: none;
+        font-size: 1.5rem;
+        color: white;
+    }
 	
 	
 	.dropdown .dropdown-menu a:hover {
@@ -91,16 +115,35 @@
 	
 	.collapse-category {
 		background: black;
-		color: white;
+        color: white;
+        position: absolute;
+        width: 100%;
+        z-index: 1000;
 	} 
 	
 	.collapse-category .collapse-category {
 		background: black;
 	}
     
+    .top-ul {
+    	list-style: none;
+    }
+    
+    .top-ul li {
+    	align-content: flex-start;
+    }
+    
+    .big-category {
+    	font-weight: bold;
+    }
+    
+    #top-class-regist {
+    	border: 1px solid white;
+    	border-radius: 5px;
+    
+    }
     
 </style>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -127,23 +170,12 @@
             const target = document.querySelector(elem.getAttribute('data-bs-target'));
 
             elem.addEventListener('mouseenter', () => openCollapse(target));
-            elem.addEventListener('mouseleave', () => closeCollapse(target));
             
-            elem.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (target.classList.contains('show')) {
-                    closeCollapse(target);
-                } else {
-                    openCollapse(target);
-                }
-            });
-
+            target.addEventListener('mouseenter', () => openCollapse(target));
             target.addEventListener('mouseleave', () => closeCollapse(target));
-            target.addEventListener('click', () => closeCollapse(target));
         });
     });
 </script>
-
 
 
 
@@ -161,7 +193,8 @@
 	                        <ul class="navbar-nav">
 	                            <li class="nav-item">
 	                                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
-	                                	<i class="bi bi-list"></i> 카테고리
+<!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
+	                                	<span class="fa fa-bars text-primary"></span> 카테고리
 	                                </a>
 	                            </li>
 	                            <li class="nav-item">
@@ -186,7 +219,7 @@
 	                    <div class="col-5 d-none d-lg-flex justify-content-end">
 	                        <ul class="navbar-nav">
 	                            <li class="nav-item">
-	                                <a class="nav-link btn" href="creator-main">클래스등록</a>
+	                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
 	                            </li>
 	                            <li class="nav-item">
 	                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
@@ -195,7 +228,7 @@
 	                                <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
 	                            </li>
 	                            <li class="nav-item">
-	                            	<a class="nav-link" href="member_login">로그인</a>
+	                            	<a class="nav-link" href="member-login">로그인</a>
 	<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
 	                            </li>
 	                        </ul>
@@ -271,19 +304,115 @@
 	<!-- Modal Search End -->
 	
 	<!-- 분야 카테고리 -->
-	<div class="container">
+	<div class="container-fluid">
 		<div class="collapse collapse-category" id="collapse-category">
 			<div class="card card-body collapse-category">
-		  		분야별 카테고리 ~~
+		  		<div class="container">
+					<div class="row">
+						<div class="col">
+							<a href=""><span class="big-category">드로잉</span></a>
+							<ul class="top-ul">
+								<li><a href="">소묘</a></li>
+								<li><a href="">펜화</a></li>
+								<li><a href="">캘리그라피</a></li>
+								<li><a href="">수채화</a></li>
+								<li><a href="">동양화</a></li>
+								<li><a href="">민화</a></li>
+								<li><a href="">일러스트</a></li>
+								<li><a href="">디지털</a></li>
+							</ul>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">드로잉</span></a>
+							<ul class="top-ul">
+								<li><a href="">소묘</a></li>
+								<li><a href="">펜화</a></li>
+								<li><a href="">캘리그라피</a></li>
+								<li><a href="">수채화</a></li>
+								<li><a href="">동양화</a></li>
+								<li><a href="">민화</a></li>
+								<li><a href="">일러스트</a></li>
+								<li><a href="">디지털</a></li>
+							</ul>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">드로잉</span></a>
+							<ul class="top-ul">
+								<li><a href="">소묘</a></li>
+								<li><a href="">펜화</a></li>
+								<li><a href="">캘리그라피</a></li>
+								<li><a href="">수채화</a></li>
+								<li><a href="">동양화</a></li>
+								<li><a href="">민화</a></li>
+								<li><a href="">일러스트</a></li>
+								<li><a href="">디지털</a></li>
+							</ul>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">드로잉</span></a>
+							<ul class="top-ul">
+								<li><a href="">소묘</a></li>
+								<li><a href="">펜화</a></li>
+								<li><a href="">캘리그라피</a></li>
+								<li><a href="">수채화</a></li>
+								<li><a href="">동양화</a></li>
+								<li><a href="">민화</a></li>
+								<li><a href="">일러스트</a></li>
+								<li><a href="">디지털</a></li>
+							</ul>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">드로잉</span></a>
+							<ul class="top-ul">
+								<li><a href="">소묘</a></li>
+								<li><a href="">펜화</a></li>
+								<li><a href="">캘리그라피</a></li>
+								<li><a href="">수채화</a></li>
+								<li><a href="">동양화</a></li>
+								<li><a href="">민화</a></li>
+								<li><a href="">일러스트</a></li>
+								<li><a href="">디지털</a></li>
+							</ul>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">드로잉</span></a>
+							<ul class="top-ul">
+								<li><a href="">소묘</a></li>
+								<li><a href="">펜화</a></li>
+								<li><a href="">캘리그라피</a></li>
+								<li><a href="">수채화</a></li>
+								<li><a href="">동양화</a></li>
+								<li><a href="">민화</a></li>
+								<li><a href="">일러스트</a></li>
+								<li><a href="">디지털</a></li>
+							</ul>
+						</div>
+					</div><!-- row -->
+				</div>
 			</div>
 		</div>
 	</div>	
 	
 	<!-- 지역 카테고리 -->
-	<div class="container">
+	<div class="container container-fluid">
 		<div class="collapse collapse-category" id="collapse-zone">
 			<div class="card card-body collapse-category">
-		  		지역별 카테고리~~
+		  		<div class="container">
+					<div class="row">
+						<div class="col">
+							<a href=""><span class="big-category">서울</span></a>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">부산</span></a>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">인천</span></a>
+						</div>
+						<div class="col">
+							<a href=""><span class="big-category">어쩌구</span></a>
+						</div>
+					</div><!-- row -->
+				</div>
 			</div>
 		</div>
 	</div>	

@@ -53,7 +53,6 @@
 		position: fixed;
 	    right: 50px;
 	    bottom: 100px;
-	    position: fixed;
 	    display: flex;
 	    width: 50px;
 	    height: 50px;
@@ -87,8 +86,8 @@
 								</div>
 								<div class="col-8 col-mb-6">
 									<ul class="bottom-ul">
-										<li class="bottom-menu"><a href="">공지사항</a></li>
-										<li class="bottom-menu"><a href="">FAQ</a></li>
+										<li class="bottom-menu"><a href="csc">공지사항</a></li>
+										<li class="bottom-menu"><a href="csc-faq">FAQ</a></li>
 										<li class="bottom-menu"><a href="use-info">이용약관</a></li>
 										<li class="bottom-menu"><a href="privacy-info">개인정보처리방침</a></li>
 										<li class="bottom-menu"><a href="refund-info">환불규정</a></li>

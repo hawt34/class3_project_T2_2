@@ -6,9 +6,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PayController {
 	
-	@GetMapping("datePicker")
+	@GetMapping("date-picker")
 	public String dateP() {
 		return "payment/date_picker";
+	}
+	// 클래스 디테일
+	@GetMapping("class-detail2")
+	public String classDetail() {
+		return"class/class-detail2";
+	}
+	//데이트픽커2
+	@GetMapping("date-picker2")
+	public String dateP2() {
+		return "payment/date_picker2";
 	}
 	@GetMapping("payment")
 	public String payment() {

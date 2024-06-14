@@ -36,26 +36,16 @@ body{
 .margin_use {
 	margin-top: 20px;
 }
-/* .radio-image { */
-/* 	position: relative; */
-/* 	display: inline-block; */
-/* } */
-/* .radio-image input[type="radio"] { */
-/*     position: absolute; */
-/*     opacity: 0; */
-/*     width: 100%; */
-/*     height: 100%; */
-/*     cursor: pointer; */
-/* } */
-/* .radio-image img { */
-/*     display: block; */
-/*     width:200px; */
-/*     height:100px; */
-/* } */
 .package_group {
 	display: flex;
 	flex-flow: wrap;
 	justify-content: space-between;
+}
+.cutom-card {
+	cursor:pointer;
+}
+.text_deco {
+	text-decoration: line-through;
 }
 .regist_account input {
 	width:100%;
@@ -99,32 +89,25 @@ body{
 				</div>
 				<!-- package group -->
 				<div class="package_group">
-					<div class="card border-light mb-3" style="max-width: 13rem;">
-						<div class="card-header">package1</div>
-						<div class="card-body">
-							<h5 class="card-title">33% 더!</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					<c:forEach begin="1" end="3" varStatus="status">
+						<div class="card border-light mb-3 cutom-card" style="width:180px;">
+							<div class="card-header">package${status.count }</div>
+							<div class="card-body">
+								<h5 class="card-title">33% 더!</h5>
+								<!-- package 가격정보 -->
+								<p class="card-text">
+									<span class="text_deco">100000 will-pay</span><br>
+									-> <span id="package_up_price">133000</span>
+								</p>
+								<input type="hidden" name="package_price" value="${will_pay.pay_price }">
+							</div>
 						</div>
-					</div>
-					<div class="card border-light mb-3" style="max-width: 13rem;">
-						<div class="card-header">package2</div>
-						<div class="card-body">
-							<h5 class="card-title">45% 더!</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						</div>
-					</div>
-					<div class="card border-light mb-3" style="max-width: 13rem;">
-						<div class="card-header">package3</div>
-						<div class="card-body">
-							<h5 class="card-title">50% 더!</h5>
-							<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 				<!-- 선택된 package 가격 -->
 				<div class="mx-3">
-					<label for="exampleFormControlInput1" class="form-label">선택된 package</label>
-					<input type="text" class="form-control w-50" id="exampleFormControlInput1" readonly>
+					<label for="selected_package" class="form-label">선택된 package</label>
+					<input type="text" class="form-control w-50" id="selected_package" readonly>
 				</div>
 				<hr>
 				<!-- 계좌 연동 시작 -->
@@ -155,15 +138,27 @@ body{
 </div>
 <script>
 $(function() {
+	//금액 입력 이벤트
 	$('#will_pay_charge').on('input', function() {
 		var value = $(this).val().replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
-		
+		$('#selected_package').val("");
 		if (value) {
 		    $(this).val(value + '원');
 		} else {
 			$(this).val('');
 		}
 	});
+	
+	//카드 클릭 이벤트
+	
+	$('.card').click(function() {
+		
+        // 클릭된 카드 내의 package_up_price 요소의 텍스트를 가져옴
+        var packageUpPrice = $(this).find('#package_up_price').text();
+        // selected_package 입력 필드에 값을 설정
+        $('#selected_package').val(packageUpPrice + "will-pay");
+        $('#will_pay_charge').val("");
+    });
 });
 </script>
 

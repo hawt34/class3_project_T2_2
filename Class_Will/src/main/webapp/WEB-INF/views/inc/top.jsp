@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
     
 <style>
+    
+    /*** Top Navbar Start ***/
+	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
+    
 	.class-will-top {
 		background: black;
+ 		font-family: "Nanum Gothic", sans-serif; 
 	}
 	
-	
-    
-    /*** Navbar Start ***/
 	.navbar .navbar-nav .nav-link {
 	    padding: 0px 20px;
 	    font-size: 18px;
@@ -111,7 +113,6 @@
 	#searchModal .modal-content {
 	    background: rgba(255, 255, 255, .7);
 	}
-	/*** Navbar End ***/
 	
 	.collapse-category {
 		background: black;
@@ -143,6 +144,7 @@
     
     }
     
+	/*** Top Navbar End ***/
 </style>
 
 <script>
@@ -219,10 +221,10 @@
 	                    <div class="col-5 d-none d-lg-flex justify-content-end">
 	                        <ul class="navbar-nav">
 	                            <li class="nav-item">
-	                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
+	                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
 	                            </li>
 	                            <li class="nav-item">
-	                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
+	                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
 	                            </li>
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
@@ -265,10 +267,10 @@
 	                            <a class="nav-link" href="#">이벤트</a>
 	                        </li>
 	                        <li class="nav-item">
-	                            <a class="nav-link" href="creator-main">클래스등록</a>
+	                            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
 	                        </li>
 	                        <li class="nav-item">
-	                            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
+	                            <a class="nav-link" href="creator-main">클래스등록</a>
 	                        </li>
 	                        <li class="nav-item">
 	                            <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
@@ -310,7 +312,7 @@
 		  		<div class="container">
 					<div class="row">
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -323,7 +325,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -336,7 +338,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -349,7 +351,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -362,7 +364,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -375,7 +377,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -400,20 +402,20 @@
 		  		<div class="container">
 					<div class="row">
 						<div class="col">
-							<a href=""><span class="big-category">서울</span></a>
+							<a href="class-list"><span class="big-category">서울</span></a>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">부산</span></a>
+							<a href="class-list"><span class="big-category">부산</span></a>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">인천</span></a>
+							<a href="class-list"><span class="big-category">인천</span></a>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">어쩌구</span></a>
+							<a href="class-list"><span class="big-category">어쩌구</span></a>
 						</div>
 					</div><!-- row -->
 				</div>
 			</div>
 		</div>
 	</div>	
-</div>
+</div> <!-- class-will-top -->

@@ -42,7 +42,7 @@ body{
 }
 /*** Button Start ***/
 .btn {
-    font-weight: 600;
+/*     font-weight: 600; */
     transition: .5s;
 }
 

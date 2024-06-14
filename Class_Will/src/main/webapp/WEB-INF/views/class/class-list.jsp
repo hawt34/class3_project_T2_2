@@ -27,7 +27,29 @@
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    var heartOverlays = document.querySelectorAll(".heart-overlay");
+    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+    var toggledSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
 
+    heartOverlays.forEach(function(heartOverlay) {
+        heartOverlay.addEventListener("click", function() {
+            var img = this;
+            img.classList.add("fade");
+
+            setTimeout(function() {
+                if (img.src.includes("heart_full.png")) {
+                    img.src = originalSrc;
+                } else {
+                    img.src = toggledSrc;
+                }
+                img.classList.remove("fade");
+            }, 300); 
+        });
+    });
+});
+</script>
 </head>
 <body>
 <div class="container-xl container">
@@ -58,17 +80,14 @@
 		<div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
+					<div class="card-body p-0 position-relative">
 						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
+<%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" class="w-100 card-img-top classPic"> --%>
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -92,17 +111,13 @@
 		
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -127,17 +142,13 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		      <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -161,17 +172,13 @@
 			
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -198,17 +205,13 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		      <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -233,17 +236,13 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		    <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -268,17 +267,13 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		      <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -303,18 +298,14 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		      <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 <!-- 						<div class="card-body d-flex flex-column fixed-size"> -->
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -342,17 +333,13 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		      <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -378,18 +365,14 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		      <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-						<div class="row">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
-							<div class="col-md-2">
-								<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-							</div>
-						</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
 								<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
@@ -413,17 +396,13 @@
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 		      <!-- Card-->
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -447,17 +426,13 @@
 			
 			<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 				<div class="card shadow-sm border-0 rounded flex-fill">
-					<div class="card-body p-0">
-					<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
+					<div class="card-body p-0 position-relative">
+						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
+						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 						<div class="card-bodys d-flex flex-column">
-							<div class="row">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="col-md-2">
-									<a href="" class="btn-sm custom"><i class="far fa-heart"></i></a>
-								</div>
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 							</div>
 							<div class="createrName d-flex align-items-center">
 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">

@@ -26,5 +26,31 @@
 		FROM ${tableName}
 	</select>
 	
+	<select id="selectColumnDataTypes" resultType="String">
+	    SELECT 
+	        CASE 
+	            WHEN DATA_TYPE = 'varchar' THEN CONCAT(DATA_TYPE, '(', CHARACTER_MAXIMUM_LENGTH, ')')
+	            ELSE DATA_TYPE
+	        END AS DATA_TYPE_WITH_LENGTH
+	    FROM INFORMATION_SCHEMA.COLUMNS
+	    WHERE TABLE_NAME = #{tableName}
+	</select>
+	
+	
+    <select id="selectMaxCode" resultType="String">
+		SELECT MAX(CAST(${tableName}_code AS UNSIGNED)) + 1
+		FROM ${tableName}
+    </select>
+    
+	<insert id="insertExcelDatas">
+		INSERT INTO ${tableName}
+		VALUES
+		(#{code},
+		<foreach collection="rowDataList" separator="," item="data">
+			#{data}
+		</foreach>
+		)
+	</insert>
+	
 	
 </mapper>

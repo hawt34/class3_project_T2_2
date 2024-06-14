@@ -6,25 +6,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CscController {
 	
-	@GetMapping("Csc")
+	@GetMapping("csc")
 	public String cscMain() {
 		
 		return "csc/csc_notice";
 	}
 	
-	@GetMapping("Csc_Detail")
+	@GetMapping("csc-detail")
 	public String csctest() {
 		
 		return "csc/csc_notice_detail";
 	}
 	
-	@GetMapping("Csc_Faq")
+	@GetMapping("csc-faq")
 	public String csctest1() {
 		
 		return "csc/csc_faq";
 	}
 	
-	@GetMapping("Csc_Oto")
+	@GetMapping("csc-oto")
 	public String csctest2() {
 		
 		return "csc/csc_oto";

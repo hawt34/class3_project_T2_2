@@ -38,6 +38,10 @@ public class AdminService {
     public List<Map<String, Object>> getAllData(String tableName) {
         return adminMapper.selectTable(tableName);
     }
+
+	public List<String> getColumnDataTypes(String tableName) {
+		return adminMapper.selectColumnDataTypes(tableName);
+	}
 	
 	
 }

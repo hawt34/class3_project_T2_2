@@ -310,7 +310,7 @@
 		  		<div class="container">
 					<div class="row">
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -323,7 +323,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -336,7 +336,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -349,7 +349,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -362,7 +362,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -375,7 +375,7 @@
 							</ul>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">드로잉</span></a>
+							<a href="class-list"><span class="big-category">드로잉</span></a>
 							<ul class="top-ul">
 								<li><a href="">소묘</a></li>
 								<li><a href="">펜화</a></li>
@@ -400,16 +400,16 @@
 		  		<div class="container">
 					<div class="row">
 						<div class="col">
-							<a href=""><span class="big-category">서울</span></a>
+							<a href="class-list"><span class="big-category">서울</span></a>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">부산</span></a>
+							<a href="class-list"><span class="big-category">부산</span></a>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">인천</span></a>
+							<a href="class-list"><span class="big-category">인천</span></a>
 						</div>
 						<div class="col">
-							<a href=""><span class="big-category">어쩌구</span></a>
+							<a href="class-list"><span class="big-category">어쩌구</span></a>
 						</div>
 					</div><!-- row -->
 				</div>

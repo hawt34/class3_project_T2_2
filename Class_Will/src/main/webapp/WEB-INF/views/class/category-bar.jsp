@@ -45,10 +45,11 @@
 				</div>
 			</div>
 		<!-- 	<div class="row mx-5 mr-5"> -->
-			<div class="row mx-5 pr-3 padded-row">
+<!-- 			<div class="row mx-5 pr-3 padded-row"> -->
+			<div class="row mx-5">
 		<!-- 		<div> -->
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100" aria-label="Default select example">
+					<select class="form-select categorySelect w-100" aria-label="Default select example">
 						<option selected>카테고리</option>
 						<option value="1">최신순</option>
 						<option value="2">낮은 가격순</option>
@@ -56,7 +57,7 @@
 					</select>
 				</div>
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100" aria-label="Default select example">
+					<select class="form-select categorySelect w-100" aria-label="Default select example">
 						<option selected>지역</option>
 						<option value="1">서울</option>
 						<option value="2">부산</option>
@@ -64,21 +65,21 @@
 					</select>
 				</div>
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100"  aria-label="Default select example">
+					<select class="form-select categorySelect w-100"  aria-label="Default select example">
 						<option selected>유형</option>
 						<option value="1">원데이</option>
 						<option value="2">정기</option>
 					</select>
 				</div>
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100" aria-label="Default select example">
+					<select class="form-select categorySelect w-100" aria-label="Default select example">
 						<option selected>금액</option>
 						<option value="1">최신순</option>
 						<option value="2">낮은 가격순</option>
 						<option value="3">높은 가격순</option>
 					</select>
 				</div>
-				<div class="col-md-2 btnReset">
+				<div class="col-md-3 btnReset">
 					<button type="button" class="btn btn-outline-light">초기화</button>
 				</div>
 		<!-- 		</div> -->
@@ -117,7 +118,7 @@
 			
 		<!-- 	<div class="row mx-5"> -->
 		<!-- 	<div class="row mx-5"> -->
-			<div class="row mx-5">
+			<div class="row mx-5 ">
 				<div class="col-md-1 hashtagDiv">
 					<div class="form">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
@@ -135,17 +136,12 @@
 				</div>
 				<div class="col-md-1 hashtagDiv">
 					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
+						<input type="text" class="form-control form-inputs hashtag" placeholder="# 선물" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
 					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-					</div>
-				</div>
-				<div class="col-md-1 hashtagDiv">
-					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
+						<input type="text" class="form-control form-inputs hashtag" placeholder="# 데이트" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">

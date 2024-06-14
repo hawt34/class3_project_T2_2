@@ -23,7 +23,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
 
 <!-- 부트스트랩 CSS, JS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css">
@@ -95,7 +95,7 @@
 	
 	<article>
 		<div class="container join-form">
-			<form action="member_join" method="POST">
+			<form action="member-join" method="POST">
 				<h2>회원가입</h2>
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control" id="name" name="name" placeholder="name">

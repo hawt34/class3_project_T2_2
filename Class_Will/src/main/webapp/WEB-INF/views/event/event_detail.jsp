@@ -37,7 +37,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
 
-* {
+body {
   font-family: "Nanum Gothic", sans-serif;
   font-weight: 400;
   font-style: normal;

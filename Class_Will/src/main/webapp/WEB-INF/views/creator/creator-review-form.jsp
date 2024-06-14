@@ -23,7 +23,6 @@
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-4">클래스후기</h4>
-				<form class="validation-form" novalidate action="admin_event_pro" enctype="multipart/form-data" method="post" onsubmit="return confirm('이벤트를 등록하시겠습니까?');">
 					<div>
 						<p>작성자 : 김철철</p>
 					</div>
@@ -32,41 +31,52 @@
 						<textarea rows="10" name="event_subject" id="event_title" class="form-control" cols="50"></textarea> 
 					</div>
 					<div class="mb-3">
-						<label for="event_thumbFile">썸네일</label> 
-						<input type="file" name="event_thumbFile" id="event_thumbFile" class="form-control" required />
-						<div class="invalid-feedback">이미지를 선택해주세요.</div>
-					</div>
-					<div class="mb-3">
 						<label for="event_imageFile">본문이미지</label> 
 						<input type="file" id="event_imageFile" name="event_imageFile" class="form-control" required />
 						<div class="invalid-feedback">이미지를 선택해주세요.</div>
 					</div>
-					<div class="row">
-						<div class="col-md-6 mb-3">
-							<label for="event_start_date">이벤트 시작일</label> 
-							<input type="date" id="event_start_date" name="event_start_date" class="form-control" required>
-							<div class="invalid-feedback">이벤트 시작일을 선택해주세요.</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="event_end_date">이벤트 종료일</label> 
-							<input type="date" id="event_end_date" name="event_end_date" class="form-control" required>
-							<div class="invalid-feedback">이벤트 종료일을 선택해주세요.</div>
-						</div>
-					</div>
 					
 					<hr class="mb-4">
 					
-					<div class="mb-4" align="center">
-						<input type="submit" value="등록하기" class="btn btn-primary btn-lg btn-block">
-						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
+					<div class="mb-4 creator-review-form-btn" align="center">
+						<input type="button" value="답글쓰기" onclick="writeReply()" class="btn btn-primary btn-lg btn-block">
+						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
-				</form>
+					
+					<form class="validation-form creator-reaply-form" novalidate action="creator-review-replyPro" method="post" onsubmit="reviewSubmit()">
+					
+					</form>
 			</div>
 		</div>
 		<footer class="my-3 text-center text-small">
-			<p class="mb-1">&copy; Boogi Movie</p>
+			<p class="mb-1">&copy; WillClass</p>
 		</footer>
 	</div>
+	
+	<script type="text/javascript">
+		function writeReply() {
+			$(".creator-reaply-form").append("<div class='mb-3'>"
+					+ "<label for='creator-review-replyPro'>답글작성</label>"
+					+ "<textarea rows='10' name='creator-review-replyPro' id='creator-review-replyPro' class='form-control' cols='50'></textarea>"
+					+ "</div>"
+					+ "<hr class='mb-4'>"
+					+ "<div class='mb-4 creator-review-form-btn' align='center'>"
+					+ "<input type='submit' value='등록하기' class='btn btn-primary btn-lg btn-block'>"
+					+ "</div>"
+			);
+		}
+		function reviewSubmit() {
+			event.preventDefault(); // 폼 제출을 막음
+			if(confirm("후기를 등록하시겠습니까?")){
+				window.close();
+				return true;
+			} else{
+				return false;
+			}
+		}
+	
+	
+	</script>
 
 </body>
 </html>

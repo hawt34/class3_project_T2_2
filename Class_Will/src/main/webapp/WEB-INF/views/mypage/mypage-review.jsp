@@ -41,6 +41,11 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css" />
+<script
+	src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
+<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 <style>
 body {
 	
@@ -123,11 +128,12 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-						
+
 
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
 								<div class="col-md-12 text-center h2 mb-5">항상 고마운 *** 님</div>
+								<div id="grid"></div>
 								<div class="container">
 									<h2>클래스 후기</h2>
 									<p>클래스 정보</p>
@@ -137,12 +143,12 @@ th:nth-child(2), td:nth-child(2) {
 												<th>신청 클래스</th>
 												<th>강의 진도</th>
 												<th>결제 상태</th>
-												
+
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td>라면 </td>
+												<td>라면</td>
 												<td>면 꼬들</td>
 												<td>john@example.com</td>
 											</tr>
@@ -162,7 +168,6 @@ th:nth-child(2), td:nth-child(2) {
 
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -192,6 +197,52 @@ th:nth-child(2), td:nth-child(2) {
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script>
+		const data = [ {
+			id : 1,
+			name : 'John Doe',
+			age : 30,
+			job : 'Developer'
+		}, {
+			id : 2,
+			name : 'Jane Smith',
+			age : 25,
+			job : 'Designer'
+		}, {
+			id : 3,
+			name : 'Fred Blogs',
+			age : 35,
+			job : 'Manager'
+		},
+		// 더 많은 데이터 추가
+		];
 
+		// 테이블의 컬럼 정의
+		const columns = [ {
+			header : 'ID',
+			name : 'id'
+		}, {
+			header : 'Name',
+			name : 'name'
+		}, {
+			header : 'Age',
+			name : 'age'
+		}, {
+			header : 'Job',
+			name : 'job'
+		} ];
+
+		// Toast UI Grid 생성
+		const grid = new tui.Grid({
+			el : document.getElementById('grid'),
+			data : data,
+			columns : columns,
+			rowHeaders : [ 'rowNum' ], // 행 번호 추가
+			pageOptions : {
+				useClient : true,
+				perPage : 5
+			}
+		});
+	</script>
 </body>
 </html>

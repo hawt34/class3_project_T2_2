@@ -32,7 +32,7 @@
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
-<div class="container-xl container">
+<div class="container1">
     <div class="row col-md-12">
 		<!-- 캐러셀 시작 -->
 		<div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">

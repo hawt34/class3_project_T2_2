@@ -23,12 +23,10 @@
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/creator/creator-class-plan.css" rel="stylesheet">
-	<style>
-
-	</style>
+</head>
 </head>
 <body>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.4/jquery-ui.multidatespicker.min.js"></script>
 
@@ -88,9 +86,14 @@
 							        
 							        <div class="creator-plan-bottom">
 							        
-								        <div class="creator-plan-time" align="center">
-								        	시작시간 : <input type="time" class="me-5">
-								        	종료시간 : <input type="time">
+								        <div class="creator-plan-time d-flex justify-content-evenly">
+   										 <div id="timepicker-container"></div>
+								        	<div>
+								        		시작시간 : <input type="time">
+								        	</div>
+								        	<div>
+								        		종료시간 : <input type="time">
+								        	</div>
 								        </div>
 								        <div align="center" class="mb-3">
 								        	<button type="submit" class="creator-plan-submitBtn">등록하기</button>
@@ -190,6 +193,7 @@
             });
         });
     </script>
+
 
 </body>
 </html>

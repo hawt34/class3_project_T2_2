@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
-
+	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
+	
 	.class-will-bottom {
 		background: black;
-		
+		font-family: "Nanum Gothic", sans-serif; 
 	}
 	
 	.bottom-ul {
@@ -53,7 +54,6 @@
 		position: fixed;
 	    right: 50px;
 	    bottom: 100px;
-	    position: fixed;
 	    display: flex;
 	    width: 50px;
 	    height: 50px;
@@ -71,7 +71,7 @@
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 	<!-- chatbot -->
-	<a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-icon2.png" width="150px" alt="chatbot" ></a>   
+<%-- 	<a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-icon2.png" width="150px" alt="chatbot" ></a>    --%>
         
         
     <!-- Footer Start -->
@@ -87,8 +87,8 @@
 								</div>
 								<div class="col-8 col-mb-6">
 									<ul class="bottom-ul">
-										<li class="bottom-menu"><a href="">공지사항</a></li>
-										<li class="bottom-menu"><a href="">FAQ</a></li>
+										<li class="bottom-menu"><a href="csc">공지사항</a></li>
+										<li class="bottom-menu"><a href="csc-faq">FAQ</a></li>
 										<li class="bottom-menu"><a href="use-info">이용약관</a></li>
 										<li class="bottom-menu"><a href="privacy-info">개인정보처리방침</a></li>
 										<li class="bottom-menu"><a href="refund-info">환불규정</a></li>
@@ -126,12 +126,34 @@
                 </div>
             </div>
         </div>
-	</div>        
+	</div><!-- class-will-bottom -->        
    <!-- Footer End -->
-    <script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+    
+    <script>
+		(function(){
+			var w=window;
+			if(w.ChannelIO){
+				return w.console.error("ChannelIO script included twice.");
+			}
+			var ch=function(){ch.c(arguments);};
+			ch.q=[];
+			ch.c=function(args){
+				ch.q.push(args);
+			};
+			w.ChannelIO=ch;
+			function l(){if(w.ChannelIOInitialized){return;}
+			w.ChannelIOInitialized=true;
+			var s=document.createElement("script");
+			s.type="text/javascript";
+			s.async=true;
+			s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";
+			var x=document.getElementsByTagName("script")[0];
+			if(x.parentNode){x.parentNode.insertBefore(s,x);}}
+			if(document.readyState==="complete"){l();}
+			else{w.addEventListener("DOMContentLoaded",l);
+			w.addEventListener("load",l);}})();
+		ChannelIO('boot', {
+			"pluginKey": "e4e4b39e-51da-4d32-b93f-b4e5dcacd689" // fill your plugin key
+		});
+	</script>

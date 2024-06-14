@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>클래스윌 로그인</title>
+
+
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,21 +20,15 @@
 <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Template Stylesheet -->
-<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
-
-<!-- 부트스트랩 CSS, JS -->
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
 	
-/* 	body { */
-/* 		background: black;  */
-/* 	} */
+ 	body { 
+ 		background: black;  
+ 	} 
 	
 	article {
 		margin: 0 auto;
@@ -49,7 +45,7 @@
 		background-color: white;
 	}
 	
-	.regex{
+	.regex {
 		font-size: 12px;
 		color: white;
 	}
@@ -66,7 +62,7 @@
 	<article>
 		<div class="container login-form">
 			<h2>로그인</h2>
-			<form action="member_login" method="POST">
+			<form action="member-login" method="POST">
 				<div class="input-group mb-3">
 				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
 				  <input type="text" class="form-control" placeholder="이메일">
@@ -83,8 +79,8 @@
 					<input type="submit" id="btnSub" value="로그인">
 				</div>
 			</form>
-			<p><a href="reset_passwd">비밀번호 찾기</a></p>
-			클래스윌이 처음이신가요? <a href="member_join"><b>가입하기</b></a>
+			<p><a href="reset-passwd">비밀번호 찾기</a></p>
+			클래스윌이 처음이신가요? <a href="member-join"><b>가입하기</b></a>
 		
 		</div>
 	</article>
@@ -92,5 +88,16 @@
 	<footer>
       	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"/>
 	</footer>
+	
+    <!-- JavaScript Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+	
+	<!-- Template Javascript -->
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>

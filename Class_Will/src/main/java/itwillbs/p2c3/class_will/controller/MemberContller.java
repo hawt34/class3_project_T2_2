@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberContller {
 	
 	// 로그인 폼으로
-	@GetMapping("member_login")
+	@GetMapping("member-login")
 	public String memberLoginForm() {
 		
 		
@@ -16,7 +16,7 @@ public class MemberContller {
 	}
 	
 	// 로그인 비즈니스 로직 처리
-	@PostMapping("member_login")
+	@PostMapping("member-login")
 	public String memberLoginPro() {
 		
 		
@@ -25,7 +25,7 @@ public class MemberContller {
 	
 	
 	// 회원가입 폼으로
-	@GetMapping("member_join")
+	@GetMapping("member-join")
 	public String memberJoinForm() {
 		
 		
@@ -33,7 +33,7 @@ public class MemberContller {
 	}
 	
 	// 회원가입 비즈니스 로직 처리
-	@PostMapping("member_join")
+	@PostMapping("member-join")
 	public String memberJoinPro() {
 		
 		
@@ -41,7 +41,7 @@ public class MemberContller {
 	}
 	
 	// 비밀번호 재설정
-	@GetMapping("reset_passwd")
+	@GetMapping("reset-passwd")
 	public String resetPasswdFrom() {
 		
 		

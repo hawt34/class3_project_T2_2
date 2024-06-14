@@ -32,11 +32,11 @@
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
 
-* {
+body {
   font-family: "Nanum Gothic", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -60,7 +60,7 @@ main {
 	margin-bottom: 15px;
 }
 
-* {
+body {
 	box-sizing: border-box;
 	padding: 0;
 }

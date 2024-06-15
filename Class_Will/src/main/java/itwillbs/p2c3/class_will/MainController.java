@@ -11,7 +11,7 @@ public class MainController {
 	public String Main() {
 		return "main";
 	}
-
+	
 	// chackout으로
 	@GetMapping("chackout")
 	public String chackout() {

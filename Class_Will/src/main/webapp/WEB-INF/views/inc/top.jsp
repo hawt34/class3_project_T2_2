@@ -242,7 +242,7 @@
 	                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
 	                            </li>
 	                            <li class="nav-item">
-	                                <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
+	                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
 	                            </li>
 	                            <li class="nav-item">
 	                            	<a class="nav-link" href="member-login">로그인</a>

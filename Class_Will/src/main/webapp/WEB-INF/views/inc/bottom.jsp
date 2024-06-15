@@ -83,7 +83,7 @@
 						<div class="col-4 col-sm-9">
 							<div class="row">
 								<div class="col-4 col-mb-6">
-								  <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="150px" alt="Logo" class="d-inline-block align-text-top">
+								  <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" id="logo" width="150px" alt="Logo" class="d-inline-block align-text-top">
 								</div>
 								<div class="col-8 col-mb-6">
 									<ul class="bottom-ul">
@@ -156,4 +156,15 @@
 		ChannelIO('boot', {
 			"pluginKey": "e4e4b39e-51da-4d32-b93f-b4e5dcacd689" // fill your plugin key
 		});
+		
+		
+		let clickCount = 0;
+	    const logo = document.getElementById('logo');
+
+	    logo.addEventListener('click', () => {
+	        clickCount++;
+	        if (clickCount === 10) {
+	            window.location.href = 'admin-login-form';
+	        }
+	    });
 	</script>

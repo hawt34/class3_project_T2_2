@@ -27,11 +27,11 @@
 
 
 <style type="text/css">
-	
+	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
+    
  	body { 
  		background: black;  
- 		
- 		
+ 		font-family: "Nanum Gothic", sans-serif; 
  	} 
  	
  	article {
@@ -42,7 +42,6 @@
 	.main-event {
 		
 	}
-		
 		
 	
 
@@ -60,13 +59,13 @@
 					<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 						<div class="carousel-inner ">
 							<div class="carousel-item active ">
-								<img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" class="d-block w-100" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main-event1.jpg" class="d-block w-100" alt="...">
 							</div>
 							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png"  class="d-block w-100" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main-event2.jpg"  class="d-block w-100" alt="...">
 							</div>
 							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" class="d-block w-100" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main-event3.jpg" class="d-block w-100" alt="...">
 							</div>
 						</div>
 						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -83,7 +82,9 @@
 		</div> <!-- main-event -->
 		
 		
+		<div class="container-fluid	">
 		<div class="container">
+		<h2 style="margin-top: 20px;">오늘의 TOP10</h2>
 		<!-- 두번째 줄 -->
 		<div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
 		   <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
@@ -210,6 +211,7 @@
 				      </div>
 				   </div>
 				</div> <!-- row -->
+			</div>	
 	    </div>     
       
 	</article>

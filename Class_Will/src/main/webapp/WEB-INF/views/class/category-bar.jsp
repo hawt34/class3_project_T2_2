@@ -38,9 +38,9 @@
 		<div class="categoryBarBox col-md-11">
 			<div class="row height d-flex align-items-center mx-5">
 				<div class="col-md-6">
-					<div class="form">
+					<div class="form form1">
 						<i class="fa fa-search"></i>
-						<input type="text" class="form-control form-input" placeholder="클래스 검색">
+						<input type="text" class="form-control form-input search-input" placeholder="클래스 검색">
 					</div>
 				</div>
 			</div>
@@ -120,47 +120,47 @@
 		<!-- 	<div class="row mx-5"> -->
 			<div class="row mx-5 ">
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 커플" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 반려동물" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 선물" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 데이트" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
+						<input type="text" class="form-control form-inputs hashtag" placeholder="# 단체" readonly>
+					</div>
+				</div>
+				<div class="col-md-1 hashtagDiv">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-					</div>
-				</div>
-				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>

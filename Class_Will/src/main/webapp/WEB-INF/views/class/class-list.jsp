@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
-<div class="container-xl container1">
+<div class="container1">
 <!--    <div class="col-md-2"> -->
 
 <!--    </div> -->
@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
       <div class="col-md-3 box1">
 <!--          <select class="form-select-sm selectBox" aria-label="Default select example"> -->
-         <select class="form-select selectBox w-50" aria-label="Default select example">
+         <select class="form-select selectBox1 w-50" aria-label="Default select example">
             <option selected>인기순</option>
             <option value="1">최신순</option>
             <option value="2">낮은 가격순</option>
@@ -83,14 +83,14 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
 <%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" class="w-100 card-img-top classPic"> --%>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 진구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 진구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -114,13 +114,13 @@ document.addEventListener("DOMContentLoaded", function() {
       
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 동래구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 동래구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -145,13 +145,13 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 해운대구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -175,13 +175,13 @@ document.addEventListener("DOMContentLoaded", function() {
          
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 해운대구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -208,13 +208,13 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 북구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 북구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -239,13 +239,13 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
           <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 남구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 남구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -270,13 +270,13 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -287,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 사상구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -301,14 +301,14 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 <!--                   <div class="card-body d-flex flex-column fixed-size"> -->
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -319,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 사상구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -335,14 +335,14 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+            <div class="card shadow-sm border-0 rounded flex-fill card-body1">
+               <div class="card-body p-0 position-relative position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 수영구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 수영구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -368,13 +368,13 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -399,13 +399,13 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -429,13 +429,13 @@ document.addEventListener("DOMContentLoaded", function() {
          
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -446,7 +446,7 @@ document.addEventListener("DOMContentLoaded", function() {
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 남구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 남구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>

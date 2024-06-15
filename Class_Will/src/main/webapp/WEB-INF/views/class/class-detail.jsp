@@ -91,47 +91,47 @@
 <!-- 				    </ul> -->
 <!-- 	            </div> -->
 <!-- 	        </nav> -->
-			<nav class="sticky-nav">
+			<nav class="sticky-nav sticky-nav1">
 				<div class="row">
 					<div class="col-md-2 box2">
-						<ul class="nav-container">
-							<li class="nav-item">
-								<a class="navbar-item" href="#section1">프로그램 상세</a>
+						<ul class="nav-container nav-container1">
+							<li class="nav-item nav-item1">
+								<a class="navbar-item navbar-item1" href="#section1">프로그램 상세</a>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-2 box2">
-						<ul class="nav-container">
-							<li class="nav-item">
-								<a class="navbar-item" href="#section2">후기</a>
+						<ul class="nav-container nav-container1">
+							<li class="nav-item nav-item1">
+								<a class="navbar-item navbar-item1" href="#section2">후기</a>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-2 box2">
-						<ul class="nav-container">
-							<li class="nav-item">
-								<a class="navbar-item" href="#section3">커리큘럼</a>
+						<ul class="nav-container nav-container1">
+							<li class="nav-item nav-item1">
+								<a class="navbar-item navbar-item1" href="#section3">커리큘럼</a>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-2 box2">
-						<ul class="nav-container">
-							<li class="nav-item">
-								<a class="navbar-item" href="#section4">Q&A</a>
+						<ul class="nav-container nav-container1">
+							<li class="nav-item nav-item1">
+								<a class="navbar-item navbar-item1" href="#section4">Q&A</a>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-2 box2">
-						<ul class="nav-container">
-							<li class="nav-item">
-								<a class="navbar-item" href="#section5">환불안내</a>
+						<ul class="nav-container nav-container1">
+							<li class="nav-item nav-item1">
+								<a class="navbar-item navbar-item1" href="#section5">환불안내</a>
 							</li>
 						</ul>
 					</div>
 					<div class="col-md-2 box2">
-						<ul class="nav-container">
-							<li class="nav-item">
-								<a class="navbar-item" href="#section6">1:1 채팅하기</a>
+						<ul class="nav-container nav-container1">
+							<li class="nav-item nav-item1">
+								<a class="navbar-item navbar-item1" href="#section6">1:1 채팅하기</a>
 							</li>
 						</ul>
 					</div>
@@ -139,7 +139,7 @@
 			</nav>
 	        <!-- nav bar -->
 	        <!-- navbar content -->
-	        <div class="content">
+	        <div class="content1">
 	            <div id="section1">
 	                <p>프로그램 상세</p>
 	                <!-- 프로그램 상세 내용 -->
@@ -561,23 +561,23 @@
 		    	
 		    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
 			    	<div class="row">
-				    	<div class="col-md-4 btn mx-auto">
-					    	<button type="button" class="btn btn-light w-100">
+				    	<div class="col-md-4 btn mx-auto btn1">
+					    	<button type="button" class="btn btn-light w-100 btn1">
 					    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" style="width : 25px; height : 25px">5214
 					    	</button>
 					    </div>
-				    	<div class="col-md-4 btn mx-auto">
-					    	<button type="button" class="btn btn-light w-100">
+				    	<div class="col-md-4 btn mx-auto btn1">
+					    	<button type="button" class="btn btn-light w-100 btn1">
 					    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" style="width : 25px; height : 25px">공유하기
 					    	</button>
 						</div>
-				    	<div class="col-md-4 btn mx-auto">
-					    	<button type="button" class="btn btn-light w-100">Light</button>
+				    	<div class="col-md-4 btn mx-auto btn1">
+					    	<button type="button" class="btn btn-light w-100 btn1">Light</button>
 				    	</div>
 			    	</div>
 			    </div> <!-- 좋아요, 공유버튼 -->
 			    <div class="col-md-12">
-		    		<button type="button" class="btn btn-light w-100">신청하기</button>
+		    		<button type="button" class="btn btn-light w-100  btn1">신청하기</button>
 		    	</div>
 	    	</div>
 	    </div> <!-- 오른쪽 강의 소개  -->

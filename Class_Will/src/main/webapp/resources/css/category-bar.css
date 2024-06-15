@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 
-.height{
+.height1 {
     height: 80px;
 }
 
@@ -10,18 +10,18 @@
     border-radius: 10px;
 	opacity: 0.95;
 }
-.form{
+.form1 {
     position: relative;
 }
 
-.form .fa-search{
+.form1 .fa-search{
     position: absolute;
     top:15px;
     left: 20px;
     color: #9ca3af;
 }
 
-.form span{
+.form1 span{
 	position: absolute;
     right: 17px;
     top: 13px;
@@ -37,14 +37,25 @@
    padding-left: 10px;
 }
 
-.form-input{
+.search-input{
     height: 45px;
     width: 200px;
     text-indent: 33px;
     border-radius: 100px;
+    margin : 10px 10px 10px 0px;
 }
 
-.form-input:focus{
+.form-inputs {
+    height: 40px;
+    width: 100px;
+/*     text-indent: 33px; */
+    border-radius: 100px;
+    text-align : center;
+    cursor: pointer;
+	font-size : 0.95em;
+}
+
+.form-inputs:focus{
     box-shadow: none;
     border:none;
 }
@@ -90,15 +101,14 @@
 	margin-right : 20px;
 }
 
-.form-inputs {
-    height: 40px;
-    width: 100px;
-/*     text-indent: 33px; */
-    border-radius: 100px;
-    text-align : center;
-    cursor: pointer;
-	font-size : 0.95em;
-}
+/* .form-inputs { */
+/*     height: 40px; */
+/*     width: 100px; */
+/*     border-radius: 100px; */
+/*     text-align : center; */
+/*     cursor: pointer; */
+/* 	font-size : 0.95em; */
+/* } */
 
 .categorySelect {
 	height : 40px;

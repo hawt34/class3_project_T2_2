@@ -139,8 +139,6 @@ public class AdminController {
 	        }
         }
         
-        
-        
         byte[] excelBytes = excelService.createExcelForm(title, columns);
     	
     	HttpHeaders headers = new HttpHeaders();
@@ -151,7 +149,7 @@ public class AdminController {
     }
     
     @ResponseBody
-    @PostMapping("/uploadData")
+    @PostMapping("uploadData")
     public String uploadData(@RequestParam("tableName") String tableName
     						, @RequestParam("file") MultipartFile file) {
     	logger.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<join");

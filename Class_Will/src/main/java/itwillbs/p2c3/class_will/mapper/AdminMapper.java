@@ -23,7 +23,7 @@ public interface AdminMapper {
 
 	void insertExcelDatas(@Param("tableName") String tableName
 						,@Param("rowDataList") List<Object> list
-						,@Param("code") String code
+						,@Param("columnNames") List<String> columnNames
 	);
 	
 

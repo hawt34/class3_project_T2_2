@@ -36,21 +36,19 @@
 	    WHERE TABLE_NAME = #{tableName}
 	</select>
 	
-	
-    <select id="selectMaxCode" resultType="String">
-		SELECT MAX(CAST(${tableName}_code AS UNSIGNED)) + 1
-		FROM ${tableName}
-    </select>
-    
 	<insert id="insertExcelDatas">
 		INSERT INTO ${tableName}
+		(
+		<foreach collection="columnNames" separator="," item="column">
+			${column}
+		</foreach>
+		)
 		VALUES
-		(#{code},
+		(
 		<foreach collection="rowDataList" separator="," item="data">
 			#{data}
 		</foreach>
 		)
 	</insert>
-	
 	
 </mapper>

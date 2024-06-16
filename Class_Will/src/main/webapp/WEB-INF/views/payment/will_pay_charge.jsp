@@ -31,7 +31,7 @@ body{
 
 .custom-bg {
 	background: black;
-	height: 90vh;
+	height: 100vh;
 }
 .margin_use {
 	margin-top: 20px;
@@ -57,7 +57,9 @@ body{
 }
 .account_area {
 	width:100%;
-	height: 300px;
+	max-height: 300px;
+	margin-bottom: 10px;
+	position: relative;
 }
 .btn {
 	background: #6600FF;
@@ -65,6 +67,10 @@ body{
 }
 .btn:hover {
 	background: #6600FF;
+}
+.btn-container {
+	position: relative;
+    top: 180px;
 }
 </style>
 </head>
@@ -129,7 +135,7 @@ body{
 						</c:otherwise>
 					</c:choose>
 				</div><!-- 계좌 연동 끝 -->
-				<div class="col d-flex justify-content-center mt-2">
+				<div class="col d-flex justify-content-center btn-container">
 					<a href="#" class="btn w-100">충전하기</a>
 				</div>		
 			</div>

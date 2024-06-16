@@ -25,13 +25,16 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Required JavaScript files -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <!-- 데이트픽커 - JS, CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.7.1.js "></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+<!-- 타임 픽커 -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.css"> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.13.18/jquery.timepicker.min.js"></script> -->
 <style>
     .flatpickr-calendar {
     
@@ -49,7 +52,7 @@
     .minusBtn {
 	background: none;
 	border: none;
-	background-image: url("${pageContext.request.contextPath}/resources/img/minusBtn.png");
+	background-image: url("${pageContext.request.contextPath}/resources/img/headcount_minus.png");
 	background-size: cover;
 	width: 25px;
 	height: 25px;
@@ -58,7 +61,7 @@
 	.addBtn {
 		background: none;
 		border: none;
-		background-image: url("${pageContext.request.contextPath}/resources/img/addBtn.png");
+		background-image: url("${pageContext.request.contextPath}/resources/img/headcount_plus.png");
 		background-size: cover;
 		width: 26px;
 		height: 26px;
@@ -257,12 +260,15 @@
 	    </div> <!-- col-md-9 -->
 	    <div class="col-md-3">
 	    	<div class="box1">
-	    		<h6>RYU Russell 러셀</h6>
-	    		<h3>섭스턴스 페인터, 클릭 한 번으로 고퀄리티 3D 완성!</h3>
+	    		<h6>클래스 선택</h6>
+	    		<h3></h3>
 	    		<div>
 			        <div id="datePicker"></div>
 			        <!-- 선택된 날짜를 저장할 input -->
 			        <input type="hidden" id="selected_date" value="">
+			    </div>
+			    <div>
+			    	<input id="timepicker" type="text">
 			    </div>
 			    <!-- 인원 수 체크 -->
 				<div class="class_headcount">
@@ -334,7 +340,22 @@
 	    </div> <!-- 오른쪽 강의 소개  -->
     </div><!-- row box2-->
 </div><!-- container -->
-
+<script>
+$(document).ready(function(){
+    $("#timepicker").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+        time_24hr: true,
+        defaultHour: 11,
+        defaultMinute: 0,
+        minTime: "10:00",
+        maxTime: "18:00",
+        minuteIncrement: 30,
+        locale: "ko"
+    });
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
 	var today = new Date();
@@ -344,13 +365,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var defaultDates = ["2024-06-15", "2024-06-20"];
 	
 	flatpickr("#datePicker", {
-		mode: "multiple", // 다중 선택 모드
+// 		mode: "multiple", // 다중 선택 모드
 		dateFormat: "Y-m-d",
 		inline: true,
 		locale: "ko", // 한글 설정
 		enable: defaultDates,
 		onChange: function(selectedDates, dateStr, instance) {
 			console.log(selectedDates); // 선택된 날짜 배열
+			console.log(dateStr); // 선택된 날짜 배열
 		}
 	});
 });

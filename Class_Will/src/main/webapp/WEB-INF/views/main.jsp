@@ -20,9 +20,10 @@
 <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-<!-- Customized Bootstrap Stylesheet -->
+<!--  Bootstrap  -->
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
+<!--  클래스 리스트 css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class_list.css">
 
 

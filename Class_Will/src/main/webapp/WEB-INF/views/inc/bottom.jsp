@@ -6,14 +6,21 @@
 	.class-will-bottom {
 		background: black;
 		font-family: "Nanum Gothic", sans-serif; 
+		color: white;
 	}
 	
+	.class-will-bottom a {
+	    color: inherit; 
+	    text-decoration: none; 
+	}
+		
 	.bottom-ul {
 		list-style: none;
 		padding: 0;
 	    margin: 0;
 	    display: flex;
 	    flex-wrap: wrap; 
+	    color: white;
 	}
 	
 	.bottom-menu {
@@ -77,7 +84,7 @@
     <!-- Footer Start -->
 	<div class="class-will-bottom">
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5" style="background-color: #333;">
-            <div class="container py-5" style="border-top: 1px solid white;">
+            <div class="container py-5">
                 <div class="container text-center">
 					<div class="row">
 						<div class="col-4 col-sm-9">

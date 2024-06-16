@@ -190,6 +190,13 @@
 	        <artifactId>log4j-api</artifactId>
 	        <version>2.17.0</version>
 	    </dependency>
+	    
+	    <!-- iamport REST Client for JAVA -->
+		<dependency>
+		    <groupId>com.github.iamport</groupId>
+		    <artifactId>iamport-rest-client-java</artifactId>
+		    <version>0.2.23</version>
+		</dependency>
 		
 		<!--   =====================================================================  -->
 		<!--  AspectJ  -->
@@ -279,6 +286,15 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<!-- iamport REST Client for JAVA -->
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+	
     <build>
         <plugins>
             <plugin>

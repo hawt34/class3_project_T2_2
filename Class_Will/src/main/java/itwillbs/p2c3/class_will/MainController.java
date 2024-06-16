@@ -8,7 +8,7 @@ public class MainController {
 
 	// 메인으로
 	@GetMapping("main")
-	public String Main() {
+	public String main() {
 		return "main";
 	}
 	

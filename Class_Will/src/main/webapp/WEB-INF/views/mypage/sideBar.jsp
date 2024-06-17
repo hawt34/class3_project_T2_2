@@ -22,8 +22,8 @@
 				
 				<div>
 					<c:choose>
-					<c:when test="${not empty member.member_img}">
-						<img src="${pageContext.request.contextPath}/resources/img/default.png"
+					<c:when test="${not empty member.member_img && !member.member_img.empty}}">
+						<img src="${pageContext.request.contextPath}/resources/upload/${member.member_img}" 
 						style="width: 150px; height: 150px">
 					</c:when>	
 					

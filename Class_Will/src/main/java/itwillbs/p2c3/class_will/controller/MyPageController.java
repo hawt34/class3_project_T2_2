@@ -84,21 +84,14 @@ public class MyPageController {
 //	            model.addAttribute("targetURL", "member_login");
 //	            return "error/fail";
 //	        }
+			member.setMember_code(1000);
 			member.setMember_imageFile(file);
 			String uploadDir = "/resources/upload";
 			String saveDir = session.getServletContext().getRealPath(uploadDir);
 			System.out.println("실제 업로드 경로(session): " + saveDir);
 			// 실제 업로드 경로
 			
-			String subDir = "";
-			LocalDate today = LocalDate.now();
-			String datePattern = "yyyy/MM/dd";
 			
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
-			System.out.println(today.format(dtf));
-			subDir = today.format(dtf);
-			
-			saveDir += "/" + subDir;
 			System.out.println(saveDir);
 			
 			Path path = Paths.get(saveDir);
@@ -116,7 +109,7 @@ public class MyPageController {
 			
 			
 			if(!file.getOriginalFilename().equals("")) {
-				member.setMember_img(subDir + "/" + fileName1);      
+				member.setMember_img(fileName1);      
 			}
 			System.out.println("저장파일" +member.getMember_img());
 

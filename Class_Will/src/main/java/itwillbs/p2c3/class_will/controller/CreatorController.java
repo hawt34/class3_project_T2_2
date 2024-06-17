@@ -7,7 +7,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
@@ -38,8 +40,8 @@ public class CreatorController {
 	}
 
 	// creater-class 등록
-	@GetMapping("creator-classRegPro")
-	public String createrClassRegPro(@RequestParam Map<String, Object> map, HttpSession session) {
+	@PostMapping("creator-classRegPro")
+	public String createrClassRegPro(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
 		System.out.println(map);
 		
 //		String member_code = (String)session.getAttribute("member_code");
@@ -48,7 +50,9 @@ public class CreatorController {
 		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
 		
 		int insertCount = creatorService.createrClassRegPro(map);
-		
+		if(insertCount > 0) {
+			model.addAttribute("msg", "클래스등록 실패");
+		}
 		
 		return "creator/creator-class";
 	}

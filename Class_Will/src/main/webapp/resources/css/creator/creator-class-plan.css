@@ -52,12 +52,12 @@
 	border-radius: 15px;
 	background: white;
 }
-.creator-plan-time{
-	margin: 40px 80px;
-	padding: 30px 10px;
-	background: #eee;
-	border-radius: 10px;
-}
+/* .creator-plan-time{ */
+/* 	margin: 40px 80px; */
+/* 	padding: 30px 10px; */
+/* 	background: #eee; */
+/* 	border-radius: 10px; */
+/* } */
 .creator-plan-submitBtn{
 	border: 1px solid black;
 	padding: 10px 20px;

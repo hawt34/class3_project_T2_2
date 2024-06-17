@@ -162,7 +162,7 @@
 								                    <button type="button" class="item" data-value="4">#드린이</button>
 								                    <button type="button" class="item" data-value="5">#I성향추천</button>
 											    </div>
-											    <input type="hidden" id="selected-items" name="selectedItems" value=""> 
+											    <input type="hidden" id="selected-items" name="class_hashtag" value=""> 
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_thumnail" class="h6">커버이미지</label> 
@@ -194,11 +194,6 @@
 											<div class="col-md-12 my-4">
 												<label for="class_price" class="h6">회당 클래스가격(원)</label> 
 												<input type="text" name="class_price" id="class_price" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
-												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
-											</div>
-											<div class="col-md-6 my-4">
-												<label for="class_total_headcount" class="h6">참여가능 인원</label> 
-												<input type="number" name="class_total_headcount" id="class_total_headcount" class="form-control my-1" min="1" required />
 												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
 											</div>
 										</div>
@@ -289,26 +284,6 @@
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	<script type="text/javascript">	
-	
-		function hashTag() {
-			window.open("creator-hashtag", "hashtag", "width=700, height=700, left=700, top=50");
-		}
-	
-		
-		// 참여인원 처리
-		 $(document).ready(function() {
-            $('#class-participate').on('input', function() {
-                if ($(this).val() <= 0) {
-                    $(this).val(''); // 값이 0 이하일 경우 비움
-                }
-            });
-
-            $('#class-participate').on('keypress', function(e) {
-                if (e.key === '-' || (e.key === '0' && $(this).val() === '')) {
-                    e.preventDefault(); // '-'나 맨 처음에 '0' 입력을 막음
-                }
-            });
-        });
 		
 		// 썸머노트 설정
 		$('#summernote').summernote({
@@ -350,7 +325,7 @@
 		          
 		});
 		
-		// 카테고리 다중선택
+		// 해쉬태그 다중선택
 		document.addEventListener('DOMContentLoaded', () => {
 		    const items = document.querySelectorAll('.item');
 		    const form = document.querySelector('.validation-form');

@@ -123,13 +123,14 @@
 	                
 	                <div class="owl-carousel vegetable-carousel justify-content-center">
 	                
-					<div class="border border-primary rounded position-relative vesitable-item">
+					<div class="border border-light  rounded position-relative vesitable-item">
 						<div class="vesitable-img">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary  px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+							<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+                        </div>
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -152,13 +153,14 @@
 						</div>
                     </div>
                     
-                    <div class="border border-primary rounded position-relative vesitable-item">
+                    <div class="border border-light rounded position-relative vesitable-item">
 						<div class="vesitable-img">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+                        </div>
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -181,13 +183,14 @@
 						</div>
                     </div>
                     
-                    <div class="border border-primary rounded position-relative vesitable-item">
-						<div class="vesitable-img">
+                    <div class="border border-light rounded position-relative vesitable-item">
+						<div class="position-relative position-relative1">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                     	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+						</div>
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -210,13 +213,14 @@
 						</div>
                     </div>
                     
-                    <div class="border border-primary rounded position-relative vesitable-item">
-						<div class="vesitable-img">
+                    <div class="border border-light rounded position-relative vesitable-item">
+						<div class="position-relative position-relative1">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+	                    </div>    
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -239,13 +243,14 @@
 						</div>
                     </div>
                     
-                    <div class="border border-primary rounded position-relative vesitable-item">
-						<div class="vesitable-img">
+                    <div class="border border-light rounded position-relative vesitable-item">
+						<div class="position-relative position-relative1">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary px-2 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1" >
+                        </div>
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -268,13 +273,14 @@
 						</div>
                     </div>
                     
-                    <div class="border border-primary rounded position-relative vesitable-item">
-						<div class="vesitable-img">
+                    <div class="border border-light rounded position-relative vesitable-item">
+						<div class="position-relative1">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary px-2 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                    	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" width="25px">
+                        </div>
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -297,13 +303,14 @@
 						</div>
                     </div>
                     
-                    <div class="border border-primary rounded position-relative vesitable-item">
+                    <div class="border border-light rounded position-relative vesitable-item">
 						<div class="vesitable-img">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+                        	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" width="25px">
+                        </div>
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -326,13 +333,14 @@
 						</div>
                     </div>
                     
-                    <div class="border border-primary rounded position-relative vesitable-item">
+                    <div class="border border-light rounded  vesitable-item">
 						<div class="vesitable-img">
 							<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-<%-- 	                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
 						</div>
-                        <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">원데이</div>
-                        <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" >
+                        </div>
+                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 							<div class="classCategory col-md-10">
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
@@ -378,7 +386,7 @@
                              
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
@@ -409,7 +417,7 @@
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
@@ -440,7 +448,7 @@
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
@@ -471,7 +479,7 @@
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
@@ -502,7 +510,7 @@
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
@@ -533,7 +541,7 @@
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
@@ -564,7 +572,7 @@
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
@@ -595,7 +603,7 @@
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative fruite-item classCard">
-                                         <div class="fruite-img">
+                                         <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>

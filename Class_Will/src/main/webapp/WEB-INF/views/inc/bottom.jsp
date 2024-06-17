@@ -69,6 +69,15 @@
 	    z-index: 999;
 	}
 	
+	h3 {
+		color: white;
+	}
+	
+	.bottom-csc {
+		text-align: left;
+	}
+	
+	
 
 	    
 
@@ -124,9 +133,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-4 col-lg-3">
+						<div class="col-4 col-lg-3 bottom-csc">
 							<h3>고객센터</h3>
-							<button class="btn btn-light">문의하기</button>
+							<div class="d-grid gap-2">
+								<button class="btn btn-light">문의하기</button>
+							</div>
 							<p>*주중 10시~18시/주말 및 공휴일 제외</p>
 						</div>
 					</div>

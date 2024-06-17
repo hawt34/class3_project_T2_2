@@ -84,6 +84,12 @@
 		color: white;
 	}
 	
+	h2 {
+		color: white;
+		margin: 30px;
+		text-align: center;
+	}
+	
 </style>
 
 </head>

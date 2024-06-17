@@ -165,40 +165,40 @@
 											    <input type="hidden" id="selected-items" name="selectedItems" value=""> 
 											</div>
 											<div class="col-md-12 my-4">
-												<label for="creator-cover-image" class="h6">커버이미지</label> 
-												<input type="file" name="creator-cover-image" id="creator-cover-image" class="form-control" required />
+												<label for="class_thumnail" class="h6">커버이미지</label> 
+												<input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required />
 												<div class="invalid-feedback">커버이미지 입력해주세요.</div>
 											</div>
 											<div class="col-md-12 my-4">
-												<label for="creator-main-image" class="h6">본문이미지</label> 
-												<input type="file" name="creator-main-image" id="creator-main-image" class="form-control" required />
+												<label for="class_image" class="h6">본문이미지</label> 
+												<input type="file" name="class_image" id="class_image" class="form-control" required />
 												<div class="invalid-feedback">본문이미지를 입력해주세요.</div>
 											</div>
 											<div class="my-4">
-												<label for="class-content" class="h6">클래스 소개</label> 
-												<textarea name="editordata" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea>
+												<label for="summernote" class="h6">클래스 소개</label> 
+												<textarea name="class_ex" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea>
 												<div class="invalid-feedback">내용을 입력해주세요.</div>
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="postCode" class="h6">주소</label><br>
 												<div class="d-flex justify-content-between">
 													<div class="col-md-3">
-											    		<input type="text" id="post_code" name="member_post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
+											    		<input type="text" id="post_code" name="post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
 													</div>
 													<div class="col-md-9">
-														<input type="text" id="address1" name="member_address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
+														<input type="text" id="address1" name="address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
 													</div>
 												</div>
-												<input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
 											</div>
 											<div class="col-md-12 my-4">
-												<label for="class_name" class="h6">회당 클래스가격(원)</label> 
-												<input type="text" name="class_name" id="class_name" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
+												<label for="class_price" class="h6">회당 클래스가격(원)</label> 
+												<input type="text" name="class_price" id="class_price" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
 												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
 											</div>
 											<div class="col-md-6 my-4">
-												<label for="class-participate" class="h6">참여가능 인원</label> 
-												<input type="number" name="class-participate" id="class-participate" class="form-control my-1" min="1" required />
+												<label for="class_total_headcount" class="h6">참여가능 인원</label> 
+												<input type="number" name="class_total_headcount" id="class_total_headcount" class="form-control my-1" min="1" required />
 												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
 											</div>
 										</div>
@@ -231,8 +231,8 @@
 <!-- 												<div class="invalid-feedback">닉네임을 입력해주세요.</div> -->
 <!-- 											</div> -->
 											<div class="col-md-12 my-2">
-												<label for="class_calc_content" class="h6">크리에이터 소개</label> 
-												<input type="text" name="class_calc_content" class="class_calc_content" class="form-control" required />
+												<label for="class_creator_explain" class="h6">크리에이터 소개</label> 
+												<input type="text" name="class_creator_explain" class="class_calc_content" class="form-control" required />
 												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
 											</div>
 										</div>

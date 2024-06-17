@@ -19,11 +19,6 @@ public class CreatorService {
 	 
 	 public int createrClassRegPro(Map<String, Object> map) {
 		 
-		 String jsonArray = gson.toJson(map.get("selectedItems"));  // 배열을 JSON 문자열로 변환
-		 ArrayData arrayData = new ArrayData();
-		 arrayData.setJsonArrays(jsonArray);
-		 map.put("selectedItems", arrayData);
-		 
 		 return creatorMapper.createrClassRegPro(map);
 	 }
 	 

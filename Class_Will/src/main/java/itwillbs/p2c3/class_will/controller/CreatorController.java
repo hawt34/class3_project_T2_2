@@ -42,11 +42,12 @@ public class CreatorController {
 	public String createrClassRegPro(@RequestParam Map<String, Object> map, HttpSession session) {
 		System.out.println(map);
 		
-		String id = (String)session.getAttribute("sId");
+//		String member_code = (String)session.getAttribute("member_code");
+		map.put("member_code", 1234);
 		
+		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
 		
 		int insertCount = creatorService.createrClassRegPro(map);
-		
 		
 		
 		return "creator/creator-class";

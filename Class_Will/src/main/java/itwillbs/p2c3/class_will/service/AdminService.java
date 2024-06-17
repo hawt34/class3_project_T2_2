@@ -17,8 +17,8 @@ public class AdminService {
 	
 	
 	
-	public List<Map<String, String>> getMemberList(String type) {
-		return adminMapper.selectMemberList(type);
+	public List<Map<String, String>> getMemberList(Map<String, Object> params) {
+		return adminMapper.selectMemberList(params);
 	}
 
 	public Map<String, String> getMemberInfo(String member_code) {
@@ -49,6 +49,14 @@ public class AdminService {
 
 	public Map<String, String> getClassInfo(String class_code) {
 		return adminMapper.selectClassInfo(class_code);
+	}
+
+	public Integer getCommonCode(String code_value) {
+		return adminMapper.selectCommonCode(code_value);
+	}
+
+	public int getCommon2Code(int common1_code, String type) {
+		return adminMapper.selectCommon2Code(common1_code, type);
 	}
 	
 	

@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.ExcelService;
 
@@ -39,6 +38,10 @@ public class AdminController {
 	@Autowired
 	private ExcelService excelService;
 	
+	@Autowired
+	private CommonUtils cUtils;
+	
+	
 	@GetMapping("admin")
 	public String admin() {
 		
@@ -46,13 +49,15 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin-member")
-	public String adminMain(@RequestParam(defaultValue = "MEMBER") String type, Model model) {
+	public String adminMain(@RequestParam(defaultValue = "일반회원") String type, Model model) {
 		List<Map<String, String>> member_list = null;
-		System.out.println("sdafasdfdsfasdfasdf");
-		switch (type) {
-			case "MEMBER" : member_list = adminService.getMemberList(type); System.out.println("sdafasdfdsfasdfasdf222222222222222222"); break;
-			case "TEACHER" : member_list = adminService.getMemberList(type); break;
-		}
+		String code_value = "member_type";
+		int common1_code = adminService.getCommonCode(code_value);
+		int common2_code = adminService.getCommon2Code(common1_code, type);
+		Map<String, Object> params = cUtils.commonProcess("MEMBER", common2_code);
+		
+		
+		member_list = adminService.getMemberList(params);
 		
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
 		

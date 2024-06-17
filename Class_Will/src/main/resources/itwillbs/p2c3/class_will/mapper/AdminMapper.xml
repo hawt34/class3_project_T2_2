@@ -3,11 +3,33 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.AdminMapper">
-	<select id="selectMemberList" resultType="map">
-		SELECT *
-		FROM MEMBER
-		WHERE member_type = #{type}
-	</select>
+
+<select id="selectMemberList" resultType="map" parameterType="map">
+    SELECT 
+        m.member_code,
+        m.member_email,
+        m.member_name,
+        m.member_img,
+        m.member_tel,
+        m.member_pwd,
+        m.member_social,
+        m.member_marketing1,
+        m.member_marketing2,
+        status.code_value AS member_status,
+        m.member_addr,
+        m.member_nickname,
+        m.member_credit,
+        type.code_value AS member_type,
+        m.member_reg_date
+    FROM MEMBER m
+    LEFT JOIN common2 status 
+    ON m.member_status = status.common2_code 
+    AND status.common1_code = #{params.member_status}
+    LEFT JOIN common2 type 
+    ON m.member_type = type.common2_code 
+    AND type.common1_code = #{params.member_type}
+    WHERE m.member_type = #{params.param1}
+</select>
 	
 	<select id="selectMemberInfo" resultType="map">
 		SELECT *
@@ -60,6 +82,19 @@
 		SELECT *
 		FROM class
 		WHERE class_code = #{class_code}
+	</select>
+	
+	<select id="selectCommonCode" resultType="Integer">
+		SELECT common1_code
+		FROM common1
+		WHERE code_value = #{code_value}
+	</select>
+	
+	<select id="selectCommon2Code" resultType="int">
+		SELECT common2_code
+		FROM common2
+		WHERE common1_code = #{common1_code}
+		AND code_value = #{type}
 	</select>
 	
 </mapper>

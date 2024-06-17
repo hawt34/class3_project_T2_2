@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -32,6 +33,7 @@ public class ExcelService {
     public byte[] createExcel(String title, List<String> headers, List<Map<String, Object>> data) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet(title);
+        
         // 헤더 행 생성
         Row headerRow = sheet.createRow(0);
         for (int i = 0; i < headers.size(); i++) {
@@ -142,7 +144,6 @@ public class ExcelService {
                 if (row == null) {
                     continue; // 비어 있는 행 무시
                 }
-
                 boolean isEmptyRow = true;
                 rowData = new ArrayList<>();
                 for (int j = 0; j < headerRow.getLastCellNum(); j++) {

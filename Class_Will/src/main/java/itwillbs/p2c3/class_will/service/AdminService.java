@@ -42,6 +42,14 @@ public class AdminService {
 	public List<String> getColumnDataTypes(String tableName) {
 		return adminMapper.selectColumnDataTypes(tableName);
 	}
+
+	public List<Map<String, String>> getClassList() {
+		return adminMapper.selectClassList();
+	}
+
+	public Map<String, String> getClassInfo(String class_code) {
+		return adminMapper.selectClassInfo(class_code);
+	}
 	
 	
 }

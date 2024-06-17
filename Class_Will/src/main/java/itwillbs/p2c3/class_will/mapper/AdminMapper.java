@@ -25,6 +25,10 @@ public interface AdminMapper {
 						,@Param("rowDataList") List<Object> list
 						,@Param("columnNames") List<String> columnNames
 	);
+
+	List<Map<String, String>> selectClassList();
+
+	Map<String, String> selectClassInfo(String class_code);
 	
 
 }

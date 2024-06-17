@@ -48,8 +48,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리 :</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin-member?type=member">회원 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-member?type=teacher">강사 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin-member?type=MEMBER">회원 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-member?type=TEACHER">강사 리스트</a>
                     </div>
                 </div>
             </li>

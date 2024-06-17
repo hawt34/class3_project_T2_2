@@ -1,4 +1,4 @@
-package itwillbs.p2c3.class_will.VO;
+package itwillbs.p2c3.class_will.vo;
 
 import lombok.Data;
 

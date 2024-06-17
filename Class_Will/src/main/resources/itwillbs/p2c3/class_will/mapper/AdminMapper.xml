@@ -51,4 +51,15 @@
 		)
 	</insert>
 	
+	<select id="selectClassList" resultType="map">
+		SELECT *
+		FROM class
+	</select>
+	
+	<select id="selectClassInfo" resultType="map">
+		SELECT *
+		FROM class
+		WHERE class_code = #{class_code}
+	</select>
+	
 </mapper>

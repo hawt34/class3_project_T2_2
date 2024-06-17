@@ -147,17 +147,20 @@
 							<div class="vesitable-img">
 								<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
-	                        <div class="text-white bg-tertiary  px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;">
 								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -182,12 +185,15 @@
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -212,12 +218,15 @@
 							</div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -242,12 +251,15 @@
 		                    </div>    
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -272,12 +284,15 @@
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -302,12 +317,15 @@
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -332,12 +350,15 @@
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -362,11 +383,14 @@
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
 								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
+									<div class="px-3 py-1 position-absolute"  style="top: 30px; left: 5px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
 									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
@@ -392,12 +416,15 @@
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -417,17 +444,20 @@
 							<div class="vesitable-img">
 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
-	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
+	                        <div class="bg-tertiary px-3 py-1 position-absolute" style="top: 8px; right: 10px;">
 		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" >
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								</div>
-								<div class="createrName d-flex align-items-center">
-	<%-- 								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
+								<div class="createrName d-flex align-items-center py-2">
+									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+									</div>	
+									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -468,11 +498,12 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								          </div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -499,12 +530,13 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								          </div>
+											<div class="classCategory col-md-10">
+			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+											</div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
 						                 		<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
@@ -530,11 +562,12 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								             	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								          </div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -561,11 +594,12 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								            	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								          </div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -592,11 +626,12 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								          		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								          </div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -626,8 +661,9 @@
                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								            	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								          </div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -657,8 +693,9 @@
                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+								           		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
 								          </div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -688,8 +725,9 @@
                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								             <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>			
 								          </div>
 									      <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">

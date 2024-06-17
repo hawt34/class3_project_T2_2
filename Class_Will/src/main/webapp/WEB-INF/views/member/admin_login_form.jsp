@@ -105,7 +105,7 @@
 					</div>
 					
 					<div class="d-grid gap-2 py-2 btnLogin">
-						<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light">
+						<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light btn-lg">
 					</div>
 				</form>
 			</div>

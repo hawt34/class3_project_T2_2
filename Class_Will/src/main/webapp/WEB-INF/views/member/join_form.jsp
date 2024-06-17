@@ -26,7 +26,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 
 
-
 <style type="text/css">
 
 	body {
@@ -101,7 +100,10 @@
 	}
 	
 	#phone-auth-btn {
-		
+		height: 58px;
+		width: 145px;;
+		border-radius: 10px;
+		background: #FFCC80;
 	}
 	
 	.form-check-center {
@@ -140,8 +142,8 @@
 							<label for="phone_number">휴대전화</label>
 						</div>
 					</div>	
-					<div class="col-4" style="height: 58px;">
-						<button class="fill" type="button" id="phone-auth-btn">인증번호 전송</button>
+					<div class="d-grid gap-2 col-4" style="height: 58px; padding: 0">
+						<button class="float-start" type="button" id="phone-auth-btn">인증번호 전송</button>
 					</div>	
 				</div>
 				<div class="form-floating mb-3">
@@ -150,7 +152,7 @@
 				</div>
 				
 				<fieldset>
-					<h3>서비스 정책</h3>
+					<h5>서비스 정책</h5>
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="allCheck" name="allCheck">
 						<label class="form-check-label" for="allCheck">
@@ -201,7 +203,7 @@
 					</div>
 				</fieldset>
 				<div class="d-grid gap-2 py-3">
-						<input type="submit" id="btnSub" value="가입하기" class="btn btn-outline-light">
+						<input type="submit" id="btnSub" value="가입하기" class="btn btn-outline-light btn-lg">
 				</div>
 			</form>
 			

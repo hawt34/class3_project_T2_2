@@ -44,7 +44,7 @@
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
@@ -67,7 +67,7 @@
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">Creator Center</h1>
+			<h1 class="mb-4 text-white">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
@@ -97,7 +97,7 @@
 								  </div>
 								</div>
 								<hr class="col-md-8">
-								<h5 class="col-md-8 mt-5" align="left">상세정산</h5>
+								<h5 class="col-md-8 mt-5 text-white" align="left">상세정산</h5>
 								<div class="card col-md-8 my-2">
 								  <div class="card-body">
 								    <div class="d-flex justify-content-start card-content">

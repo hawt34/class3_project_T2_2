@@ -258,18 +258,18 @@ body{
 }
 
 @media (min-width: 992px) {
-    .hero-header,
-    .page-header {
-        margin-top: 152px !important;
-    }
+/*     .hero-header, */
+/*     .page-header { */
+/*         margin-top: 152px !important; */
+/*     } */
    
 }
 
 @media (max-width: 992px) {
-    .hero-header,
-    .page-header {
-        margin-top: 152px !important;
-    }
+/*     .hero-header, */
+/*     .page-header { */
+/*         margin-top: 152px !important; */
+/*     } */
      #navbarCollapse{
 		background: lightgray;
 		border-radius: 10px;
@@ -283,7 +283,6 @@ body{
    .fixed-top{
       background: black;
    }
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 }
 /*** Hero Header end ***/
 

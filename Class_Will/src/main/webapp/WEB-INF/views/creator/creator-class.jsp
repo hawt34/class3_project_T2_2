@@ -51,7 +51,7 @@
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
@@ -74,7 +74,7 @@
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">Creator Center</h1>
+			<h1 class="mb-4 text-white">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
@@ -173,122 +173,7 @@
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
-	<!-- Toast UI Grid Script -->
-<!--     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script> -->
 
-<!--     <script> -->
-//         document.addEventListener('DOMContentLoaded', function () {
-//             const data = [
-//                 {
-//                     id: 2,
-//                     name: 'Jane Doe',
-//                     email: 'jane.doe@example.com',
-//                     registrationDate: '2023-02-01',
-//                     status: 'Inactive'
-//                 },
-//                 {
-//                     id: 2,
-//                     name: 'Jane Doe',
-//                     email: 'jane.doe@example.com',
-//                     registrationDate: '2023-02-01',
-//                     status: 'Inactive'
-//                 }
-//                 // 더 많은 회원 데이터 추가 가능
-//             ];
-            
-//             // 페이징을 위한 Pagination 인스턴스 생성
-//             const pagination = new tui.Pagination(document.getElementById('pagination'), {
-//                 totalItems: data.length,
-//                 itemsPerPage: 10, // 페이지당 항목 수
-//                 visiblePages: 5, // 보이는 페이지 수
-//                 centerAlign: true
-//             });
-			
-//             // 상세보기, 수정하기, 삭제 버튼
-//             class ActionRenderer {
-//                 constructor(props) {
-//                     const container = document.createElement('div');
-                    
-//                     const viewButton = document.createElement('button');
-//                     viewButton.className = 'btn btn-primary btn-sm';
-//                     viewButton.innerText = '상세보기';
-//                     viewButton.addEventListener('click', () => {
-//                         window.open("CscDetail", "상세정보", "width=700px,height=800px")
-//                     });
-
-//                     const editButton = document.createElement('button');
-//                     editButton.className = 'btn btn-warning btn-sm ml-2';
-//                     editButton.innerText = '수정하기';
-//                     editButton.addEventListener('click', () => {
-//                         alert(`수정할 회원 ID: ${props.value}`);
-//                         // 여기에 수정하기 페이지로 이동하는 로직을 추가할 수 있습니다.
-//                         // 예를 들어, location.href = `/member/edit/${props.value}`;
-//                     });
-
-//                     const deleteButton = document.createElement('button');
-//                     deleteButton.className = 'btn btn-danger btn-sm ml-2';
-//                     deleteButton.innerText = '삭제하기';
-//                     deleteButton.addEventListener('click', () => {
-//                         if (confirm(`회원 ID: ${props.value}\n정말로 삭제하시겠습니까?`)) {
-//                             // 여기에 삭제 로직을 추가할 수 있습니다.
-//                             alert('삭제되었습니다.');
-//                         }
-//                     });
-
-//                     container.appendChild(viewButton);
-//                     container.appendChild(editButton);
-//                     container.appendChild(deleteButton);
-                    
-//                     this.el = container;
-//                 }
-//                 getElement() {
-//                     return this.el;
-//                 }
-//                 render(props) {
-//                     this.el.dataset.rowKey = props.rowKey;
-//                     this.el.dataset.columnName = props.columnName;
-//                     this.el.value = props.value;
-//                 }
-//             }
-
-//             const grid = new tui.Grid({
-//                 el: document.getElementById('grid'),
-//                 data: data,
-//                 columns: [
-//                     { header: '제목', name: 'class_name' , editor: 'text'},
-//                     { header: 'Name', name: 'name' , editor: 'text'},
-//                     { header: 'Email', name: 'email' , editor: 'text'},
-//                     { header: 'Registration Date', name: 'registrationDate' , editor: 'text'},
-//                     { header: 'Status', name: 'status' , editor: 'text'},
-//                     {
-//                         header: 'Action',
-//                         name: 'action',
-//                         renderer: {
-//                             type: ActionRenderer
-//                         }
-//                     }
-//                 ],
-//                 rowHeaders: ['rowNum'],
-//                 pageOptions: {
-//                     useClient: true, // 클라이언트 사이드 페이징 사용
-//                     perPage: 10 // 페이지당 항목 수
-//                 },
-//                 bodyHeight: 400
-//             });
-            
-//             // 페이지 변경 이벤트
-//             pagination.on('beforeMove', function (event) {
-//                 const currentPage = event.page;
-//                 const startRow = (currentPage - 1) * 10;
-//                 const endRow = startRow + 10;
-
-//                 grid.resetData(data.slice(startRow, endRow));
-//             });
-            
-//             // 초기 데이터 설정
-//             grid.resetData(data.slice(0, 10));
-//         });
-<!--     </script> -->
     
     
 

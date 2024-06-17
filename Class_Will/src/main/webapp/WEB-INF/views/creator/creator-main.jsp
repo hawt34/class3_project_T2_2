@@ -93,7 +93,7 @@ th:nth-child(2), td:nth-child(2) {
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
@@ -107,7 +107,7 @@ th:nth-child(2), td:nth-child(2) {
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">Creator</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
+			<li class="breadcrumb-item"><a href="main text-white">Home</a></li>
 			<li class="breadcrumb-item active text-white">크리에이터 페이지</li>
 		</ol>
 	</div>
@@ -115,7 +115,7 @@ th:nth-child(2), td:nth-child(2) {
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">Creator Center</h1>
+			<h1 class="mb-4 text-white">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
@@ -123,7 +123,7 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center h2 mb-5">반가워요 6ellMin 님</div>
+							<div class="col-md-12 text-center text-white h2 mb-5">반가워요 6ellMin 님</div>
 							
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">

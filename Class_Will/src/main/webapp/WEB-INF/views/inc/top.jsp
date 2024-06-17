@@ -37,7 +37,6 @@
 }
 
 
-
 .navbar-nav > a:hover {
     background: white;
     border-radius: 5px;

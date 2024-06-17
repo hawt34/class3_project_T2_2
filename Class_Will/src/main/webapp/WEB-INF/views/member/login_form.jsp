@@ -23,6 +23,8 @@
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- 제이쿼리 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 
 <style type="text/css">
 	
@@ -33,27 +35,15 @@
 	article {
 		margin: 0 auto;
 		padding: 0 auto;
-		height: 3000px;
-	}
-	
-	.container.login-form {
-	    position: absolute;
-	    top: 50%;
-	    left: 50%;
-	    transform: translate(-50%, -50%);
-	    width: 500px; /* 또는 원하는 너비 */
-	    padding: 30px;
 	}
 	
 	.login-form {
 		width: 500px;
 		padding: 30px;
+		margin-top: 50px;
+		margin-bottom: 100px;
 	}
 	
-	#btnSub {
-/* 		background-color: white; */
-/* 		color: black; */
-	}
 	
 	.regex {
 		font-size: 15px;
@@ -66,8 +56,22 @@
 		text-align: center;
 	}
 	
+	p a {
+		font-size: 12px;
+	}
 	
-
+	.login-form-input {
+		margin: 10px;
+	}
+	
+	.regex {
+		margin: 0;
+		padding: 0;
+	}
+	
+	.btnLogin {
+		padding: 0px 11px;
+	}
 </style>
 </head>
 <body>
@@ -80,25 +84,35 @@
 			<div class="container login-form">
 				<h2 align="center">로그인</h2>
 				<form action="member-login" method="POST">
-					<div class="input-group mb-3">
-					  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
-					  <input type="text" class="form-control" placeholder="이메일">
+					<div class="login-form-input">
+						<div class="input-group">
+							<span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-person-fill"></i></span>
+							<input type="text" id="id" name="name" class="form-control" placeholder="이메일" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+						</div>
+						<div class="regex py-2" id="regex-id">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
 					</div>
-					<div></div>
-					<div class="input-group mb-3">
-					  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
-					  <input type="password" class="form-control" placeholder="비밀번호" >
-					  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
-					  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span>
+					<div class="login-form-input">
+						<div class="input-group">
+							<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
+<!-- 							<input type="password" class="form-control" placeholder="비밀번호" > -->
+<!-- 							<span class="input-group-text btn btn-light" id="eye-slash"><a><i class="bi bi-eye-slash"></i></a></span> -->
+<!-- 							<span class="input-group-text" id="eye-slash"><a><i class="bi bi-eye"></i></a></span> -->
+							<input type="password" id="password" class="form-control" placeholder="비밀번호">
+                            <span class="input-group-text btn btn-light" id="togglePassword"><a><i class="bi bi-eye-slash" id="toggleIcon"></i></a></span>
+						</div>
+						<div class="regex py-2" id="regex-passwd">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
 					</div>
-					<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
-					<div>
-						<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-secondary">
+					
+					<div align="right" style="padding-right: 11px;">
+						<p><a href="reset-passwd">비밀번호 찾기</a></p>
+					</div>
+					<div class="d-grid gap-2 py-2 btnLogin">
+						<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light">
 					</div>
 				</form>
-				<p><a href="reset-passwd">비밀번호 찾기</a></p>
-				클래스윌이 처음이신가요? <a href="member-join"><b>가입하기</b></a>
-			
+				<div align="center" style="color: white;">
+					클래스윌이 처음이신가요? <a href="member-join"><b><u>가입하기</u></b></a>
+				</div>			
 			</div>
 		</div>
 	</article>
@@ -117,5 +131,21 @@
 	
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
+	<script>
+        document.getElementById('togglePassword').addEventListener('click', function (e) {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            }
+        });
+    </script>
 </body>
 </html>

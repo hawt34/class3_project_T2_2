@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body {
+  color: white;
+}
+
 .container1 {
 	height : auto;
 	width: 1200px;

@@ -51,9 +51,16 @@
 				<div class="selectDiv">
 					<select class="form-select categorySelect w-100" aria-label="Default select example">
 						<option selected>카테고리</option>
-						<option value="1">최신순</option>
-						<option value="2">낮은 가격순</option>
-						<option value="3">높은 가격순</option>
+						<option value="1">드로잉</option>
+						<option value="2">디지털 드로잉</option>
+						<option value="3">핸드메이드</option>
+						<option value="4">쿠킹 / 베이킹</option>
+						<option value="5">플라워 / 가드닝</option>
+						<option value="6">뷰티</option>
+						<option value="7">스포츠</option>
+						<option value="8">요가 / 필라테스</option>
+						<option value="9">사진 / 영상</option>
+						<option value="10">음악</option>
 					</select>
 				</div>
 				<div class="selectDiv">
@@ -72,11 +79,12 @@
 					</select>
 				</div>
 				<div class="selectDiv">
-					<select class="form-select categorySelect w-100" aria-label="Default select example">
+					<select class="form-select categorySelect w-100" aria-label="Default select example" id="customRange2">
 						<option selected>금액</option>
-						<option value="1">최신순</option>
-						<option value="2">낮은 가격순</option>
-						<option value="3">높은 가격순</option>
+						<option value="1">
+<!-- 							<label for="customRange2" class="form-label">Example range</label> -->
+<!-- 							<input type="range" class="form-range" min="0" max="5" id="customRange2"> -->
+						</option>
 					</select>
 				</div>
 				<div class="col-md-3 btnReset">

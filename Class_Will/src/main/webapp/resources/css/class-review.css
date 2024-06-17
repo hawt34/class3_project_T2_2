@@ -76,7 +76,6 @@
 .reviewStar {
 	width: 100%;
 	margin-top: 5px;
-	margin-top: 5px;
 }
 
 .userInfoContainer {
@@ -92,4 +91,7 @@
 }
 .userNickname, .reviewDate {
 	margin: 0;
+}
+.line {
+	margin-top: 30px;
 }

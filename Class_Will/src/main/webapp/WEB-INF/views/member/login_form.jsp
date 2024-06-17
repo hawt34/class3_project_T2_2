@@ -36,18 +36,34 @@
 		height: 3000px;
 	}
 	
+	.container.login-form {
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    width: 500px; /* 또는 원하는 너비 */
+	    padding: 30px;
+	}
+	
 	.login-form {
 		width: 500px;
 		padding: 30px;
 	}
 	
 	#btnSub {
-		background-color: white;
+/* 		background-color: white; */
+/* 		color: black; */
 	}
 	
 	.regex {
-		font-size: 12px;
+		font-size: 15px;
 		color: white;
+	}
+	
+	h2 {
+		color: white;
+		margin: 30px;
+		text-align: center;
 	}
 	
 	
@@ -60,28 +76,30 @@
 	</header>
 	
 	<article>
-		<div class="container login-form">
-			<h2>로그인</h2>
-			<form action="member-login" method="POST">
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="이메일">
-				</div>
-				<div></div>
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="비밀번호" >
-				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
-<!-- 				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span> -->
-				</div>
-				<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
-				<div>
-					<input type="submit" id="btnSub" value="로그인" class="btn btn-secondary">
-				</div>
-			</form>
-			<p><a href="reset-passwd">비밀번호 찾기</a></p>
-			클래스윌이 처음이신가요? <a href="member-join"><b>가입하기</b></a>
-		
+		<div class="container-fluid">
+			<div class="container login-form">
+				<h2 align="center">로그인</h2>
+				<form action="member-login" method="POST">
+					<div class="input-group mb-3">
+					  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
+					  <input type="text" class="form-control" placeholder="이메일">
+					</div>
+					<div></div>
+					<div class="input-group mb-3">
+					  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
+					  <input type="password" class="form-control" placeholder="비밀번호" >
+					  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
+					  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span>
+					</div>
+					<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
+					<div>
+						<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-secondary">
+					</div>
+				</form>
+				<p><a href="reset-passwd">비밀번호 찾기</a></p>
+				클래스윌이 처음이신가요? <a href="member-join"><b>가입하기</b></a>
+			
+			</div>
 		</div>
 	</article>
 

@@ -10,7 +10,7 @@ public class MemberVO {
 	private String member_email;
 	private String member_name;
 	private String member_img;
-	private MultipartFile member_imgFile;
+	private MultipartFile member_imageFile;
 	private String member_tel;
 	private String member_pwd;
 	private String member_social;

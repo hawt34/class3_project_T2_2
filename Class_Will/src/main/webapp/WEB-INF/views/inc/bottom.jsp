@@ -85,14 +85,14 @@
 </style>
 	
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 	<!-- chatbot -->
 <%-- 	<a href="#" class="chatbot"><img src="${pageContext.request.contextPath}/resources/img/chatbot-icon2.png" width="150px" alt="chatbot" ></a>    --%>
         
         
     <!-- Footer Start -->
 	<div class="class-will-bottom">
-        <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5" style="background-color: #333;">
+        <div class="container-fluid bg-dark text-white-50 footer mt-5" style="background-color: #333;">
             <div class="container py-5">
                 <div class="container text-center">
 					<div class="row">
@@ -135,10 +135,10 @@
 						</div>
 						<div class="col-4 col-lg-3 bottom-csc">
 							<h3>고객센터</h3>
-							<div class="d-grid gap-2">
+							<div class="d-grid gap-2 py-2">
 								<button class="btn btn-light">문의하기</button>
 							</div>
-							<p>*주중 10시~18시/주말 및 공휴일 제외</p>
+							<p style="font-size: 13px;">*주중 10시~18시/주말 및 공휴일 제외</p>
 						</div>
 					</div>
                 </div>
@@ -182,7 +182,7 @@
 	    logo.addEventListener('click', () => {
 	        clickCount++;
 	        if (clickCount === 10) {
-	            window.location.href = 'admin-login-form';
+	            window.location.href = 'admin-login';
 	        }
 	    });
 	</script>

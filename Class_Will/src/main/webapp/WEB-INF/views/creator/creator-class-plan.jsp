@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,7 +24,17 @@
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/creator/creator-class-plan.css" rel="stylesheet">
-</head>
+    <style>
+        .delete-btn {
+            display: none;
+            cursor: pointer;
+            color: red;
+            
+        }
+        tr:hover .delete-btn {
+            display: inline;
+        }
+    </style>
 </head>
 <body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -86,15 +97,33 @@
 							        
 							        <div class="creator-plan-bottom">
 							        
-								        <div class="creator-plan-time d-flex justify-content-evenly">
-   										 <div id="timepicker-container"></div>
-								        	<div>
-								        		시작시간 : <input type="time">
-								        	</div>
-								        	<div>
-								        		종료시간 : <input type="time">
-								        	</div>
+					        			<div class="my-4 d-flex justify-content-center">
+											<label for="class_total_headcount" class="h5 my-3" style="width: 150px;">참여 가능 인원 : </label> 
+											<input type="number" name="class_total_headcount" id="class_total_headcount" class="form-control my-1" min="1" style="width: 100px;" required />
+										</div>
+										
+								        <div class="container creator-plan-time mt-3 mb-5">
+								        	<table id="timeTable" class="table">
+								        		<tr>
+								        			<th>회차</th>
+								        			<th>시작시간</th>
+								        			<th>종료시간</th>
+								        		</tr>
+								        		<tr>
+								        			<td>1회차</td>
+								        			<td>
+								        				<input type="time" class="form-control startTime">
+								        			</td>
+								        			<td>
+								        				<input type="time" class="form-control endTime">
+								        			</td>
+								        		</tr>
+								        	</table>
+								        	<div class="d-flex justify-content-center mt-3">
+												<button id="addRowBtn" class="form-control plusRound" type="button" style="width: 100px;">회차 추가</button>
+											</div>
 								        </div>
+								        
 								        <div align="center" class="mb-3">
 								        	<button type="submit" class="creator-plan-submitBtn">등록하기</button>
 								        	<button type="button" class="creator-plan-submitBtn" onclick="history.back()">취소하기</button>
@@ -124,6 +153,50 @@
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
     <script>
+		 
+		// 참여인원 처리
+		$(document).ready(function() {
+		     $('#class_total_headcount').on('input', function() {
+		         if ($(this).val() <= 0) {
+		             $(this).val(''); // 값이 0 이하일 경우 비움
+		         }
+		     });
+		
+		     $('#class_total_headcount').on('keypress', function(e) {
+		         if (e.key === '-' || (e.key === '0' && $(this).val() === '')) {
+		             e.preventDefault(); // '-'나 맨 처음에 '0' 입력을 막음
+		         }
+		     });
+		     
+		    let roundCount = 1;
+		    $('#addRowBtn').on('click', function() {
+		  	 if(roundCount < 5){
+		             roundCount++;
+		             let newRow = '<tr>'
+		                     + '<td>' + roundCount + '회차 <span class="delete-btn">&times;</span></td>'
+		                     + '<td><input type="time" class="form-control"></td>'
+		                     + '<td><input type="time" class="form-control"></td>'
+		                 + '</tr>';
+		             $('#timeTable tbody').append(newRow);
+		  	} else{
+		  		 alert("회차는 5회까지 추가 가능합니다!");
+		  	}
+		       });
+
+			$('#timeTable').on('mouseenter', 'tr', function() {
+			    $(this).find('.delete-btn').show();
+			});
+			
+			$('#timeTable').on('mouseleave', 'tr', function() {
+			    $(this).find('.delete-btn').hide();
+			});
+			
+			$('#timeTable').on('click', '.delete-btn', function() {
+				roundCount--;
+			    $(this).closest('tr').remove();
+			});
+			
+		}); // document.ready 끝
 	    $(function() {
 	        // jQuery UI datepicker 한국어 설정
 	        $.datepicker.regional['ko'] = {
@@ -182,6 +255,7 @@
                     } else {
                         $('#datepicker').multiDatesPicker('removeDates', dateText);
                     }
+//                     debugger;
                 }
             });
 
@@ -189,7 +263,19 @@
             $('#dateForm').on('submit', function(e) {
                 var selectedDates = $('#datepicker').multiDatesPicker('getDates');
                 $('#selectedDates').val(selectedDates.join(','));
-                debugger;
+                
+                const times = [];
+                $('#timeTable tbody tr').each(function() {
+                    const startTime = $(this).find('.start-time').val();
+                    const endTime = $(this).find('.end-time').val();
+                    if (startTime && endTime) {
+                        times.push(`${startTime}~${endTime}`);
+                    }
+	                $('#timesInput').val(JSON.stringify(times));
+	            });
+				debugger;
+                
+//                 debugger;
             });
         });
     </script>

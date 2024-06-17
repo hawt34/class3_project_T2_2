@@ -37,7 +37,6 @@
 }
 
 
-
 .navbar-nav > a:hover {
     background: white;
     border-radius: 5px;
@@ -163,7 +162,10 @@
     list-style: none;
 }
 
-/*** Hide Offcanvas on Larger Screens ***/
+.offcanvas {
+	color: white !important;
+}
+
 @media (min-width: 992px) {
     .offcanvas {
         display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */
@@ -287,15 +289,19 @@
 	                </div>
 	                <div class="offcanvas-body">
 	                    <ul class="navbar-nav">
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#">오프캔버스 내용</a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#">이벤트</a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
-	                        </li>
+							<li class="nav-item">
+                                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
+                                	<span class="fa fa-bars"></span> 카테고리
+                                </a>
+                            </li>
+	                         <li class="nav-item">
+                                <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
+                                	지역별
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="event">이벤트</a>
+                            </li>
 	                        <li class="nav-item">
 	                            <a class="nav-link" href="creator-main">클래스등록</a>
 	                        </li>
@@ -305,6 +311,19 @@
 	                        <li class="nav-item">
 	                            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
 	                        </li>
+	                        <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
+                            </li>
+                            <li class="nav-item">
+                            	<a class="nav-link" href="member-login">로그인</a>
+<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
+                            </li>
 	                    </ul>
 	                </div>
 	            </div> <!-- offcanvas -->

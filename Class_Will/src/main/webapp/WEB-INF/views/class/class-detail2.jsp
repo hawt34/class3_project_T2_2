@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,6 +70,14 @@
 	.disabled {
 		opacity: 0.5;
 		cursor: not-allowed;
+	}
+	.btn-custom {
+		color:white;
+	}
+	.btn-check:checked + .btn-custom {
+	    border: 2px solid white; /* 원하는 테두리 색상 */
+	    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 선택 시 테두리 효과 */
+	    color: white;
 	}
 </style>
 </head>
@@ -259,16 +268,31 @@
 	        <!-- navbar content -->
 	    </div> <!-- col-md-9 -->
 	    <div class="col-md-3">
+	    	<form action="payment" method="post">
 	    	<div class="box1">
 	    		<h6>클래스 선택</h6>
-	    		<h3></h3>
+	    		<h3>클래스 선택해보세요~~~</h3>
 	    		<div>
 			        <div id="datePicker"></div>
 			        <!-- 선택된 날짜를 저장할 input -->
-			        <input type="hidden" id="selected_date" value="">
+			        <input type="hidden" id="selected_date">
 			    </div>
-			    <div>
-			    	<input id="timepicker" type="text">
+			    <!-- 타임 픽커 선택div -->
+			    <div class="row">
+			    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
+					<c:choose>
+						<c:when test="${class_type eq '0' }">
+					    	<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+					    		<c:forEach var="time" items="${class_schedule }" varStatus="status">
+									<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio${status.count }" autocomplete="off">
+									<label class="btn btn-custom" for="vbtn-radio${status.count }">${time.class_schedule_time }</label>
+					    		</c:forEach>
+							</div>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+			    	
 			    </div>
 			    <!-- 인원 수 체크 -->
 				<div class="class_headcount">
@@ -277,7 +301,7 @@
 					</div>
 					<div class="col d-flex justify-content-end mt-1">
 						<input class="reserve1 minusBtn" type="button" id="headcount_prev">
-						<input class="reserve1 countText" type="text" name="" id="class_count" value="1">
+						<input class="reserve1 countText" type="text" name="class_headcount" id="class_count" value="1">
 						<input class="reserve1 addBtn" type="button" id="headcount_next">
 					</div>
 				</div>
@@ -334,9 +358,10 @@
 			    	</div>
 			    </div> <!-- 좋아요, 공유버튼 -->
 			    <div class="col-md-12">
-		    		<button type="button" class="btn btn-light w-100">신청하기</button>
+		    		<button type="submit" class="btn btn-light w-100">신청하기</button>
 		    	</div>
 	    	</div>
+	    	</form>
 	    </div> <!-- 오른쪽 강의 소개  -->
     </div><!-- row box2-->
 </div><!-- container -->
@@ -358,23 +383,61 @@ $(document).ready(function(){
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-	var today = new Date();
-    var yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-	
-    var defaultDates = ["2024-06-15", "2024-06-20"];
-	
-	flatpickr("#datePicker", {
-// 		mode: "multiple", // 다중 선택 모드
-		dateFormat: "Y-m-d",
-		inline: true,
-		locale: "ko", // 한글 설정
-		enable: defaultDates,
-		onChange: function(selectedDates, dateStr, instance) {
-			console.log(selectedDates); // 선택된 날짜 배열
-			console.log(dateStr); // 선택된 날짜 배열
-		}
-	});
+	    
+    // 클래스 타입 '0': 원데이 / '1': 장기
+    let classType = "${class_type}";
+    let classScheduleArray = ${class_schedule_date};
+    console.log(classScheduleArray);
+    
+    let enableDates = [];
+    let defaultDates = [];
+    
+    if (classType == '0') {
+        enableDates = classScheduleArray.map(item => item.class_schedule_date);
+    } else {
+    	defaultDates = classScheduleArray.map(item => item.class_schedule_date);
+    }
+    
+    let flatpickrOptions = {
+        dateFormat: "Y-m-d",
+        inline: true,
+        locale: "ko" // 한글 설정
+    };
+    
+    if (classType === '1') {
+        // 장기 클래스 타입인 경우의 옵션
+        flatpickrOptions.mode = "multiple"; // 다중 선택 모드
+        flatpickrOptions.enable = classScheduleArray.map(item => item.class_schedule_date);
+        flatpickrOptions.defaultDate = defaultDates;
+        flatpickrOptions.onChange = function(selectedDates, dateStr, instance) {
+            console.log(selectedDates); // 선택된 날짜 배열
+            console.log(dateStr); // 선택된 날짜 배열
+        };
+        flatpickrOptions.onDayCreate = function(dObj, dStr, fp, dayElem) {
+            // defaultDates에 포함된 날짜를 클릭할 수 없도록 설정
+            const date = dayElem.dateObj;
+            const formattedDate = fp.formatDate(date, "Y-m-d");
+
+            if (defaultDates.includes(formattedDate)) {
+                dayElem.classList.add("disabled-date");
+                dayElem.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }, { capture: true });
+            }
+        };
+    } else {
+        // 원데이 클래스 타입인 경우의 옵션
+        flatpickrOptions.mode = "single"; // 단일 선택 모드
+        flatpickrOptions.enable = enableDates; // 선택 가능한 날짜 설정
+        flatpickrOptions.onChange = function(selectedDates, dateStr, instance) {
+            console.log(selectedDates); // 선택된 날짜 배열
+            console.log(dateStr); // 선택된 날짜 배열
+        };
+    }
+    
+    // flatpickr를 초기화합니다.
+    flatpickr("#datePicker", flatpickrOptions);
 });
 </script>
 <script>

@@ -1,5 +1,7 @@
 package itwillbs.p2c3.class_will.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -8,6 +10,7 @@ public class MemberVO {
 	private String member_email;
 	private String member_name;
 	private String member_img;
+	private MultipartFile member_imageFile;
 	private String member_tel;
 	private String member_pwd;
 	private String member_social;

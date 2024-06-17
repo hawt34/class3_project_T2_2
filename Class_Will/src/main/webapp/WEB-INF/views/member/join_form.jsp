@@ -22,12 +22,9 @@
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Template Stylesheet -->
-<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
+<!-- 제이쿼리 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 
-<!-- 부트스트랩 CSS, JS -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css">
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
 
@@ -43,23 +40,35 @@
 	.join-form {
 		width: 500px;
 		padding: 30px;
+		margin-top: 50px;
+		margin-bottom: 100px;
 		
 	}
 	
 	fieldset {
-		background: #333;
+		background: rgb(183, 183, 183, 0.5);
 		padding: 20px;
 		color: white;
+		border-radius: 10px; 
+		
 	}
 	
+	fieldset a {
+		text-decoration: underline;
+	}
 	
 	.auth-choice {
-		display: flex;
+		text-align: center;
 	}
 	
 	.auth-detail {
-		border-style: none;
-		
+		cursor: pointer;
+		font-size: 13px;
+		margin: 0 auto;
+	}
+	
+	.form-check {
+		margin: 8px;
 	}
 	
 	ul {
@@ -90,6 +99,17 @@
 		text-align: center;
 	}
 	
+	#phone-auth-btn {
+		height: 58px;
+		width: 145px;;
+		border-radius: 10px;
+		background: #FFCC80;
+	}
+	
+	.form-check-center {
+		margin-left: 30px;
+	}
+	
 </style>
 
 </head>
@@ -115,10 +135,16 @@
 					<input type="password" class="form-control" id="passwd" name="passwd" placeholder="Password">
 					<label for="passwd">비밀번호</label>
 				</div>
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="010-1234-5678">
-					<label for="phone_number">휴대전화</label>
-					<button class="btn btn-outline-secondary" type="button" id="phone-auth-btn">인증번호 전송</button>
+				<div class="row nav-fill" > 
+					<div class="col-8">
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="010-1234-5678">
+							<label for="phone_number">휴대전화</label>
+						</div>
+					</div>	
+					<div class="d-grid gap-2 col-4" style="height: 58px; padding: 0">
+						<button class="float-start" type="button" id="phone-auth-btn">인증번호 전송</button>
+					</div>	
 				</div>
 				<div class="form-floating mb-3">
 					<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456">
@@ -126,7 +152,7 @@
 				</div>
 				
 				<fieldset>
-					<h3>서비스 정책</h3>
+					<h5>서비스 정책</h5>
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="allCheck" name="allCheck">
 						<label class="form-check-label" for="allCheck">
@@ -145,39 +171,39 @@
 						<label class="form-check-label" for="serviceAgree">
 							서비스 이용약관 동의 (필수)
 						</label>
-						<button type="button" class="auth-detail" data-bs-toggle="modal" data-bs-target="#serviceAgreeInfo">내용보기</button>
+						<a class="auth-detail float-end link" data-bs-toggle="modal" data-bs-target="#serviceAgreeInfo">내용보기</a>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="personerAgree" name="personerAgree">
 						<label class="form-check-label" for="personerAgree">
 							개인정보 수집 및 이용 동의 (필수)
 						</label>
-						<button type="button" class="auth-detail" data-bs-toggle="modal" data-bs-target="#personerAgreeInfo">내용보기</button>
+						<a class="auth-detail float-end" data-bs-toggle="modal" data-bs-target="#personerAgreeInfo">내용보기</a>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="marketing" name="marketing">
 						<label class="form-check-label" for="marketing">
 							마케팅 수신 동의 (선택)
 						</label>
-						<button type="button" class="auth-detail" data-bs-toggle="modal" data-bs-target="#marketingImfo">내용보기</button>
+						<a class="auth-detail float-end" data-bs-toggle="modal" data-bs-target="#marketingImfo">내용보기</a> 
 					</div>
-					<div class="auth-choice">
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="emailAgree" name="emailAgree">
-							<label class="form-check-label" for="emailAgree">
-								이메일 수신
-							</label>
+					<div class="auth-choice row">
+						<div class="col" >
+							<div class="form-check form-check-center">
+								<input class="form-check-input" type="checkbox" value="" id="emailAgree" name="emailAgree">
+								<label class="form-check-label float-start" for="emailAgree">이메일 수신</label>
+							</div>
 						</div>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" value="" id="messegeAgree" name="messegeAgree">
-							<label class="form-check-label" for="messegeAgree">
-								문자 수신
-							</label>
+						<div class="col">
+							<div class="form-check form-check-center">
+								<input class="form-check-input" type="checkbox" value="" id="messegeAgree" name="messegeAgree">
+								<label class="form-check-label float-start" for="messegeAgree">문자 수신</label>
+							</div>
 						</div>
 					</div>
 				</fieldset>
-				<div>
-					<input type="submit" id="btnSub" value="가입하기">
+				<div class="d-grid gap-2 py-3">
+						<input type="submit" id="btnSub" value="가입하기" class="btn btn-outline-light btn-lg">
 				</div>
 			</form>
 			
@@ -267,6 +293,17 @@
 	<footer>
       	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"/>
 	</footer>
+	
+	 <!-- JavaScript Libraries -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+	
+	<!-- Template Javascript -->
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	
 </body>

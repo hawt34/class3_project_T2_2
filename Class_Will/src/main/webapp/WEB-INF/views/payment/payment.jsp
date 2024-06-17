@@ -40,8 +40,9 @@
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 <style>
+
 .margin_use {
-	margin-top: 200px;
+	margin-top: 50px;
 }
 #back_button {
 	border: 0;
@@ -80,7 +81,7 @@
 
 							<div class="row ">
 								<div class="col text-center">
-									<img src="${scs.movie_poster}" id="class_poster" alt="썸네일" >
+									<img src="${cla}" id="class_poster" alt="썸네일" >
 								</div>
 							</div> <!-- row -->
 						</div>

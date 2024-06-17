@@ -91,6 +91,123 @@
             <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
             <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
         </div> <!-- userReview -->
+		<div class="line col-md-12">
+			<hr>
+		</div>
+    </div>
+    <div class="col-md-9 container2">
+        <div class="row reviewInfo">
+            <div class="col-md-1 userPic">
+                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+            </div>
+            <div class="col-md-3 userInfoContainer">
+                <div class="userInfoHeader">
+                    <div class="col-md-5 userNickname">
+                        <p>유저닉*임</p>
+                    </div>
+                    <div class="col-md-7 reviewDate">
+                        <p>2024 / 06 / 15</p>
+                    </div> 
+                </div>
+                <div class="reviewStar">
+                    <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                    </ul>
+                </div> <!-- reviewStar -->
+            </div>
+            <div class="reviewPic">
+                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+            </div> <!-- reviewPic -->
+        </div>
+        
+        <div class="userReview">
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+        </div> <!-- userReview -->
+		<div class="line col-md-12">
+			<hr>
+		</div>
+    </div>
+    <div class="col-md-9 container2">
+        <div class="row reviewInfo">
+            <div class="col-md-1 userPic">
+                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+            </div>
+            <div class="col-md-3 userInfoContainer">
+                <div class="userInfoHeader">
+                    <div class="col-md-5 userNickname">
+                        <p>유저닉*임</p>
+                    </div>
+                    <div class="col-md-7 reviewDate">
+                        <p>2024 / 06 / 15</p>
+                    </div> 
+                </div>
+                <div class="reviewStar">
+                    <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                    </ul>
+                </div> <!-- reviewStar -->
+            </div>
+            <div class="reviewPic">
+                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+            </div> <!-- reviewPic -->
+        </div>
+        
+        <div class="userReview">
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+        </div> <!-- userReview -->
+		<div class="line col-md-12">
+			<hr>
+		</div>
+    </div>
+    <div class="col-md-9 container2">
+        <div class="row reviewInfo">
+            <div class="col-md-1 userPic">
+                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+            </div>
+            <div class="col-md-3 userInfoContainer">
+                <div class="userInfoHeader">
+                    <div class="col-md-5 userNickname">
+                        <p>유저닉*임</p>
+                    </div>
+                    <div class="col-md-7 reviewDate">
+                        <p>2024 / 06 / 15</p>
+                    </div> 
+                </div>
+                <div class="reviewStar">
+                    <ul class="list-inline small">
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+                    </ul>
+                </div> <!-- reviewStar -->
+            </div>
+            <div class="reviewPic">
+                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+            </div> <!-- reviewPic -->
+        </div>
+        
+        <div class="userReview">
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+        </div> <!-- userReview -->
+		<div class="line col-md-12">
+			<hr>
+		</div>
     </div>
 </div>
 

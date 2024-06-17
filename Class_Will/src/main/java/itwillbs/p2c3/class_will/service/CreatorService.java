@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 
-import itwillbs.p2c3.class_will.VO.ArrayData;
 import itwillbs.p2c3.class_will.mapper.CreatorMapper;
 
 @Service

@@ -14,8 +14,6 @@ public class CreatorService {
 	@Autowired
 	private CreatorMapper creatorMapper;
 	
-	 private Gson gson = new Gson();  // Gson 객체 생성
-	 
 	 public int createrClassRegPro(Map<String, Object> map) {
 		 
 		 return creatorMapper.createrClassRegPro(map);

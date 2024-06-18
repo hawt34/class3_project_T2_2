@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,26 @@ public class CreatorService {
 	@Autowired
 	private CreatorMapper creatorMapper;
 	
-	 public int createrClassRegPro(Map<String, Object> map) {
+	// 카테고리 등록
+	public int createrClassRegPro(Map<String, Object> map) {
 		 
-		 return creatorMapper.createrClassRegPro(map);
-	 }
+		return creatorMapper.createrClassRegPro(map);
+	}
+ 
+	// 카테고리 대분류 가져오기
+	public List<Map<String, String>> getCategory(){
+		return creatorMapper.getCategory();
+	}
+	 
+	// 카테고리 구분 가져오기 
+	public List<Map<String, String>> getSort(){
+		return creatorMapper.getSort();
+	}
+	
+	// 카테고리 상세
+	public List<Map<String, String>> getCategoryDetail(String big_category) {
+		return creatorMapper.getCategoryDetail(big_category);
+	}
 	 
 	
 	

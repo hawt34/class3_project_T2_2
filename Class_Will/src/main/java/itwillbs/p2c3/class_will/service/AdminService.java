@@ -15,8 +15,6 @@ public class AdminService {
 	@Autowired
 	private AdminMapper adminMapper;
 	
-	
-	
 	public List<Map<String, String>> getMemberList(Map<String, Object> params) {
 		return adminMapper.selectMemberList(params);
 	}

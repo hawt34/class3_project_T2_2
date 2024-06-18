@@ -4,7 +4,7 @@
 	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
 	
 	.class-will-bottom {
-		background: black;
+/* 		background: black; */
 		font-family: "Nanum Gothic", sans-serif; 
 		color: white;
 	}
@@ -78,9 +78,6 @@
 	}
 	
 	
-
-	    
-
 
 </style>
 	

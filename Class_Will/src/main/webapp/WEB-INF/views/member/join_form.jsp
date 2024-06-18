@@ -111,6 +111,16 @@
 		margin-left: 30px;
 	}
 	
+	.join-form-input {
+		margin: 10px;
+	}
+	
+	.regex {
+		margin: 0;
+		padding: 0;
+/* 		color: red; */
+	}
+	
 </style>
 
 </head>
@@ -124,34 +134,40 @@
 		<div class="container join-form">
 			<form action="member-join" method="POST">
 				<h2>회원가입</h2>
-				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="member_name" name="member_name" placeholder="name" required>
+				<div class="form-floating mt-3">
+					<input type="text" class="form-control" id="member_name" name="member_name" placeholder="name" required maxlength="30">
 					<label for="name">이름</label>
 				</div>
-				<div class="form-floating mb-3">
-					<input type="email" class="form-control" id="member_email" name="member_email" placeholder="name@example.com" required>
+				<div class="regex" id="regex-name"></div>
+				
+				<div class="form-floating mt-3">
+					<input type="email" class="form-control" id="member_email" name="member_email" placeholder="name@example.com" required maxlength="50">
 					<label for="email">이메일</label>
 				</div>
-				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required>
+				<div class="regex" id="regex-email"></div>
+				<div class="form-floating mt-3">
+					<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required maxlength="20">
 					<label for="passwd">비밀번호</label>
 				</div>
+				<div class="regex " id="regex-pwd"></div>
+				
 				<div class="row nav-fill" > 
 					<div class="col-8">
-						<div class="form-floating mb-3">
-							<input type="text" class="form-control" id="member_tel" name="member_tel" placeholder="010-1234-5678" required>
+						<div class="form-floating mt-3">
+							<input type="text" class="form-control" id="member_tel" name="member_tel" placeholder="010-1234-5678" required maxlength="13">
 							<label for="phone_number">휴대전화</label>
 						</div>
+						<div class="regex" id="regex-tel"></div>
 					</div>	
-					<div class="d-grid gap-2 col-4" style="height: 58px; padding: 0">
+					<div class="d-grid gap-2 col-4 mt-3" style="height: 58px; padding: 0">
 						<button class="float-start" type="button" id="phone-auth-btn">인증번호 전송</button>
 					</div>	
 				</div>
-				<div class="form-floating mb-3">
+				<div class="form-floating mt-3 mb-3">
 					<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>
 					<label for="phone_auth_number">인증번호</label>
 				</div>
-				
+				<div class="regex" id="regex-auth"></div>
 				<fieldset>
 					<h5>서비스 정책</h5>
 					<div class="form-check">
@@ -191,13 +207,13 @@
 					<div class="auth-choice row">
 						<div class="col" >
 							<div class="form-check form-check-center">
-								<input class="form-check-input" type="checkbox" value="Y" id="member_marketing1" name="check-agree">
+								<input class="form-check-input" type="checkbox" value="Y" id="member_marketing1" name="member_marketing1">
 								<label class="form-check-label float-start" for="member_marketing1">이메일 수신</label>
 							</div>
 						</div>
 						<div class="col">
 							<div class="form-check form-check-center">
-								<input class="form-check-input" type="checkbox" value="Y" id="member_marketing2" name="check-agree">
+								<input class="form-check-input" type="checkbox" value="Y" id="member_marketing2" name="member_marketing2">
 								<label class="form-check-label float-start" for="member_marketing2">문자 수신</label>
 							</div>
 						</div>
@@ -315,6 +331,8 @@
 				for(let check of checkboxes) {
 					check.checked = document.querySelector("#allCheck").checked;
 				}
+				document.querySelector("#member_marketing1").checked = document.querySelector("#allCheck").checked;
+				document.querySelector("#member_marketing2").checked = document.querySelector("#allCheck").checked;
 			});
 			
 			
@@ -333,13 +351,116 @@
 			    $("#allCheck").prop("checked", allChecked);
 			});
 			
-			$("#marketing-all").click(function() {
+			// 선택 체크박스  
+			$("#marketing-all").on("click", function() {
 				document.querySelector("#member_marketing1").checked = document.querySelector("#marketing-all").checked;
 				document.querySelector("#member_marketing2").checked = document.querySelector("#marketing-all").checked;
 				
 			});
 			
+			// 이름 정규표현식
+			$("#member_name").on("input", function() {
+				let inputName = $(this).val();
+				let regex = /^[가-힣a-zA-Z]{2,30}$/; // 2~30자 이내 한글, 영문 대소문자만 입력 가능
+				
+				 if (!regex.test(inputName)) {
+			            $("#regex-name").text("올바르지 않은 이름입니다.");
+			            $("#regex-name").css("color", "red");
+			        } else {
+			            $("#regex-name").text("");
+			        }
+				
+			});
+			
+			
+			// 이메일 정규표현식
+			$("#member_email").on("input", function() {
+				let inputEmail = $(this).val();
+				let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 형식
+				
+				 if (!regex.test(inputEmail)) {
+// 			            $(this).val("");
+			            $("#regex-email").text("올바르지 않은 이메일 형식입니다.");
+			            $("#regex-email").css("color", "red");
+			        } else {
+			            $("#regex-email").text("");
+			        }
+			});
+			
+			// 비밀번호 정규표현식
+			$("#member_pwd").on("input", function() {
+			      let inputPwd = $(this).val();
+			
+			      let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
+			
+			      if (!regex.test(inputPwd)) {
+			          $("#regex-pwd").text("올바르지 않은 형식입니다.");
+			          $("#regex-pwd").css("color", "red");
+			      } else {
+			      	 $("#regex-pwd").text("");
+			      }
+			  });
+			
+			// 핸드폰번호 정규표현식
+// 			$("#member_tel").on("input", function() {
+// 			      let inputTel = $(this).val();
+			
+// 			      let regex = /^[0-9-]{0,13}$/;
+			
+// 			      if (!regex.test(inputTel)) {
+// 			          $("#regex-tel").text("핸드폰 번호를 입력해 주세요.");
+// 			          $("#regex-tel").css("color", "red");
+// 			      } else {
+// 			      	 $("#regex-tel").text("");
+// 			      }
+// 			 });
+			
+// 			$("#member_tel").on("blur", function() {
+// 				let inputTel = $(this).val();
+// 			    let regex = /^[0-9-]{0,13}$/;
+// 			    if (!regex.test(inputTel)) {
+// 			    	$(this).val("");
+// 			    }
+// 			});
+
+			$("#member_tel").on("input", function() {
+			    let inputTel = $(this).val(); // 입력된 전체 값 가져오기
+
+			    // 숫자와 하이픈(-) 이외의 문자 모두 제거
+			    let sanitizedTel = inputTel.replace(/[^\d]/g, '');
+
+			    // 4자리인 경우 하이픈을 추가
+			    if (sanitizedTel.length === 4) {
+			        sanitizedTel = sanitizedTel.substring(0, 3) + '-' + sanitizedTel.substring(3);
+			    }
+			    // 9자리인 경우 하이픈을 추가
+			    else if (sanitizedTel.length === 9) {
+			        sanitizedTel = sanitizedTel.substring(0, 8) + '-' + sanitizedTel.substring(8);
+			    }
+
+			    // 입력된 값이 변경되었다면 입력 필드에 반영
+			    $(this).val(sanitizedTel);
+
+			    // 정규표현식을 사용하여 유효성 검사
+			    let regex = /^(0\d{2}-\d{3,4}-\d{4})?$/; // 0으로 시작하는 숫자 2자리, 하이픈, 3~4자리 숫자, 하이픈, 4자리 숫자
+
+			    if (!regex.test(sanitizedTel)) {
+			        $("#regex-tel").text("올바른 핸드폰 번호 형식이 아닙니다.");
+			        $("#regex-tel").css("color", "red");
+			    } else {
+			        $("#regex-tel").text("");
+			    }
+			});
+
+
+
+		    
+			
 		});	
+		
+		
+
+		
 	</script>
 	
 </body>

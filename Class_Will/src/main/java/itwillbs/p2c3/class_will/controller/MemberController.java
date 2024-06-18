@@ -78,13 +78,13 @@ public class MemberController {
 		member.setMember_name(member.getMember_name());
 		member.setMember_tel(member.getMember_tel());
 		
-		int insertCount = memberService.insertMember(member);
+//		int insertCount = memberService.insertMember(member);
 		System.out.println(member);
-		
-		if(insertCount < 1) {
-			model.addAttribute("msg", "회원가입 실패!");
-			return "result_process/fail";
-		}
+//		
+//		if(insertCount < 1) {
+//			model.addAttribute("msg", "회원가입 실패!");
+//			return "result_process/fail";
+//		}
 		
 		
 		return "member/login_form";

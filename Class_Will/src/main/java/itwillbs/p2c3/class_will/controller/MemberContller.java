@@ -59,7 +59,8 @@ public class MemberContller {
 		
 		System.out.println(member);
 		
-			
+		
+		
 		return "redirect:/";
 	}
 	

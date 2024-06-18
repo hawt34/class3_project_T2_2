@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,15 +22,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
 
-<!-- Libraries Stylesheet -->
-<!-- <link -->
-<%-- 	href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" --%>
-<!-- 	rel="stylesheet"> -->
-<!-- <link -->
-<%-- 	href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" --%>
-<!-- 	rel="stylesheet"> -->
-
-
 <!-- Customized Bootstrap Stylesheet -->
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
@@ -44,12 +36,9 @@
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-classReg.css" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- summernote -->
-<%-- <script src="${pageContext.request.contextPath}/resources/js/summernote-lite.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/resources/js/summernote-ko-KR.js"></script> --%>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/summernote/summernote-lite.css"> --%>
 <!-- 썸머노트 cdn -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
@@ -113,8 +102,9 @@
 											<div class="col-md-12 my-4">
 												<label for="class_type" class="h6">클래스타입</label> 
 												<select name="class_type" id="class_type" class="form-control" required>
-													<option value="1">원데이클래스</option>
-													<option value="2">장기클래스</option>
+													<c:forEach var="class_sort" items="${class_sort_List}">
+														<option value="${class_sort.common2_code}">${class_sort.code_value}</option>
+													</c:forEach>
 												</select>
 												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
 											</div>
@@ -130,14 +120,11 @@
 												<div class="col-md-6 my-4">
 													<label for="class_big_category" class="h6">카테고리</label> 
 													<select name="class_big_category" id="class_big_category" class="form-control" required>
-														<option value="0">미선택</option>
-														<option value="1">도자기</option>
-														<option value="2">드로잉</option>
-														<option value="3">공예</option>
-														<option value="4">IT</option>
-														<option value="5">체험</option>
+														<c:forEach var="category" items="${categoryList}">
+															<option value="${category.common2_code}">${category.code_value}</option>
+														</c:forEach>
 													</select>
-													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+													<div class="invalid-feedback">카테고리를 선택해주세요.</div>
 												</div>
 												<div class="col-md-6 my-4">
 													<label for="class_small_category" class="h6">상세분류</label> 
@@ -245,8 +232,6 @@
 						</div>
 					</div>
 
-
-
 					<!-- 					<div class="col-12"> -->
 					<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
 					<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
@@ -260,30 +245,36 @@
 			</div>
 		</div>
 	</div>
-	<!-- Fruits Shop End-->
-
 
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
 
-	<!-- JavaScript Libraries -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
-
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	<script type="text/javascript">	
+	
+		$(function() {
+			$("#class_big_category").change(function() {
+				var big_category = $("#class_big_category").val();
+				$.ajax({
+					url: "getCategoryDetail",
+					method: "get",
+					data: { "big_category" : big_category },
+					success: function(data) {
+						$("#class_small_category").empty();
+						$.each(data, function(index, item) {
+							$("#class_small_category").append(
+								$('<option></option>').val(item.common3_code).text(item.code_value)	
+							);
+						});
+					}
+				
+				});		
+			});
+		});
 		
 		// 썸머노트 설정
 		$('#summernote').summernote({

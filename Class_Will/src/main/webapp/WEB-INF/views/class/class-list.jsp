@@ -484,7 +484,8 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+<!--                         <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button> -->
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -516,7 +517,7 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -547,7 +548,7 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -577,7 +578,7 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">

@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
 
@@ -35,8 +37,25 @@ public class CreatorController {
 	}
 	// creater-class 등록페이지로
 	@GetMapping("creator-classReg")
-	public String createrClassReg() {
+	public String createrClassReg(Model model) {
+		
+		List<Map<String, String>> class_sort_List = creatorService.getSort();
+		List<Map<String, String>> categoryList = creatorService.getCategory();
+		
+		System.out.println("class_sort_List : " + class_sort_List);
+		model.addAttribute("class_sort_List", class_sort_List);
+		model.addAttribute("categoryList", categoryList);
+		
 		return "creator/creator-classReg";
+	}
+	
+	// ajax로 카테고리 처리
+	@ResponseBody
+	@GetMapping("getCategoryDetail")
+	public List<Map<String, String>> getCategoryDetail(@RequestParam String big_category){
+		List<Map<String, String>> categoryDetail = creatorService.getCategoryDetail(big_category);
+		System.out.println("categoryDetail: " + categoryDetail);
+		return categoryDetail;
 	}
 
 	// creater-class 등록

@@ -133,7 +133,7 @@
 					<label for="email">이메일</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="member_passwd" name="member_passwd" placeholder="Password" required>
+					<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required>
 					<label for="passwd">비밀번호</label>
 				</div>
 				<div class="row nav-fill" > 
@@ -155,35 +155,35 @@
 				<fieldset>
 					<h5>서비스 정책</h5>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="allCheck" name="allCheck">
+						<input class="form-check-input" type="checkbox" value="" id="allCheck" name="check-agree">
 						<label class="form-check-label" for="allCheck">
 							전체동의
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="ageAgree" name="ageAgree" required>
+						<input class="form-check-input" type="checkbox" value="" id="ageAgree" name="check-agree" required>
 						<label class="form-check-label" for="ageAgree">
 							만14세 이상입니다.(필수)
 						</label>
 						
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="serviceAgree" name="serviceAgree" required>
+						<input class="form-check-input" type="checkbox" value="" id="serviceAgree" name="check-agree" required>
 						<label class="form-check-label" for="serviceAgree">
 							서비스 이용약관 동의 (필수)
 						</label>
 						<a class="auth-detail float-end link" data-bs-toggle="modal" data-bs-target="#serviceAgreeInfo">내용보기</a>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="personerAgree" name="personerAgree" required>
+						<input class="form-check-input" type="checkbox" value="" id="personerAgree" name="check-agree" required>
 						<label class="form-check-label" for="personerAgree">
 							개인정보 수집 및 이용 동의 (필수)
 						</label>
 						<a class="auth-detail float-end" data-bs-toggle="modal" data-bs-target="#personerAgreeInfo">내용보기</a>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="marketing" name="marketing">
-						<label class="form-check-label" for="marketing">
+						<input class="form-check-input" type="checkbox" value="" id="marketing-all" name="check-agree">
+						<label class="form-check-label" for="marketing-all">
 							마케팅 수신 동의 (선택)
 						</label>
 						<a class="auth-detail float-end" data-bs-toggle="modal" data-bs-target="#marketingImfo">내용보기</a> 
@@ -191,13 +191,13 @@
 					<div class="auth-choice row">
 						<div class="col" >
 							<div class="form-check form-check-center">
-								<input class="form-check-input" type="checkbox" value="y" id="member_marketing1" name="member_marketing1">
+								<input class="form-check-input" type="checkbox" value="Y" id="member_marketing1" name="check-agree">
 								<label class="form-check-label float-start" for="member_marketing1">이메일 수신</label>
 							</div>
 						</div>
 						<div class="col">
 							<div class="form-check form-check-center">
-								<input class="form-check-input" type="checkbox" value="y" id="member_marketing2" name="member_marketing2">
+								<input class="form-check-input" type="checkbox" value="Y" id="member_marketing2" name="check-agree">
 								<label class="form-check-label float-start" for="member_marketing2">문자 수신</label>
 							</div>
 						</div>
@@ -218,7 +218,7 @@
 						</div>
 						<div class="modal-body">
 							
-						
+							
 						
 						</div>
 						<div class="modal-footer"></div>
@@ -306,6 +306,41 @@
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
+	<script type="text/javascript">
+		$(function() {
+			
+			// 전체선택 체크박스 체크 상태값을 각 체크박스의 체크 상태값으로 설정
+			$("#allCheck").click(function() {
+				let checkboxes = document.querySelectorAll('input[name="check-agree"]');
+				for(let check of checkboxes) {
+					check.checked = document.querySelector("#allCheck").checked;
+				}
+			});
+			
+			
+			// 하나라도 체크 해제되면 전체 체크 버튼도 해제되도록 설정
+			$("input[name='check-agree']").click(function() {
+			    // 모든 체크박스를 순회하며 하나라도 체크가 해제된 것이 있는지 확인
+			    let allChecked = true;
+			    $("input[name='check-agree']").each(function() {
+			        if (!this.checked) {
+			            allChecked = false;
+			            return false; // each 루프 종료
+			        }
+			    });
+		
+			    // 전체 체크 버튼에 상태 반영
+			    $("#allCheck").prop("checked", allChecked);
+			});
+			
+			$("#marketing-all").click(function() {
+				document.querySelector("#member_marketing1").checked = document.querySelector("#marketing-all").checked;
+				document.querySelector("#member_marketing2").checked = document.querySelector("#marketing-all").checked;
+				
+			});
+			
+		});	
+	</script>
 	
 </body>
 </html>

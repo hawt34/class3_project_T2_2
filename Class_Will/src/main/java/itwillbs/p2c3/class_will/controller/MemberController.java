@@ -13,7 +13,7 @@ import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Controller
-public class MemberContller {
+public class MemberController {
 	
 	
 	@Autowired
@@ -48,16 +48,10 @@ public class MemberContller {
 	// 회원 로그인 비즈니스 로직 처리
 	@PostMapping("member-login")
 	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
-		String securePasswd = passwordEncoder.encode(member.getMember_passwd());
-		System.out.println("평문 : " + member.getMember_passwd()); 
-		System.out.println("암호문 : " + securePasswd); 
 		
-		member.setMember_passwd(securePasswd);
-		member.setMember_email(member.getMember_email());
-		member.setMember_name(member.getMember_name());
-		member.setMember_tel(member.getMember_tel());
 		
-		System.out.println(member);
+		
+		
 		
 		
 		
@@ -73,7 +67,24 @@ public class MemberContller {
 	
 	// 회원가입 비즈니스 로직 처리
 	@PostMapping("member-join")
-	public String memberJoinPro() {
+	public String memberJoinPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
+		
+		String securePasswd = passwordEncoder.encode(member.getMember_pwd());
+		System.out.println("평문 : " + member.getMember_pwd()); 
+		System.out.println("암호문 : " + securePasswd); 
+		
+		member.setMember_pwd(securePasswd);
+		member.setMember_email(member.getMember_email());
+		member.setMember_name(member.getMember_name());
+		member.setMember_tel(member.getMember_tel());
+		
+//		int insertCount = memberService.insertMember(member);
+		System.out.println(member);
+//		
+//		if(insertCount < 1) {
+//			model.addAttribute("msg", "회원가입 실패!");
+//			return "result_process/fail";
+//		}
 		
 		
 		return "member/login_form";

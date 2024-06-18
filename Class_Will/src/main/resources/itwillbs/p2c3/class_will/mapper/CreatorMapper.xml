@@ -4,6 +4,7 @@
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.CreatorMapper">
 	
+	<!-- 클래스 등록 -->
 	<insert id="createrClassRegPro">
 		INSERT INTO class(  	  
 				  class_code
@@ -41,8 +42,54 @@
 			, 1
 			, #{member_code}
 		)		
-	
 	</insert>
+	
+	<!-- 카테고리 대분류 조회 -->
+	<select id="getCategory" resultType="map">
+		SELECT 
+			common2_code, code_value
+		FROM 
+			common2 c2
+		WHERE 
+			common1_code = 3 
+		AND 
+			code_hide = 'N' -- 3은 카테고리 공통코드
+	</select>
+
+	<!-- 클래스 구분 조회 -->
+	<select id="getSort" resultType="map">
+		SELECT 
+			common2_code, code_value
+		FROM 
+			common2 c2 
+		WHERE 
+			common1_code = 9
+		AND 
+			code_hide = 'N' -- 9은 클래스 구분 공통코드
+	</select>
+	
+	<!-- 카테고리 상세 -->
+	<select id="getCategoryDetail" resultType="map">
+		SELECT 
+			common3_code,code_value
+		FROM 
+			common3 c 
+		WHERE 
+			common2_code = #{big_category}
+		AND 
+			code_hide = 'N'
+	</select>
+	
+	<select id="getHashtag" resultType="map">
+		SELECT *
+		FROM
+			hash_tag
+	</select>
+	
+	
+	
+	
+	
 
 
 

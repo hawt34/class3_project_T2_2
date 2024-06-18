@@ -29,7 +29,7 @@
 	<select id="selectSchedule" resultType="map">
 		SELECT *
 		FROM class_schedule
-		WHERE class_code = #{1}
+		WHERE class_code = #{i}
 	</select>
 	
 </mapper>

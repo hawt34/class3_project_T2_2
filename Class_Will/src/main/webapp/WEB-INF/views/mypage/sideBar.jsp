@@ -188,6 +188,7 @@ a {
 					location.reload(); // 부모창 새로고침
 
 				},
+				
 				error : function(response) {
 					alert('이미지 업로드 실패!');
 				}

@@ -27,6 +27,12 @@
 											</li>
 											<li>
 												<div class="d-flex justify-content-between fruite-name">
+													<a href="creator-inquiry" class="h5 text-white"><i class="fas fa-apple-alt me-2"></i>문의관리</a>
+													<span>(5)</span>
+												</div>
+											</li>
+											<li>
+												<div class="d-flex justify-content-between fruite-name">
 													<a href="creator-analyze" class="h5 text-white"><i class="fas fa-apple-alt me-2"></i>클래스분석</a>
 													<span>(2)</span>
 												</div>

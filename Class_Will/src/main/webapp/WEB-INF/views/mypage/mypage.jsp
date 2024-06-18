@@ -135,7 +135,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-heart"></i>&nbsp;나의 취향</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text word-break">블라블라</p>
+											<p class="card-text word-break" style="color:black;">블라블라</p>
 											<a href="my-pre" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
@@ -144,7 +144,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-emoji-heart-eyes"></i>&nbsp;관심 클래스</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">관심있는 클래스</p>
+											<p class="card-text" style="color:black;">관심있는 클래스</p>
 											<a href="my-wish" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
@@ -153,7 +153,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-wallet"></i>&nbsp;윌페이</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
 											<a href="my-credit" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
@@ -162,7 +162,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-cart-check"></i>&nbsp;내가 신청한 클래스</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
 											<a href="my-class" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
@@ -171,7 +171,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-pencil-square"></i>&nbsp;나의 클래스 후기</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
 											<a href="my-review" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
@@ -180,7 +180,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-gear"></i>&nbsp;회원정보변경</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
@@ -189,7 +189,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-person-x-fill"></i>&nbsp;회원탈퇴</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
@@ -198,7 +198,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title">여유공간 1칸</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text">신규 서비스, 101 School에 참여하세요!</p>
+											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
 											<a href="#" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>

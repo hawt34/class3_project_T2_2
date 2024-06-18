@@ -226,6 +226,7 @@ body {
 .form-inputs:focus{
     box-shadow: none;
     border:none;
+    border-radius: 100px;
 }
 .chooseDiv {
 /*     padding-right: 40px; 이미지 공간 확보를 위해 오른쪽 패딩 추가 */
@@ -262,6 +263,7 @@ body {
 
 .hashtag {
 	width : 100px;
+	
 /* 	font-weight: bold; */
 }
 

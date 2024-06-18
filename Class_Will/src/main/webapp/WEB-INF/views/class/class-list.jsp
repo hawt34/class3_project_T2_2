@@ -52,9 +52,11 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </head>
 <body>
+
 <header>
-    <jsp:include page="../inc/top.jsp" />
+	<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 </header>
+	
 <div class="container-xl container1">
 <!--    <div class="col-md-2"> -->
 

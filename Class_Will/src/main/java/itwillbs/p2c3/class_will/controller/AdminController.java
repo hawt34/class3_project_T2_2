@@ -80,10 +80,7 @@ public class AdminController {
 		
 		for(Map<String, String> class1 : class_list) {
             JSONObject jo = new JSONObject(class1);
-            String member_code = (String)class1.get("member_code");
-            Map<String, String> member = adminService.getMemberInfo(member_code);
             jo.put("class_category", class1.get("class_big_category") + "/" + class1.get("class_small_category"));
-            jo.put("member_name", member.get("member_name"));
             jo_list.add(jo);
 		}
 		
@@ -111,7 +108,8 @@ public class AdminController {
 	
 	@GetMapping("admin-member-detail")
 	public String adminMemberDetail(String member_code, Model model) {
-		Map<String, String> member = adminService.getMemberInfo(member_code);
+		Map<String, Object> params =  cUtils.commonProcess("MEMBER", member_code);
+		Map<String, String> member = adminService.getMemberInfo(params);
 		
 		model.addAttribute("member", member);
 		
@@ -121,11 +119,8 @@ public class AdminController {
 	@GetMapping("admin-class-detail")
 	public String adminClassDetail(String class_code, Model model) {
 		Map<String, String> class1 = adminService.getClassInfo(class_code);
-		String member_code = class1.get("member_code");
-		Map<String, String> member = adminService.getMemberInfo(member_code);
-		
+		System.out.println(class1);
 		model.addAttribute("classInfo", class1);
-		model.addAttribute("member_name", member.get("member_name"));
 		return "admin/admin_class_detail";
 	}
 	

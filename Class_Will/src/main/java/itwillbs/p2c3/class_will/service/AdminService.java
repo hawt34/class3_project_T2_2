@@ -15,14 +15,12 @@ public class AdminService {
 	@Autowired
 	private AdminMapper adminMapper;
 	
-	
-	
 	public List<Map<String, String>> getMemberList(Map<String, Object> params) {
 		return adminMapper.selectMemberList(params);
 	}
 
-	public Map<String, String> getMemberInfo(String member_code) {
-		return adminMapper.selectMemberInfo(member_code);
+	public Map<String, String> getMemberInfo(Map<String, Object> params) {
+		return adminMapper.selectMemberInfo(params);
 	}
 	
 	

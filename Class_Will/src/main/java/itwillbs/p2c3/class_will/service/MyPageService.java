@@ -1,10 +1,8 @@
 package itwillbs.p2c3.class_will.service;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import itwillbs.p2c3.class_will.mapper.AdminMapper;
@@ -16,15 +14,11 @@ public class MyPageService {
 	@Autowired
 	private MyPageMapper myPageMapper;
 	
-	
 	@Autowired
 	private AdminMapper adminMapper;
 	
-		
-
-
-	public Map<String, String> getMemberInfo(String member_code) {
-		return adminMapper.selectMemberInfo(member_code);
+	public Map<String, String> getMemberInfo(Map<String, Object> params) {
+		return adminMapper.selectMemberInfo(params);
 	}
 
 
@@ -34,9 +28,4 @@ public class MyPageService {
 		
 		return myPageMapper.updateMemberImg(member);
 	}
-	
-	
-	
-	
-	
 }

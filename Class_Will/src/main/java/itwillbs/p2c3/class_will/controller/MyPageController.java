@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.MyPageService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
@@ -33,11 +35,15 @@ public class MyPageController {
 
 	@Autowired
 	private MyPageService myPageService;
-
+	
+	@Autowired
+	private CommonUtils cUtils;
 	@GetMapping("my-page")
 	public String myPage(String member_code, Model model) {
 		member_code = "1000";
-		Map<String, String> member = adminService.getMemberInfo(member_code);
+		Map<String, Object> params = cUtils.commonProcess("MEMBER", member_code);
+		params.put("member_code", member_code);
+		Map<String, String> member = adminService.getMemberInfo(params);
 		// 일단 임시로 사용
 
 		model.addAttribute("member", member);

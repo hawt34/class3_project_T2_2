@@ -9,9 +9,9 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface AdminMapper {
 
-	List<Map<String, String>> selectMemberList( @Param("params") Map<String, Object> params);
+	List<Map<String, String>> selectMemberList(@Param("params") Map<String, Object> params);
 
-	Map<String, String> selectMemberInfo(String member_code);
+	Map<String, String> selectMemberInfo(@Param("params") Map<String, Object> params);
 
 	List<String> selectColumnNames(String tableName);
 	

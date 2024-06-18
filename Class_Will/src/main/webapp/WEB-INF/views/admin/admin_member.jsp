@@ -218,8 +218,8 @@
                         </div>
                     </div>
                     <div>
-                        <button class="category-btn" data-category="member" onclick="location.href='admin-member?type=MEMBER'">회원</button>
-                        <button class="category-btn" data-category="teacher" onclick="location.href='admin-member?type=TEACHER'">강사</button>
+                        <button class="category-btn" data-category="member" onclick="location.href='admin-member?type=일반회원'">회원</button>
+                        <button class="category-btn" data-category="teacher" onclick="location.href='admin-member?type=크리에이터'">강사</button>
                     </div>
                     <!-- Content Row -->
                     <div class="row">

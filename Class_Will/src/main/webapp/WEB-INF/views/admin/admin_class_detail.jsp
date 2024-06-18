@@ -122,7 +122,7 @@ body {
 						</div>
 						<div class="col-md-6">
 							<div class="subject">강사 이름</div>
-							<input type="text" id="pay_date" class="form-control" value="${member_name}" readonly />
+							<input type="text" id="pay_date" class="form-control" value="${classInfo.member_name}" readonly />
 						</div>
 					</div>
 					<div class="row mb-3">

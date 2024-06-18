@@ -48,7 +48,7 @@
         grid-template-rows: repeat(6, 2em); /* 날짜 영역 크기 조정 */
     }
     .flatpickr-months .flatpickr-month {
-    	height:45px;
+    	height:55px;
     }
     .minusBtn {
 	background: none;
@@ -268,118 +268,125 @@
 	        <!-- navbar content -->
 	    </div> <!-- col-md-9 -->
 	    <div class="col-md-3">
-	    	<form action="payment" method="post">
-	    	<div class="box1">
-	    		<h6>클래스 선택</h6>
-	    		<h3>클래스 선택해보세요~~~</h3>
-	    		<div>
-			        <div id="datePicker"></div>
-			        <!-- 선택된 날짜를 저장할 input -->
-			        <input type="hidden" id="selected_date">
-			    </div>
-			    <!-- 타임 픽커 선택div -->
-			    <div class="row">
-			    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
-					<c:choose>
-						<c:when test="${class_type eq '0' }">
-					    	<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-					    		<c:forEach var="time" items="${class_schedule }" varStatus="status">
-									<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio${status.count }" autocomplete="off">
-									<label class="btn btn-custom" for="vbtn-radio${status.count }">${time.class_schedule_time }</label>
-					    		</c:forEach>
-							</div>
-						</c:when>
-						<c:otherwise>
-						</c:otherwise>
-					</c:choose>
-			    	
-			    </div>
-			    <!-- 인원 수 체크 -->
-				<div class="class_headcount">
-					<div class="col d-flex justify-content-end mt-3">
-						 <p class="fw-bold text-white">인원 수 선택</p>
-					</div>
-					<div class="col d-flex justify-content-end mt-1">
-						<input class="reserve1 minusBtn" type="button" id="headcount_prev">
-						<input class="reserve1 countText" type="text" name="class_headcount" id="class_count" value="1">
-						<input class="reserve1 addBtn" type="button" id="headcount_next">
-					</div>
-				</div>
-				
-	    		<div class="row"> <!-- 해시태그 시작 -->
-		    		<div class="col-md-4">
-		    			<b><a href="#">#원데이</a></b>
-		    		</div>
-		    		<div class="col-md-4">
-		    			<b><a href="#">#클래스</a></b>
-		    		</div>
-		    		<div class="col-md-4">
-		    			<b><a href="#">#관련</a></b>
-		    		</div>
-		    	</div>
-	    		<div class="row">
-		    		<div class="col-md-4">
-		    			<b><a href="#">#키워드</a></b>
-		    		</div>
-		    		<div class="col-md-4">
-		    			<b><a href="#">#크리에이터가</a></b>
-		    		</div>
-		    		<div class="col-md-4">
-		    			<b><a href="#">#지정가능</a></b>
-		    		</div>
-		    	</div>
-	    		<div class="row">
-		    		<div class="col-md-4">
-		    			<b><a href="#">#키워드</a></b>
-		    		</div>
-		    		<div class="col-md-4">
-		    			<b><a href="#">#크리에이터가</a></b>
-		    		</div>
-		    		<div class="col-md-4">
-		    			<b><a href="#">#지정가능</a></b>
-		    		</div>
-		    	</div> <!-- 해시태그 끝 -->
-		    	
-		    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
-			    	<div class="row">
-				    	<div class="col-md-4 btn mx-auto">
-					    	<button type="button" class="btn btn-light w-100">
-					    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" style="width : 25px; height : 25px">5214
-					    	</button>
-					    </div>
-				    	<div class="col-md-4 btn mx-auto">
-					    	<button type="button" class="btn btn-light w-100">
-					    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" style="width : 25px; height : 25px">공유하기
-					    	</button>
+	    	<form action="payment" method="post" id="class_form">
+	    		<input type="hidden" name="class_type" value="${class_type }">
+	    		<input type="hidden" name="class_code">
+		    	<div class="box1">
+		    		<h6>클래스 선택</h6>
+		    		<h3>클래스 선택해보세요~~~</h3>
+		    		<div>
+				        <div id="datePicker"></div>
+				        <!-- 선택된 날짜를 저장할 input -->
+				        <input type="hidden" id="selected_dates" name="selected_dates">
+				    </div>
+				    <!-- 타임 픽커 선택div -->
+				    <div class="row ">
+				    	<c:choose>
+				    		<c:when test="${class_type eq '0'}">
+						    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
+				    		</c:when>
+				    		<c:otherwise>
+				    			<p class="fw-bold fs-4 text-center text-white">클래스 수업 시간</p>
+				    		</c:otherwise>
+				    	</c:choose>
+						<c:choose>
+							<c:when test="${class_type eq '0' }">
+						    	<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+						    		<c:forEach var="time" items="${class_schedule }" varStatus="status">
+										<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio${status.count }" autocomplete="off">
+										<label class="btn btn-custom" for="vbtn-radio${status.count }">
+											<span class="selected_time">${time.class_st_time }~${time.class_ed_time }</span><br>
+											현재 남은 자리: <span class="headcount">${time.class_remain_headcount}</span>자리
+										</label>
+						    		</c:forEach>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:set var="object"  value="${class_schedule[0] }"/>
+								<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
+									<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio" autocomplete="off">
+									<label class="btn btn-custom" for="vbtn-radio">
+										<span class="selected_time">${object.class_st_time }~${object.class_ed_time }</span><br>
+										현재 남은 자리: <span class="headcount">${object.class_remain_headcount}</span>자리
+									</label>
+								</div>
+							</c:otherwise>
+						</c:choose>
+			    		<input type="hidden" id="select_time" name="select_time">
+				    	
+				    </div>
+				    <!-- 인원 수 체크 -->
+					<div class="class_headcount">
+						<div class="col d-flex justify-content-end mt-3">
+							 <p class="fw-bold text-white">인원 수 선택</p>
 						</div>
-				    	<div class="col-md-4 btn mx-auto">
-					    	<button type="button" class="btn btn-light w-100">Light</button>
-				    	</div>
+						<div class="col d-flex justify-content-end mt-1">
+							<input class="reserve1 minusBtn" type="button" id="headcount_prev">
+							<input class="reserve1 countText" type="text" name="selected_headcount" id="class_count" value="1" readonly style="text-align: right;">
+							<input class="reserve1 addBtn" type="button" id="headcount_next">
+						</div>
+					</div>
+					
+		    		<div class="row"> <!-- 해시태그 시작 -->
+			    		<div class="col-md-4">
+			    			<b><a href="#">#원데이</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#클래스</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#관련</a></b>
+			    		</div>
 			    	</div>
-			    </div> <!-- 좋아요, 공유버튼 -->
-			    <div class="col-md-12">
-		    		<button type="submit" class="btn btn-light w-100">신청하기</button>
+		    		<div class="row">
+			    		<div class="col-md-4">
+			    			<b><a href="#">#키워드</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#크리에이터가</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#지정가능</a></b>
+			    		</div>
+			    	</div>
+		    		<div class="row">
+			    		<div class="col-md-4">
+			    			<b><a href="#">#키워드</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#크리에이터가</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#지정가능</a></b>
+			    		</div>
+			    	</div> <!-- 해시태그 끝 -->
+			    	
+			    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
+				    	<div class="row">
+					    	<div class="col-md-4 btn mx-auto">
+						    	<button type="button" class="btn btn-light w-100">
+						    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" style="width : 25px; height : 25px">5214
+						    	</button>
+						    </div>
+					    	<div class="col-md-4 btn mx-auto">
+						    	<button type="button" class="btn btn-light w-100">
+						    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" style="width : 25px; height : 25px">공유하기
+						    	</button>
+							</div>
+					    	<div class="col-md-4 btn mx-auto">
+						    	<button type="button" class="btn btn-light w-100">Light</button>
+					    	</div>
+				    	</div>
+				    </div> <!-- 좋아요, 공유버튼 -->
+				    <div class="col-md-12">
+			    		<button type="submit" class="btn btn-light w-100">신청하기</button>
+			    	</div>
 		    	</div>
-	    	</div>
-	    	</form>
+	    	</form><!-- 폼 끝 -->
 	    </div> <!-- 오른쪽 강의 소개  -->
     </div><!-- row box2-->
 </div><!-- container -->
 <script>
-$(document).ready(function(){
-    $("#timepicker").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "h:i K",
-        time_24hr: true,
-        defaultHour: 11,
-        defaultMinute: 0,
-        minTime: "10:00",
-        maxTime: "18:00",
-        minuteIncrement: 30,
-        locale: "ko"
-    });
-});
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -387,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 클래스 타입 '0': 원데이 / '1': 장기
     let classType = "${class_type}";
     let classScheduleArray = ${class_schedule_date};
-    console.log(classScheduleArray);
+    console.log("받은 날짜: " + classScheduleArray);
     
     let enableDates = [];
     let defaultDates = [];
@@ -396,23 +403,23 @@ document.addEventListener('DOMContentLoaded', function() {
         enableDates = classScheduleArray.map(item => item.class_schedule_date);
     } else {
     	defaultDates = classScheduleArray.map(item => item.class_schedule_date);
+    	console.log(defaultDates);
     }
     
+    //기본 flatpickr 설정
     let flatpickrOptions = {
         dateFormat: "Y-m-d",
         inline: true,
         locale: "ko" // 한글 설정
     };
-    
-    if (classType === '1') {
+    if (classType === '1') { // tyep: '1'
         // 장기 클래스 타입인 경우의 옵션
         flatpickrOptions.mode = "multiple"; // 다중 선택 모드
         flatpickrOptions.enable = classScheduleArray.map(item => item.class_schedule_date);
         flatpickrOptions.defaultDate = defaultDates;
         flatpickrOptions.onChange = function(selectedDates, dateStr, instance) {
             console.log(selectedDates); // 선택된 날짜 배열
-            console.log(dateStr); // 선택된 날짜 배열
-        };
+		};
         flatpickrOptions.onDayCreate = function(dObj, dStr, fp, dayElem) {
             // defaultDates에 포함된 날짜를 클릭할 수 없도록 설정
             const date = dayElem.dateObj;
@@ -426,27 +433,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 }, { capture: true });
             }
         };
-    } else {
+    } else { // tyep: '0'
         // 원데이 클래스 타입인 경우의 옵션
         flatpickrOptions.mode = "single"; // 단일 선택 모드
         flatpickrOptions.enable = enableDates; // 선택 가능한 날짜 설정
         flatpickrOptions.onChange = function(selectedDates, dateStr, instance) {
             console.log(selectedDates); // 선택된 날짜 배열
             console.log(dateStr); // 선택된 날짜 배열
+            selectedDate = selectedDates.map(date => date.toISOString().slice(0, 10));
+            console.log("선택된 날짜:" + selectedDate);
+            document.getElementById('selected_dates').value = selectedDate;
         };
     }
     
     // flatpickr를 초기화합니다.
     flatpickr("#datePicker", flatpickrOptions);
+    
+//     $('input[name="class_schedule_time"]').change(function() {
+//         // 체크된 라디오 버튼의 라벨을 찾습니다.
+//         var label = $(this).next('label');
+//         // 라벨 안의 .selected_time 요소의 값을 가져옵니다.
+//         var selectedTime = label.find('.selected_time').text();
+//         console.log('선택된 시간:', selectedTime);
+//         document.getElementById('#selected_time').value = selectedTime;
+//     });
 });
 </script>
+
 <script>
 // 인원수를 가감하는 스크립트
 $(function() {
+	let headcount = '';
 	let count = $("#class_count");
 	let prev = $("#headcount_prev");
 	let next = $("#headcount_next");
-// 	count.val("1");
+	
+	// 라디오 버튼의 change 이벤트를 감지합니다.
+    $('input[name="class_schedule_time"]').change(function() {
+    	count.val(1);
+        // 체크된 라디오 버튼의 라벨을 찾습니다.
+        var label = $(this).next('label');
+        // 라벨 안의 .headcount 요소의 값을 가져옵니다.
+        headcount = label.find('.headcount').text();
+        var selectedTime = label.find('.selected_time').text();
+        $('#select_time').val(selectedTime);
+        console.log('남은 자리 수:', headcount);
+        console.log('남은 자리 수:', selectedTime);
+    });
+    
 	function updateCount() {
 		let currentValue = parseInt(count.val());
 		if(currentValue <= 1) {
@@ -458,13 +492,18 @@ $(function() {
 		}
 	}
 	
+	//초기 검사
 	updateCount();
-	 
+	
+	//증가 후 검사
 	next.click(function() {
 		let currentValue = parseInt(count.val());
-		count.val(currentValue + 1);
+		if(currentValue < headcount) {
+			count.val(currentValue + 1);
+		}
 		updateCount();
 	});
+	// 감소 후 검사
 	prev.click(function() {
 		let currentValue = parseInt(count.val());
 		if(currentValue > 1) {

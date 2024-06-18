@@ -50,21 +50,162 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+<style type="text/css">
+body {
+	color: white;
+	background : black;
+}
+</style>
 </head>
 <body>
 
 <header>
 	<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 </header>
-	
+
 <div class="container1">
 <!--    <div class="col-md-2"> -->
 
 <!--    </div> -->
    <div class="col-md-12">
-   <div class="row">
-       <jsp:include page="category-bar.jsp"></jsp:include>
-   </div>
+	<!-- 카테고리 바 -->   
+	<div class="row">
+		<div class="categoryBar">
+			<div class="row justify-content-center"> <!-- 가운데 정렬 -->
+				<div class="categoryBarBox col-md-11">
+					<div class="row height d-flex align-items-center mx-5">
+						<div class="col-md-3">
+							<div class="form form1">
+								<i class="fa fa-search"></i>
+								<input type="text" class="form-control form-input search-input" placeholder="클래스 검색">
+							</div>
+						</div>
+					</div>
+					
+					<!-- 셀렉트박스 리스트 -->
+					<div class="row mx-5">
+						<div class="selectDiv col-md-2">
+							<select class="form-select categorySelect w-100" aria-label="Default select example">
+								<option selected>카테고리</option>
+								<option value="1">드로잉</option>
+								<option value="2">디지털 드로잉</option>
+								<option value="3">핸드메이드</option>
+								<option value="4">쿠킹 / 베이킹</option>
+								<option value="5">플라워 / 가드닝</option>
+								<option value="6">뷰티</option>
+								<option value="7">스포츠</option>
+								<option value="8">요가 / 필라테스</option>
+								<option value="9">사진 / 영상</option>
+								<option value="10">음악</option>
+							</select>
+						</div>
+						<div class="selectDiv col-md-2">
+							<select class="form-select categorySelect w-100" aria-label="Default select example">
+								<option selected>지역</option>
+								<option value="1">서울</option>
+								<option value="2">부산</option>
+								<option value="3">인천</option>
+							</select>
+						</div>
+						<div class="selectDiv col-md-2">
+							<select class="form-select categorySelect w-100"  aria-label="Default select example">
+								<option selected>유형</option>
+								<option value="1">원데이</option>
+								<option value="2">정기</option>
+							</select>
+						</div>
+						<div class="selectDiv col-md-2">
+							<select class="form-select categorySelect w-100" aria-label="Default select example" id="customRange2">
+								<option selected>금액</option>
+								<option value="1">
+								</option>
+							</select>
+						</div>
+						<div class="col-md-2 btnReset w-100">
+							<button type="button" class="btn btn-outline-light">초기화</button>
+						</div>
+					</div>
+					<!-- 셀렉트박스 리스트 -->
+					
+					<!-- 카테고리 셀렉스 리스트 -->
+					<div class="row mx-5">
+					    <div class="mt-3 col-md-2 position-relative chooseDiv">
+					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리1" readonly>
+					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
+					    </div>
+					    <div class="mt-3 col-md-2 position-relative chooseDiv">
+					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리2" readonly>
+					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
+					    </div>
+					    <div class="mt-3 col-md-2 position-relative chooseDiv">
+					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리3" readonly>
+					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
+					    </div>
+					    <div class="mt-3 col-md-2 position-relative chooseDiv">
+					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리4" readonly>
+					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
+					    </div>
+					    <div class="line col-md-12">
+					    	<hr>
+					    </div>
+					</div>
+					<!-- 카테고리 셀렉스 리스트 -->
+					
+					<!-- 해시태그 리스트 -->
+					<div class="row mx-5">
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 커플" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 반려동물" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 선물" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 데이트" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 단체" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
+							</div>
+						</div>
+						<div class="col-md-2 hashtagDiv">
+							<div class="form form1">
+								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
+							</div>
+						</div>
+					</div>
+					<!-- 해시태그 리스트 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 카테고리 바 -->
+	
    <div class="row">
       <div class="col-md-9">
          <div class="classCount">
@@ -91,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category btn1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -121,12 +262,12 @@ document.addEventListener("DOMContentLoaded", function() {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
+                        <p class="mb-0 ml-2">게임그래픽학원 지지스쿨</p>
                      </div>
                      <div class="className">
                         <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>
@@ -152,7 +293,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -182,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -215,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -246,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function() {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -277,12 +418,12 @@ document.addEventListener("DOMContentLoaded", function() {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
+                        <p class="mb-0 ml-2">게임그래픽학원 지지스쿨</p>
                      </div>
                      <div class="className">
                         <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>
@@ -309,12 +450,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <!--                   <div class="card-body d-flex flex-column fixed-size"> -->
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
+                        <p class="mb-0 ml-2">게임그래픽학원 지지스쿨</p>
                      </div>
                      <div class="className">
                         <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>

@@ -14,13 +14,9 @@ public class MyPageService {
 	@Autowired
 	private MyPageMapper myPageMapper;
 	
-	
 	@Autowired
 	private AdminMapper adminMapper;
 	
-		
-
-
 	public Map<String, String> getMemberInfo(Map<String, Object> params) {
 		return adminMapper.selectMemberInfo(params);
 	}
@@ -32,9 +28,4 @@ public class MyPageService {
 		
 		return myPageMapper.updateMemberImg(member);
 	}
-	
-	
-	
-	
-	
 }

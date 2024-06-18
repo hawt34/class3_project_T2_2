@@ -3,6 +3,8 @@ package itwillbs.p2c3.class_will.controller;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.ExcelService;
 
@@ -35,6 +38,10 @@ public class AdminController {
 	@Autowired
 	private ExcelService excelService;
 	
+	@Autowired
+	private CommonUtils cUtils;
+	
+	
 	@GetMapping("admin")
 	public String admin() {
 		
@@ -42,13 +49,15 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin-member")
-	public String adminMain(@RequestParam(defaultValue = "member") String type, Model model) {
+	public String adminMain(@RequestParam(defaultValue = "일반회원") String type, Model model) {
 		List<Map<String, String>> member_list = null;
+		String code_value = "member_type";
+		int common1_code = adminService.getCommonCode(code_value);
+		int common2_code = adminService.getCommon2Code(common1_code, type);
+		Map<String, Object> params = cUtils.commonProcess("MEMBER", common2_code);
 		
-		switch (type) {
-			case "member" : member_list = adminService.getMemberList(type); break;
-			case "teacher" : member_list = adminService.getMemberList(type); break;
-		}
+		
+		member_list = adminService.getMemberList(params);
 		
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
 		
@@ -58,12 +67,28 @@ public class AdminController {
 		}
 		
 		model.addAttribute("jo_list", jo_list);
+		model.addAttribute("tableName", "MEMBER");
 		
 		return "admin/admin_member";
 	}
 	
 	@GetMapping("admin-class")
-	public String adminClass() {
+	public String adminClass(Model model) {
+		List<Map<String, String>> class_list = adminService.getClassList();
+		
+		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
+		
+		for(Map<String, String> class1 : class_list) {
+            JSONObject jo = new JSONObject(class1);
+            String member_code = (String)class1.get("member_code");
+            Map<String, String> member = adminService.getMemberInfo(member_code);
+            jo.put("class_category", class1.get("class_big_category") + "/" + class1.get("class_small_category"));
+            jo.put("member_name", member.get("member_name"));
+            jo_list.add(jo);
+		}
+		
+		model.addAttribute("tableName", "class");
+		model.addAttribute("jo_list", jo_list);
 		return "admin/admin_class";
 	}
 	
@@ -91,6 +116,17 @@ public class AdminController {
 		model.addAttribute("member", member);
 		
 		return "admin/admin_member_detail";
+	}
+	
+	@GetMapping("admin-class-detail")
+	public String adminClassDetail(String class_code, Model model) {
+		Map<String, String> class1 = adminService.getClassInfo(class_code);
+		String member_code = class1.get("member_code");
+		Map<String, String> member = adminService.getMemberInfo(member_code);
+		
+		model.addAttribute("classInfo", class1);
+		model.addAttribute("member_name", member.get("member_name"));
+		return "admin/admin_class_detail";
 	}
 	
     @GetMapping("/downloadExcel")
@@ -139,35 +175,38 @@ public class AdminController {
 	        }
         }
         
-        
-        
         byte[] excelBytes = excelService.createExcelForm(title, columns);
+        
+        
+    	LocalDateTime now = LocalDateTime.now();
+    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYYMMDD");
+    	String nowt = now.format(dtf);
     	
     	HttpHeaders headers = new HttpHeaders();
-    	String encodedTitle = URLEncoder.encode(title + ".xlsx", StandardCharsets.UTF_8.toString());
+    	String encodedTitle = URLEncoder.encode(tableName + "/" + title + "/" + nowt + ".xlsx", StandardCharsets.UTF_8.toString());
     	headers.add("Content-Disposition", "attachment; filename=\"" + encodedTitle + "\"");
     	
     	return new ResponseEntity<>(excelBytes, headers, HttpStatus.OK);
     }
     
     @ResponseBody
-    @PostMapping("/uploadData")
+    @PostMapping("uploadData")
     public String uploadData(@RequestParam("tableName") String tableName
     						, @RequestParam("file") MultipartFile file) {
     	logger.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<join");
     	
         if (file.isEmpty()) {
-            return "파일이 비어있습니다.";
+            return "false";
         }
         
         try {
             excelService.processExcelFile(tableName, file);
         } catch (IOException e) {
             e.printStackTrace();
-            return "파일 업로드 중 오류가 발생했습니다: " + e.getMessage();
+            return "false";
         }
+        return "true";
         
-        return "파일 업로드 성공";
     }
     
     @ResponseBody

@@ -1,13 +1,35 @@
 package itwillbs.p2c3.class_will.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import itwillbs.p2c3.class_will.service.MemberService;
+
 @Controller
 public class MemberContller {
 	
-	// 로그인 폼으로
+	
+	@Autowired
+	private MemberService memberService;
+	
+	// 관리자 로그인
+	@GetMapping("admin-login")
+	public String adminLoginForm() {
+		return "member/admin_login_form";
+	}
+	
+	
+	// 관리자 로그인 비즈니스 로직 처리
+	@PostMapping("admin-login")
+	public String adminLoginPro() {
+		
+		
+		return "redirect:/";
+	}
+	
+	// 회원 로그인 폼으로
 	@GetMapping("member-login")
 	public String memberLoginForm() {
 		
@@ -15,7 +37,7 @@ public class MemberContller {
 		return "member/login_form";
 	}
 	
-	// 로그인 비즈니스 로직 처리
+	// 회원 로그인 비즈니스 로직 처리
 	@PostMapping("member-login")
 	public String memberLoginPro() {
 		
@@ -49,7 +71,11 @@ public class MemberContller {
 	}
 	
 
-	
+	@GetMapping("main-test")
+	public String mainTest() {
+		
+		return "main_temp";
+	}
 	
 	
 	

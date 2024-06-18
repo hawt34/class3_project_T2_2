@@ -48,8 +48,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리 :</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin-member?type=member">회원 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-member?type=teacher">강사 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin-member?type=일반회원">회원 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-member?type=크리에이터">강사 리스트</a>
                     </div>
                 </div>
             </li>
@@ -105,7 +105,6 @@
                         <h6 class="collapse-header">고객센터 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">전체 리스트</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">공지사항 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">FAQ 리스트</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">1:1문의 리스트</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">이벤트 리스트</a>
                     </div>
@@ -126,22 +125,6 @@
                         <h6 class="collapse-header">결제 관리:</h6>
                         <a class="collapse-item" href="utilities-animation.html">일반 결제</a>
                         <a class="collapse-item" href="utilities-other.html">크레딧 결제</a>
-                    </div>
-                </div>
-            </li>
-            
-            <!-- Nav Item - 챗봇관리 -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseChatbot"
-                    aria-expanded="true" aria-controls="collapseChatbot">
-                   <i class="fa-solid fa-robot"></i>
-                    <span>챗봇 관리</span>
-                </a>
-                <div id="collapseChatbot" class="collapse" aria-labelledby="headingChatbot"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">챗봇 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Csc">프롬프트 관리</a>
                     </div>
                 </div>
             </li>

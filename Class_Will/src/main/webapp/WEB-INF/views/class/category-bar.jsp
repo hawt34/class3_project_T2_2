@@ -38,25 +38,33 @@
 		<div class="categoryBarBox col-md-11">
 			<div class="row height d-flex align-items-center mx-5">
 				<div class="col-md-6">
-					<div class="form">
+					<div class="form form1">
 						<i class="fa fa-search"></i>
-						<input type="text" class="form-control form-input" placeholder="클래스 검색">
+						<input type="text" class="form-control form-input search-input" placeholder="클래스 검색">
 					</div>
 				</div>
 			</div>
 		<!-- 	<div class="row mx-5 mr-5"> -->
-			<div class="row mx-5 pr-3 padded-row">
+<!-- 			<div class="row mx-5 pr-3 padded-row"> -->
+			<div class="row mx-5">
 		<!-- 		<div> -->
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100" aria-label="Default select example">
+					<select class="form-select categorySelect w-100" aria-label="Default select example">
 						<option selected>카테고리</option>
-						<option value="1">최신순</option>
-						<option value="2">낮은 가격순</option>
-						<option value="3">높은 가격순</option>
+						<option value="1">드로잉</option>
+						<option value="2">디지털 드로잉</option>
+						<option value="3">핸드메이드</option>
+						<option value="4">쿠킹 / 베이킹</option>
+						<option value="5">플라워 / 가드닝</option>
+						<option value="6">뷰티</option>
+						<option value="7">스포츠</option>
+						<option value="8">요가 / 필라테스</option>
+						<option value="9">사진 / 영상</option>
+						<option value="10">음악</option>
 					</select>
 				</div>
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100" aria-label="Default select example">
+					<select class="form-select categorySelect w-100" aria-label="Default select example">
 						<option selected>지역</option>
 						<option value="1">서울</option>
 						<option value="2">부산</option>
@@ -64,21 +72,22 @@
 					</select>
 				</div>
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100"  aria-label="Default select example">
+					<select class="form-select categorySelect w-100"  aria-label="Default select example">
 						<option selected>유형</option>
 						<option value="1">원데이</option>
 						<option value="2">정기</option>
 					</select>
 				</div>
 				<div class="selectDiv">
-					<select class="form-select selectBox w-100" aria-label="Default select example">
+					<select class="form-select categorySelect w-100" aria-label="Default select example" id="customRange2">
 						<option selected>금액</option>
-						<option value="1">최신순</option>
-						<option value="2">낮은 가격순</option>
-						<option value="3">높은 가격순</option>
+						<option value="1">
+<!-- 							<label for="customRange2" class="form-label">Example range</label> -->
+<!-- 							<input type="range" class="form-range" min="0" max="5" id="customRange2"> -->
+						</option>
 					</select>
 				</div>
-				<div class="col-md-2 btnReset">
+				<div class="col-md-3 btnReset">
 					<button type="button" class="btn btn-outline-light">초기화</button>
 				</div>
 		<!-- 		</div> -->
@@ -117,54 +126,49 @@
 			
 		<!-- 	<div class="row mx-5"> -->
 		<!-- 	<div class="row mx-5"> -->
-			<div class="row mx-5">
+			<div class="row mx-5 ">
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 커플" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 반려동물" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
+						<input type="text" class="form-control form-inputs hashtag" placeholder="# 선물" readonly>
+					</div>
+				</div>
+				<div class="col-md-1 hashtagDiv">
+					<div class="form form1">
+						<input type="text" class="form-control form-inputs hashtag" placeholder="# 데이트" readonly>
+					</div>
+				</div>
+				<div class="col-md-1 hashtagDiv">
+					<div class="form form1">
+						<input type="text" class="form-control form-inputs hashtag" placeholder="# 단체" readonly>
+					</div>
+				</div>
+				<div class="col-md-1 hashtagDiv">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>
 				<div class="col-md-1 hashtagDiv">
-					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-					</div>
-				</div>
-				<div class="col-md-1 hashtagDiv">
-					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-					</div>
-				</div>
-				<div class="col-md-1 hashtagDiv">
-					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-					</div>
-				</div>
-				<div class="col-md-1 hashtagDiv">
-					<div class="form">
-						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-					</div>
-				</div>
-				<div class="col-md-1 hashtagDiv">
-					<div class="form">
+					<div class="form form1">
 						<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 					</div>
 				</div>

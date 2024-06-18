@@ -304,6 +304,40 @@
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
     <script>
+    	class BootstrapSwitchRenderer {
+    	    constructor(props) {
+    	        const el = document.createElement('div');
+    	        el.className = 'custom-control custom-switch';
+
+    	        const input = document.createElement('input');
+    	        input.type = 'checkbox';
+    	        input.className = 'custom-control-input';
+    	        input.id = 'customSwitch' + props.rowKey;
+    	        input.checked = props.value;
+    	        input.addEventListener('change', () => {
+    	            props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
+    	        });
+
+    	        const label = document.createElement('label');
+    	        label.className = 'custom-control-label';
+    	        label.htmlFor = 'customSwitch' + props.rowKey;
+
+    	        el.appendChild(input);
+    	        el.appendChild(label);
+
+    	        this.el = el;
+    	    }
+
+    	    getElement() {
+    	        return this.el;
+    	    }
+
+    	    render(props) {
+    	        this.el.querySelector('input').checked = props.value;
+    	    }
+    	}
+    	
+    	
 	    document.addEventListener('DOMContentLoaded', function () {
 	        const data = [
 	            {
@@ -335,7 +369,14 @@
 	            columns: [
 	                { header: '대분류', name: 'largeCategory', editor: 'text' },
 	                { header: '중분류', name: 'mediumCategory', editor: 'text' },
-	                { header: '소분류', name: 'smallCategory', editor: 'text' }
+	                { header: '소분류', name: 'smallCategory', editor: 'text' },
+	                {
+	                    header: '스위치',
+	                    name: 'switch',
+	                    renderer: {
+	                        type: BootstrapSwitchRenderer
+	                    }
+	                }
 	            ],
 	            rowHeaders: ['checkbox'], // 첫 번째 컬럼을 체크박스로 설정
 	            pageOptions: {

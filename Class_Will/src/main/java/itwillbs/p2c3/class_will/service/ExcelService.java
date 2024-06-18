@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -32,6 +33,7 @@ public class ExcelService {
     public byte[] createExcel(String title, List<String> headers, List<Map<String, Object>> data) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet(title);
+        
         // 헤더 행 생성
         Row headerRow = sheet.createRow(0);
         for (int i = 0; i < headers.size(); i++) {
@@ -116,46 +118,61 @@ public class ExcelService {
     }
 
     public void processExcelFile(String tableName, MultipartFile file) throws IOException {
-    	List<Object> rowData = null;
-    	List<String> columnNames = null;
-    	List<List<Object>> rowDataList = null;
-    	String code = null;
+        List<Object> rowData = null;
+        List<String> columnNames = new ArrayList<>();
+        List<List<Object>> rowDataList = new ArrayList<>();
+        
         try (InputStream inputStream = file.getInputStream()) {
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet sheet = workbook.getSheetAt(0); // 첫 번째 시트를 가져옴
 
             // 첫 번째 행에서 컬럼명을 가져옴
             Row headerRow = sheet.getRow(0);
-            columnNames = new ArrayList<>();
-            for (Cell cell : headerRow) {
-                columnNames.add(cell.getStringCellValue());
+            if (headerRow != null) {
+                for (Cell cell : headerRow) {
+                    if (cell != null) {
+                        columnNames.add(cell.getStringCellValue());
+                    }
+                }
             }
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");	
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+
             // 두 번째 행부터 데이터를 읽어들임
-            rowDataList = new ArrayList<>();
             for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
-                rowData = new ArrayList<>();
-                for (Cell cell : row) {
-//                	cell.setCellType(CellType.STRING);
-                    String cellValue = getCellValueAsString(cell, dateFormat);
-                    rowData.add(cellValue);
+                if (row == null) {
+                    continue; // 비어 있는 행 무시
                 }
-                rowDataList.add(rowData);
+                boolean isEmptyRow = true;
+                rowData = new ArrayList<>();
+                for (int j = 0; j < headerRow.getLastCellNum(); j++) {
+                    Cell cell = row.getCell(j);
+                    if (cell == null || cell.getCellType() == CellType.BLANK) {
+                        rowData.add(""); // 비어 있는 셀을 빈 문자열로 처리
+                    } else {
+                        String cellValue = getCellValueAsString(cell, dateFormat);
+                        rowData.add(cellValue);
+                        if (!cellValue.trim().isEmpty()) {
+                            isEmptyRow = false;
+                        }
+                    }
+                }
+
+                if (!isEmptyRow) {
+                    rowDataList.add(rowData);
+                }
             }
-            
-        // 컬럼이름의 데이터타입 문자 제거
-        for(int i = 0 ; i < columnNames.size();i++) {
-        	columnNames.set(i, columnNames.get(i).split("/")[0]);
-        }       
-        
-        // 데이터베이스에 저장
-        for(int i = 0 ; i < rowDataList.size();i++) {
-        	code = adminMapper.selectMaxCode(tableName);
-        	adminMapper.insertExcelDatas(tableName, rowDataList.get(i), code);
-        }
-        
-//      	adminMapper.insertExcelDatas(tableName, columnNames, rowDataList);
+
+            // 컬럼이름의 데이터타입 문자 제거
+            for (int i = 0; i < columnNames.size(); i++) {
+                columnNames.set(i, columnNames.get(i).split("/")[0]);
+            }
+
+            // 데이터베이스에 저장
+            for (int i = 0; i < rowDataList.size(); i++) {
+                adminMapper.insertExcelDatas(tableName, rowDataList.get(i), columnNames);
+            }
         }
     }
     

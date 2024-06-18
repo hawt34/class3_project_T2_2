@@ -1,10 +1,24 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import itwillbs.p2c3.class_will.service.CreatorService;
 
 @Controller
 public class CreatorController {
+	
+	@Autowired
+	private CreatorService creatorService;
 
 	// creator-main으로
 	@GetMapping("creator-main")
@@ -12,6 +26,8 @@ public class CreatorController {
 		return "creator/creator-main";
 	}
 	
+	//======================================================
+	// creator-class 
 	// creater-class로
 	@GetMapping("creator-class")
 	public String createrClass() {
@@ -22,11 +38,38 @@ public class CreatorController {
 	public String createrClassReg() {
 		return "creator/creator-classReg";
 	}
+
+	// creater-class 등록
+	@PostMapping("creator-classRegPro")
+	public String createrClassRegPro(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+		System.out.println(map);
+		
+//		String member_code = (String)session.getAttribute("member_code");
+		map.put("member_code", 1234);
+		
+		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
+		
+		int insertCount = creatorService.createrClassRegPro(map);
+		if(insertCount > 0) {
+			model.addAttribute("msg", "클래스등록 실패");
+		}
+		
+		return "creator/creator-class";
+	}
+	
+	// 해쉬태그 추가 페이지
+	@GetMapping("creator-hashtag")
+	public String creatorHashtag() {
+		return "creator/creator-hashtag";
+	}
+		
 	// creater-class 일정등록 페이지로
 	@GetMapping("creator-class-plan")
 	public String createrClassPlan() {
 		return "creator/creator-class-plan";
 	}
+	
+	//======================================================
 	// creater-review로
 	@GetMapping("creator-review")
 	public String createrReview() {

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body {
+  color: white;
+}
+
 .container1 {
 	height : auto;
 	width: 1200px;
@@ -10,7 +14,7 @@
 	margin-bottom : 0px; /* 위의 모든 요소 다음에 배치되도록 설정 */
 }
 
-.card-body {
+.card-body1 {
 	height : 410px;	
 }
 
@@ -18,15 +22,22 @@
 	padding : 15px;
 }
 
-.card-body h6 {
-	color : black;
-	font-weight: bold;
-}
+/* .card-body h6 { */
+/* 	color : black; */
+/* 	font-weight: bold; */
+/* } */
 
-.card-body p{
-	color : black;
-}
+/* .card-body p{ */
+/* 	color : black; */
+/* } */
 
+.btn1 {
+	font-size: 90%; /* 기본 텍스트 크기 */
+	white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+/* 	background: white; */
+/* 	border-color:white; */
+/* 	color : red; */
+}
 .classPic {
 	height: 225px; 
 	object-fit: cover;
@@ -42,9 +53,18 @@
 	
 }
 
+.className h6 {
+	color : black;
+	font-weight: bold;
+}
+
 .createrName {
 	display: flex;
 	align-items: center;
+}
+
+.createrName p {
+	color : black;
 }
 
 .createrName img {
@@ -62,7 +82,7 @@
 	padding-bottom : 7px;
 }
 
-.category {
+.category1 {
 	font-size : 0.8em !important;
 }
 /* .classCard { */
@@ -76,7 +96,7 @@
 /* 	flex-direction: column; */
 /* } */
 
-.position-relative {
+.position-relative1 {
 	position: relative;
 }
 
@@ -123,7 +143,7 @@
 /*     padding-left : 30px; */
 }
 
-.selectBox {
+.selectBox1 {
 /*     margin: 0; 마진 제거 */
     height: auto; /* 높이 자동 조절 */
     margin-left : 90px;

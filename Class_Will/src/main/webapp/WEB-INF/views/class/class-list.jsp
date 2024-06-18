@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 </header>
 	
-<div class="container-xl container1">
+<div class="container1">
 <!--    <div class="col-md-2"> -->
 
 <!--    </div> -->
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
       <div class="col-md-3 box1">
 <!--          <select class="form-select-sm selectBox" aria-label="Default select example"> -->
-         <select class="form-select selectBox w-50" aria-label="Default select example">
+         <select class="form-select selectBox1 w-50" aria-label="Default select example">
             <option selected>인기순</option>
             <option value="1">최신순</option>
             <option value="2">낮은 가격순</option>
@@ -85,25 +85,25 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic"></a>
 <%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" class="w-100 card-img-top classPic"> --%>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">UI 디자이너 리제</p>
                      </div>
                      <div class="className">
-                        <h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6>
+                        <a href="class-detail"><h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 진구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 진구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -116,24 +116,24 @@ document.addEventListener("DOMContentLoaded", function() {
       
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
                      </div>
                      <div class="className">
-                        <h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6>
+                        <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 동래구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 동래구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -147,24 +147,24 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p>
                      </div>
                      <div class="className">
-                        <h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6>
+                        <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 해운대구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -177,24 +177,24 @@ document.addEventListener("DOMContentLoaded", function() {
          
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p>
                      </div>
                      <div class="className">
-                        <h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6>
+                        <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 해운대구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -210,24 +210,24 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
                      </div>
                      <div class="className">
-                        <h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
+                        <a href="class-detail"><h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 북구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 북구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -241,24 +241,24 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
           <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">UI 디자이너 리제</p>
                      </div>
                      <div class="className">
-                        <h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6>
+                        <a href="class-detail"><h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 남구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 남구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -272,24 +272,24 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
                      </div>
                      <div class="className">
-                        <h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6>
+                        <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 사상구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -303,25 +303,25 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 <!--                   <div class="card-body d-flex flex-column fixed-size"> -->
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
                      </div>
                      <div class="className">
-                        <h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6>
+                        <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 사상구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -337,25 +337,25 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic">
+            <div class="card shadow-sm border-0 rounded flex-fill card-body1">
+               <div class="card-body p-0 position-relative position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p>
                      </div>
                      <div class="className">
-                        <h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6>
+                        <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 수영구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 수영구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>
@@ -370,20 +370,20 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1 btn1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
                      </div>
                      <div class="className">
-                        <h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
+                        <a href="class-detail"><h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
@@ -401,20 +401,20 @@ document.addEventListener("DOMContentLoaded", function() {
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <!-- Card-->
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
                      </div>
                      <div class="className">
-                        <h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
+                        <a href="class-detail"><h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
@@ -431,24 +431,24 @@ document.addEventListener("DOMContentLoaded", function() {
          
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
             <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative">
-                  <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic">
+               <div class="card-body p-0 position-relative card-body1 position-relative1">
+                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" alt="" class="w-100 card-img-top classPic"></a>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-                        <button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category category1">원데이</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
                         <p class="mb-0 ml-2">UI 디자이너 리제</p>
                      </div>
                      <div class="className">
-                        <h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6>
+                        <a href="class-detail"><h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled">부산 남구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 남구</a>
                         </div>
                         <div class="col-md-6 price">
                            <p>50,000원</p>

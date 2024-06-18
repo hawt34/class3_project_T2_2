@@ -10,6 +10,10 @@
 
 <%-- <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"> --%>
 
+<<<<<<< HEAD
+=======
+<!-- Template Stylesheet -->
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 <%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
 
 <!-- <link rel="preconnect" href="https://fonts.googleapis.com"> -->

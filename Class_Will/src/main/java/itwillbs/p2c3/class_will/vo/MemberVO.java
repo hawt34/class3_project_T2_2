@@ -12,7 +12,7 @@ public class MemberVO {
 	private String member_img;
 	private MultipartFile member_imageFile;
 	private String member_tel;
-	private String member_pwd;
+	private String member_passwd;
 	private String member_social;
 	private String member_marketing1;
 	private String member_marketing2;

@@ -78,6 +78,7 @@
 	.modal-content {
 		background: #333;
 		width: 600px;
+		color: white;
 	}
 	
 	.modal-body {
@@ -124,21 +125,21 @@
 			<form action="member-join" method="POST">
 				<h2>회원가입</h2>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="name" name="name" placeholder="name">
+					<input type="text" class="form-control" id="member_name" name="member_name" placeholder="name" required>
 					<label for="name">이름</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+					<input type="email" class="form-control" id="member_email" name="member_email" placeholder="name@example.com" required>
 					<label for="email">이메일</label>
 				</div>
 				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="passwd" name="passwd" placeholder="Password">
+					<input type="password" class="form-control" id="member_passwd" name="member_passwd" placeholder="Password" required>
 					<label for="passwd">비밀번호</label>
 				</div>
 				<div class="row nav-fill" > 
 					<div class="col-8">
 						<div class="form-floating mb-3">
-							<input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="010-1234-5678">
+							<input type="text" class="form-control" id="member_tel" name="member_tel" placeholder="010-1234-5678" required>
 							<label for="phone_number">휴대전화</label>
 						</div>
 					</div>	
@@ -147,7 +148,7 @@
 					</div>	
 				</div>
 				<div class="form-floating mb-3">
-					<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456">
+					<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>
 					<label for="phone_auth_number">인증번호</label>
 				</div>
 				
@@ -160,21 +161,21 @@
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="ageAgree" name="ageAgree">
+						<input class="form-check-input" type="checkbox" value="" id="ageAgree" name="ageAgree" required>
 						<label class="form-check-label" for="ageAgree">
 							만14세 이상입니다.(필수)
 						</label>
 						
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="serviceAgree" name="serviceAgree">
+						<input class="form-check-input" type="checkbox" value="" id="serviceAgree" name="serviceAgree" required>
 						<label class="form-check-label" for="serviceAgree">
 							서비스 이용약관 동의 (필수)
 						</label>
 						<a class="auth-detail float-end link" data-bs-toggle="modal" data-bs-target="#serviceAgreeInfo">내용보기</a>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="personerAgree" name="personerAgree">
+						<input class="form-check-input" type="checkbox" value="" id="personerAgree" name="personerAgree" required>
 						<label class="form-check-label" for="personerAgree">
 							개인정보 수집 및 이용 동의 (필수)
 						</label>
@@ -190,14 +191,14 @@
 					<div class="auth-choice row">
 						<div class="col" >
 							<div class="form-check form-check-center">
-								<input class="form-check-input" type="checkbox" value="" id="emailAgree" name="emailAgree">
-								<label class="form-check-label float-start" for="emailAgree">이메일 수신</label>
+								<input class="form-check-input" type="checkbox" value="y" id="member_marketing1" name="member_marketing1">
+								<label class="form-check-label float-start" for="member_marketing1">이메일 수신</label>
 							</div>
 						</div>
 						<div class="col">
 							<div class="form-check form-check-center">
-								<input class="form-check-input" type="checkbox" value="" id="messegeAgree" name="messegeAgree">
-								<label class="form-check-label float-start" for="messegeAgree">문자 수신</label>
+								<input class="form-check-input" type="checkbox" value="y" id="member_marketing2" name="member_marketing2">
+								<label class="form-check-label float-start" for="member_marketing2">문자 수신</label>
 							</div>
 						</div>
 					</div>
@@ -258,7 +259,7 @@
 			
 			<!-- 마케팅 수신 동의 내용 -->
 			<div class="modal" id="marketingImfo" tabindex="-1" aria-labelledby="marketingImfoLabel" aria-hidden="true" >
-				<div class="modal-dialog">
+				<div class="modal-dialog ">
 					<div class="modal-content">
 						<div class="modal-header">
 						  <h1 class="modal-title fs-5" id="marketingImfoLabel">서비스 이용약관</h1>

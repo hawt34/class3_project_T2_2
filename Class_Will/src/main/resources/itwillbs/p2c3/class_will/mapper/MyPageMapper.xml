@@ -5,9 +5,7 @@
 	  <update id="updateMemberImg">
 	  		UPDATE MEMBER
 			SET
-				<if test="member_img != null and !member_img.equals('')">
-					member_img = #{member_img}
-				</if>
+				member_img = #{member_img}
 			WHERE
 				member_code = #{member_code}
 		  

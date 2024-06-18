@@ -69,7 +69,7 @@
 	</select>
 	
 	<!-- 카테고리 상세 -->
-	<select id="getCategoryDetail">
+	<select id="getCategoryDetail" resultType="map">
 		SELECT 
 			common3_code,code_value
 		FROM 
@@ -80,7 +80,11 @@
 			code_hide = 'N'
 	</select>
 	
-	
+	<select id="getHashtag" resultType="map">
+		SELECT *
+		FROM
+			hash_tag
+	</select>
 	
 	
 	

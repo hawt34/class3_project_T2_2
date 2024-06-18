@@ -41,10 +41,12 @@ public class CreatorController {
 		
 		List<Map<String, String>> class_sort_List = creatorService.getSort();
 		List<Map<String, String>> categoryList = creatorService.getCategory();
+		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		
-		System.out.println("class_sort_List : " + class_sort_List);
+//		System.out.println("class_sort_List : " + class_sort_List);
 		model.addAttribute("class_sort_List", class_sort_List);
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("hashtagList", hashtagList);
 		
 		return "creator/creator-classReg";
 	}
@@ -64,14 +66,14 @@ public class CreatorController {
 		System.out.println(map);
 		
 //		String member_code = (String)session.getAttribute("member_code");
-		map.put("member_code", 1234);
+//		map.put("member_code", 1234);
 		
-		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
+//		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
 		
-		int insertCount = creatorService.createrClassRegPro(map);
-		if(insertCount > 0) {
-			model.addAttribute("msg", "클래스등록 실패");
-		}
+//		int insertCount = creatorService.createrClassRegPro(map);
+//		if(insertCount > 0) {
+//			model.addAttribute("msg", "클래스등록 실패");
+//		}
 		
 		return "creator/creator-class";
 	}
@@ -99,6 +101,25 @@ public class CreatorController {
 	public String createrReviewForm() {
 		return "creator/creator-review-form";
 	}
+	
+	//======================================================
+
+	// 문의사항 페이지로
+	@GetMapping("creator-inquiry")
+	public String creatorInquiry() {
+		return "creator/creator-inquiry";
+	}
+	// creater-inquiry-form으로
+	@GetMapping("creator-inquiry-form")
+	public String createrInquiryForm() {
+		return "creator/creator-inquiry-form";
+	}
+	
+	
+	
+	
+	//======================================================
+	
 	// creater-analyze로
 	@GetMapping("creator-analyze")
 	public String createrAnalyze() {

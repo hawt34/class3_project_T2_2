@@ -41,7 +41,20 @@
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
+    <style>
+        .delete-btn {
+            display: none;
+            cursor: pointer;
+            color: red;
+            
+        }
+        tr:hover .delete-btn {
+            display: inline;
+        }
+        .addCurri{
+        	cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -99,22 +112,25 @@
 												<input type="text" name="class_name" id="class_name" class="form-control" required />
 												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
 											</div>
-											<div class="col-md-12 my-4">
-												<label for="class_type" class="h6">클래스타입</label> 
-												<select name="class_type" id="class_type" class="form-control" required>
-													<c:forEach var="class_sort" items="${class_sort_List}">
-														<option value="${class_sort.common2_code}">${class_sort.code_value}</option>
-													</c:forEach>
-												</select>
-												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
-											</div>
-											<div class="col-md-12 my-4">
-												<label for="class_show" class="h6">공개여부</label> 
-												<select name="class_hide" id="class_show" class="form-control" required>
-													<option value="1">공개</option>
-													<option value="2">비공개</option>
-												</select>
-												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+											<div class="row">
+												<div class="col-md-6 my-4">
+													<label for="class_type" class="h6">클래스타입</label> 
+													<select name="class_type" id="class_type" class="form-control" required>
+														<c:forEach var="class_sort" items="${class_sort_List}">
+															<option value="${class_sort.common2_code}">${class_sort.code_value}</option>
+														</c:forEach>
+													</select>
+													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+												</div>
+											
+												<div class="col-md-6 my-4">
+													<label for="class_show" class="h6">공개여부</label> 
+													<select name="class_hide" id="class_show" class="form-control" required>
+														<option value="1">공개</option>
+														<option value="2">비공개</option>
+													</select>
+													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+												</div>
 											</div>
 											<div class="row"> 
 												<div class="col-md-6 my-4">
@@ -129,12 +145,12 @@
 												<div class="col-md-6 my-4">
 													<label for="class_small_category" class="h6">상세분류</label> 
 													<select name="class_small_category" id="class_small_category" class="form-control" required>
-														<option value="0">미선택</option>
-														<option value="1">도자기</option>
-														<option value="2">드로잉</option>
-														<option value="3">공예</option>
-														<option value="4">IT</option>
-														<option value="5">체험</option>
+<!-- 														<option value="0">미선택</option> -->
+<!-- 														<option value="1">도자기</option> -->
+<!-- 														<option value="2">드로잉</option> -->
+<!-- 														<option value="3">공예</option> -->
+<!-- 														<option value="4">IT</option> -->
+<!-- 														<option value="5">체험</option> -->
 													</select>
 													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
 												</div>
@@ -143,11 +159,13 @@
 											<div class="my-4">
 												<label for="class_hashtag" class="h6">해쉬태그 선택</label>
 												<div id="item-list" class="d-flex">
-											    	<button type="button" class="item" data-value="1">#혼자가능</button>
-								                    <button type="button" class="item" data-value="2">#드로잉</button>
-								                    <button type="button" class="item" data-value="3">#나도css고수</button>
-								                    <button type="button" class="item" data-value="4">#드린이</button>
-								                    <button type="button" class="item" data-value="5">#I성향추천</button>
+													<c:forEach var="hashtag" items="${hashtagList}">
+														<button type="button" class="item" data-value="${hashtag.hash_tag_code}">#${hashtag.hash_tag_name}</button>
+													</c:forEach>
+<!-- 								                    <button type="button" class="item" data-value="2">#드로잉</button> -->
+<!-- 								                    <button type="button" class="item" data-value="3">#나도css고수</button> -->
+<!-- 								                    <button type="button" class="item" data-value="4">#드린이</button> -->
+<!-- 								                    <button type="button" class="item" data-value="5">#I성향추천</button> -->
 											    </div>
 											    <input type="hidden" id="selected-items" name="class_hashtag" value=""> 
 											</div>
@@ -189,32 +207,40 @@
 									<div class="classReg-calc my-3">
 										<div class="d-flex justify-content-between">
 											<div class="h4">클래스 커리큘럼</div>
-											<div class="h6">+ 추가하기</div>
+											<div class="h6 addCurri">+ 추가하기</div>
+											 <input type="hidden" name="jsonData" id="jsonData">
 										</div>
-										<div class="classReg-calc-form">
-											<p class="h6">1차시</p>
-											<div class="col-md-12 my-2">
-												<label for="class_calc_content" class="h6">커리큘럼 내용</label> 
-												<input type="text" name="class_calc_content" class="class_calc_content" class="form-control" required />
-<!-- 												<textarea name="editordata" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea> -->
-												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
-											</div>
-										</div>
+<!-- 										<div class="classReg-calc-form"> -->
+<!-- 											<p class="h6">1차시</p> -->
+<!-- 											<div class="col-md-12 my-2 d-flex"> -->
+<!-- 												<label for="class_calc_content" class="h6 col-md-3">커리큘럼 내용</label>  -->
+<!-- 												<input type="text" name="class_calc_content" class="class_calc_content" class="form-control" required /> --> 
+<!-- 												<textarea name="editordata" id="summernote" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea> -->
+<!-- 												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+										<table id="timeTable" class="table">
+							        		<tr>
+							        			<th>회차</th>
+							        			<th>커리큘럼내용</th>
+							        		</tr>
+							        		<tr>
+							        			<td>1회차</td>
+							        			<td>
+							        				<textarea name="curri_content_1" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea>
+							        			</td>
+							        		</tr>
+							        	</table>
 									</div>
 									
 									<div class="classReg-creator-info my-3">
 										<div class="d-flex justify-content-between">
 											<div class="h4">크리에이터 정보</div>
 										</div>
-										<div class="classReg-calc-form">
-<!-- 											<div class="col-md-12 my-2"> -->
-<!-- 												<p class="h6">크리에이터 닉네임</p> -->
-<!-- 												<input type="text" name="class_name" id="class_calc_name" class="form-control" required /> -->
-<!-- 												<div class="invalid-feedback">닉네임을 입력해주세요.</div> -->
-<!-- 											</div> -->
+										<div class="classReg-creator-info-form">
 											<div class="col-md-12 my-2">
 												<label for="class_creator_explain" class="h6">크리에이터 소개</label> 
-												<input type="text" name="class_creator_explain" class="class_calc_content" class="form-control" required />
+												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required />
 												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
 											</div>
 										</div>
@@ -257,6 +283,7 @@
 	<script type="text/javascript">	
 	
 		$(function() {
+			// 카테고리 선택시 상세카테
 			$("#class_big_category").change(function() {
 				var big_category = $("#class_big_category").val();
 				$.ajax({
@@ -271,9 +298,48 @@
 							);
 						});
 					}
-				
 				});		
 			});
+			
+			let roundCount = 1;
+		    $('.addCurri').on('click', function() {
+		  	 if(roundCount < 6){
+		  		roundCount++;
+	            let newRow = '<tr>'
+			                     + '<td>' + roundCount + '회차 <span class="delete-btn">&times;</span></td>'
+			                     + '<td><textarea name="curri_content_' + roundCount + '" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea></td>'
+			                 + '</tr>';
+	            $('#timeTable').append(newRow);
+		  	} else{
+		  		 alert("회차는 5회까지 추가 가능합니다!");
+		  	}
+		       });
+
+			$('#timeTable').on('mouseenter', 'tr', function() {
+			    $(this).find('.delete-btn').show();
+			});
+			
+			$('#timeTable').on('mouseleave', 'tr', function() {
+			    $(this).find('.delete-btn').hide();
+			});
+			
+			$('#timeTable').on('click', '.delete-btn', function() {
+			    $(this).closest('tr').remove();
+			    updateTextAreaNames();
+			});
+			
+			function updateTextAreaNames() {
+	            let rows = $('#timeTable tr');
+	            roundCount = rows.length - 1; // 첫 번째 tr은 헤더이므로 제외
+	            rows.each(function (index) {
+	                if (index > 0) { // 첫 번째 tr은 헤더이므로 제외
+	                    $(this).find('textarea').attr('name', 'curri_content_' + index);
+	                    $(this).find('td:first').html(index + '회차 <span class="delete-btn">&times;</span>');
+	                }
+	            });
+// 	            debugger;
+	        }
+			
 		});
 		
 		// 썸머노트 설정
@@ -297,8 +363,8 @@
 					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		          
 		});
-		$('.class_calc_content').summernote({
-			  height: 100,                 // 에디터 높이
+		$('.class_creator_explain').summernote({
+			  height: 200,                 // 에디터 높이
 			  minHeight: null,             // 최소 높이
 			  maxHeight: null,             // 최대 높이
 			  focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부

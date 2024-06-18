@@ -20,4 +20,7 @@ public interface CreatorMapper {
 	// 카테고리 상세
 	List<Map<String, String>> getCategoryDetail(String big_category);
 
+	// 해쉬태그
+	public List<Map<String, String>> getHashtag();
+	
 }

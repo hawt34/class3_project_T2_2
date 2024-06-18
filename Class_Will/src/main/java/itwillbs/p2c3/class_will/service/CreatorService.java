@@ -17,7 +17,6 @@ public class CreatorService {
 	
 	// 카테고리 등록
 	public int createrClassRegPro(Map<String, Object> map) {
-		 
 		return creatorMapper.createrClassRegPro(map);
 	}
  
@@ -36,6 +35,10 @@ public class CreatorService {
 		return creatorMapper.getCategoryDetail(big_category);
 	}
 	 
+	// 해쉬태그 가져오기 
+	public List<Map<String, String>> getHashtag(){
+		return creatorMapper.getHashtag();
+	}
 	
 	
 

@@ -26,9 +26,6 @@
 <!--  클래스 리스트 css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class_list.css">
 
-<!-- 색상 추출 라이브러리 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
-
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	
@@ -374,38 +371,38 @@
 							</div>
 	                    </div>
 	                    
-	                    <div class="rounded  vesitable-item">
-							<div class="vesitable-img">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" >
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center">
-									<div class="px-3 py-1 position-absolute"  style="top: 30px; left: 5px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5>50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
+<!-- 	                    <div class="rounded  vesitable-item"> -->
+<!-- 							<div class="vesitable-img"> -->
+<%-- 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
+<!-- 							</div> -->
+<!-- 	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;"> -->
+<%-- 		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" > --%>
+<!-- 	                        </div> -->
+<!-- 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> -->
+<!-- 								<div class="classCategory col-md-10"> -->
+<!-- 									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
+<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 								</div> -->
+<!-- 								<div class="createrName d-flex align-items-center"> -->
+<!-- 									<div class="px-3 py-1 position-absolute"  style="top: 30px; left: 5px;"> -->
+<%-- 										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
+<!-- 									</div>	 -->
+<!-- 									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p> -->
+<!-- 								</div> -->
+<!-- 								<div class="className"> -->
+<!-- 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6> -->
+<!-- 								</div> -->
+<!-- 					            <div class="row classInfo"> -->
+<!-- 									<div class="col-md-6 add"> -->
+<!-- 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-md-6 price"> -->
+<!-- 										<h5>50,000원</h5> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 	                    </div> -->
 	                    
 		                   <div class="rounded  vesitable-item">
 							<div class="vesitable-img">
@@ -498,7 +495,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
 			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -530,7 +527,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 											<div class="classCategory col-md-10">
 			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -562,7 +559,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
 								             	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -594,7 +591,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
 								            	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -626,7 +623,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
 								          		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -658,7 +655,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
 								            	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -690,7 +687,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
 								           		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -722,7 +719,7 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                                          </div>
-                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div>
+<!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
 												<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
@@ -800,32 +797,6 @@
 		    
 		    
 		}); // addEventListener
-		
-		document.addEventListener("DOMContentLoaded", function() {
-		    const carousel = document.querySelector('#carouselExampleAutoplaying');
-		    const carouselInner = document.querySelector('.main-event');
-		    const colorThief = new ColorThief();
-
-		    function updateBackgroundColor() {
-		        const activeItem = carousel.querySelector('.carousel-item.active img');
-		        if (activeItem.complete) {
-		            const dominantColor = colorThief.getColor(activeItem);
-		            carouselInner.style.backgroundColor = `rgb(${dominantColor.join(',')})`;
-		        } else {
-		            activeItem.addEventListener('load', function() {
-		                const dominantColor = colorThief.getColor(activeItem);
-		                carouselInner.style.backgroundColor = `rgb(${dominantColor.join(',')})`;
-		            });
-		        }
-		    }
-
-		    carousel.addEventListener('slid.bs.carousel', updateBackgroundColor);
-
-		    // Initial background color set
-		    updateBackgroundColor();
-		});
-
-
 		
 	</script>
 </body>

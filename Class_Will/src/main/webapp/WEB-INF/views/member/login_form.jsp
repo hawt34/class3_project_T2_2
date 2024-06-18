@@ -38,12 +38,21 @@
 	}
 	
 	.login-form {
-		width: 500px;
+ 		width: 900px; 
 		padding: 30px;
 		margin-top: 50px;
 		margin-bottom: 100px;
 	}
 	
+	.login-social {
+		margin-top: 100px; 
+		padding: 20px 50px;
+		
+	}
+	
+	.social{
+		margin-bottom: 20px;
+	}
 	
 	.regex {
 		font-size: 15px;
@@ -81,38 +90,49 @@
 	
 	<article>
 		<div class="container-fluid">
-			<div class="container login-form">
-				<h2 align="center">로그인</h2>
-				<form action="member-login" method="POST">
-					<div class="login-form-input">
-						<div class="input-group">
-							<span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-person-fill"></i></span>
-							<input type="text" id="id" name="name" class="form-control" placeholder="이메일" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+			<div class="container login-form ">
+				<div class="row "> 
+					<div class="col">
+						<h2 align="center">로그인</h2>
+						<form action="member-login" method="POST">
+							<div class="login-form-input">
+								<div class="input-group">
+									<span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-person-fill"></i></span>
+									<input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+								</div>
+								<div class="regex py-2" id="regex-id">올바르지 않은 이메일</div>
+							</div>
+							<div class="login-form-input">
+								<div class="input-group">
+									<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
+		<!-- 							<input type="password" class="form-control" placeholder="비밀번호" > -->
+		<!-- 							<span class="input-group-text btn btn-light" id="eye-slash"><a><i class="bi bi-eye-slash"></i></a></span> -->
+		<!-- 							<span class="input-group-text" id="eye-slash"><a><i class="bi bi-eye"></i></a></span> -->
+									<input type="password" id="member_pwd" name="member_pwd" class="form-control" placeholder="비밀번호">
+		                            <span class="input-group-text btn btn-light" id="togglePassword"><a><i class="bi bi-eye-slash" id="toggleIcon"></i></a></span>
+								</div>
+								<div class="regex py-2" id="regex-passwd">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
+							</div>
+							
+							<div align="right" style="padding-right: 11px;">
+								<p><a href="reset-passwd">비밀번호 찾기</a></p>
+							</div>
+							<div class="d-grid gap-2 py-2 btnLogin">
+								<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light btn-lg">
+							</div>
+						</form>
+						<div align="center" style="color: white;">
+							클래스윌이 처음이신가요? <a href="member-join"><u><b>가입하기</b></u></a>
+						</div>			
+					</div><!-- col -->
+					<div class="col login-social">
+						<div class="container d-flex flex-column mb-3">
+							<input type="button" id="login-google" value="Google로 로그인" class="btn btn-outline-light btn-lg p-2 social">
+							<input type="button" id="login-kakao" value="카카오로 로그인" class="btn btn-outline-light btn-lg p-2 social">
+							<input type="button" id="login-kakao" value="네이버로 로그인" class="btn btn-outline-light btn-lg p-2 social">
 						</div>
-						<div class="regex py-2" id="regex-id">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
-					</div>
-					<div class="login-form-input">
-						<div class="input-group">
-							<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
-<!-- 							<input type="password" class="form-control" placeholder="비밀번호" > -->
-<!-- 							<span class="input-group-text btn btn-light" id="eye-slash"><a><i class="bi bi-eye-slash"></i></a></span> -->
-<!-- 							<span class="input-group-text" id="eye-slash"><a><i class="bi bi-eye"></i></a></span> -->
-							<input type="password" id="password" class="form-control" placeholder="비밀번호">
-                            <span class="input-group-text btn btn-light" id="togglePassword"><a><i class="bi bi-eye-slash" id="toggleIcon"></i></a></span>
-						</div>
-						<div class="regex py-2" id="regex-passwd">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
-					</div>
-					
-					<div align="right" style="padding-right: 11px;">
-						<p><a href="reset-passwd">비밀번호 찾기</a></p>
-					</div>
-					<div class="d-grid gap-2 py-2 btnLogin">
-						<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light btn-lg">
-					</div>
-				</form>
-				<div align="center" style="color: white;">
-					클래스윌이 처음이신가요? <a href="member-join"><b><u>가입하기</u></b></a>
-				</div>			
+					</div> <!-- col -->
+				</div>  <!-- row -->
 			</div>
 		</div>
 	</article>

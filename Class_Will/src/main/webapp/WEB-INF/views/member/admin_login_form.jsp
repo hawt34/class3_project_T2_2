@@ -90,14 +90,14 @@
 					<div class="login-form-input">
 						<div class="input-group">
 							<span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-person-fill"></i></span>
-							<input type="text" id="id" name="name" class="form-control" placeholder="이메일" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+							<input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 						</div>
 						<div class="regex py-2" id="regex-id">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
 					</div>
 					<div class="login-form-input">
 						<div class="input-group">
 							<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
-							<input type="password" class="form-control" placeholder="비밀번호" >
+							<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="비밀번호" >
 							<span class="input-group-text btn btn-light" id="eye-slash"><a><i class="bi bi-eye-slash"></i></a></span>
 <!-- 							<span class="input-group-text" id="eye-slash"><a><i class="bi bi-eye"></i></a></span> -->
 						</div>

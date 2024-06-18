@@ -1,5 +1,7 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +57,15 @@ public class AdminService {
 
 	public int getCommon2Code(int common1_code, String type) {
 		return adminMapper.selectCommon2Code(common1_code, type);
+	}
+
+	public Map<String, List<Map<String, Object>>> getCategoryData() {
+		Map<String, List<Map<String, Object>>> final_list = new HashMap<String, List<Map<String,Object>>>();
+		List<Map<String, Object>> bigCategory = adminMapper.selectBigCategory();
+		List<Map<String, Object>> smallCategory = adminMapper.selectSmallCategory();
+		final_list.put("bigCategory", bigCategory);
+		final_list.put("smallCategory", smallCategory);
+		return final_list;
 	}
 	
 	

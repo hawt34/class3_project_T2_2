@@ -44,4 +44,7 @@
 	
 	<tx:annotation-driven/>
 	
+	<context:property-placeholder location="classpath:/appdata.properties"/>
+	
+	
 </beans:beans>

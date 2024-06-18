@@ -21,8 +21,6 @@ public class MyPageService {
 		return adminMapper.selectMemberInfo(params);
 	}
 
-
-
 	//멤버이미지 수정
 	public int updateMemberImg(MemberVO member) {
 		

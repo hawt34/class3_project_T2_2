@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
@@ -90,9 +93,41 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin-category")
-	public String adminCategory() {
-		
-		return "admin/admin_category";
+	public String adminCategory(Model model) {
+	    List<Map<String, Object>> data = new ArrayList<>();
+	    Map<String, List<Map<String, Object>>> categoryData = adminService.getCategoryData();
+	    List<Map<String, Object>> bigCategory = categoryData.get("bigCategory");
+	    List<Map<String, Object>> smallCategory = categoryData.get("smallCategory");
+
+	    // 대분류에 소분류를 추가
+	    for (Map<String, Object> bcg : bigCategory) {
+	        Map<String, Object> map = new HashMap<>();
+	        String bigValue = (String) bcg.get("code_value");
+	        Integer common2_code = (Integer) bcg.get("common2_code"); // Integer로 변환
+	        map.put("id", common2_code);
+	        map.put("largeCategory", bigValue);
+	        map.put("hidden", bcg.get("code_hide").equals("N") ? false : true);
+	        
+	        // 소분류 데이터를 _children 배열에 추가
+	        List<Map<String, Object>> children = new ArrayList<>();
+	        for (Map<String, Object> scg : smallCategory) {
+	            Integer parent_code = (Integer) scg.get("common2_code"); // Integer로 변환
+	            if (common2_code.equals(parent_code)) {
+	                Map<String, Object> map2 = new HashMap<>();
+	                map2.put("id", scg.get("common3_code"));
+	                map2.put("largeCategory", bigValue);
+	                map2.put("smallCategory", scg.get("code_value"));
+	                map2.put("hidden", scg.get("code_hide").equals("N") ? false : true);
+	                children.add(map2);
+	            }
+	        }
+	        if (!children.isEmpty()) {
+	            map.put("_children", children);
+	        }
+	        data.add(map);
+	    }
+	    model.addAttribute("jo_list", new Gson().toJson(data)); // JSON 형식으로 변환하여 전달
+	    return "admin/admin_category";
 	}
 	
 	@GetMapping("admin-csc")
@@ -218,6 +253,13 @@ public class AdminController {
             return "변경 사항 적용 중 오류가 발생했습니다.";
         }
     }
+    
+    @GetMapping("admin-test")
+    public String adminTest() {
+    	return "admin/admin_test";
+    }
+    
+    
 	
 }
 	

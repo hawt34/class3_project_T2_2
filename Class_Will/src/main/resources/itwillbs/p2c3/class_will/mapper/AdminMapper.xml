@@ -149,4 +149,16 @@
 		AND code_value = #{type}
 	</select>
 	
+	<select id="selectBigCategory">
+		SELECT *
+		FROM common2
+		WHERE common1_code = 3
+	</select>
+	
+	<select id="selectSmallCategory">
+		SELECT *
+		FROM common3
+		WHERE common1_code = 3
+	</select>
+	
 </mapper>

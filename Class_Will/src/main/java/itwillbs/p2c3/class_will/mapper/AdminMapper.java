@@ -34,6 +34,10 @@ public interface AdminMapper {
 
 	int selectCommon2Code(@Param("common1_code") int common1_code
 						,@Param("type") String type);
+
+	List<Map<String, Object>> selectBigCategory();
+
+	List<Map<String, Object>> selectSmallCategory();
 	
 
 }

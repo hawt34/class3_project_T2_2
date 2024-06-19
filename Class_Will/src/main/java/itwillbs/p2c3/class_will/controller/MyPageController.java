@@ -5,20 +5,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,8 @@ import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Controller
 public class MyPageController {
+	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
+	
 	@Autowired
 	private AdminService adminService;
 
@@ -42,10 +45,10 @@ public class MyPageController {
 	public String myPage(String member_code, Model model) {
 		member_code = "1000";
 		Map<String, Object> params = cUtils.commonProcess("MEMBER", member_code);
-		params.put("member_code", member_code);
+		System.out.println(params + "여기에 뭐 들어있나 확인");
 		Map<String, String> member = adminService.getMemberInfo(params);
 		// 일단 임시로 사용
-
+		
 		model.addAttribute("member", member);
 		System.out.println(member);
 		return "mypage/mypage";
@@ -72,7 +75,27 @@ public class MyPageController {
 
 	// 내가 쓴 리뷰
 	@GetMapping("my-review")
-	public String myReview() {
+	public String myReview(String member_code, Model model) {
+		member_code = "1000";
+		Map<String, Object> params = cUtils.commonProcess("MEMBER", member_code);
+		System.out.println("여기는 리뷰 " + params);
+		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(params);
+		Map<String, String> member = adminService.getMemberInfo(params);
+		
+		//토스트 ui 때문에 만들어봄.
+		List<JSONObject> jsonReviews = new ArrayList<>();
+	    for (Map<String, String> review : memberReviews) {
+	        JSONObject jsonReview = new JSONObject(review);
+	        jsonReviews.add(jsonReview);
+	    }
+	    		
+		model.addAttribute("member", member);
+		model.addAttribute("memberReviews", jsonReviews);
+	    System.out.println(memberReviews);
+	    
+	    
+	    
+	    
 		return "mypage/mypage-review";
 	}
 

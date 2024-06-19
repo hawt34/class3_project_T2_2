@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,4 +27,12 @@ public class MyPageService {
 		
 		return myPageMapper.updateMemberImg(member);
 	}
+	
+	
+	//멤버가 작성한 리뷰 가지고 오기
+	public List<Map<String, String>> getMemberReviews(Map<String, Object> params) {
+		return  myPageMapper.selectMemberReview(params);
+	}
+
+	
 }

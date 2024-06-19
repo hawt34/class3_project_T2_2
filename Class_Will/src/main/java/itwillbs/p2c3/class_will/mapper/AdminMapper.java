@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import itwillbs.p2c3.class_will.vo.GroupedData;
+
 @Mapper
 public interface AdminMapper {
 
@@ -38,6 +40,14 @@ public interface AdminMapper {
 	List<Map<String, Object>> selectBigCategory();
 
 	List<Map<String, Object>> selectSmallCategory();
+
+	void updatedCategoryData(Map<String, Object> rowMap);
+
+	void insertCategoryData(@Param("rowMap") Map<String, Object> rowMap);
+
+	int selectMaxCommon3Code(Integer common2_code);
+
+	void deleteCategoryData(@Param("rowMap") Map<String, Object> rowMap);
 	
 
 }

@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import itwillbs.p2c3.class_will.mapper.AdminMapper;
+import itwillbs.p2c3.class_will.vo.GroupedData;
 
 @Service
 public class AdminService {
@@ -66,6 +67,22 @@ public class AdminService {
 		final_list.put("bigCategory", bigCategory);
 		final_list.put("smallCategory", smallCategory);
 		return final_list;
+	}
+
+	public void updateCategoryData(Map<String, Object> rowMap) {
+		adminMapper.updatedCategoryData(rowMap);
+	}
+
+	public void insertCategoryData(Map<String, Object> rowMap) {
+		adminMapper.insertCategoryData(rowMap);
+	}
+
+	public int getMaxCommon3Code(Integer common2_code) {
+		return adminMapper.selectMaxCommon3Code(common2_code);
+	}
+
+	public void deleteCategoryData(Map<String, Object> rowMap) {
+		adminMapper.deleteCategoryData(rowMap);
 	}
 	
 	

@@ -12,18 +12,22 @@
     <title>관리자 페이지</title>
 
     <!-- Custom fonts for this template-->
-    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
-    
     <!-- Toast UI Grid CSS -->
     <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+    
+    <!-- Toast UI Grid Script -->
+    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+    
     <!-- Toast UI Pagination CSS -->
     <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
-    <!-- admin_utils.js 로드 -->
-    <script src="${pageContext.request.contextPath}/resources/js/admin_utils.js"></script>
+
+    <!-- Toast UI Pagination Script -->
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
     <script>
     	if("${alert}" != null && "${alert}" != ""){
     		alert("${alert}");
@@ -214,7 +218,7 @@
                             <button id="btn-download" class="btn btn-success btn-sm" onclick="downloadExcel('MEMBER', '전체 회원 리스트', false)">엑셀 다운로드</button>
                             <button id="btn-upload" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#excelUploadModal">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
-                            <button id="btn-apply" class="btn btn-warning btn-sm" onclick="applyChanges()">적용</button>
+                            <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
                     <div>
@@ -225,7 +229,6 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div id="grid"></div>
-                            <div id="pagination"></div>
                         </div>
                     </div>
                 </div>
@@ -244,122 +247,102 @@
     </div>
     <!-- End of Page Wrapper -->
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap core JavaScript-->
-    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <!-- Core plugin JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
     <!-- Custom scripts for all pages-->
     <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
+
     <!-- Toast UI Grid Script -->
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-    <!-- Toast UI Pagination Script -->
-    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
-
+    
     <script>
-	    $(document).ready(function () {
-	        const data = ${jo_list};
-			
-	        const pagination = new tui.Pagination(document.getElementById('pagination'), {
-	            totalItems: data.length,
-	            itemsPerPage: 10,
-	            visiblePages: 5,
-	            centerAlign: true
-	        });
-	
-	        class ButtonRenderer {
-	            constructor(props) {
-	                const el = document.createElement('button');
-	                el.className = 'btn btn-primary btn-sm';
-	                el.innerText = '상세보기';
-	                el.addEventListener('click', () => {
-	                    const rowKey = props.grid.getIndexOfRow(props.rowKey);
-	                    const rowData = props.grid.getRow(rowKey);
-	                    const memberCode = rowData.member_code;
-	                    window.open("admin-member-detail?member_code=" + memberCode, "회원 상세보기", "height=600px, width=800px");
-	                });
-	                this.el = el;
-	            }
-	            getElement() {
-	                return this.el;
-	            }
-	            render(props) {
-	                this.el.dataset.rowKey = props.rowKey;
-	                this.el.dataset.columnName = props.columnName;
-	                this.el.value = props.value;
-	            }
-	        }
-	
-	        const grid = new tui.Grid({
-	            el: document.getElementById('grid'),
-	            data: data,
-	            columns: [
-	                { header: '이메일(아이디)', name: 'member_email', editor: 'text' },
-	                { header: '이름', name: 'member_name', editor: 'text' },
-	                { header: '닉네임', name: 'member_nickname', editor: 'text' },
-	                { header: '가입일', name: 'member_reg_date', editor: 'text' },
-	                { header: '회원상태', name: 'member_status', editor: 'text' },
-	                {
-	                    header: 'Action',
-	                    name: 'action',
-	                    renderer: {
-	                        type: ButtonRenderer
-	                    }
-	                }
-	            ],
-	            rowHeaders: ['rowNum'],
-	            pageOptions: {
-	                useClient: true,
-	                perPage: 10
-	            },
-	            bodyHeight: 400
-	        });
-	
-	        pagination.on('beforeMove', function (event) {
-	            const currentPage = event.page;
-	            const startRow = (currentPage - 1) * 10;
-	            const endRow = startRow + 10;
-	            grid.resetData(data.slice(startRow, endRow));
-	        });
-	
-	        grid.resetData(data.slice(0, 10));
-	
-	        	
+        $(document).ready(function () {
+            const data = ${jo_list};
+           	
+    	    const itemsPerPage = 10;
+    	    let currentPage = 1;
 
+            class ButtonRenderer {
+                constructor(props) {
+                    const el = document.createElement('button');
+                    el.className = 'btn btn-primary btn-sm';
+                    el.innerText = '상세보기';
+                    el.addEventListener('click', () => {
+                        const rowKey = props.grid.getIndexOfRow(props.rowKey);
+                        const rowData = props.grid.getRow(rowKey);
+                        const memberCode = rowData.member_code;
+                        window.open("admin-member-detail?member_code=" + memberCode, "회원 상세보기", "height=600px, width=800px");
+                    });
+                    this.el = el;
+                }
+                getElement() {
+                    return this.el;
+                }
+                render(props) {
+                    this.el.dataset.rowKey = props.rowKey;
+                    this.el.dataset.columnName = props.columnName;
+                    this.el.value = props.value;
+                }
+            }
 
-	
-	        // 적용 버튼 클릭 이벤트 처리
-	        document.getElementById('btn-apply').addEventListener('click', function () {
-	            applyChanges();
-	        });
-	
-	        function applyChanges() {
-	            const modifiedData = grid.getModifiedRows();
-	            
-	            fetch('applyChanges', {
-	                method: 'POST',
-	                headers: {
-	                    'Content-Type': 'application/json;charset=UTF-8'
-	                },
-	                body: JSON.stringify(modifiedData)
-	            })
-	            .then(response => response.json())
-	            .then(data => {
-	                if (data.success) {
-	                    alert('변경 사항이 성공적으로 적용되었습니다.');
-	                    location.reload();
-	                } else {
-	                    alert('변경 사항 적용 실패: ' + data.message);
-	                }
-	            })
-	            .catch(error => {
-	                console.error('Error:', error);
-	                alert('변경 사항 적용 실패: 서버 오류');
-	            });
-	        }
-	    });
+            const grid = new tui.Grid({
+                el: document.getElementById('grid'),
+                data: data,
+                columns: [
+                    { header: '이메일(아이디)', name: 'member_email', editor: 'text' },
+                    { header: '이름', name: 'member_name', editor: 'text' },
+                    { header: '닉네임', name: 'member_nickname', editor: 'text' },
+                    { header: '가입일', name: 'member_reg_date', editor: 'text' },
+                    { header: '회원상태', name: 'member_status', editor: 'text' },
+                    {
+                        header: 'Action',
+                        name: 'action',
+                        renderer: {
+                            type: ButtonRenderer
+                        }
+                    }
+                ],
+                rowHeaders: ['rowNum'],
+                bodyHeight: 400,
+    	        pageOptions: {
+    	            useClient: true,
+    	            perPage: itemsPerPage
+    	        }
+            });
+            
+            $('#btn-apply').on('click', function () {
+                const modifiedRows = grid.getModifiedRows();
+                const jsonData = JSON.stringify(modifiedRows);
+                console.log(jsonData);
+
+                fetch('/insert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('변경 사항이 성공적으로 적용되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('변경 사항 적용 실패: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('변경 사항 적용 실패: 서버 오류');
+                });
+            });
+        });
+
     </script>
 </body>
 </html>

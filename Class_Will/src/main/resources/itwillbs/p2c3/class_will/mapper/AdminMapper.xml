@@ -161,4 +161,49 @@
 		WHERE common1_code = 3
 	</select>
 	
+	<update id="updatedCategoryData" parameterType="map">
+		UPDATE common3
+		SET code_value = #{smallCategory}
+			,code_hide =
+		<choose>
+			<when test="hidden == true">
+				'Y'
+			</when>
+			<otherwise>
+				'N'
+			</otherwise>
+		</choose> 
+		WHERE common2_code = #{common2_code} 
+		AND common3_code = #{id}
+	</update>
+	
+	<select id="selectMaxCommon3Code" resultType="int">
+		SELECT COALESCE(MAX(common3_code), 0) + 1
+		FROM common3
+		WHERE common2_code = #{common2_code}
+	</select>
+	
+	
+	<insert id="insertCategoryData" parameterType="map">
+	    INSERT INTO common3
+	    VALUES
+	        (3, #{rowMap.common2_code}, #{rowMap.max_code}, #{rowMap.smallCategory}, null,
+			<choose>
+				<when test="rowMap.hidden == true">
+					'Y'
+				</when>
+				<otherwise>
+					'N'
+				</otherwise>
+			</choose> 
+			)
+	</insert>
+	
+	<delete id="deleteCategoryData" parameterType="map">
+		DELETE FROM common3
+		WHERE 	common1_code = 3 
+		AND		common2_code = #{rowMap.common2_code}
+		AND		common3_code = #{rowMap.id}
+	</delete>
+	
 </mapper>

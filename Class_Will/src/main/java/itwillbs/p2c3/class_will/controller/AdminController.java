@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -21,15 +22,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.ExcelService;
+import itwillbs.p2c3.class_will.vo.CategoryData;
+import itwillbs.p2c3.class_will.vo.GroupedData;
 
 @Controller
 public class AdminController {
@@ -219,47 +223,110 @@ public class AdminController {
     	return new ResponseEntity<>(excelBytes, headers, HttpStatus.OK);
     }
     
-    @ResponseBody
-    @PostMapping("uploadData")
-    public String uploadData(@RequestParam("tableName") String tableName
-    						, @RequestParam("file") MultipartFile file) {
-    	logger.info("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<join");
-    	
-        if (file.isEmpty()) {
-            return "false";
-        }
-        
-        try {
-            excelService.processExcelFile(tableName, file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "false";
-        }
-        return "true";
-        
-    }
-    
-    @ResponseBody
-    @PostMapping("/applyChanges")
-    public String applyChanges(@RequestParam List<Map<String, String>> mapList) {
-        try {
-            // 여기서 members 리스트를 데이터베이스에 저장하거나 업데이트하는 로직을 추가합니다.
-        	for(int i = 0 ; i < mapList.size();i++) {
-        		System.out.println(mapList.get(i).toString());
-        	}
-        	return "변경 사항이 성공적으로 적용되었습니다.";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "변경 사항 적용 중 오류가 발생했습니다.";
-        }
-    }
-    
     @GetMapping("admin-test")
-    public String adminTest() {
+    public String adminTest(Model model) {	    
+    List<Map<String, Object>> data = new ArrayList<>();
+    Map<String, List<Map<String, Object>>> categoryData = adminService.getCategoryData();
+    List<Map<String, Object>> bigCategory = categoryData.get("bigCategory");
+    List<Map<String, Object>> smallCategory = categoryData.get("smallCategory");
+
+    // 대분류에 소분류를 추가
+    for (Map<String, Object> bcg : bigCategory) {
+        Map<String, Object> map = new HashMap<>();
+        String bigValue = (String) bcg.get("code_value");
+        Integer common2_code = (Integer) bcg.get("common2_code"); // Integer로 변환
+        map.put("id", common2_code);
+        map.put("largeCategory", bigValue);
+        map.put("hidden", bcg.get("code_hide").equals("N") ? false : true);
+        
+        // 소분류 데이터를 _children 배열에 추가
+        List<Map<String, Object>> children = new ArrayList<>();
+        for (Map<String, Object> scg : smallCategory) {
+            Integer parent_code = (Integer) scg.get("common2_code"); // Integer로 변환
+            if (common2_code.equals(parent_code)) {
+                Map<String, Object> map2 = new HashMap<>();
+                map2.put("id", scg.get("common3_code"));
+                map2.put("largeCategory", bigValue);
+                map2.put("smallCategory", scg.get("code_value"));
+                map2.put("hidden", scg.get("code_hide").equals("N") ? false : true);
+                children.add(map2);
+            }
+        }
+        if (!children.isEmpty()) {
+            map.put("_children", children);
+        }
+        data.add(map);
+    }
+    	model.addAttribute("jo_list", new Gson().toJson(data)); // JSON 형식으로 변환하여 전달
     	return "admin/admin_test";
     }
     
-    
+    @ResponseBody
+    @PostMapping(value = "insert", consumes = "application/json", produces = "application/json")
+    public Map<String, Object> categoryInsert(@RequestBody CategoryData data) {
+    	Integer common2_code = null;
+    	 // updateRows largeCategory로 그룹화
+        try {
+			Map<String, List<Map<String, Object>>> groupedData = data.getUpdatedRows().stream()
+			        .collect(Collectors.groupingBy(row -> (String) row.get("largeCategory")));
+			// 그룹화한 데이터를 묶기
+			List<GroupedData> sortedData = groupedData.entrySet().stream()
+			        .sorted(Map.Entry.comparingByKey())
+			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
+			        .collect(Collectors.toList());
+			for(GroupedData gd : sortedData) {
+				common2_code = adminService.getCommon2Code(3, gd.getLargeCategory());
+				for(Map<String, Object> rowMap : gd.getRows()) {
+					rowMap.put("common2_code", common2_code);
+					adminService.updateCategoryData(rowMap);
+				}
+			}
+			//Update 완료
+			
+			//Insert 시작
+			groupedData = data.getCreatedRows().stream()
+			        .collect(Collectors.groupingBy(row -> (String) row.get("largeCategory")));
+			sortedData = groupedData.entrySet().stream()
+			        .sorted(Map.Entry.comparingByKey())
+			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
+			        .collect(Collectors.toList());
+			for(GroupedData gd : sortedData) {
+				common2_code = adminService.getCommon2Code(3, gd.getLargeCategory());
+				for(Map<String, Object> rowMap : gd.getRows()) {
+					int max_code = adminService.getMaxCommon3Code(common2_code);
+					rowMap.put("common2_code", common2_code);
+					rowMap.put("max_code", max_code);
+					adminService.insertCategoryData(rowMap);
+				}
+			}
+			//Insert 종료
+			
+			
+			//Delete 시작
+			System.out.println("ddddddddddddddddddddd" + data.getDeletedRows());
+			groupedData = data.getDeletedRows().stream()
+			        .collect(Collectors.groupingBy(row -> (String) row.get("largeCategory")));
+			sortedData = groupedData.entrySet().stream()
+			        .sorted(Map.Entry.comparingByKey())
+			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
+			        .collect(Collectors.toList());
+			for(GroupedData gd : sortedData) {
+				common2_code = adminService.getCommon2Code(3, gd.getLargeCategory());
+				for(Map<String, Object> rowMap : gd.getRows()) {
+					System.out.println("33333333333333333333" + rowMap);
+					rowMap.put("common2_code", common2_code);
+					adminService.deleteCategoryData(rowMap);
+				}
+			}
+			//Delete 끝
+			return Map.of("success", true, "message", "변경 사항이 성공적으로 저장되었습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Map.of("success", false, "message", "변경 사항 적용 실패: " + e.getMessage());
+		}
+        
+        
+    }
 	
 }
 	

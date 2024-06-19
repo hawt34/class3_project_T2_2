@@ -11,17 +11,10 @@
 
     <title>관리자 페이지</title>
     <style>
-        #add-row {
-            margin-top: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 30px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
+        .add-btn {
             cursor: pointer;
+            color: blue;
+            margin-left: 10px;
         }
     </style>
     <!-- Custom fonts for this template-->
@@ -275,7 +268,7 @@
 					    <div class="btn-group">
 					        <button id="btn-delete" class="btn btn-danger btn-sm">삭제</button> <!-- 삭제 버튼 추가 -->
 					        <input type="file" id="file-input" style="display:none;" />
-					        <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
+					        <button id="btn-apply" class="btn btn-warning btn-sm" onclick="sendData()">적용</button>
 					    </div>
 					</div>
 				
@@ -283,9 +276,8 @@
 				    <div class="row">
 				        <div class="col-xl-12 col-lg-12">
 				            <div id="grid"></div>
-			                <div id="add-row">+</div>
-				            <div id="pagination"></div>
-				            <button id="add-category" class="btn btn-primary btn-sm mt-3">카테고리 추가</button>
+<!-- 				            <div id="pagination"></div> -->
+<!-- 				            <button id="add-category" class="btn btn-primary btn-sm mt-3">카테고리 추가</button> -->
 				        </div>
 				    </div>
 				</div>
@@ -317,106 +309,118 @@
     <!-- Toast UI Grid Script -->
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const data = [
-                {
-                    id: 1,
-                    largeCategory: '가전',
-                    smallCategory: '냉장고',
-                    _children: [
-                        {
-                            id: 2,
-                            largeCategory: '가전',
-                            smallCategory: '전자레인지'
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    largeCategory: '가구',
-                    smallCategory: '침대',
-                    _children: [
-                        {
-                            id: 4,
-                            largeCategory: '가구',
-                            smallCategory: '옷장'
-                        }
-                    ]
-                }
-            ];
-
-            const grid = new tui.Grid({
-                el: document.getElementById('grid'),
-                data: data,
-                columns: [
-                    { header: '대분류', name: 'largeCategory', editor: 'text' },
-                    { header: '소분류', name: 'smallCategory', editor: 'text' },
-                    {
-                        header: '스위치',
-                        name: 'switch',
-                        renderer: {
-                            type: BootstrapSwitchRenderer
-                        }
-                    }
-                ],
-                rowHeaders: ['checkbox'],
-                bodyHeight: 400,
-                treeColumnOptions: {
-                    name: 'largeCategory',
-                    useCascadingCheckbox: true
-                },
-                pageOptions: {
-                    useClient: true,
-                    perPage: 10
-                }
-            });
-
-            document.getElementById('add-row').addEventListener('click', function () {
-                const newRow = {
-                    id: data.length + 1,
-                    largeCategory: '',
-                    smallCategory: '',
-                    _children: []
-                };
-                data.push(newRow);
-                grid.resetData(data);
-            });
-
-            class BootstrapSwitchRenderer {
-                constructor(props) {
-                    const el = document.createElement('div');
-                    el.className = 'custom-control custom-switch';
-
-                    const input = document.createElement('input');
-                    input.type = 'checkbox';
-                    input.className = 'custom-control-input';
-                    input.id = 'customSwitch' + props.rowKey;
-                    input.checked = props.value;
-                    input.addEventListener('change', () => {
-                        props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
-                    });
-
-                    const label = document.createElement('label');
-                    label.className = 'custom-control-label';
-                    label.htmlFor = 'customSwitch' + props.rowKey;
-
-                    el.appendChild(input);
-                    el.appendChild(label);
-
-                    this.el = el;
-                }
-
-                getElement() {
-                    return this.el;
-                }
-
-                render(props) {
-                    this.el.querySelector('input').checked = props.value;
-                }
-            }
-        });
-    </script>
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    const data = JSON.parse('${jo_list}');
+	    const itemsPerPage = 10;
+	    let currentPage = 1;
+	    class BootstrapSwitchRenderer {
+	        constructor(props) {
+	            const el = document.createElement('div');
+	            el.className = 'custom-control custom-switch';
+	            const input = document.createElement('input');
+	            input.type = 'checkbox';
+	            input.className = 'custom-control-input';
+	            input.id = 'customSwitch' + props.rowKey;
+	            input.checked = props.value;
+	            input.addEventListener('change', () => {
+	                props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
+	            });
+	            const label = document.createElement('label');
+	            label.className = 'custom-control-label';
+	            label.htmlFor = 'customSwitch' + props.rowKey;
+	            el.appendChild(input);
+	            el.appendChild(label);
+	            this.el = el;
+	        }
+	        getElement() {
+	            return this.el;
+	        }
+	        render(props) {
+	            this.el.querySelector('input').checked = props.value;
+	        }
+	    }
+	    class AddButtonRenderer {
+	        constructor(props) {
+	            const el = document.createElement('div');
+	            el.className = 'add-btn';
+	            el.textContent = '+';
+	            el.addEventListener('click', () => {
+	                const parentRowKey = props.rowKey;
+	                const newRow = {
+	                    id: data.length + 1,
+	                    largeCategory: 'New Category',
+	                    smallCategory: '',
+	                    _children: []
+	                };
+	                const parentRow = props.grid.store.data.rawData.find(row => row.rowKey === parentRowKey);
+	                if (!parentRow._children) {
+	                    parentRow._children = [];
+	                }
+	                parentRow._children.push(newRow);
+	                props.grid.appendRow(newRow, { parentRowKey });
+	            });
+	            this.el = el;
+	        }
+	        getElement() {
+	            return this.el;
+	        }
+	        render(props) {
+	            if (props.treeDepth !== 0) {
+	                this.el.style.display = 'none';  // 최상위 요소가 아닌 경우 버튼 숨기기
+	            } else {
+	                this.el.style.display = 'block'; // 최상위 요소에만 버튼 표시
+	            }
+	        }
+	    }
+	    
+	    const grid = new tui.Grid({
+	        el: document.getElementById('grid'),
+	        data: data.slice(0, itemsPerPage), // 처음에 첫 페이지 데이터만 로드
+	        columns: [
+	            { header: '', name: 'checkbox', width: 50, align: 'center' },
+	            {
+	                header: '추가',
+	                name: 'add',
+	                width: 50,
+	                renderer: {
+	                    type: AddButtonRenderer
+	                }
+	            },
+	            { header: '대분류', name: 'largeCategory', editor: 'text' },
+	            { header: '소분류', name: 'smallCategory', editor: 'text' },
+	            {
+	                header: '숨김',
+	                name: 'hidden',
+	                renderer: {
+	                    type: BootstrapSwitchRenderer
+	                }
+	            }
+	        ],
+	        rowHeaders: ['checkbox'],
+	        bodyHeight: 400,
+	        treeColumnOptions: {
+	            name: 'largeCategory',
+	            useCascadingCheckbox: true
+	        },
+	        pageOptions: {
+	            useClient: true,
+	            perPage: itemsPerPage
+	        }
+	    });
+// 	    무한 스크롤 로직
+	    const gridContainer = document.querySelector('#grid .tui-grid-body-area');
+	    gridContainer.addEventListener('scroll', () => {
+	        if (gridContainer.scrollTop + gridContainer.clientHeight >= gridContainer.scrollHeight) {
+	            currentPage++;
+	            const nextPageData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+	            if (nextPageData.length > 0) {
+	                grid.appendRows(nextPageData);
+	            }
+	        }
+	    });
+	});
+	</script>
 
     
 </body>

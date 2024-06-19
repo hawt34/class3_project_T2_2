@@ -55,6 +55,19 @@ body {
 	color: white;
 	background : black;
 }
+
+.hashtag {
+	width : 130px;
+	height : 50px;
+	font-size : 1.0em;
+    cursor: pointer;
+    border-radius : 30px !important;
+}
+
+.form-controls {
+    border-radius : 30px !important;
+
+}
 </style>
 </head>
 <body>
@@ -77,7 +90,7 @@ body {
 						<div class="col-md-3">
 							<div class="form form1">
 								<i class="fa fa-search"></i>
-								<input type="text" class="form-control form-input search-input" placeholder="클래스 검색">
+								<input type="text" class="form-control form-input search-input form-controls" placeholder="클래스 검색">
 							</div>
 						</div>
 					</div>
@@ -121,8 +134,10 @@ body {
 								</option>
 							</select>
 						</div>
-						<div class="col-md-2 btnReset w-100">
-							<button type="button" class="btn btn-outline-light">초기화</button>
+						<div class="btnResetDiv col-md-2">
+<!-- 						<div class="btnReset w-100"> -->
+							<button type="button" class="btn btn-outline-light btnReset">초기화</button>
+<!-- 						</div> -->
 						</div>
 					</div>
 					<!-- 셀렉트박스 리스트 -->

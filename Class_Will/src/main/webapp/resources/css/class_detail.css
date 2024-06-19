@@ -164,7 +164,8 @@
 .userInfoContainer {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+/* 	width: 100%; */
+	width: 200px;
 }
 .userInfoHeader {
 	display: flex;
@@ -178,4 +179,24 @@
 }
 .line {
 	margin-top: 30px;
+}
+
+.btn-custom {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 150px; /* 원하는 너비 값 */
+	height: 50px; /* 원하는 높이 값 */
+	color : black !important;
+	    padding: 0; /* 불필요한 여백 제거 */
+}
+
+.button-icon {
+	width: 25px; 
+	height: 25px;
+	margin-right: 10px; /* 이미지와 텍스트 간격 */
+}
+
+.heartCount span, .shareClass span {
+    margin: 0;
 }

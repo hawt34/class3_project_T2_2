@@ -236,7 +236,8 @@
 			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
 			                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
 			                    </ul>
-			                </div> <!-- reviewStar -->
+			                </div> 
+			                <!-- reviewStar -->
 			            </div>
 			            <div class="reviewPic">
 			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
@@ -513,26 +514,29 @@
 					    	
 					    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
 						    	<div class="row">
-							    	<div class="col-md-4 btn mx-auto">
-								    	<button type="button" class="btn btn-light w-100">
-								    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" style="width : 25px; height : 25px">5214
+							    	<div class="col-md-6 btn mx-auto">
+								    	<button type="button" class="btn btn-light w-100 btn-custom">
+<%-- 								    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
+           									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon">
+								    		<div class="heartCount"><span>5124</span></div>
 								    	</button>
 								    </div>
-							    	<div class="col-md-4 btn mx-auto">
-								    	<button type="button" class="btn btn-light w-100">
-								    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" style="width : 25px; height : 25px">공유하기
+							    	<div class="col-md-6 btn mx-auto">
+								    	<button type="button" class="btn btn-light w-100 btn-custom">
+								    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon">
+								    		<div class="shareClass"><span>공유하기</span></div>
+								    		
 								    	</button>
 									</div>
-							    	<div class="col-md-4 btn mx-auto">
-								    	<button type="button" class="btn btn-light w-100">Light</button>
-							    	</div>
 						    	</div>
-						    </div> <!-- 좋아요, 공유버튼 -->
+						    </div> 
+<!-- 						   <!-- 좋아요, 공유버튼 -->
 						    <div class="col-md-12">
 					    		<button type="submit" class="btn btn-light w-100">신청하기</button>
 					    	</div>
 				    	</div>
-			    	</form><!-- 폼 끝 -->
+			    	</form>
+			    	<!-- 폼 끝 -->
 				</div> 
 	    		<!-- 오른쪽 강의 소개  -->
    		</div>

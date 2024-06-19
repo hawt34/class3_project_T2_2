@@ -180,6 +180,7 @@ body {
 }
 .form1 {
     position: relative;
+	border-radius : 30px !important;
 }
 
 .form1 .fa-search{
@@ -214,7 +215,7 @@ body {
 }
 
 .form-inputs {
-    height: 40px;
+    height: 45px;
     width: 100px;
 /*     text-indent: 33px; */
     border-radius: 100px;
@@ -237,9 +238,11 @@ body {
 
 .chooseResult {
 	width : 110px;
-	height : 35px;
+	height : 45px;
 	font-size : 0.9em;
     cursor: default;
+    border-radius : 10px !important;
+    
 }
 
 .position-relative {
@@ -248,7 +251,7 @@ body {
 
 .xicon {
     position: absolute;
-    top: 25%;
+    top: 27%;
     right: 15px; /* input의 오른쪽 끝에서 약간 떨어진 위치 */
 /*     transform: translateY(-50%); */
     transform: translateX(-10%);
@@ -259,6 +262,10 @@ body {
 
 .selectDiv {
 	width : 100px;
+}
+.btnReset {
+	width : 100px;
+    height: 45px; 
 }
 
 .hashtag {
@@ -274,5 +281,5 @@ body {
 }
 
 .categorySelect {
-	height : 40px;
+	height : 45px;
 }

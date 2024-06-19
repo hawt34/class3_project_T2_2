@@ -17,6 +17,11 @@ public class MemberService {
 		
 		return memberMapper.insertMember(member);
 	}
+
+	// 로그인 멤버 정보 조회
+	public MemberVO selectMember(MemberVO member) {
+		return memberMapper.selectMember(member);
+	}
 	
 	
 	

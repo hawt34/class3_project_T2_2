@@ -1,5 +1,8 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,40 +26,23 @@ public class MemberController {
 	private HttpSession session;
 	
 	
+//	
+//	// 관리자 로그인 폼으로
+//	@GetMapping("admin-login")
+//	public String adminLoginForm() {
+//		return "member/admin_login_form";
+//	}
+//	
+//	
+//	// 관리자 로그인 비즈니스 로직 처리
+//	@PostMapping("admin-login")
+//	public String adminLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
+//		
+//		
+//		return "redirect:/";
+//	}
+//	
 	
-	// 관리자 로그인 폼으로
-	@GetMapping("admin-login")
-	public String adminLoginForm() {
-		return "member/admin_login_form";
-	}
-	
-	
-	// 관리자 로그인 비즈니스 로직 처리
-	@PostMapping("admin-login")
-	public String adminLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
-		
-		
-		return "redirect:/";
-	}
-	
-	// 회원 로그인 폼으로
-	@GetMapping("member-login")
-	public String memberLoginForm() {
-		return "member/login_form";
-	}
-	
-	// 회원 로그인 비즈니스 로직 처리
-	@PostMapping("member-login")
-	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
-		
-		
-		
-		
-		
-		
-		
-		return "redirect:/";
-	}
 	
 	
 	// 회원가입 폼으로
@@ -73,12 +59,18 @@ public class MemberController {
 		System.out.println("평문 : " + member.getMember_pwd()); 
 		System.out.println("암호문 : " + securePasswd); 
 		
+		LocalDate today = LocalDate.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String regDate = today.format(dtf);
+		
 		member.setMember_pwd(securePasswd);
 		member.setMember_email(member.getMember_email());
 		member.setMember_name(member.getMember_name());
 		member.setMember_tel(member.getMember_tel());
+		member.setMember_reg_date(regDate);
 		
-//		int insertCount = memberService.insertMember(member);
+		
+		int insertCount = memberService.insertMember(member);
 		System.out.println(member);
 //		
 //		if(insertCount < 1) {
@@ -88,6 +80,25 @@ public class MemberController {
 		
 		
 		return "member/login_form";
+	}
+	
+	// 회원 로그인 폼으로
+	@GetMapping("member-login")
+	public String memberLoginForm() {
+		return "member/login_form";
+	}
+	
+	// 회원 로그인 비즈니스 로직 처리
+	@PostMapping("member-login")
+	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
+		
+		MemberVO dbmember = memberService.selectMember(member);
+		
+		
+		
+		
+		
+		return "redirect:/";
 	}
 	
 	// 비밀번호 재설정

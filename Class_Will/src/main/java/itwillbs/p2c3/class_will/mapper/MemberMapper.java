@@ -11,6 +11,10 @@ public interface MemberMapper {
 	int insertMember(MemberVO member);
 	
 	
+	// 로그인
+	MemberVO selectMember(MemberVO member);
+	
+	
 	
 	
 }

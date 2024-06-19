@@ -13,6 +13,7 @@
 			, member_status
 			, member_marketing1
 			, member_marketing2
+			, member_reg_date
 		)
 		VALUES (
 			  #{member_name}
@@ -22,9 +23,15 @@
 			, 1
 			, #{member_marketing1}
 			, #{member_marketing2}
+			, 
 		) 
 	</insert>
-
+	
+	<select id="selectMember">
+		SELECT *
+		FROM MEMBER 
+		WHERE member_email = #{member_email}
+	</select>
 
 
 

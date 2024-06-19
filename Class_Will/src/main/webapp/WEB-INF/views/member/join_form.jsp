@@ -391,64 +391,35 @@
 			$("#member_pwd").on("input", function() {
 			      let inputPwd = $(this).val();
 			
-			      let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
+			      let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
 			
 			      if (!regex.test(inputPwd)) {
-			          $("#regex-pwd").text("올바르지 않은 형식입니다.");
+			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
 			          $("#regex-pwd").css("color", "red");
 			      } else {
 			      	 $("#regex-pwd").text("");
 			      }
 			  });
 			
-			// 핸드폰번호 정규표현식
-// 			$("#member_tel").on("input", function() {
-// 			      let inputTel = $(this).val();
-			
-// 			      let regex = /^[0-9-]{0,13}$/;
-			
-// 			      if (!regex.test(inputTel)) {
-// 			          $("#regex-tel").text("핸드폰 번호를 입력해 주세요.");
-// 			          $("#regex-tel").css("color", "red");
-// 			      } else {
-// 			      	 $("#regex-tel").text("");
-// 			      }
-// 			 });
-			
-// 			$("#member_tel").on("blur", function() {
-// 				let inputTel = $(this).val();
-// 			    let regex = /^[0-9-]{0,13}$/;
-// 			    if (!regex.test(inputTel)) {
-// 			    	$(this).val("");
-// 			    }
-// 			});
-
+// 			핸드폰번호 정규표현식
 			$("#member_tel").on("input", function() {
-			    let inputTel = $(this).val(); // 입력된 전체 값 가져오기
-
-			    // 숫자와 하이픈(-) 이외의 문자 모두 제거
-			    let sanitizedTel = inputTel.replace(/[^\d]/g, '');
-
-			    // 4자리인 경우 하이픈을 추가
-			    if (sanitizedTel.length === 4) {
-			        sanitizedTel = sanitizedTel.substring(0, 3) + '-' + sanitizedTel.substring(3);
-			    }
-			    // 9자리인 경우 하이픈을 추가
-			    else if (sanitizedTel.length === 9) {
-			        sanitizedTel = sanitizedTel.substring(0, 8) + '-' + sanitizedTel.substring(8);
-			    }
-
-			    // 입력된 값이 변경되었다면 입력 필드에 반영
-			    $(this).val(sanitizedTel);
-
-			    // 정규표현식을 사용하여 유효성 검사
-			    let regex = /^(0\d{2}-\d{3,4}-\d{4})?$/; // 0으로 시작하는 숫자 2자리, 하이픈, 3~4자리 숫자, 하이픈, 4자리 숫자
-
-			    if (!regex.test(sanitizedTel)) {
-			        $("#regex-tel").text("올바른 핸드폰 번호 형식이 아닙니다.");
-			        $("#regex-tel").css("color", "red");
-			    } else {
-			        $("#regex-tel").text("");
+			      let inputTel = $(this).val();
+			
+			      let regex = /^[0-9-]{0,13}$/;
+			
+			      if (!regex.test(inputTel)) {
+			          $("#regex-tel").text("핸드폰 번호를 입력해 주세요.");
+			          $("#regex-tel").css("color", "red");
+			      } else {
+			      	 $("#regex-tel").text("");
+			      }
+			 });
+			
+			$("#member_tel").on("blur", function() {
+				let inputTel = $(this).val();
+			    let regex = /^[0-9-]{0,13}$/;
+			    if (!regex.test(inputTel)) {
+			    	$(this).val("");
 			    }
 			});
 

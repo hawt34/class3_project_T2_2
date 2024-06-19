@@ -4,14 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface PayMapper {
-
+	
+	//class info 가져오기
+	Map<String, Object> selectClassInfo(Map<String, Object> map);
+	
 	//class schedule 정보 가져오기
 	List<Map<String, Object>> selectSchedule(int i);
 	
-	Map<String, String> selectClassInfo(Map<String, Object> map);
+	
+	//date로 클래스 스케쥴 타임 가져오기
+	List<Map<String, String>> selectScheduleTime(@Param("date")String date,
+												 @Param("class_code")int parsedClass_code);
 	
 
 	

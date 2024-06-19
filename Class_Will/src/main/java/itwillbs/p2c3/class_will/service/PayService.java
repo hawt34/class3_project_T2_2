@@ -13,13 +13,19 @@ public class PayService {
 	@Autowired
 	private PayMapper payMapper;
 	
+	//클래스 info - select
+	public Map<String, Object> getClassInfo(Map<String, Object> map) {
+		return payMapper.selectClassInfo(map);
+	}
+	
 	//스캐쥴 info
 	public List<Map<String, Object>> getClassSchedule(int i) {
 		return payMapper.selectSchedule(i);
 	}
 	
-	public Map<String, String> getClassInfo(Map<String, Object> map) {
-		return payMapper.selectClassInfo(map);
+	//date로 클래스 스케쥴 타임 가져오기
+	public List<Map<String, String>> getScheduleTime(String date, int parsedClass_code) {
+		return payMapper.selectScheduleTime(date, parsedClass_code);
 	}
 
 	

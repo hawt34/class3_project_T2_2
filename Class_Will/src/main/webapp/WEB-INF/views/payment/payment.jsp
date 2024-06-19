@@ -91,8 +91,16 @@
 						<p class="card-text">원데이</p>
 						<h5 class="card-title text-success">클래스 카테고리</h5>
 						<p class="card-text">도자기, 공방</p>
-						<h5 class="card-title text-success">예약 날짜 / 시간</h5>
-						<p class="card-text">2024.06.10 / 14:00~16:00</p>
+						<c:choose>
+							<c:when test="${class_type eq '0' }">
+								<h5 class="card-title text-success">예약 날짜 / 시간</h5>
+								<p class="card-text">2024.06.10 / 14:00~16:00</p>
+							</c:when>
+							<c:otherwise>
+								<h5 class="card-title text-success">예약 날짜 / 시간</h5>
+								<p class="card-text">2024.06.10 / 14:00~16:00</p>
+							</c:otherwise>
+						</c:choose>
 						<h5 class="card-title text-success">장소</h5>
 						<p class="card-text">부산시 남구 대연동</p>
 					</div> <!-- card-body 끝 -->
@@ -160,7 +168,7 @@
 				<div class="card">
 					<h5 class="card-header">결제 정보</h5>
 					<div class="card-body">
-						<h6 class="card-title">클래스 수강권 1매</h6>
+						<h6 class="card-title">클래스 결제 정보</h6>
 						<p class="card-text text-end"><span class="font_color">원데이 수강</span></p>
 						<p class="card-text text-end"><span class="font_color">40000</span>만원</p>
 						<p class="card-text text-end"><span class="font_color">1</span>명</p>

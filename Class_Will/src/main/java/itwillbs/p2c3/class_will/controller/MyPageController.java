@@ -83,14 +83,14 @@ public class MyPageController {
 		Map<String, String> member = adminService.getMemberInfo(params);
 		
 		//토스트 ui 때문에 만들어봄.
-		List<JSONObject> jsonReviews = new ArrayList<>();
-	    for (Map<String, String> review : memberReviews) {
-	        JSONObject jsonReview = new JSONObject(review);
-	        jsonReviews.add(jsonReview);
-	    }
+//		List<JSONObject> jsonReviews = new ArrayList<>();
+//	    for (Map<String, String> review : memberReviews) {
+//	        JSONObject jsonReview = new JSONObject(review);
+//	        jsonReviews.add(jsonReview);
+//	    }
 	    		
 		model.addAttribute("member", member);
-		model.addAttribute("memberReviews", jsonReviews);
+		model.addAttribute("memberReviews", memberReviews);
 	    System.out.println(memberReviews);
 	    
 	    

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -98,7 +99,37 @@ public class MyPageController {
 	    
 		return "mypage/mypage-review";
 	}
+	// 리뷰 수정 
+	@GetMapping("edit-review-page")
+	public String editReviewPage(@RequestParam("review_code") String reviewCode, HttpSession session, Model model,String member_code) {
+	    
+	
+				
+				//(String) session.getAttribute("member_code");
+//	    if (memberCode == null) {
+//	        return "redirect:/login"; // 로그인 페이지로 리디렉션
+//	    }
+		member_code = "1000";
+		Map<String, Object> params = cUtils.commonProcess("MEMBER", member_code);
+		Map<String, String> member = adminService.getMemberInfo(params);
+		model.addAttribute("member", member);
+		
+	    // 리뷰 정보를 가져옴
+	    Map<String, Object> params2 = new HashMap<>();
+	    params2.put("review_code", reviewCode);
+	    Map<String, String> review = myPageService.getReviewByCode(params2);
 
+	    // 리뷰 작성자 검증 
+	    if (!member_code.equals(String.valueOf(review.get("member_code")))) {
+	        throw new SecurityException("리뷰를 수정할 권한이 없습니다.");
+	    }
+
+	    model.addAttribute("review", review);
+	    System.out.println("이건 수정할 때 데리고 오는 특정리뷰 1건" + review);
+	    return "mypage/mypage-review-modify"; // 리뷰 수정 페이지
+	}
+	
+	
 	// 내가 쓴 리뷰
 	@GetMapping("my-credit")
 	public String myCredit() {

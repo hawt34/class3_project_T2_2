@@ -22,5 +22,10 @@
     	]]>
 	  </select>
 	  
+	  <select id="selectReviewByCode">
+	  SELECT * FROM class_review 
+	  WHERE class_review_code = #{review_code}
+	  </select>
+	  
 	  
   </mapper>

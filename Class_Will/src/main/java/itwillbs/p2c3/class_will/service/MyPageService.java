@@ -29,9 +29,15 @@ public class MyPageService {
 	}
 	
 	
-	//멤버가 작성한 리뷰 가지고 오기
+	//멤버가 작성한 리뷰들 가지고 오기 (리스트임)
 	public List<Map<String, String>> getMemberReviews(Map<String, Object> params) {
 		return  myPageMapper.selectMemberReview(params);
+	}
+	
+	//멤버가 작성한 특성리뷰 1개 가지고 오기
+	public Map<String, String> getReviewByCode(Map<String, Object> params) {
+		
+		return myPageMapper.selectReviewByCode(params);
 	}
 
 	

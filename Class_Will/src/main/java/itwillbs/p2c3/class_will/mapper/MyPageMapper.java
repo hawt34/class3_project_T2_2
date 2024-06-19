@@ -14,4 +14,6 @@ public interface MyPageMapper {
 
 	List<Map<String, String>> selectMemberReview(Map<String, Object> params);
 
+	Map<String, String> selectReviewByCode(Map<String, Object> params);
+	
 }

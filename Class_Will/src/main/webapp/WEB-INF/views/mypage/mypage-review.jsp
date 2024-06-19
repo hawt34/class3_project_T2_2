@@ -100,8 +100,6 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
-  
-
 </style>
 </head>
 <body>
@@ -149,16 +147,15 @@ th:nth-child(2), td:nth-child(2) {
 											</tr>
 										</thead>
 										<tbody>
-									 			<tr>
-													<td>1</td>
-													<td>2</td>
-													<td>3</td>
-													<td>4</td>
-													<td>
-														<button class="btn btn-primary"
-															onclick="resistReview()">등록하기</button>
-													</td>
-												</tr>
+											<tr>
+												<td>1</td>
+												<td>2</td>
+												<td>3</td>
+												<td>4</td>
+												<td>
+													<button class="btn btn-primary" onclick="resistReview()">등록하기</button>
+												</td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -182,9 +179,9 @@ th:nth-child(2), td:nth-child(2) {
 												varStatus="loop">
 												<tr>
 													<td>${review.class_name}</td>
-													  <td>
-                                                      <a href="javascript:void(0);" onclick="showReviewModal('${review.class_review_content}')" style="color: black;">${review.class_review_subject}</a>
-                                                    </td>
+													<td><a href="javascript:void(0);"
+														onclick="showReviewModal('${review.class_review_content}')"
+														style="color: black;">${review.class_review_subject}</a></td>
 													<td class="stars"><script>
 							                         // JavaScript로 별점을 동적으로 생성하는 코드
 							                           const starCount = ${review.class_review_rating}; // 별점 점수
@@ -195,8 +192,7 @@ th:nth-child(2), td:nth-child(2) {
 													<td>${review.class_review_content}</td>
 													<td>${review.class_review_date}</td>
 													<td>
-														<button class="btn btn-primary"
-															onclick="editReview(${review.class_review_code})">수정</button>
+														<button class="btn btn-primary" onclick="location.href='edit-review-page?review_code=${review.class_review_code}'">수정</button>
 													</td>
 													<td>
 														<button class="btn btn-danger"
@@ -215,19 +211,22 @@ th:nth-child(2), td:nth-child(2) {
 			</div>
 		</div>
 	</div>
-	 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reviewModalLabel" style="color: black;">리뷰 내용</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;"></button>
-                </div>
-                <div class="modal-body">
-                    <p id="reviewContent" style="color: black;"></p>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal fade" id="reviewModal" tabindex="-1"
+		aria-labelledby="reviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="reviewModalLabel" style="color: black;">리뷰
+						내용</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close" style="color: black;"></button>
+				</div>
+				<div class="modal-body">
+					<p id="reviewContent" style="color: black;"></p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>

@@ -37,14 +37,19 @@ public class AdminService {
 //    }
 
     public List<Map<String, Object>> getAllData(String tableName) {
-        return adminMapper.selectTable(tableName);
+    	List<Map<String, Object>> result = null;
+    	switch (tableName) {
+		case "MEMBER" :  result = adminMapper.selectTable(tableName); break;
+		case "class" : result = adminMapper.selectClassList(); break;	
+		}
+    	return result;
     }
 
 	public List<String> getColumnDataTypes(String tableName) {
 		return adminMapper.selectColumnDataTypes(tableName);
 	}
 
-	public List<Map<String, String>> getClassList() {
+	public List<Map<String, Object>> getClassList() {
 		return adminMapper.selectClassList();
 	}
 

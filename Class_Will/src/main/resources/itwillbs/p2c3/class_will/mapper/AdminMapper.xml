@@ -115,33 +115,36 @@
 		)
 	</insert>
 	
-<!-- 	<select id="selectClassList" resultType="map"> -->
-<!-- 		SELECT  class_code -->
-<!-- 				,class_name -->
-<!-- 				,class_type -->
-<!-- 				,class_big_category -->
-<!-- 				,class_small_category -->
-<!-- 				,class_thumnail -->
-<!-- 				,class_image -->
-<!-- 				,class_ex -->
-<!-- 				,class_location -->
-<!-- 				,class_hashtag -->
-<!-- 				,class_creator_explain -->
-<!-- 				,class_hide -->
-<!-- 				,class_price -->
-<!-- 				,class_regist_status -->
-<!-- 				,m.member_name -->
-<!-- 		FROM class c -->
-<!-- 		JOIN MEMBER m -->
-<!-- 		 ON  c.member_code = m.member_code -->
-<!--  	    LEFT JOIN common2 type  -->
-<!-- 	    ON c.class_type = type.common2_code  -->
-<!-- 	    AND type.common1_code = 9 -->
-<!-- 	    LEFT JOIN common2 big  -->
-<!-- 	    ON c.class_big_category = big.common2_code  -->
-<!-- 	    AND big.common1_code =   -->
-<!-- 	    WHERE m.member_type = #{params.param1} -->
-<!-- 	</select> -->
+	<select id="selectClassList" resultType="map">
+		SELECT class_code
+		        ,class_name
+		        ,c2.code_value AS 'class_big_category'
+		        ,c3.code_value AS 'class_small_category'
+		        ,class_thumnail
+		        ,class_image
+		        ,class_ex
+		        ,class_location
+		        ,class_hashtag
+		        ,class_creator_explain
+		        ,class_hide
+		        ,class_price
+		        ,class_regist_status
+		        ,m.member_name
+		        ,type.code_value as 'class_type'
+		FROM class c
+		LEFT JOIN common2 c2
+		ON c.class_big_category = c2.common2_code
+		AND c2.common1_code = 3
+		LEFT JOIN common3 c3
+		ON c.class_small_category = c3.common3_code
+		AND c3.common2_code = c2.common2_code
+		AND c3.common1_code = 3
+		LEFT JOIN common2 type
+		ON c.class_type = type.common2_code 
+		AND type.common1_code = 9
+		JOIN MEMBER m
+		ON c.member_code = m.member_code;
+	</select>
 	
 	<select id="selectClassInfo" resultType="map">
 		SELECT class_code

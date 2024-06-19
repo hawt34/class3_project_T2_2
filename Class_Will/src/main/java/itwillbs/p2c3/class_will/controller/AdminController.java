@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.handler.CommonUtils;
@@ -81,11 +80,11 @@ public class AdminController {
 	
 	@GetMapping("admin-class")
 	public String adminClass(Model model) {
-		List<Map<String, String>> class_list = adminService.getClassList();
+		List<Map<String, Object>> class_list = adminService.getClassList();
 		
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
 		
-		for(Map<String, String> class1 : class_list) {
+		for(Map<String, Object> class1 : class_list) {
             JSONObject jo = new JSONObject(class1);
             jo.put("class_category", class1.get("class_big_category") + "/" + class1.get("class_small_category"));
             jo_list.add(jo);

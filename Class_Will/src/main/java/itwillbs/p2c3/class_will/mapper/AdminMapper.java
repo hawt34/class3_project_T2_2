@@ -28,7 +28,7 @@ public interface AdminMapper {
 						,@Param("columnNames") List<String> columnNames
 	);
 
-	List<Map<String, String>> selectClassList();
+	List<Map<String, Object>> selectClassList();
 
 	Map<String, String> selectClassInfo(String class_code);
 
@@ -48,6 +48,8 @@ public interface AdminMapper {
 	int selectMaxCommon3Code(Integer common2_code);
 
 	void deleteCategoryData(@Param("rowMap") Map<String, Object> rowMap);
+
+	List<Map<String, Object>> selectClassTable();
 	
 
 }

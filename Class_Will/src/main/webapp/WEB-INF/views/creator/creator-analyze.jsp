@@ -75,21 +75,22 @@
 
 						<div class="col-lg-9 creator-body">
 						<!-- 	셀렉트박스 -->
-							<div class="col-md-12 d-flex justify-content-center mb-5">
-								<div class="col-xl-8">
-									<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
-										<select id="fruits"
-											name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
-											form="fruitform">
-											<option value="volvo">Nothing</option>
-											<option value="saab">Populari</option>
-											<option value="opel">Organic</option>
-											<option value="audi">Fantastic</option>
-										</select>
-									</div>
-									<hr>
-								</div>
-							</div>
+						<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
+<!-- 							<div class="col-md-12 d-flex justify-content-center mb-5"> -->
+<!-- 								<div class="col-xl-8"> -->
+<!-- 									<div class="bg-light rounded py-2 d-flex justify-content-center mb-4"> -->
+<!-- 										<select id="fruits" -->
+<!-- 											name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass" -->
+<!-- 											form="fruitform"> -->
+<!-- 											<option value="volvo">Nothing</option> -->
+<!-- 											<option value="saab">Populari</option> -->
+<!-- 											<option value="opel">Organic</option> -->
+<!-- 											<option value="audi">Fantastic</option> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 									<hr> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<div class="admin_dashboard" align="center">
 								<div class="admin_main_center_card" onclick="location.href='#'">
 									<div class="admin_main_card" align="left">진행한강의</div>

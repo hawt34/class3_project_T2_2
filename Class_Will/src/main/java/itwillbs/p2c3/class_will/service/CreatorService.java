@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.mapper.CreatorMapper;
+import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
 
 @Service
@@ -22,7 +23,11 @@ public class CreatorService {
 		System.out.println(">>>>>>>>params: " + params);
 		creatorMapper.creatorCurriInsert(params);
 	}
-
+	
+	// 클래스 일정 등록
+	public int insertClassPlan(Map<String, Object> map, List<ClassTimeVO> classTime, List<String> dateList) {
+		return creatorMapper.insertClassPlan(map, classTime, dateList);
+	}
  
 	// 카테고리 대분류 가져오기
 	public List<Map<String, String>> getCategory(){
@@ -42,6 +47,11 @@ public class CreatorService {
 	// 해쉬태그 가져오기 
 	public List<Map<String, String>> getHashtag(){
 		return creatorMapper.getHashtag();
+	}
+	
+	// 클래스정보 가져오기
+	public List<Map<String, Object>> getClassInfo(){
+		return creatorMapper.getClassInfo();
 	}
 	
 	

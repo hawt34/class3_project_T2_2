@@ -70,70 +70,55 @@
                     <div class="row g-4">
                         <jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
-                        <div class="col-lg-9 creator-body">
-                            <!-- 	셀렉트박스 -->
-                            <div class="col-md-12 d-flex justify-content-center mb-2">
-								<div class="col-xl-8">
-									<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
-										<select id="fruits"
-											name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
-											form="fruitform">
-											<option value="volvo">Nothing</option>
-											<option value="saab">Populari</option>
-											<option value="opel">Organic</option>
-											<option value="audi">Fantastic</option>
-										</select>
-									</div>
-									<hr>
-								</div>
-							</div>
-                            
-                            <div class="creator-main-table col-xl-12 mb-5">
-                            
-                                <form id="dateForm" action="/submit" method="POST">
-                                
-							        <div id="datepicker"></div>
-							        <input type="hidden" name="selectedDates" id="selectedDates">
-							        
-							        <div class="creator-plan-bottom">
-							        
-					        			<div class="my-4 d-flex justify-content-center">
-											<label for="class_total_headcount" class="h5 my-3" style="width: 150px;">참여 가능 인원 : </label> 
-											<input type="number" name="class_total_headcount" id="class_total_headcount" class="form-control my-1" min="1" style="width: 100px;" required />
-										</div>
-										
-								        <div class="container creator-plan-time mt-3 mb-5">
-								        	<table id="timeTable" class="table">
-								        		<tr>
-								        			<th>회차</th>
-								        			<th>시작시간</th>
-								        			<th>종료시간</th>
-								        		</tr>
-								        		<tr>
-								        			<td>1회차</td>
-								        			<td>
-								        				<input type="time" class="form-control startTime">
-								        			</td>
-								        			<td>
-								        				<input type="time" class="form-control endTime">
-								        			</td>
-								        		</tr>
-								        	</table>
-								        	<div class="d-flex justify-content-center mt-3">
-												<button id="addRowBtn" class="form-control plusRound" type="button" style="width: 100px;">회차 추가</button>
+                        <div class="col-md-9 creator-body">
+	                        <form id="dateForm" action="creatorPlanPro" method="POST">
+	                        	<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
+	                            <!-- 	셀렉트박스 -->
+	                            <div class="creator-main-table col-xl-12 mb-5">
+	                            
+	                                
+								        <div id="datepicker"></div>
+								        <input type="hidden" name="selectedDates" id="selectedDates">
+								        
+								        <div class="creator-plan-bottom">
+								        
+						        			<div class="my-4 d-flex justify-content-center">
+												<label for="class_total_headcount" class="h5 my-3" style="width: 150px;">참여 가능 인원 : </label> 
+												<input type="number" name="class_total_headcount" id="class_total_headcount" class="form-control my-1" min="1" style="width: 100px;" required />
 											</div>
+											
+									        <div class="container creator-plan-time mt-3 mb-5">
+									        	<table id="timeTable" class="table">
+									        		<tr>
+									        			<th>회차</th>
+									        			<th>시작시간</th>
+									        			<th>종료시간</th>
+									        		</tr>
+									        		<tr>
+									        			<td>1회차</td>
+									        			<td>
+									        				<input name="1회차_start" type="time" class="form-control startTime">
+									        			</td>
+									        			<td>
+									        				<input name="1회차_end" type="time" class="form-control endTime">
+									        			</td>
+									        		</tr>
+									        	</table>
+									        	<div class="d-flex justify-content-center mt-3">
+													<button id="addRowBtn" class="form-control plusRound" type="button" style="width: 100px;">회차 추가</button>
+												</div>
+									        </div>
+									        
+									        <div align="center" class="mb-3">
+									        	<button type="submit" class="creator-plan-submitBtn">등록하기</button>
+									        	<button type="button" class="creator-plan-submitBtn" onclick="history.back()">취소하기</button>
+									        </div>
+									        
 								        </div>
 								        
-								        <div align="center" class="mb-3">
-								        	<button type="submit" class="creator-plan-submitBtn">등록하기</button>
-								        	<button type="button" class="creator-plan-submitBtn" onclick="history.back()">취소하기</button>
-								        </div>
-								        
-							        </div>
-							        
-                                </form>
-                                
-                            </div>
+	                                
+	                            </div>
+                            </form>
                         </div>
                     </div>
 
@@ -167,15 +152,16 @@
 		             e.preventDefault(); // '-'나 맨 처음에 '0' 입력을 막음
 		         }
 		     });
-		     
+		    
+		    // 회차 추가 기능
 		    let roundCount = 1;
 		    $('#addRowBtn').on('click', function() {
 		  	 if(roundCount < 5){
 		             roundCount++;
 		             let newRow = '<tr>'
 		                     + '<td>' + roundCount + '회차 <span class="delete-btn">&times;</span></td>'
-		                     + '<td><input type="time" class="form-control"></td>'
-		                     + '<td><input type="time" class="form-control"></td>'
+		                     + '<td><input name="' + roundCount + '회차_start" type="time" class="form-control startTime"></td>'
+		                     + '<td><input name="' + roundCount + '회차_end" type="time" class="form-control endTime"></td>'
 		                 + '</tr>';
 		             $('#timeTable tbody').append(newRow);
 		  	} else{
@@ -192,9 +178,21 @@
 			});
 			
 			$('#timeTable').on('click', '.delete-btn', function() {
-				roundCount--;
 			    $(this).closest('tr').remove();
+			    updateTextAreaNames();
 			});
+			
+			function updateTextAreaNames() {
+	            let rows = $('#timeTable tr');
+	            roundCount = rows.length - 1; // 첫 번째 tr은 헤더이므로 제외
+	            rows.each(function (index) {
+	                if (index > 0) { // 첫 번째 tr은 헤더이므로 제외
+	                    $(this).find('time').attr('name', index + '회차_start');
+	                    $(this).find('td:first').html(index + '회차 <span class="delete-btn">&times;</span>');
+	                }
+	            });
+	        }
+			
 			
 		}); // document.ready 끝
 	    $(function() {
@@ -263,19 +261,6 @@
             $('#dateForm').on('submit', function(e) {
                 var selectedDates = $('#datepicker').multiDatesPicker('getDates');
                 $('#selectedDates').val(selectedDates.join(','));
-                
-                const times = [];
-                $('#timeTable tbody tr').each(function() {
-                    const startTime = $(this).find('.start-time').val();
-                    const endTime = $(this).find('.end-time').val();
-                    if (startTime && endTime) {
-                        times.push(`${startTime}~${endTime}`);
-                    }
-	                $('#timesInput').val(JSON.stringify(times));
-	            });
-				debugger;
-                
-//                 debugger;
             });
         });
     </script>

@@ -144,14 +144,7 @@
 												</div>
 												<div class="col-md-6 my-4">
 													<label for="class_small_category" class="h6">상세분류</label> 
-													<select name="class_small_category" id="class_small_category" class="form-control" required>
-<!-- 														<option value="0">미선택</option> -->
-<!-- 														<option value="1">도자기</option> -->
-<!-- 														<option value="2">드로잉</option> -->
-<!-- 														<option value="3">공예</option> -->
-<!-- 														<option value="4">IT</option> -->
-<!-- 														<option value="5">체험</option> -->
-													</select>
+													<select name="class_small_category" id="class_small_category" class="form-control" required></select>
 													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
 												</div>
 											</div>
@@ -162,10 +155,6 @@
 													<c:forEach var="hashtag" items="${hashtagList}">
 														<button type="button" class="item" data-value="${hashtag.hash_tag_code}">#${hashtag.hash_tag_name}</button>
 													</c:forEach>
-<!-- 								                    <button type="button" class="item" data-value="2">#드로잉</button> -->
-<!-- 								                    <button type="button" class="item" data-value="3">#나도css고수</button> -->
-<!-- 								                    <button type="button" class="item" data-value="4">#드린이</button> -->
-<!-- 								                    <button type="button" class="item" data-value="5">#I성향추천</button> -->
 											    </div>
 											    <input type="hidden" id="selected-items" name="class_hashtag" value=""> 
 											</div>
@@ -209,15 +198,6 @@
 											<div class="h4">클래스 커리큘럼</div>
 											<div class="h6 addCurri">+ 추가하기</div>
 										</div>
-<!-- 										<div class="classReg-calc-form"> -->
-<!-- 											<p class="h6">1차시</p> -->
-<!-- 											<div class="col-md-12 my-2 d-flex"> -->
-<!-- 												<label for="class_calc_content" class="h6 col-md-3">커리큘럼 내용</label>  -->
-<!-- 												<input type="text" name="class_calc_content" class="class_calc_content" class="form-control" required /> --> 
-<!-- 												<textarea name="editordata" id="summernote" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea> -->
-<!-- 												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
 										<table id="timeTable" class="table">
 							        		<tr>
 							        			<th>회차</th>

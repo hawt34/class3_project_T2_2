@@ -61,6 +61,36 @@
       	</foreach>
 	</insert>
 	
+	<!-- 클래스 일정 삽입 -->
+	<insert id="insertClassPlan">
+		INSERT INTO class_schedule
+		(	class_schedule_code
+			, class_code
+			, class_schedule_date
+			, class_round
+			, class_total_headcount
+			, class_st_time
+			, class_ed_time
+			, class_remain_headcount			
+		)
+		VALUES(
+			<foreach collection="dateList" item="date" separator=",">
+		        <foreach collection="classTimeList" item="classTime" separator=",">
+		            (
+		            null
+		            , #{map.classSelect}
+		            , #{date}
+		            , #{classTime.round}
+		            , #{map.class_total_headcount}
+		            , #{classTime.startTime}
+		            , #{classTime.endTime}
+		            , #{map.class_total_headcount}
+		            )
+		        </foreach>
+		    </foreach>
+		)
+	</insert>
+	
 	<!-- 카테고리 대분류 조회 -->
 	<select id="getCategory" resultType="map">
 		SELECT 
@@ -97,12 +127,19 @@
 			code_hide = 'N'
 	</select>
 	
+	
+	<!-- 해쉬태그 가져오기 -->
 	<select id="getHashtag" resultType="map">
 		SELECT *
 		FROM
 			hash_tag
 	</select>
 	
+	<!-- 클래스 정보 가져오기 -->
+	<select id="getClassInfo" resultType="map">
+		SELECT * 
+		FROM class
+	</select>
 	
 	
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
 
 @Mapper
@@ -13,8 +14,14 @@ public interface CreatorMapper {
 	
 	// 클래스 등록
 	void createrClassRegPro(Map<String, Object> map);
-
+	
+	// 커리큘럼 등록
 	void creatorCurriInsert(@Param("params") List<CurriVO> params);
+	
+	// 클래스일정 등록
+	int insertClassPlan(@Param("map") Map<String, Object> map
+				 	  , @Param("classTimeList") List<ClassTimeVO> classTime
+				 	  , @Param("dateList") List<String> dateList);
 	
 	// 카테고리 대분류
 	List<Map<String, String>> getCategory();
@@ -27,5 +34,8 @@ public interface CreatorMapper {
 
 	// 해쉬태그
 	public List<Map<String, String>> getHashtag();
+	
+	// 클래스 정보 가져오기
+	List<Map<String, Object>> getClassInfo();
 	
 }

@@ -1,6 +1,7 @@
 package itwillbs.p2c3.class_will.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
+import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
 
 @Controller
@@ -36,7 +38,10 @@ public class CreatorController {
 	// creator-class 
 	// creater-class로
 	@GetMapping("creator-class")
-	public String createrClass() {
+	public String createrClass(Model model) {
+		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		model.addAttribute("classList", classList);
+		
 		return "creator/creator-class";
 	}
 	// creater-class 등록페이지로
@@ -99,14 +104,71 @@ public class CreatorController {
 		
 	// creater-class 일정등록 페이지로
 	@GetMapping("creator-class-plan")
-	public String createrClassPlan() {
+	public String createrClassPlan(Model model) {
+		
+		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		model.addAttribute("classList", classList);
+		
 		return "creator/creator-class-plan";
+	}
+	
+	@PostMapping("creatorPlanPro")
+	public String creatorPlanPro(@RequestParam Map<String, Object> map, Model model) {
+		System.out.println(">>>>>>>>>>>map : " + map);
+		// 회차별 시간 데이터 가져오기
+		List<ClassTimeVO> classTimeList = new ArrayList<ClassTimeVO>();
+		Map<String, ClassTimeVO> tempMap = new HashMap<>();
+		
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+            if (entry.getKey().contains("회차")) {
+            	String key = entry.getKey();
+            	String round = key.substring(0, key.indexOf('_'));
+            	String type = key.substring(key.indexOf('_') + 1);
+            	
+            	 ClassTimeVO classTime;
+            	    
+        	    if (tempMap.containsKey(round)) {
+        	        classTime = tempMap.get(round);
+        	    } else {
+        	        classTime = new ClassTimeVO();
+        	        classTime.setRound(round);
+        	        tempMap.put(round, classTime);
+        	    }
+        	    
+        	    if ("start".equals(type)) {
+        	        classTime.setStartTime((String)entry.getValue());
+        	        System.out.println("classTimeStart: " + classTime);
+        	    } else if ("end".equals(type)) {
+        	        classTime.setEndTime((String)entry.getValue());
+        	        System.out.println("classTimeEnd: " + classTime);
+        	    }
+            }
+        }
+		classTimeList.addAll(tempMap.values());
+		System.out.println(">>>>>>>classTimeList" + classTimeList);
+		
+		// 날짜 데이터 파싱하여 List로 전달
+		List<String> dateList = Arrays.stream(((String)map.get("selectedDates")).split(","))
+			.map(String::trim)
+			.collect(Collectors.toList());
+ 
+		int insertCount = creatorService.insertClassPlan(map, classTimeList, dateList);
+		if(insertCount > 0) {
+			return "redirect:/creator-class";
+		}
+		
+		model.addAttribute("msg", "일정등록 오류");
+		return "result_process/fail";
 	}
 	
 	//======================================================
 	// creater-review로
 	@GetMapping("creator-review")
-	public String createrReview() {
+	public String createrReview(Model model) {
+		
+		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		model.addAttribute("classList", classList);
+		
 		return "creator/creator-review";
 	}
 	// creater-review-form으로
@@ -119,7 +181,11 @@ public class CreatorController {
 
 	// 문의사항 페이지로
 	@GetMapping("creator-inquiry")
-	public String creatorInquiry() {
+	public String creatorInquiry(Model model) {
+		
+		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		model.addAttribute("classList", classList);
+		
 		return "creator/creator-inquiry";
 	}
 	// creater-inquiry-form으로
@@ -129,18 +195,23 @@ public class CreatorController {
 	}
 	
 	
-	
-	
 	//======================================================
 	
 	// creater-analyze로
 	@GetMapping("creator-analyze")
-	public String createrAnalyze() {
+	public String createrAnalyze(Model model) {
+		
+		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		model.addAttribute("classList", classList);
+		
 		return "creator/creator-analyze";
 	}
 	// creater-cost로
 	@GetMapping("creator-cost")
-	public String createrCost() {
+	public String createrCost(Model model) {
+		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		model.addAttribute("classList", classList);
+		
 		return "creator/creator-cost";
 	}
 	

@@ -28,6 +28,9 @@
 
     <!-- Toast UI Pagination Script -->
     <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+	<!-- admin_utils.js 로드 -->
+    <script src="${pageContext.request.contextPath}/resources/js/admin_utils.js"></script>
+    
     <script>
     	if("${alert}" != null && "${alert}" != ""){
     		alert("${alert}");
@@ -218,7 +221,6 @@
                             <button id="btn-download" class="btn btn-success btn-sm" onclick="downloadExcel('MEMBER', '전체 회원 리스트', false)">엑셀 다운로드</button>
                             <button id="btn-upload" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#excelUploadModal">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
-                            <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
                     <div>

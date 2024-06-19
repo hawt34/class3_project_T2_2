@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
@@ -48,8 +47,17 @@ public class ExcelService {
             int cellNum = 0;
             for (String header : headers) {
                 Cell cell = row.createCell(cellNum++);
-                cell.setCellValue(rowData.get(header).toString());
+                if(rowData.get(header) == null || rowData.get(header).equals("")) {
+                	cell.setCellValue("");
+                }else {
+                	cell.setCellValue(rowData.get(header).toString());
+                }
             }
+        }
+        
+        // 각 열의 너비를 자동으로 조정
+        for (int i = 0; i < headers.size(); i++) {
+            sheet.autoSizeColumn(i);
         }
 
         // 출력 스트림에 엑셀 파일 쓰기

@@ -77,6 +77,29 @@
 	    color: white;
 	}
 </style>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    var heartOverlays = document.querySelectorAll(".heart-overlay");
+    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+
+    heartOverlays.forEach(function(heartOverlay) {
+        heartOverlay.addEventListener("click", function() {
+            var img = this;
+            img.classList.add("fade");
+
+            setTimeout(function() {
+                if (img.src.includes("heart_full.png")) {
+                    img.src = originalSrc;
+                } else {
+                    img.src = changeSrc;
+                }
+                img.classList.remove("fade");
+            }, 300); 
+        });
+    });
+});
+</script>
 </head>
 <body>
 <header>
@@ -115,45 +138,38 @@
     		<!-- navbar -->
 			<nav class="sticky-nav sticky-nav1 col-md-9">
 				<div class="row">
-					<div class="col-md-2 box2">
+					<div class="col box2">
 						<ul class="nav-container nav-container1">
 							<li class="nav-item nav-item1">
 								<a class="navbar-item navbar-item1" href="#section1">프로그램 상세</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-2 box2">
+					<div class="col box2">
 						<ul class="nav-container nav-container1">
 							<li class="nav-item nav-item1">
 								<a class="navbar-item navbar-item1" href="#section2">후기</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-2 box2">
+					<div class="col box2">
 						<ul class="nav-container nav-container1">
 							<li class="nav-item nav-item1">
 								<a class="navbar-item navbar-item1" href="#section3">커리큘럼</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-2 box2">
+					<div class="col box2">
 						<ul class="nav-container nav-container1">
 							<li class="nav-item nav-item1">
 								<a class="navbar-item navbar-item1" href="#section4">Q&A</a>
 							</li>
 						</ul>
 					</div>
-					<div class="col-md-2 box2">
+					<div class="col box2">
 						<ul class="nav-container nav-container1">
 							<li class="nav-item nav-item1">
-								<a class="navbar-item navbar-item1" href="#section5">환불안내</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col-md-2 box2">
-						<ul class="nav-container nav-container1">
-							<li class="nav-item nav-item1">
-								<a class="navbar-item navbar-item1" href="#section6">1:1 채팅하기</a>
+								<a class="navbar-item navbar-item1" href="#section5">1:1 채팅하기</a>
 							</li>
 						</ul>
 					</div>
@@ -166,27 +182,21 @@
 	        <!-- navbar content -->
 	        <div class="content1 col-md-9">
 	            <div id="section1">
-	                <p>프로그램 상세</p>
-	                <!-- 프로그램 상세 내용 -->
-	                111111111111111111111111111111111111111111111111111111111111111111111111111111
-	                					어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고
-					어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고어쩌고 저쩌고
-					111111111111111111111111111111111111111111111111111111111111111111111111111111
+                  <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg">
 	            </div>
 	            <div id="section2">
-	                <p>후기</p>
 	                <div class="classreview1">
 						<div class="classreview2 col-md-9">
                     <div class="row reviewInfo">
 			            <div class="col-md-1 userPic">
 			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
 			            </div>
-			            <div class="col-md-3 userInfoContainer">
+			            <div class="col-md-7 userInfoContainer">
 			                <div class="userInfoHeader">
-			                    <div class="col-md-5 userNickname">
-			                        <p>유저닉*임</p>
+			                    <div class="col userNickname">
+			                        <p>유저닉네임열한글자임요</p>
 			                    </div>
-			                    <div class="col-md-7 reviewDate">
+			                    <div class="col reviewDate">
 			                        <p>2024 / 06 / 15</p>
 			                    </div> 
 			                </div>
@@ -200,12 +210,12 @@
 			                    </ul>
 			                </div> <!-- reviewStar -->
 			            </div>
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
 			        </div>
 			        
 			        <div class="userReview">
+			            <div class="reviewPic">
+			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+			            </div> <!-- reviewPic -->
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
@@ -219,7 +229,7 @@
 			            <div class="col-md-1 userPic">
 			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
 			            </div>
-			            <div class="col-md-3 userInfoContainer">
+			            <div class="col-md-7 userInfoContainer">
 			                <div class="userInfoHeader">
 			                    <div class="col-md-5 userNickname">
 			                        <p>유저닉*임</p>
@@ -239,12 +249,12 @@
 			                </div> 
 			                <!-- reviewStar -->
 			            </div>
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
 			        </div>
 			        
 			        <div class="userReview">
+			            <div class="reviewPic">
+			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+			            </div> <!-- reviewPic -->
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
@@ -253,12 +263,13 @@
 						<hr>
 					</div>
 			    </div>
+			    
 			    <div class="col-md-9 container2">
 			        <div class="row reviewInfo">
 			            <div class="col-md-1 userPic">
 			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
 			            </div>
-			            <div class="col-md-3 userInfoContainer">
+			            <div class="col-md-7 userInfoContainer">
 			                <div class="userInfoHeader">
 			                    <div class="col-md-5 userNickname">
 			                        <p>유저닉*임</p>
@@ -277,12 +288,12 @@
 			                    </ul>
 			                </div> <!-- reviewStar -->
 			            </div>
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
 			        </div>
 			        
 			        <div class="userReview">
+			            <div class="reviewPic">
+			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+			            </div> <!-- reviewPic -->
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
@@ -291,12 +302,13 @@
 						<hr>
 					</div>
 			    </div>
+			    
 			    <div class="col-md-9 container2">
 			        <div class="row reviewInfo">
 			            <div class="col-md-1 userPic">
 			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
 			            </div>
-			            <div class="col-md-3 userInfoContainer">
+			            <div class="col-md-7 userInfoContainer">
 			                <div class="userInfoHeader">
 			                    <div class="col-md-5 userNickname">
 			                        <p>유저닉*임</p>
@@ -315,12 +327,12 @@
 			                    </ul>
 			                </div> <!-- reviewStar -->
 			            </div>
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
 			        </div>
 			        
 			        <div class="userReview">
+			            <div class="reviewPic">
+			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+			            </div> <!-- reviewPic -->
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
 			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
@@ -330,12 +342,10 @@
 					</div>
 	                
 	            </div>
+	            
+	        </div>
 	            <div id="section3">
-	                <p>커리큘럼</p>
-	                <!-- 커리큘럼 내용 -->
-	                커리큘럼
-					3333333333333333333333333333333333333333333333333333333333333333333333333333333
-					3333333333333333333333333333333333333333333333333333333333333333333333333333333
+					<img src="${pageContext.request.contextPath}/resources/images/class/class_curri.png" class="classImg">
 	            </div>
 	            <div id="section4">
 	                <p>Q&A</p>
@@ -384,20 +394,8 @@
 					</div> <!-- classqa1 -->
 	            </div>
 	            <div id="section5">
-	                <p>환불안내</p>
-	                <!-- 환불안내 내용 -->
-	                환불안내
-					55555555555555555555555555555555555555555555555555555555555555555555555555555555
-	                
-	            </div>
-	            <div id="section6">
 	                <p>1:1 채팅하기</p>
-	                <!-- 채팅하기 내용 -->
-	                채팅하기
-	                6666666666666666666666666666666666666666666666666666666666666666666666666666
 	            </div>
-	        </div>
-	        <!-- navbar content -->
 	    </div> <!-- col-md-9 -->
 	    </div><!-- content -->
 	    	
@@ -513,19 +511,22 @@
 					    	</div> <!-- 해시태그 끝 -->
 					    	
 					    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
-						    	<div class="row">
-							    	<div class="col-md-6 btn mx-auto">
+						    	<div class="row"> 
+							    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
 								    	<button type="button" class="btn btn-light w-100 btn-custom">
 <%-- 								    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
-           									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon">
-								    		<div class="heartCount"><span>5124</span></div>
+											<div style="display: flex; align-items: center;">
+	           									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heart-overlay">
+									    		<div class="heartCount"><span>5124</span></div>
+								    		</div>
 								    	</button>
 								    </div>
-							    	<div class="col-md-6 btn mx-auto">
+							    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
 								    	<button type="button" class="btn btn-light w-100 btn-custom">
-								    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon">
-								    		<div class="shareClass"><span>공유하기</span></div>
-								    		
+											<div style="display: flex; align-items: center;">
+									    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon">
+									    		<div class="shareClass"><span>공유하기</span></div>
+								    		</div>
 								    	</button>
 									</div>
 						    	</div>
@@ -543,7 +544,7 @@
 	</div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 클래스 타입 '1': 원데이  / '2': 장기
+//     클래스 타입 '1': 원데이  / '2': 장기
     let classType = "${classInfo.class_type}";
     let classScheduleArray = ${class_schedule_date};
 //     console.log("받은 날짜: " + classScheduleArray);
@@ -650,7 +651,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         $('#select_time').val(selectedTime);
                         updateCount();
                     });
-                }, //success 끝
+                }, 
+//                 success 끝
                 error: function() {
                 	alert("호출 실패");
                 }
@@ -661,7 +663,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('selected_dates').value = selectedDate;
         };
     }
-  	//인원수 변경 버튼 변수 설정
+//   	인원수 변경 버튼 변수 설정
 	let count = $("#class_count");
 	let prev = $("#headcount_prev");
 	let next = $("#headcount_next");
@@ -728,5 +730,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+	<footer>
+		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
+	</footer>
 </body>
 </html>

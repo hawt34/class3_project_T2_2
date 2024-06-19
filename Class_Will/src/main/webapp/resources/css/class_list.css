@@ -20,10 +20,15 @@ body {
 	height : 410px;	
 }
 
-.card-bodys {
-	padding : 15px;
-}
+/* .card-bodys { */
+/* 	padding : 15px; */
+/* } */
 
+.card-bodys {
+    height: 200px; /* 예시로 설정한 높이 */
+	padding : 15px;
+    overflow: hidden; /* 내용이 넘칠 경우를 대비해 오버플로우 숨김 설정 */
+}
 /* .card-body h6 { */
 /* 	color : black; */
 /* 	font-weight: bold; */
@@ -88,7 +93,9 @@ body {
 	font-size : 0.8em !important;
 }
 /* .classCard { */
-/* 	padding : 30px; */
+/* /* 	padding : 30px; */ */
+/*     border-radius : 30px !important; */
+
 /* } */
 
 /* .fixed-size { */

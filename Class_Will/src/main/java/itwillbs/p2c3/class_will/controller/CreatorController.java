@@ -1,7 +1,10 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
+import itwillbs.p2c3.class_will.vo.CurriVO;
 
 @Controller
 public class CreatorController {
@@ -63,17 +67,26 @@ public class CreatorController {
 	// creater-class 등록
 	@PostMapping("creator-classRegPro")
 	public String createrClassRegPro(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
-		System.out.println(map);
 		
-//		String member_code = (String)session.getAttribute("member_code");
-//		map.put("member_code", 1234);
+		String member_code = (String)session.getAttribute("member_code");
+		map.put("member_code", 1234);
 		
-//		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
+		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
 		
-//		int insertCount = creatorService.createrClassRegPro(map);
-//		if(insertCount > 0) {
-//			model.addAttribute("msg", "클래스등록 실패");
-//		}
+		List<CurriVO> curriList = new ArrayList<CurriVO>();
+		
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			CurriVO curri = new CurriVO();
+            if (entry.getKey().contains("회차")) {
+            	curri.setCurri_round(entry.getKey());
+            	curri.setCurri_content((String)entry.getValue());
+            	curriList.add(curri);
+            }
+        }
+		System.out.println(">>>>>>>>>map: " + map);
+		System.out.println(">>>>>>>>>curriList: " + curriList);
+		
+		creatorService.createrClassRegPro(map, curriList);
 		
 		return "creator/creator-class";
 	}

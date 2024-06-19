@@ -10,4 +10,17 @@
 				member_code = #{member_code}
 		  
 	  </update>
+	  
+	  <select id="selectMemberReview">
+	   <![CDATA[
+    	SELECT cr.class_review_code, cr.class_review_subject, cr.class_review_content,
+           cr.class_review_date, cr.class_review_time,
+           c.class_name, cr.class_review_rating
+    	FROM class_review cr
+    	LEFT JOIN class c ON cr.class_code = c.class_code
+    	WHERE cr.member_code = #{param1}
+    	]]>
+	  </select>
+	  
+	  
   </mapper>

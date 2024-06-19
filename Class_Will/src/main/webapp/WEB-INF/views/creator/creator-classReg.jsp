@@ -208,7 +208,6 @@
 										<div class="d-flex justify-content-between">
 											<div class="h4">클래스 커리큘럼</div>
 											<div class="h6 addCurri">+ 추가하기</div>
-											 <input type="hidden" name="jsonData" id="jsonData">
 										</div>
 <!-- 										<div class="classReg-calc-form"> -->
 <!-- 											<p class="h6">1차시</p> -->
@@ -227,7 +226,7 @@
 							        		<tr>
 							        			<td>1회차</td>
 							        			<td>
-							        				<textarea name="curri_content_1" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea>
+							        				<textarea name="1회차" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea>
 							        			</td>
 							        		</tr>
 							        	</table>
@@ -241,7 +240,7 @@
 											<div class="col-md-12 my-2">
 												<label for="class_creator_explain" class="h6">크리에이터 소개</label> 
 												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required />
-												<div class="invalid-feedback">커리큘럼 내용을 입력해주세요.</div>
+												<div class="invalid-feedback">크리에이터 소개를 입력해주세요.</div>
 											</div>
 										</div>
 									</div>
@@ -257,16 +256,6 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- 					<div class="col-12"> -->
-					<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
-					<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
-					<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
-					<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
-					<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
-					<!-- 							<a href="#" class="rounded">&raquo;</a> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
 				</div>
 			</div>
 		</div>
@@ -301,13 +290,14 @@
 				});		
 			});
 			
+			// 회차 추가 및 데이터 전달
 			let roundCount = 1;
 		    $('.addCurri').on('click', function() {
-		  	 if(roundCount < 6){
+		  	 if(roundCount < 5){
 		  		roundCount++;
 	            let newRow = '<tr>'
 			                     + '<td>' + roundCount + '회차 <span class="delete-btn">&times;</span></td>'
-			                     + '<td><textarea name="curri_content_' + roundCount + '" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea></td>'
+			                     + '<td><textarea name="' + roundCount + '회차" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea></td>'
 			                 + '</tr>';
 	            $('#timeTable').append(newRow);
 		  	} else{
@@ -333,7 +323,7 @@
 	            roundCount = rows.length - 1; // 첫 번째 tr은 헤더이므로 제외
 	            rows.each(function (index) {
 	                if (index > 0) { // 첫 번째 tr은 헤더이므로 제외
-	                    $(this).find('textarea').attr('name', 'curri_content_' + index);
+	                    $(this).find('textarea').attr('name', index + '회차' );
 	                    $(this).find('td:first').html(index + '회차 <span class="delete-btn">&times;</span>');
 	                }
 	            });

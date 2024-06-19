@@ -20,7 +20,6 @@
 				, class_creator_explain
 				, class_hide
 				, class_price
-				, class_total_headcount
 				, class_regist_status
 				, member_code
 		)
@@ -38,10 +37,28 @@
 			, #{class_creator_explain}
 			, #{class_hide}
 			, #{class_price}
-			, #{class_total_headcount}
 			, 1
 			, #{member_code}
 		)		
+	</insert>
+	
+	<!-- 커리큘럼 삽입 -->
+	<insert id="creatorCurriInsert" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="class_code" resultType="int">
+			SELECT IFNULL(MAX(class_code), 0)
+			FROM class
+		</selectKey>
+			INSERT INTO curri(
+				class_code
+				, curri_round
+				, curri_content
+			)
+			VALUES
+		<foreach collection="params" item="param" separator=",">
+			(
+	         	#{class_code}, #{param.curri_round}, #{param.curri_content}
+	        )
+      	</foreach>
 	</insert>
 	
 	<!-- 카테고리 대분류 조회 -->

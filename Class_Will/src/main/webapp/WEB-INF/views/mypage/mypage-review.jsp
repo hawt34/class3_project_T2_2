@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -97,10 +100,11 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+  
+
 </style>
 </head>
 <body>
-
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
@@ -127,41 +131,79 @@ th:nth-child(2), td:nth-child(2) {
 						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
-
-
-							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">항상 고마운 *** 님</div>
-								<div id="grid"></div>
+								<div class="col-md-12 text-center h2 mb-5">항상 고마운
+									${member.member_nickname}님</div>
+								<!-- 								여기부터 토스트 ui -->
+								<div class="container">
+									<h2>후기를 적을 수 있는 클래스가 ? 개 있습니다.</h2>
+									<p>클래스 정보</p>
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>클래스 이름</th>
+												<th>결제 상태</th>
+												<th>교육 일정</th>
+												<th>수료 여부</th>
+												<th>등록하기</th>
+											</tr>
+										</thead>
+										<tbody>
+									 			<tr>
+													<td>1</td>
+													<td>2</td>
+													<td>3</td>
+													<td>4</td>
+													<td>
+														<button class="btn btn-primary"
+															onclick="resistReview()">등록하기</button>
+													</td>
+												</tr>
+										</tbody>
+									</table>
+								</div>
 								<div class="container">
 									<h2>클래스 후기</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<th>신청 클래스</th>
-												<th>강의 진도</th>
-												<th>결제 상태</th>
-
+												<th>클래스 이름</th>
+												<th>리뷰 제목</th>
+												<th>리뷰 별점</th>
+												<th>리뷰 내용</th>
+												<th>작성 날짜</th>
+												<th>수정</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>라면</td>
-												<td>면 꼬들</td>
-												<td>john@example.com</td>
-											</tr>
-											<tr>
-												<td>짜파게티</td>
-												<td>국물없게</td>
-												<td>mary@example.com</td>
-											</tr>
-											<tr>
-												<td>삼양불닭</td>
-												<td>너무 매움</td>
-												<td>july@example.com</td>
-											</tr>
+											<c:forEach var="review" items="${memberReviews}"
+												varStatus="loop">
+												<tr>
+													<td>${review.class_name}</td>
+													  <td>
+                                                      <a href="javascript:void(0);" onclick="showReviewModal('${review.class_review_content}')" style="color: black;">${review.class_review_subject}</a>
+                                                    </td>
+													<td class="stars"><script>
+							                         // JavaScript로 별점을 동적으로 생성하는 코드
+							                           const starCount = ${review.class_review_rating}; // 별점 점수
+							                           const filledStars = '<i class="bi bi-star-fill text-warning"></i>'.repeat(starCount);
+							                           const emptyStars = '<i class="bi bi-star text-warning"></i>'.repeat(5 - starCount);
+							                           document.write(filledStars + emptyStars);
+							                       </script></td>
+													<td>${review.class_review_content}</td>
+													<td>${review.class_review_date}</td>
+													<td>
+														<button class="btn btn-primary"
+															onclick="editReview(${review.class_review_code})">수정</button>
+													</td>
+													<td>
+														<button class="btn btn-danger"
+															onclick="deleteReview(${review.class_review_code})">삭제</button>
+													</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -173,10 +215,19 @@ th:nth-child(2), td:nth-child(2) {
 			</div>
 		</div>
 	</div>
-	<!-- Fruits Shop End-->
-
-
-
+	 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel" style="color: black;">리뷰 내용</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="color: black;"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="reviewContent" style="color: black;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
@@ -198,51 +249,11 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-		const data = [ {
-			id : 1,
-			name : 'John Doe',
-			age : 30,
-			job : 'Developer'
-		}, {
-			id : 2,
-			name : 'Jane Smith',
-			age : 25,
-			job : 'Designer'
-		}, {
-			id : 3,
-			name : 'Fred Blogs',
-			age : 35,
-			job : 'Manager'
-		},
-		// 더 많은 데이터 추가
-		];
-
-		// 테이블의 컬럼 정의
-		const columns = [ {
-			header : 'ID',
-			name : 'id'
-		}, {
-			header : 'Name',
-			name : 'name'
-		}, {
-			header : 'Age',
-			name : 'age'
-		}, {
-			header : 'Job',
-			name : 'job'
-		} ];
-
-		// Toast UI Grid 생성
-		const grid = new tui.Grid({
-			el : document.getElementById('grid'),
-			data : data,
-			columns : columns,
-			rowHeaders : [ 'rowNum' ], // 행 번호 추가
-			pageOptions : {
-				useClient : true,
-				perPage : 5
-			}
-		});
+	   function showReviewModal(reviewContent) {
+           $('#reviewContent').text(reviewContent); // 리뷰 내용을 모달의 텍스트로 설정
+           $('#reviewModal').modal('show'); // 모달 창 열기
+       }
 	</script>
+
 </body>
 </html>

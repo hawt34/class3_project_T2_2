@@ -9,16 +9,20 @@ import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.mapper.CreatorMapper;
+import itwillbs.p2c3.class_will.vo.CurriVO;
 
 @Service
 public class CreatorService {
 	@Autowired
 	private CreatorMapper creatorMapper;
 	
-	// 카테고리 등록
-	public int createrClassRegPro(Map<String, Object> map) {
-		return creatorMapper.createrClassRegPro(map);
+	// 클래스 등록
+	public void createrClassRegPro(Map<String, Object> map, List<CurriVO> params) {
+		creatorMapper.createrClassRegPro(map);
+		System.out.println(">>>>>>>>params: " + params);
+		creatorMapper.creatorCurriInsert(params);
 	}
+
  
 	// 카테고리 대분류 가져오기
 	public List<Map<String, String>> getCategory(){

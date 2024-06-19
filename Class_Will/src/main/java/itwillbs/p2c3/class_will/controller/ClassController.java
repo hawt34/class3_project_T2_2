@@ -34,10 +34,11 @@ public class ClassController {
 		//classInfo 임시 클래스 데이터 가져오기
 		Map<String, Object> testClassCode = new HashMap<>();
 		//내가 만든 class 데이터 (임시)!! - 나중에 바꾸면 알려줘~~
+		//원래는 메인에서 해당 클래스 누르면 그 클래스의 class_code 값이 온거를 파라미터로 getClassInfo() 메서드 호출
+		//하려고 했는데 아직 메인이 완성이 안되어 있어서 내가 임시로 만든 클래스 코드 '54' 넣은거임
 		testClassCode.put("class_code", 54);
 		Map<String, Object> classInfo = payService.getClassInfo(testClassCode);
-		System.out.println(classInfo);
-		
+		model.addAttribute("classInfo", classInfo);
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)
 		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(54);
@@ -52,7 +53,7 @@ public class ClassController {
         model.addAttribute("class_schedule", scheduleInfo);
 		//임시 클래스 코드!!
 		model.addAttribute("class_code", scheduleInfo.get(0).get("class_code"));
-		//임시 클래스 스케쥴!!
+		//클래스 스케쥴
 		model.addAttribute("class_schedule_date", jsonString);
 		//임시 클래스 타입!!
 		model.addAttribute("class_type", "1");

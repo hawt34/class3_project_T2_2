@@ -17,7 +17,7 @@ public interface PayMapper {
 	
 	
 	//date로 클래스 스케쥴 타임 가져오기
-	List<Map<String, String>> selectScheduleTime(@Param("date")String date,
+	List<Map<String, Object>> selectScheduleTime(@Param("date")String date,
 												 @Param("class_code")int parsedClass_code);
 	
 

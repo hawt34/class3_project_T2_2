@@ -24,7 +24,7 @@ public class PayService {
 	}
 	
 	//date로 클래스 스케쥴 타임 가져오기
-	public List<Map<String, String>> getScheduleTime(String date, int parsedClass_code) {
+	public List<Map<String, Object>> getScheduleTime(String date, int parsedClass_code) {
 		return payMapper.selectScheduleTime(date, parsedClass_code);
 	}
 

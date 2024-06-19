@@ -404,17 +404,17 @@
 			    <div class="col-md-3">
 			    	<form action="payment" method="post" id="class_form">
 <%-- 			    		<input type="hidden" name="class_type" value="${class_type }"> --%>
-			    		<input type="hidden" name="class_code" value="${class_code }">
-			    		<input type="hidden" name="class_code" value="${class_big_category }">
-			    		<input type="hidden" name="class_code" value="${class_small_category }">
+			    		<input type="hidden" name="class_code" value="${classInfo.class_code }">
+			    		<input type="hidden" name="class_code" value="${classInfo.class_big_category }">
+			    		<input type="hidden" name="class_code" value="${classInfo.class_small_category }">
 				    	<div class="box1">
-				    		<h6>클래스 선택</h6>
-				    		<h3>클래스 선택해보세요~~~</h3>
+				    		<h6>${classInfo.class_name }</h6>
+				    		<h3>${classInfo.class_ex }</h3>
 				    		<div class="row">
 						        <div id="datePicker"></div>
 						        <!-- 선택된 날짜를 저장할 input -->
 						        <c:choose>
-					    			<c:when test="${class_type eq '1' }">
+					    			<c:when test="${classInfo.class_type eq '1' }">
 								        <input type="hidden" id="selected_dates" name="selected_dates">
 					    			</c:when>
 					    			<c:otherwise>
@@ -428,7 +428,7 @@
 						    <!-- 타임 픽커 선택div -->
 						    <div class="row ">
 						    	<c:choose>
-						    		<c:when test="${class_type eq '1'}">
+						    		<c:when test="${classInfo.class_type eq '1'}">
 								    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
 						    		</c:when>
 						    		<c:otherwise>
@@ -436,7 +436,7 @@
 						    		</c:otherwise>
 						    	</c:choose>
 								<c:choose>
-									<c:when test="${class_type eq '1' }">
+									<c:when test="${classInfo.class_type eq '1' }">
 										<!-- ajax 호출 시 출력될 area -->
 										<div class="time_area" align="center">
 		<!-- 							    	<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group"> -->
@@ -539,8 +539,8 @@
 	</div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 클래스 타입 '0': 원데이 / '1': 장기
-    let classType = "${class_type}";
+    // 클래스 타입 '1': 원데이  / '2': 장기
+    let classType = "${classInfo.class_type}";
     let classScheduleArray = ${class_schedule_date};
 //     console.log("받은 날짜: " + classScheduleArray);
     
@@ -592,7 +592,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 type: 'GET',
                 data: {
                 	date: dateStr,
-                	class_code: "${class_code}"
+                	class_code: "${classInfo.class_code}"
                 },
                 dataType: "json",
                 success: function(response) {
@@ -600,6 +600,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					let scheduleTime = response;
                     $(".time_area").empty();
                     $.each(scheduleTime, function(index, time) {
+                    	let remain = time.class_remain_headcount.toString();
                         let countT = index + 1;
                         let radioInput = $('<input>', {
                             type: 'radio',
@@ -621,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         var headcountSpan = $('<span>', {
                             class: 'headcount',
-                            text: time.class_remain_headcount
+                            text: remain
                         });
 
                         label.append(timeSpan);

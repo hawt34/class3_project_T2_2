@@ -6,6 +6,7 @@
 
 	<select id="selectClassInfo" resultType="map">
 		SELECT c.class_name
+			   , c.class_code
 			   , c.class_type
 			   , c2.code_value AS class_upper 
 			   , c3.code_value AS class_lower

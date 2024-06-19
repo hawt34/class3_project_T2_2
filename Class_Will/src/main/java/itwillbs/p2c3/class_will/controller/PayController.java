@@ -23,37 +23,37 @@ public class PayController {
 	private PayService payService;
 	
 	// 클래스 디테일
-	@GetMapping("class-detail2")
-	public String classDetail(Model model) {
-		
-		//스케쥴 select -- 파라미터: 클래스 코드
-		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(54);
-		// JSONArray를 생성하고 리스트의 각 맵을 JSONObject로 변환하여 추가합니다.
-        JSONArray jsonArray = new JSONArray();
-        for(Map<String, Object> map : scheduleInfo) {
-            JSONObject jsonObject = new JSONObject(map);
-            jsonArray.put(jsonObject);
-        }
-        // JSONArray를 JSON 문자열로 변환합니다.
-        String jsonString = jsonArray.toString();
-
-        model.addAttribute("class_schedule", scheduleInfo);
-		//임시 클래스 코드
-		model.addAttribute("class_code", scheduleInfo.get(0).get("class_code"));
-		//임시 클래스 스케쥴
-		model.addAttribute("class_schedule_date", jsonString);
-		//임시 클래스 타입
-		model.addAttribute("class_type", "1");
-		return"class/class-detail2";
-	}
+//	@GetMapping("class-detail2")
+//	public String classDetail(Model model) {
+//		
+//		//스케쥴 select -- 파라미터: 클래스 코드
+//		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(54);
+//		// JSONArray를 생성하고 리스트의 각 맵을 JSONObject로 변환하여 추가합니다.
+//        JSONArray jsonArray = new JSONArray();
+//        for(Map<String, Object> map : scheduleInfo) {
+//            JSONObject jsonObject = new JSONObject(map);
+//            jsonArray.put(jsonObject);
+//        }
+//        // JSONArray를 JSON 문자열로 변환합니다.
+//        String jsonString = jsonArray.toString();
+//
+//        model.addAttribute("class_schedule", scheduleInfo);
+//		//임시 클래스 코드
+//		model.addAttribute("class_code", scheduleInfo.get(0).get("class_code"));
+//		//임시 클래스 스케쥴
+//		model.addAttribute("class_schedule_date", jsonString);
+//		//임시 클래스 타입
+//		model.addAttribute("class_type", "1");
+//		return"class/class-detail2";
+//	}
 	
 	//ajax 호출
 	@ResponseBody
 	@GetMapping("date-changed")
-	public List<Map<String, String>> dateChanged(@RequestParam String date, @RequestParam String class_code) {
+	public List<Map<String, Object>> dateChanged(@RequestParam String date, @RequestParam String class_code) {
 		System.out.println(date);
 		int parsedClass_code = Integer.parseInt(class_code);
-		List<Map<String, String>> map = payService.getScheduleTime(date, parsedClass_code);
+		List<Map<String, Object>> map = payService.getScheduleTime(date, parsedClass_code);
 		return map;
 	}
 	

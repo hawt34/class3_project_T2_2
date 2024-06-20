@@ -51,12 +51,8 @@ public class ClassController {
         // JSONArray를 JSON 문자열로 변환합니다.
         String jsonString = jsonArray.toString();
         model.addAttribute("class_schedule", scheduleInfo);
-		//임시 클래스 코드!!
-		model.addAttribute("class_code", scheduleInfo.get(0).get("class_code"));
 		//클래스 스케쥴
 		model.addAttribute("class_schedule_date", jsonString);
-		//임시 클래스 타입!!
-		model.addAttribute("class_type", "1");
         //========================================================================
         
 		return"class/class-detail";

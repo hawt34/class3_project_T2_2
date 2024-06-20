@@ -410,8 +410,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			    	<form action="payment" method="post" id="class_form">
 <%-- 			    		<input type="hidden" name="class_type" value="${class_type }"> --%>
 			    		<input type="hidden" name="class_code" value="${classInfo.class_code }">
-			    		<input type="hidden" name="class_code" value="${classInfo.class_big_category }">
-			    		<input type="hidden" name="class_code" value="${classInfo.class_small_category }">
+			    		<input type="hidden" name="class_big_category" value="${classInfo.class_big_category }">
+			    		<input type="hidden" name="class_small_category" value="${classInfo.class_small_category }">
 				    	<div class="box1">
 				    		<h6>${classInfo.class_name }</h6>
 				    		<h3>${classInfo.class_ex }</h3>

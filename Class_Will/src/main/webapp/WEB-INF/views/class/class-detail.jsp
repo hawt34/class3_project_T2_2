@@ -76,6 +76,12 @@
 	    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 선택 시 테두리 효과 */
 	    color: white;
 	}
+	.selected_time {
+		color:white;
+	}
+	.headcount {
+		color:white;
+	}
 </style>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
@@ -513,7 +519,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
 						    	<div class="row"> 
 							    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
-								    	<button type="button" class="btn btn-light w-100 btn-custom">
+								    	<button type="button" class="btn btn-light w-100 btn-customs">
 <%-- 								    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
 											<div style="display: flex; align-items: center;">
 	           									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heart-overlay">
@@ -522,7 +528,7 @@ document.addEventListener("DOMContentLoaded", function() {
 								    	</button>
 								    </div>
 							    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
-								    	<button type="button" class="btn btn-light w-100 btn-custom">
+								    	<button type="button" class="btn btn-light w-100 btn-customs">
 											<div style="display: flex; align-items: center;">
 									    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon">
 									    		<div class="shareClass"><span>공유하기</span></div>

@@ -162,12 +162,12 @@
 						<div class="regex" id="regex-tel"></div>
 					</div>	
 					<div class="d-grid gap-2 col-4 mt-3" style="height: 58px; padding: 0">
-						<button class="float-start" type="button" id="phone-auth-btn">인증번호 전송</button>
+						<button class="float-start" type="button" id="phone-auth-btn" onclick="authSms()">인증번호 전송</button>
 					</div>	
 				</div>
-				<div class="form-floating mt-3 mb-3">
-					<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>
-					<label for="phone_auth_number">인증번호</label>
+				<div class="form-floating mt-3 mb-3" id="sms-auth">
+<!-- 					<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required> -->
+<!-- 					<label for="phone_auth_number">인증번호</label> -->
 				</div>
 				<div class="regex" id="regex-auth"></div>
 				<fieldset>
@@ -291,7 +291,7 @@
 									<th>보유기간</th>
 								</tr>
 								<tr>
-									<td>Coloso가 제공하는 이용자 맞춤형 서비스 및 상품 추천, 각종 경품 행사, 이벤트 등의 광고성 정보를 전자우편이나 서신우편, 문자(SMS 또는 카카오 알림톡), 푸시, 전화 등을 통해 이용자에게 제공합니다.</td>
+									<td>클래스윌이 제공하는 이용자 맞춤형 서비스 및 상품 추천, 각종 경품 행사, 이벤트 등의 광고성 정보를 전자우편이나 서신우편, 문자(SMS 또는 카카오 알림톡), 푸시, 전화 등을 통해 이용자에게 제공합니다.</td>
 									<td>이름, 이메일주소, 휴대전화번호, 마케팅 수신 동의 여부</td>
 									<td><u>회원 탈퇴 후 30일 또는 동의 철회시까지</u></td>
 								</tr>
@@ -433,6 +433,39 @@
 			
 		});	
 		
+		function authSms() {
+			
+			$("#sms-auth").html('<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>'
+					+'<label for="phone_auth_number">인증번호</label>');
+			
+// 			$.ajax({
+// 				type: "GET",
+// 		        url: "send-one",
+// 		    	data : {
+// 		    		member_tel : $("#member_tel").val()
+// 			 	},
+// 			 	dataType : "json",
+// 			 	success : function(response) {
+// 			 		if(response) {
+// 			 			alert("메시지 전송이 완료되었습니다. 인증번호를 입력해 주세요.")
+// 			 		} else {
+// 			 			alert("메시지 전송에 실패했습니다.");
+// 			 		}
+					
+// 				}, 
+// 				error : function() {
+// 					alert("ajax 오류");
+					
+// 				}
+				
+				
+				
+// 			});
+			
+			
+			
+			
+		} // authSms()
 		
 
 		

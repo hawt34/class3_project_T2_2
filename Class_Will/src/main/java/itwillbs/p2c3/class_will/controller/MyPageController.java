@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,12 +57,7 @@ public class MyPageController {
 
 	}
 
-	// 취향보기
-	@GetMapping("my-pre")
-	public String myPre() {
-		return "mypage/mypage-pre";
-	}
-
+	
 	// 위시리스트
 	@GetMapping("my-wish")
 	public String myWish() {
@@ -129,6 +125,11 @@ public class MyPageController {
 	    return "mypage/mypage-review-modify"; // 리뷰 수정 페이지
 	}
 	
+	@PostMapping("edit-review")
+	public String editReview() {
+		
+		return "redirect:/mypage/mypage_review";
+	}
 	
 	// 내가 쓴 리뷰
 	@GetMapping("my-credit")

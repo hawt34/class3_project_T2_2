@@ -54,6 +54,15 @@ body {
 	
 }
 
+/* table { */
+/* 	border-collapse: collapse; */
+/* 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1); */
+/* 	background-color: white; */
+/* 	width: 100%; */
+/* 	border-radius: 10px; */
+/* 	font-size: 15px; */
+/* } */
+
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
@@ -61,7 +70,10 @@ table {
 	width: 100%;
 	border-radius: 10px;
 	font-size: 15px;
+	table-layout: fixed; /* 테이블 레이아웃 고정 */
+	word-wrap: break-word; /* 단어를 셀 내에서 줄바꿈 */
 }
+
 
 /* 테이블 행 */
 th, td {
@@ -100,6 +112,14 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+@media (max-width: 768px) {
+	.table-responsive {
+		overflow-x: auto; /* 가로 스크롤 가능하도록 설정 */
+	}
+	.table {
+		min-width: 600px; /* 테이블 최소 너비 설정 */
+	}
+}
 </style>
 </head>
 <body>
@@ -133,7 +153,7 @@ th:nth-child(2), td:nth-child(2) {
 								<div class="col-md-12 text-center h2 mb-5">항상 고마운
 									${member.member_nickname}님</div>
 								<!-- 								여기부터 토스트 ui -->
-								<div class="container">
+								<div class="table-responsive">
 									<h2>후기를 적을 수 있는 클래스가 ? 개 있습니다.</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
@@ -159,7 +179,7 @@ th:nth-child(2), td:nth-child(2) {
 										</tbody>
 									</table>
 								</div>
-								<div class="container">
+								<div class="table-responsive">
 									<h2>클래스 후기</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
@@ -168,7 +188,7 @@ th:nth-child(2), td:nth-child(2) {
 												<th>클래스 이름</th>
 												<th>리뷰 제목</th>
 												<th>리뷰 별점</th>
-												<th>리뷰 내용</th>
+												
 												<th>작성 날짜</th>
 												<th>수정</th>
 												<th>삭제</th>
@@ -189,7 +209,7 @@ th:nth-child(2), td:nth-child(2) {
 							                           const emptyStars = '<i class="bi bi-star text-warning"></i>'.repeat(5 - starCount);
 							                           document.write(filledStars + emptyStars);
 							                       </script></td>
-													<td>${review.class_review_content}</td>
+													
 													<td>${review.class_review_date}</td>
 													<td>
 														<button class="btn btn-primary" onclick="location.href='edit-review-page?review_code=${review.class_review_code}'">수정</button>

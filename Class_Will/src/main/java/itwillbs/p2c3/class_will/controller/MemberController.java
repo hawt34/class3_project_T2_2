@@ -69,17 +69,24 @@ public class MemberController {
 		member.setMember_tel(member.getMember_tel());
 		member.setMember_reg_date(regDate);
 		
+		if(member.getMember_marketing1() == null) {
+			member.setMember_marketing1("N");
+		}
+		if(member.getMember_marketing2() == null) {
+			member.setMember_marketing2("N");
+		}
 		
 		int insertCount = memberService.insertMember(member);
 		System.out.println(member);
-//		
-//		if(insertCount < 1) {
-//			model.addAttribute("msg", "회원가입 실패!");
-//			return "result_process/fail";
-//		}
 		
+		if(insertCount < 1) {
+			model.addAttribute("msg", "회원가입에 실패했습니다.");
+			return "result_process/fail";
+		}
 		
-		return "member/login_form";
+		model.addAttribute("msg", "클래스윌 회원가입을 환영합니다.");
+		model.addAttribute("targetURL", "member-login");
+		return "result_process/success";
 	}
 	
 	// 회원 로그인 폼으로
@@ -94,8 +101,21 @@ public class MemberController {
 		
 		MemberVO dbmember = memberService.selectMember(member);
 		
+		if(dbmember != null && dbmember.getMember_status().equals("2")) {
+			model.addAttribute("msg", "탈퇴한 회원입니다.");
+			return "result_process/fail";
+		} else if(dbmember != null && dbmember.getMember_status().equals("3")) {
+			model.addAttribute("msg", "휴면 회원입니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/success";
+		}
 		
 		
+		
+		
+		
+		session.setAttribute("member", dbmember);
+		model.addAttribute("member", dbmember);
 		
 		
 		return "redirect:/";

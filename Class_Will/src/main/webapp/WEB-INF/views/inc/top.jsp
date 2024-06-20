@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
     
 <style>
     
@@ -264,8 +266,26 @@
 	                            </li>
 	                            <li class="nav-item">
 	                            	<a class="nav-link" href="member-login">로그인</a>
-	<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
 	                            </li>
+	                            <li class="nav-item">
+			                                <a class="nav-link" href=""><i class="bi bi-person-circle"></i></a>
+			                    </li>
+<%-- 	                            <c:if test="${not empty member.member_email}"></c:if> --%>
+	                            
+<%-- 	                            <c:choose> --%>
+<!-- <!-- 	                            	 로그인 정보가 없을 경우 -->
+<%-- 	                            	<c:when test="${empty member.member_email}"> --%>
+<!-- 		                            	<li class="nav-item">  -->
+<!-- 		                            		<a class="nav-link" href="member-login">로그인</a> -->
+<!-- 		                            	</li> -->
+<%-- 	                            	</c:when> --%>
+<!-- <!-- 	                            	 로그인 정보가 있을 경우 -->
+<%-- 	                            	<c:otherwise> --%>
+<!-- 	                            		<li class="nav-item"> -->
+<!-- 			                                <a class="nav-link" href=""><i class="bi bi-person-circle"></i></a> -->
+<!-- 			                            </li> -->
+<%-- 	                            	</c:otherwise> --%>
+<%-- 	                            </c:choose> --%>
 	                        </ul>
 	                    </div>
 	

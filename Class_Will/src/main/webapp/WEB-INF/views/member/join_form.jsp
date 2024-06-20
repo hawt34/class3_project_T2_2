@@ -358,6 +358,8 @@
 				
 			});
 			
+			
+			
 			// 이름 정규표현식
 			$("#member_name").on("input", function() {
 				let inputName = $(this).val();

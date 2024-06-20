@@ -23,7 +23,7 @@
 			, 1
 			, #{member_marketing1}
 			, #{member_marketing2}
-			, 
+			, #{member_reg_date}
 		) 
 	</insert>
 	

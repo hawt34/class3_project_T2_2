@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.PayService;
 
+
 @Controller
 public class ClassController {
 	

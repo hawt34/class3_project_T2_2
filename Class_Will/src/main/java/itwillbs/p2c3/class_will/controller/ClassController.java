@@ -38,6 +38,7 @@ public class ClassController {
 		//하려고 했는데 아직 메인이 완성이 안되어 있어서 내가 임시로 만든 클래스 코드 '54' 넣은거임
 		testClassCode.put("class_code", 54);
 		Map<String, Object> classInfo = payService.getClassInfo(testClassCode);
+		System.out.println("$$$$$$$$$$$$: " + classInfo);
 		model.addAttribute("classInfo", classInfo);
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)

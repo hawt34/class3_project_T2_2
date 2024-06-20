@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +45,10 @@
 .margin_use {
 	margin-top: 50px;
 }
+.payment_title {
+	display: flex;
+	align-items: center;
+}
 #back_button {
 	border: 0;
 	background: none;
@@ -51,6 +56,7 @@
 	background-size: cover;
 	width:20px;
 	height: 20px;
+	margin-bottom:3px; 
 }
 .nav-item {
 	color: white;
@@ -58,6 +64,11 @@
 .accordion {
 	width: 100%;
 	margin-top: 15px;
+}
+#class_poster {
+	background-size: cover;
+	max-width: 520px;
+	max-height: 240px;
 }
 </style>
 </head>
@@ -78,42 +89,35 @@
 					<h5 class="card-header">클래스 정보</h5>
 					<div class="card-body">
 						<div class="card payment_status_box">
-
 							<div class="row ">
-								<div class="col text-center">
-									<img src="${cla}" id="class_poster" alt="썸네일" >
-								</div>
+								<img src="${pageContext.request.contextPath }/resources/img/${payInfo.class_thumnail}" class="img-fluid" id="class_poster" alt="썸네일" >
 							</div> <!-- row -->
 						</div>
 						<h5 class="card-title text-success">클래스 이름</h5>
-						<p class="card-text">도자기 공방</p>
+						<p class="card-text">${payInfo.class_name }</p>
 						<h5 class="card-title text-success">클래스 유형</h5>
-						<p class="card-text">원데이</p>
+						<p class="card-text">${payInfo.class_upper }</p>
 						<h5 class="card-title text-success">클래스 카테고리</h5>
-						<p class="card-text">도자기, 공방</p>
-						<c:choose>
-							<c:when test="${class_type eq '0' }">
-								<h5 class="card-title text-success">예약 날짜 / 시간</h5>
-								<p class="card-text">2024.06.10 / 14:00~16:00</p>
-							</c:when>
-							<c:otherwise>
-								<h5 class="card-title text-success">예약 날짜 / 시간</h5>
-								<p class="card-text">2024.06.10 / 14:00~16:00</p>
-							</c:otherwise>
-						</c:choose>
+						<p class="card-text">${payInfo.class_lower }</p>
+						<h5 class="card-title text-success">예약 날짜 / 시간</h5>
+						<p class="card-text">${payInfo.class_schedule_date } / ${payInfo.class_st_time }~${payInfo.class_ed_time }</p>
 						<h5 class="card-title text-success">장소</h5>
-						<p class="card-text">부산시 남구 대연동</p>
+						<p class="card-text">${payInfo.class_location }</p>
 					</div> <!-- card-body 끝 -->
 				</div><!-- card -->
 				<div class="card">
 					<h5 class="card-header ">연락처 정보</h5>
 					<div class="card-body">
 						<h5 class="card-title text-success">연락처</h5>
-						<p class="card-text">010 - 1111 - 2222</p>
+						<p class="card-text">
+							<c:set var="phoneNumber" value="${payInfo.member_tel }" />
+							<c:set var="formatPhoneNumber" value="${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}" />
+							${formatPhoneNumber }
+						</p>
 						<h5 class="card-title text-success">이메일</h5>
-						<p class="card-text">take7267@gmail.com</p>
+						<p class="card-text">${payInfo.member_email }</p>
 						<h5 class="card-title text-success">이름(닉네임)</h5>
-						<p class="card-text">take7267</p>
+						<p class="card-text">${payInfo.member_nickname }</p>
 					</div>
 				</div>
 			</div>
@@ -170,9 +174,9 @@
 					<div class="card-body">
 						<h6 class="card-title">클래스 결제 정보</h6>
 						<p class="card-text text-end"><span class="font_color">원데이 수강</span></p>
-						<p class="card-text text-end"><span class="font_color">40000</span>만원</p>
-						<p class="card-text text-end"><span class="font_color">1</span>명</p>
-						<p class="card-text text-end">소계:&nbsp; <span class="font_color">4</span>만원</p>
+						<p class="card-text text-end"><span class="font_color">${payInfo.class_price }</span>만원</p>
+						<p class="card-text text-end"><span class="font_color">${payInfo.headcount }</span>명</p>
+						<p class="card-text text-end">소계:&nbsp; <span class="font_color">${payInfo.subtotal }</span>만원</p>
 <!-- 					<hr> -->
 <!-- 						<h6 class="card-title">쿠폰</h6> -->
 <!-- 						<h6 class="card-title text-end">사용가능 쿠폰: <span class="font_color">0</span>개</h6> -->
@@ -181,7 +185,7 @@
 <!-- 						</div> -->
 					<hr>
 						<h6 class="card-title">WILL-PAY</h6>
-						<h6 class="card-title text-end">보유 WILL-PAY &nbsp;<span class="font_color">0</span>원</h6>
+						<h6 class="card-title text-end">보유 WILL-PAY &nbsp;<span class="font_color">${payInfo.member_credit }</span>원</h6>
 						<div class="col d-flex justify-content-end">
 							<input type="text" placeholder="크레딧">
 							<input type="button" value="전부 사용">
@@ -202,6 +206,9 @@
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 </footer>
+<script>
+
+</script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script

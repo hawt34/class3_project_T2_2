@@ -154,7 +154,7 @@
 	
 	<script>
         document.getElementById('togglePassword').addEventListener('click', function (e) {
-            const passwordInput = document.getElementById('member_pwd');
+            const passwordInput = document.getElementById('member_passwd');
             const toggleIcon = document.getElementById('toggleIcon');
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';

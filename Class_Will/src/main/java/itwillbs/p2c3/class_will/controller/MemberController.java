@@ -99,27 +99,37 @@ public class MemberController {
 	@PostMapping("member-login")
 	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
 		
-		MemberVO dbmember = memberService.selectMember(member);
+		MemberVO dbMember = memberService.selectMember(member);
 		
-		if(dbmember != null && dbmember.getMember_status().equals("2")) {
+		if(dbMember != null && dbMember.getMember_status().equals("2")) {
 			model.addAttribute("msg", "탈퇴한 회원입니다.");
 			return "result_process/fail";
-		} else if(dbmember != null && dbmember.getMember_status().equals("3")) {
+		} else if(dbMember != null && dbMember.getMember_status().equals("3")) {
 			model.addAttribute("msg", "휴면 회원입니다.");
-			model.addAttribute("targetURL", "member-login");
+			model.addAttribute("targetURL", "");
 			return "result_process/success";
+		} else if(dbMember == null || !passwordEncoder.matches(member.getMember_pwd(), dbMember.getMember_pwd())) { // 로그인 실패
+			model.addAttribute("msg", "이메일 또는 비밀번호를 확인해 주세요.");
+			return "result_process/fail";
+		} else {
+			session.setAttribute("member", dbMember);
+			model.addAttribute("member", dbMember);
+			System.out.println();
+			
+			return "redirect:/";
+			
 		}
 		
 		
-		
-		
-		
-		session.setAttribute("member", dbmember);
-		model.addAttribute("member", dbmember);
-		
-		
+	}
+	
+	// 멤버 로그아웃
+	@GetMapping("member-logout")
+	public String memberLogout() {
+		session.invalidate();
 		return "redirect:/";
 	}
+	
 	
 	// 비밀번호 재설정
 	@GetMapping("reset-passwd")

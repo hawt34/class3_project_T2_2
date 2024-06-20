@@ -138,7 +138,7 @@ th:nth-child(2), td:nth-child(2) {
 							<div class="creator-event mt-5">
 								<div class="col-md-12 text-center h2 mb-5">리뷰 수정하기</div>
 								<form action="edit-review" method="post">
-									<input type="hidden" name="review_code"
+									<input type="hidden" name="class_review_code"
 										value="${review.class_review_code}">
 									<div class="form-group">
 										<label for="subject">제목</label> <input type="text"
@@ -161,7 +161,7 @@ th:nth-child(2), td:nth-child(2) {
 											value="${review.class_review_rating}" required>
 									</div>
 									<button type="submit" class="btn btn-primary">수정</button>
-									<a href="my-review" class="btn btn-secondary">취소</a>
+									
 								</form>
 							</div>
 						</div>

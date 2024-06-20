@@ -125,7 +125,7 @@ th:nth-child(2), td:nth-child(2) {
 							
 
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5"> *** 님은 이런 클래스를 관심있게 보고 있어요</div>
+								<div class="col-md-12 text-center h2 mb-5">  ${member.member_name} 님은 이런 클래스를 관심있게 보고 있어요</div>
 								<div class="container">
 									<h2>관심 클래스</h2>
 									<p>The .table-hover class enables a hover state (grey

@@ -27,5 +27,14 @@
 	  WHERE class_review_code = #{review_code}
 	  </select>
 	  
+	  <update id="updateReview" parameterType="java.util.Map">
+	  	 UPDATE class_review
+        SET class_review_subject = #{class_review_subject},
+            class_review_content = #{class_review_content},
+            class_review_rating = #{class_review_rating}
+        WHERE class_review_code = #{class_review_code}
+	  
+	  </update>
+	  
 	  
   </mapper>

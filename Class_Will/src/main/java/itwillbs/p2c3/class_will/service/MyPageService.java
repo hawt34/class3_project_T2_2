@@ -39,6 +39,11 @@ public class MyPageService {
 		
 		return myPageMapper.selectReviewByCode(reviewCode);
 	}
+	//리뷰 수정하는 거임.
+	public int updateReview(Map<String, String> formData) {
+		
+		return myPageMapper.updateReview(formData);
+	}
 
 	
 

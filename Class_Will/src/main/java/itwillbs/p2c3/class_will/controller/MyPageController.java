@@ -112,9 +112,23 @@ public class MyPageController {
 	}
 	
 	@PostMapping("edit-review")
-	public String editReview() {
+	public String editReview(Model model, @RequestParam Map<String, String> formData) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		model.addAttribute("member", member);
 		
-		return "mypage/mypage-review";
+		System.out.println("여기요 여기!formdata: " + formData);
+		int updateCount = myPageService.updateReview(formData);
+		
+		
+		if(updateCount > 0) {
+			 return "redirect:/my-review";			
+		} else {
+			model.addAttribute("msg", "리뷰수정 실패");
+			return "error/fail";
+		}
+		
+		
+		
 	}
 	
 	// 내가 쓴 리뷰

@@ -15,5 +15,7 @@ public interface MyPageMapper {
 	List<Map<String, String>> selectMemberReview(int member_code);
 
 	Map<String, String> selectReviewByCode(String reviewCode);
+
+	int updateReview(Map<String, String> formData);
 	
 }

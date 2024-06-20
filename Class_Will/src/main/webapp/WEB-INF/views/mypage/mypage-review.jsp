@@ -141,8 +141,7 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">항상 고마운
-									${member.member_nickname}님</div>
+								<div class="col-md-12 text-center h2 mb-5">항상 고마운 ${member.member_name}님</div>
 								<!-- 								여기부터 토스트 ui -->
 								<div class="table-responsive">
 									<h2>후기를 적을 수 있는 클래스가 ? 개 있습니다.</h2>

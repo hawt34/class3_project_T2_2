@@ -130,18 +130,14 @@
 		        ,class_price
 		        ,class_regist_status
 		        ,m.member_name
-		        ,type.code_value as 'class_type'
 		FROM class c
 		LEFT JOIN common2 c2
 		ON c.class_big_category = c2.common2_code
-		AND c2.common1_code = 3
+		AND c2.common1_code = 'CLC'
 		LEFT JOIN common3 c3
 		ON c.class_small_category = c3.common3_code
 		AND c3.common2_code = c2.common2_code
-		AND c3.common1_code = 3
-		LEFT JOIN common2 type
-		ON c.class_type = type.common2_code 
-		AND type.common1_code = 9
+		AND c3.common1_code = 'CLC'
 		JOIN MEMBER m
 		ON c.member_code = m.member_code;
 	</select>
@@ -149,7 +145,6 @@
 	<select id="selectClassInfo" resultType="map">
 		SELECT class_code
 				,class_name
-				,class_type
 				,class_big_category
 				,class_small_category
 				,class_thumnail
@@ -168,7 +163,7 @@
 		WHERE class_code = #{class_code}
 	</select>
 	
-	<select id="selectCommonCode" resultType="Integer">
+	<select id="selectCommonCode" resultType="String">
 		SELECT common1_code
 		FROM common1
 		WHERE code_value = #{code_value}
@@ -184,13 +179,13 @@
 	<select id="selectBigCategory">
 		SELECT *
 		FROM common2
-		WHERE common1_code = 3
+		WHERE common1_code = 'CLC'
 	</select>
 	
 	<select id="selectSmallCategory">
 		SELECT *
 		FROM common3
-		WHERE common1_code = 3
+		WHERE common1_code = 'CLC'
 	</select>
 	
 	<update id="updatedCategoryData" parameterType="map">
@@ -206,6 +201,7 @@
 			</otherwise>
 		</choose> 
 		WHERE common2_code = #{common2_code} 
+		AND common1_code = 'CLC'
 		AND common3_code = #{id}
 	</update>
 	
@@ -219,7 +215,7 @@
 	<insert id="insertCategoryData" parameterType="map">
 	    INSERT INTO common3
 	    VALUES
-	        (3, #{rowMap.common2_code}, #{rowMap.max_code}, #{rowMap.smallCategory}, null,
+	        ('CLC', #{rowMap.common2_code}, #{rowMap.max_code}, #{rowMap.smallCategory}, null,
 			<choose>
 				<when test="rowMap.hidden == true">
 					'Y'
@@ -233,7 +229,7 @@
 	
 	<delete id="deleteCategoryData" parameterType="map">
 		DELETE FROM common3
-		WHERE 	common1_code = 3 
+		WHERE 	common1_code = 'CLC' 
 		AND		common2_code = #{rowMap.common2_code}
 		AND		common3_code = #{rowMap.id}
 	</delete>

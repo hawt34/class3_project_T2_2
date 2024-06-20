@@ -11,8 +11,8 @@
 
     <title>관리자 페이지</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+   <!-- Custom fonts for this template-->
+        <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -28,6 +28,9 @@
 
     <!-- Toast UI Pagination Script -->
     <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+	<!-- admin_utils.js 로드 -->
+    <script src="${pageContext.request.contextPath}/resources/js/admin_utils.js"></script>
+    
 </head>
 <body id="page-top">
 
@@ -265,7 +268,6 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div id="grid"></div>
-                            <div id="pagination"></div>
                         </div>
                     </div>
 
@@ -275,16 +277,13 @@
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <!-- Footer 내용 생략 -->
-
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
-        <!-- Bootstrap core JavaScript-->
-    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -298,6 +297,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+    	    const itemsPerPage = 10;
+    	    let currentPage = 1;
+    	    
             const data = [
                 {
                     id: 1,
@@ -316,14 +318,6 @@
                 // 더 많은 회원 데이터 추가 가능
             ];
             
-            // 페이징을 위한 Pagination 인스턴스 생성
-            const pagination = new tui.Pagination(document.getElementById('pagination'), {
-                totalItems: data.length,
-                itemsPerPage: 10, // 페이지당 항목 수
-                visiblePages: 5, // 보이는 페이지 수
-                centerAlign: true
-            });
-			
             // 상세보기, 수정하기, 삭제 버튼
             class ActionRenderer {
                 constructor(props) {
@@ -389,10 +383,10 @@
                     }
                 ],
                 rowHeaders: ['rowNum'],
-                pageOptions: {
-                    useClient: true, // 클라이언트 사이드 페이징 사용
-                    perPage: 10 // 페이지당 항목 수
-                },
+    	        pageOptions: {
+    	            useClient: true,
+    	            perPage: itemsPerPage
+    	        },
                 bodyHeight: 400
             });
             

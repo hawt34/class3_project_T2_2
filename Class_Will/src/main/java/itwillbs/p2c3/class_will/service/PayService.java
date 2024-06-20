@@ -27,6 +27,11 @@ public class PayService {
 	public List<Map<String, Object>> getScheduleTime(String date, int parsedClass_code) {
 		return payMapper.selectScheduleTime(date, parsedClass_code);
 	}
+	
+	//payment 관련 정보 모두 가져오기
+	public Map<String, String> getPayInfo(Map<String, String> map) {
+		return payMapper.selectPayInfo(map);
+	}
 
 	
 }

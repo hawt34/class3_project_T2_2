@@ -16,16 +16,16 @@ public class CommonUtils {
 	@Autowired
 	private AdminService adminService;
 	
-	public List<Map<String, Integer>> commonProcess(String tableName) {
-		List<Map<String, Integer>> mapList = new ArrayList<Map<String, Integer>>();
+	public List<Map<String, Object>> commonProcess(String tableName) {
+		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
 		List<String> columnNames = adminService.getColumnNames(tableName);
 		
 		for(int i = 0; i < columnNames.size();i++) {
-			Integer common1_code = adminService.getCommonCode(columnNames.get(i));
+			String common1_code = adminService.getCommonCode(columnNames.get(i));
 			if(common1_code == null) {
 				continue;
 			}
-			Map<String, Integer> map = new HashMap<String, Integer>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put(columnNames.get(i), common1_code);
 			mapList.add(map);
 		}
@@ -38,7 +38,7 @@ public class CommonUtils {
 		List<String> columnNames = adminService.getColumnNames(tableName);
 		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i = 0; i < columnNames.size();i++) {
-			Integer common1_code = adminService.getCommonCode(columnNames.get(i));
+			String common1_code = adminService.getCommonCode(columnNames.get(i));
 			if(common1_code == null) {
 				continue;
 			}

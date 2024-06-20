@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +41,16 @@ public class CreatorController {
 	@GetMapping("creator-class")
 	public String createrClass(Model model) {
 		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		
+		List<JSONObject> cl_list = new ArrayList<JSONObject>(); 
+		
+		for(Map<String, Object> clas : classList) {
+            JSONObject cl = new JSONObject(clas);
+            cl_list.add(cl);
+		}
+		
+		model.addAttribute("cl_list", cl_list);
+		
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-class";
@@ -48,23 +59,42 @@ public class CreatorController {
 	@GetMapping("creator-classReg")
 	public String createrClassReg(Model model) {
 		
-		List<Map<String, String>> class_sort_List = creatorService.getSort();
+//		List<Map<String, String>> class_sort_List = creatorService.getSort();
+		List<Map<String, String>> categoryList = creatorService.getCategory();
+		List<Map<String, String>> hashtagList = creatorService.getHashtag();
+		List<Map<String, String>> hide = creatorService.getHide();
+		
+		
+//		System.out.println("class_sort_List : " + class_sort_List);
+//		model.addAttribute("class_sort_List", class_sort_List);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("hashtagList", hashtagList);
+		model.addAttribute("hide", hide);
+		
+		return "creator/creator-classReg";
+	}
+
+	// creater-class 상세페이지
+	@GetMapping("creator-classModify")
+	public String createrClassModify(Model model) {
+		
+//		List<Map<String, String>> class_sort_List = creatorService.getSort();
 		List<Map<String, String>> categoryList = creatorService.getCategory();
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		
 //		System.out.println("class_sort_List : " + class_sort_List);
-		model.addAttribute("class_sort_List", class_sort_List);
+//		model.addAttribute("class_sort_List", class_sort_List);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("hashtagList", hashtagList);
 		
-		return "creator/creator-classReg";
+		return "creator/creator-classModify";
 	}
 	
 	// ajax로 카테고리 처리
 	@ResponseBody
 	@GetMapping("getCategoryDetail")
-	public List<Map<String, String>> getCategoryDetail(@RequestParam String big_category){
-		List<Map<String, String>> categoryDetail = creatorService.getCategoryDetail(big_category);
+	public List<Map<String, Object>> getCategoryDetail(@RequestParam String big_category){
+		List<Map<String, Object>> categoryDetail = creatorService.getCategoryDetail(big_category);
 		System.out.println("categoryDetail: " + categoryDetail);
 		return categoryDetail;
 	}
@@ -82,12 +112,13 @@ public class CreatorController {
 		
 		for (Map.Entry<String, Object> entry : map.entrySet()) {
 			CurriVO curri = new CurriVO();
-            if (entry.getKey().contains("회차")) {
+            if (entry.getKey().contains("차시")) {
             	curri.setCurri_round(entry.getKey());
             	curri.setCurri_content((String)entry.getValue());
             	curriList.add(curri);
             }
         }
+		
 		System.out.println(">>>>>>>>>map: " + map);
 		System.out.println(">>>>>>>>>curriList: " + curriList);
 		
@@ -151,8 +182,15 @@ public class CreatorController {
 		List<String> dateList = Arrays.stream(((String)map.get("selectedDates")).split(","))
 			.map(String::trim)
 			.collect(Collectors.toList());
+		
+		for(String date : dateList) {
+			for(ClassTimeVO classTime : classTimeList) {
+				classTime.setDate(date);
+			}
+		}
+		System.out.println(">>>>>>>classTimeList" + classTimeList);
  
-		int insertCount = creatorService.insertClassPlan(map, classTimeList, dateList);
+		int insertCount = creatorService.insertClassPlan(map, classTimeList);
 		if(insertCount > 0) {
 			return "redirect:/creator-class";
 		}

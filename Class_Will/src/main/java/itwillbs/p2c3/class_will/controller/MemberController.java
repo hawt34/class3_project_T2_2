@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
@@ -24,24 +25,6 @@ public class MemberController {
 	
 	@Autowired 
 	private HttpSession session;
-	
-	
-//	
-//	// 관리자 로그인 폼으로
-//	@GetMapping("admin-login")
-//	public String adminLoginForm() {
-//		return "member/admin_login_form";
-//	}
-//	
-//	
-//	// 관리자 로그인 비즈니스 로직 처리
-//	@PostMapping("admin-login")
-//	public String adminLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
-//		
-//		
-//		return "redirect:/";
-//	}
-//	
 	
 	
 	
@@ -99,42 +82,80 @@ public class MemberController {
 	@PostMapping("member-login")
 	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
 		
-		MemberVO dbmember = memberService.selectMember(member);
+		MemberVO dbMember = memberService.selectMember(member);
 		
-		if(dbmember != null && dbmember.getMember_status().equals("2")) {
-			model.addAttribute("msg", "탈퇴한 회원입니다.");
+		if(dbMember != null && dbMember.getMember_status().equals("2")) {
+			model.addAttribute("msg", "이미 탈퇴한 회원입니다.");
 			return "result_process/fail";
-		} else if(dbmember != null && dbmember.getMember_status().equals("3")) {
+		} else if(dbMember != null && dbMember.getMember_status().equals("3")) {
 			model.addAttribute("msg", "휴면 회원입니다.");
-			model.addAttribute("targetURL", "member-login");
+			model.addAttribute("targetURL", "member-wake-up");
 			return "result_process/success";
+		} else if(dbMember == null || !passwordEncoder.matches(member.getMember_pwd(), dbMember.getMember_pwd())) { // 로그인 실패
+			model.addAttribute("msg", "이메일 또는 비밀번호를 확인해 주세요.");
+			return "result_process/fail";
+		} else {
+			session.setAttribute("member", dbMember);
+			model.addAttribute("member", dbMember);
+			System.out.println();
+			
+			return "redirect:/";
+			
 		}
 		
 		
-		
-		
-		
-		session.setAttribute("member", dbmember);
-		model.addAttribute("member", dbmember);
-		
-		
+	}
+	
+	// 멤버 로그아웃
+	@GetMapping("member-logout")
+	public String memberLogout() {
+		session.invalidate();
 		return "redirect:/";
 	}
 	
-	// 비밀번호 재설정
+	
+	// 비밀번호 찾기 폼으로
+	@GetMapping("find-passwd")
+	public String findPasswdFrom() {
+		return "member/find_passwd_form";
+	}
+	
+	// 비밀번호 찾기 - 이메일 전송 비즈니스 로직
+	@ResponseBody
+	@PostMapping("find-passwd")
+	public String findPasswdPro(MemberVO member, Model model) {
+		
+		MemberVO dbMember = memberService.selectMember(member);
+		
+//		MailAuthInfoVO mailAuthInfo = mailService.sendAuthMail(member);
+		
+		
+		
+		model.addAttribute("msg", "메일 발송이 완료되었습니다.\n 입력하신 메일을 확인해 주세요.");
+		
+		
+		
+		
+		return "result_process/success";
+	}
+	
+	
+	// 비밀번호 찾기
 	@GetMapping("reset-passwd")
 	public String resetPasswdFrom() {
-		
-		
 		return "member/reset_passwd_form";
 	}
 	
-
-	@GetMapping("main-test")
-	public String mainTest() {
+	// 휴면 회원 해제하기
+	@GetMapping("member-wake-up")
+	public String wakeUpForm() {
 		
-		return "main_temp";
+		
+		return "member/wake_up_form";
 	}
+	
+
+	
 	
 	
 	

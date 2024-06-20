@@ -44,12 +44,6 @@ a {
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="my-pre" class="h5"><i class="bi bi-heart"></i>&nbsp;
-								나의 취향</a>
-						</div>
-					</li>
-					<li>
-						<div class="d-flex justify-content-between fruite-name">
 							<a href="my-wish" class="h5"><i
 								class="bi bi-emoji-heart-eyes"></i>&nbsp; 관심 클래스</a>
 						</div>

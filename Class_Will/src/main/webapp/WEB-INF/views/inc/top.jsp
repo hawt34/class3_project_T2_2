@@ -211,6 +211,15 @@
             target.addEventListener('mouseleave', () => closeCollapse(target));
         });
     });
+    
+    function logout() {
+		
+    	if(confirm("로그아웃하시겠습니까?")) {
+    		location.href = "member-logout";
+    	}
+    } 
+    
+    
 </script>
 
 
@@ -264,28 +273,30 @@
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
 	                            </li>
-	                            <li class="nav-item">
-	                            	<a class="nav-link" href="member-login">로그인</a>
-	                            </li>
-	                            <li class="nav-item">
-			                                <a class="nav-link" href=""><i class="bi bi-person-circle"></i></a>
-			                    </li>
-<%-- 	                            <c:if test="${not empty member.member_email}"></c:if> --%>
+<!-- 	                            <li class="nav-item"> -->
+<!-- 	                            	<a class="nav-link" href="member-login">로그인</a> -->
+<!-- 	                            </li> -->
+<!-- 		                            <li class="nav-item"> -->
+<!-- 										<a class="nav-link" href="my-page"><i class="bi bi-person-circle"></i></a> -->
+<!-- 				                    </li> -->
+<%-- 	                            <c:if test="${not empty member.member_email}"> --%>
+<%-- 	                            </c:if> --%>
 	                            
-<%-- 	                            <c:choose> --%>
-<!-- <!-- 	                            	 로그인 정보가 없을 경우 -->
-<%-- 	                            	<c:when test="${empty member.member_email}"> --%>
-<!-- 		                            	<li class="nav-item">  -->
-<!-- 		                            		<a class="nav-link" href="member-login">로그인</a> -->
-<!-- 		                            	</li> -->
-<%-- 	                            	</c:when> --%>
-<!-- <!-- 	                            	 로그인 정보가 있을 경우 -->
-<%-- 	                            	<c:otherwise> --%>
-<!-- 	                            		<li class="nav-item"> -->
-<!-- 			                                <a class="nav-link" href=""><i class="bi bi-person-circle"></i></a> -->
-<!-- 			                            </li> -->
-<%-- 	                            	</c:otherwise> --%>
-<%-- 	                            </c:choose> --%>
+	                            <c:choose>
+	                            	<c:when test="${empty member.member_email}">
+		                            	<li class="nav-item"> 
+		                            		<a class="nav-link" href="member-login">로그인</a>
+		                            	</li>
+	                            	</c:when>
+	                            	<c:otherwise>
+	                            		<li class="nav-item">
+			                                <a class="nav-link" href="my-page"><i class="bi bi-person-circle"></i></a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" onclick="logout()">로그아웃</a>
+			                            </li>
+	                            	</c:otherwise>
+	                            </c:choose>
 	                        </ul>
 	                    </div>
 	

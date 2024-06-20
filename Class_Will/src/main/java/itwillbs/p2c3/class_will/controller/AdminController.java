@@ -58,7 +58,7 @@ public class AdminController {
 	public String adminMain(@RequestParam(defaultValue = "일반회원") String type, Model model) {
 		List<Map<String, String>> member_list = null;
 		String code_value = "member_type";
-		int common1_code = adminService.getCommonCode(code_value);
+		String common1_code = adminService.getCommonCode(code_value);
 		int common2_code = adminService.getCommon2Code(common1_code, type);
 		Map<String, Object> params = cUtils.commonProcess("MEMBER", common2_code);
 		
@@ -100,7 +100,7 @@ public class AdminController {
 	    Map<String, List<Map<String, Object>>> categoryData = adminService.getCategoryData();
 	    List<Map<String, Object>> bigCategory = categoryData.get("bigCategory");
 	    List<Map<String, Object>> smallCategory = categoryData.get("smallCategory");
-
+	    
 	    // 대분류에 소분류를 추가
 	    for (Map<String, Object> bcg : bigCategory) {
 	        Map<String, Object> map = new HashMap<>();
@@ -273,7 +273,7 @@ public class AdminController {
 			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
 			        .collect(Collectors.toList());
 			for(GroupedData gd : sortedData) {
-				common2_code = adminService.getCommon2Code(3, gd.getLargeCategory());
+				common2_code = adminService.getCommon2Code("CLC", gd.getLargeCategory());
 				for(Map<String, Object> rowMap : gd.getRows()) {
 					rowMap.put("common2_code", common2_code);
 					adminService.updateCategoryData(rowMap);
@@ -289,7 +289,7 @@ public class AdminController {
 			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
 			        .collect(Collectors.toList());
 			for(GroupedData gd : sortedData) {
-				common2_code = adminService.getCommon2Code(3, gd.getLargeCategory());
+				common2_code = adminService.getCommon2Code("CLC", gd.getLargeCategory());
 				for(Map<String, Object> rowMap : gd.getRows()) {
 					int max_code = adminService.getMaxCommon3Code(common2_code);
 					rowMap.put("common2_code", common2_code);
@@ -309,7 +309,7 @@ public class AdminController {
 			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
 			        .collect(Collectors.toList());
 			for(GroupedData gd : sortedData) {
-				common2_code = adminService.getCommon2Code(3, gd.getLargeCategory());
+				common2_code = adminService.getCommon2Code("CLC", gd.getLargeCategory());
 				for(Map<String, Object> rowMap : gd.getRows()) {
 					System.out.println("33333333333333333333" + rowMap);
 					rowMap.put("common2_code", common2_code);

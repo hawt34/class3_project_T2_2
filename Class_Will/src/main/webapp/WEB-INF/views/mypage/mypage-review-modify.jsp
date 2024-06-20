@@ -92,6 +92,20 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+
+.star-rating {
+	display: inline-block;
+}
+
+.star-rating span {
+	font-size: 2rem;
+	cursor: pointer;
+	color: #ccc;
+}
+
+.star-rating .filled {
+	color: #ffc107;
+}
 </style>
 </head>
 <body>
@@ -109,9 +123,7 @@ th:nth-child(2), td:nth-child(2) {
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">
-			
-		</h1>
+		<h1 class="text-center text-white display-6"></h1>
 	</div>
 
 	<div class="container-fluid fruite">
@@ -123,8 +135,6 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-
-
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
 								<div class="col-md-12 text-center h2 mb-5">리뷰 수정하기</div>
@@ -142,21 +152,21 @@ th:nth-child(2), td:nth-child(2) {
 											name="class_review_content" rows="5" required>${review.class_review_content}</textarea>
 									</div>
 									<div class="form-group">
-										<label for="rating">별점</label> <input type="number"
-											class="form-control" id="rating" name="class_review_rating"
-											min="1" max="5" value="${review.class_review_rating}"
-											required>
+										<label for="rating">별점</label>
+										<div id="star-rating" class="star-rating">
+											<span data-value="1">&#9733;</span> <span data-value="2">&#9733;</span>
+											<span data-value="3">&#9733;</span> <span data-value="4">&#9733;</span>
+											<span data-value="5">&#9733;</span>
+										</div>
+										<input type="hidden" id="rating" name="class_review_rating"
+											value="${review.class_review_rating}" required>
 									</div>
 									<button type="submit" class="btn btn-primary">수정</button>
-									<a href="/my-review" class="btn btn-secondary">취소</a>
+									<a href="my-review" class="btn btn-secondary">취소</a>
 								</form>
-							
 							</div>
 						</div>
-
 					</div>
-
-
 				</div>
 			</div>
 		</div>
@@ -185,6 +195,32 @@ th:nth-child(2), td:nth-child(2) {
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
+	<script>
+	  const stars = document.querySelectorAll('.star');
+	    const ratingInput = document.getElementById('rating');
+	    const selectedRating = document.getElementById('selected-rating');
+	    
+	    stars.forEach(star => {
+	        star.addEventListener('click', function() {
+	            const ratingValue = parseInt(this.getAttribute('data-value'));
+	            ratingInput.value = ratingValue;
+	            updateSelectedRating(ratingValue);
+	        });
+	    });
+	    
+	    function updateSelectedRating(value) {
+	        selectedRating.textContent = `선택한 별점: ${value}개`;
+	        
+	        // 별점 선택 시 시각적 효과 (옵션)
+	        stars.forEach(star => {
+	            const starValue = parseInt(star.getAttribute('data-value'));
+	            if (starValue <= value) {
+	                star.classList.add('selected');
+	            } else {
+	                star.classList.remove('selected');
+	            }
+	        });
+	    }
+    </script>
 </body>
 </html>

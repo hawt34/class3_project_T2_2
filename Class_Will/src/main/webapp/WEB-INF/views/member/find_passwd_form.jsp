@@ -52,7 +52,7 @@
 		color: white;
 	}
 	
-	p {
+	span {
 		font-size: 15px;
 	}
 	
@@ -71,29 +71,30 @@
 		<div class="container reset-form text-center">
 			<form action="reset-passwd" method="POST">
 				<div class="my-5">
-					<h2>비밀번호 재설정</h2>
+					<h2>비밀번호 찾기</h2>
 				</div>
-				<p>새로운 비밀번호를 설정해 주세요.</p>
+				<span>가입하신 이메일 주소를 입력해 주세요.</span><br>
+				<span>	이메일 주소로 비밀번호를 재설정할 수 있는 이메일을 보내드립니다.</span><br>
+				<span>	발송된 이메일의 비밀번호 재설정은 10분 간 유효합니다.</span><br>
 				<fieldset>
-					<div class="login-form-input">
-						<div class="input-group">
-							<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
-							<input type="password" id="member_pwd" name="member_pwd" class="form-control" placeholder="비밀번호"  required maxlength="20">
-                            <span class="input-group-text btn btn-light" id="togglePassword"><a><i class="bi bi-eye-slash" id="toggleIcon"></i></a></span>
-						</div>
-						<div class="regex py-2" id="regex-pwd"></div>
+					<div class="input-group mt-3">
+					  <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+					  <input type="text" class="form-control" id="member_email" name="member_email" placeholder="이메일">
 					</div>
+					<div class="regex mb-3 mt-1" id="regex-email"></div>
 					<div class="d-grid gap-2btnLogin">
-						<input type="submit" id="btnSub" value="변경하기" class="btn btn-outline-light btn-lg">
+						<input type="button" value="전송하기" class="btn btn-outline-light btn-lg" onclick="sendMail()">
 					</div>
 				</fieldset>
 			</form>
 			<div class="mt-3 mb-3">
-				<a href="member-login" class="text-center"><u>기존 비밀번호로 로그인하기</u></a>
+				<a href="member-login" class="text-center"><u>로그인하기</u></a>
 			</div>
 		</div>
 	</article>
-
+	
+	
+	
 	<footer>
       	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"/>
 	</footer>
@@ -111,21 +112,65 @@
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	<script>
-	
-	
-	    document.getElementById('togglePassword').addEventListener('click', function (e) {
-	        const passwordInput = document.getElementById('member_pwd');
-	        const toggleIcon = document.getElementById('toggleIcon');
-	        if (passwordInput.type === 'password') {
-	            passwordInput.type = 'text';
-	            toggleIcon.classList.remove('bi-eye-slash');
-	            toggleIcon.classList.add('bi-eye');
-	        } else {
-	            passwordInput.type = 'password';
-	            toggleIcon.classList.remove('bi-eye');
-	            toggleIcon.classList.add('bi-eye-slash');
-	        }
-	    });
+		$(function() {
+			// 이메일 정규표현식
+			$("#member_email").on("input", function() {
+				let inputEmail = $(this).val();
+				let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 형식
+				
+				 if (!regex.test(inputEmail)) {
+			            $("#regex-email").text("올바르지 않은 이메일 형식입니다.");
+			            $("#regex-email").css("color", "red");
+			        } else {
+			            $("#regex-email").text("");
+			        }
+			});
+		
+		});
+		
+		function sendMail() {
+			
+			$.ajax({
+				type: "GET",
+		        url: "find-passwd",
+		    	data : {
+			 		member_email : $("member_email").val()
+			 	},
+			 	dataType : "json",
+			 	success : function(checkDupPointResult) {
+			 		if(!checkDupPointResult) {
+			 			alert("보유 포인트를 초과할 수 없습니다.");
+	 					$("#useMemberPoint").val("");
+	 					$("#useMemberPoint").focus();
+			 		} else {
+			 			if(confirm ("포인트를 사용하시겠습니까?")){
+			 				if(discount_sum < parseInt(total_fee)) {
+					 			$("#point_apply").html(use_point);			// 적용할 포인트 값
+					 			$("#final_amount").html(final_amount+"원");		// 총 결제금액에  적용 값 
+					 			$("#discount_sum").html(discount_sum); 		// 총 할인 적용 값
+			 				} else {
+			 					alert("결제 금액을 초과할 수 없습니다.");
+			 					$("#useMemberPoint").val("");
+			 					$("#useMemberPoint").focus();
+			 				}
+			 			} else {
+			 				$("#useMemberPoint").val("");
+			 			}
+			 		}
+					
+				}
+				
+				
+				
+				
+			}); // ajax()
+			
+		} // sendMail()
+		
+		
+		
+		
+		
 	
 	</script>
 </body>

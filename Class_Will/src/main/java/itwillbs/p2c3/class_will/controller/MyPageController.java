@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,7 +12,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +25,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
+import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.MyPageService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Controller
 public class MyPageController {
 	private static final Logger logger = LoggerFactory.getLogger(MyPageController.class);
+	
+	@Autowired
+	private MemberService memberService;
+	
+
+	@Autowired 
+	private HttpSession session;
+	
 	
 	@Autowired
 	private AdminService adminService;
@@ -44,15 +50,15 @@ public class MyPageController {
 	@Autowired
 	private CommonUtils cUtils;
 	@GetMapping("my-page")
-	public String myPage(String member_code, Model model) {
-		member_code = "1000";
-		Map<String, Object> params = cUtils.commonProcess("MEMBER", member_code);
-		System.out.println(params + "여기에 뭐 들어있나 확인");
-		Map<String, String> member = adminService.getMemberInfo(params);
-		// 일단 임시로 사용
-		
-		model.addAttribute("member", member);
-		System.out.println(member);
+	public String myPage(Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		System.out.println("여기는 마이페이지" +member);
+//		if (member == null) {
+//            return "redirect:/";
+//        }
+		//System.out.println("멤버코드" +member.getMember_code());
+    	//나중에 여기에 조건 걸어서 로그인여부 확인할 예정
+				
 		return "mypage/mypage";
 
 	}
@@ -72,53 +78,33 @@ public class MyPageController {
 
 	// 내가 쓴 리뷰
 	@GetMapping("my-review")
-	public String myReview(String member_code, Model model) {
-		member_code = "1000";
-		Map<String, Object> params = cUtils.commonProcess("MEMBER", member_code);
-		System.out.println("여기는 리뷰 " + params);
-		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(params);
-		Map<String, String> member = adminService.getMemberInfo(params);
+	public String myReview(Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		//System.out.println("리뷰쪽 시작"+member.getMember_code());
 		
-		//토스트 ui 때문에 만들어봄.
-//		List<JSONObject> jsonReviews = new ArrayList<>();
-//	    for (Map<String, String> review : memberReviews) {
-//	        JSONObject jsonReview = new JSONObject(review);
-//	        jsonReviews.add(jsonReview);
-//	    }
-	    		
+		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member.getMember_code());
+			    		
 		model.addAttribute("member", member);
 		model.addAttribute("memberReviews", memberReviews);
-	    System.out.println(memberReviews);
-	    
-	    
+	    //System.out.println(memberReviews);
+	     
 	    
 	    
 		return "mypage/mypage-review";
 	}
 	// 리뷰 수정 
 	@GetMapping("edit-review-page")
-	public String editReviewPage(@RequestParam("review_code") String reviewCode, HttpSession session, Model model,String member_code) {
-	    
-	
-				
-				//(String) session.getAttribute("member_code");
-//	    if (memberCode == null) {
-//	        return "redirect:/login"; // 로그인 페이지로 리디렉션
-//	    }
-		member_code = "1000";
-		Map<String, Object> params = cUtils.commonProcess("MEMBER", member_code);
-		Map<String, String> member = adminService.getMemberInfo(params);
+	public String editReviewPage(@RequestParam("review_code") String reviewCode, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
 		model.addAttribute("member", member);
 		
-	    // 리뷰 정보를 가져옴
-	    Map<String, Object> params2 = new HashMap<>();
-	    params2.put("review_code", reviewCode);
-	    Map<String, String> review = myPageService.getReviewByCode(params2);
+	  
+	    Map<String, String> review = myPageService.getReviewByCode(reviewCode);
 
 	    // 리뷰 작성자 검증 
-	    if (!member_code.equals(String.valueOf(review.get("member_code")))) {
-	        throw new SecurityException("리뷰를 수정할 권한이 없습니다.");
-	    }
+//	    if (!member_code.equals(String.valueOf(review.get("member_code")))) {
+//	        throw new SecurityException("리뷰를 수정할 권한이 없습니다.");
+//	    }
 
 	    model.addAttribute("review", review);
 	    System.out.println("이건 수정할 때 데리고 오는 특정리뷰 1건" + review);
@@ -128,7 +114,7 @@ public class MyPageController {
 	@PostMapping("edit-review")
 	public String editReview() {
 		
-		return "redirect:/mypage/mypage_review";
+		return "mypage/mypage-review";
 	}
 	
 	// 내가 쓴 리뷰
@@ -139,8 +125,8 @@ public class MyPageController {
 
 	// 이미지 업로드 관련
 	@RequestMapping("upload_image")
-	public String handleFileUpload(@RequestParam("imageFile") MultipartFile file, HttpSession session,
-			HttpServletRequest request, Model model, MemberVO member) {
+	public String handleFileUpload(@RequestParam("imageFile") MultipartFile file,
+			HttpServletRequest request, Model model) {
 		// System.out.println(file); 파일 넘어오는지 확인
 //	        String id = (String) session.getAttribute("sId");
 		//
@@ -149,7 +135,7 @@ public class MyPageController {
 //	            model.addAttribute("targetURL", "member_login");
 //	            return "error/fail";
 //	        }
-		member.setMember_code(1000);
+		MemberVO member = (MemberVO)session.getAttribute("member");
 		member.setMember_imageFile(file);
 		String uploadDir = "/resources/upload";
 		String saveDir = session.getServletContext().getRealPath(uploadDir);
@@ -201,8 +187,8 @@ public class MyPageController {
 
 	//이미지 삭제 관련 실제삭제는 아니고 null값을 줘서 업데이트하는 개념.
 	@RequestMapping("delete_image")
-	public String resetImg(MemberVO member) {
-		member.setMember_code(1000);
+	public String resetImg() {
+		MemberVO member = (MemberVO)session.getAttribute("member");
 		member.setMember_img(null);
 		int updateCount = myPageService.updateMemberImg(member);
 		

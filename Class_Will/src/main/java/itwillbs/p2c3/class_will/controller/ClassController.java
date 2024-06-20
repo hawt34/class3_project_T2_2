@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,17 +13,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.PayService;
+
 
 @Controller
 public class ClassController {
+	
 	@Autowired
 	private PayService payService;
 	
+	@Autowired
+	private ClassService classService;
 	
 	// 클래스 리스트
 	@GetMapping("class-list")
-	public String classList() {
+	public String classList(Model model) {
+		// =================== 카테고리바 ===================
+		// 대 카테고리
+		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
+		model.addAttribute("bigCategoryList", bigCategoryList);
+		
+	    // 지역
+	    List<Map<String, Object>> localList = classService.getCategoryLocal();
+	    model.addAttribute("localList", localList);
+	    
+		
+		
 		return"class/class-list";
 	}
 	
@@ -38,6 +55,7 @@ public class ClassController {
 		//하려고 했는데 아직 메인이 완성이 안되어 있어서 내가 임시로 만든 클래스 코드 '54' 넣은거임
 		testClassCode.put("class_code", 54);
 		Map<String, Object> classInfo = payService.getClassInfo(testClassCode);
+		System.out.println("$$$$$$$$$$$$: " + classInfo);
 		model.addAttribute("classInfo", classInfo);
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)

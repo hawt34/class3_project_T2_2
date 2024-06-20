@@ -405,10 +405,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	    </div> <!-- col-md-9 -->
 	    </div><!-- content -->
 	    	
-	    				    <!-- 우측 강의 소개 -->
+ 				<!-- 우측 강의 소개 -->
 			    <div class="col-md-3">
 			    	<form action="payment" method="post" id="class_form">
-<%-- 			    		<input type="hidden" name="class_type" value="${class_type }"> --%>
 			    		<input type="hidden" name="class_code" value="${classInfo.class_code }">
 			    		<input type="hidden" name="class_big_category" value="${classInfo.class_big_category }">
 			    		<input type="hidden" name="class_small_category" value="${classInfo.class_small_category }">
@@ -418,57 +417,24 @@ document.addEventListener("DOMContentLoaded", function() {
 				    		<div class="row">
 						        <div id="datePicker"></div>
 						        <!-- 선택된 날짜를 저장할 input -->
-						        <c:choose>
-					    			<c:when test="${classInfo.class_type eq '1' }">
-								        <input type="hidden" id="selected_dates" name="selected_dates">
-					    			</c:when>
-					    			<c:otherwise>
-					    				<c:forEach var="schedule" items="${class_schedule }">
-					    					<input type="hidden" name="class_schedule_code" value="${schedule.class_schedule_code }">
-					    				</c:forEach>
-					    			</c:otherwise>
-					    			
-					    		</c:choose>
+						        <input type="hidden" id="selected_dates" name="selected_dates">
 						    </div>
 						    <!-- 타임 픽커 선택div -->
 						    <div class="row ">
-						    	<c:choose>
-						    		<c:when test="${classInfo.class_type eq '1'}">
-								    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
-						    		</c:when>
-						    		<c:otherwise>
-						    			<p class="fw-bold fs-4 text-center text-white">클래스 수업 시간</p>
-						    		</c:otherwise>
-						    	</c:choose>
-								<c:choose>
-									<c:when test="${classInfo.class_type eq '1' }">
-										<!-- ajax 호출 시 출력될 area -->
-										<div class="time_area" align="center">
-		<!-- 							    	<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group"> -->
-		<%-- 							    		<c:forEach var="time" items="${class_schedule }" varStatus="status"> --%>
-		<%-- 											<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio${status.count }" autocomplete="off"> --%>
-		<%-- 											<label class="btn btn-custom" for="vbtn-radio${status.count }"> --%>
-		<%-- 												<span class="selected_time">${time.class_st_time }~${time.class_ed_time }</span><br> --%>
-		<%-- 												현재 남은 자리: <span class="headcount">${time.class_remain_headcount}</span>자리 --%>
-		<!-- 											</label> -->
-		<%-- 							    		</c:forEach> --%>
-		<!-- 									</div> -->
-										</div>
-									</c:when>
-									<c:otherwise>
-										<c:set var="object"  value="${class_schedule[0] }"/>
-										<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-											<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio" autocomplete="off">
-											<label class="btn btn-custom" for="vbtn-radio">
-												<span class="selected_time">${object.class_st_time }~${object.class_ed_time }</span><br>
-												현재 남은 자리: <span class="headcount">${object.class_remain_headcount}</span>자리
-											</label>
-										</div>
-									</c:otherwise>
-								</c:choose>
-								<!-- -->
+						    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
+								<!-- ajax 호출 시 출력될 area -->
+								<div class="time_area" align="center">
+<!-- 							    	<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group"> -->
+<%-- 							    		<c:forEach var="time" items="${class_schedule }" varStatus="status"> --%>
+<%-- 											<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio${status.count }" autocomplete="off"> --%>
+<%-- 											<label class="btn btn-custom" for="vbtn-radio${status.count }"> --%>
+<%-- 												<span class="selected_time">${time.class_st_time }~${time.class_ed_time }</span><br> --%>
+<%-- 												현재 남은 자리: <span class="headcount">${time.class_remain_headcount}</span>자리 --%>
+<!-- 											</label> -->
+<%-- 							    		</c:forEach> --%>
+<!-- 									</div> -->
+								</div>
 					    		<input type="hidden" id="select_time" name="select_time">
-						    	
 						    </div>
 						    <!-- 인원 수 체크 -->
 							<div class="class_headcount">
@@ -550,21 +516,14 @@ document.addEventListener("DOMContentLoaded", function() {
 	</div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-//     클래스 타입 '1': 원데이  / '2': 장기
-    let classType = "${classInfo.class_type}";
     let classScheduleArray = ${class_schedule_date};
 //     console.log("받은 날짜: " + classScheduleArray);
-    
+    let class_code = "${classInfo.class_code}"
     let headcount = "";
     let enableDates = [];
-    let defaultDates = [];
+	
     
-    if (classType == '1') {
-        enableDates = classScheduleArray.map(item => item.class_schedule_date);
-    } else {
-    	defaultDates = classScheduleArray.map(item => item.class_schedule_date);
-    	console.log(defaultDates);
-    }
+	enableDates = classScheduleArray.map(item => item.class_schedule_date);
     
     //기본 flatpickr 설정
     let flatpickrOptions = {
@@ -572,104 +531,100 @@ document.addEventListener('DOMContentLoaded', function() {
         inline: true,
         locale: "ko" // 한글 설정
     };
-    if (classType === '2') { // tyep: '2'
-        // 장기 클래스 타입인 경우의 옵션
-        flatpickrOptions.mode = "multiple"; // 다중 선택 모드
-        flatpickrOptions.enable = classScheduleArray.map(item => item.class_schedule_date);
-        flatpickrOptions.defaultDate = defaultDates;
-        flatpickrOptions.onChange = function(selectedDates, dateStr, instance) {
-            console.log(selectedDates); // 선택된 날짜 배열
-		};
-        flatpickrOptions.onDayCreate = function(dObj, dStr, fp, dayElem) {
-            // defaultDates에 포함된 날짜를 클릭할 수 없도록 설정
-            const date = dayElem.dateObj;
-            const formattedDate = fp.formatDate(date, "Y-m-d");
+    debugger;
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    //오늘 날짜 들어있으면 filter
+    enableDates = enableDates.filter(dateStr => {
+        let date = new Date(dateStr);
+        date.setHours(0, 0, 0, 0);
+        return date.getTime() !== today.getTime();
+    });
+    
+    
+    // 원데이 클래스 타입인 경우의 옵션
+    flatpickrOptions.mode = "single"; // 단일 선택 모드
+    flatpickrOptions.enable = enableDates; // 선택 가능한 날짜 설정
+    flatpickrOptions.disable = [
+    	function(date) {
+            // 오늘 날짜 포함 이전 날짜 비활성화
+            return date < today;
+        }
+    ]; // 선택 가능한 날짜 설정
+    
+    flatpickrOptions.onChange = function(selectedDates, dateStr, instance) {
+    	console.log(dateStr);
+    	$.ajax({
+            url: 'date-changed',
+            type: 'GET',
+            data: {
+            	date: dateStr,
+            	class_code: "${classInfo.class_code}"
+            },
+            dataType: "json",
+            success: function(response) {
+				let scheduleTime = response;
+                $(".time_area").empty();
+                $.each(scheduleTime, function(index, time) {
+                	let remain = time.class_remain_headcount.toString();
+                    let countT = index + 1;
+                    let radioInput = $('<input>', {
+                        type: 'radio',
+                        class: 'btn-check',
+                        name: 'class_schedule_time',
+                        id: 'vbtn-radio' + countT,
+                        autocomplete: 'off'
+                    });
 
-            if (defaultDates.includes(formattedDate)) {
-                dayElem.classList.add("disabled-date");
-                dayElem.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }, { capture: true });
+                    var label = $('<label>', {
+                        class: 'btn btn-custom',
+                        for: 'vbtn-radio' + countT
+                    });
+
+                    var timeSpan = $('<span>', {
+                        class: 'selected_time',
+                        text: time.class_st_time + '~' + time.class_ed_time
+                    });
+
+                    var headcountSpan = $('<span>', {
+                        class: 'headcount',
+                        text: remain
+                    });
+
+                    label.append(timeSpan);
+                    label.append('<br>현재 남은 자리: ');
+                    label.append(headcountSpan);
+                    label.append('자리');
+
+                    $(".time_area").append(radioInput);
+                    $(".time_area").append(label);
+                    
+                });
+             	// 라디오 버튼의 change 이벤트 설정
+                $('input[name="class_schedule_time"]').change(function() {
+                	//인원수 초기화
+                	count.val(1);
+                    // 체크된 라디오 버튼의 라벨을 찾습니다.
+                    var label = $(this).next('label');
+                    // 라벨 안의 .headcount 요소의 값을 가져옵니다.
+                    headcount = label.find('.headcount').text();
+                    var selectedTime = label.find('.selected_time').text();
+                    $('#select_time').val(selectedTime);
+                    updateCount();
+                });
+            }, //success 끝
+            error: function() {
+            	alert("호출 실패");
             }
-        };
-    } else { // tyep: '1'
-        // 원데이 클래스 타입인 경우의 옵션
-        flatpickrOptions.mode = "single"; // 단일 선택 모드
-        flatpickrOptions.enable = enableDates; // 선택 가능한 날짜 설정
-        flatpickrOptions.onChange = function(selectedDates, dateStr, instance) {
-        	$.ajax({
-                url: 'date-changed',
-                type: 'GET',
-                data: {
-                	date: dateStr,
-                	class_code: "${classInfo.class_code}"
-                },
-                dataType: "json",
-                success: function(response) {
-//                     console.log(response);
-					let scheduleTime = response;
-                    $(".time_area").empty();
-                    $.each(scheduleTime, function(index, time) {
-                    	let remain = time.class_remain_headcount.toString();
-                        let countT = index + 1;
-                        let radioInput = $('<input>', {
-                            type: 'radio',
-                            class: 'btn-check',
-                            name: 'class_schedule_time',
-                            id: 'vbtn-radio' + countT,
-                            autocomplete: 'off'
-                        });
-
-                        var label = $('<label>', {
-                            class: 'btn btn-custom',
-                            for: 'vbtn-radio' + countT
-                        });
-
-                        var timeSpan = $('<span>', {
-                            class: 'selected_time',
-                            text: time.class_st_time + '~' + time.class_ed_time
-                        });
-
-                        var headcountSpan = $('<span>', {
-                            class: 'headcount',
-                            text: remain
-                        });
-
-                        label.append(timeSpan);
-                        label.append('<br>현재 남은 자리: ');
-                        label.append(headcountSpan);
-                        label.append('자리');
-
-                        $(".time_area").append(radioInput);
-                        $(".time_area").append(label);
-                        
-                    });
-                 	// 라디오 버튼의 change 이벤트 설정
-                    $('input[name="class_schedule_time"]').change(function() {
-                    	//인원수 초기화
-                    	count.val(1);
-                        // 체크된 라디오 버튼의 라벨을 찾습니다.
-                        var label = $(this).next('label');
-                        // 라벨 안의 .headcount 요소의 값을 가져옵니다.
-                        headcount = label.find('.headcount').text();
-                        var selectedTime = label.find('.selected_time').text();
-                        $('#select_time').val(selectedTime);
-                        updateCount();
-                    });
-                }, 
-//                 success 끝
-                error: function() {
-                	alert("호출 실패");
-                }
-            });
-        	
-            selectedDate = selectedDates.map(date => date.toISOString().slice(0, 10));
-            console.log("선택된 날짜:" + selectedDate);
-            document.getElementById('selected_dates').value = selectedDate;
-        };
-    }
-//   	인원수 변경 버튼 변수 설정
+        });
+//         selectedDate = selectedDates.map(date => date.toISOString().slice(0, 10));
+//         parsedDate = new Date(selectedDate + 1);
+//         console.log("선택된 날짜:" + selectedDate);
+// 		let dateString = dateStr.toString;
+        document.getElementById('selected_dates').value = dateStr;
+    };
+//  인원수 변경 버튼 변수 설정
 	let count = $("#class_count");
 	let prev = $("#headcount_prev");
 	let next = $("#headcount_next");
@@ -710,14 +665,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     //유효성 검사
     $("#class_form").submit(function(event) {
-    	if (classType === '1' && (!$("#selected_dates").val() || !$("input[name='class_schedule_time']:checked").val())) {
+    	if (!$("#selected_dates").val() || !$("input[name='class_schedule_time']:checked").val()) {
             alert("날짜와 시간을 선택하세요.");
-            event.preventDefault();
-            return false;
-        }
-    	
-    	if (classType === '2' && !$("input[name='class_schedule_time']:checked").val()) {
-            alert("시간을 선택하세요.");
             event.preventDefault();
             return false;
         }

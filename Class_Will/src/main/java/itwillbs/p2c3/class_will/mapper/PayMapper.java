@@ -20,6 +20,9 @@ public interface PayMapper {
 	List<Map<String, Object>> selectScheduleTime(@Param("date")String date,
 												 @Param("class_code")int parsedClass_code);
 	
+	//pay관련 모든 정보 가져오기
+	Map<String, String> selectPayInfo(Map<String, String> map);
+	
 
 	
 }

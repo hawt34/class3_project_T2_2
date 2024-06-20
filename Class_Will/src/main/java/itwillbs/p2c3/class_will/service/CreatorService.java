@@ -25,8 +25,8 @@ public class CreatorService {
 	}
 	
 	// 클래스 일정 등록
-	public int insertClassPlan(Map<String, Object> map, List<ClassTimeVO> classTime, List<String> dateList) {
-		return creatorMapper.insertClassPlan(map, classTime, dateList);
+	public int insertClassPlan(Map<String, Object> map, List<ClassTimeVO> classTime) {
+		return creatorMapper.insertClassPlan(map, classTime);
 	}
  
 	// 카테고리 대분류 가져오기
@@ -35,18 +35,22 @@ public class CreatorService {
 	}
 	 
 	// 카테고리 구분 가져오기 
-	public List<Map<String, String>> getSort(){
-		return creatorMapper.getSort();
-	}
+//	public List<Map<String, String>> getSort(){
+//		return creatorMapper.getSort();
+//	}
 	
 	// 카테고리 상세
-	public List<Map<String, String>> getCategoryDetail(String big_category) {
+	public List<Map<String, Object>> getCategoryDetail(String big_category) {
 		return creatorMapper.getCategoryDetail(big_category);
 	}
 	 
 	// 해쉬태그 가져오기 
 	public List<Map<String, String>> getHashtag(){
 		return creatorMapper.getHashtag();
+	}
+
+	public List<Map<String, String>> getHide(){
+		return creatorMapper.getHide();
 	}
 	
 	// 클래스정보 가져오기

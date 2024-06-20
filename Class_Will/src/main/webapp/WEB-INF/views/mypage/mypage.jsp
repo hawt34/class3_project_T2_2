@@ -130,16 +130,7 @@ th:nth-child(2), td:nth-child(2) {
 
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">반가워요 *** 님</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-heart"></i>&nbsp;나의 취향</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text word-break" style="color:black;">블라블라</p>
-											<a href="my-pre" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
+								<div class="col-md-12 text-center h2 mb-5">반가워요 ${member.member_name}님</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-emoji-heart-eyes"></i>&nbsp;관심 클래스</h6>

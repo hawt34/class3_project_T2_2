@@ -9,7 +9,6 @@
 		INSERT INTO class(  	  
 				  class_code
 				, class_name
-				, class_type
 				, class_big_category
 				, class_small_category
 				, class_thumnail
@@ -22,11 +21,12 @@
 				, class_price
 				, class_regist_status
 				, member_code
+				, class_map_x
+				, class_map_y
 		)
 		VALUES (
 			NULL
 			, #{class_name}
-			, #{class_type}
 			, #{class_big_category}
 			, #{class_small_category}
 			, #{class_thumnail}
@@ -37,8 +37,10 @@
 			, #{class_creator_explain}
 			, #{class_hide}
 			, #{class_price}
-			, 1
+			, #{class_regist_status}
 			, #{member_code}
+			, null
+			, null
 		)		
 	</insert>
 	
@@ -64,8 +66,7 @@
 	<!-- 클래스 일정 삽입 -->
 	<insert id="insertClassPlan">
 		INSERT INTO class_schedule
-		(	class_schedule_code
-			, class_code
+		(	class_code
 			, class_schedule_date
 			, class_round
 			, class_total_headcount
@@ -73,22 +74,19 @@
 			, class_ed_time
 			, class_remain_headcount			
 		)
-		VALUES(
-			<foreach collection="dateList" item="date" separator=",">
-		        <foreach collection="classTimeList" item="classTime" separator=",">
-		            (
-		            null
-		            , #{map.classSelect}
-		            , #{date}
-		            , #{classTime.round}
-		            , #{map.class_total_headcount}
-		            , #{classTime.startTime}
-		            , #{classTime.endTime}
-		            , #{map.class_total_headcount}
-		            )
-		        </foreach>
-		    </foreach>
-		)
+		VALUES
+	        <foreach collection="classTimeList" item="classTime" separator=",">
+	            (
+	            #{map.classSelect}
+	            , #{classTime.date}
+	            , #{classTime.round}
+	            , #{map.class_total_headcount}
+	            , #{classTime.startTime}
+	            , #{classTime.endTime}
+	            , #{map.class_total_headcount}
+	            )
+	        </foreach>
+		
 	</insert>
 	
 	<!-- 카테고리 대분류 조회 -->
@@ -98,22 +96,22 @@
 		FROM 
 			common2 c2
 		WHERE 
-			common1_code = 3 
+			common1_code = 'CLC'
 		AND 
 			code_hide = 'N' -- 3은 카테고리 공통코드
 	</select>
 
 	<!-- 클래스 구분 조회 -->
-	<select id="getSort" resultType="map">
-		SELECT 
-			common2_code, code_value
-		FROM 
-			common2 c2 
-		WHERE 
-			common1_code = 9
-		AND 
-			code_hide = 'N' -- 9은 클래스 구분 공통코드
-	</select>
+<!-- 	<select id="getSort" resultType="map"> -->
+<!-- 		SELECT  -->
+<!-- 			common2_code, code_value -->
+<!-- 		FROM  -->
+<!-- 			common2 c2  -->
+<!-- 		WHERE  -->
+<!-- 			common1_code = 9 -->
+<!-- 		AND  -->
+<!-- 			code_hide = 'N' -->
+<!-- 	</select> -->
 	
 	<!-- 카테고리 상세 -->
 	<select id="getCategoryDetail" resultType="map">
@@ -139,6 +137,17 @@
 	<select id="getClassInfo" resultType="map">
 		SELECT * 
 		FROM class
+	</select>
+	
+	<select id="getHide" resultType="map">
+		SELECT 
+			common2_code, code_value
+		FROM 
+			common2 c2
+		WHERE 
+			common1_code = 'HIDE' 
+		AND 
+			code_hide = 'N'
 	</select>
 	
 	

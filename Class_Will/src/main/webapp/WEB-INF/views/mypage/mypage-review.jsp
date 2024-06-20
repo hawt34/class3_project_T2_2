@@ -54,15 +54,6 @@ body {
 	
 }
 
-/* table { */
-/* 	border-collapse: collapse; */
-/* 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1); */
-/* 	background-color: white; */
-/* 	width: 100%; */
-/* 	border-radius: 10px; */
-/* 	font-size: 15px; */
-/* } */
-
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
@@ -73,7 +64,6 @@ table {
 	table-layout: fixed; /* 테이블 레이아웃 고정 */
 	word-wrap: break-word; /* 단어를 셀 내에서 줄바꿈 */
 }
-
 
 /* 테이블 행 */
 th, td {
@@ -112,7 +102,8 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
-@media (max-width: 768px) {
+
+@media ( max-width : 768px) {
 	.table-responsive {
 		overflow-x: auto; /* 가로 스크롤 가능하도록 설정 */
 	}
@@ -188,7 +179,7 @@ th:nth-child(2), td:nth-child(2) {
 												<th>클래스 이름</th>
 												<th>리뷰 제목</th>
 												<th>리뷰 별점</th>
-												
+
 												<th>작성 날짜</th>
 												<th>수정</th>
 												<th>삭제</th>
@@ -203,16 +194,28 @@ th:nth-child(2), td:nth-child(2) {
 														onclick="showReviewModal('${review.class_review_content}')"
 														style="color: black;">${review.class_review_subject}</a></td>
 													<td class="stars"><script>
-							                         // JavaScript로 별점을 동적으로 생성하는 코드
-							                           const starCount = ${review.class_review_rating}; // 별점 점수
-							                           const filledStars = '<i class="bi bi-star-fill text-warning"></i>'.repeat(starCount);
-							                           const emptyStars = '<i class="bi bi-star text-warning"></i>'.repeat(5 - starCount);
-							                           document.write(filledStars + emptyStars);
-							                       </script></td>
-													
+									                // 리뷰 별점 값
+									                const starCount${loop.index} = ${review.class_review_rating};
+
+									                // 별 아이콘을 담을 변수
+									                let stars${loop.index} = '';
+
+									                // 별 아이콘 생성
+									                for (let i = 1; i <= 5; i++) {
+									                    if (i <= starCount${loop.index}) {
+									                        stars${loop.index} += '<i class="bi bi-star-fill text-warning"></i>'; // 별점 채워진 아이콘
+									                    } else {
+									                        stars${loop.index} += '<i class="bi bi-star text-warning"></i>'; // 빈 별 아이콘
+									                    }
+									                }
+
+									                // 결과 출력
+									                document.write(stars${loop.index});
+									            </script></td>
 													<td>${review.class_review_date}</td>
 													<td>
-														<button class="btn btn-primary" onclick="location.href='edit-review-page?review_code=${review.class_review_code}'">수정</button>
+														<button class="btn btn-primary"
+															onclick="location.href='edit-review-page?review_code=${review.class_review_code}'">수정</button>
 													</td>
 													<td>
 														<button class="btn btn-danger"
@@ -272,6 +275,7 @@ th:nth-child(2), td:nth-child(2) {
            $('#reviewContent').text(reviewContent); // 리뷰 내용을 모달의 텍스트로 설정
            $('#reviewModal').modal('show'); // 모달 창 열기
        }
+	 
 	</script>
 
 </body>

@@ -180,10 +180,30 @@ body {
     height: 80px;
 }
 
+.rowCenter {
+	display: flex;
+	align-items: center;
+}
+
+.localDropdown {
+	width :	140px;
+}
+
+.localList {
+	text-align : center;
+}
+
+.vr-divider {
+    width: 1px;
+    background-color: #ddd;
+    margin: 0 10px; /* Adjust the margin to fit your design */
+}
 .categoryBarBox {
 /* 	background: #333; */
     border-radius: 10px;
 	opacity: 0.95;
+	height : 415px;
+	padding-top : 20px;
 }
 .form1 {
     position: relative;
@@ -289,4 +309,23 @@ body {
 
 .categorySelect {
 	height : 45px;
+/* 	text-align : left; */
+/* 	height : austo; */
 }
+.categorySelectBtn {
+	height : 45px;
+/* 	text-align : left; */
+/* 	height : austo; */
+}
+
+/* .dropdown-items:hover { */
+/* 	width : 300px; */
+/* } */
+/*         .categorySelect { */
+/*             width: 100%; */
+/*             height: auto; */
+/*         } */
+/*         .categorySelect option { */
+/*             width: 50%; */
+/*             display: inline-block; */
+/*         } */

@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,17 +13,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.PayService;
 
 @Controller
 public class ClassController {
+	
 	@Autowired
 	private PayService payService;
 	
+	@Autowired
+	private ClassService classService;
 	
 	// 클래스 리스트
 	@GetMapping("class-list")
-	public String classList() {
+	public String classList(Model model) {
+		// =================== 카테고리바 ===================
+		// 대 카테고리
+		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
+		model.addAttribute("bigCategoryList", bigCategoryList);
+		
+	    // 지역
+	    List<Map<String, Object>> localList = classService.getCategoryLocal();
+	    model.addAttribute("localList", localList);
+	    
+		
+		
 		return"class/class-list";
 	}
 	

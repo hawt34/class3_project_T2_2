@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,8 @@
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
     var heartOverlays = document.querySelectorAll(".heart-overlay");
@@ -96,37 +99,88 @@ body {
 					</div>
 					
 					<!-- 셀렉트박스 리스트 -->
-					<div class="row mx-5">
-						<div class="selectDiv col-md-2">
-							<select class="form-select categorySelect w-100" aria-label="Default select example">
-								<option selected>카테고리</option>
-								<option value="1">드로잉</option>
-								<option value="2">디지털 드로잉</option>
-								<option value="3">핸드메이드</option>
-								<option value="4">쿠킹 / 베이킹</option>
-								<option value="5">플라워 / 가드닝</option>
-								<option value="6">뷰티</option>
-								<option value="7">스포츠</option>
-								<option value="8">요가 / 필라테스</option>
-								<option value="9">사진 / 영상</option>
-								<option value="10">음악</option>
-							</select>
-						</div>
-						<div class="selectDiv col-md-2">
-							<select class="form-select categorySelect w-100" aria-label="Default select example">
-								<option selected>지역</option>
-								<option value="1">서울</option>
-								<option value="2">부산</option>
-								<option value="3">인천</option>
-							</select>
-						</div>
-						<div class="selectDiv col-md-2">
-							<select class="form-select categorySelect w-100"  aria-label="Default select example">
-								<option selected>유형</option>
-								<option value="1">원데이</option>
-								<option value="2">정기</option>
-							</select>
-						</div>
+					<div class="row mx-5 rowCenter">
+<!-- 						<div class="selectDiv col-md-2"> -->
+<!-- 							<select class="form-select categorySelect w-100" aria-label="Default select example"> -->
+<!-- 								<option selected>전체</option> -->
+<!-- 								<option value="1">드로잉</option> -->
+<!-- 								<option value="2">디지털 드로잉</option> -->
+<!-- 								<option value="3">핸드메이드</option> -->
+<!-- 								<option value="4">쿠킹 / 베이킹</option> -->
+<!-- 								<option value="5">플라워 / 가드닝</option> -->
+<!-- 								<option value="6">뷰티</option> -->
+<!-- 								<option value="7">스포츠</option> -->
+<!-- 								<option value="8">요가 / 필라테스</option> -->
+<!-- 								<option value="9">사진 / 영상</option> -->
+<!-- 								<option value="10">음악</option> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
+
+							<!-- 카테고리바 카테고리 시작 -->
+							<div class="dropdown col-md-2 categorySelect">
+								<button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+									카테고리
+								</button>
+								<ul class="dropdown-menu categoryDrop" aria-labelledby="dropdownMenuButton1" >
+<%-- 									<c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status"> --%>
+<%-- 										<li><a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%>
+<%-- 										<c:if test="${bigCategoryList.common2_code eq 10}"> --%>
+
+<%-- 										</c:if> --%>
+<%-- 									</c:forEach> --%>
+									<!-- ======================================================== -->
+									        <c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status">
+									            <li>
+									                <a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">
+									                    ${bigCategoryList.code_value}
+									                </a>
+<!-- 									                특정 조건에 따라 dropend 메뉴 추가 -->
+									                <c:if test="${bigCategoryList.common2_code eq 10}">
+									                    <ul class="dropdown-menu " aria-labelledby="submenu-${bigCategoryList.code_value}">
+									                        <li><a class="dropdown-item" href="#">서브메뉴 1</a></li>
+									                        <li><a class="dropdown-item" href="#">서브메뉴 2</a></li>
+									                    </ul>
+									                </c:if>
+									            </li>
+									        </c:forEach>
+								</ul>
+							</div>	
+							<!-- 카테고리바 카테고리 끝 -->
+							
+						    <!-- 카테고리바 지역 시작 -->
+							<div class="selectDiv col-md-2">
+								<div class="dropdown">
+									<button class="btn btn-light dropdown-toggle w-100 categorySelect" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+									지역
+									</button>
+									<div class="dropdown-menu localDropdown" aria-labelledby="dropdownMenuButton1" style="width: 300px;">
+										<div class="d-flex">
+											<div class="col">
+												<ul class="list-unstyled localList">
+												<li><a class="dropdown-item" href="#" value="전체">전체</a></li>
+													<c:forEach var="localList" items="${localList}" varStatus="status">
+														<c:if test="${status.index < 8}">
+															<li><a class="dropdown-item" href="#" value="${localList.code_value}">${localList.code_value}</a></li>
+														</c:if>
+													</c:forEach>
+												</ul>
+											</div>
+										<div class="vr-divider"></div>
+											<div class="col">
+												<ul class="list-unstyled localList">
+													<c:forEach var="localList" items="${localList}" varStatus="status">
+														<c:if test="${status.index >= 8}">
+															<li><a class="dropdown-item" href="#" value="${localList.code_value}">${localList.code_value}</a></li>
+														</c:if>
+													</c:forEach>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- 카테고리바 지역 끝 -->
+							
 <!-- 						<div class="selectDiv col-md-2"> -->
 <!-- 							<select class="form-select categorySelect w-100" aria-label="Default select example" id="customRange2"> -->
 <!-- 								<option selected>금액</option> -->
@@ -630,5 +684,7 @@ body {
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+
 </body>
 </html>

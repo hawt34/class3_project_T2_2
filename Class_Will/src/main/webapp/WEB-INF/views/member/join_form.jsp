@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -382,7 +384,7 @@
 				
 				 if (!regex.test(inputEmail)) {
 // 			            $(this).val("");
-			            $("#regex-email").text("올바르지 않은 이메일 형식입니다.");
+			            $("#regex-email").text("규칙에 맞는 이메일 주소를 입력해 주세요.");
 			            $("#regex-email").css("color", "red");
 			        } else {
 			            $("#regex-email").text("");
@@ -410,7 +412,7 @@
 			      let regex = /^[0-9-]{0,13}$/;
 			
 			      if (!regex.test(inputTel)) {
-			          $("#regex-tel").text("핸드폰 번호를 입력해 주세요.");
+			          $("#regex-tel").text("규칙에 맞는 핸드폰 번호를 입력해 주세요.");
 			          $("#regex-tel").css("color", "red");
 			      } else {
 			      	 $("#regex-tel").text("");

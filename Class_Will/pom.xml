@@ -206,6 +206,14 @@
 		    <version>0.2.23</version>
 		</dependency>
 		
+		
+		<!-- 쿨에스엠에스  -->
+		<dependency>
+		    <groupId>net.nurigo</groupId>
+		    <artifactId>sdk</artifactId>
+		    <version>4.3.0</version>
+		</dependency>
+		
 		<!--   =====================================================================  -->
 		<!--  AspectJ  -->
 		<dependency>

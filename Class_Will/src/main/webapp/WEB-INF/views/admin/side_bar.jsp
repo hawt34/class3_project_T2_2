@@ -9,6 +9,7 @@
 <script src="https://kit.fontawesome.com/b43f956240.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -66,9 +67,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">클래스 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">머시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">저시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">쳌</a>
                     </div>
                 </div>
             </li>
@@ -85,9 +83,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">카테고리 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">머시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">저시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">쳌</a>
                     </div>
                 </div>
             </li>
@@ -105,12 +100,11 @@
                         <h6 class="collapse-header">고객센터 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">전체 리스트</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">공지사항 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">1:1문의 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">FAQ 리스트</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">이벤트 리스트</a>
                     </div>
                 </div>
             </li>
-            
             
             <!-- Nav Item - 결제관리 -->
             <li class="nav-item">

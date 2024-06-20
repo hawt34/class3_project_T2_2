@@ -57,11 +57,11 @@ public class AdminService {
 		return adminMapper.selectClassInfo(class_code);
 	}
 
-	public Integer getCommonCode(String code_value) {
+	public String getCommonCode(String code_value) {
 		return adminMapper.selectCommonCode(code_value);
 	}
 
-	public int getCommon2Code(int common1_code, String type) {
+	public int getCommon2Code(String common1_code, String type) {
 		return adminMapper.selectCommon2Code(common1_code, type);
 	}
 

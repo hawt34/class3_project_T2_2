@@ -6,8 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import itwillbs.p2c3.class_will.vo.GroupedData;
-
 @Mapper
 public interface AdminMapper {
 
@@ -32,9 +30,9 @@ public interface AdminMapper {
 
 	Map<String, String> selectClassInfo(String class_code);
 
-	Integer selectCommonCode(String code_value);
+	String selectCommonCode(String code_value);
 
-	int selectCommon2Code(@Param("common1_code") int common1_code
+	int selectCommon2Code(@Param("common1_code") String common1_code
 						,@Param("type") String type);
 
 	List<Map<String, Object>> selectBigCategory();

@@ -234,4 +234,10 @@
 		AND		common3_code = #{rowMap.id}
 	</delete>
 	
+	<insert id="insertNotice" parameterType="map">
+		INSERT INTO notice
+		VALUES
+		(null, #{map.notice_subject}, #{map.notice_content}, #{map.notice_category}, 'Y', 'N')
+	</insert>
+	
 </mapper>

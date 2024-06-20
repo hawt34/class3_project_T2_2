@@ -89,6 +89,10 @@ public class AdminService {
 	public void deleteCategoryData(Map<String, Object> rowMap) {
 		adminMapper.deleteCategoryData(rowMap);
 	}
+
+	public boolean insertNotice(Map<String, Object> map) {
+		return adminMapper.insertNotice(map) > 0 ? true : false;
+	}
 	
 	
 }

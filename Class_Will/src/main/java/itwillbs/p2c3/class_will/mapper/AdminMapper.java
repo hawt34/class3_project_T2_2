@@ -48,6 +48,8 @@ public interface AdminMapper {
 	void deleteCategoryData(@Param("rowMap") Map<String, Object> rowMap);
 
 	List<Map<String, Object>> selectClassTable();
+
+	int insertNotice(@Param("map") Map<String, Object> map);
 	
 
 }

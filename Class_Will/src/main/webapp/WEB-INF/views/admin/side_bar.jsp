@@ -81,7 +81,7 @@
                 <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">카테고리 관리:</h6>
+                        <h6 class="collapse-header">클래스 카테고리 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">리스트</a>
                     </div>
                 </div>
@@ -98,10 +98,9 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">고객센터 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">전체 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">공지사항 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">FAQ 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">이벤트 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=notice">공지사항 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=faq">FAQ 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=event">이벤트 리스트</a>
                     </div>
                 </div>
             </li>

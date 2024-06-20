@@ -31,6 +31,8 @@
 	<!-- admin_utils.js 로드 -->
     <script src="${pageContext.request.contextPath}/resources/js/admin_utils.js"></script>
     
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+    
 </head>
 <body id="page-top">
 
@@ -259,15 +261,15 @@
                         </div>
                     </div>
                     <div>
-                        <button class="category-btn" data-category="all">전체</button>
                         <button class="category-btn" data-category="notice">공지사항</button>
                         <button class="category-btn" data-category="faq">FAQ</button>
-                        <button class="category-btn" data-category="oto">1:1문의</button>
+                        <button class="category-btn" data-category="event">이벤트</button>
                     </div>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div id="grid"></div>
+                            <button type="button" class="btn btn-secondary" name="registBtn" onclick="javascript:regist('${param.type}')">등록하기</button>
                         </div>
                     </div>
 
@@ -296,10 +298,16 @@
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
     <script>
+    	var currentParam = "";
+    	
+	    function regist(type){
+			window.open("admin-csc-regist?type=" + type, "등록폼", "width=500,height=600");	
+	    }
+	    
         document.addEventListener('DOMContentLoaded', function () {
     	    const itemsPerPage = 10;
     	    let currentPage = 1;
-    	    
+    		
             const data = [
                 {
                     id: 1,
@@ -318,7 +326,41 @@
                 // 더 많은 회원 데이터 추가 가능
             ];
             
-            // 상세보기, 수정하기, 삭제 버튼
+    	    // BootstrapSwitchRenderer 클래스 정의 (스위치 렌더러)
+    	    class BootstrapSwitchRenderer {
+    	        constructor(props) {
+    	            const el = document.createElement('div');
+    	            el.className = 'custom-control custom-switch';
+    	
+    	            const input = document.createElement('input');
+    	            input.type = 'checkbox';
+    	            input.className = 'custom-control-input';
+    	            input.id = 'customSwitch' + props.rowKey;
+    	            input.checked = props.value;
+    	            input.addEventListener('change', () => {
+    	                props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
+    	            });
+    	
+    	            const label = document.createElement('label');
+    	            label.className = 'custom-control-label';
+    	            label.htmlFor = 'customSwitch' + props.rowKey;
+    	
+    	            el.appendChild(input);
+    	            el.appendChild(label);
+    	
+    	            this.el = el;
+    	        }
+    	
+    	        getElement() {
+    	            return this.el;
+    	        }
+    	
+    	        render(props) {
+    	            this.el.querySelector('input').checked = props.value;
+    	        }
+    	    }
+            
+            // 상세보기 버튼
             class ActionRenderer {
                 constructor(props) {
                     const container = document.createElement('div');
@@ -330,28 +372,7 @@
                         window.open("CscDetail", "상세정보", "width=700px,height=800px")
                     });
 
-                    const editButton = document.createElement('button');
-                    editButton.className = 'btn btn-warning btn-sm ml-2';
-                    editButton.innerText = '수정하기';
-                    editButton.addEventListener('click', () => {
-                        alert(`수정할 회원 ID: ${props.value}`);
-                        // 여기에 수정하기 페이지로 이동하는 로직을 추가할 수 있습니다.
-                        // 예를 들어, location.href = `/member/edit/${props.value}`;
-                    });
-
-                    const deleteButton = document.createElement('button');
-                    deleteButton.className = 'btn btn-danger btn-sm ml-2';
-                    deleteButton.innerText = '삭제하기';
-                    deleteButton.addEventListener('click', () => {
-                        if (confirm(`회원 ID: ${props.value}\n정말로 삭제하시겠습니까?`)) {
-                            // 여기에 삭제 로직을 추가할 수 있습니다.
-                            alert('삭제되었습니다.');
-                        }
-                    });
-
                     container.appendChild(viewButton);
-                    container.appendChild(editButton);
-                    container.appendChild(deleteButton);
                     
                     this.el = container;
                 }
@@ -369,17 +390,22 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                    { header: 'ID', name: 'id' , editor: 'text'},
-                    { header: 'Name', name: 'name' , editor: 'text'},
-                    { header: 'Email', name: 'email' , editor: 'text'},
-                    { header: 'Registration Date', name: 'registrationDate' , editor: 'text'},
-                    { header: 'Status', name: 'status' , editor: 'text'},
+                	{ header: '글번호', name: 'code' , editor: 'text'},
+                    { header: '제목', name: 'subject' , editor: 'text'},
+                    { header: '카테고리', name: 'category' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',
                         renderer: {
                             type: ActionRenderer
                         }
+                    },
+                    {
+                    	header: '숨김',
+    	                name: 'hidden',
+    	                renderer: {
+    	                    type: BootstrapSwitchRenderer
+    	                }
                     }
                 ],
                 rowHeaders: ['rowNum'],
@@ -389,18 +415,6 @@
     	        },
                 bodyHeight: 400
             });
-            
-            // 페이지 변경 이벤트
-            pagination.on('beforeMove', function (event) {
-                const currentPage = event.page;
-                const startRow = (currentPage - 1) * 10;
-                const endRow = startRow + 10;
-
-                grid.resetData(data.slice(startRow, endRow));
-            });
-            
-            // 초기 데이터 설정
-            grid.resetData(data.slice(0, 10));
         });
     </script>
     

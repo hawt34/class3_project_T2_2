@@ -134,7 +134,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin-csc")
-	public String adminCsc() {
+	public String adminCsc(Model model) {
 		
 		return "admin/admin_csc";
 	}
@@ -142,6 +142,12 @@ public class AdminController {
 	@GetMapping("admin-csc-detail")
 	public String adminCscDetail() {
 		return "admin/admin_csc_detail";
+	}
+	
+	@GetMapping("admin-csc-regist")
+	public String adminCscRegist(String type, Model model) {
+		System.out.println(type);
+		return "admin/admin_csc_" + type + "_form";
 	}
 	
 	@GetMapping("admin-member-detail")
@@ -325,6 +331,19 @@ public class AdminController {
 		}
         
         
+    }
+    
+    
+    @PostMapping("admin-notice-pro")
+    public String noticePro(@RequestParam Map<String, Object> map) {
+    	System.out.println("33333333333333 map : " + map);
+    	
+    	boolean isInsertSuccess = adminService.insertNotice(map);
+    	
+    	System.out.println(isInsertSuccess);
+    	
+    	
+    	return "";
     }
 	
 }

@@ -103,9 +103,8 @@ th:nth-child(2), td:nth-child(2) {
 	color: #ccc;
 }
 
-.star-rating .filled {
+.star-rating .selected {
 	color: #ffc107;
-}
 </style>
 </head>
 <body>
@@ -196,31 +195,27 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-	  const stars = document.querySelectorAll('.star');
-	    const ratingInput = document.getElementById('rating');
-	    const selectedRating = document.getElementById('selected-rating');
-	    
-	    stars.forEach(star => {
-	        star.addEventListener('click', function() {
-	            const ratingValue = parseInt(this.getAttribute('data-value'));
-	            ratingInput.value = ratingValue;
-	            updateSelectedRating(ratingValue);
-	        });
-	    });
-	    
-	    function updateSelectedRating(value) {
-	        selectedRating.textContent = `선택한 별점: ${value}개`;
-	        
-	        // 별점 선택 시 시각적 효과 (옵션)
-	        stars.forEach(star => {
-	            const starValue = parseInt(star.getAttribute('data-value'));
-	            if (starValue <= value) {
-	                star.classList.add('selected');
-	            } else {
-	                star.classList.remove('selected');
-	            }
-	        });
-	    }
+	document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('#star-rating span');
+        const ratingInput = document.getElementById('rating');
+
+        function updateStars(rating) {
+            stars.forEach((star, index) => {
+                star.classList.toggle('selected', index < rating);
+            });
+        }
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const ratingValue = parseInt(this.getAttribute('data-value'));
+                ratingInput.value = ratingValue;
+                updateStars(ratingValue);
+            });
+        });
+
+        // 초기 별점 설정
+        updateStars(parseInt(ratingInput.value));
+    });
     </script>
 </body>
 </html>

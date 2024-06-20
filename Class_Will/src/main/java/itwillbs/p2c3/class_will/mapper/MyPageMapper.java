@@ -12,8 +12,8 @@ public interface MyPageMapper {
 
 	int updateMemberImg(MemberVO member);
 
-	List<Map<String, String>> selectMemberReview(Map<String, Object> params);
+	List<Map<String, String>> selectMemberReview(int member_code);
 
-	Map<String, String> selectReviewByCode(Map<String, Object> params);
+	Map<String, String> selectReviewByCode(String reviewCode);
 	
 }

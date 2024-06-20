@@ -114,7 +114,7 @@ public class MyPageController {
 	@PostMapping("edit-review")
 	public String editReview() {
 		
-		return "redirect:/mypage/mypage-review";
+		return "mypage/mypage-review";
 	}
 	
 	// 내가 쓴 리뷰

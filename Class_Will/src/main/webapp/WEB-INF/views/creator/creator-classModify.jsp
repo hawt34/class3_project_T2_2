@@ -107,18 +107,30 @@
 											<p>&nbsp;작성중</p>
 										</div>
 										<div class="classReg-basic-form">
-											<div class="col-md-6 mt-2 mb-4">
-												<label for="class_show" class="h6">공개여부</label> 
-												<select name="class_hide" id="class_show" class="form-control" required>
-													<option value="1">공개</option>
-													<option value="2">비공개</option>
-												</select>
-												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
-											</div>
 											<div class="col-md-12 mt-2 my-4">
 												<label for="class_name" class="h6">클래스 제목</label> 
 												<input type="text" name="class_name" id="class_name" class="form-control" required />
 												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6 my-4">
+													<label for="class_type" class="h6">클래스타입</label> 
+													<select name="class_type" id="class_type" class="form-control" required>
+														<c:forEach var="class_sort" items="${class_sort_List}">
+															<option value="${class_sort.common2_code}">${class_sort.code_value}</option>
+														</c:forEach>
+													</select>
+													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+												</div>
+											
+												<div class="col-md-6 my-4">
+													<label for="class_show" class="h6">공개여부</label> 
+													<select name="class_hide" id="class_show" class="form-control" required>
+														<option value="1">공개</option>
+														<option value="2">비공개</option>
+													</select>
+													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+												</div>
 											</div>
 											<div class="row"> 
 												<div class="col-md-6 my-4">
@@ -141,7 +153,7 @@
 												<label for="class_hashtag" class="h6">해쉬태그 선택</label>
 												<div id="item-list" class="d-flex">
 													<c:forEach var="hashtag" items="${hashtagList}">
-														<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button>
+														<button type="button" class="item" data-value="${hashtag.hash_tag_code}">#${hashtag.hash_tag_name}</button>
 													</c:forEach>
 											    </div>
 											    <input type="hidden" id="selected-items" name="class_hashtag" value=""> 
@@ -192,9 +204,9 @@
 							        			<th>커리큘럼내용</th>
 							        		</tr>
 							        		<tr>
-							        			<td>1차시</td>
+							        			<td>1회차</td>
 							        			<td>
-							        				<textarea name="1차시" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea>
+							        				<textarea name="1회차" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea>
 							        			</td>
 							        		</tr>
 							        	</table>
@@ -216,8 +228,8 @@
 									<hr class="mb-4">
 									
 									<div class="mb-4" align="center">
-										<input type="submit" value="제출하기" name="class_regist_status" class="btn btn-primary btn-lg btn-block" >
-										<input type="submit" value="저장하기" name="class_regist_status" class="btn btn-primary btn-lg btn-block" >
+										<input type="submit" value="제출하기" class="btn btn-primary btn-lg btn-block" >
+										<input type="reset" value="저장하기" class="btn btn-primary btn-lg btn-block" >
 										<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
 									</div>
 								</form>
@@ -264,12 +276,12 @@
 		  	 if(roundCount < 5){
 		  		roundCount++;
 	            let newRow = '<tr>'
-			                     + '<td>' + roundCount + '차시 <span class="delete-btn">&times;</span></td>'
-			                     + '<td><textarea name="' + roundCount + '차시" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea></td>'
+			                     + '<td>' + roundCount + '회차 <span class="delete-btn">&times;</span></td>'
+			                     + '<td><textarea name="' + roundCount + '회차" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea></td>'
 			                 + '</tr>';
 	            $('#timeTable').append(newRow);
 		  	} else{
-		  		 alert("차시는 5회까지 추가 가능합니다!");
+		  		 alert("회차는 5회까지 추가 가능합니다!");
 		  	}
 		       });
 
@@ -291,8 +303,8 @@
 	            roundCount = rows.length - 1; // 첫 번째 tr은 헤더이므로 제외
 	            rows.each(function (index) {
 	                if (index > 0) { // 첫 번째 tr은 헤더이므로 제외
-	                    $(this).find('textarea').attr('name', index + '차시' );
-	                    $(this).find('td:first').html(index + '차시 <span class="delete-btn">&times;</span>');
+	                    $(this).find('textarea').attr('name', index + '회차' );
+	                    $(this).find('td:first').html(index + '회차 <span class="delete-btn">&times;</span>');
 	                }
 	            });
 // 	            debugger;

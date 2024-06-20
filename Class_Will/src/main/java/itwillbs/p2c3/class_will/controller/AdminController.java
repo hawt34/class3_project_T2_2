@@ -62,7 +62,6 @@ public class AdminController {
 		int common2_code = adminService.getCommon2Code(common1_code, type);
 		Map<String, Object> params = cUtils.commonProcess("MEMBER", common2_code);
 		
-		
 		member_list = adminService.getMemberList(params);
 		
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 

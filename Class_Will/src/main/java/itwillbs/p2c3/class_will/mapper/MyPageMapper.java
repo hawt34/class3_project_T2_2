@@ -17,5 +17,7 @@ public interface MyPageMapper {
 	Map<String, String> selectReviewByCode(String reviewCode);
 
 	int updateReview(Map<String, String> formData);
+
+	int deleteReview(String class_review_code);
 	
 }

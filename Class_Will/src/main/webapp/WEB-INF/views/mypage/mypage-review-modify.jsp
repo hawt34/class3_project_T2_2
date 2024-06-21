@@ -161,7 +161,7 @@ th:nth-child(2), td:nth-child(2) {
 											value="${review.class_review_rating}" required>
 									</div>
 									<button type="submit" class="btn btn-primary">수정</button>
-									
+									<button type="button"  class="btn btn-primary" onclick="window.history.back()">뒤로가기</button>
 								</form>
 							</div>
 						</div>

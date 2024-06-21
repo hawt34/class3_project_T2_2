@@ -44,6 +44,11 @@ public class MyPageService {
 		
 		return myPageMapper.updateReview(formData);
 	}
+	//리부 삭제하는 거임
+	public int deleteReview(String class_review_code) {
+		
+		return myPageMapper.deleteReview(class_review_code);
+	}
 
 	
 

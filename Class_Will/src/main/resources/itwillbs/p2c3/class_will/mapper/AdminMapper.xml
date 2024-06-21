@@ -237,10 +237,37 @@
 		AND		common3_code = #{rowMap.id}
 	</delete>
 	
-	<insert id="insertNotice" parameterType="map">
-		INSERT INTO notice
+	<insert id="insertBoard" parameterType="map">
+		INSERT INTO ${map.type}
 		VALUES
-		(null, #{map.notice_subject}, #{map.notice_content}, #{map.notice_category}, 'Y', 'N')
+		(NULL, #{map.subject}, #{map.content}, #{map.category}, 'N')
 	</insert>
 	
+	<select id="selectCscList" resultType="map" parameterType="map">
+		SELECT *
+		FROM ${type}
+		ORDER BY ${type}_code DESC
+		<if test="startRow != null and !startRow.equals('')">
+			LIMIT #{startRow}, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectCscCount" resultType="int">
+	    SELECT COUNT(*)
+	    FROM ${type}
+	</select>
+	
+	<select id="selectCommon2Value" resultType="String">
+		SELECT code_value
+		FROM common2
+		WHERE common1_code = #{common1_code}
+		AND common2_code = #{common2_code}
+	</select>
+	
+	<select id="selectBoardCategory" resultType="map">
+		SELECT common2_code , code_value
+		FROM common2
+		WHERE common1_code = #{code}
+	</select>
+
 </mapper>

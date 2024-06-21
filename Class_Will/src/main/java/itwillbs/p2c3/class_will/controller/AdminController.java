@@ -143,10 +143,49 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin-csc")
-	public String adminCsc(Model model) {
+	public String adminCsc(Model model, String type) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		List<Map<String, Object>> data = adminService.getCscList(params);
+		String common2_value	 = "";
+		String common2_code = "";
+		String common1_code 	= "";
+		System.out.println(data);
+		for (Map<String, Object> map : data) {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getKey().contains("_category")) {
+                	System.out.println("ssssssssssssssssssss : " + entry.getValue());
+                	common2_code = (String)entry.getValue();
+                }
+            }
+            switch (type) {
+    		case "notice" 	: common1_code = "NTC"; break;
+    		case "faq" 		: common1_code = "FQC"; break;
+    		case "event"	: common1_code = ""; break;
+        }
+            Integer common2_code_int = Integer.parseInt(common2_code);
+            common2_value = adminService.getCommon2Value(common1_code, common2_code_int);
+            map.put(type + "_category", common2_value);
+            
+            
+            map.put("hidden", map.get(type + "_hide").equals("Y") ? true : false); 
+            
+            
+            System.out.println(map);
+		}
+		
+		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
+		
+		for(Map<String, Object> board : data) {
+            JSONObject jo = new JSONObject(board);
+            jo_list.add(jo);
+		}
+		
+		model.addAttribute("jo_list", jo_list);
 		
 		return "admin/admin_csc";
 	}
+	
 	
 	@GetMapping("admin-csc-detail")
 	public String adminCscDetail() {
@@ -155,8 +194,18 @@ public class AdminController {
 	
 	@GetMapping("admin-csc-regist")
 	public String adminCscRegist(String type, Model model) {
-		System.out.println(type);
-		return "admin/admin_csc_" + type + "_form";
+		model.addAttribute("type", type);
+		String code = "";
+		switch (type) {
+		case "notice" 	: code = "NTC"; break;
+		case "faq" 		: code = "FQC"; break;
+		case "event"	: break;
+		}
+		List<Map<String, Object>> category =  adminService.getBoardCategory(code);
+		
+		model.addAttribute("category", category);
+		
+		return "admin/admin_csc_form";
 	}
 	
 	@GetMapping("admin-member-detail")
@@ -343,18 +392,22 @@ public class AdminController {
     }
     
     
-    @PostMapping("admin-notice-pro")
-    public String noticePro(@RequestParam Map<String, Object> map) {
-    	System.out.println("33333333333333 map : " + map);
+    @PostMapping("admin-csc-pro")
+    public String noticePro(@RequestParam Map<String, Object> map, Model model) {
+    	boolean isInsertSuccess = false;
+    	isInsertSuccess = adminService.insertBoard(map);
     	
-    	boolean isInsertSuccess = adminService.insertNotice(map);
-    	
-    	System.out.println(isInsertSuccess);
-    	
+    	if(!isInsertSuccess) {
+    		model.addAttribute("msg", "글 등록 실패!");
+    		model.addAttribute("isClose", "true");
+    		return "result_process/fail";
+    	}
     	
     	return "";
     }
     
+    
+    // 썸머노트 이미지업로드
 //    @ResponseBody
 //    @PostMapping("admin-uploadImage")
 //    public String uploadImage(@RequestParam("file") MultipartFile file, HttpSession session) {

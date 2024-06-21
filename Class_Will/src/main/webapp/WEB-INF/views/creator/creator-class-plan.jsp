@@ -240,7 +240,6 @@
                             // 테이블을 추가할 위치에 HTML 삽입
                             $('#scheduleTableContainer').append(tableHtml);
 							
-							
 						} else{ // 일정이 등록된게 없으면 보이기
 							$('.creator-plan-bottom').removeClass('hidden');
 							$('#datepicker').removeClass('hidden');
@@ -249,7 +248,9 @@
 					}
 				});	
 			});
+			
 			function deleteSchedule(classCode) {
+				debugger;
 				$.ajax({
 					url: "deleteSchedule",
 					method: "get",
@@ -257,7 +258,9 @@
 					success: function(data) {
 						console.log("제거완료");
 					}
+				});
 			}
+				
 			
 			
 	        // jQuery UI datepicker 한국어 설정
@@ -295,7 +298,6 @@
                 onSelect: function(dateText, inst) {
                 	
                 	// ui-state-highlight
-                	
                     selectedDates = $('#datepicker').multiDatesPicker('getDates');
                     var $datepicker = $('#datepicker');
 //                     debugger;

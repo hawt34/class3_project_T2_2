@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
     enableDates = enableDates.filter(dateStr => {
         let date = new Date(dateStr);
         date.setHours(0, 0, 0, 0);
-        return date.getTime() !== today.getTime();
+        return date.getTime() > today.getTime();
     });
     
     

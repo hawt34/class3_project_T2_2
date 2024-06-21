@@ -128,7 +128,7 @@
 		        ,class_creator_explain
 		        ,class_hide
 		        ,class_price
-		        ,class_regist_status
+		        ,crs.code_value AS 'class_regist_status'
 		        ,m.member_name
 		FROM class c
 		LEFT JOIN common2 c2
@@ -138,6 +138,9 @@
 		ON c.class_small_category = c3.common3_code
 		AND c3.common2_code = c2.common2_code
 		AND c3.common1_code = 'CLC'
+		LEFT JOIN common2 crs
+		ON c.class_regist_status = crs.common2_code
+		AND crs.common1_code = 'CRS'
 		JOIN MEMBER m
 		ON c.member_code = m.member_code;
 	</select>

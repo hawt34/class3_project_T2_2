@@ -39,7 +39,7 @@ a {
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
 							<a href="my-page" class="h5"><i class="fas fa-user fa-1x"></i>&nbsp;
-								${member.member_nickname}님 </a>
+								${member.member_name}님 </a>
 						</div>
 					</li>
 					<li>
@@ -109,11 +109,14 @@ a {
 						<img id="previewImage" src="#" alt="이미지 미리보기"
 							style="width: 150px; height: 150px" />
 					</div>
+					
+					<div class="form-group">
 					<button type="submit" class="btn btn-primary">업로드</button>
 					<button type="button" class="btn btn-primary"
 						onclick="cancelUpload()">취소</button>
 					<input type="button" value="이미지삭제" class="btn btn-primary"
 						onclick="resetImg()">
+					</div>	
 				</form>
 			</div>
 		</div>

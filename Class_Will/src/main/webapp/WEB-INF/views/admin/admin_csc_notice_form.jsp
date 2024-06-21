@@ -8,8 +8,6 @@
 <title>공지사항 등록폼</title>
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.7.1.js"></script>
-<!-- 썸머노트 cdn -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- 부트스트랩 링크 -->
@@ -23,6 +21,7 @@
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
 <link href="${pageContext.request.contextPath}/resources/css/admin_form.css" rel="stylesheet" type="text/css">
+
 <style>
 	/* Summernote 라인 높이 조정 */
 	.note-editable {
@@ -102,7 +101,36 @@
 	    ['view', ['fullscreen', 'codeview', 'help']],
 	    ['height', ['height']]
 	  ]
+//       ,callbacks: {
+//           onImageUpload: function(files) {
+//               for (var i = 0; i < files.length; i++) {
+//                   uploadImage(files[i]);
+//               }
+//           }
+//       }
 	});
+	
+// 	function uploadImage(file) {
+//         var data = new FormData();
+//         data.append('file', file);
+        
+//         $.ajax({
+//             url: 'admin-uploadImage',
+//             type: 'POST',
+//             data: data,
+//             contentType: false,
+//             processData: false,
+//             success: function(url) {
+//                 var jsonResponse = JSON.parse(url);
+//                 var imageUrl = jsonResponse.url;
+                
+//                 $('#summernote').summernote('insertImage', imageUrl, function ($image) {
+//                     $image.attr('src', imageUrl);
+//                     $image.attr('class', 'img-responsive');
+//                 });
+//             }
+//         });
+//     }
 </script>
 <script>
 	function copyDisabledSelectValue() {

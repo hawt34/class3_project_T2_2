@@ -76,6 +76,7 @@
 				<p>새로운 비밀번호를 설정해 주세요.</p>
 				<fieldset>
 					<div class="login-form-input">
+						<input type="hidden" value="${member_email}" name="member_email"> 
 						<div class="input-group">
 							<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
 							<input type="password" id="member_pwd" name="member_pwd" class="form-control" placeholder="비밀번호"  required maxlength="20">
@@ -126,7 +127,26 @@
 	            toggleIcon.classList.add('bi-eye-slash');
 	        }
 	    });
-	
+		
+	    $(function() {
+			 // 비밀번호 정규표현식
+			$("#member_pwd").on("input", function() {
+			      let inputPwd = $(this).val();
+			
+			      let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
+			
+			      if (!regex.test(inputPwd)) {
+			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
+			          $("#regex-pwd").css("color", "red");
+			      } else {
+			      	 $("#regex-pwd").text("");
+			      }
+			  });
+			 
+			 
+			
+		});
+		
 	</script>
 </body>
 </html>

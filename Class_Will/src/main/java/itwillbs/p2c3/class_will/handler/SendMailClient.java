@@ -15,7 +15,7 @@ import jakarta.mail.internet.MimeMessage;
 public class SendMailClient {
 	private static final String HOST = "smtp.naver.com"; 
 	private static final String PORT = "587"; 
-	private static final String SERNDER_MAIL = "wnsgur3435@Naver.com"; 
+	private static final String SERNDER_MAIL = "wnsgur3435@naver.com"; 
 	
 	public void sendMail(String email, String subject, String content) {
 		try {
@@ -34,7 +34,7 @@ public class SendMailClient {
 			
 			Message message = new MimeMessage(mailSession);
 			
-			Address senderAddress = new InternetAddress(SERNDER_MAIL, "부기무비");
+			Address senderAddress = new InternetAddress(SERNDER_MAIL, "클래스윌");
 			
 			Address receiverAddress = new InternetAddress(email);
 			
@@ -52,8 +52,9 @@ public class SendMailClient {
 			
 			Transport.send(message);
 			
-			System.out.println("인증메일 발송 성공");
+			System.out.println("인증 메일 발송 성공");
 		} catch (Exception e) {
+			System.out.println("인증 메일 발송 실패!");
 			e.printStackTrace();
 		}		
 	}

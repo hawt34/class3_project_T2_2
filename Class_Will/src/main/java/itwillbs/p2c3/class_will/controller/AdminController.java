@@ -1,15 +1,24 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -25,6 +34,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -344,6 +354,64 @@ public class AdminController {
     	
     	return "";
     }
+    
+//    @ResponseBody
+//    @PostMapping("admin-uploadImage")
+//    public String uploadImage(@RequestParam("file") MultipartFile file, HttpSession session) {
+//        if (file.isEmpty()) {
+//            return "{\"url\":\"\"}";
+//        }
+//
+//        String fileURL = "";
+//        String uploadDir = "/resources/upload";
+//        String saveDir = session.getServletContext().getRealPath(uploadDir);
+//        System.out.println("실제 업로드 경로(session): " + saveDir);
+//        // 실제 업로드 경로
+//
+//        String subDir = "";
+//        LocalDate today = LocalDate.now();
+//        String datePattern = "yyyy/MM/dd";
+//
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
+//        System.out.println(today.format(dtf));
+//        subDir = today.format(dtf);
+//
+//        saveDir += "/" + subDir;
+//        System.out.println(saveDir);
+//
+//        Path path = Paths.get(saveDir);
+//
+//        try {
+//            // Files 클래스의 createDirectories() 메서드 호출하여 실제 경로 생성
+//            Files.createDirectories(path);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
+//
+//        // 클라이언트가 접근할 수 있는 URL 경로 생성
+//        String webUrl = uploadDir + "/" + subDir + "/" + fileName;
+//        if (file.getOriginalFilename().equals("")) {
+//            webUrl = uploadDir + "/" + subDir + "/" + fileName;
+//        }
+//
+//        try {
+//            if (!file.getOriginalFilename().equals("")) {
+//                file.transferTo(new File(saveDir, fileName));
+//            }
+//        } catch (IllegalStateException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        System.out.println(webUrl);
+//
+//        // JSON 형식으로 반환
+//        return "{\"url\":\"" + webUrl.replace("\\", "/") + "\"}";
+//        
+//    }
 	
 }
 	

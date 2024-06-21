@@ -2,6 +2,7 @@ package itwillbs.p2c3.class_will.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonObject;
+
+import itwillbs.p2c3.class_will.service.MailService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
 
@@ -120,35 +125,62 @@ public class MemberController {
 		return "member/find_passwd_form";
 	}
 	
-	// 비밀번호 찾기 - 이메일 전송 비즈니스 로직
+	// 비밀번호 변경 이메일 전송
 	@ResponseBody
 	@PostMapping("find-passwd")
-	public String findPasswdPro(MemberVO member, Model model) {
+	public String findPasswdPro(MemberVO member) {
+		System.out.println("findPasswdPro - member : " +member );
 		
 		MemberVO dbMember = memberService.selectMember(member);
+		MailService mailService = new MailService();
 		
-//		MailAuthInfoVO mailAuthInfo = mailService.sendAuthMail(member);
-		
-		
-		
-		model.addAttribute("msg", "메일 발송이 완료되었습니다.\n 입력하신 메일을 확인해 주세요.");
-		
-		
-		
-		
-		return "result_process/success";
+		if(dbMember == null) {
+			return "false";
+		} 
+			
+		mailService.sendAuthMail(member);
+		return "true";
 	}
 	
 	
-	// 비밀번호 찾기
+	// 비밀번호 찾기 폼으로 (변경 이메일로부터 옴)
 	@GetMapping("reset-passwd")
-	public String resetPasswdFrom() {
+	public String resetPasswdFrom(@RequestParam String email, Model model) {
+		model.addAttribute("member_email", email);
 		return "member/reset_passwd_form";
 	}
+	
+	// 비밀번호 변경 비즈니스 로직
+	@PostMapping("reset-passwd")
+	public String resetPasswdPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
+		
+		System.out.println("resetPasswdPro - member : " + member);
+		
+		String securePasswd = passwordEncoder.encode(member.getMember_pwd());
+		System.out.println("평문 : " + member.getMember_pwd()); 
+		System.out.println("암호문 : " + securePasswd); 
+		
+		member.setMember_pwd(securePasswd);
+		
+		boolean isSuccess = memberService.updatePassword(member);
+		
+		if(isSuccess) {
+			model.addAttribute("msg", "비밀번호 변경이 완료되었습니다.\\n로그인 후 이용해 주세요. ");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/success";
+		} else {
+			model.addAttribute("msg", "비밀번호 변경이 불가능합니다.\\n관리자에게 문의해 주세요.");
+			return "result_process/fail";
+		}
+		
+		
+	} // resetPasswdPro()
+	
 	
 	// 휴면 회원 해제하기
 	@GetMapping("member-wake-up")
 	public String wakeUpForm() {
+		
 		
 		
 		return "member/wake_up_form";

@@ -141,7 +141,8 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">항상 고마운 ${member.member_name}님</div>
+								<div class="col-md-12 text-center h2 mb-5">항상 고마운
+									${member.member_name}님</div>
 								<!-- 								여기부터 토스트 ui -->
 								<div class="table-responsive">
 									<h2>후기를 적을 수 있는 클래스가 ? 개 있습니다.</h2>
@@ -178,7 +179,6 @@ th:nth-child(2), td:nth-child(2) {
 												<th>클래스 이름</th>
 												<th>리뷰 제목</th>
 												<th>리뷰 별점</th>
-
 												<th>작성 날짜</th>
 												<th>수정</th>
 												<th>삭제</th>
@@ -207,7 +207,7 @@ th:nth-child(2), td:nth-child(2) {
 									                        stars${loop.index} += '<i class="bi bi-star text-warning"></i>'; // 빈 별 아이콘
 									                    }
 									                }
-
+											
 									                // 결과 출력
 									                document.write(stars${loop.index});
 									            </script></td>
@@ -218,7 +218,7 @@ th:nth-child(2), td:nth-child(2) {
 													</td>
 													<td>
 														<button class="btn btn-danger"
-															onclick="deleteReview(${review.class_review_code})">삭제</button>
+															onclick="confirmDelete(${review.class_review_code})">삭제</button>
 													</td>
 												</tr>
 											</c:forEach>
@@ -274,7 +274,26 @@ th:nth-child(2), td:nth-child(2) {
            $('#reviewContent').text(reviewContent); // 리뷰 내용을 모달의 텍스트로 설정
            $('#reviewModal').modal('show'); // 모달 창 열기
        }
-	 
+	   function confirmDelete(review_code) {
+		   if (confirm("삭제하시겠습니까?")) {
+               deleteReview(review_code);
+           }	
+	   }
+	   
+	   function deleteReview(review_code) {
+	        $.ajax({
+	            url: 'delete-review',
+	            type: 'POST',
+	            data: {review_code: review_code},
+	            success: function(response) {
+	                alert('성공적으로 삭제했습니다.');
+	                location.reload(); 
+	            },
+	            error: function() {
+	                alert('리뷰 삭제에 실패하였습니다.');
+	            }
+	        });
+	    }
 	</script>
 
 </body>

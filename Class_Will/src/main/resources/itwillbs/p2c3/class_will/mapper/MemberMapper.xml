@@ -32,6 +32,12 @@
 		FROM MEMBER 
 		WHERE member_email = #{member_email}
 	</select>
+	
+	<update id="updatePassword">
+		UPDATE MEMBER
+		SET member_pwd = #{member_pwd}
+		WHERE member_email = #{member_email}
+	</update>
 
 
 

@@ -77,17 +77,17 @@
 				<span>	이메일 주소로 비밀번호를 재설정할 수 있는 이메일을 보내드립니다.</span><br>
 				<span>	발송된 이메일의 비밀번호 재설정은 10분 간 유효합니다.</span><br>
 				<fieldset>
-					<div class="input-group mt-3">
+					<div class="input-group mt-5 mb-3">
 					  <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
 					  <input type="text" class="form-control" id="member_email" name="member_email" placeholder="이메일">
 					</div>
 					<div class="regex mb-3 mt-1" id="regex-email"></div>
-					<div class="d-grid gap-2btnLogin">
+					<div class="d-grid gap-2 btnLogin mt-5">
 						<input type="button" value="전송하기" class="btn btn-outline-light btn-lg" onclick="sendMail()">
 					</div>
 				</fieldset>
 			</form>
-			<div class="mt-3 mb-3">
+			<div class="mt-3 mb-5">
 				<a href="member-login" class="text-center"><u>로그인하기</u></a>
 			</div>
 		</div>
@@ -131,35 +131,25 @@
 		function sendMail() {
 			
 			$.ajax({
-				type: "GET",
+				type: "POST",
 		        url: "find-passwd",
 		    	data : {
-			 		member_email : $("member_email").val()
+			 		member_email : $("#member_email").val()
 			 	},
 			 	dataType : "json",
-			 	success : function(checkDupPointResult) {
-			 		if(!checkDupPointResult) {
-			 			alert("보유 포인트를 초과할 수 없습니다.");
-	 					$("#useMemberPoint").val("");
-	 					$("#useMemberPoint").focus();
+			 	success : function(result) {
+			 		if(result) {
+			 			alert("메일 발송이 완료되었습니다.\n메일함을 확인해 주세요.");
 			 		} else {
-			 			if(confirm ("포인트를 사용하시겠습니까?")){
-			 				if(discount_sum < parseInt(total_fee)) {
-					 			$("#point_apply").html(use_point);			// 적용할 포인트 값
-					 			$("#final_amount").html(final_amount+"원");		// 총 결제금액에  적용 값 
-					 			$("#discount_sum").html(discount_sum); 		// 총 할인 적용 값
-			 				} else {
-			 					alert("결제 금액을 초과할 수 없습니다.");
-			 					$("#useMemberPoint").val("");
-			 					$("#useMemberPoint").focus();
-			 				}
-			 			} else {
-			 				$("#useMemberPoint").val("");
+			 			if(confirm("해당 이메일로 가입된 계정이 존재하지 않습니다.\n회원가입하시겠습니까?")) {
+			 				location.href="member-join";
 			 			}
 			 		}
 					
+				},
+				error : function() {
+					alert("ajax 에러");
 				}
-				
 				
 				
 				

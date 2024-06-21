@@ -13,6 +13,9 @@ public interface MemberMapper {
 	
 	// 로그인
 	MemberVO selectMember(MemberVO member);
+
+	// 비밀번호 변경
+	boolean updatePassword(MemberVO member);
 	
 	
 	

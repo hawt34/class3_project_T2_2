@@ -24,6 +24,18 @@ public class MemberService {
 	}
 	
 	
+	// 비밀번호 변경 
+	public boolean updatePassword(MemberVO member) {
+		if(memberMapper.updatePassword(member)) {
+			return true;
+		} else {
+			return false;
+			
+		}
+		
+	}
+	
+	
 	
 		
 

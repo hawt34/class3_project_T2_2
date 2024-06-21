@@ -123,6 +123,7 @@ public class MyPageController {
 		}
 
 	}
+	//리뷰삭제
 	@PostMapping("delete-review")
 	public String deleteReview(Model model,@RequestParam Map<String, String> map) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
@@ -224,5 +225,31 @@ public class MyPageController {
 			return "error/fail";
 		}
 	}
-
+	
+	//회원정보수정
+	@GetMapping("my-modify")
+	public String myModify(Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		model.addAttribute("member", member);
+		
+//		<update id="updateMember">
+// 		UPDATE member
+//		SET
+//			<!-- 새 패스워드(passwd) 입력 여부에 따라 패스워드 변경 여부 결정 -->
+//		<if test="member_pwd != null and !member_pwd.equals('')">
+//			member_pwd = #{member_pwd},
+//		</if>
+//			member_birth = #{member_birth}
+//			, member_addr = #{member_addr}
+//			, member_email = #{member_email}
+//			, member_tel = #{member_tel}
+//			, member_movie_genre = #{member_movie_genre}
+//		WHERE
+//			member_id = #{member_id}
+//    
+//		</update>
+//		
+		return "mypage/mypage-modify";
+	}
+	
 }

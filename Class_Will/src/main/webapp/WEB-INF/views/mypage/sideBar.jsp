@@ -68,7 +68,7 @@ a {
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="" class="h5"><i class="bi bi-gear"></i>&nbsp; 회원정보변경</a>
+							<a href="my-modify" class="h5"><i class="bi bi-gear"></i>&nbsp; 회원정보변경</a>
 						</div>
 					</li>
 					<li>

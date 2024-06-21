@@ -114,7 +114,6 @@ th:nth-child(2), td:nth-child(2) {
 		<h1 class="text-center text-white display-6">마이페이지</h1>
 		<ol class="breadcrumb justify-content-center mb-0">
 			<li class="breadcrumb-item"><a href="main">Home</a></li>
-
 		</ol>
 	</div>
 
@@ -181,7 +180,7 @@ th:nth-child(2), td:nth-child(2) {
 										<h6 class="card-title"><i class="bi bi-gear"></i>&nbsp;회원정보변경</h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text" style="color:black;" >회원 정보를 변경할 수 있는 곳 입니다.</p>
-											<a href="#" class="btn btn-primary">상세보기</a>
+											<a href="my-modify" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>
 								</div>

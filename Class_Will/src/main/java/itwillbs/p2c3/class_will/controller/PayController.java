@@ -29,6 +29,14 @@ public class PayController {
 		return map;
 	}
 	
+	@ResponseBody
+	@GetMapping("will-pay-all")
+	public Map<String, String> willPayAll(@RequestParam Map<String, String> map) {
+		Map<String, String> credit = payService.getCredit(map);
+		
+		return credit;
+	}
+	
 	
 	
 	@PostMapping("payment")

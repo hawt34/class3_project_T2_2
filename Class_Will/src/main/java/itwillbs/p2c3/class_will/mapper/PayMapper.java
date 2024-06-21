@@ -23,6 +23,9 @@ public interface PayMapper {
 	//pay관련 모든 정보 가져오기
 	Map<String, String> selectPayInfo(Map<String, String> map);
 	
+	//크레딧 조회
+	Map<String, String> selectCredit(Map<String, String> map);
+	
 
 	
 }

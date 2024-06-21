@@ -42,6 +42,7 @@
 			   , c.class_thumnail
 			   , c.class_location
 			   , c.class_price
+		 	   , m.member_code 
 		 	   , m.member_email 
 		 	   , m.member_nickname 
 		 	   , m.member_tel
@@ -84,4 +85,11 @@
 		WHERE class_schedule_date = #{date}
 		AND class_code = #{class_code}
 	</select>
+	
+	<select id="selectCredit" resultType="map">
+		SELECT member_credit
+		FROM MEMBER
+		WHERE member_code = #{member_code}
+	</select>
+	
 </mapper>

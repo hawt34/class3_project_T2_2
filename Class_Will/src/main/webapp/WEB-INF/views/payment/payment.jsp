@@ -40,6 +40,8 @@
 
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<!-- PortOne - SDK -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <style>
 
 .margin_use {
@@ -197,11 +199,11 @@
 					<hr>
 						<p class="card-text text-end">
 							총 결제 금액: 
-							<span class="font_color" id="total">40000</span>만원
+							<span class="font_color" id="total"></span>만원
 						</p>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<a href="#" class="btn btn-dark w-100">결제하기</a>
+								<a href="javascript:void(0);" class="btn btn-dark w-100" onclick="myFunction()">결제하기</a>
 							</div>
 						</div>
 					</div>
@@ -217,6 +219,7 @@
 $(function() {
 	let subtotalText = $("#subtotal").text().trim(); //trim()으로 앞뒤 공백 제거
 	let subtotal = parseInt(subtotalText.replace(/,/g, ''), 10);
+	$("#total").text(subtotal.toLocaleString());
 	
 	$("#will_pay_input").on("input", function() {
 		let willpay = $(this).val();
@@ -268,18 +271,30 @@ $(function() {
 	$("#will_pay_input").on("input", function() {
 		let payInput = parseInt($("#will_pay_input").val());
 		let total = subtotal - payInput;
+		if (total < 0) {
+            total = 0;
+        }
+// 		if(isNaN($("#total")) || $("#will_pay_input").val() === "") {
+// 			$("#total").text("0");
+// 		}
+		
+		//형변환
+		let subtotalS = subtotal.toString();
+		let totalS = total.toString();
 		if(payInput > subtotal) {
+			//최대값 지정
+			$("#will_pay_input").val(subtotalS);
 			
-			
-			let subtotalS = subtotal.toString();
-			$("#total").text(subtotalS);
-			console.log("넘음!!!");
-		} else {
 			$("#total").text(total);
+		} else {
+			$("#total").text(total.toLocaleString());
+			
+			if($("#will_pay_input").val() == "") {
+				$("#total").text(subtotal.toLocaleString());
+			}
 		}
 	});
 	$('#will_pay_input').on('keydown', function(event) {
-//         let subtotal = parseFloat($('#subtotalInput').val());
         let payInput1 = parseInt($("#will_pay_input").val());
 
         // Allow backspace, delete, tab, escape, enter, period, and arrow keys
@@ -306,9 +321,61 @@ $(function() {
             event.preventDefault();
         }
     });
-	
-	
 });
+//-------------------------------------------------------------------------------------------------
+function myFunction() {
+	//결제 전 유효성 체크
+	let willPayCredit = $("#will_pay_input").val();
+	let regex = /^\d+0$/;
+	
+	if(!regex.test(willPayCredit) && willPayCredit != "") {
+		alert("10원 단위로 입력해 주세요.");
+		return false; // 함수 실행 중단
+	}
+	//------------------------------------
+	let subtotalText = $("#subtotal").text().trim(); //trim()으로 앞뒤 공백 제거
+	let subtotal = parseInt(subtotalText.replace(/,/g, ''), 10);
+	
+	
+	let pg = "html5_inicis.INIpayTest";
+	let className = "${payInfo.class_name}";
+	
+	
+	let amount = $("#total").text().replace(/,/g, '');
+	let member_email = "${payInfo.member_email}";
+	let member_name = "${payInfo.member_name}";
+	let member_tel = "${payInfo.member_tel}";
+	
+	let IMP = window.IMP;   // 생략 가능
+	IMP.init("imp00262041");
+	IMP.request_pay(
+		{
+            pg: pg,
+            pay_method: "card",
+            merchant_uid: "order_" + new Date().getTime(),
+            name: className,
+            amount: amount,
+            buyer_email: member_email,
+            buyer_name: member_name,
+            buyer_tel: member_tel //필수
+        },
+        function (rsp) {
+            console.log(rsp);
+
+            if(rsp.success) {
+                verifyAndSavePayInfo(rsp.imp_uid, rsp.merchant_uid);
+
+            } else {
+                alert("결제에 실패하였습니다." + " : " + rsp.error_msg);
+               
+            } // if-else
+
+        } // function(rsp)
+
+    );
+	
+	
+}
 </script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

@@ -46,7 +46,8 @@
 		 	   , m.member_email 
 		 	   , m.member_nickname 
 		 	   , m.member_tel
-		 	   , m.member_credit 
+		 	   , m.member_credit
+		 	   , m.member_name
 			   , cs.class_schedule_date
 			   , cs.class_st_time 
 		 	   , cs.class_ed_time

@@ -11,7 +11,13 @@
 		WHERE common1_code = 'CLC'
 	</select>
 	
-	
+	<!-- 소 카테고리 -->
+	<select id="selectSmallCategoryList">
+		SELECT *
+		FROM common3
+<!-- 		WHERE common1_code = 'CLC' -->
+		WHERE common1_code = 'CLC' AND common2_code = #{common2_code}
+	</select>
 	<!-- 카테고리 지역 -->
 	<select id="selectCategoryLocal" resultType="map">
 		

@@ -22,6 +22,11 @@ public class ClassService {
 		return mapper.selectBigCategoryList();
 	
 	}
+	// 소 카테고리
+	public List<Map<String, Object>> getSmallCategoryList(String common2_code) {
+		
+		return mapper.selectSmallCategoryList(common2_code);
+	}
 	
 	// 지역 
 	public List<Map<String, Object>> getCategoryLocal(){

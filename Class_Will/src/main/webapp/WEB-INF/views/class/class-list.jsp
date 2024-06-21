@@ -26,9 +26,12 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Required JavaScript files -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7ie2koOHD8y5Lx5ujD6nco4k5RfF7UoE6G7" crossorigin="anonymous">
+    
 
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
@@ -89,6 +92,8 @@ body {
 		<div class="categoryBar">
 			<div class="row justify-content-center"> <!-- 가운데 정렬 -->
 				<div class="categoryBarBox col-md-11">
+				
+					<!--  키워드 검색창 시작 -->
 					<div class="row height d-flex align-items-center mx-5">
 						<div class="col-md-3">
 							<div class="form form1">
@@ -97,54 +102,58 @@ body {
 							</div>
 						</div>
 					</div>
+					<!--  키워드 검색창 끝 -->
 					
 					<!-- 셀렉트박스 리스트 -->
 					<div class="row mx-5 rowCenter">
-<!-- 						<div class="selectDiv col-md-2"> -->
-<!-- 							<select class="form-select categorySelect w-100" aria-label="Default select example"> -->
-<!-- 								<option selected>전체</option> -->
-<!-- 								<option value="1">드로잉</option> -->
-<!-- 								<option value="2">디지털 드로잉</option> -->
-<!-- 								<option value="3">핸드메이드</option> -->
-<!-- 								<option value="4">쿠킹 / 베이킹</option> -->
-<!-- 								<option value="5">플라워 / 가드닝</option> -->
-<!-- 								<option value="6">뷰티</option> -->
-<!-- 								<option value="7">스포츠</option> -->
-<!-- 								<option value="8">요가 / 필라테스</option> -->
-<!-- 								<option value="9">사진 / 영상</option> -->
-<!-- 								<option value="10">음악</option> -->
-<!-- 							</select> -->
-<!-- 						</div> -->
 
 							<!-- 카테고리바 카테고리 시작 -->
-							<div class="dropdown col-md-2 categorySelect">
-								<button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-									카테고리
-								</button>
-								<ul class="dropdown-menu categoryDrop" aria-labelledby="dropdownMenuButton1" >
-<%-- 									<c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status"> --%>
-<%-- 										<li><a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%>
-<%-- 										<c:if test="${bigCategoryList.common2_code eq 10}"> --%>
+							<div class="selectDiv col-md-2 categorySelect">
+								<div class="dropdown">
+									<button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+										카테고리
+									</button>
+<!-- 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> -->
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;">
+										<div class="d-flex">
+											<div class="col">
+												<ul class="list-unstyled categoryDrop">
+												<li><a class="dropdown-item" href="#" value="전체">전체</a></li>
+													<c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status">
+<%-- 														<c:if test="${status.index < 8}"> --%>
+<%-- 															<li><a class="dropdown-item" id="bigCategory" href="#" onclick="bigCategory()" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%>
+<%-- 															<li><a class="dropdown-item" id="bigCategory" onclick="bigCategory(this)" href="class-list?common2_code=${bigCategoryList.common2_code}" value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</a></li> --%>
+																<li><a class="dropdown-item" onclick="bigCategory(this)" href="javascript:void(0);" data-code="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</a></li>
+<%-- 															<li><a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%>
+<%-- 														</c:if> --%>
+													</c:forEach>
+												</ul>
+											</div>
+										<div class="vr-divider"></div>
+											<div class="col">
+												<ul class="list-unstyled localList">
+													<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status">
+														<c:if test="${status.index >= 8}">
+															<li><a class="dropdown-item" href="#" onclick="smallCategory()" value="${smallCategoryList.code_value}">${smallCategoryList.code_value}</a></li>
+														</c:if>
+                       								     <c:if test="${smallCategoryList.common2_code eq common2_code}">
+																<li>
 
-<%-- 										</c:if> --%>
-<%-- 									</c:forEach> --%>
-									<!-- ======================================================== -->
-									        <c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status">
-									            <li>
-									                <a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">
-									                    ${bigCategoryList.code_value}
-									                </a>
-<!-- 									                특정 조건에 따라 dropend 메뉴 추가 -->
-									                <c:if test="${bigCategoryList.common2_code eq 10}">
-									                    <ul class="dropdown-menu " aria-labelledby="submenu-${bigCategoryList.code_value}">
-									                        <li><a class="dropdown-item" href="#">서브메뉴 1</a></li>
-									                        <li><a class="dropdown-item" href="#">서브메뉴 2</a></li>
-									                    </ul>
-									                </c:if>
-									            </li>
-									        </c:forEach>
-								</ul>
-							</div>	
+																	<div class="form-check">
+																	  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+																	  <label class="form-check-label" for="flexCheckDefault">
+																		<a class="dropdown-item" href="#" value="${smallCategoryList.code_value eq common2_code}">${smallCategoryList.code_value  eq common2_code}</a>
+																	  </label>
+																	</div>
+																</li>
+														</c:if>
+													</c:forEach>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 							<!-- 카테고리바 카테고리 끝 -->
 							
 						    <!-- 카테고리바 지역 시작 -->
@@ -160,7 +169,7 @@ body {
 												<li><a class="dropdown-item" href="#" value="전체">전체</a></li>
 													<c:forEach var="localList" items="${localList}" varStatus="status">
 														<c:if test="${status.index < 8}">
-															<li><a class="dropdown-item" href="#" value="${localList.code_value}">${localList.code_value}</a></li>
+															<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li>
 														</c:if>
 													</c:forEach>
 												</ul>
@@ -170,7 +179,7 @@ body {
 												<ul class="list-unstyled localList">
 													<c:forEach var="localList" items="${localList}" varStatus="status">
 														<c:if test="${status.index >= 8}">
-															<li><a class="dropdown-item" href="#" value="${localList.code_value}">${localList.code_value}</a></li>
+															<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li>
 														</c:if>
 													</c:forEach>
 												</ul>
@@ -206,71 +215,60 @@ body {
 					
 					<!-- 카테고리 셀렉스 리스트 -->
 					<div class="row mx-5">
-					    <div class="mt-3 col-md-2 position-relative chooseDiv">
-					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리1" readonly>
-					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
-					    </div>
-					    <div class="mt-3 col-md-2 position-relative chooseDiv">
-					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리2" readonly>
-					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
-					    </div>
-					    <div class="mt-3 col-md-2 position-relative chooseDiv">
-					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리3" readonly>
-					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
-					    </div>
-					    <div class="mt-3 col-md-2 position-relative chooseDiv">
-					        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" placeholder="카테고리4" readonly>
-					        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
-					    </div>
-					    <div class="line col-md-12">
-					    	<hr>
-					    </div>
+						<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status">
+						    <div class="mt-3 col-md-2 position-relative chooseDiv">
+						        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" value="${smallCategoryList.code_value }"readonly>
+						        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
+<%-- 								<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li> --%>
+						    </div>
+						</c:forEach>
+						<hr>
 					</div>
 					<!-- 카테고리 셀렉스 리스트 -->
 					
 					<!-- 해시태그 리스트 -->
 					<div class="row mx-5">
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 커플" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 반려동물" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 선물" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 데이트" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 단체" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 							</div>
 						</div>
-						<div class="col-md-2 hashtagDiv">
+						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
 							</div>
@@ -309,7 +307,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -339,7 +336,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -370,7 +366,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -400,7 +395,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -433,7 +427,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -463,7 +456,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -494,7 +486,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -524,7 +515,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -558,7 +548,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -588,7 +577,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -619,7 +607,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -649,7 +636,6 @@ body {
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-						<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
@@ -684,7 +670,104 @@ body {
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+<script type="text/javascript">
 
+// function bigCategory() {
+//     var common2_code = $('#bigCategory').attr('value'); // 속성에서 값을 가져오기
+// 	$.ajax({
+// 		type : "POST",
+// 		url : "class-list",
+// 		data : {
+//             common2_code : common2_code
+// 		},
+// 		dataType : "json",
+// 		success : function (response) {
+// 			if(response == "true"){
+// 				alert('class-list성공');
+// 				console.log('class-list성공');
+// 			} else {
+// 				alert('class-list 실패');
+// 				console.log('class-list실패');
+				
+// 			}
+// 		},
+// 		error : function (xhr, status, error) {
+// 			alert('class-list ajax 실패');
+// 			console.log('class-list ajax 실패');
+// 		}
+// 	});
+// }
 
+function bigCategory(element) {
+    var common2_code = $(element).data('code');
+    var code_value = $(element).text();
+
+    // AJAX 요청
+    $.ajax({
+        type: "POST",
+        url: "class-list",
+        data: {
+            common2_code: common2_code
+        },
+        dataType: "json",
+        success: function(response) {
+            if (response === true) {
+                alert('class-list 성공');
+                console.log("class-list 성공");
+                
+                // 선택한 값을 카테고리 셀렉트 리스트에 추가
+//                 addCategoryToList(code_value);
+            } else {
+                alert('class-list 실패');
+                console.log('class-list 실패');
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('class-list ajax 실패');
+            console.log('class-list ajax 실패');
+        }
+    });
+}
+
+function addCategoryToList(code_value) {
+//     var container = $(".chooseDiv").parent(); // 카테고리 셀렉트 리스트 컨테이너
+    var container = $(".row.mx-5"); // 카테고리 셀렉트 리스트 컨테이너
+
+    var newDiv = `
+        <div class="mt-3 col-md-2 position-relative chooseDiv">
+            <input type="text" class="form-control chooseResult" value="${code_value}" readonly>
+            <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
+        </div>
+    `;
+    container.append(newDiv);
+}
+</script>
+
+<!-- <script type="text/javascript"> -->
+<!-- function smallCategory() { -->
+<!-- 	$.ajax({ -->
+		
+<!-- 		type : "POST", -->
+<!-- 		url : "class-list", -->
+<!-- 		data : { -->
+<!--             common2_code : common2_code -->
+			
+<!-- 		}, -->
+<!-- 		dataType : "json", -->
+<!-- 		success :function (response) { -->
+<!-- 				alert('class-list성공'); -->
+<!-- 				console.log('class-list성공'); -->
+			
+<!-- 		}, -->
+<!-- 		error : function (xhr, status, error) { -->
+<!-- 			alert('class-list ajax 실패'); -->
+<!-- 			console.log('class-list ajax 실패'); -->
+			
+<!-- 		} -->
+		
+		
+<!-- 	}); -->
+<!-- } -->
+<!-- </script> -->
 </body>
 </html>

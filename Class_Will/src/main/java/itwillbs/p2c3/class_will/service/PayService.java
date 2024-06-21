@@ -32,6 +32,11 @@ public class PayService {
 	public Map<String, String> getPayInfo(Map<String, String> map) {
 		return payMapper.selectPayInfo(map);
 	}
+	
+	//나의 모든 크레딧 조회
+	public Map<String, String> getCredit(Map<String, String> map) {
+		return payMapper.selectCredit(map);
+	}
 
 	
 }

@@ -23,6 +23,7 @@
 				, member_code
 				, class_map_x
 				, class_map_y
+				, class_active
 		)
 		VALUES (
 			NULL
@@ -41,6 +42,7 @@
 			, #{member_code}
 			, null
 			, null
+			, 'Y'
 		)		
 	</insert>
 	
@@ -89,6 +91,14 @@
 		
 	</insert>
 	
+	<!-- 클래스 일정 가져오기 -->
+	<select id="getSchedule" resultType="map">
+		SELECT *
+		FROM class_schedule
+		WHERE class_code = #{classCode}
+	
+	</select>
+	
 	<!-- 카테고리 대분류 조회 -->
 	<select id="getCategory" resultType="map">
 		SELECT 
@@ -135,8 +145,28 @@
 	
 	<!-- 클래스 정보 가져오기 -->
 	<select id="getClassInfo" resultType="map">
-		SELECT * 
-		FROM class
+	SELECT 
+		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide
+	FROM 
+		class c
+	LEFT JOIN 
+		common2 c2 
+	ON 
+		c2.common2_code = c.class_regist_status
+	and
+		c2.common1_code = 'CRS'
+	JOIN 
+		common2 c22
+	ON 
+		c.class_big_category = c22.common2_code
+	and 
+		c22.common1_code = 'CLC'
+	JOIN 
+		common2 c222
+	ON 
+		c.class_hide = c222.common2_code
+	and 
+		c222.common1_code = 'HIDE'
 	</select>
 	
 	<select id="getHide" resultType="map">

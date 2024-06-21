@@ -22,6 +22,9 @@ public interface CreatorMapper {
 	int insertClassPlan(@Param("map") Map<String, Object> map
 				 	  , @Param("classTimeList") List<ClassTimeVO> classTimeList);
 	
+	// 클래스 일정 가져오기
+	List<Map<String, Object>> getSchedule(int classCode);
+	
 	// 카테고리 대분류
 	List<Map<String, String>> getCategory();
 	

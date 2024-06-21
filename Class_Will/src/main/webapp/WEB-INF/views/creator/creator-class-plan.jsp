@@ -211,7 +211,7 @@
 						var scheduleData = JSON.parse(JSON.stringify(data));
 						// 날짜 배열 생성
 						var selectedDates = [];
-						data.forEach(function(item) {
+						scheduleData.forEach(function(item) {
 				        	if (item.class_schedule_date) {
 				            	selectedDates.push(item.class_schedule_date);
 				            }
@@ -231,7 +231,7 @@
                                 tableHtml += '<td>' + schedule.class_st_time + '</td>';
                                 tableHtml += '<td>' + schedule.class_ed_time + '</td>';
                                 tableHtml += '<td>' + schedule.class_remain_headcount + "/" + schedule.class_total_headcount + '</td>';
-                                tableHtml += '<td><button type="button" class="scheduleBtn btn btn-outline-primary" onclick="deleteSchedule(' + schedule.class_schedule_code + ')">삭제</button></td>';
+                                tableHtml += '<td><button type="button" class="scheduleBtn btn btn-outline-primary" data-class-code="' + schedule.class_schedule_code + '">삭제</button></td>';
                                 tableHtml += '</tr>';
                             });
                             
@@ -249,17 +249,24 @@
 				});	
 			});
 			
-			function deleteSchedule(classCode) {
-				debugger;
-				$.ajax({
-					url: "deleteSchedule",
-					method: "get",
-					data: { "classCode" : classCode },
-					success: function(data) {
-						console.log("제거완료");
-					}
-				});
-			}
+			  window.deleteSchedule = function(classCode) {
+				 debugger;
+			        $.ajax({
+			            url: "deleteSchedule",
+			            method: "get",
+			            data: { "classCode": classCode },
+			            success: function(data) {
+			                console.log("제거완료");
+			                location.reload();
+			                // 필요시 일정이 제거된 후 추가 로직 작성
+			            }
+			        });
+			    }
+			    // 이벤트 델리게이션을 사용하여 동적으로 생성된 버튼에 이벤트를 연결
+			    $('#scheduleTableContainer').on('click', '.scheduleBtn', function() {
+			        var classCode = $(this).data('class-code');
+			        deleteSchedule(classCode);
+			    });
 				
 			
 			

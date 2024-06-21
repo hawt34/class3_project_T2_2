@@ -25,6 +25,9 @@ public interface CreatorMapper {
 	// 클래스 일정 가져오기
 	List<Map<String, Object>> getSchedule(int classCode);
 	
+	// 클래스 일정 삭제
+	int deleteSchedule(int classCode);
+	
 	// 카테고리 대분류
 	List<Map<String, String>> getCategory();
 	

@@ -96,8 +96,13 @@
 		SELECT *
 		FROM class_schedule
 		WHERE class_code = #{classCode}
-	
 	</select>
+	
+	<!-- 일정삭제 -->
+	<delete id="deleteSchedule">
+		DELETE FROM class_schedule
+		WHERE class_schedule_code = #{classCode}
+	</delete>
 	
 	<!-- 카테고리 대분류 조회 -->
 	<select id="getCategory" resultType="map">

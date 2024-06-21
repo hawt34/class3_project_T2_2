@@ -143,6 +143,7 @@ public class CreatorController {
 		return "creator/creator-class-plan";
 	}
 	
+	// 입력된 일정 데이터 처리
 	@PostMapping("creatorPlanPro")
 	public String creatorPlanPro(@RequestParam Map<String, Object> map, Model model) {
 		System.out.println(">>>>>>>>>>>map : " + map);
@@ -199,7 +200,7 @@ public class CreatorController {
 		return "result_process/fail";
 	}
 	
-	// ajax로 데이터 가져오기
+	// ajax로 날짜 데이터 가져오기
 	@ResponseBody
 	@GetMapping("getSelectedDates")
 	public List<Map<String, Object>> getSelectedDates(@RequestParam(defaultValue = "0") int classCode) {
@@ -207,6 +208,14 @@ public class CreatorController {
 		System.out.println(">>>>>>>>>scheduleList: " + scheduleList);
 		
 		return scheduleList;
+	}
+
+	// ajax로 날짜 데이터 가져오기
+	@ResponseBody
+	@GetMapping("deleteSchedule")
+	public void deleteSchedule(@RequestParam(defaultValue = "0") int classCode) {
+		creatorService.deleteSchedule(classCode);
+		
 	}
 	
 	//======================================================

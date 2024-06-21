@@ -33,6 +33,11 @@ public class CreatorService {
 	public List<Map<String, Object>> getSchedule(int classCode) {
 		return creatorMapper.getSchedule(classCode);
 	}
+
+	// 클래스 일정 삭제
+	public int deleteSchedule(int classCode) {
+		return creatorMapper.deleteSchedule(classCode);
+	}
  
 	// 카테고리 대분류 가져오기
 	public List<Map<String, String>> getCategory(){

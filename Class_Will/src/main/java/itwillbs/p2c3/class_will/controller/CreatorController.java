@@ -124,7 +124,7 @@ public class CreatorController {
 		
 		creatorService.createrClassRegPro(map, curriList);
 		
-		return "creator/creator-class";
+		return "redirect:/creator-class";
 	}
 	
 	// 해쉬태그 추가 페이지
@@ -197,6 +197,16 @@ public class CreatorController {
 		
 		model.addAttribute("msg", "일정등록 오류");
 		return "result_process/fail";
+	}
+	
+	// ajax로 데이터 가져오기
+	@ResponseBody
+	@GetMapping("getSelectedDates")
+	public List<Map<String, Object>> getSelectedDates(@RequestParam(defaultValue = "0") int classCode) {
+		List<Map<String, Object>> scheduleList = creatorService.getSchedule(classCode);
+		System.out.println(">>>>>>>>>scheduleList: " + scheduleList);
+		
+		return scheduleList;
 	}
 	
 	//======================================================

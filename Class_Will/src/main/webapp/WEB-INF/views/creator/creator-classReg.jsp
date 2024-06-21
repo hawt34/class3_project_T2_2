@@ -216,8 +216,8 @@
 									<hr class="mb-4">
 									
 									<div class="mb-4" align="center">
-										<input type="submit" value="제출하기" name="class_regist_status" class="btn btn-primary btn-lg btn-block" >
-										<input type="submit" value="저장하기" name="class_regist_status" class="btn btn-primary btn-lg btn-block" >
+										<button type="submit" value="1" name="class_regist_status" class="btn btn-primary btn-lg btn-block">제출하기</button>
+										<button type="submit" value="2" name="class_regist_status" class="btn btn-primary btn-lg btn-block" >저장하기</button>
 										<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
 									</div>
 								</form>

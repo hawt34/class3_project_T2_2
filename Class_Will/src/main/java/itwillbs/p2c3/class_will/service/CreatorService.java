@@ -28,6 +28,11 @@ public class CreatorService {
 	public int insertClassPlan(Map<String, Object> map, List<ClassTimeVO> classTime) {
 		return creatorMapper.insertClassPlan(map, classTime);
 	}
+	
+	// 클래스 일정 가져오기
+	public List<Map<String, Object>> getSchedule(int classCode) {
+		return creatorMapper.getSchedule(classCode);
+	}
  
 	// 카테고리 대분류 가져오기
 	public List<Map<String, String>> getCategory(){

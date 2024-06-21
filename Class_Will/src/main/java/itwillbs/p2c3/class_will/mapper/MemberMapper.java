@@ -16,6 +16,9 @@ public interface MemberMapper {
 
 	// 비밀번호 변경
 	boolean updatePassword(MemberVO member);
+
+	// 휴면 해제하기
+	boolean updateMemberStatus(MemberVO member);
 	
 	
 	

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.record.CalcModeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -36,8 +37,10 @@ public class MemberController {
 	// 회원가입 폼으로
 	@GetMapping("member-join")
 	public String memberJoinForm() {
+		
 		return "member/join_form";
-	}
+		
+	} // memberJoinForm()
 	
 	// 회원가입 비즈니스 로직 처리
 	@PostMapping("member-join")
@@ -75,13 +78,16 @@ public class MemberController {
 		model.addAttribute("msg", "클래스윌 회원가입을 환영합니다.");
 		model.addAttribute("targetURL", "member-login");
 		return "result_process/success";
-	}
+		
+	} // memberJoinPro()
 	
 	// 회원 로그인 폼으로
 	@GetMapping("member-login")
 	public String memberLoginForm() {
+		
 		return "member/login_form";
-	}
+		
+	} // memberLoginForm()
 	
 	// 회원 로그인 비즈니스 로직 처리
 	@PostMapping("member-login")
@@ -94,7 +100,7 @@ public class MemberController {
 			return "result_process/fail";
 		} else if(dbMember != null && dbMember.getMember_status().equals("3")) {
 			model.addAttribute("msg", "휴면 회원입니다.");
-			model.addAttribute("targetURL", "member-wake-up");
+			model.addAttribute("targetURL", "member-wake-up?member_email=" + member.getMember_email());
 			return "result_process/success";
 		} else if(dbMember == null || !passwordEncoder.matches(member.getMember_pwd(), dbMember.getMember_pwd())) { // 로그인 실패
 			model.addAttribute("msg", "이메일 또는 비밀번호를 확인해 주세요.");
@@ -105,18 +111,19 @@ public class MemberController {
 			System.out.println();
 			
 			return "redirect:/";
-			
 		}
 		
 		
-	}
+	} // memberLoginPro()
 	
 	// 멤버 로그아웃
 	@GetMapping("member-logout")
 	public String memberLogout() {
+		
 		session.invalidate();
 		return "redirect:/";
-	}
+	
+	} // memberLogout()
 	
 	
 	// 비밀번호 찾기 폼으로
@@ -140,15 +147,18 @@ public class MemberController {
 			
 		mailService.sendAuthMail(member);
 		return "true";
-	}
+		
+	} // findPasswdPro()
 	
 	
 	// 비밀번호 찾기 폼으로 (변경 이메일로부터 옴)
 	@GetMapping("reset-passwd")
 	public String resetPasswdFrom(@RequestParam String email, Model model) {
+		
 		model.addAttribute("member_email", email);
 		return "member/reset_passwd_form";
-	}
+		
+	} // resetPasswdFrom()
 	
 	// 비밀번호 변경 비즈니스 로직
 	@PostMapping("reset-passwd")
@@ -168,24 +178,42 @@ public class MemberController {
 			model.addAttribute("msg", "비밀번호 변경이 완료되었습니다.\\n로그인 후 이용해 주세요. ");
 			model.addAttribute("targetURL", "member-login");
 			return "result_process/success";
-		} else {
-			model.addAttribute("msg", "비밀번호 변경이 불가능합니다.\\n관리자에게 문의해 주세요.");
-			return "result_process/fail";
 		}
+		
+		model.addAttribute("msg", "비밀번호 변경이 불가능합니다.\\n관리자에게 문의해 주세요.");
+		return "result_process/fail";
+	
 		
 		
 	} // resetPasswdPro()
 	
 	
-	// 휴면 회원 해제하기
+	// 휴면 회원 해제하기 폼으로
 	@GetMapping("member-wake-up")
-	public String wakeUpForm() {
+	public String wakeUpForm(MemberVO member, Model model) {
 		
-		
-		
+		model.addAttribute("member", member);
 		return "member/wake_up_form";
-	}
+		
+	} // wakeUpForm()
 	
+	// 휴면 회원 해제하기 비즈니스 로직
+	@PostMapping("member-wake-up")
+	public String wakeUpPro(MemberVO member, Model model) {
+		
+		boolean isSuccess = memberService.updateMemberStatus(member);
+		
+		if(isSuccess) {
+			model.addAttribute("msg", "휴면 해제 처리 완료되었습니다.\\n로그인 후 이용해 주세요.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/success";
+		} 
+		
+		model.addAttribute("msg", "휴면 해제가 불가능합니다.\\n관리자에게 문의해 주세요.");
+		return "result_process/fail";
+		
+	} // wakeUpPro()
+	 
 
 	
 	

@@ -4,6 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta property="og:title" content="Class Will">
+<meta property="og:image" content="${pageContext.request.contextPath}/resources/img/class_will_thumb.png" />
+<meta property="og:description" content="✨WE WILL JOURNEY, WE WILL GROW UP✨">
+
 <title>클래스윌</title>
 
 

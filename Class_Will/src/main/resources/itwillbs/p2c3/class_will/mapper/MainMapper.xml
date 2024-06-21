@@ -4,4 +4,18 @@
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.MainMapper">
 
+
+	<select id="selectFieldCate" resultType="map">
+		
+	
+	
+	
+	
+	</select>
+
+
+
+
+
+
 </mapper>

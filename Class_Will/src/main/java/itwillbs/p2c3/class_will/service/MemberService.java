@@ -34,6 +34,15 @@ public class MemberService {
 		}
 		
 	}
+
+	public boolean updateMemberStatus(MemberVO member) {
+		if(memberMapper.updateMemberStatus(member)) {
+			return true;
+		} else {
+			return false;
+			
+		}
+	}
 	
 	
 	

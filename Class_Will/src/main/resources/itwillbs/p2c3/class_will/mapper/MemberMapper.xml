@@ -39,7 +39,11 @@
 		WHERE member_email = #{member_email}
 	</update>
 
-
+	<update id="updateMemberStatus">
+		UPDATE MEMBER
+		SET member_status = 1
+		WHERE member_email = #{member_email}
+	</update>
 
 
 

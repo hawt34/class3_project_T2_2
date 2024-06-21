@@ -183,6 +183,7 @@ body {
 .rowCenter {
 	display: flex;
 	align-items: center;
+	margin-bottom : 10px;
 }
 
 .localDropdown {
@@ -202,7 +203,7 @@ body {
 /* 	background: #333; */
     border-radius: 10px;
 	opacity: 0.95;
-	height : 415px;
+	height : 430px;
 	padding-top : 20px;
 }
 .form1 {
@@ -261,6 +262,7 @@ body {
     box-sizing: border-box; /* padding이 width에 포함되도록 설정 */
     text-align: left;
     width : 130px;
+    padding-bottom : 15px; 
 }
 
 .chooseResult {
@@ -303,14 +305,19 @@ body {
 
 .hashtagDiv {
 /* 	margin-right : 20px; */
-	padding : 0px;
+	padding-top : 0px;
 	margin-bottom : 20px;
+	width : 150px;
 }
 
 .categorySelect {
 	height : 45px;
 /* 	text-align : left; */
 /* 	height : austo; */
+}
+
+.categoryDrop{
+	width : 135px;
 }
 .categorySelectBtn {
 	height : 45px;

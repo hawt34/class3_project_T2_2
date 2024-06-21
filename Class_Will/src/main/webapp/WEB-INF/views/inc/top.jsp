@@ -182,6 +182,26 @@
 </style>
 
 <script>
+	$(function() {
+		
+		$("#top-categoty").on("mouseover", function() {
+			$.ajax({
+				type: "GET",
+		        url: "top-field-category",
+			 	dataType : "json",
+			 	success : function(result) {
+			 		
+			 	}
+				
+			});
+		
+			
+		});
+		
+		
+	});
+	
+	
     document.addEventListener('DOMContentLoaded', function () {
         const collapseElements = document.querySelectorAll('[data-bs-toggle="collapse"]');
 
@@ -238,7 +258,7 @@
 	                    <div class="col-5 d-none d-lg-flex justify-content-start">
 	                        <ul class="navbar-nav">
 	                            <li class="nav-item">
-	                                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
+	                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
 <!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
 	                                	<span class="fa fa-bars"></span> 카테고리
 	                                </a>

@@ -22,39 +22,28 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
 
+<!-- Libraries Stylesheet -->
+<link
+	href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css"
+	rel="stylesheet">
+
+
 <!-- Customized Bootstrap Stylesheet -->
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css"
+<link href="${pageContext.request.contextPath}/resources/css/myPage.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-classReg.css" rel="stylesheet">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- 썸머노트 cdn -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <style>
-        .delete-btn {
-            display: none;
-            cursor: pointer;
-            color: red;
-            
-        }
-        tr:hover .delete-btn {
-            display: inline;
-        }
-        .addCurri{
-        	cursor: pointer;
-        }
-    </style>
+	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
+	rel="stylesheet">
+<style>
+</style>
 </head>
 <body>
 
@@ -67,174 +56,95 @@
 		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
 		<div class="spinner-grow text-white" role="status"></div>
 	</div>
-	<!-- Spinner End -->
-
-	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">Creator</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
-			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
-			<li class="breadcrumb-item active text-white">클래스</li>
-		</ol>
+		<h1 class="text-center text-white display-6">
+			마이페이지<i class="bi bi-gear"></i>&nbsp;회원정보수정
+		</h1>
 	</div>
-	<!-- Single Page Header End -->
-
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4 text-white">Creator Center</h1>
+
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
-						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
+						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
-						<div class="col-lg-9 creator-body" >
+						<div class="col-lg-9 creator-body">
 							<div class="creator-main-table col-xl-8 mb-5 ">
-								<form class="validation-form" novalidate action="creator-classRegPro" name="fr" method="post" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
+								<form class="validation-form" novalidate action="member-modify" name="fr"
+									method="post" onsubmit="return confirm('회원정보변경을 진행하시겠습니까?');">
 									<!-- 	셀렉트박스 -->
-									<div class="col-md-12 mb-2" align="center">
-										<div class="col-xl-6 mb-5">
-											<div>
-												<h3 class="text-white">클래스등록</h3>
-											</div>
-											<hr style="color:white;">
-										</div>
-									</div>
 									<div class="classReg-basic">
-										<div class="h4">클래스 기본정보</div>
-										<div class="h6 d-flex justify-content-start mt-4">
-											<p>작성상태 :</p>
-											<p>&nbsp;작성중</p>
-										</div>
+										<div class="col-md-12 text-center h2 mb-5"
+											style="margin-top: 20px;">회원정보 수정하기</div>
+
 										<div class="classReg-basic-form">
 											<div class="col-md-12 mt-2 my-4">
-												<label for="class_name" class="h6">클래스 제목</label> 
-												<input type="text" name="class_name" id="class_name" class="form-control" required />
-												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
+												<label for="member_name" class="h6">이름</label> 
+												<input type="text" class="form-control" id="member_name" name="member_name" value="${member.member_name}" readonly>
 											</div>
-											<div class="row">
-												<div class="col-md-6 my-4">
-													<label for="class_type" class="h6">클래스타입</label> 
-													<select name="class_type" id="class_type" class="form-control" required>
-														<c:forEach var="class_sort" items="${class_sort_List}">
-															<option value="${class_sort.common2_code}">${class_sort.code_value}</option>
-														</c:forEach>
-													</select>
-													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
-												</div>
-											
-												<div class="col-md-6 my-4">
-													<label for="class_show" class="h6">공개여부</label> 
-													<select name="class_hide" id="class_show" class="form-control" required>
-														<option value="1">공개</option>
-														<option value="2">비공개</option>
-													</select>
-													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
-												</div>
-											</div>
-											<div class="row"> 
-												<div class="col-md-6 my-4">
-													<label for="class_big_category" class="h6">카테고리</label> 
-													<select name="class_big_category" id="class_big_category" class="form-control" required>
-														<c:forEach var="category" items="${categoryList}">
-															<option value="${category.common2_code}">${category.code_value}</option>
-														</c:forEach>
-													</select>
-													<div class="invalid-feedback">카테고리를 선택해주세요.</div>
-												</div>
-												<div class="col-md-6 my-4">
-													<label for="class_small_category" class="h6">상세분류</label> 
-													<select name="class_small_category" id="class_small_category" class="form-control" required></select>
-													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
-												</div>
+											<div class="col-md-12 mt-2 my-4">
+												<label for="member_email" class="h6">이메일</label> 
+												<input type="text" class="form-control" id="member_email" name="member_email" value="${member.member_email}" readonly>
 											</div>
 											
-											<div class="my-4">
-												<label for="class_hashtag" class="h6">해쉬태그 선택</label>
-												<div id="item-list" class="d-flex">
-													<c:forEach var="hashtag" items="${hashtagList}">
-														<button type="button" class="item" data-value="${hashtag.hash_tag_code}">#${hashtag.hash_tag_name}</button>
-													</c:forEach>
-											    </div>
-											    <input type="hidden" id="selected-items" name="class_hashtag" value=""> 
+											<div class="col-md-12 mt-2 my-4">
+												<label for="member_nickname" class="h6">닉네임</label> 
+												<input type="text" class="form-control" id="member_nickname" name="member_nickname" placeholder="nick-name" required maxlength="30">
 											</div>
-											<div class="col-md-12 my-4">
-												<label for="class_thumnail" class="h6">커버이미지</label> 
-												<input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required />
-												<div class="invalid-feedback">커버이미지 입력해주세요.</div>
+											<div class="col-md-12 mt-2 my-4">
+												<label for="" class="h6">일반회원 전환 / 크리에이터 전환</label> 
+												<input type="text" class="form-control" id="" name="" placeholder="" required maxlength="30">
 											</div>
-											<div class="col-md-12 my-4">
-												<label for="class_image" class="h6">본문이미지</label> 
-												<input type="file" name="class_image" id="class_image" class="form-control" required />
-												<div class="invalid-feedback">본문이미지를 입력해주세요.</div>
+											
+											<div class="col-md-12 mt-2 my-4">	
+												<label for="passwd"  class="h6">새 비밀번호</label> 
+												<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required maxlength="20">
+										  	<div id="regex-pwd" class="message">
 											</div>
-											<div class="my-4">
-												<label for="summernote" class="h6">클래스 소개</label> 
-												<textarea name="class_ex" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea>
-												<div class="invalid-feedback">내용을 입력해주세요.</div>
+											
+											<div class="col-md-12 mt-2 my-4">
+												<label for="member_pwd_confirm">새 비밀번호 확인</label> 
+											 	<input type="password" class="form-control" id="member_pwd_confirm" name="member_pwd_confirm" required>
 											</div>
+   												 <div id="pwd-match" class="message"></div>
+											
+											
 											<div class="col-md-12 my-4">
 												<label for="postCode" class="h6">주소</label><br>
 												<div class="d-flex justify-content-between">
 													<div class="col-md-3">
-											    		<input type="text" id="post_code" name="post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
+														<input type="text" id="post_code" name="post_code"
+															class="form-control my-1" size="6" readonly
+															onclick="search_address()" placeholder="우편번호">
 													</div>
 													<div class="col-md-9">
-														<input type="text" id="address1" name="address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
+														<input type="text" id="address1" name="address1"
+															class="form-control my-1" placeholder="클릭 시 주소검색"
+															size="25" readonly onclick="search_address()">
 													</div>
 												</div>
-												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25"
+													pattern="^.{2,20}$" maxlength="20">
 											</div>
-											<div class="col-md-12 my-4">
-												<label for="class_price" class="h6">회당 클래스가격(원)</label> 
-												<input type="text" name="class_price" id="class_price" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
-												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
-											</div>
+											 <input type="hidden" id="member_addr" name="member_addr">
 										</div>
 									</div>
-									
-									<div class="classReg-calc my-3">
-										<div class="d-flex justify-content-between">
-											<div class="h4">클래스 커리큘럼</div>
-											<div class="h6 addCurri">+ 추가하기</div>
-										</div>
-										<table id="timeTable" class="table">
-							        		<tr>
-							        			<th>회차</th>
-							        			<th>커리큘럼내용</th>
-							        		</tr>
-							        		<tr>
-							        			<td>1회차</td>
-							        			<td>
-							        				<textarea name="1회차" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea>
-							        			</td>
-							        		</tr>
-							        	</table>
-									</div>
-									
-									<div class="classReg-creator-info my-3">
-										<div class="d-flex justify-content-between">
-											<div class="h4">크리에이터 정보</div>
-										</div>
-										<div class="classReg-creator-info-form">
-											<div class="col-md-12 my-2">
-												<label for="class_creator_explain" class="h6">크리에이터 소개</label> 
-												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required />
-												<div class="invalid-feedback">크리에이터 소개를 입력해주세요.</div>
-											</div>
-										</div>
-									</div>
-									
-									<hr class="mb-4">
-									
+
 									<div class="mb-4" align="center">
-										<input type="submit" value="제출하기" class="btn btn-primary btn-lg btn-block" >
-										<input type="reset" value="저장하기" class="btn btn-primary btn-lg btn-block" >
-										<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
+										<input type="submit" value="제출하기"
+											class="btn btn-primary btn-lg btn-block"> <input
+											type="button" value="돌아가기"
+											class="btn btn-primary btn-lg btn-block"
+											onclick="history.back()">
+									</div>
 									</div>
 								</form>
+								
 							</div>
+							
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -248,158 +158,81 @@
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	
-	<script type="text/javascript">	
-	
-		$(function() {
-			// 카테고리 선택시 상세카테
-			$("#class_big_category").change(function() {
-				var big_category = $("#class_big_category").val();
-				$.ajax({
-					url: "getCategoryDetail",
-					method: "get",
-					data: { "big_category" : big_category },
-					success: function(data) {
-						$("#class_small_category").empty();
-						$.each(data, function(index, item) {
-							$("#class_small_category").append(
-								$('<option></option>').val(item.common3_code).text(item.code_value)	
-							);
-						});
-					}
-				});		
-			});
-			
-			// 회차 추가 및 데이터 전달
-			let roundCount = 1;
-		    $('.addCurri').on('click', function() {
-		  	 if(roundCount < 5){
-		  		roundCount++;
-	            let newRow = '<tr>'
-			                     + '<td>' + roundCount + '회차 <span class="delete-btn">&times;</span></td>'
-			                     + '<td><textarea name="' + roundCount + '회차" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea></td>'
-			                 + '</tr>';
-	            $('#timeTable').append(newRow);
-		  	} else{
-		  		 alert("회차는 5회까지 추가 가능합니다!");
-		  	}
-		       });
 
-			$('#timeTable').on('mouseenter', 'tr', function() {
-			    $(this).find('.delete-btn').show();
-			});
-			
-			$('#timeTable').on('mouseleave', 'tr', function() {
-			    $(this).find('.delete-btn').hide();
-			});
-			
-			$('#timeTable').on('click', '.delete-btn', function() {
-			    $(this).closest('tr').remove();
-			    updateTextAreaNames();
-			});
-			
-			function updateTextAreaNames() {
-	            let rows = $('#timeTable tr');
-	            roundCount = rows.length - 1; // 첫 번째 tr은 헤더이므로 제외
-	            rows.each(function (index) {
-	                if (index > 0) { // 첫 번째 tr은 헤더이므로 제외
-	                    $(this).find('textarea').attr('name', index + '회차' );
-	                    $(this).find('td:first').html(index + '회차 <span class="delete-btn">&times;</span>');
-	                }
-	            });
-// 	            debugger;
-	        }
-			
-		});
-		
-		// 썸머노트 설정
-		$('#summernote').summernote({
-			  height: 300,                 // 에디터 높이
-			  minHeight: null,             // 최소 높이
-			  maxHeight: null,             // 최대 높이
-			  focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
-			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '최대3000자까지 쓸 수 있습니다'	,//placeholder 설정
-			  toolbar: [
-					    // [groupName, [list of button]]
-					    ['fontname', ['fontname']],
-					    ['fontsize', ['fontsize']],
-					    ['color', ['color']],
-					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
-					    ['para', ['ul', 'ol', 'paragraph']],
-					    ['height', ['height']]
-					  ],
-					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-		          
-		});
-		$('.class_creator_explain').summernote({
-			  height: 200,                 // 에디터 높이
-			  minHeight: null,             // 최소 높이
-			  maxHeight: null,             // 최대 높이
-			  focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
-			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '최대500자까지 쓸 수 있습니다'	,//placeholder 설정
-			  toolbar: [
-					    // [groupName, [list of button]]
-					    ['fontname', ['fontname']],
-					    ['fontsize', ['fontsize']],
-					    ['style', ['bold', 'italic', 'underline', 'clear']],
-					    ['para', ['ul', 'ol']],
-					  ],
-					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-		          
-		});
-		
-		// 해쉬태그 다중선택
-		document.addEventListener('DOMContentLoaded', () => {
-		    const items = document.querySelectorAll('.item');
-		    const form = document.querySelector('.validation-form');
-		    const selectedItemsInput = document.getElementById('selected-items');
-	
-		    items.forEach(item => {
-		        item.addEventListener('click', () => {
-		            item.classList.toggle('selected');
-		            updateSelectedItems();
-		        });
-		    });
-	
-		    form.addEventListener('submit', (event) => {
-		        updateSelectedItems();
-		    });
-	
-		    function updateSelectedItems() {
-		        const selectedItems = Array.from(items)
-		            .filter(item => item.classList.contains('selected'))
-		            .map(item => item.getAttribute('data-value'));
-	
-		        selectedItemsInput.value = selectedItems.join(',');
-		        debugger;
-		    }
-		    
-		});
-	</script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
 		// 주소검색
-	    function search_address() {
-	        new daum.Postcode({ // daum.Postcode 객체 생성
-	            oncomplete: function(data) {
-	                console.log(data);
-	                document.fr.post_code.value = data.zonecode;
-	        		let address = data.address; // 기본주소 변수에 저장
-	        		if(data.buildingName != "") {
-	        			address += " (" + data.buildingName + ")";
-	        		}
-	        		// 기본주소 출력
-	        		document.fr.address1.value = address;
-	        		// 상세주소 입력 항목에 커서 요청
-	        		document.fr.address2.focus();
-	            }
-	        }).open();
-	    }
+		function search_address() {
+			new daum.Postcode({ // daum.Postcode 객체 생성
+				oncomplete : function(data) {
+					console.log(data);
+					document.fr.post_code.value = data.zonecode;
+					let address = data.address; // 기본주소 변수에 저장
+					if (data.buildingName != "") {
+						address += " (" + data.buildingName + ")";
+					}
+					// 기본주소 출력
+					document.fr.address1.value = address;
+					// 상세주소 입력 항목에 커서 요청
+					document.fr.address2.focus();
+				}
+			}).open();
+		}
+		
 	</script>
+	  <script>
+	  $(document).ready(function() {
+		  function mergeAddress() {
+		        var address1 = $("#address1").val();
+		        var address2 = $("#address2").val();
+		        var fullAddress = address1 + ' ' + address2;
+		        $("#member_addr").val(fullAddress); // 숨겨진 필드에 합친 주소 설정
+		    }
 
+		    // 폼 제출 시 주소 합치기 및 확인 대화상자
+		    $(".validation-form").submit(function() {
+		        mergeAddress(); // 주소 합치기 함수 호출
+		      
+		    });
+		  	  
+		  
+		  
+		    // 비밀번호 입력 시 유효성 검사
+		    $("#member_pwd").on("input", function() {
+		        let inputPwd = $(this).val();
+		       
+		        let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
+
+		        if (!regex.test(inputPwd)) {
+		            $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
+		            $("#regex-pwd").css("color", "red");
+		            $("#member_pwd_confirm").prop("disabled", true); // 비밀번호 유효성 불만족 시 확인란 비활성화
+		        } else {
+		            $("#regex-pwd").text("");
+		            $("#member_pwd_confirm").prop("disabled", false); // 비밀번호 유효성 만족 시 확인란 활성화
+		        }
+		        $("#pwd-match").text(""); // 비밀번호 변경 시 일치 여부 메시지 초기화
+		    });
+
+		    // 새 비밀번호와 새 비밀번호 확인 일치 여부 확인
+		    $("#member_pwd_confirm").on("input", function() {
+		        let pwd = $("#member_pwd").val();
+		        let pwdConfirm = $(this).val();
+
+		        if (pwd !== pwdConfirm) {
+		            $("#pwd-match").text("비밀번호가 일치하지 않습니다.");
+		            $("#pwd-match").css("color", "red");
+		        } else {
+		            $("#pwd-match").text("비밀번호가 일치합니다.");
+		            $("#pwd-match").css("color", "green");
+		        }
+		    });
+
+		    // 초기 로드 시 비밀번호 확인란 비활성화
+		    $("#member_pwd_confirm").prop("disabled", true);
+		});
+	</script>
 </body>
 </html>

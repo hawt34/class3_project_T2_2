@@ -34,7 +34,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css" rel="stylesheet">
 	
- <!-- Custom styles for this template-->
+	<!-- Toast UI Grid Script -->
    <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
     
     <!-- Toast UI Grid Script -->
@@ -211,10 +211,10 @@
 	             data: data,
 	             columns: [
 // 	                 { header: '클래스코드', name: 'class_code', editor: 'text' },
-	                 { header: '클래스제목', name: 'class_name', editor: 'text' },
-	                 { header: '지원상태', name: 'class_regist_status', editor: 'text' },
-	                 { header: '카테고리', name: 'class_big_category', editor: 'text' },
-	                 { header: '공개여부', name: 'class_hide', editor: 'text' },
+	                 { header: '클래스제목', name: 'class_name', width: 'auto' },
+	                 { header: '지원상태', name: 'code_value' },
+	                 { header: '카테고리', name: 'cate', className: 'hide-column' },
+	                 { header: '공개여부', name: 'hide', className: 'hide-column' },
 	                 {
 	                     header: 'Action',
 	                     name: 'action',
@@ -231,32 +231,26 @@
 	 	        }
 	         });
 	         
-	         $('#btn-apply').on('click', function () {
-	             const modifiedRows = grid.getModifiedRows();
-	             const jsonData = JSON.stringify(modifiedRows);
-	             console.log(jsonData);
-	
-	             fetch('/insert', {
-	                 method: 'POST',
-	                 headers: {
-	                     'Content-Type': 'application/json'
-	                 },
-	                 body: jsonData
-	             })
-	             .then(response => response.json())
-	             .then(data => {
-	                 if (data.success) {
-	                     alert('변경 사항이 성공적으로 적용되었습니다.');
-	                     location.reload();
-	                 } else {
-	                     alert('변경 사항 적용 실패: ' + data.message);
-	                 }
-	             })
-	             .catch(error => {
-	                 console.error('Error:', error);
-	                 alert('변경 사항 적용 실패: 서버 오류');
-	             });
-	         });
+	         function handleResize() {
+	             const isMobile = window.innerWidth <= 767;
+
+	             // 그리드 API를 사용하여 컬럼 숨기기/보이기
+	             grid.setColumns(isMobile ? [
+	               { header: '클래스제목', name: 'class_name', width: 'auto'  },
+	               { header: '지원상태', name: 'code_value' },
+	               {  header: 'Action',
+	                     name: 'action',
+	                     renderer: {
+	                         type: ButtonRenderer } 
+	               }
+	             ] : columns);
+	           }
+
+	           // 초기 창 크기에 맞게 설정
+	           handleResize();
+
+	           // 창 크기 변경 시 이벤트 리스너 등록
+	           window.addEventListener('resize', handleResize);
 	     });
 	
 	</script>

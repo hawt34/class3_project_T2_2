@@ -34,6 +34,12 @@
         tr:hover .delete-btn {
             display: inline;
         }
+        .hidden {
+		    display: none;
+		}
+		th, td{
+			text-align: center;
+		}
     </style>
 </head>
 <body>
@@ -57,7 +63,7 @@
         <ol class="breadcrumb justify-content-center mb-0">
             <li class="breadcrumb-item"><a href="main">Home</a></li>
             <li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
-            <li class="breadcrumb-item active text-white">클래스</li>
+            <li class="breadcrumb-item active text-white">클래스 일정관리</li>
         </ol>
     </div>
     <!-- Single Page Header End -->
@@ -76,6 +82,7 @@
 	                            <!-- 	셀렉트박스 -->
 	                            <div class="creator-main-table col-xl-12 mb-5">
 	                            
+	                            		<div id="scheduleTableContainer" class="col-md-12"></div>
 	                                
 								        <div id="datepicker"></div>
 								        <input type="hidden" name="selectedDates" id="selectedDates">
@@ -138,9 +145,8 @@
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     
     <script>
-		 
-		// 참여인원 처리
 		$(document).ready(function() {
+			// 참여인원 처리
 		     $('#class_total_headcount').on('input', function() {
 		         if ($(this).val() <= 0) {
 		             $(this).val(''); // 값이 0 이하일 경우 비움
@@ -193,9 +199,77 @@
 	            });
 	        }
 			
+			$('#classSelect').change(function() {
+				// ajax로 기존 선택했던 날짜 가져오기
+				var classCode = $('#classSelect').val();
+				$.ajax({
+					url: "getSelectedDates",
+					method: "get",
+					data: { "classCode" : classCode },
+					success: function(data) {
+						// JSON 형태로 파싱
+						var scheduleData = JSON.parse(JSON.stringify(data));
+						// 날짜 배열 생성
+						var selectedDates = [];
+						scheduleData.forEach(function(item) {
+				        	if (item.class_schedule_date) {
+				            	selectedDates.push(item.class_schedule_date);
+				            }
+				        });
+						selectedDates = [...new Set(selectedDates)];
+						$('#scheduleTableContainer').empty();
+						if(selectedDates.length > 0){ // 등록된 일정이 있다면 달력 안보이기
+							$('.creator-plan-bottom').addClass('hidden');
+							$('#datepicker').addClass('hidden');
+							
+							var tableHtml = '<table><tr><th>날짜</th><th>회차</th><th>시작 시간</th><th>종료 시간</th><th>참여 가능 인원</th><th>일정삭제</th></tr>';
+                            
+                            scheduleData.forEach(function(schedule) {
+                                tableHtml += '<tr>';
+                                tableHtml += '<td>' + schedule.class_schedule_date + '</td>';
+                                tableHtml += '<td>' + schedule.class_round + '</td>';
+                                tableHtml += '<td>' + schedule.class_st_time + '</td>';
+                                tableHtml += '<td>' + schedule.class_ed_time + '</td>';
+                                tableHtml += '<td>' + schedule.class_remain_headcount + "/" + schedule.class_total_headcount + '</td>';
+                                tableHtml += '<td><button type="button" class="scheduleBtn btn btn-outline-primary" data-class-code="' + schedule.class_schedule_code + '">삭제</button></td>';
+                                tableHtml += '</tr>';
+                            });
+                            
+                            tableHtml += '</table>';
+                            
+                            // 테이블을 추가할 위치에 HTML 삽입
+                            $('#scheduleTableContainer').append(tableHtml);
+							
+						} else{ // 일정이 등록된게 없으면 보이기
+							$('.creator-plan-bottom').removeClass('hidden');
+							$('#datepicker').removeClass('hidden');
+							$('#scheduleTableContainer').empty();
+						}
+					}
+				});	
+			});
 			
-		}); // document.ready 끝
-	    $(function() {
+			  window.deleteSchedule = function(classCode) {
+				 debugger;
+			        $.ajax({
+			            url: "deleteSchedule",
+			            method: "get",
+			            data: { "classCode": classCode },
+			            success: function(data) {
+			                console.log("제거완료");
+			                location.reload();
+			                // 필요시 일정이 제거된 후 추가 로직 작성
+			            }
+			        });
+			    }
+			    // 이벤트 델리게이션을 사용하여 동적으로 생성된 버튼에 이벤트를 연결
+			    $('#scheduleTableContainer').on('click', '.scheduleBtn', function() {
+			        var classCode = $(this).data('class-code');
+			        deleteSchedule(classCode);
+			    });
+				
+			
+			
 	        // jQuery UI datepicker 한국어 설정
 	        $.datepicker.regional['ko'] = {
 	            closeText: '닫기',
@@ -231,10 +305,9 @@
                 onSelect: function(dateText, inst) {
                 	
                 	// ui-state-highlight
-                	
-                    var selectedDates = $('#datepicker').multiDatesPicker('getDates');
+                    selectedDates = $('#datepicker').multiDatesPicker('getDates');
                     var $datepicker = $('#datepicker');
-
+//                     debugger;
                     // 선택된 날짜에 대해 .selected-date 클래스 추가/제거
                     $datepicker.find('.selected-date');
                     selectedDates.forEach(function(date) {
@@ -242,6 +315,7 @@
                         $datepicker.find('td[data-year="' + dateObj.getFullYear() + '"][data-month="' + dateObj.getMonth() + '"] a').filter(function() {
                             return $(this).text() == dateObj.getDate();
                         }).addClass('selected-date');
+                        debugger;
                     });
 
                     var dateIndex = selectedDates.indexOf(dateText);

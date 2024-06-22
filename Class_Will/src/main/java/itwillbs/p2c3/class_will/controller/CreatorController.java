@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
@@ -36,7 +37,6 @@ public class CreatorController {
 	}
 	
 	//======================================================
-	// creator-class 
 	// creater-class로
 	@GetMapping("creator-class")
 	public String createrClass(Model model) {
@@ -145,7 +145,9 @@ public class CreatorController {
 	
 	// 입력된 일정 데이터 처리
 	@PostMapping("creatorPlanPro")
-	public String creatorPlanPro(@RequestParam Map<String, Object> map, Model model) {
+	public String creatorPlanPro(@RequestParam Map<String, Object> map
+								, Model model
+								,RedirectAttributes redirectAttributes) {
 		System.out.println(">>>>>>>>>>>map : " + map);
 		// 회차별 시간 데이터 가져오기
 		List<ClassTimeVO> classTimeList = new ArrayList<ClassTimeVO>();
@@ -183,17 +185,27 @@ public class CreatorController {
 		List<String> dateList = Arrays.stream(((String)map.get("selectedDates")).split(","))
 			.map(String::trim)
 			.collect(Collectors.toList());
+		System.out.println(">>>>>>dateList : " + dateList);
 		
-		for(String date : dateList) {
-			for(ClassTimeVO classTime : classTimeList) {
-				classTime.setDate(date);
+		List<ClassTimeVO> classTimerList = new ArrayList<ClassTimeVO>();
+		for(ClassTimeVO classTime : classTimeList) {
+			for(String date : dateList) {
+				ClassTimeVO classTimer = new ClassTimeVO();
+				classTimer.setRound(classTime.getRound());
+				classTimer.setStartTime(classTime.getStartTime());
+				classTimer.setEndTime(classTime.getEndTime());
+				classTimer.setDate(date);
+				classTimerList.add(classTimer);
 			}
 		}
-		System.out.println(">>>>>>>classTimeList" + classTimeList);
+		
+		System.out.println(">>>>>>>classTimerList" + classTimerList);
+		System.out.println(">>>>>>>classSelect" + map.get("classSelect"));
  
-		int insertCount = creatorService.insertClassPlan(map, classTimeList);
+		int insertCount = creatorService.insertClassPlan(map, classTimerList);
 		if(insertCount > 0) {
-			return "redirect:/creator-class";
+			redirectAttributes.addFlashAttribute("classCode", map.get("classSelect"));
+			return "redirect:/creator-class-plan";
 		}
 		
 		model.addAttribute("msg", "일정등록 오류");
@@ -210,11 +222,36 @@ public class CreatorController {
 		return scheduleList;
 	}
 
-	// ajax로 날짜 데이터 가져오기
+	// ajax로 날짜 데이터 삭제하기
 	@ResponseBody
 	@GetMapping("deleteSchedule")
-	public void deleteSchedule(@RequestParam(defaultValue = "0") int classCode) {
-		creatorService.deleteSchedule(classCode);
+	public Map<String, String> deleteSchedule(@RequestParam(defaultValue = "0") int classScheduleCode) {
+		int deleteCount = creatorService.deleteSchedule(classScheduleCode);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if(deleteCount > 0) {
+			map.put("answer", "정상삭제 되었습니다");
+			return map;
+		} else {
+			map.put("answer", "예약이 있는 수업은 삭제가 불가능합니다");
+			return map;
+		}
+	}
+	// ajax로 날짜 데이터 전체 삭제
+	@ResponseBody
+	@GetMapping("deleteAllSchedule")
+	public Map<String, String> deleteAllSchedule(@RequestParam(defaultValue = "0") int classCode) {
+		int deleteCount = creatorService.deleteAllSchedule(classCode);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if(deleteCount > 0) {
+			map.put("answer", "정상삭제 되었습니다");
+			return map;
+		} else {
+			map.put("answer", "예약이 있는 수업이 있어 삭제가 불가능합니다");
+			return map;
+		}
+		
 		
 	}
 	

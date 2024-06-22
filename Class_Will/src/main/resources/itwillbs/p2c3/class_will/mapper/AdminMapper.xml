@@ -3,27 +3,91 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.AdminMapper">
-	<select id="selectMemberList" resultType="map">
-		SELECT *
-		FROM MEMBER
-		WHERE member_type = #{type}
+
+	<select id="selectMemberList" resultType="map" parameterType="map">
+	    SELECT 
+	        m.member_code,
+	        m.member_email,
+	        m.member_name,
+	        m.member_img,
+	        m.member_tel,
+	        m.member_pwd,
+	        m.member_social,
+	        m.member_marketing1,
+	        m.member_marketing2,
+	        status.code_value AS member_status,
+	        m.member_addr,
+	        m.member_nickname,
+	        m.member_credit,
+	        type.code_value AS member_type,
+	        m.member_reg_date
+	    FROM MEMBER m
+	    LEFT JOIN common2 status 
+	    ON m.member_status = status.common2_code 
+	    AND status.common1_code = #{params.member_status}
+	    LEFT JOIN common2 type 
+	    ON m.member_type = type.common2_code 
+	    AND type.common1_code = #{params.member_type}
+	    WHERE m.member_type = #{params.param1}
 	</select>
 	
-	<select id="selectMemberInfo" resultType="map">
-		SELECT *
-		FROM MEMBER
-		WHERE member_code = #{member_code}
+	<select id="selectMemberInfo" resultType="map" parameterType="map">
+		SELECT	m.member_code,
+		        m.member_email,
+		        m.member_name,
+		        m.member_img,
+		        m.member_tel,
+		        m.member_pwd,
+		        m.member_social,
+		        m.member_marketing1,
+		        m.member_marketing2,
+		        status.code_value AS member_status,
+		        m.member_addr,
+		        m.member_nickname,
+		        m.member_credit,
+		        type.code_value AS member_type,
+		        m.member_reg_date
+		FROM MEMBER m
+	    LEFT JOIN common2 status 
+	    ON m.member_status = status.common2_code 
+	    AND status.common1_code = #{params.member_status}
+	    LEFT JOIN common2 type 
+	    ON m.member_type = type.common2_code 
+	    AND type.common1_code = #{params.member_type}
+		WHERE member_code = #{params.param1}
 	</select>
 	
 	<select id="selectColumnNames" resultType="String">
 		SELECT COLUMN_NAME 
 		FROM INFORMATION_SCHEMA.COLUMNS 
 		WHERE TABLE_NAME = #{tableName}
+		ORDER BY ORDINAL_POSITION
 	</select>
 	
 	<select id="selectTable" resultType="map">
-		SELECT * 
-		FROM ${tableName}
+	    SELECT 
+	        m.member_code,
+	        m.member_email,
+	        m.member_name,
+	        m.member_img,
+	        m.member_tel,
+	        m.member_pwd,
+	        m.member_social,
+	        m.member_marketing1,
+	        m.member_marketing2,
+	        status.code_value AS member_status,
+	        m.member_addr,
+	        m.member_nickname,
+	        m.member_credit,
+	        type.code_value AS member_type,
+	        m.member_reg_date
+	    FROM MEMBER m
+	    LEFT JOIN common2 status 
+	    ON m.member_status = status.common2_code 
+	    AND status.common1_code = 1
+	    LEFT JOIN common2 type 
+	    ON m.member_type = type.common2_code 
+	    AND type.common1_code = 2
 	</select>
 	
 	<select id="selectColumnDataTypes" resultType="String">
@@ -36,21 +100,174 @@
 	    WHERE TABLE_NAME = #{tableName}
 	</select>
 	
-	
-    <select id="selectMaxCode" resultType="String">
-		SELECT MAX(CAST(${tableName}_code AS UNSIGNED)) + 1
-		FROM ${tableName}
-    </select>
-    
 	<insert id="insertExcelDatas">
 		INSERT INTO ${tableName}
+		(
+		<foreach collection="columnNames" separator="," item="column">
+			${column}
+		</foreach>
+		)
 		VALUES
-		(#{code},
+		(
 		<foreach collection="rowDataList" separator="," item="data">
 			#{data}
 		</foreach>
 		)
 	</insert>
 	
+	<select id="selectClassList" resultType="map">
+		SELECT class_code
+		        ,class_name
+		        ,c2.code_value AS 'class_big_category'
+		        ,c3.code_value AS 'class_small_category'
+		        ,class_thumnail
+		        ,class_image
+		        ,class_ex
+		        ,class_location
+		        ,class_hashtag
+		        ,class_creator_explain
+		        ,class_hide
+		        ,class_price
+		        ,crs.code_value AS 'class_regist_status'
+		        ,m.member_name
+		FROM class c
+		LEFT JOIN common2 c2
+		ON c.class_big_category = c2.common2_code
+		AND c2.common1_code = 'CLC'
+		LEFT JOIN common3 c3
+		ON c.class_small_category = c3.common3_code
+		AND c3.common2_code = c2.common2_code
+		AND c3.common1_code = 'CLC'
+		LEFT JOIN common2 crs
+		ON c.class_regist_status = crs.common2_code
+		AND crs.common1_code = 'CRS'
+		JOIN MEMBER m
+		ON c.member_code = m.member_code;
+	</select>
 	
+	<select id="selectClassInfo" resultType="map">
+		SELECT class_code
+				,class_name
+				,class_big_category
+				,class_small_category
+				,class_thumnail
+				,class_image
+				,class_ex
+				,class_location
+				,class_hashtag
+				,class_creator_explain
+				,class_hide
+				,class_price
+				,class_regist_status
+				,m.member_name
+		FROM class c
+		JOIN MEMBER m
+		  ON c.member_code = m.member_code
+		WHERE class_code = #{class_code}
+	</select>
+	
+	<select id="selectCommonCode" resultType="String">
+		SELECT common1_code
+		FROM common1
+		WHERE code_value = #{code_value}
+	</select>
+	
+	<select id="selectCommon2Code" resultType="int">
+		SELECT common2_code
+		FROM common2
+		WHERE common1_code = #{common1_code}
+		AND code_value = #{type}
+	</select>
+	
+	<select id="selectBigCategory">
+		SELECT *
+		FROM common2
+		WHERE common1_code = 'CLC'
+	</select>
+	
+	<select id="selectSmallCategory">
+		SELECT *
+		FROM common3
+		WHERE common1_code = 'CLC'
+	</select>
+	
+	<update id="updatedCategoryData" parameterType="map">
+		UPDATE common3
+		SET code_value = #{smallCategory}
+			,code_hide =
+		<choose>
+			<when test="hidden == true">
+				'Y'
+			</when>
+			<otherwise>
+				'N'
+			</otherwise>
+		</choose> 
+		WHERE common2_code = #{common2_code} 
+		AND common1_code = 'CLC'
+		AND common3_code = #{id}
+	</update>
+	
+	<select id="selectMaxCommon3Code" resultType="int">
+		SELECT COALESCE(MAX(common3_code), 0) + 1
+		FROM common3
+		WHERE common2_code = #{common2_code}
+	</select>
+	
+	
+	<insert id="insertCategoryData" parameterType="map">
+	    INSERT INTO common3
+	    VALUES
+	        ('CLC', #{rowMap.common2_code}, #{rowMap.max_code}, #{rowMap.smallCategory}, null,
+			<choose>
+				<when test="rowMap.hidden == true">
+					'Y'
+				</when>
+				<otherwise>
+					'N'
+				</otherwise>
+			</choose> 
+			)
+	</insert>
+	
+	<delete id="deleteCategoryData" parameterType="map">
+		DELETE FROM common3
+		WHERE 	common1_code = 'CLC' 
+		AND		common2_code = #{rowMap.common2_code}
+		AND		common3_code = #{rowMap.id}
+	</delete>
+	
+	<insert id="insertBoard" parameterType="map">
+		INSERT INTO ${map.type}
+		VALUES
+		(NULL, #{map.subject}, #{map.content}, #{map.category}, 'N')
+	</insert>
+	
+	<select id="selectCscList" resultType="map" parameterType="map">
+		SELECT *
+		FROM ${type}
+		ORDER BY ${type}_code DESC
+		<if test="startRow != null and !startRow.equals('')">
+			LIMIT #{startRow}, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectCscCount" resultType="int">
+	    SELECT COUNT(*)
+	    FROM ${type}
+	</select>
+	
+	<select id="selectCommon2Value" resultType="String">
+		SELECT code_value
+		FROM common2
+		WHERE common1_code = #{common1_code}
+		AND common2_code = #{common2_code}
+	</select>
+	
+	<select id="selectBoardCategory" resultType="map">
+		SELECT common2_code , code_value
+		FROM common2
+		WHERE common1_code = #{code}
+	</select>
+
 </mapper>

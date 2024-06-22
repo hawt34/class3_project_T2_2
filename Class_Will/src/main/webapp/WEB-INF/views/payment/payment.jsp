@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,9 +40,16 @@
 
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<!-- PortOne - SDK -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <style>
+
 .margin_use {
-	margin-top: 200px;
+	margin-top: 50px;
+}
+.payment_title {
+	display: flex;
+	align-items: center;
 }
 #back_button {
 	border: 0;
@@ -50,6 +58,7 @@
 	background-size: cover;
 	width:20px;
 	height: 20px;
+	margin-bottom:3px; 
 }
 .nav-item {
 	color: white;
@@ -57,6 +66,11 @@
 .accordion {
 	width: 100%;
 	margin-top: 15px;
+}
+#class_poster {
+	background-size: cover;
+	max-width: 520px;
+	max-height: 240px;
 }
 </style>
 </head>
@@ -77,34 +91,35 @@
 					<h5 class="card-header">클래스 정보</h5>
 					<div class="card-body">
 						<div class="card payment_status_box">
-
 							<div class="row ">
-								<div class="col text-center">
-									<img src="${scs.movie_poster}" id="class_poster" alt="썸네일" >
-								</div>
+								<img src="${pageContext.request.contextPath }/resources/img/${payInfo.class_thumnail}" class="img-fluid" id="class_poster" alt="썸네일" >
 							</div> <!-- row -->
 						</div>
 						<h5 class="card-title text-success">클래스 이름</h5>
-						<p class="card-text">도자기 공방</p>
+						<p class="card-text">${payInfo.class_name }</p>
 						<h5 class="card-title text-success">클래스 유형</h5>
-						<p class="card-text">원데이</p>
+						<p class="card-text">${payInfo.class_upper }</p>
 						<h5 class="card-title text-success">클래스 카테고리</h5>
-						<p class="card-text">도자기, 공방</p>
+						<p class="card-text">${payInfo.class_lower }</p>
 						<h5 class="card-title text-success">예약 날짜 / 시간</h5>
-						<p class="card-text">2024.06.10 / 14:00~16:00</p>
+						<p class="card-text">${payInfo.class_schedule_date } / ${payInfo.class_st_time }~${payInfo.class_ed_time }</p>
 						<h5 class="card-title text-success">장소</h5>
-						<p class="card-text">부산시 남구 대연동</p>
+						<p class="card-text">${payInfo.class_location }</p>
 					</div> <!-- card-body 끝 -->
 				</div><!-- card -->
 				<div class="card">
 					<h5 class="card-header ">연락처 정보</h5>
 					<div class="card-body">
 						<h5 class="card-title text-success">연락처</h5>
-						<p class="card-text">010 - 1111 - 2222</p>
+						<p class="card-text">
+							<c:set var="phoneNumber" value="${payInfo.member_tel }" />
+							<c:set var="formatPhoneNumber" value="${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}" />
+							${formatPhoneNumber }
+						</p>
 						<h5 class="card-title text-success">이메일</h5>
-						<p class="card-text">take7267@gmail.com</p>
+						<p class="card-text">${payInfo.member_email }</p>
 						<h5 class="card-title text-success">이름(닉네임)</h5>
-						<p class="card-text">take7267</p>
+						<p class="card-text">${payInfo.member_nickname }</p>
 					</div>
 				</div>
 			</div>
@@ -159,29 +174,36 @@
 				<div class="card">
 					<h5 class="card-header">결제 정보</h5>
 					<div class="card-body">
-						<h6 class="card-title">클래스 수강권 1매</h6>
+						<h6 class="card-title">클래스 결제 정보</h6>
 						<p class="card-text text-end"><span class="font_color">원데이 수강</span></p>
-						<p class="card-text text-end"><span class="font_color">40000</span>만원</p>
-						<p class="card-text text-end"><span class="font_color">1</span>명</p>
-						<p class="card-text text-end">소계:&nbsp; <span class="font_color">4</span>만원</p>
-<!-- 					<hr> -->
-<!-- 						<h6 class="card-title">쿠폰</h6> -->
-<!-- 						<h6 class="card-title text-end">사용가능 쿠폰: <span class="font_color">0</span>개</h6> -->
-<!-- 						<div class="col d-flex justify-content-end"> -->
-<!-- 							<a href="#" class="btn btn-dark">쿠폰 조회</a> -->
-<!-- 						</div> -->
+						<p class="card-text text-end">
+							<span class="font_color"><fmt:formatNumber value="${payInfo.class_price }" pattern="#,###" /></span>원
+						</p>
+						<p class="card-text text-end"><span class="font_color">${payInfo.headcount }</span>명</p>
+						<p class="card-text text-end">
+							소계:&nbsp; <span class="font_color" id="subtotal">
+								<fmt:formatNumber value="${payInfo.subtotal }" pattern="#,###"/>
+							</span>원
+						</p>
 					<hr>
 						<h6 class="card-title">WILL-PAY</h6>
-						<h6 class="card-title text-end">보유 WILL-PAY &nbsp;<span class="font_color">0</span>원</h6>
+						<h6 class="card-title text-end">보유 WILL-PAY &nbsp;<span class="font_color">${payInfo.member_credit }</span>원</h6>
 						<div class="col d-flex justify-content-end">
-							<input type="text" placeholder="크레딧">
-							<input type="button" value="전부 사용">
+							<input type="text" placeholder="윌페이" id="will_pay_input">
+							<input type="button" value="전부 사용" id="will_btnCredit">
+						</div>
+						<!-- 10 단위 검증 -->
+						<div class="col d-flex justify-content-end">
+							<p id="result"></p>
 						</div>
 					<hr>
-						<p class="card-text text-end">총 결제 금액: <span class="font_color">40000</span>만원</p>
+						<p class="card-text text-end">
+							총 결제 금액: 
+							<span class="font_color" id="total"></span>만원
+						</p>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<a href="#" class="btn btn-dark w-100">결제하기</a>
+								<a href="javascript:void(0);" class="btn btn-dark w-100" onclick="myFunction()">결제하기</a>
 							</div>
 						</div>
 					</div>
@@ -193,6 +215,168 @@
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 </footer>
+<script>
+$(function() {
+	let subtotalText = $("#subtotal").text().trim(); //trim()으로 앞뒤 공백 제거
+	let subtotal = parseInt(subtotalText.replace(/,/g, ''), 10);
+	$("#total").text(subtotal.toLocaleString());
+	
+	$("#will_pay_input").on("input", function() {
+		let willpay = $(this).val();
+		let regex = /^\d+0$/;
+		
+		if (!regex.test(willpay)) {
+               $("#result").text('10원 단위로 입력해 주세요');
+               $("#result").css("color", "red");
+           } else {
+           	$('#result').text("");
+           }
+
+	});
+	//--------------------------------------------
+	$("#will_btnCredit").on("click", function() {
+// 		let subtotal = parseInt(subtotalValue);
+		$.ajax({
+			url: "will-pay-all",
+			type: "GET",
+			data: {
+				member_code: "${payInfo.member_code}"
+			},
+			dataType: 'json',
+			success: function(data) {
+				let credit = parseInt(data.member_credit);
+				
+				if(credit > subtotal) {
+					$("#will_pay_input").val(subtotal);
+				} else {
+					$("#will_pay_input").val(credit);
+				}
+				
+				//total value 계산
+				let total = subtotal - credit;
+                if (total < 0) {
+                    total = 0;
+                }
+                // 포맷팅된 값을 HTML 요소에 설정
+                $('#total').text(total.toLocaleString());
+				
+			},
+			error: function() {
+				alert("호출 실패!");
+			}
+		});
+	});
+	//---------------------------------------------------
+	//total 관련 자바스크립트
+	$("#will_pay_input").on("input", function() {
+		let payInput = parseInt($("#will_pay_input").val());
+		let total = subtotal - payInput;
+		if (total < 0) {
+            total = 0;
+        }
+// 		if(isNaN($("#total")) || $("#will_pay_input").val() === "") {
+// 			$("#total").text("0");
+// 		}
+		
+		//형변환
+		let subtotalS = subtotal.toString();
+		let totalS = total.toString();
+		if(payInput > subtotal) {
+			//최대값 지정
+			$("#will_pay_input").val(subtotalS);
+			
+			$("#total").text(total);
+		} else {
+			$("#total").text(total.toLocaleString());
+			
+			if($("#will_pay_input").val() == "") {
+				$("#total").text(subtotal.toLocaleString());
+			}
+		}
+	});
+	$('#will_pay_input').on('keydown', function(event) {
+        let payInput1 = parseInt($("#will_pay_input").val());
+
+        // Allow backspace, delete, tab, escape, enter, period, and arrow keys
+        if ($.inArray(event.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            // Allow: Ctrl/cmd+A
+            (event.keyCode === 65 && (event.ctrlKey === true || event.metaKey === true)) ||
+            // Allow: Ctrl/cmd+C
+            (event.keyCode === 67 && (event.ctrlKey === true || event.metaKey === true)) ||
+            // Allow: Ctrl/cmd+X
+            (event.keyCode === 88 && (event.ctrlKey === true || event.metaKey === true)) ||
+            // Allow: home, end, left, right, down, up
+            (event.keyCode >= 35 && event.keyCode <= 39)) {
+            return;
+        }
+
+        // Ensure that it is a number and stop the keypress
+        if ((event.shiftKey || (event.keyCode < 48 || event.keyCode > 57)) &&
+            (event.keyCode < 96 || event.keyCode > 105)) {
+            event.preventDefault();
+        }
+
+        // Prevent entering value that will exceed subtotal
+        if (!isNaN(payInput1) && payInput1 >= subtotal && event.keyCode >= 48 && event.keyCode <= 57) {
+            event.preventDefault();
+        }
+    });
+});
+//-------------------------------------------------------------------------------------------------
+function myFunction() {
+	//결제 전 유효성 체크
+	let willPayCredit = $("#will_pay_input").val();
+	let regex = /^\d+0$/;
+	
+	if(!regex.test(willPayCredit) && willPayCredit != "") {
+		alert("10원 단위로 입력해 주세요.");
+		return false; // 함수 실행 중단
+	}
+	//------------------------------------
+	let subtotalText = $("#subtotal").text().trim(); //trim()으로 앞뒤 공백 제거
+	let subtotal = parseInt(subtotalText.replace(/,/g, ''), 10);
+	
+	
+	let pg = "html5_inicis.INIpayTest";
+	let className = "${payInfo.class_name}";
+	
+	
+	let amount = $("#total").text().replace(/,/g, '');
+	let member_email = "${payInfo.member_email}";
+	let member_name = "${payInfo.member_name}";
+	let member_tel = "${payInfo.member_tel}";
+	
+	let IMP = window.IMP;   // 생략 가능
+	IMP.init("imp00262041");
+	IMP.request_pay(
+		{
+            pg: pg,
+            pay_method: "card",
+            merchant_uid: "order_" + new Date().getTime(),
+            name: className,
+            amount: amount,
+            buyer_email: member_email,
+            buyer_name: member_name,
+            buyer_tel: member_tel //필수
+        },
+        function (rsp) {
+            console.log(rsp);
+
+            if(rsp.success) {
+                verifyAndSavePayInfo(rsp.imp_uid, rsp.merchant_uid);
+
+            } else {
+                alert("결제에 실패하였습니다." + " : " + rsp.error_msg);
+               
+            } // if-else
+
+        } // function(rsp)
+
+    );
+	
+	
+}
+</script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script

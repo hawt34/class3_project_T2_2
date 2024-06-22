@@ -1,167 +1,207 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
     
 <style>
     
-    /*** Top Navbar Start ***/
-	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
-    
-	.class-will-top {
-		background: black;
- 		font-family: "Nanum Gothic", sans-serif; 
-	}
-	
-	.navbar .navbar-nav .nav-link {
-	    padding: 0px 20px;
-	    font-size: 18px;
-	    transition: .5s;
-	}
-	
-	.navbar {
-	    height: 150px;
-	    border-bottom: 1px solid rgba(255, 255, 255, .3);
-	    background: black;
-	}
-	
-	.navbar .navbar-nav .nav-link:hover,
-	.navbar .navbar-nav .nav-link.active,
-	.navbar .navbar-nav .nav-link:hover .nav-link.active {
-	    color: white;
-	    font-weight: bold;
-	}
-	
-	.navbar-nav>a:hover{
-	   background: white;
-	   border-radius: 5px;
-	}
-	.navbar-nav>div:hover{
-	   background: white;
-	   border-radius: 5px;
-	}
-	
-	.navbar .dropdown-toggle::after {
-	    border: none;
-	    content: "\f107";
-	    font-family: "Font Awesome 5 Free";
-	    font-weight: 700;
-	    vertical-align: middle;
-	    margin-left: 8px;
-	    color: var(--bs-body);
-	}
-	
-	@media (min-width: 1200px) {
-	    .navbar .nav-item .dropdown-menu {
-	        display: block;
-	        visibility: hidden;
-	        top: 100%;
-	        transform: rotateX(-75deg);
-	        transform-origin: 0% 0%;
-	        border: 0;
-	        transition: .5s;
-	        opacity: 0;
-	    }
-	    
-	}
-	@media (max-width: 1200px) {
-	  #navbarCollapse{
-	   background: lightgray;
-	   border-radius: 10px;
-	  }
-	  
-	    
-	}   
-	
-	.navbar-brand {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        padding: 0;
-        margin: 0;
-    }
+/*** Top Navbar Start ***/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
 
-    .navbar-toggler {
-        border: none;
-        background: none;
-    }
 
-    .navbar-toggler:focus {
-        outline: none;
-    }
+* {
+     font-family: "Noto Sans KR", sans-serif; 
+}
 
-    .navbar-toggler-icon {
-        background-image: none;
-        font-size: 1.5rem;
-        color: white;
+.class-will-top {
+    background: black;
+}
+
+.class-will-top a {
+    color: inherit; 
+    text-decoration: none; 
+}
+
+.navbar .navbar-nav .nav-link {
+    padding: 0px 20px;
+    font-size: 18px;
+    color: white; 
+    transition: .5s;
+}
+
+.navbar {
+    height: 150px;
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+    background: black !important; /* Navbar 배경을 검정색으로 설정 */
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active,
+.navbar .navbar-nav .nav-link:hover .nav-link.active {
+    color: white; /* 호버 상태에서 글자 색을 흰색으로 유지 */
+    font-weight: bold; /* 호버 상태에서 볼드체 */
+}
+
+
+.navbar-nav > a:hover {
+    background: white;
+    border-radius: 5px;
+}
+
+.navbar-nav > div:hover {
+    background: white;
+    border-radius: 5px;
+}
+
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 700;
+    vertical-align: middle;
+    margin-left: 8px;
+    color: white; /* 드롭다운 토글 아이콘 색을 흰색으로 설정 */
+}
+
+@media (min-width: 1200px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        visibility: hidden;
+        top: 100%;
+        transform: rotateX(-75deg);
+        transform-origin: 0% 0%;
+        border: 0;
+        transition: .5s;
+        opacity: 0;
     }
-	
-	
-	.dropdown .dropdown-menu a:hover {
-	    background: gray;
-	    color: var(--bs-light);
-	}
-	
-	.navbar .nav-item:hover .dropdown-menu {
-	    transform: rotateX(0deg);
-	    visibility: visible;
-	    background: var(--bs-light) !important;
-	    border-radius: 10px !important;
-	    transition: .5s;
-	    opacity: 1;
-	}
-	
-	#searchModal .modal-content {
-	    background: rgba(255, 255, 255, .7);
-	}
-	
-	.collapse-category {
-		background: black;
-        color: white;
-        position: absolute;
-        width: 100%;
-        z-index: 1000;
-	} 
-	
-	.collapse-category .collapse-category {
-		background: black;
-	}
-    
-    .top-ul {
-    	list-style: none;
+}
+
+@media (max-width: 1200px) {
+    #navbarCollapse {
+        background: lightgray;
+        border-radius: 10px;
     }
-    
-    .big-category {
-    	font-weight: bold;
-    }
-    
-    #top-class-regist {
-    	border: 1px solid white;
-    	border-radius: 5px;
-    
-    }
-    
-    .collapse-category .col {
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-toggler {
+    border: none;
+    background: none;
+}
+
+.navbar-toggler:focus {
+    outline: none;
+}
+
+.navbar-toggler-icon {
+    background-image: none;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.dropdown .dropdown-menu a:hover {
+    background: gray;
+    color: var(--bs-light);
+}
+
+.navbar .nav-item:hover .dropdown-menu {
+    transform: rotateX(0deg);
+    visibility: visible;
+    background: var(--bs-light) !important;
+    border-radius: 10px !important;
+    transition: .5s;
+    opacity: 1;
+}
+
+#searchModal .modal-content {
+    background: rgba(255, 255, 255, .7);
+}
+
+.collapse-category {
+    background: black;
+    color: white;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+
+.collapse-category .collapse-category {
+    background: black;
+}
+
+.top-ul {
+    list-style: none;
+}
+
+.big-category {
+    font-weight: bold;
+}
+
+#top-class-regist {
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+.collapse-category .col {
     display: flex;
     flex-direction: column;
-	}
-	
-	.collapse-category .big-category {
-	    flex-shrink: 0;
-	    margin-bottom: 10px;
-	}
-	
-	.collapse-category .top-ul {
-	    padding-left: 0;
-	}
-	
-	.collapse-category .top-ul li {
-	    list-style: none;
-	}
-	    
-	/*** Top Navbar End ***/
+}
+
+.collapse-category .big-category {
+    flex-shrink: 0;
+    margin-bottom: 10px;
+}
+
+.collapse-category .top-ul {
+    padding-left: 0;
+}
+
+.collapse-category .top-ul li {
+    list-style: none;
+}
+
+.offcanvas {
+	color: white !important;
+}
+
+@media (min-width: 992px) {
+    .offcanvas {
+        display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */
+    }
+}
+/*** Top Navbar End ***/
+
 </style>
 
 <script>
+	$(function() {
+		
+		$("#top-categoty").on("mouseover", function() {
+			$.ajax({
+				type: "GET",
+		        url: "top-field-category",
+			 	dataType : "json",
+			 	success : function(result) {
+			 		
+			 	}
+				
+			});
+		
+			
+		});
+		
+		
+	});
+	
+	
     document.addEventListener('DOMContentLoaded', function () {
         const collapseElements = document.querySelectorAll('[data-bs-toggle="collapse"]');
 
@@ -191,6 +231,15 @@
             target.addEventListener('mouseleave', () => closeCollapse(target));
         });
     });
+    
+    function logout() {
+		
+    	if(confirm("로그아웃하시겠습니까?")) {
+    		location.href = "member-logout";
+    	}
+    } 
+    
+    
 </script>
 
 
@@ -209,9 +258,9 @@
 	                    <div class="col-5 d-none d-lg-flex justify-content-start">
 	                        <ul class="navbar-nav">
 	                            <li class="nav-item">
-	                                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
+	                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
 <!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
-	                                	<span class="fa fa-bars text-primary"></span> 카테고리
+	                                	<span class="fa fa-bars"></span> 카테고리
 	                                </a>
 	                            </li>
 	                            <li class="nav-item">
@@ -244,10 +293,30 @@
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
 	                            </li>
-	                            <li class="nav-item">
-	                            	<a class="nav-link" href="member-login">로그인</a>
-	<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
-	                            </li>
+<!-- 	                            <li class="nav-item"> -->
+<!-- 	                            	<a class="nav-link" href="member-login">로그인</a> -->
+<!-- 	                            </li> -->
+<!-- 		                            <li class="nav-item"> -->
+<!-- 										<a class="nav-link" href="my-page"><i class="bi bi-person-circle"></i></a> -->
+<!-- 				                    </li> -->
+<%-- 	                            <c:if test="${not empty member.member_email}"> --%>
+<%-- 	                            </c:if> --%>
+	                            
+	                            <c:choose>
+	                            	<c:when test="${empty member.member_email}">
+		                            	<li class="nav-item"> 
+		                            		<a class="nav-link" href="member-login">로그인</a>
+		                            	</li>
+	                            	</c:when>
+	                            	<c:otherwise>
+	                            		<li class="nav-item">
+			                                <a class="nav-link" href="my-page"><i class="bi bi-person-circle"></i></a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" onclick="logout()">로그아웃</a>
+			                            </li>
+	                            	</c:otherwise>
+	                            </c:choose>
 	                        </ul>
 	                    </div>
 	
@@ -262,7 +331,7 @@
 	<!--                             <span class="navbar-toggler-icon"></span> -->
 	<!--                         </button> -->
 	                         <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
-		                        <span class="fa fa-bars text-primary"></span>
+		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
 	                    </div>
 	                </div>
@@ -275,15 +344,19 @@
 	                </div>
 	                <div class="offcanvas-body">
 	                    <ul class="navbar-nav">
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#">카테고리</a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#">이벤트</a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#"><i class="bi bi-search"></i></a>
-	                        </li>
+							<li class="nav-item">
+                                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
+                                	<span class="fa fa-bars"></span> 카테고리
+                                </a>
+                            </li>
+	                         <li class="nav-item">
+                                <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
+                                	지역별
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="event">이벤트</a>
+                            </li>
 	                        <li class="nav-item">
 	                            <a class="nav-link" href="creator-main">클래스등록</a>
 	                        </li>
@@ -293,6 +366,19 @@
 	                        <li class="nav-item">
 	                            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
 	                        </li>
+	                        <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
+                            </li>
+                            <li class="nav-item">
+                            	<a class="nav-link" href="member-login">로그인</a>
+<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
+                            </li>
 	                    </ul>
 	                </div>
 	            </div> <!-- offcanvas -->
@@ -303,7 +389,7 @@
 	
 	<!-- Modal Search Start -->
 	<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	    <div class="modal-dialog modal-fullscreen">
+	    <div class="modal-dialog">
 	        <div class="modal-content rounded-0">
 	            <div class="modal-header">
 	                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>

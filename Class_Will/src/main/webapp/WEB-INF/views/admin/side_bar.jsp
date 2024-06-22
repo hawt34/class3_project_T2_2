@@ -9,6 +9,7 @@
 <script src="https://kit.fontawesome.com/b43f956240.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -48,8 +49,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">회원 관리 :</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin-member?type=member">회원 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-member?type=teacher">강사 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath}/admin-member?type=일반회원">회원 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-member?type=크리에이터">강사 리스트</a>
                     </div>
                 </div>
             </li>
@@ -66,9 +67,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">클래스 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">머시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">저시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-class">쳌</a>
                     </div>
                 </div>
             </li>
@@ -83,11 +81,8 @@
                 <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">카테고리 관리:</h6>
+                        <h6 class="collapse-header">클래스 카테고리 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">머시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">저시기</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-category">쳌</a>
                     </div>
                 </div>
             </li>
@@ -103,14 +98,12 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">고객센터 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">전체 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">공지사항 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">1:1문의 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc">이벤트 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=notice">공지사항 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=faq">FAQ 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=event">이벤트 리스트</a>
                     </div>
                 </div>
             </li>
-            
             
             <!-- Nav Item - 결제관리 -->
             <li class="nav-item">

@@ -11,23 +11,26 @@
 
     <title>관리자 페이지</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+   <!-- Custom fonts for this template-->
+        <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Toast UI Grid CSS -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
-	
-	<!-- Toast UI Grid Script -->
-	<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-	
-	<!-- Toast UI Pagination CSS -->
-	<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+    
+    <!-- Toast UI Grid Script -->
+    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+    
+    <!-- Toast UI Pagination CSS -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
-	<!-- Toast UI Pagination Script -->
-	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <!-- Toast UI Pagination Script -->
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+	<!-- admin_utils.js 로드 -->
+    <script src="${pageContext.request.contextPath}/resources/js/admin_utils.js"></script>
+	
 </head>
 <body id="page-top">
 
@@ -251,8 +254,8 @@
                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">클래스 리스트</h1>
                             <div class="btn-group">
-                            <button id="btn-download" class="btn btn-success btn-sm">엑셀 다운로드</button>
-                            <button id="btn-upload" class="btn btn-primary btn-sm">데이터 업로드</button>
+               <button id="btn-download" class="btn btn-success btn-sm" onclick="downloadExcel('class', '전체 클래스 리스트', false)">엑셀 다운로드</button>
+                          <button id="btn-upload" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#excelUploadModal">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
@@ -268,7 +271,9 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
+				<jsp:include page="admin_modal.jsp" >
+					<jsp:param value="${tableName}" name="tableName"/>
+				</jsp:include>
             </div>
             <!-- End of Main Content -->
 
@@ -279,9 +284,8 @@
         <!-- End of Content Wrapper -->
 
     </div>
-    <!-- End of Page Wrapper -->
-        <!-- Bootstrap core JavaScript-->
-    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -295,64 +299,43 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const data = [
-                {
-                	code: 15615615,
-                    name: '함께해요 목공예',
-                    type: '일일 클래스',
-                    category: '목공예',
-                    teacher: 'John Doe'
-                },
-                {
-                	code: 3363646,
-                    name: '함께해요 수영',
-                    type: '일일 클래스',
-                    category: '수영',
-                    teacher: 'John Doe'
-                }
-                // 더 많은 회원 데이터 추가 가능
-            ];
-            
-            // 페이징을 위한 Pagination 인스턴스 생성
-            const pagination = new tui.Pagination(document.getElementById('pagination'), {
-                totalItems: data.length,
-                itemsPerPage: 10, // 페이지당 항목 수
-                visiblePages: 5, // 보이는 페이지 수
-                centerAlign: true
-            });
+            const data = ${jo_list};
+    	    const itemsPerPage = 10;
+    	    let currentPage = 1;
 
             // 상세보기 버튼
-            class ButtonRenderer {
-                constructor(props) {
-                    const el = document.createElement('button');
-                    el.className = 'btn btn-primary btn-sm';
-                    el.innerText = '상세보기';
-                    el.addEventListener('click', () => {
-                        alert(`회원 ID: ${props.value}\n회원 이름: ${props.row.name}\n이메일: ${props.row.email}`);
-                        // 여기에 상세보기 페이지로 이동하는 로직을 추가할 수 있습니다.
-                        // 예를 들어, location.href = `/member/details/${props.value}`;
-                    });
-                    this.el = el;
-                }
-                getElement() {
-                    return this.el;
-                }
-                render(props) {
-                    this.el.dataset.rowKey = props.rowKey;
-                    this.el.dataset.columnName = props.columnName;
-                    this.el.value = props.value;
-                }
-            }
+	        class ButtonRenderer {
+	            constructor(props) {
+	                const el = document.createElement('button');
+	                el.className = 'btn btn-primary btn-sm';
+	                el.innerText = '상세보기';
+	                el.addEventListener('click', () => {
+	                    const rowKey = props.grid.getIndexOfRow(props.rowKey);
+	                    const rowData = props.grid.getRow(rowKey);
+	                    const classCode = rowData.class_code;
+	                    window.open("admin-class-detail?class_code=" + classCode, "클래스 상세보기", "height=600px, width=800px");
+	                });
+	                this.el = el;
+	            }
+	            getElement() {
+	                return this.el;
+	            }
+	            render(props) {
+	                this.el.dataset.rowKey = props.rowKey;
+	                this.el.dataset.columnName = props.columnName;
+	                this.el.value = props.value;
+	            }
+	        }
 
             const grid = new tui.Grid({
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                    { header: '클래스코드', name: 'code' , editor: 'text'},
-                    { header: '클래스이름', name: 'name' , editor: 'text'},
-                    { header: '클래스구분', name: 'type' , editor: 'text'},
-                    { header: '카테고리', name: 'category' , editor: 'text'},
-                    { header: '강사이름', name: 'teacher' , editor: 'text'},
+                    { header: '클래스이름', name: 'class_name' , editor: 'text'},
+                    { header: '클래스구분', name: 'class_type' , editor: 'text'},
+                    { header: '카테고리', name: 'class_category' , editor: 'text'},
+                    { header: '강사이름', name: 'member_name' , editor: 'text'},
+                    { header: '등록상태', name: 'class_regist_status' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',
@@ -362,10 +345,10 @@
                     }
                 ],
                 rowHeaders: ['rowNum'],
-                pageOptions: {
-                    useClient: true, // 클라이언트 사이드 페이징 사용
-                    perPage: 10 // 페이지당 항목 수
-                },
+    	        pageOptions: {
+    	            useClient: true,
+    	            perPage: itemsPerPage
+    	        },
                 bodyHeight: 400
             });
             

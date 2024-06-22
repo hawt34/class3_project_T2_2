@@ -10,7 +10,13 @@
     <meta name="author" content="">
 
     <title>관리자 페이지</title>
-
+    <style>
+        .add-btn {
+            cursor: pointer;
+            color: blue;
+            margin-left: 10px;
+        }
+    </style>
     <!-- Custom fonts for this template-->
     <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -270,8 +276,8 @@
 				    <div class="row">
 				        <div class="col-xl-12 col-lg-12">
 				            <div id="grid"></div>
-				            <div id="pagination"></div>
-				            <button id="add-category" class="btn btn-primary btn-sm mt-3">카테고리 추가</button>
+<!-- 				            <div id="pagination"></div> -->
+<!-- 				            <button id="add-category" class="btn btn-primary btn-sm mt-3">카테고리 추가</button> -->
 				        </div>
 				    </div>
 				</div>
@@ -302,132 +308,171 @@
 
     <!-- Toast UI Grid Script -->
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-
-    <script>
-    	class BootstrapSwitchRenderer {
-    	    constructor(props) {
-    	        const el = document.createElement('div');
-    	        el.className = 'custom-control custom-switch';
-
-    	        const input = document.createElement('input');
-    	        input.type = 'checkbox';
-    	        input.className = 'custom-control-input';
-    	        input.id = 'customSwitch' + props.rowKey;
-    	        input.checked = props.value;
-    	        input.addEventListener('change', () => {
-    	            props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
-    	        });
-
-    	        const label = document.createElement('label');
-    	        label.className = 'custom-control-label';
-    	        label.htmlFor = 'customSwitch' + props.rowKey;
-
-    	        el.appendChild(input);
-    	        el.appendChild(label);
-
-    	        this.el = el;
-    	    }
-
-    	    getElement() {
-    	        return this.el;
-    	    }
-
-    	    render(props) {
-    	        this.el.querySelector('input').checked = props.value;
-    	    }
-    	}
-    	
-    	
-	    document.addEventListener('DOMContentLoaded', function () {
-	        const data = [
-	            {
-	                id: 1,
-	                largeCategory: '가전',
-	                mediumCategory: '주방가전',
-	                smallCategory: '냉장고'
-	            },
-	            {
-	                id: 2,
-	                largeCategory: '가구',
-	                mediumCategory: '침실가구',
-	                smallCategory: '침대'
-	            }
-	            // 더 많은 데이터 추가 가능
-	        ];
-	        
-	        const itemsPerPage = 10;
-	        const pagination = new tui.Pagination(document.getElementById('pagination'), {
-	            totalItems: data.length,
-	            itemsPerPage: itemsPerPage, // 페이지당 항목 수
-	            visiblePages: 5, // 보이는 페이지 수
-	            centerAlign: true
-	        });
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+	    const data = JSON.parse('${jo_list}');
+	    console.log(data); // 데이터 구조를 확인하기 위해 콘솔에 출력
+	    const itemsPerPage = 10; // 한 페이지당 표시할 항목 수
+	    let currentPage = 1; // 현재 페이지 번호
 	
-	        const grid = new tui.Grid({
-	            el: document.getElementById('grid'),
-	            data: data,
-	            columns: [
-	                { header: '대분류', name: 'largeCategory', editor: 'text' },
-	                { header: '중분류', name: 'mediumCategory', editor: 'text' },
-	                { header: '소분류', name: 'smallCategory', editor: 'text' },
-	                {
-	                    header: '스위치',
-	                    name: 'switch',
-	                    renderer: {
-	                        type: BootstrapSwitchRenderer
-	                    }
-	                }
-	            ],
-	            rowHeaders: ['checkbox'], // 첫 번째 컬럼을 체크박스로 설정
-	            pageOptions: {
-	                useClient: true, // 클라이언트 사이드 페이징 사용
-	                perPage: itemsPerPage // 페이지당 항목 수
-	            },
-	            bodyHeight: 400
-	        });
-	        
-	        pagination.on('beforeMove', function (event) {
-	            const currentPage = event.page;
-	            const startRow = (currentPage - 1) * itemsPerPage;
-	            const endRow = startRow + itemsPerPage;
+	    // BootstrapSwitchRenderer 클래스 정의 (스위치 렌더러)
+	    class BootstrapSwitchRenderer {
+	        constructor(props) {
+	            const el = document.createElement('div');
+	            el.className = 'custom-control custom-switch';
 	
-	            grid.resetData(data.slice(startRow, endRow));
-	        });
-	        
-	        grid.resetData(data.slice(0, itemsPerPage));
-	
-	        document.getElementById('add-category').addEventListener('click', function () {
-	            const newRow = {
-	                id: data.length + 1, // 새로운 ID 할당
-	                largeCategory: '',
-	                mediumCategory: '',
-	                smallCategory: ''
-	            };
-	            data.push(newRow); // 데이터 배열에 새 행 추가
-	
-	            document.getElementById('btn-delete').addEventListener('click', function () {
-	                const checkedRows = grid.getCheckedRows();
-	                checkedRows.forEach(row => {
-	                    const index = data.findIndex(item => item.id === row.id);
-	                    if (index > -1) {
-	                        data.splice(index, 1); // 데이터 배열에서 행 삭제
-	                    }
-	                });
-
-	                const currentPage = pagination.getCurrentPage();
-	                const startRow = (currentPage - 1) * itemsPerPage;
-	                const endRow = startRow + itemsPerPage;
-
-	                // 그리드 데이터 업데이트
-	                grid.resetData(data.slice(startRow, endRow));
-
-	                // 페이징 업데이트
-	                pagination.reset(data.length);
+	            const input = document.createElement('input');
+	            input.type = 'checkbox';
+	            input.className = 'custom-control-input';
+	            input.id = 'customSwitch' + props.rowKey;
+	            input.checked = props.value;
+	            input.addEventListener('change', () => {
+	                props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
 	            });
-	        });
+	
+	            const label = document.createElement('label');
+	            label.className = 'custom-control-label';
+	            label.htmlFor = 'customSwitch' + props.rowKey;
+	
+	            el.appendChild(input);
+	            el.appendChild(label);
+	
+	            this.el = el;
+	        }
+	
+	        getElement() {
+	            return this.el;
+	        }
+	
+	        render(props) {
+	            this.el.querySelector('input').checked = props.value;
+	        }
+	    }
+	
+	    // AddButtonRenderer 클래스 정의 (추가 버튼 렌더러)
+	    class AddButtonRenderer {
+	        constructor(props) {
+	            const el = document.createElement('div');
+	            el.className = 'add-btn';
+	            el.textContent = '+';
+	            el.addEventListener('click', () => {
+	                const parentRowKey = props.rowKey;
+	                const parentRow = props.grid.store.data.rawData.find(row => row.rowKey === parentRowKey);
+	                const newRow = {
+	                    id: data.length + 1,
+	                    largeCategory: parentRow.largeCategory, // 상위 요소의 대분류 값 복사
+	                    smallCategory: '',
+	                    _children: [],
+	                    expanded: false
+	                };
+	                if (!parentRow._children) {
+	                    parentRow._children = [];
+	                }
+	                parentRow._children.push(newRow);
+	                props.grid.appendRow(newRow, { parentRowKey });
+	            });
+	
+	            this.el = el;
+	        }
+	
+	        getElement() {
+	            return this.el;
+	        }
+			
+	        render(props) {
+	            // 상위 요소에만 버튼 표시
+	            console.log(props);
+	            if (!props.tree) {
+	                this.el.style.display = 'block'; // 최상위 요소에만 버튼 표시
+	            } else {
+	                this.el.style.display = 'none';  // 최상위 요소가 아닌 경우 버튼 숨기기
+	            }
+	        }
+	    }
+	    
+	    // ToastUI Grid 생성
+	    const grid = new tui.Grid({
+	        el: document.getElementById('grid'),
+	        data: data.slice(0, itemsPerPage), // 처음에 첫 페이지 데이터만 로드
+	        treeColumnOptions: {
+	            name: 'largeCategory',
+	            useCascadingCheckbox: true,
+	            useIcon: true, // 트리 아이콘 사용
+	            isTop : true
+	        },
+	        columns: [
+	            {
+	                header: '추가',
+	                name: 'add',
+	                width: 50,
+	                renderer: {
+	                    type: AddButtonRenderer
+	                }
+	            },
+	            { header: '대분류', name: 'largeCategory', editor: 'text' },
+	            { header: '소분류', name: 'smallCategory', editor: 'text' },
+	            {
+	                header: '숨김',
+	                name: 'hidden',
+	                renderer: {
+	                    type: BootstrapSwitchRenderer
+	                }
+	            }
+	        ],
+	        rowHeaders: ['checkbox'],
+	        bodyHeight: 800, // 본체 높이 설정
+	        height: 600 // 전체 높이 설정
 	    });
+	    
+        $('#btn-apply').on('click', function () {
+            const modifiedRows = grid.getModifiedRows();
+            const jsonData = JSON.stringify(modifiedRows);
 
-    </script>
-    
+            fetch('insert', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('변경 사항이 성공적으로 적용되었습니다.');
+                    location.reload();
+                } else {
+                    alert('변경 사항 적용 실패: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('변경 사항 적용 실패: 서버 오류');
+            });
+        });
+        
+        // 데이터 삭제 적용
+        $('#btn-delete').on('click', function () {
+            const checkedRows = grid.getCheckedRows();
+            checkedRows.forEach(row => {
+                grid.removeRow(row.rowKey);
+            });
+        });
+        
+        
+	    // 무한 스크롤 로직
+	    const gridContainer = document.querySelector('#grid .tui-grid-body-area');
+	
+	    gridContainer.addEventListener('scroll', () => {
+	        // 스크롤이 끝에 도달했을 때 다음 페이지 데이터 로드
+	        if (gridContainer.scrollTop + gridContainer.clientHeight >= gridContainer.scrollHeight) {
+	            currentPage++;
+	            const nextPageData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+	            if (nextPageData.length > 0) {
+	                grid.appendRows(nextPageData);
+	            }
+	        }
+	    });
+	});
+</script>
 </body>
 </html>

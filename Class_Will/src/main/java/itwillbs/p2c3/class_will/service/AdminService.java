@@ -1,5 +1,7 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import itwillbs.p2c3.class_will.mapper.AdminMapper;
+import itwillbs.p2c3.class_will.vo.GroupedData;
 
 @Service
 public class AdminService {
@@ -15,14 +18,12 @@ public class AdminService {
 	@Autowired
 	private AdminMapper adminMapper;
 	
-	
-	
-	public List<Map<String, String>> getMemberList(String type) {
-		return adminMapper.selectMemberList(type);
+	public List<Map<String, String>> getMemberList(Map<String, Object> params) {
+		return adminMapper.selectMemberList(params);
 	}
 
-	public Map<String, String> getMemberInfo(String member_code) {
-		return adminMapper.selectMemberInfo(member_code);
+	public Map<String, String> getMemberInfo(Map<String, Object> params) {
+		return adminMapper.selectMemberInfo(params);
 	}
 	
 	
@@ -36,11 +37,78 @@ public class AdminService {
 //    }
 
     public List<Map<String, Object>> getAllData(String tableName) {
-        return adminMapper.selectTable(tableName);
+    	List<Map<String, Object>> result = null;
+    	switch (tableName) {
+		case "MEMBER" :  result = adminMapper.selectTable(tableName); break;
+		case "class" : result = adminMapper.selectClassList(); break;	
+		}
+    	return result;
     }
 
 	public List<String> getColumnDataTypes(String tableName) {
 		return adminMapper.selectColumnDataTypes(tableName);
+	}
+
+	public List<Map<String, Object>> getClassList() {
+		return adminMapper.selectClassList();
+	}
+
+	public Map<String, String> getClassInfo(String class_code) {
+		return adminMapper.selectClassInfo(class_code);
+	}
+
+	public String getCommonCode(String code_value) {
+		return adminMapper.selectCommonCode(code_value);
+	}
+
+	public int getCommon2Code(String common1_code, String type) {
+		return adminMapper.selectCommon2Code(common1_code, type);
+	}
+
+	public Map<String, List<Map<String, Object>>> getCategoryData() {
+		Map<String, List<Map<String, Object>>> final_list = new HashMap<String, List<Map<String,Object>>>();
+		List<Map<String, Object>> bigCategory = adminMapper.selectBigCategory();
+		List<Map<String, Object>> smallCategory = adminMapper.selectSmallCategory();
+		final_list.put("bigCategory", bigCategory);
+		final_list.put("smallCategory", smallCategory);
+		return final_list;
+	}
+
+	public void updateCategoryData(Map<String, Object> rowMap) {
+		adminMapper.updatedCategoryData(rowMap);
+	}
+
+	public void insertCategoryData(Map<String, Object> rowMap) {
+		adminMapper.insertCategoryData(rowMap);
+	}
+
+	public int getMaxCommon3Code(Integer common2_code) {
+		return adminMapper.selectMaxCommon3Code(common2_code);
+	}
+
+	public void deleteCategoryData(Map<String, Object> rowMap) {
+		adminMapper.deleteCategoryData(rowMap);
+	}
+
+
+	public List<Map<String, Object>> getCscList(Map<String, Object> params) {
+		return adminMapper.selectCscList(params);
+	}
+
+	public String getCommon2Value(String common1_code, Integer common2_code) {
+		return adminMapper.selectCommon2Value(common1_code, common2_code);
+	}
+
+	public boolean insertBoard(Map<String, Object> map) {
+		return adminMapper.insertBoard(map) > 0 ? true : false;
+	}
+
+	public List<Map<String, Object>> getBoardCategory(String common_code) {
+		return adminMapper.selectBoardCategory(common_code);
+	}
+	
+	public int getBoardCount(String type) {
+		return adminMapper.selectCscCount(type);
 	}
 	
 	

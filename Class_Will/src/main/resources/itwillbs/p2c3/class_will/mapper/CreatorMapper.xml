@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="itwillbs.p2c3.class_will.mapper.CreatorMapper">
+	
+	<!-- 클래스 등록 -->
+	<insert id="createrClassRegPro">
+		INSERT INTO class(  	  
+				  class_code
+				, class_name
+				, class_big_category
+				, class_small_category
+				, class_thumnail
+				, class_image
+				, class_ex
+				, class_location
+				, class_hashtag
+				, class_creator_explain
+				, class_hide
+				, class_price
+				, class_regist_status
+				, member_code
+				, class_map_x
+				, class_map_y
+				, class_active
+		)
+		VALUES (
+			NULL
+			, #{class_name}
+			, #{class_big_category}
+			, #{class_small_category}
+			, #{class_thumnail}
+			, #{class_image}
+			, #{class_ex}
+			, #{class_location}
+			, #{class_hashtag}
+			, #{class_creator_explain}
+			, #{class_hide}
+			, #{class_price}
+			, #{class_regist_status}
+			, #{member_code}
+			, null
+			, null
+			, 'Y'
+		)		
+	</insert>
+	
+	<!-- 커리큘럼 삽입 -->
+	<insert id="creatorCurriInsert" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="class_code" resultType="int">
+			SELECT IFNULL(MAX(class_code), 0)
+			FROM class
+		</selectKey>
+			INSERT INTO curri(
+				class_code
+				, curri_round
+				, curri_content
+			)
+			VALUES
+		<foreach collection="params" item="param" separator=",">
+			(
+	         	#{class_code}, #{param.curri_round}, #{param.curri_content}
+	        )
+      	</foreach>
+	</insert>
+	
+	<!-- 클래스 일정 삽입 -->
+	<insert id="insertClassPlan">
+		INSERT INTO class_schedule
+		(	class_code
+			, class_schedule_date
+			, class_round
+			, class_total_headcount
+			, class_st_time
+			, class_ed_time
+			, class_remain_headcount			
+		)
+		VALUES
+	        <foreach collection="classTimeList" item="classTime" separator=",">
+	            (
+	            #{map.classSelect}
+	            , #{classTime.date}
+	            , #{classTime.round}
+	            , #{map.class_total_headcount}
+	            , #{classTime.startTime}
+	            , #{classTime.endTime}
+	            , #{map.class_total_headcount}
+	            )
+	        </foreach>
+		
+	</insert>
+	
+	<!-- 클래스 일정 가져오기 -->
+	<select id="getSchedule" resultType="map">
+		SELECT *
+		FROM class_schedule
+		WHERE class_code = #{classCode}
+	</select>
+	
+	<!-- 일정삭제 -->
+	<delete id="deleteSchedule">
+		DELETE FROM class_schedule
+		WHERE class_schedule_code = #{classCode}
+	</delete>
+	
+	<!-- 카테고리 대분류 조회 -->
+	<select id="getCategory" resultType="map">
+		SELECT 
+			common2_code, code_value
+		FROM 
+			common2 c2
+		WHERE 
+			common1_code = 'CLC'
+		AND 
+			code_hide = 'N' -- 3은 카테고리 공통코드
+	</select>
+
+	<!-- 클래스 구분 조회 -->
+<!-- 	<select id="getSort" resultType="map"> -->
+<!-- 		SELECT  -->
+<!-- 			common2_code, code_value -->
+<!-- 		FROM  -->
+<!-- 			common2 c2  -->
+<!-- 		WHERE  -->
+<!-- 			common1_code = 9 -->
+<!-- 		AND  -->
+<!-- 			code_hide = 'N' -->
+<!-- 	</select> -->
+	
+	<!-- 카테고리 상세 -->
+	<select id="getCategoryDetail" resultType="map">
+		SELECT 
+			common3_code,code_value
+		FROM 
+			common3 c 
+		WHERE 
+			common2_code = #{big_category}
+		AND 
+			code_hide = 'N'
+	</select>
+	
+	
+	<!-- 해쉬태그 가져오기 -->
+	<select id="getHashtag" resultType="map">
+		SELECT *
+		FROM
+			hash_tag
+	</select>
+	
+	<!-- 클래스 정보 가져오기 -->
+	<select id="getClassInfo" resultType="map">
+	SELECT 
+		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide
+	FROM 
+		class c
+	LEFT JOIN 
+		common2 c2 
+	ON 
+		c2.common2_code = c.class_regist_status
+	and
+		c2.common1_code = 'CRS'
+	JOIN 
+		common2 c22
+	ON 
+		c.class_big_category = c22.common2_code
+	and 
+		c22.common1_code = 'CLC'
+	JOIN 
+		common2 c222
+	ON 
+		c.class_hide = c222.common2_code
+	and 
+		c222.common1_code = 'HIDE'
+	</select>
+	
+	<select id="getHide" resultType="map">
+		SELECT 
+			common2_code, code_value
+		FROM 
+			common2 c2
+		WHERE 
+			common1_code = 'HIDE' 
+		AND 
+			code_hide = 'N'
+	</select>
+	
+	
+	
+	
+
+
+
+
+</mapper>

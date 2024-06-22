@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +25,8 @@
 <!-- Customized Bootstrap Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
+<!-- 제이쿼리 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 
 <style type="text/css">
 	
@@ -33,25 +37,52 @@
 	article {
 		margin: 0 auto;
 		padding: 0 auto;
-		height: 3000px;
 	}
 	
 	.login-form {
-		width: 500px;
+ 		width: 900px; 
 		padding: 30px;
+		margin-top: 50px;
+		margin-bottom: 100px;
 	}
 	
-	#btnSub {
-		background-color: white;
+	.login-social {
+		margin-top: 100px; 
+		padding: 20px 50px;
+		
+	}
+	
+	.social{
+		margin-bottom: 20px;
 	}
 	
 	.regex {
-		font-size: 12px;
+		font-size: 15px;
 		color: white;
 	}
 	
+	h2 {
+		color: white;
+		margin: 30px;
+		text-align: center;
+	}
 	
-
+	p a {
+		font-size: 12px;
+	}
+	
+	.login-form-input {
+		margin: 10px;
+	}
+	
+	.regex {
+		margin: 0;
+		padding: 0;
+	}
+	
+	.btnLogin {
+		padding: 0px 11px;
+	}
 </style>
 </head>
 <body>
@@ -60,28 +91,52 @@
 	</header>
 	
 	<article>
-		<div class="container login-form">
-			<h2>로그인</h2>
-			<form action="member-login" method="POST">
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="이메일">
-				</div>
-				<div></div>
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="비밀번호" >
-				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
-<!-- 				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span> -->
-				</div>
-				<div class="regex">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
-				<div>
-					<input type="submit" id="btnSub" value="로그인" class="btn btn-secondary">
-				</div>
-			</form>
-			<p><a href="reset-passwd">비밀번호 찾기</a></p>
-			클래스윌이 처음이신가요? <a href="member-join"><b>가입하기</b></a>
-		
+		<div class="container-fluid">
+			<div class="container login-form ">
+				<div class="row "> 
+					<div class="col">
+						<h2 align="center">로그인</h2>
+						<form action="member-login" method="POST">
+							<div class="login-form-input">
+								<div class="input-group">
+									<span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-person-fill"></i></span>
+									<input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일" 
+										required maxlength="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" >
+								</div>
+								<div class="regex py-2" id="regex-email"></div>
+							</div>
+							<div class="login-form-input">
+								<div class="input-group">
+									<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
+		<!-- 							<input type="password" class="form-control" placeholder="비밀번호" > -->
+		<!-- 							<span class="input-group-text btn btn-light" id="eye-slash"><a><i class="bi bi-eye-slash"></i></a></span> -->
+		<!-- 							<span class="input-group-text" id="eye-slash"><a><i class="bi bi-eye"></i></a></span> -->
+									<input type="password" id="member_pwd" name="member_pwd" class="form-control" placeholder="비밀번호"  required maxlength="20">
+		                            <span class="input-group-text btn btn-light" id="togglePassword"><a><i class="bi bi-eye-slash" id="toggleIcon"></i></a></span>
+								</div>
+								<div class="regex py-2" id="regex-pwd"></div>
+							</div>
+							
+							<div align="right" style="padding-right: 11px;">
+								<p><a href="find-passwd">비밀번호 찾기</a></p>
+							</div>
+							<div class="d-grid gap-2 py-2 btnLogin">
+								<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light btn-lg">
+							</div>
+						</form>
+						<div align="center" style="color: white;">
+							클래스윌이 처음이신가요? <a href="member-join"><u><b>가입하기</b></u></a>
+						</div>			
+					</div><!-- col -->
+					<div class="col login-social">
+						<div class="container d-flex flex-column mb-3">
+							<input type="button" id="login-google" value="Google로 로그인" class="btn btn-outline-light btn-lg p-2 social">
+							<input type="button" id="login-kakao" value="카카오로 로그인" class="btn btn-outline-light btn-lg p-2 social">
+							<input type="button" id="login-kakao" value="네이버로 로그인" class="btn btn-outline-light btn-lg p-2 social">
+						</div>
+					</div> <!-- col -->
+				</div>  <!-- row -->
+			</div>
 		</div>
 	</article>
 
@@ -99,5 +154,53 @@
 	
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
+	<script>
+        document.getElementById('togglePassword').addEventListener('click', function (e) {
+            const passwordInput = document.getElementById('member_pwd');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            }
+        });
+        
+        $(function() {
+
+			// 이메일 정규표현식
+			$("#member_email").on("input", function() {
+				let inputEmail = $(this).val();
+				let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 형식
+				
+				 if (!regex.test(inputEmail)) {
+// 			            $(this).val("");
+			            $("#regex-email").text("규칙에 맞는 이메일 주소를 입력해 주세요.");
+			            $("#regex-email").css("color", "red");
+			        } else {
+			            $("#regex-email").text("");
+			        }
+			});
+			
+			// 비밀번호 정규표현식
+			$("#member_pwd").on("input", function() {
+			      let inputPwd = $(this).val();
+			
+			      let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
+			
+			      if (!regex.test(inputPwd)) {
+			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
+			          $("#regex-pwd").css("color", "red");
+			      } else {
+			      	 $("#regex-pwd").text("");
+			      }
+			  });
+			
+		});
+    </script>
 </body>
 </html>

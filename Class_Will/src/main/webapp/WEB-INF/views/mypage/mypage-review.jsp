@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -58,6 +61,8 @@ table {
 	width: 100%;
 	border-radius: 10px;
 	font-size: 15px;
+	table-layout: fixed; /* 테이블 레이아웃 고정 */
+	word-wrap: break-word; /* 단어를 셀 내에서 줄바꿈 */
 }
 
 /* 테이블 행 */
@@ -97,10 +102,18 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+
+@media ( max-width : 768px) {
+	.table-responsive {
+		overflow-x: auto; /* 가로 스크롤 가능하도록 설정 */
+	}
+	.table {
+		min-width: 600px; /* 테이블 최소 너비 설정 */
+	}
+}
 </style>
 </head>
 <body>
-
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
@@ -127,41 +140,88 @@ th:nth-child(2), td:nth-child(2) {
 						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
-
-
-							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">항상 고마운 *** 님</div>
-								<div id="grid"></div>
-								<div class="container">
+								<div class="col-md-12 text-center h2 mb-5">항상 고마운
+									${member.member_name}님</div>
+								<!-- 								여기부터 토스트 ui -->
+								<div class="table-responsive">
+									<h2>후기를 적을 수 있는 클래스가 ? 개 있습니다.</h2>
+									<p>클래스 정보</p>
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>클래스 이름</th>
+												<th>결제 상태</th>
+												<th>교육 일정</th>
+												<th>수료 여부</th>
+												<th>등록하기</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>2</td>
+												<td>3</td>
+												<td>4</td>
+												<td>
+													<button class="btn btn-primary" onclick="resistReview()">등록하기</button>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="table-responsive">
 									<h2>클래스 후기</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<th>신청 클래스</th>
-												<th>강의 진도</th>
-												<th>결제 상태</th>
-
+												<th>클래스 이름</th>
+												<th>리뷰 제목</th>
+												<th>리뷰 별점</th>
+												<th>작성 날짜</th>
+												<th>수정</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>라면</td>
-												<td>면 꼬들</td>
-												<td>john@example.com</td>
-											</tr>
-											<tr>
-												<td>짜파게티</td>
-												<td>국물없게</td>
-												<td>mary@example.com</td>
-											</tr>
-											<tr>
-												<td>삼양불닭</td>
-												<td>너무 매움</td>
-												<td>july@example.com</td>
-											</tr>
+											<c:forEach var="review" items="${memberReviews}"
+												varStatus="loop">
+												<tr>
+													<td>${review.class_name}</td>
+													<td><a href="javascript:void(0);"
+														onclick="showReviewModal('${review.class_review_content}')"
+														style="color: black;">${review.class_review_subject}</a></td>
+													<td class="stars"><script>
+									                // 리뷰 별점 값
+									                const starCount${loop.index} = ${review.class_review_rating};
+
+									                // 별 아이콘을 담을 변수
+									                let stars${loop.index} = '';
+
+									                // 별 아이콘 생성
+									                for (let i = 1; i <= 5; i++) {
+									                    if (i <= starCount${loop.index}) {
+									                        stars${loop.index} += '<i class="bi bi-star-fill text-warning"></i>'; // 별점 채워진 아이콘
+									                    } else {
+									                        stars${loop.index} += '<i class="bi bi-star text-warning"></i>'; // 빈 별 아이콘
+									                    }
+									                }
+											
+									                // 결과 출력
+									                document.write(stars${loop.index});
+									            </script></td>
+													<td>${review.class_review_date}</td>
+													<td>
+														<button class="btn btn-primary"
+															onclick="location.href='edit-review-page?review_code=${review.class_review_code}'">수정</button>
+													</td>
+													<td>
+														<button class="btn btn-danger"
+															onclick="confirmDelete(${review.class_review_code})">삭제</button>
+													</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
@@ -173,10 +233,22 @@ th:nth-child(2), td:nth-child(2) {
 			</div>
 		</div>
 	</div>
-	<!-- Fruits Shop End-->
-
-
-
+	<div class="modal fade" id="reviewModal" tabindex="-1"
+		aria-labelledby="reviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="reviewModalLabel" style="color: black;">리뷰
+						내용</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close" style="color: black;"></button>
+				</div>
+				<div class="modal-body">
+					<p id="reviewContent" style="color: black;"></p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
@@ -198,51 +270,31 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-		const data = [ {
-			id : 1,
-			name : 'John Doe',
-			age : 30,
-			job : 'Developer'
-		}, {
-			id : 2,
-			name : 'Jane Smith',
-			age : 25,
-			job : 'Designer'
-		}, {
-			id : 3,
-			name : 'Fred Blogs',
-			age : 35,
-			job : 'Manager'
-		},
-		// 더 많은 데이터 추가
-		];
-
-		// 테이블의 컬럼 정의
-		const columns = [ {
-			header : 'ID',
-			name : 'id'
-		}, {
-			header : 'Name',
-			name : 'name'
-		}, {
-			header : 'Age',
-			name : 'age'
-		}, {
-			header : 'Job',
-			name : 'job'
-		} ];
-
-		// Toast UI Grid 생성
-		const grid = new tui.Grid({
-			el : document.getElementById('grid'),
-			data : data,
-			columns : columns,
-			rowHeaders : [ 'rowNum' ], // 행 번호 추가
-			pageOptions : {
-				useClient : true,
-				perPage : 5
-			}
-		});
+	   function showReviewModal(reviewContent) {
+           $('#reviewContent').text(reviewContent); // 리뷰 내용을 모달의 텍스트로 설정
+           $('#reviewModal').modal('show'); // 모달 창 열기
+       }
+	   function confirmDelete(review_code) {
+		   if (confirm("삭제하시겠습니까?")) {
+               deleteReview(review_code);
+           }	
+	   }
+	   
+	   function deleteReview(review_code) {
+	        $.ajax({
+	            url: 'delete-review',
+	            type: 'POST',
+	            data: {review_code: review_code},
+	            success: function(response) {
+	                alert('성공적으로 삭제했습니다.');
+	                location.reload(); 
+	            },
+	            error: function() {
+	                alert('리뷰 삭제에 실패하였습니다.');
+	            }
+	        });
+	    }
 	</script>
+
 </body>
 </html>

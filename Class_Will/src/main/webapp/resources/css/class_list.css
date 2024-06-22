@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
+body {
+	color: white;
+	background : black;
+}
+
 .container1 {
+	background : black;
 	height : auto;
 	width: 1200px;
 	margin: auto;
@@ -14,10 +20,15 @@
 	height : 410px;	
 }
 
-.card-bodys {
-	padding : 15px;
-}
+/* .card-bodys { */
+/* 	padding : 15px; */
+/* } */
 
+.card-bodys {
+    height: 200px; /* 예시로 설정한 높이 */
+	padding : 15px;
+    overflow: hidden; /* 내용이 넘칠 경우를 대비해 오버플로우 숨김 설정 */
+}
 /* .card-body h6 { */
 /* 	color : black; */
 /* 	font-weight: bold; */
@@ -82,7 +93,9 @@
 	font-size : 0.8em !important;
 }
 /* .classCard { */
-/* 	padding : 30px; */
+/* /* 	padding : 30px; */ */
+/*     border-radius : 30px !important; */
+
 /* } */
 
 /* .fixed-size { */
@@ -159,3 +172,167 @@
 	font-size : 1.1em;
 	font-weight: bold;
 }
+
+
+/* =============================== 카테고리 바 =============================== */
+
+.height1 {
+    height: 80px;
+}
+
+.rowCenter {
+	display: flex;
+	align-items: center;
+	margin-bottom : 10px;
+}
+
+.localDropdown {
+	width :	140px;
+}
+
+.localList {
+	text-align : center;
+}
+
+.vr-divider {
+    width: 1px;
+    background-color: #ddd;
+    margin: 0 10px; /* Adjust the margin to fit your design */
+}
+.categoryBarBox {
+/* 	background: #333; */
+    border-radius: 10px;
+	opacity: 0.95;
+	height : 430px;
+	padding-top : 20px;
+}
+.form1 {
+    position: relative;
+	border-radius : 30px !important;
+}
+
+.form1 .fa-search{
+    position: absolute;
+    top:15px;
+    left: 20px;
+    color: #9ca3af;
+}
+
+.form1 span{
+	position: absolute;
+    right: 17px;
+    top: 13px;
+    padding: 2px;
+    border-left: 1px solid #d1d5db;
+}
+
+.left-pan{
+    padding-left: 7px;
+}
+
+.left-pan i{
+   padding-left: 10px;
+}
+
+.search-input{
+    height: 45px;
+    width: 200px;
+    text-indent: 33px;
+    border-radius: 100px;
+    margin : 10px 10px 10px 0px;
+}
+
+.form-inputs {
+    height: 45px;
+    width: 100px;
+/*     text-indent: 33px; */
+    border-radius: 100px;
+    text-align : center;
+    cursor: pointer;
+	font-size : 0.95em;
+}
+
+.form-inputs:focus{
+    box-shadow: none;
+    border:none;
+    border-radius: 100px;
+}
+.chooseDiv {
+/*     padding-right: 40px; 이미지 공간 확보를 위해 오른쪽 패딩 추가 */
+    box-sizing: border-box; /* padding이 width에 포함되도록 설정 */
+    text-align: left;
+    width : 130px;
+    padding-bottom : 15px; 
+}
+
+.chooseResult {
+	width : 110px;
+	height : 45px;
+	font-size : 0.9em;
+    cursor: default;
+    border-radius : 10px !important;
+    
+}
+
+.position-relative {
+    position: relative;
+}
+
+.xicon {
+    position: absolute;
+    top: 27%;
+    right: 15px; /* input의 오른쪽 끝에서 약간 떨어진 위치 */
+/*     transform: translateY(-50%); */
+    transform: translateX(-10%);
+    cursor: pointer;
+    width: 20px; /* 이미지 크기 조절 */
+    height: 20px; /* 이미지 크기 조절 */
+}
+
+.selectDiv {
+	width : 100px;
+}
+.btnReset {
+	width : 100px;
+    height: 45px; 
+}
+
+.hashtag {
+	width : 100px;
+	
+/* 	font-weight: bold; */
+}
+
+.hashtagDiv {
+/* 	margin-right : 20px; */
+	padding-top : 0px;
+	margin-bottom : 20px;
+	width : 150px;
+}
+
+.categorySelect {
+	height : 45px;
+/* 	text-align : left; */
+/* 	height : austo; */
+}
+
+.categoryDrop{
+	width : 135px;
+}
+.categorySelectBtn {
+	height : 45px;
+/* 	text-align : left; */
+/* 	height : austo; */
+}
+
+/* .dropdown-items:hover { */
+/* 	width : 300px; */
+/* } */
+/*         .categorySelect { */
+/*             width: 100%; */
+/*             height: auto; */
+/*         } */
+/*         .categorySelect option { */
+/*             width: 50%; */
+/*             display: inline-block; */
+/*         } */

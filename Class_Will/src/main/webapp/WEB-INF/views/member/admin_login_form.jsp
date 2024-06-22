@@ -33,26 +33,48 @@
 	article {
 		margin: 0 auto;
 		padding: 0 auto;
-		height: 3000px;
 	}
 	
 	.login-form {
 		width: 500px;
 		padding: 30px;
 		margin-top: 50px;
+		margin-bottom: 100px;
 	}
 	
-	#btnSub {
-		background-color: white;
-	}
 	
 	.regex {
-		font-size: 12px;
+		font-size: 15px;
 		color: white;
 	}
 	
+	h2 {
+		color: white;
+		margin: 30px;
+		text-align: center;
+	}
 	
-
+	h2 {
+		margin: 30px;
+		text-align: center;
+	}
+	
+	p a {
+		font-size: 12px;
+	}
+	
+	.login-form-input {
+		margin: 10px;
+	}
+	
+	.regex {
+		margin: 0;
+		padding: 0;
+	}
+	
+	.btnLogin {
+		padding: 0px 11px;
+	}
 </style>
 </head>
 <body>
@@ -61,25 +83,32 @@
 	</header>
 	
 	<article>
-		<div class="container login-form">
-			<h2>관리자 로그인</h2>
-			<form action="member-login" method="POST">
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="id"><i class="bi bi-person-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="이메일">
-				</div>
-				<div></div>
-				<div class="input-group mb-3">
-				  <span class="input-group-text" id="passwd"><i class="bi bi-lock-fill"></i></span>
-				  <input type="text" class="form-control" placeholder="비밀번호" >
-				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye-slash"></i></span>
-<!-- 				  <span class="input-group-text" id="eye-slash"><i class="bi bi-eye"></i></span> -->
-				</div>
-				<div>
-					<input type="submit" id="btnSub" value="로그인" class="btn btn-secondary">
-				</div>
-			</form>
-		
+		<div class="container-fluid">
+			<div class="container login-form" >
+				<h2 align="center">관리자 로그인</h2>
+				<form action="member-login" method="POST">
+					<div class="login-form-input">
+						<div class="input-group">
+							<span class="input-group-text" id="inputGroup-sizing-default"><i class="bi bi-person-fill"></i></span>
+							<input type="text" id="member_email" name="member_email" class="form-control" placeholder="이메일" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+						</div>
+						<div class="regex py-2" id="regex-id">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
+					</div>
+					<div class="login-form-input">
+						<div class="input-group">
+							<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
+							<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="비밀번호" >
+							<span class="input-group-text btn btn-light" id="eye-slash"><a><i class="bi bi-eye-slash"></i></a></span>
+<!-- 							<span class="input-group-text" id="eye-slash"><a><i class="bi bi-eye"></i></a></span> -->
+						</div>
+						<div class="regex py-2" id="regex-passwd">특수문자, 영문, 숫자 조합 8자 이상으로 입력해주세요</div>
+					</div>
+					
+					<div class="d-grid gap-2 py-2 btnLogin">
+						<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light btn-lg">
+					</div>
+				</form>
+			</div>
 		</div>
 	</article>
 
@@ -97,5 +126,21 @@
 	
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
+	<script>
+        document.getElementById('togglePassword').addEventListener('click', function (e) {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('bi-eye-slash');
+                toggleIcon.classList.add('bi-eye');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('bi-eye');
+                toggleIcon.classList.add('bi-eye-slash');
+            }
+        });
+    </script>
 </body>
 </html>

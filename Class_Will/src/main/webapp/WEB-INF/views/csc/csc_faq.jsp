@@ -65,7 +65,6 @@
 			    <div class="category-buttons">
 			        <button type="button" class="btn btn-primary" onclick="location.href='Csc'">공지사항</button>
 			        <button type="button" class="btn btn-secondary" onclick="location.href='Csc'">FAQ</button>
-			        <button type="button" class="btn btn-success" onclick="location.href='Csc_Oto'">1대1 문의</button>
 			    </div>
 			<hr>
 			</div>

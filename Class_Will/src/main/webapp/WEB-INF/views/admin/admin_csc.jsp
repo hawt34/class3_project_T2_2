@@ -11,8 +11,8 @@
 
     <title>관리자 페이지</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+   <!-- Custom fonts for this template-->
+        <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -28,6 +28,11 @@
 
     <!-- Toast UI Pagination Script -->
     <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+	<!-- admin_utils.js 로드 -->
+    <script src="${pageContext.request.contextPath}/resources/js/admin_utils.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
+    
 </head>
 <body id="page-top">
 
@@ -247,25 +252,24 @@
                 </nav>
                 <!-- End of Topbar -->
                 
-                <div class="container-fluid">
-                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">고객센터 리스트</h1>
+					<div class="container-fluid">
+						<div class="d-sm-flex align-items-center justify-content-between mb-4">
+							<h1 class="h3 mb-0 text-gray-800" id="page-title"></h1>
                             <div class="btn-group">
                             <input type="file" id="file-input" style="display:none;" />
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
                     <div>
-                        <button class="category-btn" data-category="all">전체</button>
-                        <button class="category-btn" data-category="notice">공지사항</button>
-                        <button class="category-btn" data-category="faq">FAQ</button>
-                        <button class="category-btn" data-category="oto">1:1문의</button>
+                        <button class="category-btn" data-category="notice" onclick="location.href='admin-csc?type=notice'">공지사항</button>
+                        <button class="category-btn" data-category="faq" onclick="location.href='admin-csc?type=faq'">FAQ</button>
+                        <button class="category-btn" data-category="event" onclick="location.href='admin-csc?type=event'">이벤트</button>
                     </div>
                     <!-- Content Row -->
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div id="grid"></div>
-                            <div id="pagination"></div>
+                            <button type="button" class="btn btn-secondary" name="registBtn" onclick="javascript:regist('${param.type}')">등록하기</button>
                         </div>
                     </div>
 
@@ -275,16 +279,13 @@
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <!-- Footer 내용 생략 -->
-
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
-        <!-- Bootstrap core JavaScript-->
-    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+   <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -297,34 +298,78 @@
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
     <script>
+    	var currentParam = "";
+    	
+    	
+	    function regist(type){
+			window.open("admin-csc-regist?type=" + type, "등록폼", "width=500,height=600");	
+	    }
+	    
         document.addEventListener('DOMContentLoaded', function () {
-            const data = [
-                {
-                    id: 1,
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    registrationDate: '2023-01-01',
-                    status: 'Active'
-                },
-                {
-                    id: 2,
-                    name: 'Jane Doe',
-                    email: 'jane.doe@example.com',
-                    registrationDate: '2023-02-01',
-                    status: 'Inactive'
-                }
-                // 더 많은 회원 데이터 추가 가능
-            ];
+    	    const itemsPerPage = 10;
+    	    let currentPage = 1;
+    	    let type = '${param.type}';
+    	    const data = ${jo_list};
+    	    
+    	    
+    	    // 페이지 제목 변경
+    	    const pageTitle = document.getElementById('page-title');
+    	    if (type === 'notice') {
+    	        pageTitle.textContent = '공지사항 리스트';
+    	    } else if (type === 'faq') {
+    	        pageTitle.textContent = 'FAQ 리스트';
+    	    } else if (type === 'event') {
+    	        pageTitle.textContent = '이벤트 리스트';
+    	    } else {
+    	        pageTitle.textContent = '고객센터 리스트';
+    	    }
+    	    
+    	    // 버튼 색깔 변경
+    	    const buttons = document.querySelectorAll('.category-btn');
+    	    buttons.forEach(button => {
+    	        if (button.getAttribute('data-category') === type) {
+    	            button.classList.add('btn-primary');
+    	        } else {
+    	            button.classList.remove('btn-primary');
+    	        }
+    	    });
+    	    
+    	    
+    	    // BootstrapSwitchRenderer 클래스 정의 (스위치 렌더러)
+    	    class BootstrapSwitchRenderer {
+    	        constructor(props) {
+    	            const el = document.createElement('div');
+    	            el.className = 'custom-control custom-switch';
+    	
+    	            const input = document.createElement('input');
+    	            input.type = 'checkbox';
+    	            input.className = 'custom-control-input';
+    	            input.id = 'customSwitch' + props.rowKey;
+    	            input.checked = props.value;
+    	            input.addEventListener('change', () => {
+    	                props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
+    	            });
+    	
+    	            const label = document.createElement('label');
+    	            label.className = 'custom-control-label';
+    	            label.htmlFor = 'customSwitch' + props.rowKey;
+    	
+    	            el.appendChild(input);
+    	            el.appendChild(label);
+    	
+    	            this.el = el;
+    	        }
+    	
+    	        getElement() {
+    	            return this.el;
+    	        }
+    	
+    	        render(props) {
+    	            this.el.querySelector('input').checked = props.value;
+    	        }
+    	    }
             
-            // 페이징을 위한 Pagination 인스턴스 생성
-            const pagination = new tui.Pagination(document.getElementById('pagination'), {
-                totalItems: data.length,
-                itemsPerPage: 10, // 페이지당 항목 수
-                visiblePages: 5, // 보이는 페이지 수
-                centerAlign: true
-            });
-			
-            // 상세보기, 수정하기, 삭제 버튼
+            // 상세보기 버튼
             class ActionRenderer {
                 constructor(props) {
                     const container = document.createElement('div');
@@ -336,28 +381,7 @@
                         window.open("CscDetail", "상세정보", "width=700px,height=800px")
                     });
 
-                    const editButton = document.createElement('button');
-                    editButton.className = 'btn btn-warning btn-sm ml-2';
-                    editButton.innerText = '수정하기';
-                    editButton.addEventListener('click', () => {
-                        alert(`수정할 회원 ID: ${props.value}`);
-                        // 여기에 수정하기 페이지로 이동하는 로직을 추가할 수 있습니다.
-                        // 예를 들어, location.href = `/member/edit/${props.value}`;
-                    });
-
-                    const deleteButton = document.createElement('button');
-                    deleteButton.className = 'btn btn-danger btn-sm ml-2';
-                    deleteButton.innerText = '삭제하기';
-                    deleteButton.addEventListener('click', () => {
-                        if (confirm(`회원 ID: ${props.value}\n정말로 삭제하시겠습니까?`)) {
-                            // 여기에 삭제 로직을 추가할 수 있습니다.
-                            alert('삭제되었습니다.');
-                        }
-                    });
-
                     container.appendChild(viewButton);
-                    container.appendChild(editButton);
-                    container.appendChild(deleteButton);
                     
                     this.el = container;
                 }
@@ -375,40 +399,35 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                    { header: 'ID', name: 'id' , editor: 'text'},
-                    { header: 'Name', name: 'name' , editor: 'text'},
-                    { header: 'Email', name: 'email' , editor: 'text'},
-                    { header: 'Registration Date', name: 'registrationDate' , editor: 'text'},
-                    { header: 'Status', name: 'status' , editor: 'text'},
+//                 	{ header: '글번호', name: 'notice_code' , editor: 'text'},
+                	{ header: '글번호', name: type + '_code' , editor: 'text'},
+//                     { header: '제목', name: 'notice_subject' , editor: 'text'},
+                    { header: '제목', name: type + '_subject' , editor: 'text'},
+//                     { header: '카테고리', name: 'notice_category' , editor: 'text'},
+                    { header: '카테고리', name: type + '_category' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',
                         renderer: {
                             type: ActionRenderer
                         }
+                    },
+                    {
+                    	header: '숨김',
+    	                name: 'hidden',
+    	                renderer: {
+    	                    type: BootstrapSwitchRenderer
+    	                }
                     }
                 ],
                 rowHeaders: ['rowNum'],
-                pageOptions: {
-                    useClient: true, // 클라이언트 사이드 페이징 사용
-                    perPage: 10 // 페이지당 항목 수
-                },
+    	        pageOptions: {
+    	            useClient: true,
+    	            perPage: itemsPerPage
+    	        },
                 bodyHeight: 400
             });
-            
-            // 페이지 변경 이벤트
-            pagination.on('beforeMove', function (event) {
-                const currentPage = event.page;
-                const startRow = (currentPage - 1) * 10;
-                const endRow = startRow + 10;
-
-                grid.resetData(data.slice(startRow, endRow));
-            });
-            
-            // 초기 데이터 설정
-            grid.resetData(data.slice(0, 10));
         });
     </script>
-    
 </body>
 </html>

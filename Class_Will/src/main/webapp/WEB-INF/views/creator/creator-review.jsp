@@ -46,7 +46,7 @@
 <body>
 
 	<header>
-		<jsp:include page="/WEB-INF/views/inc/header.jsp" />
+		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
@@ -69,7 +69,7 @@
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4">Creator Center</h1>
+			<h1 class="mb-4 text-white">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
@@ -79,21 +79,7 @@
 							<div class="creator-main-table col-md-12 mb-5">
 								
 								<!-- 	셀렉트박스 -->
-								<div class="col-md-12 d-flex justify-content-center mb-5">
-									<div class="col-xl-8">
-										<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
-											<select id="fruits"
-												name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass"
-												form="fruitform">
-												<option value="volvo">Nothing</option>
-												<option value="saab">Populari</option>
-												<option value="opel">Organic</option>
-												<option value="audi">Fantastic</option>
-											</select>
-										</div>
-										<hr>
-									</div>
-								</div>
+								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 상단 카테고리 -->
 								<div class="mt-5">
 									<button class="category-btn reviewType" value="respond">응답후기</button>

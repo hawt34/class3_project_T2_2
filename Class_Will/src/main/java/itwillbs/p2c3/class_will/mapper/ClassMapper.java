@@ -3,6 +3,8 @@ package itwillbs.p2c3.class_will.mapper;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,4 +18,6 @@ public interface ClassMapper {
 	
 	// 카테고리 지역 
 	List<Map<String, Object>> selectCategoryLocal();
+	
+    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
 }

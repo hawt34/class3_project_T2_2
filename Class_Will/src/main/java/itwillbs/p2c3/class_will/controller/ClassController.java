@@ -83,7 +83,14 @@ public class ClassController {
 		
 		return"class/class-list";
 	}
-	
+
+    @GetMapping("getSmallCategories")
+    @ResponseBody
+    public List<Map<String, String>> getSmallCategories(@RequestParam String bigCategoryCode) {
+    	System.out.println("getSmallCategories");
+        return classService.getSmallCategoriesByBigCategoryCode(bigCategoryCode);
+    }
+    
 	@ResponseBody
 	@PostMapping("class-list")
 //	public String classList(@RequestParam(name = "common2_code", required = false) String common2_code, Model model) {

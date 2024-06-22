@@ -25,6 +25,12 @@
 		FROM common2
 		WHERE common1_code = 'LC'
 	</select>
+	
 
+    <select id="selectSmallCategories" parameterType="String" resultType="map">
+        SELECT *
+        FROM common3
+        WHERE common1_code = 'CLC' AND common2_code = #{bigCategoryCode}
+    </select>
 </mapper>
 	

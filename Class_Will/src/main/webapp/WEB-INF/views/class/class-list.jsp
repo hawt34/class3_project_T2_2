@@ -113,19 +113,19 @@ body {
 									<button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 										카테고리
 									</button>
-<!-- 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> -->
+<!-- <!-- 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> --> 
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;">
 										<div class="d-flex">
 											<div class="col">
 												<ul class="list-unstyled categoryDrop">
 												<li><a class="dropdown-item" href="#" value="전체">전체</a></li>
 													<c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status">
-<%-- 														<c:if test="${status.index < 8}"> --%>
-<%-- 															<li><a class="dropdown-item" id="bigCategory" href="#" onclick="bigCategory()" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%>
-<%-- 															<li><a class="dropdown-item" id="bigCategory" onclick="bigCategory(this)" href="class-list?common2_code=${bigCategoryList.common2_code}" value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</a></li> --%>
+<%-- 														<c:if test="${status.index < 8}">  --%>
+<%--  															<li><a class="dropdown-item" id="bigCategory" href="#" onclick="bigCategory()" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%> 
+<%-- 															<li><a class="dropdown-item" id="bigCategory" onclick="bigCategory(this)" href="class-list?common2_code=${bigCategoryList.common2_code}" value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</a></li> --%> 
 																<li><a class="dropdown-item" onclick="bigCategory(this)" href="javascript:void(0);" data-code="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</a></li>
-<%-- 															<li><a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%>
-<%-- 														</c:if> --%>
+<%-- 															<li><a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%> 
+<%--  														</c:if>  --%>
 													</c:forEach>
 												</ul>
 											</div>
@@ -138,7 +138,6 @@ body {
 														</c:if>
                        								     <c:if test="${smallCategoryList.common2_code eq common2_code}">
 																<li>
-
 																	<div class="form-check">
 																	  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 																	  <label class="form-check-label" for="flexCheckDefault">
@@ -156,6 +155,36 @@ body {
 							</div>
 							<!-- 카테고리바 카테고리 끝 -->
 							
+							
+							<!-- 카테고리바 카테고리 시작 -->
+<!--     <div class="selectDiv col-md-2 categorySelect"> -->
+<!--         <div class="dropdown"> -->
+<!--             <button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> -->
+<!--                 카테고리 -->
+<!--             </button> -->
+<!--             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> -->
+<!--                 <div class="d-flex"> -->
+<!--                     <div class="col"> -->
+<!--                         <ul class="list-unstyled categoryDrop"> -->
+<!--                             <li><a class="dropdown-item" href="#" value="전체">전체</a></li> -->
+<%--                             <c:forEach var="bigCategory" items="${bigCategoryList}"> --%>
+<!--                                 <li> -->
+<%--                                     <a class="dropdown-item" href="javascript:void(0);" data-code="${bigCategory.common2_code}" onclick="fetchSmallCategories()'${bigCategory.common2_code}')">${bigCategory.code_value}</a> --%>
+<!--                                 </li> -->
+<%--                             </c:forEach> --%>
+<!--                         </ul> -->
+<!--                     </div> -->
+<!--                     <div class="vr-divider"></div> -->
+<!--                     <div class="col"> -->
+<!--                         <ul class="list-unstyled localList" id="smallCategoryList"> -->
+<!--                             작은 카테고리 항목은 여기에서 동적으로 채워집니다 -->
+<!--                         </ul> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
+    <!-- 카테고리바 카테고리 끝 -->
 						    <!-- 카테고리바 지역 시작 -->
 							<div class="selectDiv col-md-2">
 								<div class="dropdown">
@@ -733,13 +762,39 @@ function addCategoryToList(code_value) {
 //     var container = $(".chooseDiv").parent(); // 카테고리 셀렉트 리스트 컨테이너
     var container = $(".row.mx-5"); // 카테고리 셀렉트 리스트 컨테이너
 
-    var newDiv = `
+    var newDiv = 
         <div class="mt-3 col-md-2 position-relative chooseDiv">
             <input type="text" class="form-control chooseResult" value="${code_value}" readonly>
             <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
         </div>
-    `;
+    ;
     container.append(newDiv);
+}
+function fetchSmallCategories(bigCategoryCode) {
+    $.ajax({
+        url: 'getSmallCategories',
+        type: 'GET',
+        data: { bigCategoryCode: bigCategoryCode },
+        success: function(response) {
+            $('#smallCategoryList').empty(); // 작은 카테고리 리스트 초기화
+
+            response.forEach(function(smallCategory) {
+                $('#smallCategoryList').append(
+                    <li class="small-category-item">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="${smallCategory.code_value}" id="flexCheckDefault${smallCategory.code_value}">
+                            <label class="form-check-label" for="flexCheckDefault${smallCategory.code_value}">
+                                ${smallCategory.code_value}
+                            </label>
+                        </div>
+                    </li>
+                );
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("Error fetching small categories:", error);
+        }
+    });
 }
 </script>
 

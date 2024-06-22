@@ -34,4 +34,10 @@ public class ClassService {
 		
 		return mapper.selectCategoryLocal();
 	}
+	
+
+
+    public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
+        return mapper.selectSmallCategories(bigCategoryCode);
+    }
 }

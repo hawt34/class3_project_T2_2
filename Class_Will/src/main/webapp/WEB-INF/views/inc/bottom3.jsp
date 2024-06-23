@@ -36,7 +36,7 @@
                             <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-6 col-md-6">
                         <div class="d-flex flex-column text-start footer-item">
                             <h4 class="text-light mb-3">Shop Info</h4>
                             <a class="btn-link" href="">About Us</a>
@@ -47,17 +47,17 @@
                             <a class="btn-link" href="">FAQs & Help</a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                            <h4 class="text-light mb-3">Account</h4>
-                            <a class="btn-link" href="">My Account</a>
-                            <a class="btn-link" href="">Shop details</a>
-                            <a class="btn-link" href="">Shopping Cart</a>
-                            <a class="btn-link" href="">Wishlist</a>
-                            <a class="btn-link" href="">Order History</a>
-                            <a class="btn-link" href="">International Orders</a>
-                        </div>
-                    </div>
+<!--                     <div class="col-lg-3 col-md-6"> -->
+<!--                         <div class="d-flex flex-column text-start footer-item"> -->
+<!--                             <h4 class="text-light mb-3">Account</h4> -->
+<!--                             <a class="btn-link" href="">My Account</a> -->
+<!--                             <a class="btn-link" href="">Shop details</a> -->
+<!--                             <a class="btn-link" href="">Shopping Cart</a> -->
+<!--                             <a class="btn-link" href="">Wishlist</a> -->
+<!--                             <a class="btn-link" href="">Order History</a> -->
+<!--                             <a class="btn-link" href="">International Orders</a> -->
+<!--                         </div> -->
+<!--                     </div> -->
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-item">
                             <h4 class="text-light mb-3">Contact</h4>

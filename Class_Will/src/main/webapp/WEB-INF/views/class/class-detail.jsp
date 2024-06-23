@@ -194,6 +194,45 @@ document.addEventListener("DOMContentLoaded", function() {
 	                <div class="classreview1">
 						<div class="classreview2 col-md-9">
                     <div class="row reviewInfo">
+                    	<!-- 테이블 -->
+								<div class="card text-center">
+									<div class="card-body p-2">
+										<table>
+											<thead>
+												<tr>
+													<th>후기</th>
+													<th>작성일자</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="creator-review-subject">
+														<a onclick="creatorReview()">너무 재미있고 최고입니다 ㅎㅎ</a>
+													</td>
+													<td>
+														2024-05-11
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a>너무 재미있고 최고입니다 ㅎㅎㅎㅎ하하하하</a>
+													</td>
+													<td>
+														2024-05-11
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<a>너무 재미있고 최고입니다 ㅎㅎ</a>
+													</td>
+													<td>
+														2024-05-11
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
 			            <div class="col-md-1 userPic">
 			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
 			            </div>
@@ -688,6 +727,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 });
+</script>
+<script type="text/javascript">
+function creatorReview() {
+	window.open("creator-review-form", "pop", "width=700, height=700, left=700, top=50");
+}
+	
+
 </script>
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>

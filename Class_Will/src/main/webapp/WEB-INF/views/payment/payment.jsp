@@ -335,9 +335,15 @@ function myFunction() {
 	//------------------------------------
 	let subtotalText = $("#subtotal").text().trim(); //trim()으로 앞뒤 공백 제거
 	let subtotal = parseInt(subtotalText.replace(/,/g, ''), 10);
+	//사용한 will-pay
+	let use_willpay = $("#will_pay_input").val();
+	//undefined 일 시 0 저장
+	if(!use_willpay) {
+		use_willpay = 0;
+	}
+	console.log("사용한 will-pay", use_willpay);
 	
-	
-	let pg = "html5_inicis.INIpayTest";
+	let pg = "kcp.AO09C";
 	let className = "${payInfo.class_name}";
 	
 	
@@ -347,27 +353,65 @@ function myFunction() {
 	let member_tel = "${payInfo.member_tel}";
 	
 	let IMP = window.IMP;   // 생략 가능
-	IMP.init("imp00262041");
+	IMP.init("imp00262041"); //imp00262041
 	IMP.request_pay(
 		{
             pg: pg,
             pay_method: "card",
             merchant_uid: "order_" + new Date().getTime(),
             name: className,
-            amount: amount,
+//             amount: amount,
+            amount: 1000,
             buyer_email: member_email,
             buyer_name: member_name,
             buyer_tel: member_tel //필수
         },
         function (rsp) {
-            console.log(rsp);
-
             if(rsp.success) {
-                verifyAndSavePayInfo(rsp.imp_uid, rsp.merchant_uid);
-
+				console.log(rsp.imp_uid);
+				$.ajax({
+		            url: "verify",
+		            type: "POST",
+		            data: JSON.stringify({ 
+		            	imp_uid: rsp.imp_uid,
+		            	merchant_uid : rsp.merchant_uid,
+		            	class_code: "${payInfo.class_code}",
+		            	class_st_time: "${payInfo.class_st_time}",
+		            	class_ed_time: "${payInfo.class_ed_time}",
+		            	class_schedule_date : "${payInfo.class_schedule_date}",
+		            	pay_headcount: "${payInfo.headcount }",
+		            	use_willpay: use_willpay,
+		            	member_code: "${payInfo.member_code}",
+		            	class_schedule_code: "${payInfo.class_schedule_code}"
+		            }),
+					contentType: "application/json",
+		            dataType: "json",
+		            success: function(response) {
+		                if(response.success) {
+		                    console.log("결제 검증 성공:", response.error);
+		                    //POST 방식 결제정보 전달
+		                    let form = document.createElement("form");
+		                    form.method = "POST";
+		                    form.action = "payment-final";
+		                    
+		                    let payCodeInput = document.createElement("input");
+		                    payCodeInput.type = "hidden";
+		                    payCodeInput.name = "pay_code";
+		                    payCodeInput.value = response.pay_code;
+		                    form.appendChild(payCodeInput);
+		                    
+		                    document.body.appendChild(form);
+		                    form.submit();
+		                } else {
+		                    console.log("결제 검증 실패:", response.error);
+		                }
+		            },
+		            error: function(err) {
+		                console.error("결제 검증 요청 실패:", err);
+		            }
+		        });
             } else {
                 alert("결제에 실패하였습니다." + " : " + rsp.error_msg);
-               
             } // if-else
 
         } // function(rsp)

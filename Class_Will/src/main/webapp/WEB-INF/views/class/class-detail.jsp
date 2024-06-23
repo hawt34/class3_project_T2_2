@@ -567,8 +567,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				let scheduleTime = response;
                 $(".time_area").empty();
                 $.each(scheduleTime, function(index, time) {
+                	//현재 남아있는 자리 (class_remain_headcount)
                 	let remain = time.class_remain_headcount.toString();
+                	if(remain == '0') {
+						return false;
+					}
+                	
                     let countT = index + 1;
+                    
                     let radioInput = $('<input>', {
                         type: 'radio',
                         class: 'btn-check',
@@ -582,7 +588,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         for: 'vbtn-radio' + countT
                     });
 
-                    var timeSpan = $('<span>', {
+                    var timeSpan = $('<span>', {s
                         class: 'selected_time',
                         text: time.class_st_time + '~' + time.class_ed_time
                     });
@@ -624,6 +630,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // 		let dateString = dateStr.toString;
         document.getElementById('selected_dates').value = dateStr;
     };
+    
 //  인원수 변경 버튼 변수 설정
 	let count = $("#class_count");
 	let prev = $("#headcount_prev");

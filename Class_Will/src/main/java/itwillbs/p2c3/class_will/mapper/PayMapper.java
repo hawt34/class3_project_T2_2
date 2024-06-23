@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
@@ -25,6 +26,19 @@ public interface PayMapper {
 	
 	//크레딧 조회
 	Map<String, String> selectCredit(Map<String, String> map);
+	
+	//pay에 저장할 정보 가져오기
+	Map<String, Object> selectObjects(Map<String, Object> map);
+	
+	//성공한 결제 정보 등록
+	@Options(useGeneratedKeys = true, keyProperty = "pay_code")
+	void registPaySuccessInfo(Map<String, Object> map);
+	
+	//member table의 member_credit 처리
+	void updateCredit(Map<String, Object> map);
+	
+	//class_schedule 테이블의 class_remain_headcount 처리
+	void updateHeadcount(Map<String, Object> map);
 	
 
 	

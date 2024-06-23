@@ -14,7 +14,7 @@ public interface ClassMapper {
 	List<Map<String, Object>> selectBigCategoryList();
 	
 	// 소 카테고리
-	List<Map<String, Object>> selectSmallCategoryList(@RequestParam("common2_code") String common2_code);
+	List<Map<String, Object>> getSmallCategory(String big_Category);
 	
 	// 카테고리 지역 
 	List<Map<String, Object>> selectCategoryLocal();

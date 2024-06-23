@@ -75,15 +75,6 @@ body {
 
 }
 
-        .smallCategoryList {
-            display: none; /* 초기에는 숨김 */
-            flex-direction: column;
-            margin-left: 10px;
-        }
-
-        .bigCategory.expanded + .smallCategoryList {
-            display: flex; /* bigCategory가 확장되면 표시 */
-        }
 </style>
 </head>
 <body>
@@ -118,82 +109,60 @@ body {
 					<div class="row mx-5 rowCenter">
 
 							<!-- 카테고리바 카테고리 시작 -->
-							<div class="selectDiv col-md-2 categorySelect">
-								<div class="dropdown">
-									<button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-										카테고리
-									</button>
-<!-- <!-- 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> --> 
-<!-- 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> -->
-									<div class="dropdown-menu bigCategory" aria-labelledby="dropdownMenuButton1" >
-										<div class="d-flex">
-											<div class="col">
-												<ul class="list-unstyled categoryDrop">
-												<li><a class="dropdown-item" href="#" value="전체">전체</a></li>
-													<c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status">
-<%-- 														<c:if test="${status.index < 8}">  --%>
-<%--  															<li><a class="dropdown-item" id="bigCategory" href="#" onclick="bigCategory()" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%> 
-<%-- 															<li><a class="dropdown-item" id="bigCategory" onclick="bigCategory(this)" href="class-list?common2_code=${bigCategoryList.common2_code}" value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</a></li> --%> 
-																<li><a class="dropdown-item" onclick="bigCategory(this)" href="javascript:void(0);" data-code="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</a></li>
-<%-- 															<li><a class="dropdown-item" href="#" value="${bigCategoryList.code_value}">${bigCategoryList.code_value}</a></li> --%> 
-<%--  														</c:if>  --%>
-													</c:forEach>
-												</ul>
-											</div>
-<!-- 										<div class="vr-divider"></div> -->
+<!-- 							<div class="selectDiv col-md-2 categorySelect"> -->
+<!-- 								<div class="dropdown"> -->
+<!-- 									<button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> -->
+<!-- 										카테고리 -->
+<!-- 									</button> -->
+<!-- 									<div class="dropdown-menu bigCategory" aria-labelledby="dropdownMenuButton1" > -->
+<!-- 										<div class="d-flex"> -->
 <!-- 											<div class="col"> -->
-<!-- 												<ul class="list-unstyled"> -->
-<%-- 													<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status"> --%>
-<%--                        								     <c:if test="${smallCategoryList.common2_code eq common2_code}"> --%>
-<!-- 																<li> -->
-<!-- 																	<div class="form-check"> -->
-<!-- 																	  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
-<!-- 																	  <label class="form-check-label" for="flexCheckDefault"> -->
-<%-- 																		<a class="dropdown-item" href="#" value="${smallCategoryList.code_value}">${smallCategoryList.code_value}</a> --%>
-<%-- 																		<a class="dropdown-item" href="#" value="${smallCategoryList.code_value eq common2_code}">${smallCategoryList.code_value  eq common2_code}</a> --%>
-<!-- 																	  </label> -->
-<!-- 																	</div> -->
-<!-- 																</li> -->
-<%-- 														</c:if> --%>
+<!-- 												<ul class="list-unstyled categoryDrop"> -->
+<!-- 												<li><a class="dropdown-item" href="#" value="전체">전체</a></li> -->
+<%-- 													<c:forEach var="bigCategory" items="${bigCategoryList}" varStatus="status"> --%>
+<!-- 														        <li class="bigCategory"> -->
+<%-- 														            <a class="dropdown-item" href="javascript:void(0);" data-code="${bigCategory.common2_code}"> --%>
+<%-- 														                ${bigCategory.code_value} --%>
+<!-- 														            </a> -->
+<!-- 														        </li> -->
 <%-- 													</c:forEach> --%>
 <!-- 												</ul> -->
 <!-- 											</div> -->
-										</div>
-									</div>
-								</div>
-							</div>
+<!-- 										<div class="vr-divider"></div> -->
+<!-- 											<div class="col smallCategory" > -->
+<!-- 												<ul class="list-unstyled"> -->
+<%-- 													<c:forEach var="smallCategoryList" items="${smallCategoryList}" > --%>
+<!-- 												        <li class="smallCategory"> -->
+<%-- 												            <a class="dropdown-item" href="class-list" data-code="${smallCategoryList.common2_code}"> --%>
+<%-- 												            	${smallCategoryList.code_value} --%>
+<!-- 															</a> -->
+<!-- 														</li> -->
+<%-- 													</c:forEach> --%>
+<!-- 												</ul> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<!-- 카테고리바 카테고리 끝 -->
 							
-							
 							<!-- 카테고리바 카테고리 시작 -->
-<!--     <div class="selectDiv col-md-2 categorySelect"> -->
-<!--         <div class="dropdown"> -->
-<!--             <button class="btn btn-light dropdown-toggle categorySelectBtn w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> -->
-<!--                 카테고리 -->
-<!--             </button> -->
-<!--             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> -->
-<!--                 <div class="d-flex"> -->
-<!--                     <div class="col"> -->
-<!--                         <ul class="list-unstyled categoryDrop"> -->
-<!--                             <li><a class="dropdown-item" href="#" value="전체">전체</a></li> -->
-<%--                             <c:forEach var="bigCategory" items="${bigCategoryList}"> --%>
-<!--                                 <li> -->
-<%--                                     <a class="dropdown-item" href="javascript:void(0);" data-code="${bigCategory.common2_code}" onclick="fetchSmallCategories()'${bigCategory.common2_code}')">${bigCategory.code_value}</a> --%>
-<!--                                 </li> -->
-<%--                             </c:forEach> --%>
-<!--                         </ul> -->
-<!--                     </div> -->
-<!--                     <div class="vr-divider"></div> -->
-<!--                     <div class="col"> -->
-<!--                         <ul class="list-unstyled localList" id="smallCategoryList"> -->
-<!--                             작은 카테고리 항목은 여기에서 동적으로 채워집니다 -->
-<!--                         </ul> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-    <!-- 카테고리바 카테고리 끝 -->
+<!-- 							<div class="row">  -->
+								<div class="col-md-2">
+									<label for="class_big_category" class="h6">카테고리</label> 
+									<select name="class_big_category" id="class_big_category" class="form-control" required>
+										<c:forEach var="bigCategoryList" items="${bigCategoryList}">
+											<option value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</option>
+										</c:forEach>
+									</select>
+								</div>
+								<div class="col-md-2">
+									<label for="class_small_category" class="h6">상세분류</label> 
+									<select name="class_small_category" id="class_small_category" class="form-control" required></select>
+								</div>
+<!-- 							</div> -->
+							<!-- 카테고리바 카테고리 끝 -->
+							
 						    <!-- 카테고리바 지역 시작 -->
 							<div class="selectDiv col-md-2">
 								<div class="dropdown">
@@ -249,9 +218,9 @@ body {
 <!-- 						</div> -->
 						</div>
 					</div>
-					<!-- 셀렉트박스 리스트 -->
+					<!-- 셀렉트박스 리스트 끝 -->
 					
-					<!-- 카테고리 셀렉스 리스트 -->
+					<!-- 카테고리 셀렉트 리스트 -->
 					<div class="row mx-5">
 						<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status">
 						    <div class="mt-3 col-md-2 position-relative chooseDiv">
@@ -262,7 +231,7 @@ body {
 						</c:forEach>
 						<hr>
 					</div>
-					<!-- 카테고리 셀렉스 리스트 -->
+					<!-- 카테고리 셀렉트 리스트 -->
 					
 					<!-- 해시태그 리스트 -->
 					<div class="row mx-5">
@@ -710,161 +679,142 @@ body {
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 <script type="text/javascript">
 
-// function bigCategory(element) {
-//     var common2_code = $(element).data('code');
-//     var code_value = $(element).text();
+$(function() {
+	// 카테고리 선택시 상세카테
+	$("#class_big_category").change(function() {
+		var big_category = $("#class_big_category").val();
+		$.ajax({
+			url: "small-category",
+			method: "get",
+			data: { "big_category" : big_category },
+			success: function(data) {
+				$("#class_small_category").empty();
+				$.each(data, function(index, item) {
+					$("#class_small_category").append(
+						$('<option></option>').val(item.common3_code).text(item.code_value)	
+					);
+				});
+			}
+		});		
+	});
+});
+// $(document).ready(function() {
 //     // 마우스 오버 이벤트 핸들러 설정
 //     $('.bigCategory').mouseenter(function() {
-//         console.log('Mouse enter event');
 //         $(this).css('width', '300px'); // bigCategory 요소의 넓이를 300px로 설정
+//         createSubDropdown($(this)); // 서브 드롭다운 생성 함수 호출
+
 //     });
-// //     AJAX 요청
-//     $.ajax({
-//         type: "POST",
-//         url: "class-list",
-//         data: {
-//             common2_code: common2_code
-//         },
-//         dataType: "json",
-//         success: function(response) {
-//             if (response === true) {
-//                 alert('class-list 성공' + common2_code + code_value);
-//                 console.log('class-list 성공' + common2_code + code_value);
-                
-//                 // 선택한 값을 카테고리 셀렉트 리스트에 추가
-// //                 addCategoryToList(code_value);
-//             } else {
-//                 alert('class-list 실패');
-//                 console.log('class-list 실패');
-//             }
-//         },
-//         error: function(xhr, status, error) {
-//             alert('class-list ajax 실패');
-//             console.log('class-list ajax 실패');
-//         }
-//     });
-//     // 마우스 아웃 이벤트 핸들러 설정
+
+// //     // 마우스 아웃 이벤트 핸들러 설정
 //     $('.bigCategory').mouseleave(function() {
-//         console.log('Mouse leave event');
 //         $(this).css('width', ''); // bigCategory 요소의 넓이를 초기화
+//         $('.subDropdown').remove(); // 서브 드롭다운 제거
+
 //     });
-// }
 
-// ------------------------------------------------
-$(document).ready(function() {
-    // 마우스 오버 이벤트 핸들러 설정
-    $('.bigCategory').mouseenter(function() {
-        console.log('Mouse enter event');
-        $(this).css('width', '300px'); // bigCategory 요소의 넓이를 300px로 설정
-    });
+// //     // 클릭 이벤트 핸들러 설정
+//     $('.bigCategory a').click(function(e) {
+//         e.preventDefault(); // 기본 이벤트 방지
 
-    // 마우스 아웃 이벤트 핸들러 설정
-    $('.bigCategory').mouseleave(function() {
-        console.log('Mouse leave event');
-        $(this).css('width', ''); // bigCategory 요소의 넓이를 초기화
-    });
+//         var common2_code = $(this).data('code');
+//         var code_value = $(this).text();
+//         console.log('Clicked common2_code:', common2_code); // 디버깅을 위한 로그 추가
 
-    // 클릭 이벤트 핸들러 설정
-    $('.bigCategory a').click(function(e) {
-        e.preventDefault(); // 기본 이벤트 방지
+//         // AJAX 요청
+//         $.ajax({
+//             type: "POST",
+//             url: "class-list",
+//             data: {
+//                 common2_code: common2_code
+//             },
+//             dataType: "json",
+//             success: function(response) {
+// //                 if (response === true) { // 예시로 받은 응답 데이터의 형식에 따라 수정
+//                 if (response.success === true) { // 예시로 받은 응답 데이터의 형식에 따라 수정
 
-        var common2_code = $(this).data('code');
-        var code_value = $(this).text();
-
-        // AJAX 요청
-        $.ajax({
-            type: "POST",
-            url: "class-list",
-            data: {
-                common2_code: common2_code
-            },
-            dataType: "json",
-            success: function(response) {
-                if (response === true) { // 예시로 받은 응답 데이터의 형식에 따라 수정
-                    alert('class-list 성공' + common2_code + code_value);
-                    console.log("class-list 성공" + common2_code + code_value);
-                    // 선택한 값을 카테고리 셀렉트 리스트에 추가
-                    // addCategoryToList(code_value);
-                } else {
-                    alert('class-list 실패');
-                    console.log('class-list 실패');
-                }
-            },
-            error: function(xhr, status, error) {
-                alert('class-list ajax 실패');
-                console.log('Status: ' + status);
-                console.log('Error: ' + error);
-            }
-        });
-    });
-});
-
-
-</script>
-<script type="text/javascript">
-// document.addEventListener('DOMContentLoaded', function() {
-//     const bigCategories = document.querySelectorAll('.bigCategory .dropdown-item');
-//     const dropdownMenu = document.querySelector('.dropdown-menu');
-
-//     const smallCategoryData = {
-//         "1": ["소카테고리 1-1", "소카테고리 1-2", "소카테고리 1-3"],
-//         "2": ["소카테고리 2-1", "소카테고리 2-2"],
-//         // 다른 bigCategory에 대한 smallCategory 데이터
-//     };
-
-//     bigCategories.forEach(item => {
-//         item.addEventListener('mouseenter', function() {
-//             const code = this.getAttribute('data-code');
-//             const categories = smallCategoryData[code] || [];
-//             const smallCategoryList = dropdownMenu.querySelector('.smallCategoryList');
-
-//             smallCategoryList.innerHTML = categories.map(cat => `<li>${cat}</li>`).join('');
-
-//             this.closest('.bigCategory').classList.add('expanded');
-//         });
-
-//         item.addEventListener('mouseleave', function() {
-//             this.closest('.bigCategory').classList.remove('expanded');
-//             const smallCategoryList = dropdownMenu.querySelector('.smallCategoryList');
-//             smallCategoryList.innerHTML = ''; // 소카테고리 목록 초기화
+//                     alert('class-list 성공' + common2_code + code_value);
+//                     console.log("class-list 성공" + common2_code + code_value);
+//                     // 선택한 값을 카테고리 셀렉트 리스트에 추가
+//                     // addCategoryToList(code_value);
+//                 } else {
+//                     alert('class-list 실패');
+//                     console.log('class-list 실패');
+//                 }
+//             },
+//             error: function(xhr, status, error) {
+//                 alert('class-list ajax 실패');
+//                 console.log('Status: ' + status);
+//                 console.log('Error: ' + error);
+//             }
 //         });
 //     });
+    
+//     // 서브 드롭다운을 생성하는 함수
+//     function createSubDropdown($bigCategory) {
+// //         var common2_code = $bigCategory.find('a').data('code'); // bigCategory의 data-code 가져오기
+// //         console.log('Sub dropdown common2_code:', common2_code); // 디버깅을 위한 로그 추가
+        
+//         var $anchor = $bigCategory.find('a'); // bigCategory의 <a> 요소 찾기
+//         var common2_code = $anchor.data('code'); // <a> 요소의 data-code 가져오기
+//         console.log('Sub dropdown common2_code:', common2_code); // 디버깅을 위한 로그 추가
 
-//     dropdownMenu.addEventListener('mouseleave', function() {
-//         const expandedCategory = dropdownMenu.querySelector('.bigCategory.expanded');
-//         if (expandedCategory) {
-//             expandedCategory.classList.remove('expanded');
-//             const smallCategoryList = dropdownMenu.querySelector('.smallCategoryList');
-//             smallCategoryList.innerHTML = ''; // 소카테고리 목록 초기화
-//         }
-//     });
+
+//         // AJAX 요청
+//         $.ajax({
+//             type: "POST",
+//             url: "class-list",
+//             data: {
+//                 common2_code: common2_code
+//             },
+//             dataType: "json",
+//             success: function(response) {
+//                 if (response.success === true) {
+//                     var smallCategoryList = response.smallCategoryList;
+// //                     displaySubDropdown($('.smallCategory'), smallCategoryList); // 서브 드롭다운 표시 함수 호출
+// //                     displaySubDropdown($(e.target).closest('.bigCategory'), smallCategoryList); // 서브 드롭다운 표시 함수 호출
+// 		               displaySubDropdown($bigCategory, smallCategoryList); // $bigCategory를 인자로 넘겨서 호출
+
+//                     console.log('소 카테고리 불러오기 성공');
+//                 } else {
+//                     console.log('소 카테고리 불러오기 실패');
+//                 }
+//             },
+//             error: function(xhr, status, error) {
+//                 console.log('AJAX 요청 실패');
+//                 console.log('Status: ' + status);
+//                 console.log('Error: ' + error);
+//             }
+//         });
+//     }
+
+//     // 서브 드롭다운을 화면에 표시하는 함수
+//     function displaySubDropdown($bigCategory, smallCategoryList) {
+//         // 서브 드롭다운 요소 생성
+//         var $subDropdown = $('<div class="dropdown-menu subDropdown" aria-labelledby="dropdownMenuButton2">');
+//         var $list = $('<ul class="list-unstyled">');
+
+//         // 소 카테고리 항목 추가
+//         $.each(smallCategoryList, function(index, smallCategory) {
+//             var $item = $('<li><a class="dropdown-item" href="#">' + smallCategory.code_value + '</a></li>');
+//             $list.append($item);
+//         console.log('$item :::::::::::', $item.text());
+//         });
+		
+//         // 디버깅을 위한 로그 추가
+//         console.log('Generated $list:', $list.text());
+
+// //         // 서브 드롭다운을 $smallCategory 옆에 추가
+// //         $smallCategory.find('.smallCategory').html($subDropdown.append($list));
+
+//         // 서브 드롭다운을 $bigCategory 옆에 추가
+//         $bigCategory.next('.smallCategory').find('ul').html($list.html());
+        
+
+//         // 디버깅을 위한 로그 추가
+//         console.log('Sub dropdown $subDropdown:', $subDropdown);
+//     }
 // });
-    </script>
-<!-- <script type="text/javascript"> -->
-<!-- function smallCategory() { -->
-<!-- 	$.ajax({ -->
-		
-<!-- 		type : "POST", -->
-<!-- 		url : "class-list", -->
-<!-- 		data : { -->
-<!--             common2_code : common2_code -->
-			
-<!-- 		}, -->
-<!-- 		dataType : "json", -->
-<!-- 		success :function (response) { -->
-<!-- 				alert('class-list성공'); -->
-<!-- 				console.log('class-list성공'); -->
-			
-<!-- 		}, -->
-<!-- 		error : function (xhr, status, error) { -->
-<!-- 			alert('class-list ajax 실패'); -->
-<!-- 			console.log('class-list ajax 실패'); -->
-			
-<!-- 		} -->
-		
-		
-<!-- 	}); -->
-<!-- } -->
-<!-- </script> -->
+</script>
 </body>
 </html>

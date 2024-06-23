@@ -588,7 +588,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         for: 'vbtn-radio' + countT
                     });
 
-                    var timeSpan = $('<span>', {s
+                    var timeSpan = $('<span>', {
                         class: 'selected_time',
                         text: time.class_st_time + '~' + time.class_ed_time
                     });

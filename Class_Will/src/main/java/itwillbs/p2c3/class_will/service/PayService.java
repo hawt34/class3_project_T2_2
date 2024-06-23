@@ -86,6 +86,8 @@ public class PayService {
 				map.put("class_code", objects.get("class_code"));
 				map.put("class_schedule_code", objects.get("class_schedule_code"));
 				map.put("member_code", objects.get("member_code"));
+				map.put("pg_provider", pr.getPgProvider());
+				map.put("card_name", pr.getCardName());
 				payMapper.registPaySuccessInfo(map);
 				
 //				System.out.println("페이번호: " + map.get("pay_code"));
@@ -105,6 +107,12 @@ public class PayService {
 		}
 		
 		return response;
+	}
+	
+	
+	//결제에 성공한 paySuccessInfo 가져오기
+	public Map<String, String> getSuccessPayInfo(Map<String, String> map) {
+		return payMapper.selectSuccessPayInfo(map);
 	}
 
 	

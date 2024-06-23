@@ -40,6 +40,9 @@ public interface PayMapper {
 	//class_schedule 테이블의 class_remain_headcount 처리
 	void updateHeadcount(Map<String, Object> map);
 	
+	//결제에 성공한 paySuccessInfo 가져오기
+	Map<String, String> selectSuccessPayInfo(Map<String, String> map);
+	
 
 	
 }

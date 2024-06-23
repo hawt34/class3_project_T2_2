@@ -135,6 +135,8 @@
 		    , class_code
 		    , imp_uid
 		    , use_willpay
+		    , pg_provider
+		    , card_name
 		)
 		VALUES (
 			null
@@ -149,6 +151,12 @@
 		    , #{class_code}
 		    , #{imp_uid}
 		    , #{use_willpay}
+		    , #{pg_provider}
+		    , #{card_name}
 		)
 	</insert>
+	
+	<select id="selectSuccessPayInfo" resultType="map">
+		select * from pay where pay_code = #{pay_code}
+	</select>
 </mapper>

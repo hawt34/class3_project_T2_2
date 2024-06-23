@@ -389,19 +389,8 @@ function myFunction() {
 		            success: function(response) {
 		                if(response.success) {
 		                    console.log("결제 검증 성공:", response.error);
-		                    //POST 방식 결제정보 전달
-		                    let form = document.createElement("form");
-		                    form.method = "POST";
-		                    form.action = "payment-final";
-		                    
-		                    let payCodeInput = document.createElement("input");
-		                    payCodeInput.type = "hidden";
-		                    payCodeInput.name = "pay_code";
-		                    payCodeInput.value = response.pay_code;
-		                    form.appendChild(payCodeInput);
-		                    
-		                    document.body.appendChild(form);
-		                    form.submit();
+		                    //GET 방식 결제정보 전달
+		                    location.href="payment-final?pay_code=" + response.pay_code;
 		                } else {
 		                    console.log("결제 검증 실패:", response.error);
 		                }

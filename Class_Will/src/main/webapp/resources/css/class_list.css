@@ -316,8 +316,17 @@ body {
 /* 	height : austo; */
 }
 
+    .bigCategory {
+        width: 150px;
+        transition: width 0.3s ease; /* 너비 변경 애니메이션 */
+    }
+
+    .bigCategory.expanded {
+        width: 300px; /* 마우스를 올렸을 때의 너비 */
+    }
 .categoryDrop{
 	width : 135px;
+/* 	width : 60px; */
 }
 .categorySelectBtn {
 	height : 45px;

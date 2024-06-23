@@ -74,6 +74,8 @@ body {
     border-radius : 30px !important;
 
 }
+
+
 </style>
 </head>
 <body>
@@ -114,7 +116,8 @@ body {
 										카테고리
 									</button>
 <!-- <!-- 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> --> 
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;">
+<!-- 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> -->
+									<div class="dropdown-menu bigCategory" aria-labelledby="dropdownMenuButton1" >
 										<div class="d-flex">
 											<div class="col">
 												<ul class="list-unstyled categoryDrop">
@@ -129,26 +132,26 @@ body {
 													</c:forEach>
 												</ul>
 											</div>
-										<div class="vr-divider"></div>
-											<div class="col">
-												<ul class="list-unstyled localList">
-													<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status">
-														<c:if test="${status.index >= 8}">
-															<li><a class="dropdown-item" href="#" onclick="smallCategory()" value="${smallCategoryList.code_value}">${smallCategoryList.code_value}</a></li>
-														</c:if>
-                       								     <c:if test="${smallCategoryList.common2_code eq common2_code}">
-																<li>
-																	<div class="form-check">
-																	  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-																	  <label class="form-check-label" for="flexCheckDefault">
-																		<a class="dropdown-item" href="#" value="${smallCategoryList.code_value eq common2_code}">${smallCategoryList.code_value  eq common2_code}</a>
-																	  </label>
-																	</div>
-																</li>
-														</c:if>
-													</c:forEach>
-												</ul>
-											</div>
+<!-- 										<div class="vr-divider"></div> -->
+<!-- 											<div class="col"> -->
+<!-- 												<ul class="list-unstyled localList"> -->
+<%-- 													<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status"> --%>
+<%-- 														<c:if test="${status.index >= 8}"> --%>
+<%-- 															<li><a class="dropdown-item" href="#" onclick="smallCategory()" value="${smallCategoryList.code_value}">${smallCategoryList.code_value}</a></li> --%>
+<%-- 														</c:if> --%>
+<%--                        								     <c:if test="${smallCategoryList.common2_code eq common2_code}"> --%>
+<!-- 																<li> -->
+<!-- 																	<div class="form-check"> -->
+<!-- 																	  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
+<!-- 																	  <label class="form-check-label" for="flexCheckDefault"> -->
+<%-- 																		<a class="dropdown-item" href="#" value="${smallCategoryList.code_value eq common2_code}">${smallCategoryList.code_value  eq common2_code}</a> --%>
+<!-- 																	  </label> -->
+<!-- 																	</div> -->
+<!-- 																</li> -->
+<%-- 														</c:if> --%>
+<%-- 													</c:forEach> --%>
+<!-- 												</ul> -->
+<!-- 											</div> -->
 										</div>
 									</div>
 								</div>
@@ -726,7 +729,6 @@ body {
 // 		}
 // 	});
 // }
-
 function bigCategory(element) {
     var common2_code = $(element).data('code');
     var code_value = $(element).text();
@@ -797,7 +799,19 @@ function fetchSmallCategories(bigCategoryCode) {
     });
 }
 </script>
-
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+	    const dropdownMenu = document.querySelector('.dropdown-menu.bigCategory');
+	    
+	    dropdownMenu.addEventListener('mouseenter', function() {
+	        this.classList.add('expanded');
+	    });
+	
+	    dropdownMenu.addEventListener('mouseleave', function() {
+	        this.classList.remove('expanded');
+	    });
+	});
+    </script>
 <!-- <script type="text/javascript"> -->
 <!-- function smallCategory() { -->
 <!-- 	$.ajax({ -->

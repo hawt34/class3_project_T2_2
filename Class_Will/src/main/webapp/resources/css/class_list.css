@@ -316,14 +316,36 @@ body {
 /* 	height : austo; */
 }
 
-    .bigCategory {
-        width: 150px;
-        transition: width 0.3s ease; /* 너비 변경 애니메이션 */
-    }
+.bigCategory {
+	width: 150px;
+	transition: width 0.3s ease; /* 너비 변경 애니메이션 */
+}
 
-    .bigCategory.expanded {
-        width: 300px; /* 마우스를 올렸을 때의 너비 */
-    }
+.bigCategory.expanded {
+	width: 300px; /* 마우스를 올렸을 때의 너비 */
+}
+/*         .vr-divider { */
+/*             width: 1px; */
+/*             height: 100%; */
+/*             background-color: #000; */
+/*             margin: 0 10px; */
+/*         } */
+        
+/*                 .d-flex { */
+/*             display: flex; */
+/*             align-items: center; */
+/*         } */
+
+        .smallCategoryList {
+            display: none; /* 초기에는 숨김 */
+            flex-direction: column;
+            margin-left: 10px;
+        }
+
+        .bigCategory.expanded + .smallCategoryList {
+            display: flex; /* bigCategory가 확장되면 표시 */
+        }
+        
 .categoryDrop{
 	width : 135px;
 /* 	width : 60px; */

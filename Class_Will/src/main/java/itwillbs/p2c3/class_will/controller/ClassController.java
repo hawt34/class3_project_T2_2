@@ -9,6 +9,7 @@ import org.apache.commons.collections4.map.HashedMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,13 +84,26 @@ public class ClassController {
 		
 		return"class/class-list";
 	}
-
-    @GetMapping("getSmallCategories")
-    @ResponseBody
-    public List<Map<String, String>> getSmallCategories(@RequestParam String bigCategoryCode) {
-    	System.out.println("getSmallCategories");
-        return classService.getSmallCategoriesByBigCategoryCode(bigCategoryCode);
+	
+	@GetMapping("big-category")
+	@ResponseBody
+    public ResponseEntity<List<Map<String, Object>>> getBigCategories() {
+        List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
+        return ResponseEntity.ok().body(bigCategoryList);
     }
+	
+	@GetMapping("small-category")
+	@ResponseBody
+    public ResponseEntity<List<Map<String, Object>>> getSmallCategories(@RequestParam(name = "common2_code") String common2_code) {
+        List<Map<String, Object>> smallCategoryList = classService.getSmallCategoryList(common2_code);
+        return ResponseEntity.ok().body(smallCategoryList);
+    }
+//    @GetMapping("getSmallCategories")
+//    @ResponseBody
+//    public List<Map<String, String>> getSmallCategories(@RequestParam String bigCategoryCode) {
+//    	System.out.println("getSmallCategories");
+//        return classService.getSmallCategoriesByBigCategoryCode(bigCategoryCode);
+//    }
     
 	@ResponseBody
 	@PostMapping("class-list")
@@ -109,7 +123,7 @@ public class ClassController {
 		System.out.println("ajax smallCategoryList ::::::::::: " + smallCategoryList);
 		
 		System.out.println("classlist ajax 들어옴ㅁㅁㅁㅁ");
-		if (common2_code != null || !common2_code.equals("")) {
+		if (common2_code != null) {
 			return "true";
 		} else { 
 			return "false";

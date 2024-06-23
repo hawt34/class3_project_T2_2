@@ -75,7 +75,15 @@ body {
 
 }
 
+        .smallCategoryList {
+            display: none; /* 초기에는 숨김 */
+            flex-direction: column;
+            margin-left: 10px;
+        }
 
+        .bigCategory.expanded + .smallCategoryList {
+            display: flex; /* bigCategory가 확장되면 표시 */
+        }
 </style>
 </head>
 <body>
@@ -134,16 +142,14 @@ body {
 											</div>
 <!-- 										<div class="vr-divider"></div> -->
 <!-- 											<div class="col"> -->
-<!-- 												<ul class="list-unstyled localList"> -->
+<!-- 												<ul class="list-unstyled"> -->
 <%-- 													<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status"> --%>
-<%-- 														<c:if test="${status.index >= 8}"> --%>
-<%-- 															<li><a class="dropdown-item" href="#" onclick="smallCategory()" value="${smallCategoryList.code_value}">${smallCategoryList.code_value}</a></li> --%>
-<%-- 														</c:if> --%>
 <%--                        								     <c:if test="${smallCategoryList.common2_code eq common2_code}"> --%>
 <!-- 																<li> -->
 <!-- 																	<div class="form-check"> -->
 <!-- 																	  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
 <!-- 																	  <label class="form-check-label" for="flexCheckDefault"> -->
+<%-- 																		<a class="dropdown-item" href="#" value="${smallCategoryList.code_value}">${smallCategoryList.code_value}</a> --%>
 <%-- 																		<a class="dropdown-item" href="#" value="${smallCategoryList.code_value eq common2_code}">${smallCategoryList.code_value  eq common2_code}</a> --%>
 <!-- 																	  </label> -->
 <!-- 																	</div> -->
@@ -704,113 +710,135 @@ body {
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 <script type="text/javascript">
 
-// function bigCategory() {
-//     var common2_code = $('#bigCategory').attr('value'); // 속성에서 값을 가져오기
-// 	$.ajax({
-// 		type : "POST",
-// 		url : "class-list",
-// 		data : {
-//             common2_code : common2_code
-// 		},
-// 		dataType : "json",
-// 		success : function (response) {
-// 			if(response == "true"){
-// 				alert('class-list성공');
-// 				console.log('class-list성공');
-// 			} else {
-// 				alert('class-list 실패');
-// 				console.log('class-list실패');
-				
-// 			}
-// 		},
-// 		error : function (xhr, status, error) {
-// 			alert('class-list ajax 실패');
-// 			console.log('class-list ajax 실패');
-// 		}
-// 	});
-// }
-function bigCategory(element) {
-    var common2_code = $(element).data('code');
-    var code_value = $(element).text();
-
-    // AJAX 요청
-    $.ajax({
-        type: "POST",
-        url: "class-list",
-        data: {
-            common2_code: common2_code
-        },
-        dataType: "json",
-        success: function(response) {
-            if (response === true) {
-                alert('class-list 성공');
-                console.log("class-list 성공");
+// function bigCategory(element) {
+//     var common2_code = $(element).data('code');
+//     var code_value = $(element).text();
+//     // 마우스 오버 이벤트 핸들러 설정
+//     $('.bigCategory').mouseenter(function() {
+//         console.log('Mouse enter event');
+//         $(this).css('width', '300px'); // bigCategory 요소의 넓이를 300px로 설정
+//     });
+// //     AJAX 요청
+//     $.ajax({
+//         type: "POST",
+//         url: "class-list",
+//         data: {
+//             common2_code: common2_code
+//         },
+//         dataType: "json",
+//         success: function(response) {
+//             if (response === true) {
+//                 alert('class-list 성공' + common2_code + code_value);
+//                 console.log('class-list 성공' + common2_code + code_value);
                 
-                // 선택한 값을 카테고리 셀렉트 리스트에 추가
-//                 addCategoryToList(code_value);
-            } else {
-                alert('class-list 실패');
-                console.log('class-list 실패');
+//                 // 선택한 값을 카테고리 셀렉트 리스트에 추가
+// //                 addCategoryToList(code_value);
+//             } else {
+//                 alert('class-list 실패');
+//                 console.log('class-list 실패');
+//             }
+//         },
+//         error: function(xhr, status, error) {
+//             alert('class-list ajax 실패');
+//             console.log('class-list ajax 실패');
+//         }
+//     });
+//     // 마우스 아웃 이벤트 핸들러 설정
+//     $('.bigCategory').mouseleave(function() {
+//         console.log('Mouse leave event');
+//         $(this).css('width', ''); // bigCategory 요소의 넓이를 초기화
+//     });
+// }
+
+// ------------------------------------------------
+$(document).ready(function() {
+    // 마우스 오버 이벤트 핸들러 설정
+    $('.bigCategory').mouseenter(function() {
+        console.log('Mouse enter event');
+        $(this).css('width', '300px'); // bigCategory 요소의 넓이를 300px로 설정
+    });
+
+    // 마우스 아웃 이벤트 핸들러 설정
+    $('.bigCategory').mouseleave(function() {
+        console.log('Mouse leave event');
+        $(this).css('width', ''); // bigCategory 요소의 넓이를 초기화
+    });
+
+    // 클릭 이벤트 핸들러 설정
+    $('.bigCategory a').click(function(e) {
+        e.preventDefault(); // 기본 이벤트 방지
+
+        var common2_code = $(this).data('code');
+        var code_value = $(this).text();
+
+        // AJAX 요청
+        $.ajax({
+            type: "POST",
+            url: "class-list",
+            data: {
+                common2_code: common2_code
+            },
+            dataType: "json",
+            success: function(response) {
+                if (response === true) { // 예시로 받은 응답 데이터의 형식에 따라 수정
+                    alert('class-list 성공' + common2_code + code_value);
+                    console.log("class-list 성공" + common2_code + code_value);
+                    // 선택한 값을 카테고리 셀렉트 리스트에 추가
+                    // addCategoryToList(code_value);
+                } else {
+                    alert('class-list 실패');
+                    console.log('class-list 실패');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('class-list ajax 실패');
+                console.log('Status: ' + status);
+                console.log('Error: ' + error);
             }
-        },
-        error: function(xhr, status, error) {
-            alert('class-list ajax 실패');
-            console.log('class-list ajax 실패');
-        }
+        });
     });
-}
+});
 
-function addCategoryToList(code_value) {
-//     var container = $(".chooseDiv").parent(); // 카테고리 셀렉트 리스트 컨테이너
-    var container = $(".row.mx-5"); // 카테고리 셀렉트 리스트 컨테이너
 
-    var newDiv = 
-        <div class="mt-3 col-md-2 position-relative chooseDiv">
-            <input type="text" class="form-control chooseResult" value="${code_value}" readonly>
-            <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
-        </div>
-    ;
-    container.append(newDiv);
-}
-function fetchSmallCategories(bigCategoryCode) {
-    $.ajax({
-        url: 'getSmallCategories',
-        type: 'GET',
-        data: { bigCategoryCode: bigCategoryCode },
-        success: function(response) {
-            $('#smallCategoryList').empty(); // 작은 카테고리 리스트 초기화
-
-            response.forEach(function(smallCategory) {
-                $('#smallCategoryList').append(
-                    <li class="small-category-item">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="${smallCategory.code_value}" id="flexCheckDefault${smallCategory.code_value}">
-                            <label class="form-check-label" for="flexCheckDefault${smallCategory.code_value}">
-                                ${smallCategory.code_value}
-                            </label>
-                        </div>
-                    </li>
-                );
-            });
-        },
-        error: function(xhr, status, error) {
-            console.error("Error fetching small categories:", error);
-        }
-    });
-}
 </script>
 <script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', function() {
-	    const dropdownMenu = document.querySelector('.dropdown-menu.bigCategory');
-	    
-	    dropdownMenu.addEventListener('mouseenter', function() {
-	        this.classList.add('expanded');
-	    });
-	
-	    dropdownMenu.addEventListener('mouseleave', function() {
-	        this.classList.remove('expanded');
-	    });
-	});
+// document.addEventListener('DOMContentLoaded', function() {
+//     const bigCategories = document.querySelectorAll('.bigCategory .dropdown-item');
+//     const dropdownMenu = document.querySelector('.dropdown-menu');
+
+//     const smallCategoryData = {
+//         "1": ["소카테고리 1-1", "소카테고리 1-2", "소카테고리 1-3"],
+//         "2": ["소카테고리 2-1", "소카테고리 2-2"],
+//         // 다른 bigCategory에 대한 smallCategory 데이터
+//     };
+
+//     bigCategories.forEach(item => {
+//         item.addEventListener('mouseenter', function() {
+//             const code = this.getAttribute('data-code');
+//             const categories = smallCategoryData[code] || [];
+//             const smallCategoryList = dropdownMenu.querySelector('.smallCategoryList');
+
+//             smallCategoryList.innerHTML = categories.map(cat => `<li>${cat}</li>`).join('');
+
+//             this.closest('.bigCategory').classList.add('expanded');
+//         });
+
+//         item.addEventListener('mouseleave', function() {
+//             this.closest('.bigCategory').classList.remove('expanded');
+//             const smallCategoryList = dropdownMenu.querySelector('.smallCategoryList');
+//             smallCategoryList.innerHTML = ''; // 소카테고리 목록 초기화
+//         });
+//     });
+
+//     dropdownMenu.addEventListener('mouseleave', function() {
+//         const expandedCategory = dropdownMenu.querySelector('.bigCategory.expanded');
+//         if (expandedCategory) {
+//             expandedCategory.classList.remove('expanded');
+//             const smallCategoryList = dropdownMenu.querySelector('.smallCategoryList');
+//             smallCategoryList.innerHTML = ''; // 소카테고리 목록 초기화
+//         }
+//     });
+// });
     </script>
 <!-- <script type="text/javascript"> -->
 <!-- function smallCategory() { -->

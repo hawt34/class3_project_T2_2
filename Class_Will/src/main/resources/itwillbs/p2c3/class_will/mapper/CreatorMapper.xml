@@ -264,8 +264,6 @@
 		c2.common2_code = c.class_regist_status
 	and
 		c2.common1_code = 'CRS'
-	and 
-		c.class_regist_status = 2
 	JOIN 
 		common2 c22
 	ON 
@@ -278,6 +276,8 @@
 		c.class_hide = c222.common2_code
 	and 
 		c222.common1_code = 'HIDE'
+	WHERE 
+		c.class_regist_status = 2
 	</select>
 	
 	<select id="getHide" resultType="map">

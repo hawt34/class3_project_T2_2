@@ -143,6 +143,7 @@
 
 .big-category {
     font-weight: bold;
+    margin-bottom: 15px;
 }
 
 #top-class-regist {
@@ -168,9 +169,11 @@
     list-style: none;
 }
 
+
 .offcanvas {
 	color: white !important;
 }
+
 
 @media (min-width: 992px) {
     .offcanvas {
@@ -182,26 +185,6 @@
 </style>
 
 <script>
-	$(function() {
-		
-		$("#top-categoty").on("mouseover", function() {
-			$.ajax({
-				type: "GET",
-		        url: "top-field-category",
-			 	dataType : "json",
-			 	success : function(result) {
-			 		
-			 	}
-				
-			});
-		
-			
-		});
-		
-		
-	});
-	
-	
     document.addEventListener('DOMContentLoaded', function () {
         const collapseElements = document.querySelectorAll('[data-bs-toggle="collapse"]');
 
@@ -264,7 +247,7 @@
 	                                </a>
 	                            </li>
 	                            <li class="nav-item">
-	                                <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
+	                                <a class="nav-link" href="" data-bs-toggle="collapse" id="top-local" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
 	                                	지역별
 	                                </a>
 	                            </li>
@@ -293,14 +276,6 @@
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
 	                            </li>
-<!-- 	                            <li class="nav-item"> -->
-<!-- 	                            	<a class="nav-link" href="member-login">로그인</a> -->
-<!-- 	                            </li> -->
-<!-- 		                            <li class="nav-item"> -->
-<!-- 										<a class="nav-link" href="my-page"><i class="bi bi-person-circle"></i></a> -->
-<!-- 				                    </li> -->
-<%-- 	                            <c:if test="${not empty member.member_email}"> --%>
-<%-- 	                            </c:if> --%>
 	                            
 	                            <c:choose>
 	                            	<c:when test="${empty member.member_email}">
@@ -406,129 +381,111 @@
 	</div>
 	<!-- Modal Search End -->
 	
-<!-- 분야 카테고리 -->
 	<div class="container-fluid">
+		<!-- 분야 카테고리 -->
 	    <div class="collapse collapse-category" id="collapse-category">
 	        <div class="card card-body collapse-category">
 	            <div class="container">
-	                <div class="row">
-	                    <div class="col">
-	                        <div>
-	                            <a href="class-list"><span class="big-category">드로잉</span></a>
-	                            <ul class="top-ul">
-	                                <li><a href="">소묘</a></li>
-	                                <li><a href="">펜화</a></li>
-	                                <li><a href="">캘리그라피</a></li>
-	                                <li><a href="">수채화</a></li>
-	                                <li><a href="">동양화</a></li>
-	                                <li><a href="">민화</a></li>
-	                                <li><a href="">일러스트</a></li>
-	                                <li><a href="">디지털</a></li>
-	                            </ul>
-	                        </div>
-	                    </div>
-	                    <div class="col">
-	                        <div>
-	                            <a href="class-list"><span class="big-category">드로잉</span></a>
-	                            <ul class="top-ul">
-	                                <li><a href="">소묘</a></li>
-	                                <li><a href="">펜화</a></li>
-	                                <li><a href="">캘리그라피</a></li>
-	                                <li><a href="">수채화</a></li>
-	                                <li><a href="">동양화</a></li>
-	                                <li><a href="">민화</a></li>
-	                                <li><a href="">일러스트</a></li>
-	                                <li><a href="">디지털</a></li>
-	                            </ul>
-	                        </div>
-	                    </div>
-	                    <div class="col">
-	                        <div>
-	                            <a href="class-list"><span class="big-category">드로잉</span></a>
-	                            <ul class="top-ul">
-	                                <li><a href="">소묘</a></li>
-	                                <li><a href="">펜화</a></li>
-	                                <li><a href="">캘리그라피</a></li>
-	                                <li><a href="">수채화</a></li>
-	                                <li><a href="">동양화</a></li>
-	                                <li><a href="">민화</a></li>
-	                                <li><a href="">일러스트</a></li>
-	                                <li><a href="">디지털</a></li>
-	                            </ul>
-	                        </div>
-	                    </div>
-	                    <div class="col">
-	                        <div>
-	                            <a href="class-list"><span class="big-category">드로잉</span></a>
-	                            <ul class="top-ul">
-	                                <li><a href="">소묘</a></li>
-	                                <li><a href="">펜화</a></li>
-	                                <li><a href="">캘리그라피</a></li>
-	                                <li><a href="">수채화</a></li>
-	                                <li><a href="">동양화</a></li>
-	                                <li><a href="">민화</a></li>
-	                                <li><a href="">일러스트</a></li>
-	                                <li><a href="">디지털</a></li>
-	                            </ul>
-	                        </div>
-	                    </div>
-	                    <div class="col">
-	                        <div>
-	                            <a href="class-list"><span class="big-category">드로잉</span></a>
-	                            <ul class="top-ul">
-	                                <li><a href="">소묘</a></li>
-	                                <li><a href="">펜화</a></li>
-	                                <li><a href="">캘리그라피</a></li>
-	                                <li><a href="">수채화</a></li>
-	                                <li><a href="">동양화</a></li>
-	                                <li><a href="">민화</a></li>
-	                                <li><a href="">일러스트</a></li>
-	                                <li><a href="">디지털</a></li>
-	                            </ul>
-	                        </div>
-	                    </div>
-	                    <div class="col">
-	                        <div>
-	                            <a href="class-list"><span class="big-category">드로잉</span></a>
-	                            <ul class="top-ul">
-	                                <li><a href="">소묘</a></li>
-	                                <li><a href="">펜화</a></li>
-	                                <li><a href="">캘리그라피</a></li>
-	                                <li><a href="">수채화</a></li>
-	                                <li><a href="">동양화</a></li>
-	                                <li><a href="">민화</a></li>
-	                                <li><a href="">일러스트</a></li>
-	                                <li><a href="">디지털</a></li>
-	                            </ul>
-	                        </div>
-	                    </div>
+	                <div class="row" id="fieldCategoryArea">
+	                <!-- 분야 카테고리 목록 ajax -->
 	                </div><!-- row -->
 	            </div>
 	        </div>
-	    </div> <!-- collapse-category -->
-	</div>  
-	
-	<!-- 지역 카테고리 -->
-	<div class="container container-fluid">
-		<div class="collapse collapse-category" id="collapse-zone">
+	    </div>
+		<!-- 지역 카테고리 -->
+	    <div class="collapse collapse-category" id="collapse-zone">
 			<div class="card card-body collapse-category">
 		  		<div class="container">
-					<div class="row">
-						<div class="col">
-							<a href="class-list"><span class="big-category">서울</span></a>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">부산</span></a>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">인천</span></a>
-						</div>
-						<div class="col">
-							<a href="class-list"><span class="big-category">어쩌구</span></a>
-						</div>
+					<div class="row" id="localCategoryArea">
+						<!-- 지역 카테고리 목록 ajax -->
 					</div><!-- row -->
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>  
 </div> <!-- class-will-top -->
+
+<script>
+$(function() {
+	
+	$("#top-categoty").on("mouseover", function() {
+		$.ajax({
+			type: "GET",
+	        url: "top-field-category",
+		 	dataType : "json",
+		 	contentType: "application/json",
+		 	success : function(fieldCategory) {
+		 		$("#fieldCategoryArea").html("");
+			 	for(field of fieldCategory) {
+			 		console.log("field.id : " + field.id);
+			 		console.log("field.largeCategory : " + field.largeCategory);
+			 		let fieldSmallAreaId = "fieldSmallArea"+field.id;
+			 		
+			 		$("#fieldCategoryArea").append(
+						 ' <div class="col col-2 text-left">'
+	                       + '<div>'
+	                           + '<a href="class-list mb-3"><span class="big-category">'+field.largeCategory+'</span></a>'
+	                           + '<ul class="top-ul mt-3 mb-3" id="'+fieldSmallAreaId+'">'
+	                           + '</ul>'
+	                       + '</div>'
+	                   + '</div>');
+			 		
+			 		for(children of field.children) {
+			 			console.log("children.id : "+ children.id);
+			 			console.log("children.largeCategory : "+children.largeCategory);
+			 			console.log("children.smallCategory : "+children.smallCategory);
+			 			 $("#" + fieldSmallAreaId).append('<li><a href="">' + children.smallCategory + '</a></li>');
+			 		
+			 		}
+			 	}
+		 		
+		 	},
+		 	error: function(xhr, status, error) {
+		        console.error("Error details:", xhr, status, error); // 디버깅 정보 출력
+				
+		        alert("오류 발생" + error);
+		    }
+			
+		});
+	
+		
+	});
+	
+	
+	$("#top-local").on("mouseover", function() {
+		$.ajax({
+			type: "GET",
+	        url: "top-local-category",
+		 	dataType : "json",
+		 	contentType: "application/json",
+		 	success : function(localCategory) {
+		 		$("#localCategoryArea").html("");
+			 	for(local of localCategory) {
+				 	$("#localCategoryArea").append(
+				 		  '<div class="col col-2 text-left mb-3">'
+						+ 	'<a href="class-list"><span class="big-category">' + local.local_name + '</span></a>'
+						+ '</div>'		
+				 	);
+			 	}
+		 	},
+		 	error: function(xhr, status, error) {
+		        console.error("Error details:", xhr, status, error); // 디버깅 정보 출력
+		        alert("오류 발생" + error);
+		    }
+		});
+	
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	
+});
+
+
+
+</script>

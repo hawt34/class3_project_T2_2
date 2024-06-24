@@ -116,8 +116,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">결제 관리:</h6>
-                        <a class="collapse-item" href="utilities-animation.html">일반 결제</a>
-                        <a class="collapse-item" href="utilities-other.html">크레딧 결제</a>
+                        <a class="collapse-item" href="admin-pay">일반 결제</a>
+                        <a class="collapse-item" href="admin-pay-willpay">크레딧 결제</a>
                     </div>
                 </div>
             </li>

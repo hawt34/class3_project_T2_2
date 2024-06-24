@@ -310,115 +310,116 @@
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
 	<script>
-	document.addEventListener('DOMContentLoaded', function () {
-	    const data = JSON.parse('${jo_list}');
-	    const itemsPerPage = 10;
-	    let currentPage = 1;
-	    class BootstrapSwitchRenderer {
-	        constructor(props) {
-	            const el = document.createElement('div');
-	            el.className = 'custom-control custom-switch';
-	            const input = document.createElement('input');
-	            input.type = 'checkbox';
-	            input.className = 'custom-control-input';
-	            input.id = 'customSwitch' + props.rowKey;
-	            input.checked = props.value;
-	            input.addEventListener('change', () => {
-	                props.grid.setValue(props.rowKey, props.columnInfo.name, input.checked);
-	            });
-	            const label = document.createElement('label');
-	            label.className = 'custom-control-label';
-	            label.htmlFor = 'customSwitch' + props.rowKey;
-	            el.appendChild(input);
-	            el.appendChild(label);
-	            this.el = el;
-	        }
-	        getElement() {
-	            return this.el;
-	        }
-	        render(props) {
-	            this.el.querySelector('input').checked = props.value;
-	        }
-	    }
-	    class AddButtonRenderer {
-	        constructor(props) {
-	            const el = document.createElement('div');
-	            el.className = 'add-btn';
-	            el.textContent = '+';
-	            el.addEventListener('click', () => {
-	                const parentRowKey = props.rowKey;
-	                const newRow = {
-	                    id: data.length + 1,
-	                    largeCategory: 'New Category',
-	                    smallCategory: '',
-	                    _children: []
-	                };
-	                const parentRow = props.grid.store.data.rawData.find(row => row.rowKey === parentRowKey);
-	                if (!parentRow._children) {
-	                    parentRow._children = [];
-	                }
-	                parentRow._children.push(newRow);
-	                props.grid.appendRow(newRow, { parentRowKey });
-	            });
-	            this.el = el;
-	        }
-	        getElement() {
-	            return this.el;
-	        }
-	        render(props) {
-	            if (props.treeDepth !== 0) {
-	                this.el.style.display = 'none';  // 최상위 요소가 아닌 경우 버튼 숨기기
-	            } else {
-	                this.el.style.display = 'block'; // 최상위 요소에만 버튼 표시
-	            }
-	        }
-	    }
-	    
-	    const grid = new tui.Grid({
-	        el: document.getElementById('grid'),
-	        data: data.slice(0, itemsPerPage), // 처음에 첫 페이지 데이터만 로드
-	        columns: [
-	            { header: '', name: 'checkbox', width: 50, align: 'center' },
-	            {
-	                header: '추가',
-	                name: 'add',
-	                width: 50,
-	                renderer: {
-	                    type: AddButtonRenderer
-	                }
+	$(document).ready(function() {
+	    function fetchSalesData() {
+	        $.ajax({
+	            url: '${pageContext.request.contextPath}/salesData',
+	            method: 'GET',
+	            success: function(data) {
+	                updateChart(data);
 	            },
-	            { header: '대분류', name: 'largeCategory', editor: 'text' },
-	            { header: '소분류', name: 'smallCategory', editor: 'text' },
-	            {
-	                header: '숨김',
-	                name: 'hidden',
-	                renderer: {
-	                    type: BootstrapSwitchRenderer
+	            error: function(error) {
+	                console.error('Error fetching sales data:', error);
+	            }
+	        });
+	    }
+
+	    function updateChart(data) {
+	        var ctx = document.getElementById("myAreaChart").getContext('2d');
+	        var currentMonth = new Date().getMonth(); // 0부터 시작하므로, 0은 1월, 1은 2월 ...
+
+	        var labels = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+	        labels = labels.slice(0, currentMonth + 1);
+			
+	        var myLineChart = new Chart(ctx, {
+	            type: 'line',
+	            data: {
+	                labels: labels,
+	                datasets: [{
+	                    label: "총 매출",
+	                    lineTension: 0.3,
+	                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+	                    borderColor: "rgba(78, 115, 223, 1)",
+	                    pointRadius: 3,
+	                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+	                    pointBorderColor: "rgba(78, 115, 223, 1)",
+	                    pointHoverRadius: 3,
+	                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+	                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+	                    pointHitRadius: 10,
+	                    pointBorderWidth: 2,
+	                    data: data,
+	                }],
+	            },
+	            options: {
+	                maintainAspectRatio: false,
+	                layout: {
+	                    padding: {
+	                        left: 10,
+	                        right: 25,
+	                        top: 25,
+	                        bottom: 0
+	                    }
+	                },
+	                scales: {
+	                    xAxes: [{
+	                        time: {
+	                            unit: 'date'
+	                        },
+	                        gridLines: {
+	                            display: false,
+	                            drawBorder: false
+	                        },
+	                        ticks: {
+	                            maxTicksLimit: 7
+	                        }
+	                    }],
+	                    yAxes: [{
+	                        ticks: {
+	                            maxTicksLimit: 5,
+	                            padding: 10,
+	                            callback: function(value, index, values) {
+	                                return '$' + number_format(value);
+	                            }
+	                        },
+	                        gridLines: {
+	                            color: "rgb(234, 236, 244)",
+	                            zeroLineColor: "rgb(234, 236, 244)",
+	                            drawBorder: false,
+	                            borderDash: [2],
+	                            zeroLineBorderDash: [2]
+	                        }
+	                    }],
+	                },
+	                legend: {
+	                    display: false
+	                },
+	                tooltips: {
+	                    backgroundColor: "rgb(255,255,255)",
+	                    bodyFontColor: "#858796",
+	                    titleMarginBottom: 10,
+	                    titleFontColor: '#6e707e',
+	                    titleFontSize: 14,
+	                    borderColor: '#dddfeb',
+	                    borderWidth: 1,
+	                    xPadding: 15,
+	                    yPadding: 15,
+	                    displayColors: false,
+	                    intersect: false,
+	                    mode: 'index',
+	                    caretPadding: 10,
+	                    callbacks: {
+	                        label: function(tooltipItem, chart) {
+	                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+	                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+	                        }
+	                    }
 	                }
 	            }
-	        ],
-	        rowHeaders: ['checkbox'],
-	        bodyHeight: 400,
-	        treeColumnOptions: {
-	            name: 'largeCategory',
-	            useCascadingCheckbox: true
-	        },
-	        pageOptions: {
-	            useClient: true,
-	            perPage: itemsPerPage
-	        }
-	    });
-// 	    무한 스크롤 로직
-	    const gridContainer = document.querySelector('#grid .tui-grid-body-area');
-	    gridContainer.addEventListener('scroll', () => {
-	        if (gridContainer.scrollTop + gridContainer.clientHeight >= gridContainer.scrollHeight) {
-	            currentPage++;
-	            const nextPageData = data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-	            if (nextPageData.length > 0) {
-	                grid.appendRows(nextPageData);
-	            }
-	        }
-	    });
+	        });
+	    }
+
+	    fetchSalesData();
 	});
 	</script>
 

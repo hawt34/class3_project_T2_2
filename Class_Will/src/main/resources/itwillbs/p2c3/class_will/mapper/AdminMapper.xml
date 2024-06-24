@@ -61,6 +61,7 @@
 		SELECT COLUMN_NAME 
 		FROM INFORMATION_SCHEMA.COLUMNS 
 		WHERE TABLE_NAME = #{tableName}
+		AND TABLE_SCHEMA = 'c3d2401t2_2'
 		ORDER BY ORDINAL_POSITION
 	</select>
 	
@@ -269,5 +270,51 @@
 		FROM common2
 		WHERE common1_code = #{code}
 	</select>
-
+	
+	<select id="selectPayList" resultType="map">
+	SELECT    pay_code
+			, pay_merchant_uid
+			, pay_amount
+			, pay_datetime
+			, c2.code_value AS 'pay_type'
+			, pay_status
+			, m.member_email AS 'member_email'
+			, class_schedule_code
+			, pay_headcount
+			, c.class_name AS 'class_name'
+			, imp_uid
+			, use_willpay
+			, pg_provider
+			, card_name
+	FROM pay p 
+	LEFT JOIN common2 c2
+	ON c2.common2_code = p.pay_type 
+	AND c2.common1_code = 'PT'
+	JOIN MEMBER m
+	ON m.member_code = p.member_code 
+	JOIN class c
+	ON c.class_code = p.class_code ;
+	</select>
+	
+	
+	<select id="selectWillpayChart" resultType="Integer">
+		SELECT  SUM(CAST(pay_amount AS DECIMAL(10, 2))) AS totalSales 
+		FROM pay
+		GROUP BY DATE_FORMAT(STR_TO_DATE(pay_datetime, '%Y-%m-%d'), '%Y-%m')
+		ORDER BY DATE_FORMAT(STR_TO_DATE(pay_datetime, '%Y-%m-%d'), '%Y-%m')
+	</select>
+	
+	<select id="selectRewardData" resultType="map">
+		SELECT CAST(reward_fee AS UNSIGNED) AS reward_fee, reward_rate, reward_code
+		FROM reward
+		ORDER BY CAST(reward_fee AS UNSIGNED)
+	</select>
+	
+	<update id="updateRewardData" parameterType="map">
+		UPDATE reward
+		SET reward_fee = #{params.reward_fee}
+		, reward_rate = #{params.reward_rate}
+		WHERE reward_code = #{params.reward_code}
+	</update>
+	
 </mapper>

@@ -31,13 +31,13 @@
 	<!-- admin_utils.js 로드 -->
     <script src="${pageContext.request.contextPath}/resources/js/admin_utils.js"></script>
     
-    <script>
-    	if("${alert}" != null && "${alert}" != ""){
-    		alert("${alert}");
-    	}
-    </script>
-</head>
 
+</head>
+<style>
+   	#grid-container {
+    	width: 30%;
+	}
+</style>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -216,9 +216,9 @@
 
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">결제관리</h1>
+                        <h1 class="h3 mb-0 text-gray-800">윌페이 매출</h1>
                         <div class="btn-group">
-                            <button id="btn-download" class="btn btn-success btn-sm" onclick="downloadExcel('pay', '전체 결제 리스트', false)">엑셀 다운로드</button>
+                            <button id="downloadBtn" class="btn btn-success btn-sm">차트 다운로드</button>
                             <input type="file" id="file-input" style="display:none;" />
                         </div>
                     </div>
@@ -228,11 +228,45 @@
                     </div>
                     <!-- Content Row -->
                     <div class="row">
-                        <div class="col-xl-12 col-lg-12">
-                            <div id="grid"></div>
+                       <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">매출 그래프</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChart"></canvas>
+                                    </div>
+                                    <div id="grid-container">
+                                    	<div id="grid"></div>
+                             	        <button id="btn-apply" class="btn btn-primary mt-2">적용</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
                 </div>
+                <!-- /.container-fluid -->
+                	<jsp:include page="admin_modal.jsp">
+               		    <jsp:param name="tableName" value="${tableName}" />
+                	</jsp:include>
             </div>
             <!-- End of Main Content -->
 
@@ -254,63 +288,187 @@
     <!-- Custom scripts for all pages-->
     <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
 
-    <!-- Toast UI Grid Script -->
-    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+    <!-- Page level plugins -->
+    <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
     
-    <script>
-        $(document).ready(function () {
-            const data = ${jo_list};
-    	    const itemsPerPage = 10;
-    	    let currentPage = 1;
-    	    
-            class ButtonRenderer {
-                constructor(props) {
-                    const el = document.createElement('button');
-                    el.className = 'btn btn-primary btn-sm';
-                    el.innerText = '상세보기';
-                    el.addEventListener('click', () => {
-                        const rowKey = props.grid.getIndexOfRow(props.rowKey);
-                        const rowData = props.grid.getRow(rowKey);
-                        const memberCode = rowData.member_code;
-                        window.open("admin-member-detail?member_code=" + memberCode, "회원 상세보기", "height=600px, width=800px");
-                    });
-                    this.el = el;
-                }
-                getElement() {
-                    return this.el;
-                }
-                render(props) {
-                    this.el.dataset.rowKey = props.rowKey;
-                    this.el.dataset.columnName = props.columnName;
-                    this.el.value = props.value;
-                }
+    <!-- Page level custom scripts -->
+    <script src="${pageContext.request.contextPath}/resources/js/demo/number_format.js"></script>
+	
+    
+ <script>
+	$(document).ready(function() {
+		const data2 = ${jo_list};
+		var myLineChart;
+		
+	    document.getElementById('downloadBtn').addEventListener('click', function() {
+	        var link = document.createElement('a');
+	        link.href = myLineChart.toBase64Image();
+	        link.download = 'chart.png';
+	        link.click();
+	    });
+	    
+	    function fetchSalesData() {
+	        $.ajax({
+	            url: 'willpay-chart',
+	            method: 'GET',
+	            success: function(data) {
+	                updateChart(data);
+	            },
+	            error: function(error) {
+	                console.error('Error fetching sales data:', error);
+	            }
+	        });
+	    }
+	    
+        const grid = new tui.Grid({
+            el: document.getElementById('grid'),
+            data: data2,
+            columns: [
+                { header: '기준금액(이상)', name: 'reward_fee', editor: 'text', width : 120, sortable: true},
+                { header: '보상률', name: 'reward_rate', editor: 'text', width : 120}],
+           	bodyHeight: 200,
+            sortingType: 'asc',  // 초기 오름차순 정렬
+            columnOptions: {
+                resizable: true
             }
-            const grid = new tui.Grid({
-                el: document.getElementById('grid'),
-                data: data,
-                columns: [
-                    { header: '이메일(아이디)', name: 'member_email', editor: 'text' },
-                    { header: '클래스명', name: 'class_name', editor: 'text' },
-                    { header: '결제일자', name: 'pay_datetime', editor: 'text' },
-                    { header: '결제금액', name: 'pay_amount', editor: 'text' },
-                    { header: '결제수단', name: 'pay_type', editor: 'text' },
-                    { header: '결제상태', name: 'pay_status', editor: 'text' },
-                    {
-                        header: 'Action',
-                        name: 'action',
-                        renderer: {
-                            type: ButtonRenderer
-                        }
+        });
+        
+        grid.on('afterChange', (ev) => {
+            grid.sort('reward_fee', true);  // 'reward_fee' 기준 오름차순 정렬
+        });
+        
+        $('#btn-apply').on('click', function () {
+            const modifiedRows = grid.getModifiedRows().updatedRows;
+
+            // 각 수정된 행에 대해 개별적으로 업데이트 요청을 보냅니다.
+            modifiedRows.forEach(row => {
+                const jsonData = JSON.stringify(row);
+
+                fetch('insertReward', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: jsonData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('변경 사항이 성공적으로 적용되었습니다.', row);
+                        alert(data.message);
+                    } else {
+                        console.error('변경 사항 적용 실패: ', data.message, row);
+                        alert('변경 사항 적용 실패: ' + data.message);
                     }
-                ],
-                rowHeaders: ['rowNum'],
-                bodyHeight: 400,
-    	        pageOptions: {
-    	            useClient: true,
-    	            perPage: itemsPerPage
-    	        }
+                })
+                .catch(error => {
+                    console.error('Error:', error, row);
+                    alert('변경 사항 적용 실패: 서버 오류');
+                });
             });
         });
-    </script>
+		
+	    function updateChart(data) {
+	        var ctx = document.getElementById("myAreaChart").getContext('2d');
+	        var currentMonth = new Date().getMonth(); // 0부터 시작하므로, 0은 1월, 1은 2월 ...
+	
+	        var labels = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+	        labels = labels.slice(0, currentMonth + 1);
+	
+	        myLineChart = new Chart(ctx, {
+	            type: 'line',
+	            data: {
+	                labels: labels,
+	                datasets: [{
+	                    label: "총 매출",
+	                    lineTension: 0.3,
+	                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+	                    borderColor: "rgba(78, 115, 223, 1)",
+	                    pointRadius: 3,
+	                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+	                    pointBorderColor: "rgba(78, 115, 223, 1)",
+	                    pointHoverRadius: 3,
+	                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+	                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+	                    pointHitRadius: 10,
+	                    pointBorderWidth: 2,
+	                    data: data,
+	                }],
+	            },
+	            options: {
+	                maintainAspectRatio: false,
+	                layout: {
+	                    padding: {
+	                        left: 10,
+	                        right: 25,
+	                        top: 25,
+	                        bottom: 0
+	                    }
+	                },
+	                scales: {
+	                    xAxes: [{
+	                        time: {
+	                            unit: 'date'
+	                        },
+	                        gridLines: {
+	                            display: false,
+	                            drawBorder: false
+	                        },
+	                        ticks: {
+	                            maxTicksLimit: 7
+	                        }
+	                    }],
+	                    yAxes: [{
+	                        ticks: {
+	                            maxTicksLimit: 5,
+	                            padding: 10,
+	                            callback: function(value, index, values) {
+	                                return '$' + number_format(value);
+	                            }
+	                        },
+	                        gridLines: {
+	                            color: "rgb(234, 236, 244)",
+	                            zeroLineColor: "rgb(234, 236, 244)",
+	                            drawBorder: false,
+	                            borderDash: [2],
+	                            zeroLineBorderDash: [2]
+	                        }
+	                    }],
+	                },
+	                legend: {
+	                    display: false
+	                },
+	                tooltips: {
+	                    backgroundColor: "rgb(255,255,255)",
+	                    bodyFontColor: "#858796",
+	                    titleMarginBottom: 10,
+	                    titleFontColor: '#6e707e',
+	                    titleFontSize: 14,
+	                    borderColor: '#dddfeb',
+	                    borderWidth: 1,
+	                    xPadding: 15,
+	                    yPadding: 15,
+	                    displayColors: false,
+	                    intersect: false,
+	                    mode: 'index',
+	                    caretPadding: 10,
+	                    callbacks: {
+	                        label: function(tooltipItem, chart) {
+	                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+	                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+	                        }
+	                    }
+	                }
+	            }
+	        });
+	    }
+	
+	    fetchSalesData();
+	    
+
+	});
+	
+
+</script>
 </body>
 </html>

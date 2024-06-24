@@ -1,24 +1,15 @@
 package itwillbs.p2c3.class_will.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -34,11 +25,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
+import com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream;
 
 import itwillbs.p2c3.class_will.handler.CommonUtils;
+import itwillbs.p2c3.class_will.mapper.AdminMapper;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.ExcelService;
 import itwillbs.p2c3.class_will.vo.CategoryData;
@@ -286,43 +278,6 @@ public class AdminController {
     	return new ResponseEntity<>(excelBytes, headers, HttpStatus.OK);
     }
     
-    @GetMapping("admin-test")
-    public String adminTest(Model model) {	    
-    List<Map<String, Object>> data = new ArrayList<>();
-    Map<String, List<Map<String, Object>>> categoryData = adminService.getCategoryData();
-    List<Map<String, Object>> bigCategory = categoryData.get("bigCategory");
-    List<Map<String, Object>> smallCategory = categoryData.get("smallCategory");
-
-    // 대분류에 소분류를 추가
-    for (Map<String, Object> bcg : bigCategory) {
-        Map<String, Object> map = new HashMap<>();
-        String bigValue = (String) bcg.get("code_value");
-        Integer common2_code = (Integer) bcg.get("common2_code"); // Integer로 변환
-        map.put("id", common2_code);
-        map.put("largeCategory", bigValue);
-        map.put("hidden", bcg.get("code_hide").equals("N") ? false : true);
-        
-        // 소분류 데이터를 _children 배열에 추가
-        List<Map<String, Object>> children = new ArrayList<>();
-        for (Map<String, Object> scg : smallCategory) {
-            Integer parent_code = (Integer) scg.get("common2_code"); // Integer로 변환
-            if (common2_code.equals(parent_code)) {
-                Map<String, Object> map2 = new HashMap<>();
-                map2.put("id", scg.get("common3_code"));
-                map2.put("largeCategory", bigValue);
-                map2.put("smallCategory", scg.get("code_value"));
-                map2.put("hidden", scg.get("code_hide").equals("N") ? false : true);
-                children.add(map2);
-            }
-        }
-        if (!children.isEmpty()) {
-            map.put("_children", children);
-        }
-        data.add(map);
-    }
-    	model.addAttribute("jo_list", new Gson().toJson(data)); // JSON 형식으로 변환하여 전달
-    	return "admin/admin_test";
-    }
     
     @ResponseBody
     @PostMapping(value = "insert", consumes = "application/json", produces = "application/json")
@@ -392,6 +347,25 @@ public class AdminController {
     }
     
     
+    @ResponseBody
+    @PostMapping(value = "insertReward", consumes = "application/json", produces = "application/json")
+    public Map<String, Object> rewardInsert(@RequestBody Map<String, Object> params) {
+    	System.out.println(params);
+    	boolean isUpdateSuccess = adminService.updateRewardData(params);
+    	
+        Map<String, Object> response = new HashMap<>();
+        if (isUpdateSuccess) {
+            response.put("success", true);
+            response.put("message", "변경 사항이 성공적으로 적용되었습니다.");
+        } else {
+            response.put("success", false);
+            response.put("message", "변경 사항 적용 실패.");
+        }
+    	
+        return response;
+    }
+    
+    
     @PostMapping("admin-csc-pro")
     public String noticePro(@RequestParam Map<String, Object> map, Model model) {
     	boolean isInsertSuccess = false;
@@ -406,7 +380,44 @@ public class AdminController {
     	return "";
     }
     
-    
+  @GetMapping("admin-pay")
+  public String admin_pay(Model model) {
+	List<Map<String, Object>> pay_list = adminService.getPayList();
+	
+	List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
+	for(Map<String, Object> pay : pay_list) {
+		JSONObject jo = new JSONObject(pay);
+		jo_list.add(jo);
+	}
+			
+	model.addAttribute("jo_list", jo_list);
+	return "admin/admin_pay";
+  }
+  
+  
+  @GetMapping("admin-pay-willpay")
+  public String adminPayWillpay(Model model) {
+	  List<Map<String, Object>> list = adminService.getRewardData();
+	  
+	  List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
+		for(Map<String, Object> reward : list) {
+			JSONObject jo = new JSONObject(reward);
+			jo_list.add(jo);
+		}
+	  
+		model.addAttribute("jo_list", jo_list);
+		
+	  return "admin/admin_pay_willpay";
+  }
+  
+  @ResponseBody
+  @GetMapping("willpay-chart")
+  public List<Integer> willpayChart() {
+	  List<Integer> list = adminService.getWillpayChart(); 
+	  
+	  return list;
+  }
+		  
     // 썸머노트 이미지업로드
 //    @ResponseBody
 //    @PostMapping("admin-uploadImage")
@@ -466,5 +477,7 @@ public class AdminController {
 //        
 //    }
 	
+    
+    
 }
 	

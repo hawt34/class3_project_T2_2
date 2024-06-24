@@ -59,6 +59,18 @@ public interface AdminMapper {
 
 	int selectCscCount(String type);
 
+	List<Map<String, Object>> selectPayList();
+	
+	List<Map<String, Object>> getMonthlySalesByMember(String month);
+	
+	void insertSettlement(int memberCode, String month, double totalSales);
+
+	List<Integer> selectWillpayChart();
+
+	List<Map<String, Object>> selectRewardData();
+
+	int updateRewardData(@Param("params") Map<String, Object> params);
+
 	
 
 }

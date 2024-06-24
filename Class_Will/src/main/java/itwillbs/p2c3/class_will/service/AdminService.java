@@ -1,16 +1,15 @@
 package itwillbs.p2c3.class_will.service;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import itwillbs.p2c3.class_will.mapper.AdminMapper;
-import itwillbs.p2c3.class_will.vo.GroupedData;
 
 @Service
 public class AdminService {
@@ -39,8 +38,9 @@ public class AdminService {
     public List<Map<String, Object>> getAllData(String tableName) {
     	List<Map<String, Object>> result = null;
     	switch (tableName) {
-		case "MEMBER" :  result = adminMapper.selectTable(tableName); break;
-		case "class" : result = adminMapper.selectClassList(); break;	
+			case "MEMBER" 	: result = adminMapper.selectTable(tableName); break;
+			case "class" 	: result = adminMapper.selectClassList(); break;
+			case "pay"		: result = adminMapper.selectPayList(); break;
 		}
     	return result;
     }
@@ -109,6 +109,34 @@ public class AdminService {
 	
 	public int getBoardCount(String type) {
 		return adminMapper.selectCscCount(type);
+	}
+
+	public List<Map<String, Object>> getPayList() {
+		return adminMapper.selectPayList();
+	}
+	
+    public void performMonthlySettlement() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        String currentMonth = now.format(formatter);
+
+        List<Map<String, Object>> monthlySales = adminMapper.getMonthlySalesByMember(currentMonth);
+
+        for (Map<String, Object> sales : monthlySales) {
+            // 실제 입금 작업을 수행하는 로직을 추가합니다.
+        }
+    }
+
+	public List<Integer> getWillpayChart() {
+		return adminMapper.selectWillpayChart();
+	}
+
+	public List<Map<String, Object>> getRewardData() {
+		return adminMapper.selectRewardData();
+	}
+
+	public boolean updateRewardData(Map<String, Object> params) {
+		return adminMapper.updateRewardData(params) > 0 ? true : false;
 	}
 	
 	

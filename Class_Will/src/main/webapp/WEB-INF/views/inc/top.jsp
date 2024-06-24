@@ -181,6 +181,42 @@
     }
 }
 
+.search-box {
+	height: 30px;
+	width:  300px;
+	background: white;
+	border-radius: 40px;
+	padding: 10px;
+	border: 1px solid #f9deec;
+}
+
+.search-txt {
+	border: none;
+	background : none;
+	outline: none;
+	float: left;
+	padding: 0px;
+	color: #797979;
+	font-size: 16px;
+	line-height: 30px;
+	width: 200px;
+} 
+
+.search-btn {
+	color: #f9deec;
+	float: right;
+	width: 40px;
+	height: 100%;
+	border-radius: 50%;
+	background: white;
+	border: none;
+	font-size: 16px;
+	display:flex;
+	justify-content: center;
+	align-items: center; 
+	
+	
+}
 
 /*** Top Navbar End ***/
 
@@ -240,32 +276,37 @@
 	                <div class="row w-100 align-items-end">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
-	                    <div class="col-5 d-none d-lg-flex justify-content-start mb-3">
-	                        <ul class="navbar-nav">
-	                            <li class="nav-item">
-	                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
-<!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
-	                                	<span class="fa fa-bars"></span> 카테고리
-	                                </a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" href="" data-bs-toggle="collapse" id="top-local" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
-	                                	지역별
-	                                </a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" href="event">이벤트</a>
-	                            </li>
-	                            <li class="nav-item">
-	                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a>
-	                            </li>
-	                            <li class="nav-item">
-		                            <form action="" class="top-search-box">
-		                            	<input class="search-">
+		                    <div class="col-5 d-none d-lg-flex justify-content-start mb-3">
+		                      <div class="row w-100">
+		                            <form action="" class="search-box ">
+		                            	<input class="search-txt align-items-center" type="text" name="" placeholder="관심 주제, 클래스, 크리에이터를 입력하세요.">
+		                            	<button class="search-btn" type="submit">
+		                            		<i class="bi bi-search bi-top"></i>
+		                            	</button>
 		                            </form>
-								 </li>
-	                        </ul>
-	                    </div>
+			                     </div>   
+		                    	<div class="row">
+			                        <ul class="navbar-nav">
+			                            <li class="nav-item">
+			                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
+		<!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
+			                                	<span class="fa fa-bars"></span> 카테고리
+			                                </a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="" data-bs-toggle="collapse" id="top-local" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
+			                                	지역별
+			                                </a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="event">이벤트</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a>
+			                            </li>
+			                        </ul>
+			                     </div>
+		                    </div>
 	
 	                    <!-- 가운데 로고 영역 (큰 화면) -->
 	                    <div class="col-2 d-none d-lg-flex justify-content-center">

@@ -49,7 +49,16 @@ public interface AdminMapper {
 
 	List<Map<String, Object>> selectClassTable();
 
-	int insertNotice(@Param("map") Map<String, Object> map);
+	List<Map<String, Object>> selectCscList(Map<String, Object> params);
+
+	String selectCommon2Value(@Param("common1_code") String common1_code,@Param("common2_code") Integer common2_code);
+
+	int insertBoard(@Param("map") Map<String, Object> map);
+	
+	List<Map<String, Object>> selectBoardCategory(String code);
+
+	int selectCscCount(String type);
+
 	
 
 }

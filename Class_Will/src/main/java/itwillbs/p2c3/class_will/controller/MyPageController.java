@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -108,7 +109,7 @@ public class MyPageController {
 	}
 
 	@PostMapping("edit-review")
-	public String editReview(Model model, @RequestParam Map<String, String> formData) {
+	public String editReview(Model model, @RequestParam Map<String, String> formData, BCryptPasswordEncoder passwordEncoder) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		model.addAttribute("member", member);
 
@@ -119,7 +120,8 @@ public class MyPageController {
 			return "redirect:/my-review";
 		} else {
 			model.addAttribute("msg", "리뷰수정 실패");
-			return "error/fail";
+			model.addAttribute("msg", "삭제 실패!");
+			return "result_process/fail";
 		}
 
 	}
@@ -138,7 +140,7 @@ public class MyPageController {
 			return "redirect:/my-review";
 		} else {
 			model.addAttribute("msg", "삭제 실패!");
-			return "error/fail";
+			return "result_process/fail";
 		}
 	
 	}
@@ -226,30 +228,46 @@ public class MyPageController {
 		}
 	}
 	
-	//회원정보수정
+	//회원정보수정으로 이동
 	@GetMapping("my-modify")
 	public String myModify(Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		model.addAttribute("member", member);
 		
-//		<update id="updateMember">
-// 		UPDATE member
-//		SET
-//			<!-- 새 패스워드(passwd) 입력 여부에 따라 패스워드 변경 여부 결정 -->
-//		<if test="member_pwd != null and !member_pwd.equals('')">
-//			member_pwd = #{member_pwd},
-//		</if>
-//			member_birth = #{member_birth}
-//			, member_addr = #{member_addr}
-//			, member_email = #{member_email}
-//			, member_tel = #{member_tel}
-//			, member_movie_genre = #{member_movie_genre}
-//		WHERE
-//			member_id = #{member_id}
-//    
-//		</update>
-//		
+
 		return "mypage/mypage-modify";
 	}
+	//회원수정폼 관련
+	@PostMapping("member-modify")
+	public String memberModify(Model model, BCryptPasswordEncoder passwordEncoder, @RequestParam Map<String, String> formData) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
 	
+		//System.out.println("회원정보하는 곳임"+formData);
+		//System.out.println("평문 : " + formData.get("member_pwd"));
+		
+		String securePasswd = passwordEncoder.encode(formData.get("member_pwd"));
+	
+		//System.out.println("암호문 : " + securePasswd); 
+		
+		
+		
+		member.setMember_addr(formData.get("member_addr"));
+
+		if(!member.getMember_pwd().equals("")) {
+			member.setMember_pwd(securePasswd);
+		}
+		
+		System.out.println(member.getMember_addr());
+		
+		int updateCount = myPageService.updateMemberImg(member);
+		if (updateCount > 0) {
+			System.out.println("아마 업데이트 가능요");
+			return "redirect:/my-page";
+		} else {
+			return "error/fail";
+		}
+	
+		
+	}
+
 }

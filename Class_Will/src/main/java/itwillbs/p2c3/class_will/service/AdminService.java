@@ -90,8 +90,25 @@ public class AdminService {
 		adminMapper.deleteCategoryData(rowMap);
 	}
 
-	public boolean insertNotice(Map<String, Object> map) {
-		return adminMapper.insertNotice(map) > 0 ? true : false;
+
+	public List<Map<String, Object>> getCscList(Map<String, Object> params) {
+		return adminMapper.selectCscList(params);
+	}
+
+	public String getCommon2Value(String common1_code, Integer common2_code) {
+		return adminMapper.selectCommon2Value(common1_code, common2_code);
+	}
+
+	public boolean insertBoard(Map<String, Object> map) {
+		return adminMapper.insertBoard(map) > 0 ? true : false;
+	}
+
+	public List<Map<String, Object>> getBoardCategory(String common_code) {
+		return adminMapper.selectBoardCategory(common_code);
+	}
+	
+	public int getBoardCount(String type) {
+		return adminMapper.selectCscCount(type);
 	}
 	
 	

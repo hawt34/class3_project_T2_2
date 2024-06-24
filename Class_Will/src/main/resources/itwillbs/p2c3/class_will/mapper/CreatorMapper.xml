@@ -95,9 +95,48 @@
 	<select id="getSchedule" resultType="map">
 		SELECT *
 		FROM class_schedule
-		WHERE class_code = #{classCode}
-	
+		WHERE 
+			class_code = #{classCode}
+		AND 
+			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE()
+		ORDER BY 
+			class_schedule_date, class_round
 	</select>
+	
+	<!-- 일정에서 예약자 여부 확인 -->
+	<select id="checkSchedule" resultType="map">
+		SELECT * 
+		FROM 
+			class_schedule
+		WHERE 
+		  	class_schedule_code = #{classScheduleCode}
+		AND 
+			class_total_headcount = class_remain_headcount
+	</select>
+
+	<!-- 일정삭제 -->
+	<delete id="deleteSchedule">
+		DELETE FROM class_schedule
+		WHERE class_schedule_code = #{classScheduleCode}
+	</delete>
+
+	<!-- 전체일정에서 예약자 여부 확인 -->
+	<select id="checkAllSchedule" resultType="map">
+		SELECT * 
+		FROM 
+			class_schedule
+		WHERE 
+		  	class_code = #{classCode}
+		AND 
+			class_total_headcount = class_remain_headcount
+		LIMIT 1;
+	</select>
+
+	<!-- 전체일정삭제 -->
+	<delete id="deleteAllSchedule">
+		DELETE FROM class_schedule
+		WHERE class_code = #{classCode}
+	</delete>
 	
 	<!-- 카테고리 대분류 조회 -->
 	<select id="getCategory" resultType="map">

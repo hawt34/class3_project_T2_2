@@ -99,6 +99,8 @@
 	.carousel-control-next {
 	    right: -15px; /* 우측으로 더 이동 */
 	}
+	
+
 </style>
 </head>
 <body>
@@ -161,7 +163,7 @@
 									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
 										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
 									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
+									<p class="mb-0 ml-5 px-4">1111테크니컬아티스트 홍상범</p>
 								</div>
 								<div class="className">
 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
@@ -441,7 +443,7 @@
 							</div>
 	                    </div>
 	                    
-	                     <div class="border rounded  vesitable-item">
+	                     <div class=" rounded  vesitable-item">
 							<div class="vesitable-img">
 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>

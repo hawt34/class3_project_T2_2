@@ -34,25 +34,27 @@
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-4">공지사항등록</h4>
-				<form class="validation-form" novalidate action="admin-notice-pro" method="post">
+				<form class="validation-form" novalidate action="<c:out value='admin-csc-pro'/>" method="post">
+				<input type="hidden" name="type" value="<c:out value='${param.type}'/>">
 					<div class="mb-3">
 						<label for="movie_name">글제목</label> 
-						<input type="text"  id="notice_name" class="form-control" required name="notice_subject" required placeholder="글제목을 입력하세요"/>
+						<input type="text"  id="notice_name" class="form-control" required name="subject" required placeholder="글제목을 입력하세요"/>
 						<div class="invalid-feedback">글제목을 입력해주세요.</div>
 					</div>
 					<div class="mb-3">
-						<select name="notice_category" id="notice_category">
+						<select name="category" id="notice_category">
 							<option>카테고리</option>
-							<option value="1" >1</option>
-							<option value="2" >2</option>
-							<option value="3" >3</option>
-							<option value="4" >4</option>
+							
+							<c:forEach items="${category}" var="cat">
+								<option value="${cat.common2_code}" >${cat.code_value }</option>
+							</c:forEach>
+							
 						</select>
 						
 					</div>
 					<div class="mb-3">
 						<label for="movie_story">내용</label> 
-						<textarea id="summernote" class="form-control" rows="10" cols="100" required name="notice_content"></textarea>
+						<textarea id="summernote" class="form-control" rows="10" cols="100" required name="content"></textarea>
 						<div class="invalid-feedback">내용을 입력해주세요.</div>
 					</div>
 					

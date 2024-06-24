@@ -71,7 +71,7 @@
 
 						<div class="col-lg-9 creator-body">
 							<div class="creator-main-table col-xl-8 mb-5 ">
-								<form class="validation-form" novalidate action="" name="fr"
+								<form class="validation-form" novalidate action="member-modify" name="fr"
 									method="post" onsubmit="return confirm('회원정보변경을 진행하시겠습니까?');">
 									<!-- 	셀렉트박스 -->
 									<div class="classReg-basic">
@@ -124,10 +124,10 @@
 															size="25" readonly onclick="search_address()">
 													</div>
 												</div>
-												<input type="text" id="address2" name="address2"
-													class="form-control" placeholder="상세주소" size="25"
+												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25"
 													pattern="^.{2,20}$" maxlength="20">
 											</div>
+											 <input type="hidden" id="member_addr" name="member_addr">
 										</div>
 									</div>
 
@@ -184,10 +184,25 @@
 	</script>
 	  <script>
 	  $(document).ready(function() {
+		  function mergeAddress() {
+		        var address1 = $("#address1").val();
+		        var address2 = $("#address2").val();
+		        var fullAddress = address1 + ' ' + address2;
+		        $("#member_addr").val(fullAddress); // 숨겨진 필드에 합친 주소 설정
+		    }
+
+		    // 폼 제출 시 주소 합치기 및 확인 대화상자
+		    $(".validation-form").submit(function() {
+		        mergeAddress(); // 주소 합치기 함수 호출
+		      
+		    });
+		  	  
+		  
+		  
 		    // 비밀번호 입력 시 유효성 검사
 		    $("#member_pwd").on("input", function() {
 		        let inputPwd = $(this).val();
-		        
+		       
 		        let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
 
 		        if (!regex.test(inputPwd)) {

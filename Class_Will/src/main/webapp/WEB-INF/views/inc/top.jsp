@@ -186,8 +186,12 @@
 		
 		$("#top-categoty").on("mouseover", function() {
 			$.ajax({
-				
-				
+				type: "GET",
+		        url: "top-field-category",
+			 	dataType : "json",
+			 	success : function(result) {
+			 		
+			 	}
 				
 			});
 		

@@ -1,36 +1,43 @@
 @charset "UTF-8";
 
-.creator-class-search>form>input[type=text] {
-	font-size: 18px;
-	height: 35px;
-	padding: 5px;
-	outline: none;
-	vertical-align: middle;
-	border: none;
-	text-align: center;
-}
+/* .creator-class-search>form>input[type=text] { */
+/* 	font-size: 18px; */
+/* 	height: 35px; */
+/* 	padding: 5px; */
+/* 	outline: none; */
+/* 	vertical-align: middle; */
+/* 	border: none; */
+/* 	text-align: center; */
+/* } */
 
-.creator-class-search>form>input[type=submit] {
-	width: 90px;
-	height: 40px;
-	outline: none;
-	font-weight: bold;
-	margin-left: 5px;
-	vertical-align: middle;
-}
-.creator-class-searchBox{
-	border-top-right-radius:10px; 
-	border-top-left-radius:10px; 
-}
+/* .creator-class-search>form>input[type=submit] { */
+/* 	width: 90px; */
+/* 	height: 40px; */
+/* 	outline: none; */
+/* 	font-weight: bold; */
+/* 	margin-left: 5px; */
+/* 	vertical-align: middle; */
+/* } */
+/* .creator-class-searchBox{ */
+/* 	border-top-right-radius:10px;  */
+/* 	border-top-left-radius:10px;  */
+/* } */
 .ui-datepicker td a {
    color: black; /* 기본 날짜 색상 검정색 */
 }
 .ui-datepicker-header > a > span {
 	color: black;
 	margin: 10px;
-	border: 1px solid black;
+	border: 1px solid gray;
 	border-radius: 4px;
 	padding: 5px 20px;
+	cursor: pointer;
+}
+.ui-datepicker-header > a > span:hover {
+	background: gray;
+	color: white;
+	font-weight: bold;
+	transition-duration: .2s;
 }
 .ui-datepicker-header {
 	text-align:center;
@@ -58,16 +65,16 @@
 /* 	background: #eee; */
 /* 	border-radius: 10px; */
 /* } */
-.creator-plan-submitBtn{
-	border: 1px solid black;
-	padding: 10px 20px;
-	background: white;
-	border-radius: 10px;
-	font-weight: bold;
-}
-.creator-plan-submitBtn:hover{
-	background: buttonhighlight;
-}
+/* .creator-plan-submitBtn{ */
+/* 	border: 1px solid black; */
+/* 	padding: 10px 20px; */
+/* 	background: white; */
+/* 	border-radius: 10px; */
+/* 	font-weight: bold; */
+/* } */
+/* .creator-plan-submitBtn:hover{ */
+/* 	background: buttonhighlight; */
+/* } */
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);

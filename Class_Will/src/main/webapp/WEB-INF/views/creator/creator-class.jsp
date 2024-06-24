@@ -34,19 +34,20 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css" rel="stylesheet">
 	
-	<!-- Toast UI Grid Script -->
-   <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
-    
-    <!-- Toast UI Grid Script -->
-    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-    
-    <!-- Toast UI Pagination CSS -->
-    <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+<!-- Toast UI Grid Script -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+ 
+<!-- Toast UI Pagination CSS -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
-    <!-- Toast UI Pagination Script -->
-    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
 </head>
 <body>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<!-- Toast UI Grid Script -->
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+    <!-- Toast UI Pagination Script -->
 
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
@@ -72,49 +73,33 @@
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-md-9 creator-body">
-						<!-- 등록버튼 -->
-							<div class="mb-3 col-md-12" align="right">
-								<button class="category-btn classReg" value="respond" onclick="location.href='creator-classReg'">클래스등록</button>
-								<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-plan'">일정등록</button>
-								<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-last'">진행완료</button>
+							<div class="col-md-12 d-flex">
+								<!-- 	셀렉트박스 -->
+								<div class="col-md-3 searchBox" align="left">
+									<select class="form-control">
+										<option value="키">제목</option>
+									</select>
+								</div>
+								<!-- 버튼들 -->
+								<div class="mb-3 col-md-9" align="right">
+									<button class="category-btn classReg" value="respond" onclick="location.href='creator-classReg'">클래스등록</button>
+									<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-plan'">일정등록</button>
+									<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-last'">진행완료</button>
+								</div>
 							</div>
-							<!-- 	셀렉트박스 -->
-<!-- 							<div class="col-md-12 searchBox" align="center"> -->
-<!-- 								<div class="col-xl-12"> -->
-<!-- 									<div class="bg-light creator-class-searchBox py-3 px-3"> -->
-<!-- 										<div class="creator-class-search"> -->
-<!-- 											<form action="#" class="d-flex justify-content-between"> -->
-<!-- 												<input type="text" name="searchKeyword" class="col-md-10 rounded" placeholder="클래스 이름을 입력하세요" value=""> -->
-<!-- 												<input type="submit" class="btn btn-dark" value="검색"> -->
-<!-- 											</form> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
+							<div class="creator-main-table col-md-12 mb-5" align="center">
 							
-							<div class="creator-main-table col-md-12 mb-5">
-							
-							<div class="row">
-		                        <div class="col-md-12">
-		                            <div id="grid"></div>
-		                            <div id="pagination"></div>
-		                        </div>
-		                    </div>
+								<div class="row">
+			                        <div class="col-md-12">
+			                            <div id="grid"></div>
+			                            <div id="pagination"></div>
+			                        </div>
+			                    </div>
+			                    
 							</div>
+							
 						</div>
 					</div>
-
-
-
-					<!-- 					<div class="col-12"> -->
-					<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
-					<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
-					<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
-					<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
-					<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
-					<!-- 							<a href="#" class="rounded">&raquo;</a> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
 
 				</div>
 			</div>
@@ -130,15 +115,8 @@
 
 	<!-- JavaScript Libraries -->
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Template Javascript -->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	<!-- Toast UI Grid Script -->
-    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-    
 	<script type="text/javascript">
 	
 	 $(document).ready(function () {
@@ -171,23 +149,24 @@
 	             }
 	         }
 	
+	         const columns = [
+	        	 { header: '클래스제목', name: 'class_name', width: 'auto' },
+                 { header: '지원상태', name: 'code_value' },
+                 { header: '카테고리', name: 'cate', className: 'hide-column' },
+                 { header: '공개여부', name: 'hide', className: 'hide-column' },
+                 {
+                     header: 'Action',
+                     name: 'action',
+                     renderer: {
+                         type: ButtonRenderer
+                     }
+                 }
+	         ];
+	         
 	         const grid = new tui.Grid({
 	             el: document.getElementById('grid'),
 	             data: data,
-	             columns: [
-// 	                 { header: '클래스코드', name: 'class_code', editor: 'text' },
-	                 { header: '클래스제목', name: 'class_name', width: 'auto' },
-	                 { header: '지원상태', name: 'code_value' },
-	                 { header: '카테고리', name: 'cate', className: 'hide-column' },
-	                 { header: '공개여부', name: 'hide', className: 'hide-column' },
-	                 {
-	                     header: 'Action',
-	                     name: 'action',
-	                     renderer: {
-	                         type: ButtonRenderer
-	                     }
-	                 }
-	             ],
+	             columns: columns,
 	             rowHeaders: ['rowNum'],
 	             bodyHeight: 418,
 	 	        pageOptions: {

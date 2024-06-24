@@ -93,8 +93,16 @@ th, td {
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-md-9 creator-body">
-							<form id="dateForm" action="creatorPlanPro" method="POST"
-								>
+							<div class="col-md-12 mb-2" align="center">
+								<div class="col-xl-6 mb-5">
+									<hr style="color:white;" class="col-xl-8">
+									<div>
+										<h3 class="text-white">일정등록</h3>
+									</div>
+									<hr style="color:white;" class="col-xl-8">
+								</div>
+							</div>
+							<form id="dateForm" action="creatorPlanPro" method="POST">
 								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 	셀렉트박스 -->
 								<div class="creator-main-table col-xl-12 mb-5">
@@ -136,9 +144,11 @@ th, td {
 										</div>
 
 										<div align="center" class="mb-3">
-											<button type="submit" class="creator-plan-submitBtn">등록하기</button>
-											<button type="button" class="creator-plan-submitBtn"
-												onclick="location.href='creator-class'">취소하기</button>
+											<button type="submit" class="btn btn-outline-primary btn-lg">등록하기</button>
+											<button type="button" class="btn btn-outline-primary btn-lg" 
+												onclick="location.reload()">다시작성</button>
+											<button type="button" class="btn btn-outline-primary btn-lg" 
+												onclick="location.href='creator-class'">돌아가기</button>
 										</div>
 
 									</div>
@@ -245,8 +255,8 @@ th, td {
 							$('.creator-plan-bottom').addClass('hidden');
 							$('#datepicker').addClass('hidden');
 							
-							var tableHtml = '<div align="right"><button class="deleteAllBtn btn btn-outline-primary mb-2">전체삭제</button><button class="btn btn-outline-primary mb-2" onclick="location.href=\'creator-class-plan\'">돌아가기</button></div>';
-                                tableHtml += '<table><tr><th>날짜</th><th>회차</th><th>시작 시간</th><th>종료 시간</th><th>참여 가능 인원</th><th>일정삭제</th></tr>';
+							var tableHtml = '<div align="center"><button class="deleteAllBtn btn btn-outline-primary btn-lg me-3 mb-2">전체삭제</button><button class="btn btn-outline-primary btn-lg mb-2" onclick="location.href=\'creator-class\'">돌아가기</button></div>';
+                                tableHtml += '<table><tr><th>날짜</th><th>회차</th><th>시작 시간</th><th>종료 시간</th><th>참여인원</th><th>일정삭제</th></tr>';
                             
                             scheduleData.forEach(function(schedule) {
                                 tableHtml += '<tr>';
@@ -254,7 +264,7 @@ th, td {
                                 tableHtml += '<td>' + schedule.class_round + '</td>';
                                 tableHtml += '<td>' + schedule.class_st_time + '</td>';
                                 tableHtml += '<td>' + schedule.class_ed_time + '</td>';
-                                tableHtml += '<td>' + schedule.class_remain_headcount + "/" + schedule.class_total_headcount + '</td>';
+                                tableHtml += '<td>' + schedule.attend_count + "/" + schedule.class_total_headcount + '</td>';
                                 tableHtml += '<td><button type="button" class="scheduleBtn btn btn-outline-primary" data-class-schedule-code="' + schedule.class_schedule_code + '">삭제</button></td>';
                                 tableHtml += '</tr>';
                             });

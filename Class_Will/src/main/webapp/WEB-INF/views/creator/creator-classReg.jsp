@@ -94,6 +94,7 @@
 									<!-- 	셀렉트박스 -->
 									<div class="col-md-12 mb-2" align="center">
 										<div class="col-xl-6 mb-5">
+											<hr style="color:white;">
 											<div>
 												<h3 class="text-white">클래스등록</h3>
 											</div>
@@ -205,21 +206,20 @@
 											<div class="h4">크리에이터 정보</div>
 										</div>
 										<div class="classReg-creator-info-form">
-											<div class="col-md-12 my-2">
+											<div class="col-md-12 mt-2 mb-5">
 												<label for="class_creator_explain" class="h6">크리에이터 소개</label> 
 												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required />
 												<div class="invalid-feedback">크리에이터 소개를 입력해주세요.</div>
 											</div>
+											<div class="mt-5 mb-3" align="center">
+												<button type="submit" value="1" name="class_regist_status" class="btn btn-outline-primary btn-lg">제출하기</button>
+												<button type="submit" value="2" name="class_regist_status" class="btn btn-outline-primary btn-lg" >저장하기</button>
+												<input type="button" value="돌아가기" class="btn btn-outline-primary btn-lg" onclick="history.back()">
+												<hr class="mb-4">
+											</div>
 										</div>
 									</div>
 									
-									<hr class="mb-4">
-									
-									<div class="mb-4" align="center">
-										<button type="submit" value="1" name="class_regist_status" class="btn btn-primary btn-lg btn-block">제출하기</button>
-										<button type="submit" value="2" name="class_regist_status" class="btn btn-primary btn-lg btn-block" >저장하기</button>
-										<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
-									</div>
 								</form>
 							</div>
 						</div>

@@ -36,15 +36,17 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-class-plan.css"
 	rel="stylesheet">
-	
+
 <!-- Toast UI Grid Script -->
-<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
- 
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+
 <!-- Toast UI Grid Script -->
 <!-- <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script> -->
 
 <!-- Toast UI Pagination CSS -->
-<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
 <!-- Toast UI Pagination Script -->
 <!-- <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script> -->
@@ -73,10 +75,11 @@ th, td {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<!-- Toast UI Grid Script -->
-    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
-    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-    <!-- Toast UI Pagination Script -->
-	
+	<script
+		src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+	<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+	<!-- Toast UI Pagination Script -->
+
 
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
@@ -107,39 +110,49 @@ th, td {
 				<div class="col-lg-12">
 					<div class="row g-4">
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
-							<!-- 	셀렉트박스 -->
-							<div class="col-md-9 creator-body">
-								<c:set var="classCode" value="${classCode}" />
-								 <div class="col-md-12  mb-2" align="center">
-									<div class="col-md-8">
-										<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
-											<select id="classSelect"
-												name="classSelect" class="border-0 form-select-sm bg-light me-3 selectClass">
-												<option value=""></option>
-												<c:forEach var="classInfo" items="${classList}">
-													<option value="${classInfo.class_code}" 
-													<c:if test="${classInfo.class_code eq classCode}">selected</c:if>
-													>
+						<!-- 	셀렉트박스 -->
+						<div class="col-md-9 creator-body">
+							<c:set var="classCode" value="${classCode}" />
+							<div class="col-md-12  mb-2" align="center">
+								<div class="col-xl-6 mb-5">
+									<hr style="color: white;" class="col-xl-8">
+									<div>
+										<h3 class="text-white">진행완료</h3>
+									</div>
+									<hr style="color: white;" class="col-xl-8">
+								</div>
+								<div class="col-md-8">
+									<div
+										class="bg-light rounded py-2 d-flex justify-content-center mb-4">
+										<select id="classSelect" name="classSelect"
+											class="border-0 form-select-sm bg-light me-3 selectClass">
+											<option value=""></option>
+											<c:forEach var="classInfo" items="${classList}">
+												<option value="${classInfo.class_code}"
+													<c:if test="${classInfo.class_code eq classCode}">selected</c:if>>
 													${classInfo.class_name} ( ${classInfo.endClass} )</option>
-												</c:forEach>
-											</select>
+											</c:forEach>
+										</select>
+									</div>
+									<hr>
+								</div>
+							</div>
+
+							<div class="creator-main-table col-xl-12 mb-5">
+
+								<div id="scheduleTableContainer" class="col-md-12">
+									<div class="row">
+										<div class="col-md-12">
+											<div id="grid"></div>
+											<div id="pagination"></div>
 										</div>
-										<hr>
 									</div>
 								</div>
-
-								<div class="creator-main-table col-xl-12 mb-5">
-
-									<div id="scheduleTableContainer" class="col-md-12">
-										<div class="row">
-					                        <div class="col-md-12">
-					                            <div id="grid"></div>
-					                            <div id="pagination"></div>
-					                        </div>
-					                    </div>
-									</div>
-
+								<div align="center" class="my-2">
+									<button class="btn btn-outline-primary btn-lg"
+										onclick="location.href='creator-class'">돌아가기</button>
 								</div>
+							</div>
 						</div>
 					</div>
 
@@ -158,86 +171,109 @@ th, td {
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-	
-	<script>
-    	
-		$(document).ready(function() {
-			
-			const data = null;
-	 	    const itemsPerPage = 10;
-	 	    let currentPage = 1;
-	
-// 	         class ButtonRenderer {
-// 	             constructor(props) {
-// 	                 const el = document.createElement('button');
-// 	                 el.className = 'btn btn-primary btn-sm';
-// 	                 el.innerText = '상세보기';
-// 	                 el.addEventListener('click', () => {
-// 	                     const rowKey = props.grid.getIndexOfRow(props.rowKey);
-// 	                     const rowData = props.grid.getRow(rowKey);
-// 	                     const memberCode = rowData.member_code;
-// 	                 });
-// 	                 this.el = el;
-// 	             }
-// 	             getElement() {
-// 	                 return this.el;
-// 	             }
-// 	             render(props) {
-// 	                 this.el.dataset.rowKey = props.rowKey;
-// 	                 this.el.dataset.columnName = props.columnName;
-// 	                 this.el.value = props.value;
-// 	             }
-// 	         }
-	         initializeGrid(data);
-	         
-	         function initializeGrid(data) {
-	             const gridContainer = document.getElementById('grid');
-	             debugger;
-	             if (gridContainer) {
-	                 new tui.Grid({
-	                     el: gridContainer,
-	                     data: data,
-	                     columns: [
-	                    	 { header: '클래스날짜', name: 'class_schedule_date', width:'auto' },
-			                 { header: '회차', name: 'class_round'},
-			                 { header: '시작시간', name: 'class_st_time' },
-			                 { header: '종료시간', name: 'class_ed_time'},
-			                 { header: '참여인원', name: 'attend_count'},
-// 	                         {
-// 	                             header: 'Action',
-// 	                             name: 'action',
-// 	                             renderer: {
-// 	                                 type: ButtonRenderer
-// 	                             }
-// 	                         }
-	                     ],
-	                     rowHeaders: ['rowNum'],
-	                     bodyHeight: 418,
-	                     pageOptions: {
-	                         useClient: true,
-	                         perPage: itemsPerPage
-	                     }
-	                 });
-	             }
-	         }
-			
-			$('#classSelect').change(function() {
-				// ajax로 기존 선택했던 날짜 가져오기
-				var classCode = $('#classSelect').val();
-				$.ajax({
-					url: "getEndedClass",
-					method: "get",
-					data: { "classCode" : classCode },
-					success: function(result) {
-						 $('#scheduleTableContainer').empty().append('<div id="grid"></div><div id="pagination"></div>');
-		                    initializeGrid(result);
-					}
-				});	
-			});
-			
 
-        });
-    </script>
+	<script>
+		$(document)
+				.ready(
+						function() {
+
+							const data = null;
+							const itemsPerPage = 10;
+							let currentPage = 1;
+
+							// 	         class ButtonRenderer {
+							// 	             constructor(props) {
+							// 	                 const el = document.createElement('button');
+							// 	                 el.className = 'btn btn-primary btn-sm';
+							// 	                 el.innerText = '상세보기';
+							// 	                 el.addEventListener('click', () => {
+							// 	                     const rowKey = props.grid.getIndexOfRow(props.rowKey);
+							// 	                     const rowData = props.grid.getRow(rowKey);
+							// 	                     const memberCode = rowData.member_code;
+							// 	                 });
+							// 	                 this.el = el;
+							// 	             }
+							// 	             getElement() {
+							// 	                 return this.el;
+							// 	             }
+							// 	             render(props) {
+							// 	                 this.el.dataset.rowKey = props.rowKey;
+							// 	                 this.el.dataset.columnName = props.columnName;
+							// 	                 this.el.value = props.value;
+							// 	             }
+							// 	         }
+							initializeGrid(data);
+
+							function initializeGrid(data) {
+								const gridContainer = document
+										.getElementById('grid');
+								// 	             debugger;
+								if (gridContainer) {
+									new tui.Grid({
+										el : gridContainer,
+										data : data,
+										columns : [ {
+											header : '클래스날짜',
+											name : 'class_schedule_date',
+											width : 'auto'
+										}, {
+											header : '회차',
+											name : 'class_round'
+										}, {
+											header : '시작시간',
+											name : 'class_st_time'
+										}, {
+											header : '종료시간',
+											name : 'class_ed_time'
+										}, {
+											header : '참여인원',
+											name : 'attend_count'
+										},
+										// 	                         {
+										// 	                             header: 'Action',
+										// 	                             name: 'action',
+										// 	                             renderer: {
+										// 	                                 type: ButtonRenderer
+										// 	                             }
+										// 	                         }
+										],
+										rowHeaders : [ 'rowNum' ],
+										bodyHeight : 418,
+										pageOptions : {
+											useClient : true,
+											perPage : itemsPerPage
+										}
+									});
+								}
+							}
+
+							$('#classSelect')
+									.change(
+											function() {
+												// ajax로 기존 선택했던 날짜 가져오기
+												var classCode = $(
+														'#classSelect').val();
+												$
+														.ajax({
+															url : "getEndedClass",
+															method : "get",
+															data : {
+																"classCode" : classCode
+															},
+															success : function(
+																	result) {
+																$(
+																		'#scheduleTableContainer')
+																		.empty()
+																		.append(
+																				'<div id="grid"></div><div id="pagination"></div>');
+																initializeGrid(result);
+															}
+														});
+											});
+
+						});
+	</script>
 
 
 </body>

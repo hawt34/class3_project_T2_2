@@ -93,14 +93,10 @@
 	
 	<!-- 클래스 일정 가져오기 -->
 	<select id="getSchedule" resultType="map">
-		SELECT *
+		SELECT *, (class_total_headcount - class_remain_headcount) AS attend_count
 		FROM class_schedule
 		WHERE 
 			class_code = #{classCode}
-		AND 
-			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') >= CURDATE()
-		ORDER BY 
-			class_schedule_date, class_round
 	</select>
 
 	<!-- 클래스 종료된 일정 가져오기 -->
@@ -147,7 +143,10 @@
 	<!-- 전체일정삭제 -->
 	<delete id="deleteAllSchedule">
 		DELETE FROM class_schedule
-		WHERE class_code = #{classCode}
+		WHERE 
+			class_code = #{classCode}
+		AND 
+			class_total_headcount = class_remain_headcount
 	</delete>
 	
 	<!-- 카테고리 대분류 조회 -->
@@ -233,8 +232,11 @@
 	<!-- 클래스 정보 가져오기 -->
 	<select id="getCertifiedClassInfo" resultType="map">
 	SELECT 
-		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide, 
-		(
+		c.*
+		, c2.code_value
+		, c22.code_value as cate
+		, c222.code_value as hide
+		, (
 			SELECT 
 				count(*) 
 			FROM 

@@ -33,7 +33,7 @@ public class CreatorController {
 	// creator-main으로
 	@GetMapping("creator-main")
 	public String createrMain() {
-		return "redirect:/creator/creator-main";
+		return "creator/creator-main";
 	}
 	
 	//======================================================
@@ -131,7 +131,7 @@ public class CreatorController {
 	@GetMapping("creator-class-plan")
 	public String createrClassPlan(Model model) {
 		
-		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-class-plan";

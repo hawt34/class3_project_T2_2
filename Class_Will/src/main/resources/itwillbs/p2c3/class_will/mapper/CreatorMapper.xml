@@ -102,6 +102,18 @@
 		ORDER BY 
 			class_schedule_date, class_round
 	</select>
+
+	<!-- 클래스 종료된 일정 가져오기 -->
+	<select id="getEndedSchedule" resultType="map">
+		SELECT *
+		FROM class_schedule
+		WHERE 
+			class_code = #{classCode}
+		AND 
+			CURDATE() > STR_TO_DATE(class_schedule_date, '%Y-%m-%d') 
+		ORDER BY 
+			class_schedule_date, class_round
+	</select>
 	
 	<!-- 일정에서 예약자 여부 확인 -->
 	<select id="checkSchedule" resultType="map">

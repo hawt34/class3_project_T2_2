@@ -36,6 +36,19 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-class-plan.css"
 	rel="stylesheet">
+	
+<!-- Toast UI Grid Script -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+ 
+<!-- Toast UI Grid Script -->
+<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+
+<!-- Toast UI Pagination CSS -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+
+<!-- Toast UI Pagination Script -->
+<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+
 <style>
 .delete-btn {
 	display: none;
@@ -98,10 +111,14 @@ th, td {
 								<div class="creator-main-table col-xl-12 mb-5">
 
 									<div id="scheduleTableContainer" class="col-md-12">
-									
-									
-									
+										<div class="row">
+					                        <div class="col-md-12">
+					                            <div id="grid"></div>
+					                            <div id="pagination"></div>
+					                        </div>
+					                    </div>
 									</div>
+									
 
 								</div>
 						</div>
@@ -122,6 +139,9 @@ th, td {
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
+	<!-- Toast UI Grid Script -->
+    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
 	<script>
     	
@@ -132,12 +152,12 @@ th, td {
 				// ajax로 기존 선택했던 날짜 가져오기
 				var classCode = $('#classSelect').val();
 				$.ajax({
-					url: "getSelectedDates",
+					url: "getEndedClass",
 					method: "get",
 					data: { "classCode" : classCode },
-					success: function(data) {
+					success: function(result) {
 						// JSON 형태로 파싱
-						var scheduleData = JSON.parse(JSON.stringify(data));
+						var scheduleData = JSON.parse(JSON.stringify(result));
 						// 날짜 배열 생성
 						var selectedDates = [];
 						scheduleData.forEach(function(item) {
@@ -146,85 +166,71 @@ th, td {
 				            }
 				        });
 						selectedDates = [...new Set(selectedDates)];
-						debugger;
 						$('#scheduleTableContainer').empty();
 						if(selectedDates.length > 0){ // 등록된 일정이 있다면 달력 안보이기
-							$('.creator-plan-bottom').addClass('hidden');
-							$('#datepicker').addClass('hidden');
 							
-							var tableHtml = '<div align="right"><button class="deleteAllBtn btn btn-outline-primary mb-2">전체삭제</button></div>';
-                                tableHtml += '<table><tr><th>날짜</th><th>회차</th><th>시작 시간</th><th>종료 시간</th><th>참여 가능 인원</th><th>일정삭제</th></tr>';
-                            
-                            scheduleData.forEach(function(schedule) {
-                                tableHtml += '<tr>';
-                                tableHtml += '<td>' + schedule.class_schedule_date + '</td>';
-                                tableHtml += '<td>' + schedule.class_round + '</td>';
-                                tableHtml += '<td>' + schedule.class_st_time + '</td>';
-                                tableHtml += '<td>' + schedule.class_ed_time + '</td>';
-                                tableHtml += '<td>' + schedule.class_remain_headcount + "/" + schedule.class_total_headcount + '</td>';
-                                tableHtml += '<td><button type="button" class="scheduleBtn btn btn-outline-primary" data-class-schedule-code="' + schedule.class_schedule_code + '">삭제</button></td>';
-                                tableHtml += '</tr>';
-                            });
-                            
-                            tableHtml += '</table>';
-                            
-                            // 테이블을 추가할 위치에 HTML 삽입
-                            $('#scheduleTableContainer').append(tableHtml);
+							const data = result;
+					        	
+					 	    const itemsPerPage = 10;
+					 	    let currentPage = 1;
+					
+					         class ButtonRenderer {
+					             constructor(props) {
+					                 const el = document.createElement('button');
+					                 el.className = 'btn btn-primary btn-sm';
+					                 el.innerText = '상세보기';
+					                 el.addEventListener('click', () => {
+					                     const rowKey = props.grid.getIndexOfRow(props.rowKey);
+					                     const rowData = props.grid.getRow(rowKey);
+					                     const memberCode = rowData.member_code;
+// 					                     location.href="creator-classModify";
+					                 });
+					                 this.el = el;
+					             }
+					             getElement() {
+					                 return this.el;
+					             }
+					             render(props) {
+					                 this.el.dataset.rowKey = props.rowKey;
+					                 this.el.dataset.columnName = props.columnName;
+					                 this.el.value = props.value;
+					             }
+					         }
+					
+					         const grid = new tui.Grid({
+					             el: document.getElementById('grid'),
+					             data: data,
+					             columns: [
+					                 { header: '클래스제목', name: 'class_name', width: 'auto' },
+					                 { header: '지원상태', name: 'code_value' },
+					                 { header: '카테고리', name: 'cate', className: 'hide-column' },
+					                 { header: '공개여부', name: 'hide', className: 'hide-column' },
+					                 {
+					                     header: 'Action',
+					                     name: 'action',
+					                     renderer: {
+					                         type: ButtonRenderer
+					                     }
+					                 }
+					             ],
+					             rowHeaders: ['rowNum'],
+					             bodyHeight: 418,
+					 	        pageOptions: {
+					 	            useClient: true,
+					 	            perPage: itemsPerPage
+					 	        }
+					         });
+						
+							
+//                           $('#scheduleTableContainer').append(tableHtml);
 							
 						} else{ // 일정이 등록된게 없으면 보이기
-							$('.creator-plan-bottom').removeClass('hidden');
-							$('#datepicker').removeClass('hidden');
 							$('#scheduleTableContainer').empty();
 						}
 					}
 				});	
 			});
 			
-			// 이벤트 위임을 사용하여 동적으로 생성된 버튼에 이벤트 바인딩
-// 			$(document).on('click', '.scheduleBtn', function() {
-// 			    var classScheduleCode = $(this).data('class-schedule-code');
-// 			    deleteSchedule(classScheduleCode);
-// 			});
-			
-// 			window.deleteSchedule = function(classScheduleCode) {
-// 				var classCode = $('#classSelect').val();
-// 				if(confirm("일정을 삭제하시겠습니까?")){
-// 			      $.ajax({
-// 			          url: "deleteSchedule",
-// 			          method: "get",
-// 			          data: { "classScheduleCode": classScheduleCode },
-// 			          success: function(data) {
-// 			        	alert(data.answer);
-// 			        	// 페이지 로드 시 classSelect 강제 change 이벤트 시행
-// 			  			$("#classSelect").trigger("change");
-// 			          }
-// 			      });
-// 				} else{
-// 					return;
-// 				}
-// 			}
-
-// 			$(document).on('click', '.deleteAllBtn', function() {
-// 			    deleteAllSchedule();
-// 			});
-			
-// 			window.deleteAllSchedule = function() {
-// 				var classCode = $('#classSelect').val();
-// 				if(confirm("전체일정을 삭제하시겠습니까?")){
-// 			      $.ajax({
-// 			          url: "deleteAllSchedule",
-// 			          method: "get",
-// 			          data: { "classCode": classCode },
-// 			          success: function(data) {
-// 			        	alert(data.answer);
-// 			        	// 페이지 로드 시 classSelect 강제 change 이벤트 시행
-// 			  			$("#classSelect").trigger("change");
-// 			          }
-// 			      });
-// 				} else{
-// 					return;
-// 				}
-// 			}
 
         });
     </script>

@@ -34,6 +34,11 @@ public class CreatorService {
 		return creatorMapper.getSchedule(classCode);
 	}
 
+	// 클래스 종료된 일정 가져오기
+	public List<Map<String, Object>> getEndedSchedule(int classCode) {
+		return creatorMapper.getEndedSchedule(classCode);
+	}
+
 	// 클래스 일정 삭제
 	public int deleteSchedule(int classScheduleCode) {
 		if(creatorMapper.checkSchedule(classScheduleCode) == null) { // null이면 삭제 안됨

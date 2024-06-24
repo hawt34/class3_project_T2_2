@@ -258,8 +258,16 @@ public class CreatorController {
 			map.put("answer", "예약이 있는 수업이 있어 삭제가 불가능합니다");
 			return map;
 		}
+	}
+	
+	// ajax로 날짜 데이터 가져오기
+	@ResponseBody
+	@GetMapping("getEndedClass")
+	public List<Map<String, Object>> getEndedClass(@RequestParam(defaultValue = "0") int classCode) {
+		List<Map<String, Object>> endedScheduleList = creatorService.getEndedSchedule(classCode);
+		System.out.println(">>>>>>>>>endedScheduleList: " + endedScheduleList);
 		
-		
+		return endedScheduleList;
 	}
 	
 	//======================================================

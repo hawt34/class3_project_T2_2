@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/csc_notice.css">
@@ -10,9 +11,9 @@
 		font-size: 1.2em;
 	}
 	
-	body{
-		color: white;
-	}
+	.boardArea {
+		color : black;
+	}	
 </style>
     <head>
         <meta charset="utf-8">
@@ -63,42 +64,32 @@
 				<h1>공지사항</h1>
 			</div>
 			    <div class="category-buttons">
-			        <button type="button" class="btn btn-primary" onclick="location.href='Csc'">공지사항</button>
-			        <button type="button" class="btn btn-secondary" onclick="location.href='Csc_Faq'">FAQ</button>
-			        <button type="button" class="btn btn-success" onclick="location.href='Csc_Oto'">1대1 문의</button>
+			        <button type="button" class="btn btn-primary" onclick="location.href=csc'">공지사항</button>
+			        <button type="button" class="btn btn-secondary" onclick="location.href='csc-faq'">FAQ</button>
 			    </div>
 			<hr>
-			<div class="row">
+			<div class="row boardArea">
 			
 				<div class="col-1 mt-3" id ="noticeCount">
 					<span id="count"><!--전체 갯수, 각 구분마다 갯수 --></span>
 				</div>
 				
-				<div class="col-11">
-					<div class="csc_local" data-theater="">전체</div>
-					<div class="csc_local" data-theater="해운대점">해운대점</div>
-					<div class="csc_local" data-theater="센텀점">센텀점</div>
-					<div class="csc_local" data-theater="서면점">서면점</div>
-					<div class="csc_local" data-theater="남포점">남포점</div>
-					<div class="csc_local" data-theater="부산대점">부산대점</div>
-					<div class="csc_local" data-theater="사직점">사직점</div>
-					<div class="csc_local" data-theater="영도점">영도점</div>
-					<div class="csc_local" data-theater="덕천점">덕천점</div>
-					<div class="csc_local" data-theater="정관점">정관점</div>
-					<div class="csc_local" data-theater="사상점">사상점</div>
-					
-					<div class="csc_search">
-						<!--공지 찾는 검색창  -->
-						<form method="post" action="javascript:void(0);" id="notice_search">
-							<input type="text" placeholder="검색어를 입력해주세요" name="noticeSearchKeyword" id="noticeSearchKeyword"> 
-								<i class="bi bi-search searchIcon"></i>
-							<div class="csc_searcher">
-								<input type="submit" value="검색">
-							</div>
-						</form>
-					</div>
-					
-				</div>
+<!-- 				<div class="col-11"> -->
+<!-- 				<div class="csc_local" data-theater="">전체</div> -->
+<%-- 					<c:forEach items="${category }" var="cat"> --%>
+<%-- 						<div class="csc_local" data-category="${cat.common1_code }">${cat.code_value }</div> --%>
+<%-- 					</c:forEach> --%>
+<!-- 					<div class="csc_search"> -->
+<!-- 						공지 찾는 검색창  -->
+<!-- 						<form method="post" action="javascript:void(0);" id="notice_search"> -->
+<!-- 							<input type="text" placeholder="검색어를 입력해주세요" name="noticeSearchKeyword" id="noticeSearchKeyword">  -->
+<!-- 								<i class="bi bi-search searchIcon"></i> -->
+<!-- 							<div class="csc_searcher"> -->
+<!-- 								<input type="submit" value="검색"> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
 			</div>
 			<hr>
 			<!-- 게시판 -->
@@ -107,65 +98,38 @@
 					<thead>
 						<tr>
 							<th>번호</th>
-							<th>공지구분</th>
-							<th>극장</th>
+							<th>카테고리</th>
+<!-- 							<th>극장</th> -->
 							<th>제목</th>
-							<th>작성일</th>
 						</tr>
 					</thead>
 					<tbody class="noticeTheaterList">
-<%-- 						<c:choose> --%>
-<%-- 							<c:when test="${empty noticeList }"> --%>
-<!-- 								<tr> -->
-<!-- 									<th colspan="4">게시물이 없습니다</th> -->
-<!-- 								</tr> -->
-<%-- 							</c:when> --%>
-<%-- 							<c:otherwise> --%>
-<%-- 								<c:forEach var="notice" items="${noticeList }"> --%>
-<!-- 									<tr> -->
-<%-- 										<td>${notice.notice_num }</td> --%>
-<%-- 										<td>${notice.notice_category}</td> --%>
-<%-- 										<td>${notice.theater_name }</td> --%>
-<%-- 										<td onclick="location.href='csc_notice_detail?notice_num=${notice.notice_num}'">${notice.notice_subject }</td> --%>
-<%-- 										<td>${notice.notice_fdt }</td> --%>
-<!-- 									</tr> -->
-<%-- 								</c:forEach> --%>
-<%-- 							</c:otherwise> --%>
-<%-- 						</c:choose> --%>
+						<c:choose>
+							<c:when test="${empty list }">
+								<tr>
+									<th colspan="4">게시물이 없습니다</th>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="board" items="${list}">
+									<tr>
+										<td>${board.notice_code }</td>
+										<td>${board.notice_category}</td>
+										<td>${board.notice_subject }</td>
+									</tr>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</tbody>
 				</table>
 			</div>
 			<!-- 페이지네이션-페이징 -->
 			<hr>
-			
-			<div class="notice_pageArea">
-				<nav aria-label="Page navigation example" >
-					<ul class="pagination">
-<%-- 						<li class="page-item <c:if test="${pageNum eq 1 }">disabled</c:if>" > --%>
-<%-- 							<a class="page-link" href="csc_notice?pageNum=${pageNum - 1}" aria-label="Previous" > --%>
-<!-- 							<span aria-hidden="true" >&laquo;</span> -->
-<!-- 							</a> -->
-<!-- 						</li> -->
-<%-- 						<c:forEach var="i" begin="${pageList.startPage }" end="${pageList.endPage }"> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${pageNum eq i }"> --%>
-<%-- 									<li class="page-item active"><a class="page-link" >${i}</a></li> --%>
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> --%>
-<%-- 									<li class="page-item"><a class="page-link" href="csc_notice?pageNum=${i}">${i}</a></li> --%>
-<%-- 								</c:otherwise> --%>
-<%-- 							</c:choose> --%>
-<%-- 						</c:forEach> --%>
-						
-<%-- 						<li class="page-item <c:if test="${pageNum eq pageList.maxPage }">disabled</c:if>"> --%>
-<%-- 							<a class="page-link" href="csc_notice?pageNum=${pageNum + 1}" aria-label="Next"> --%>
-<!-- 							<span aria-hidden="true">&raquo;</span> -->
-<!-- 							</a> -->
-<!-- 						</li> -->
-					</ul>
-				</nav>
+			<div align="center">
+				<c:forEach var="i" begin="1" end="${totalPages}">
+				    <a href="${pageContext.request.contextPath}/csc?type=${type}&page=${i}&pageSize=${param.pageSize}">${i}</a>
+				</c:forEach>
 			</div>
-			
 
 		</div>
 	</div>

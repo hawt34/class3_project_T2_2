@@ -37,6 +37,7 @@
 	
 	<select id="selectPayInfo" resultType="map">
 		SELECT c.class_name
+			   , c.class_code
 			   , c2.code_value AS class_upper 
 			   , c3.code_value AS class_lower
 			   , c.class_thumnail
@@ -51,7 +52,8 @@
 			   , cs.class_schedule_date
 			   , cs.class_st_time 
 		 	   , cs.class_ed_time
-		 	   , cs.class_round 
+		 	   , cs.class_round
+		 	   , cs.class_schedule_code
 		FROM class c
 		JOIN class_schedule cs 
 		ON c.class_code = cs.class_code 
@@ -93,4 +95,68 @@
 		WHERE member_code = #{member_code}
 	</select>
 	
+	<select id="selectObjects" resultType="map">
+		SELECT
+			c.member_code
+		    , cs.class_schedule_code
+		    , c.class_code
+		FROM class c
+		join class_schedule cs
+		on c.class_code = cs.class_code
+		and cs.class_code = #{class_code}
+		and cs.class_st_time = #{class_st_time}
+		and cs.class_ed_time = #{class_ed_time}
+		and cs.class_schedule_date = #{class_schedule_date}
+	</select>
+	
+	<update id="updateCredit">
+		UPDATE MEMBER
+		SET member_credit = member_credit - #{use_willpay}
+		WHERE member_code = #{member_code}
+	</update>
+	
+	<update id="updateHeadcount">
+		UPDATE class_schedule
+		SET class_remain_headcount = class_remain_headcount - #{pay_headcount}
+		WHERE class_schedule_code = #{class_schedule_code}
+	</update>
+	
+	<insert id="registPaySuccessInfo" useGeneratedKeys="true" keyProperty="pay_code">
+		INSERT INTO pay(
+			pay_code
+		    , pay_merchant_uid
+		    , pay_amount
+		    , pay_datetime
+		    , pay_type
+		    , pay_status
+		    , member_code
+		    , class_schedule_code
+		    , pay_headcount
+		    , class_code
+		    , imp_uid
+		    , use_willpay
+		    , pg_provider
+		    , card_name
+		)
+		VALUES (
+			null
+		    , #{merchant_uid}
+		    , #{pay_amount}
+		    , #{pay_datetime}
+		    , #{pay_type}
+		    , 'paid'
+		    , #{member_code}
+		    , #{class_schedule_code}
+		    , #{pay_headcount}
+		    , #{class_code}
+		    , #{imp_uid}
+		    , #{use_willpay}
+		    , #{pg_provider}
+		    , #{card_name}
+		)
+	</insert>
+	
+	<select id="selectSuccessPayInfo" resultType="map">
+		select * from pay where pay_code = #{pay_code}
+	</select>
 </mapper>

@@ -33,6 +33,26 @@ public class CreatorService {
 	public List<Map<String, Object>> getSchedule(int classCode) {
 		return creatorMapper.getSchedule(classCode);
 	}
+
+	// 클래스 일정 삭제
+	public int deleteSchedule(int classScheduleCode) {
+		if(creatorMapper.checkSchedule(classScheduleCode) == null) { // null이면 삭제 안됨
+			return 0;
+		} else { // check 해본 값이 null이 아니면 삭제가능
+			creatorMapper.deleteSchedule(classScheduleCode);
+			return 1;
+		}
+	}
+
+	// 클래스 일정 전체 삭제
+	public int deleteAllSchedule(int classCode) {
+		if(creatorMapper.checkAllSchedule(classCode) == null) { // null이면 삭제 안됨
+			return 0;
+		} else { // check 해본 값이 null이 아니면 삭제가능
+			creatorMapper.deleteAllSchedule(classCode);
+			return 1;
+		}
+	}
  
 	// 카테고리 대분류 가져오기
 	public List<Map<String, String>> getCategory(){

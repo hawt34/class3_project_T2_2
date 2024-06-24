@@ -23,9 +23,9 @@ public class ClassService {
 	
 	}
 	// 소 카테고리
-	public List<Map<String, Object>> getSmallCategoryList(String common2_code) {
+	public List<Map<String, Object>> getSmallCategory(String big_category) {
 		
-		return mapper.selectSmallCategoryList(common2_code);
+		return mapper.getSmallCategory(big_category);
 	}
 	
 	// 지역 
@@ -34,4 +34,10 @@ public class ClassService {
 		
 		return mapper.selectCategoryLocal();
 	}
+	
+
+
+    public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
+        return mapper.selectSmallCategories(bigCategoryCode);
+    }
 }

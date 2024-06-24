@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwillbs.p2c3.class_will.service.PayService;
 
@@ -42,8 +44,6 @@ public class PayController {
 	@PostMapping("payment")
 	public String paymentPro(Model model, @RequestParam Map<String, String> map) {
 		System.out.println("@@@@@@@@@@:" + map);
-//		String parsedTime = (String)map.get("select_time");
-//		String[] splitTime = parsedTime.split("~");
 		String[] splitTime = map.get("select_time").split("~");
 		map.put("class_st_time", splitTime[0]);
 		map.put("class_ed_time", splitTime[1]);
@@ -67,15 +67,33 @@ public class PayController {
 		return "payment/payment";
 	}
 	
+	@ResponseBody
+	@PostMapping("verify")
+	public Map<String, Object> verify(@RequestBody Map<String, Object> map) {
+		System.out.println(map);
+		
+		Map<String, Object> response = payService.verifyPayment(map);
+		
+		return response;
+	}
 	
-	//===============================================
+	
+	
 	
 	
 	@GetMapping("payment-final")
-	public String paymentFinal() {
+	public String paymentFinal(@RequestParam Map<String, String> map, Model model) {
+		map = payService.getSuccessPayInfo(map);
+		System.out.println("######111: " + map);
+		
+		
+		
+		
+		model.addAttribute("paySuccessInfo", map);
 		return "payment/payment_final";
 	}
-	
+	//===============================================================
+	//윌페이 충전 페이지로 이동
 	@GetMapping("will-pay-charge")
 	public String willPayCharging() {
 		return "payment/will_pay_charge";

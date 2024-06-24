@@ -74,16 +74,7 @@
 				<h5 class="text-success">결제 정보</h5>
 				<p>결제수단 : ${pay.ticket_pay_type}</p>
 				<hr>
-				<p>클래스 가격 :
-					<c:choose>
-						<c:when test="${not empty coupon.coupon_name}">
-							${pay.ticket_pay_price + pay.use_point + (coupon.coupon_value*-1)}원
-						</c:when>
-						<c:otherwise>
-							${pay.ticket_pay_price + pay.use_point}
-						</c:otherwise>
-					</c:choose>
-				</p>
+				<p>클래스 가격 : </p>
 				<p>WILL-PAY 사용금액 : ${pay.use_credit}원</p>
 				<hr>
 				<p><b>최종 결제금액 : ${pay.class_pay_price} 원</b></p>

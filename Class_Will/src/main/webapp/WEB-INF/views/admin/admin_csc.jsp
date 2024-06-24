@@ -252,18 +252,18 @@
                 </nav>
                 <!-- End of Topbar -->
                 
-                <div class="container-fluid">
-                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">고객센터 리스트</h1>
+					<div class="container-fluid">
+						<div class="d-sm-flex align-items-center justify-content-between mb-4">
+							<h1 class="h3 mb-0 text-gray-800" id="page-title"></h1>
                             <div class="btn-group">
                             <input type="file" id="file-input" style="display:none;" />
                             <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
                     <div>
-                        <button class="category-btn" data-category="notice">공지사항</button>
-                        <button class="category-btn" data-category="faq">FAQ</button>
-                        <button class="category-btn" data-category="event">이벤트</button>
+                        <button class="category-btn" data-category="notice" onclick="location.href='admin-csc?type=notice'">공지사항</button>
+                        <button class="category-btn" data-category="faq" onclick="location.href='admin-csc?type=faq'">FAQ</button>
+                        <button class="category-btn" data-category="event" onclick="location.href='admin-csc?type=event'">이벤트</button>
                     </div>
                     <!-- Content Row -->
                     <div class="row">
@@ -300,6 +300,7 @@
     <script>
     	var currentParam = "";
     	
+    	
 	    function regist(type){
 			window.open("admin-csc-regist?type=" + type, "등록폼", "width=500,height=600");	
 	    }
@@ -307,25 +308,33 @@
         document.addEventListener('DOMContentLoaded', function () {
     	    const itemsPerPage = 10;
     	    let currentPage = 1;
-    		
-            const data = [
-                {
-                    id: 1,
-                    name: 'John Doe',
-                    email: 'john.doe@example.com',
-                    registrationDate: '2023-01-01',
-                    status: 'Active'
-                },
-                {
-                    id: 2,
-                    name: 'Jane Doe',
-                    email: 'jane.doe@example.com',
-                    registrationDate: '2023-02-01',
-                    status: 'Inactive'
-                }
-                // 더 많은 회원 데이터 추가 가능
-            ];
-            
+    	    let type = '${param.type}';
+    	    const data = ${jo_list};
+    	    
+    	    
+    	    // 페이지 제목 변경
+    	    const pageTitle = document.getElementById('page-title');
+    	    if (type === 'notice') {
+    	        pageTitle.textContent = '공지사항 리스트';
+    	    } else if (type === 'faq') {
+    	        pageTitle.textContent = 'FAQ 리스트';
+    	    } else if (type === 'event') {
+    	        pageTitle.textContent = '이벤트 리스트';
+    	    } else {
+    	        pageTitle.textContent = '고객센터 리스트';
+    	    }
+    	    
+    	    // 버튼 색깔 변경
+    	    const buttons = document.querySelectorAll('.category-btn');
+    	    buttons.forEach(button => {
+    	        if (button.getAttribute('data-category') === type) {
+    	            button.classList.add('btn-primary');
+    	        } else {
+    	            button.classList.remove('btn-primary');
+    	        }
+    	    });
+    	    
+    	    
     	    // BootstrapSwitchRenderer 클래스 정의 (스위치 렌더러)
     	    class BootstrapSwitchRenderer {
     	        constructor(props) {
@@ -390,9 +399,12 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                	{ header: '글번호', name: 'code' , editor: 'text'},
-                    { header: '제목', name: 'subject' , editor: 'text'},
-                    { header: '카테고리', name: 'category' , editor: 'text'},
+//                 	{ header: '글번호', name: 'notice_code' , editor: 'text'},
+                	{ header: '글번호', name: type + '_code' , editor: 'text'},
+//                     { header: '제목', name: 'notice_subject' , editor: 'text'},
+                    { header: '제목', name: type + '_subject' , editor: 'text'},
+//                     { header: '카테고리', name: 'notice_category' , editor: 'text'},
+                    { header: '카테고리', name: type + '_category' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',
@@ -417,6 +429,5 @@
             });
         });
     </script>
-    
 </body>
 </html>

@@ -102,7 +102,7 @@
 											<div class="col-md-12 mt-2 my-4">	
 												<label for="passwd"  class="h6">새 비밀번호</label> 
 												<input type="password" id="member_pwd" class="form-control"  name="member_pwd" placeholder="비밀번호 입력" >
-										  		<span id="msg_pwd">123</span>
+										  		<span id="msg_pwd"></span>
 										  	</div>
 										  																			
 											<div class="col-md-12 mt-2 my-4">

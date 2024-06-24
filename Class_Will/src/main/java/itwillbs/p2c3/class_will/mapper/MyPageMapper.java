@@ -19,5 +19,7 @@ public interface MyPageMapper {
 	int updateReview(Map<String, String> formData);
 
 	int deleteReview(String class_review_code);
+
+	int updateMember(MemberVO member);
 	
 }

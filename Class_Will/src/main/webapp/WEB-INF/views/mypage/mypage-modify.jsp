@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -42,11 +44,12 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
 	rel="stylesheet">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>	
 <style>
+
 </style>
 </head>
 <body>
-
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
@@ -70,13 +73,12 @@
 						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<div class="creator-main-table col-xl-8 mb-5 ">
-								<form class="validation-form" novalidate action="member-modify" name="fr"
-									method="post" onsubmit="return confirm('회원정보변경을 진행하시겠습니까?');">
+							<div class="creator-main-table col-xl-8 mb-5">
+								<form action="member-modify" name="fr" method="post">
+									
 									<!-- 	셀렉트박스 -->
 									<div class="classReg-basic">
-										<div class="col-md-12 text-center h2 mb-5"
-											style="margin-top: 20px;">회원정보 수정하기</div>
+										<div class="col-md-12 text-center h2 mb-5" style="margin-top: 20px;">회원정보 수정하기</div>
 
 										<div class="classReg-basic-form">
 											<div class="col-md-12 mt-2 my-4">
@@ -90,61 +92,54 @@
 											
 											<div class="col-md-12 mt-2 my-4">
 												<label for="member_nickname" class="h6">닉네임</label> 
-												<input type="text" class="form-control" id="member_nickname" name="member_nickname" placeholder="nick-name" required maxlength="30">
+												<input type="text" class="form-control" id="member_nickname" name="member_nickname" placeholder="nick-name"  maxlength="30">
 											</div>
 											<div class="col-md-12 mt-2 my-4">
 												<label for="" class="h6">일반회원 전환 / 크리에이터 전환</label> 
-												<input type="text" class="form-control" id="" name="" placeholder="" required maxlength="30">
+												<input type="text" class="form-control" id="" name="" placeholder=""  maxlength="30">
 											</div>
 											
 											<div class="col-md-12 mt-2 my-4">	
 												<label for="passwd"  class="h6">새 비밀번호</label> 
-												<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required maxlength="20">
-										  	<div id="regex-pwd" class="message">
-											</div>
-											
+												<input type="password" id="member_pwd" class="form-control"  name="member_pwd" placeholder="비밀번호 입력" >
+										  		<span id="msg_pwd"></span>
+										  	</div>
+										  																			
 											<div class="col-md-12 mt-2 my-4">
 												<label for="member_pwd_confirm">새 비밀번호 확인</label> 
-											 	<input type="password" class="form-control" id="member_pwd_confirm" name="member_pwd_confirm" required>
+											 	<input type="password" class="form-control" id="member_pwd2" name="member_pwd2" >
+												<span id="msg_pwd2" style="color: red;"></span>
 											</div>
-   												 <div id="pwd-match" class="message"></div>
 											
 											
-											<div class="col-md-12 my-4">
+   											<div class="col-md-12 my-4">
 												<label for="postCode" class="h6">주소</label><br>
 												<div class="d-flex justify-content-between">
 													<div class="col-md-3">
-														<input type="text" id="post_code" name="post_code"
+														<input type="text" id="post_code" name="member_post_code"
 															class="form-control my-1" size="6" readonly
-															onclick="search_address()" placeholder="우편번호">
+															onclick="search_address()" placeholder="우편번호" value="${member.member_post_code}">
 													</div>
 													<div class="col-md-9">
-														<input type="text" id="address1" name="address1"
-															class="form-control my-1" placeholder="클릭 시 주소검색"
-															size="25" readonly onclick="search_address()">
+														
+														<input type="text" id="address1" name="member_address1"  class="form-control my-1" placeholder="클릭 시 주소검색"
+															size="25" readonly onclick="search_address()" value="${member.member_address1}">
 													</div>
 												</div>
-												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25"
-													pattern="^.{2,20}$" maxlength="20">
+												<input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소" size="25"
+													pattern="^.{2,20}$" maxlength="20" value="${member.member_address2}">
 											</div>
-											 <input type="hidden" id="member_addr" name="member_addr">
+											
 										</div>
 									</div>
 
 									<div class="mb-4" align="center">
-										<input type="submit" value="제출하기"
-											class="btn btn-primary btn-lg btn-block"> <input
-											type="button" value="돌아가기"
-											class="btn btn-primary btn-lg btn-block"
-											onclick="history.back()">
-									</div>
+										<button type="submit" class="btn btn-primary btn-lg btn-block">제출하기</button> 
+										<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" 	onclick="history.back()">
 									</div>
 								</form>
-								
 							</div>
-							
 						</div>
-						
 					</div>
 				</div>
 			</div>
@@ -158,7 +153,7 @@
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-
+	
 
 	<script
 		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -182,57 +177,152 @@
 		}
 		
 	</script>
-	  <script>
-	  $(document).ready(function() {
-		  function mergeAddress() {
-		        var address1 = $("#address1").val();
-		        var address2 = $("#address2").val();
-		        var fullAddress = address1 + ' ' + address2;
-		        $("#member_addr").val(fullAddress); // 숨겨진 필드에 합친 주소 설정
-		    }
+	<script>
+	$(document).ready(function() {
+	    let riskCount = 0;
 
-		    // 폼 제출 시 주소 합치기 및 확인 대화상자
-		    $(".validation-form").submit(function() {
-		        mergeAddress(); // 주소 합치기 함수 호출
-		      
-		    });
-		  	  
-		  
-		  
-		    // 비밀번호 입력 시 유효성 검사
-		    $("#member_pwd").on("input", function() {
-		        let inputPwd = $(this).val();
-		       
-		        let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
+	    // 비밀번호 입력값 변경 시
+	    $("#member_pwd").on("input", function() {
+	        validatePassword();
+	        validatePasswordConfirmation();
+	        checkFormValidity(); // 폼 유효성 검사 실행
+	    });
 
-		        if (!regex.test(inputPwd)) {
-		            $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
-		            $("#regex-pwd").css("color", "red");
-		            $("#member_pwd_confirm").prop("disabled", true); // 비밀번호 유효성 불만족 시 확인란 비활성화
-		        } else {
-		            $("#regex-pwd").text("");
-		            $("#member_pwd_confirm").prop("disabled", false); // 비밀번호 유효성 만족 시 확인란 활성화
-		        }
-		        $("#pwd-match").text(""); // 비밀번호 변경 시 일치 여부 메시지 초기화
-		    });
+	    // 비밀번호2 입력값 변경 시
+	    $("#member_pwd2").on("input", function() {
+	        validatePasswordConfirmation();
+	        checkFormValidity(); // 폼 유효성 검사 실행
+	    });
 
-		    // 새 비밀번호와 새 비밀번호 확인 일치 여부 확인
-		    $("#member_pwd_confirm").on("input", function() {
-		        let pwd = $("#member_pwd").val();
-		        let pwdConfirm = $(this).val();
+	    // 상세주소 입력값 변경 시
+	    $("#address2").on("input", function() {
+	        validateAddress2();
+	        checkFormValidity(); // 폼 유효성 검사 실행
+	    });
 
-		        if (pwd !== pwdConfirm) {
-		            $("#pwd-match").text("비밀번호가 일치하지 않습니다.");
-		            $("#pwd-match").css("color", "red");
-		        } else {
-		            $("#pwd-match").text("비밀번호가 일치합니다.");
-		            $("#pwd-match").css("color", "green");
-		        }
-		    });
+	    // 폼 유효성 검사 함수
+	    function checkFormValidity() {
+	        let pwdIsValid = $("#member_pwd").val() === "" || /^.{6,16}$/.test($("#member_pwd").val());
+	        let pwd2IsValid = $("#member_pwd2").val() === "" || $("#member_pwd2").val() === $("#member_pwd").val();
+	        let isPasswordStrong = $("#member_pwd").val() === "" || validatePasswordStrength() > 1;
 
-		    // 초기 로드 시 비밀번호 확인란 비활성화
-		    $("#member_pwd_confirm").prop("disabled", true);
-		});
-	</script>
+	        if (pwdIsValid && pwd2IsValid && isPasswordStrong) {
+	            $("button[type='submit']").prop("disabled", false); // submit 버튼 활성화
+	        } else {
+	            $("button[type='submit']").prop("disabled", true); // submit 버튼 비활성화
+	        }
+	    }
+
+	    // 비밀번호 강도 검사 함수
+	    function validatePasswordStrength() {
+	        let pwd = $("#member_pwd").val();
+	        let strength = 0;
+
+	        if (pwd !== "") {
+	            let lengthRegex = /^.{6,16}$/;
+	            let upperRegex = /[A-Z]/;
+	            let lowerRegex = /[a-z]/;
+	            let digitRegex = /\d/;
+	            let specialRegex = /[!@#$%^&*?_]/;
+
+	            if (lengthRegex.test(pwd)) strength++;
+	            if (upperRegex.test(pwd)) strength++;
+	            if (lowerRegex.test(pwd)) strength++;
+	            if (digitRegex.test(pwd)) strength++;
+	            if (specialRegex.test(pwd)) strength++;
+	        }
+
+	        return strength;
+	    }
+
+	    // 비밀번호 확인 함수
+	    function validatePasswordConfirmation() {
+	        let pwd = $("#member_pwd").val();
+	        let pwd2 = $("#member_pwd2").val();
+
+	        if (pwd2 !== pwd) {
+	            $("#msg_pwd2").text("비밀번호가 일치하지 않습니다");
+	            $("#msg_pwd2").css("color", "red");
+	        } else if (pwd2 === "") {
+	            $("#msg_pwd2").empty();
+	        } else {
+	            $("#msg_pwd2").text("비밀번호가 일치합니다");
+	            $("#msg_pwd2").css("color", "green");
+	        }
+	    }
+
+	    // 상세주소 유효성 검사 함수
+	    function validateAddress2() {
+	        let address2 = $("#address2").val();
+	        let regex = /^.{2,20}$/;
+
+	        if (address2 === "") {
+	            $("#msg_addr").text("상세주소를 입력하세요");
+	            $("#msg_addr").css("color", "red");
+	        } else if (!regex.test(address2)) {
+	            $("#msg_addr").text("2~20자리의 문자를 입력하세요");
+	            $("#msg_addr").css("color", "red");
+	        } else {
+	            $("#msg_addr").empty();
+	        }
+	    }
+
+	    // 비밀번호 유효성 검사 함수
+	    function validatePassword() {
+	        let pwd = $("#member_pwd").val();
+	        let msg = "";
+	        let color = "";
+	        let lengthRegx = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
+
+	        if (pwd === "") {
+	            msg = "";
+	            color = "";
+	        } else if (!lengthRegx.test(pwd)) {
+	            msg = "영문자, 숫자, 특수문자(!, @, #, $)를 포함한 6~16자리를 입력해주세요";
+	            color = "red";
+	            riskCount = 0;
+	        } else {
+	            let engUpperRegex = /[A-Z]/;
+	            let engLowerRegex = /[a-z]/;
+	            let numRegex = /\d/;
+	            let specRegex = /[!@#$%]/;
+	            let count = 0;
+
+	            if (engUpperRegex.test(pwd)) count++;
+	            if (engLowerRegex.test(pwd)) count++;
+	            if (numRegex.test(pwd)) count++;
+	            if (specRegex.test(pwd)) count++;
+
+	            switch (count) {
+	                case 4:
+	                    msg = "안전";
+	                    color = "green";
+	                    riskCount = 4;
+	                    break;
+	                case 3:
+	                    msg = "보통";
+	                    color = "orange";
+	                    riskCount = 3;
+	                    break;
+	                case 2:
+	                    msg = "위험";
+	                    color = "red";
+	                    riskCount = 2;
+	                    break;
+	                default:
+	                    msg = "영문자, 숫자, 특수문자(!, @, #, $)를 포함한 6~16자리를 입력해주세요";
+	                    color = "red";
+	                    riskCount = 0;
+	            }
+	        }
+
+	        $("#msg_pwd").text(msg);
+	        $("#msg_pwd").css("color", color);
+	    }
+
+	    // 초기 폼 유효성 검사
+	    checkFormValidity();
+	});
+</script>
 </body>
 </html>

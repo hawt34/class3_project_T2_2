@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,34 +21,40 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Customized Bootstrap Stylesheet -->
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style.css"
+	rel="stylesheet">
 <!-- 	rel="stylesheet"> -->
 <link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
+	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css" rel="stylesheet">
-	
+	href="${pageContext.request.contextPath}/resources/css/creator/creator-class.css"
+	rel="stylesheet">
+
 <!-- Toast UI Grid Script -->
-<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
- 
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+
 <!-- Toast UI Pagination CSS -->
-<link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
 </head>
 <body>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 	<!-- Toast UI Grid Script -->
-    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
-    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-    <!-- Toast UI Pagination Script -->
+	<script
+		src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+	<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+	<!-- Toast UI Pagination Script -->
 
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
@@ -67,37 +74,42 @@
 	<div class="container-fluid fruite">
 		<div class="container">
 			<h1 class="mb-4 text-white">Creator Center</h1>
-			<div class="row g-4">
+			<div class="row">
 				<div class="col-md-12">
-					<div class="row g-4">
+					<div class="row">
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-md-9 creator-body">
-							<div class="col-md-12 d-flex">
-								<!-- 	셀렉트박스 -->
-								<div class="col-md-3 searchBox" align="left">
-									<select class="form-control">
-										<option value="키">제목</option>
-									</select>
-								</div>
-								<!-- 버튼들 -->
-								<div class="mb-3 col-md-9" align="right">
-									<button class="category-btn classReg" value="respond" onclick="location.href='creator-classReg'">클래스등록</button>
-									<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-plan'">일정등록</button>
-									<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-last'">진행완료</button>
-								</div>
+							
+							<!-- 버튼들 -->
+							<div class="mb-3 col-md-12 align-bottom" align="right">
+								<button class="category-btn classReg" value="respond"
+									onclick="location.href='creator-classReg'">클래스등록</button>
+								<button class="category-btn classReg" value="respond"
+									onclick="location.href='creator-class-plan'">일정등록</button>
+								<button class="category-btn classReg" value="respond"
+									onclick="location.href='creator-class-last'">진행완료</button>
+							</div>
+							<!-- 	셀렉트박스 -->
+							<div class="mb-3 col-md-3 align-bottom" align="left">
+								<select class="form-control selectBox">
+									<option value="">전체</option>
+									<c:forEach var="status" items="${regStatus}">
+										<option value="${status.common2_code}">${status.code_value}</option>
+									</c:forEach>
+								</select>
 							</div>
 							<div class="creator-main-table col-md-12 mb-5" align="center">
-							
+
 								<div class="row">
-			                        <div class="col-md-12">
-			                            <div id="grid"></div>
-			                            <div id="pagination"></div>
-			                        </div>
-			                    </div>
-			                    
+									<div class="col-md-12">
+										<div id="grid"></div>
+										<div id="pagination"></div>
+									</div>
+								</div>
+
 							</div>
-							
+
 						</div>
 					</div>
 
@@ -117,88 +129,110 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
-	<script type="text/javascript">
-	
-	 $(document).ready(function () {
-	        const data = ${cl_list};
-	        	
-	 	    const itemsPerPage = 10;
-	 	    let currentPage = 1;
-	
-	         class ButtonRenderer {
-	             constructor(props) {
-	                 const el = document.createElement('button');
-	                 el.className = 'btn btn-primary btn-sm';
-	                 el.innerText = '상세보기';
-	                 el.addEventListener('click', () => {
-	                     const rowKey = props.grid.getIndexOfRow(props.rowKey);
-	                     const rowData = props.grid.getRow(rowKey);
-	                     const memberCode = rowData.member_code;
-// 	                     window.open("admin-member-detail?member_code=" + memberCode, "회원 상세보기", "height=600px, width=800px");
-	                     location.href="creator-classModify";
-	                 });
-	                 this.el = el;
-	             }
-	             getElement() {
-	                 return this.el;
-	             }
-	             render(props) {
-	                 this.el.dataset.rowKey = props.rowKey;
-	                 this.el.dataset.columnName = props.columnName;
-	                 this.el.value = props.value;
-	             }
-	         }
-	
-	         const columns = [
-	        	 { header: '클래스제목', name: 'class_name', width: 'auto' },
-                 { header: '지원상태', name: 'code_value' },
-                 { header: '카테고리', name: 'cate', className: 'hide-column' },
-                 { header: '공개여부', name: 'hide', className: 'hide-column' },
-                 {
-                     header: 'Action',
-                     name: 'action',
-                     renderer: {
-                         type: ButtonRenderer
-                     }
-                 }
-	         ];
-	         
-	         const grid = new tui.Grid({
-	             el: document.getElementById('grid'),
-	             data: data,
-	             columns: columns,
-	             rowHeaders: ['rowNum'],
-	             bodyHeight: 418,
-	 	        pageOptions: {
-	 	            useClient: true,
-	 	            perPage: itemsPerPage
-	 	        }
-	         });
-	         
-	         function handleResize() {
-	             const isMobile = window.innerWidth <= 767;
+<script type="text/javascript">
+	$(document).ready(function () {
+		const itemsPerPage = 10;
+		let currentPage = 1;
+		const data = ${cl_list};
+		let grid;
+		let columns;
 
-	             // 그리드 API를 사용하여 컬럼 숨기기/보이기
-	             grid.setColumns(isMobile ? [
-	               { header: '클래스제목', name: 'class_name', width: 'auto'  },
-	               { header: '지원상태', name: 'code_value' },
-	               {  header: 'Action',
-	                     name: 'action',
-	                     renderer: {
-	                         type: ButtonRenderer } 
-	               }
-	             ] : columns);
-	           }
+		class ButtonRenderer {
+			constructor(props) {
+				const el = document.createElement('button');
+				el.className = 'btn btn-primary btn-sm';
+				el.innerText = '상세보기';
+				el.addEventListener('click', () => {
+					const rowKey = props.grid.getIndexOfRow(props.rowKey);
+					const rowData = props.grid.getRow(rowKey);
+					const memberCode = rowData.member_code;
+					location.href = "creator-classModify";
+				});
+				this.el = el;
+			}
+			getElement() {
+				return this.el;
+			}
+			render(props) {
+				this.el.dataset.rowKey = props.rowKey;
+				this.el.dataset.columnName = props.columnName;
+				this.el.value = props.value;
+			}
+		}
 
-	           // 초기 창 크기에 맞게 설정
-	           handleResize();
+		function initialGrid(data) {
+			columns = [
+				{ header: '클래스제목', name: 'class_name', width: 'auto' },
+				{ header: '지원상태', name: 'code_value' },
+				{ header: '카테고리', name: 'cate', className: 'hide-column' },
+				{ header: '공개여부', name: 'hide', className: 'hide-column' },
+				{
+					header: 'Action',
+					name: 'action',
+					renderer: {
+						type: ButtonRenderer
+					}
+				}
+			];
 
-	           // 창 크기 변경 시 이벤트 리스너 등록
-	           window.addEventListener('resize', handleResize);
-	     });
-	
-	</script>
-	
+			grid = new tui.Grid({
+				el: document.getElementById('grid'),
+				data: data,
+				columns: columns,
+				rowHeaders: ['rowNum'],
+				bodyHeight: 418,
+				pageOptions: {
+					useClient: true,
+					perPage: itemsPerPage
+				}
+			});
+		}
+
+		function handleResize() {
+			const isMobile = window.innerWidth <= 767;
+
+			// 그리드 API를 사용하여 컬럼 숨기기/보이기
+			grid.setColumns(isMobile ? [
+				{ header: '클래스제목', name: 'class_name', width: 'auto' },
+				{ header: '지원상태', name: 'code_value' },
+				{
+					header: 'Action',
+					name: 'action',
+					renderer: {
+						type: ButtonRenderer
+					}
+				}
+			] : columns);
+		}
+
+		// 그리드 초기화
+		initialGrid(data);
+		
+		// 카테고리에 따른 데이터
+		$('.selectBox').change(function() {
+			const status = $('.selectBox').val();
+			$.ajax({
+				url : "getStatusClass",
+				method : "get",
+				data : {
+					"status" : status
+				},
+				success : function(result) {
+					$('.creator-main-table').empty().append('<div id="grid"></div><div id="pagination"></div>');
+					initialGrid(result);
+					debugger;
+				}
+			});
+		});
+
+		// 초기 창 크기에 맞게 설정
+		handleResize();
+
+		// 창 크기 변경 시 이벤트 리스너 등록
+		window.addEventListener('resize', handleResize);
+	});
+</script>
+
 
 
 </body>

@@ -43,14 +43,14 @@ public interface CreatorMapper {
 	// 카테고리 대분류
 	List<Map<String, String>> getCategory();
 	
-	// 클래스 구분
-//	public List<Map<String, String>> getSort();
-	
 	// 카테고리 상세
 	List<Map<String, Object>> getCategoryDetail(String big_category);
 
 	// 해쉬태그
-	public List<Map<String, String>> getHashtag();
+	List<Map<String, String>> getHashtag();
+
+	// 등록상태
+	List<Map<String, String>> getStatusList();
 	
 	List<Map<String, String>> getHide();
 	
@@ -59,5 +59,8 @@ public interface CreatorMapper {
 
 	// 등록완료된 클래스 정보 가져오기
 	List<Map<String, Object>> getCertifiedClassInfo();
+	
+	// 상태에 따른 클래스 리스트
+	List<Map<String, Object>> getClassStatusInfo(int status);
 	
 }

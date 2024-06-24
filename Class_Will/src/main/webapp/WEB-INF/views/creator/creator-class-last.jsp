@@ -148,7 +148,7 @@ th, td {
 										</div>
 									</div>
 								</div>
-								<div align="center" class="my-2">
+								<div align="center" class="mt-3">
 									<button class="btn btn-outline-primary btn-lg"
 										onclick="location.href='creator-class'">돌아가기</button>
 								</div>
@@ -173,106 +173,75 @@ th, td {
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 	<script>
-		$(document)
-				.ready(
-						function() {
+		$(document).ready(function() {
 
-							const data = null;
-							const itemsPerPage = 10;
-							let currentPage = 1;
+			const data = null;
+			const itemsPerPage = 10;
+			let currentPage = 1;
 
-							// 	         class ButtonRenderer {
-							// 	             constructor(props) {
-							// 	                 const el = document.createElement('button');
-							// 	                 el.className = 'btn btn-primary btn-sm';
-							// 	                 el.innerText = '상세보기';
-							// 	                 el.addEventListener('click', () => {
-							// 	                     const rowKey = props.grid.getIndexOfRow(props.rowKey);
-							// 	                     const rowData = props.grid.getRow(rowKey);
-							// 	                     const memberCode = rowData.member_code;
-							// 	                 });
-							// 	                 this.el = el;
-							// 	             }
-							// 	             getElement() {
-							// 	                 return this.el;
-							// 	             }
-							// 	             render(props) {
-							// 	                 this.el.dataset.rowKey = props.rowKey;
-							// 	                 this.el.dataset.columnName = props.columnName;
-							// 	                 this.el.value = props.value;
-							// 	             }
-							// 	         }
-							initializeGrid(data);
+			initializeGrid(data);
 
-							function initializeGrid(data) {
-								const gridContainer = document
-										.getElementById('grid');
-								// 	             debugger;
-								if (gridContainer) {
-									new tui.Grid({
-										el : gridContainer,
-										data : data,
-										columns : [ {
-											header : '클래스날짜',
-											name : 'class_schedule_date',
-											width : 'auto'
-										}, {
-											header : '회차',
-											name : 'class_round'
-										}, {
-											header : '시작시간',
-											name : 'class_st_time'
-										}, {
-											header : '종료시간',
-											name : 'class_ed_time'
-										}, {
-											header : '참여인원',
-											name : 'attend_count'
-										},
-										// 	                         {
-										// 	                             header: 'Action',
-										// 	                             name: 'action',
-										// 	                             renderer: {
-										// 	                                 type: ButtonRenderer
-										// 	                             }
-										// 	                         }
-										],
-										rowHeaders : [ 'rowNum' ],
-										bodyHeight : 418,
-										pageOptions : {
-											useClient : true,
-											perPage : itemsPerPage
-										}
-									});
-								}
-							}
+			function initializeGrid(data) {
+				const gridContainer = document
+						.getElementById('grid');
+				if (gridContainer) {
+					new tui.Grid({
+						el : gridContainer,
+						data : data,
+						columns : [ {
+							header : '클래스날짜',
+							name : 'class_schedule_date',
+							width : 'auto'
+						}, {
+							header : '회차',
+							name : 'class_round'
+						}, {
+							header : '시작시간',
+							name : 'class_st_time'
+						}, {
+							header : '종료시간',
+							name : 'class_ed_time'
+						}, {
+							header : '참여인원',
+							name : 'attend_count'
+						},
+						// 	                         {
+						// 	                             header: 'Action',
+						// 	                             name: 'action',
+						// 	                             renderer: {
+						// 	                                 type: ButtonRenderer
+						// 	                             }
+						// 	                         }
+						],
+						rowHeaders : [ 'rowNum' ],
+						bodyHeight : 418,
+						pageOptions : {
+							useClient : true,
+							perPage : itemsPerPage
+						}
+					});
+				}
+			}
 
-							$('#classSelect')
-									.change(
-											function() {
-												// ajax로 기존 선택했던 날짜 가져오기
-												var classCode = $(
-														'#classSelect').val();
-												$
-														.ajax({
-															url : "getEndedClass",
-															method : "get",
-															data : {
-																"classCode" : classCode
-															},
-															success : function(
-																	result) {
-																$(
-																		'#scheduleTableContainer')
-																		.empty()
-																		.append(
-																				'<div id="grid"></div><div id="pagination"></div>');
-																initializeGrid(result);
-															}
-														});
-											});
+			$('#classSelect').change(function() {
+				// ajax로 기존 선택했던 날짜 가져오기
+				var classCode = $(
+						'#classSelect').val();
+				$.ajax({
+					url : "getEndedClass",
+					method : "get",
+					data : {
+						"classCode" : classCode
+					},
+					success : function(
+							result) {
+						$('#scheduleTableContainer').empty().append('<div id="grid"></div><div id="pagination"></div>');
+						initializeGrid(result);
+					}
+				});
+			});
 
-						});
+		});
 	</script>
 
 

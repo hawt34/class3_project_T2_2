@@ -3,18 +3,30 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="itwillbs.p2c3.class_will.mapper.MyPageMapper">
 	<update id="updateMemberImg">
+		<!-- 이미지파일 업데이트 때문에 따로 파놓음. -->
 		UPDATE MEMBER
 		SET
-		<if test="member_addr != null and !member_addr.isEmpty()">
-			member_addr = #{member_addr},
+
+		member_img = #{member_img}
+
+		WHERE
+		member_code = #{member_code}
+	</update>
+
+	<update id="updateMember">
+		UPDATE MEMBER
+		SET
+		<if test="member_addr != null">
+			<if test="member_addr != null and !member_addr.equals('')">
+				member_addr = #{member_addr},
+			</if>
 		</if>
 
-		<!-- 비밀번호 업데이트 -->
-		<if test="member_pwd != null and !member_pwd.isEmpty()">
-			member_pwd = #{member_pwd},
+		<if test="member_pwd != null">
+			<if test="member_pwd != null and !member_pwd.equals('')">
+				member_pwd = #{member_pwd}
+			</if>
 		</if>
-		member_img = #{member_img}
-		
 		WHERE
 		member_code = #{member_code}
 	</update>
@@ -29,7 +41,8 @@
 		c.class_name,
 		cr.class_review_rating
 		FROM class_review cr
-		LEFT JOIN class c ON cr.class_code = c.class_code
+		LEFT JOIN class
+		c ON cr.class_code = c.class_code
 		WHERE cr.member_code = #{member_code}
 	</select>
 
@@ -44,7 +57,8 @@
 		UPDATE class_review
 		SET class_review_subject = #{class_review_subject},
 		class_review_content = #{class_review_content},
-		class_review_rating = #{class_review_rating}
+		class_review_rating =
+		#{class_review_rating}
 		WHERE class_review_code = #{class_review_code}
 	</update>
 

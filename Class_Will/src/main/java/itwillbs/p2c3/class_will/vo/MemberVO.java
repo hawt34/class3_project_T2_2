@@ -22,4 +22,8 @@ public class MemberVO {
 	private String member_credit;
 	private String member_type;
 	private String member_reg_date;
+	//회원가입할 때 주소때문에 필요함.. 
+	private String member_post_code;
+	private String member_address1;
+	private String member_address2;
 }

@@ -109,7 +109,8 @@ public class MyPageController {
 	}
 
 	@PostMapping("edit-review")
-	public String editReview(Model model, @RequestParam Map<String, String> formData, BCryptPasswordEncoder passwordEncoder) {
+	public String editReview(Model model, @RequestParam Map<String, String> formData,
+			BCryptPasswordEncoder passwordEncoder) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		model.addAttribute("member", member);
 
@@ -125,26 +126,26 @@ public class MyPageController {
 		}
 
 	}
-	//리뷰삭제
+
+	// 리뷰삭제
 	@PostMapping("delete-review")
-	public String deleteReview(Model model,@RequestParam Map<String, String> map) {
+	public String deleteReview(Model model, @RequestParam Map<String, String> map) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		model.addAttribute("member", member);
-		
-		 String class_review_code = map.get("review_code");
+
+		String class_review_code = map.get("review_code");
 		System.out.println(class_review_code);
-		
+
 		int deleteCount = myPageService.deleteReview(class_review_code);
 		if (deleteCount > 0) {
-			
+
 			return "redirect:/my-review";
 		} else {
 			model.addAttribute("msg", "삭제 실패!");
 			return "result_process/fail";
 		}
-	
+
 	}
-	
 
 	// 크레딧관련
 	@GetMapping("my-credit")
@@ -227,47 +228,50 @@ public class MyPageController {
 			return "error/fail";
 		}
 	}
-	
-	//회원정보수정으로 이동
+
+	// 회원정보수정으로 이동
 	@GetMapping("my-modify")
 	public String myModify(Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		model.addAttribute("member", member);
-		
 
 		return "mypage/mypage-modify";
 	}
-	//회원수정폼 관련
-	@PostMapping("member-modify")
-	public String memberModify(Model model, BCryptPasswordEncoder passwordEncoder, @RequestParam Map<String, String> formData) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-	
-		//System.out.println("회원정보하는 곳임"+formData);
-		//System.out.println("평문 : " + formData.get("member_pwd"));
-		
-		String securePasswd = passwordEncoder.encode(formData.get("member_pwd"));
-	
-		//System.out.println("암호문 : " + securePasswd); 
-		
-		
-		
-		member.setMember_addr(formData.get("member_addr"));
 
-		if(!member.getMember_pwd().equals("")) {
-			member.setMember_pwd(securePasswd);
+	// 회원수정폼 관련
+	@PostMapping("member-modify")
+	public String memberModify(Model model, BCryptPasswordEncoder passwordEncoder,
+			@RequestParam Map<String, String> formData) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		System.out.println("회원정보하는 곳임" + formData);
+		System.out.println("평문 : " + formData.get("member_pwd"));
+
+		String addr = formData.get("member_post_code") + "/" + formData.get("member_address1") + "/"
+				+ formData.get("member_address2");
+		member.setMember_addr(addr);
+		System.out.println(addr);
+
+		String[] addrArr = member.getMember_addr().split("/");
+		member.setMember_post_code(addrArr[0]);
+		member.setMember_address1(addrArr[1]);
+		member.setMember_address2(addrArr[2]);
+
+		String plainPassword = formData.get("member_pwd");
+		if (plainPassword != null && !plainPassword.isEmpty()) {
+			// 비밀번호가 비어 있지 않으면 암호화하여 설정
+			String securePassword = passwordEncoder.encode(plainPassword);
+			member.setMember_pwd(securePassword);
 		}
-		
-		System.out.println(member.getMember_addr());
-		
-		int updateCount = myPageService.updateMemberImg(member);
+
+		int updateCount = myPageService.updateMemberInfo(member);
 		if (updateCount > 0) {
-			System.out.println("아마 업데이트 가능요");
+
 			return "redirect:/my-page";
 		} else {
 			return "error/fail";
 		}
-	
-		
+
 	}
 
 }

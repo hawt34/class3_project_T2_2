@@ -110,8 +110,7 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">
-			마이페이지<i class="bi bi-wallet"></i>윌페이
-		</h1>
+			마이페이지<i class="bi bi-wallet"></i>윌페이 </h1>
 		
 	</div>
 
@@ -129,7 +128,7 @@ th:nth-child(2), td:nth-child(2) {
 							<div class="creator-event mt-5">
 								<div class="col-md-12 text-center h2 mb-5">윌페이 사용 내역</div>	
 								<div class="container">
-									<h2>윌페이</h2>
+									<h2>윌페이</h2><a href="will-pay-charge" class="btn btn-primary">계좌 등록 및 충전</a>
 									<p>사용 내역</p>
 									<table class="table table-hover">
 										<thead>
@@ -137,7 +136,7 @@ th:nth-child(2), td:nth-child(2) {
 												<th>신청 클래스</th>
 												<th>강의 진도</th>
 												<th>결제 상태</th>
-												<th>크레딧충전</th>
+												
 											</tr>
 										</thead>
 										<tbody>
@@ -145,7 +144,7 @@ th:nth-child(2), td:nth-child(2) {
 												<td>라면 </td>
 												<td>면 꼬들</td>
 												<td>john@example.com</td>
-												<td><a href="payment" class="btn btn-primary">충전</a></td>
+												
 											</tr>
 											<tr>
 												<td>짜파게티</td>

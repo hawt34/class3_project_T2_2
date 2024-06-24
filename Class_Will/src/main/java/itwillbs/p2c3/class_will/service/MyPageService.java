@@ -50,6 +50,11 @@ public class MyPageService {
 		return myPageMapper.deleteReview(class_review_code);
 	}
 
+	public int updateMemberInfo(MemberVO member) {
+		
+		return myPageMapper.updateMember(member);
+	}
+
 	
 
 	

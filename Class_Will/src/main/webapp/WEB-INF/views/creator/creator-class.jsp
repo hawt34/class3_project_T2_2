@@ -82,7 +82,8 @@
 						<!-- 등록버튼 -->
 							<div class="mb-3 col-md-12" align="right">
 								<button class="category-btn classReg" value="respond" onclick="location.href='creator-classReg'">클래스등록</button>
-								<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-plan'">클래스일정</button>
+								<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-plan'">일정등록</button>
+								<button class="category-btn classReg" value="respond" onclick="location.href='creator-class-last'">진행완료</button>
 							</div>
 							<!-- 	셀렉트박스 -->
 <!-- 							<div class="col-md-12 searchBox" align="center"> -->
@@ -106,35 +107,6 @@
 		                            <div id="pagination"></div>
 		                        </div>
 		                    </div>
-								<!-- 테이블 -->
-<!-- 								<table> -->
-<!-- 									<thead> -->
-<!-- 										<tr> -->
-<!-- 											<th>제목</th> -->
-<!-- 											<th>상태</th> -->
-<!-- 											<th>카테고리</th> -->
-<!-- 											<th>노출여부</th> -->
-<!-- 											<th>생성일</th> -->
-<!-- 										</tr> -->
-<!-- 									</thead> -->
-<!-- 									<tbody> -->
-<!-- 										<tr> -->
-<!-- 											<td><a>당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스당신도 할 수 있다! css 클래스</a></td> -->
-<!-- 											<td>제작중</td> -->
-<!-- 											<td>개발</td> -->
-<!-- 											<td>비공개</td> -->
-<!-- 											<td>2024-06-10</td> -->
-<!-- 										</tr> -->
-<!-- 										<tr> -->
-<!-- 											<td><a>당신도 할 수 있다! css 클래스</a></td> -->
-<!-- 											<td>제작중</td> -->
-<!-- 											<td>IT</td> -->
-<!-- 											<td>비공개</td> -->
-<!-- 											<td>2024-06-10</td> -->
-<!-- 										</tr> -->
-					
-<!-- 									</tbody> -->
-<!-- 								</table> -->
 							</div>
 						</div>
 					</div>

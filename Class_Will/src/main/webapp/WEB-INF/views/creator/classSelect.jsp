@@ -13,7 +13,7 @@
 					<option value="${classInfo.class_code}" 
 					<c:if test="${classInfo.class_code eq classCode}">selected</c:if>
 					>
-					${classInfo.class_name}</option>
+					${classInfo.class_name} ( ${classInfo.counter} )</option>
 				</c:forEach>
 			</select>
 		</div>

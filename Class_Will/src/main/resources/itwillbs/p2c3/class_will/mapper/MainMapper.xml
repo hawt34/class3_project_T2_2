@@ -5,14 +5,26 @@
 <mapper namespace="itwillbs.p2c3.class_will.mapper.MainMapper">
 
 
-	<select id="selectFieldCate" resultType="map">
-		
-	
-	
-	
-	
+	<select id="selectBigCategory">
+		SELECT *
+		FROM common2
+		WHERE common1_code = 'CLC'
+		AND code_hide LIKE 'N';
 	</select>
-
+	
+	<select id="selectSmallCategory">
+		SELECT *
+		FROM common3
+		WHERE common1_code = 'CLC'
+		AND code_hide LIKE 'N';
+	</select>
+	
+	<select id="selectLocalCate">
+		SELECT *
+		FROM common2
+		WHERE common1_code = 'LC'
+		AND code_hide LIKE 'N';
+	</select>
 
 
 

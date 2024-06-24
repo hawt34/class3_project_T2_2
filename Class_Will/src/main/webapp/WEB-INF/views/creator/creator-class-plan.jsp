@@ -165,31 +165,6 @@ th, td {
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 	<script>
-    	// 유효성 검사
-	    function validateForm() {
-	        var classValue = $("#classSelect").val();
-	        var time = $("#time").val();
-	        var selectedDates = $("#selectedDates").val();
-	        
-	        // 선택 상자의 값이 비어 있는지 확인
-	        if (classValue === "") {
-	            alert('클래스를 선택해주세요');
-	            return false; // 폼 제출을 막음
-	        }
-	        if (selectedDates[0] == null) {
-	            alert('날짜를 선택해주세요');
-	            return false; // 폼 제출을 막음
-	        }
-// 	        if (time == "") {
-// 	            alert('시간을 선택해주세요');
-// 	            return false; // 폼 제출을 막음
-// 	        }
-	
-	        // 다른 유효성 검사나 처리 로직을 추가할 수 있음
-	
-	        return true; // 폼 제출을 허용
-	    }
-    	
 		$(document).ready(function() {
 			$("#classSelect").trigger("change");
 			
@@ -270,7 +245,7 @@ th, td {
 							$('.creator-plan-bottom').addClass('hidden');
 							$('#datepicker').addClass('hidden');
 							
-							var tableHtml = '<div align="right"><button class="deleteAllBtn btn btn-outline-primary mb-2">전체삭제</button></div>';
+							var tableHtml = '<div align="right"><button class="deleteAllBtn btn btn-outline-primary mb-2">전체삭제</button><button class="btn btn-outline-primary mb-2" onclick="history.back()">돌아가기</button></div>';
                                 tableHtml += '<table><tr><th>날짜</th><th>회차</th><th>시작 시간</th><th>종료 시간</th><th>참여 가능 인원</th><th>일정삭제</th></tr>';
                             
                             scheduleData.forEach(function(schedule) {
@@ -401,7 +376,7 @@ th, td {
                     } else {
                         $('#datepicker').multiDatesPicker('removeDates', dateText);
                     }
-//                     debugger;
+                    debugger;
                 }
             });
 
@@ -410,6 +385,33 @@ th, td {
                 var selectedDates = $('#datepicker').multiDatesPicker('getDates');
                 $('#selectedDates').val(selectedDates.join(','));
             });
+            
+        	// 유효성 검사
+    	    function validateForm() {
+    	        var classValue = $("#classSelect").val();
+    	        var time = $("#time").val();
+    	        var selectedDates = $("#selectedDates").val();
+    	        
+    	        // 선택 상자의 값이 비어 있는지 확인
+    	        if (classValue === "") {
+    	            alert('클래스를 선택해주세요');
+    	            return false; // 폼 제출을 막음
+    	        }
+    	        if (selectedDates == "") {
+    	            debugger;
+    	            alert('날짜를 선택해주세요');
+    	            return false; // 폼 제출을 막음
+    	        }
+//     	        if (time == "") {
+//     	            alert('시간을 선택해주세요');
+//     	            return false; // 폼 제출을 막음
+//     	        }
+    	
+    	        // 다른 유효성 검사나 처리 로직을 추가할 수 있음
+    	
+    	        return true; // 폼 제출을 허용
+    	    }
+            
         });
     </script>
 

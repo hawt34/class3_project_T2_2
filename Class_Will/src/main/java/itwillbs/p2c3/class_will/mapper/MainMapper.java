@@ -8,11 +8,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MainMapper {
 
-	Map<String, String> selectFieldCate();
 
 	List<Map<String, Object>> selectBigCategory();
 
 	List<Map<String, Object>> selectSmallCategory();
+
+	List<Map<String, Object>> selectLocalCate();
 	
 	
 	

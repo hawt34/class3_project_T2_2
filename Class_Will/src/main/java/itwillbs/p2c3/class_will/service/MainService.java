@@ -26,6 +26,11 @@ public class MainService {
 		return feildCateList;
 	}
 
+	public List<Map<String, Object>> selectLocalCate() {
+		
+		return mainMapper.selectLocalCate();
+	}
+
 	
 	
 	

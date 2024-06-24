@@ -400,7 +400,7 @@ function myFunction() {
 		            }
 		        });
             } else {
-                alert("결제에 실패하였습니다." + " : " + rsp.error_msg);
+                alert("사유: " + rsp.error_msg);
             } // if-else
 
         } // function(rsp)

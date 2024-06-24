@@ -24,6 +24,9 @@ public interface CreatorMapper {
 	
 	// 클래스 일정 가져오기
 	List<Map<String, Object>> getSchedule(int classCode);
+
+	// 클래스 종료된 일정 가져오기
+	List<Map<String, Object>> getEndedSchedule(int classCode);
 	
 	// 클래스 일정에 참여자 있는지 확인
 	Map<String, Object> checkSchedule(int classScheduleCode);

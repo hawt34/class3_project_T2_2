@@ -59,14 +59,11 @@ public class CreatorController {
 	@GetMapping("creator-classReg")
 	public String createrClassReg(Model model) {
 		
-//		List<Map<String, String>> class_sort_List = creatorService.getSort();
 		List<Map<String, String>> categoryList = creatorService.getCategory();
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		List<Map<String, String>> hide = creatorService.getHide();
 		
 		
-//		System.out.println("class_sort_List : " + class_sort_List);
-//		model.addAttribute("class_sort_List", class_sort_List);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("hashtagList", hashtagList);
 		model.addAttribute("hide", hide);
@@ -141,6 +138,16 @@ public class CreatorController {
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-class-plan";
+	}
+
+	// creater-class-last 페이지로
+	@GetMapping("creator-class-last")
+	public String createrClassLast(Model model) {
+		
+		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		model.addAttribute("classList", classList);
+		
+		return "creator/creator-class-last";
 	}
 	
 	// 입력된 일정 데이터 처리
@@ -251,8 +258,16 @@ public class CreatorController {
 			map.put("answer", "예약이 있는 수업이 있어 삭제가 불가능합니다");
 			return map;
 		}
+	}
+	
+	// ajax로 날짜 데이터 가져오기
+	@ResponseBody
+	@GetMapping("getEndedClass")
+	public List<Map<String, Object>> getEndedClass(@RequestParam(defaultValue = "0") int classCode) {
+		List<Map<String, Object>> endedScheduleList = creatorService.getEndedSchedule(classCode);
+		System.out.println(">>>>>>>>>endedScheduleList: " + endedScheduleList);
 		
-		
+		return endedScheduleList;
 	}
 	
 	//======================================================

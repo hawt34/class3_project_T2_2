@@ -98,7 +98,19 @@
 		WHERE 
 			class_code = #{classCode}
 		AND 
-			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE()
+			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') >= CURDATE()
+		ORDER BY 
+			class_schedule_date, class_round
+	</select>
+
+	<!-- 클래스 종료된 일정 가져오기 -->
+	<select id="getEndedSchedule" resultType="map">
+		SELECT *
+		FROM class_schedule
+		WHERE 
+			class_code = #{classCode}
+		AND 
+			CURDATE() > STR_TO_DATE(class_schedule_date, '%Y-%m-%d') 
 		ORDER BY 
 			class_schedule_date, class_round
 	</select>
@@ -185,7 +197,15 @@
 	<!-- 클래스 정보 가져오기 -->
 	<select id="getClassInfo" resultType="map">
 	SELECT 
-		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide
+		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide, 
+		(
+			SELECT 
+				count(*) 
+			FROM 
+				class_schedule 
+			WHERE 
+				class_code=c.class_code
+		) as counter
 	FROM 
 		class c
 	LEFT JOIN 

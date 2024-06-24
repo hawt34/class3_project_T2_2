@@ -56,5 +56,8 @@ public interface CreatorMapper {
 	
 	// 클래스 정보 가져오기
 	List<Map<String, Object>> getClassInfo();
+
+	// 등록완료된 클래스 정보 가져오기
+	List<Map<String, Object>> getCertifiedClassInfo();
 	
 }

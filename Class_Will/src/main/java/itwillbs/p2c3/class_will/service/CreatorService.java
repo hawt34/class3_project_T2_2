@@ -64,11 +64,6 @@ public class CreatorService {
 		return creatorMapper.getCategory();
 	}
 	 
-	// 카테고리 구분 가져오기 
-//	public List<Map<String, String>> getSort(){
-//		return creatorMapper.getSort();
-//	}
-	
 	// 카테고리 상세
 	public List<Map<String, Object>> getCategoryDetail(String big_category) {
 		return creatorMapper.getCategoryDetail(big_category);
@@ -86,6 +81,11 @@ public class CreatorService {
 	// 클래스정보 가져오기
 	public List<Map<String, Object>> getClassInfo(){
 		return creatorMapper.getClassInfo();
+	}
+
+	// 등록완료된 클래스정보 가져오기
+	public List<Map<String, Object>> getCertifiedClassInfo(){
+		return creatorMapper.getCertifiedClassInfo();
 	}
 	
 	

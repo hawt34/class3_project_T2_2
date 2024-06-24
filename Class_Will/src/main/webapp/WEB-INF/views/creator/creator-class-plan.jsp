@@ -94,7 +94,7 @@ th, td {
 
 						<div class="col-md-9 creator-body">
 							<form id="dateForm" action="creatorPlanPro" method="POST"
-								onsubmit="return validateForm()">
+								>
 								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 	셀렉트박스 -->
 								<div class="creator-main-table col-xl-12 mb-5">
@@ -138,7 +138,7 @@ th, td {
 										<div align="center" class="mb-3">
 											<button type="submit" class="creator-plan-submitBtn">등록하기</button>
 											<button type="button" class="creator-plan-submitBtn"
-												onclick="history.back()">취소하기</button>
+												onclick="location.href='creator-class'">취소하기</button>
 										</div>
 
 									</div>
@@ -166,7 +166,7 @@ th, td {
 
 	<script>
 		$(document).ready(function() {
-			$("#classSelect").trigger("change");
+			$("#classSelect").val("");
 			
 			// 참여인원 처리
 		     $('#class_total_headcount').on('input', function() {
@@ -245,7 +245,7 @@ th, td {
 							$('.creator-plan-bottom').addClass('hidden');
 							$('#datepicker').addClass('hidden');
 							
-							var tableHtml = '<div align="right"><button class="deleteAllBtn btn btn-outline-primary mb-2">전체삭제</button><button class="btn btn-outline-primary mb-2" onclick="history.back()">돌아가기</button></div>';
+							var tableHtml = '<div align="right"><button class="deleteAllBtn btn btn-outline-primary mb-2">전체삭제</button><button class="btn btn-outline-primary mb-2" onclick="location.href=\'creator-class-plan\'">돌아가기</button></div>';
                                 tableHtml += '<table><tr><th>날짜</th><th>회차</th><th>시작 시간</th><th>종료 시간</th><th>참여 가능 인원</th><th>일정삭제</th></tr>';
                             
                             scheduleData.forEach(function(schedule) {
@@ -288,8 +288,9 @@ th, td {
 			          data: { "classScheduleCode": classScheduleCode },
 			          success: function(data) {
 			        	alert(data.answer);
-			        	// 페이지 로드 시 classSelect 강제 change 이벤트 시행
-			  			$("#classSelect").trigger("change");
+// 			  			$("#classSelect").trigger("change");
+			        	location.reload();
+// 			  			$("#classSelect").val(classCode);
 			          }
 			      });
 				} else{
@@ -310,8 +311,8 @@ th, td {
 			          data: { "classCode": classCode },
 			          success: function(data) {
 			        	alert(data.answer);
-			        	// 페이지 로드 시 classSelect 강제 change 이벤트 시행
-			  			$("#classSelect").trigger("change");
+			        	location.reload();
+			        	
 			          }
 			      });
 				} else{
@@ -342,11 +343,15 @@ th, td {
 	        // 이전에 선택된 날짜 목록 (예시)
 	        var today = new Date();
             today.setHours(0, 0, 0, 0); // 시간 부분을 0으로 설정
+            
+            var threeMonthsLater = new Date();
+            threeMonthsLater.setMonth(today.getMonth() + 3); // 오늘 날짜로부터 3달 후 설정
+            threeMonthsLater.setHours(23, 59, 59, 999); // 해당 날짜의 마지막 시간으로 설정
 
             $('#datepicker').multiDatesPicker({
                 beforeShowDay: function(date) {
                     var dateString = $.datepicker.formatDate('yy-mm-dd', date);
-                    if (date <= today) {
+                    if (date <= today || date > threeMonthsLater) {
                         return [false, 'disabled-date'];
                     }
                     return [true, ''];
@@ -355,7 +360,6 @@ th, td {
                 	
                 	// ui-state-highlight
                     selectedDates = $('#datepicker').multiDatesPicker('getDates');
-                    debugger;
                     var $datepicker = $('#datepicker');
 //                     debugger;
                     // 선택된 날짜에 대해 .selected-date 클래스 추가/제거
@@ -376,7 +380,6 @@ th, td {
                     } else {
                         $('#datepicker').multiDatesPicker('removeDates', dateText);
                     }
-                    debugger;
                 }
             });
 
@@ -384,33 +387,32 @@ th, td {
             $('#dateForm').on('submit', function(e) {
                 var selectedDates = $('#datepicker').multiDatesPicker('getDates');
                 $('#selectedDates').val(selectedDates.join(','));
+                
+            	// 유효성 검사
+        	        var classValue = $("#classSelect").val();
+        	        var time = $("#time").val();
+        	        var selectedDates = $("#selectedDates").val();
+        	        
+        	        // 선택 상자의 값이 비어 있는지 확인
+        	        if (classValue === "") {
+        	            alert('클래스를 선택해주세요');
+        	            return false; // 폼 제출을 막음
+        	        }
+        	        if (selectedDates == "") {
+        	            alert('날짜를 선택해주세요');
+        	            return false; // 폼 제출을 막음
+        	        }
+//         	        if (time == "") {
+//         	            alert('시간을 선택해주세요');
+//         	            return false; // 폼 제출을 막음
+//         	        }
+        	
+        	        // 다른 유효성 검사나 처리 로직을 추가할 수 있음
+        	
+        	        return true; // 폼 제출을 허용
+        	        location.reload();
+//         	        $("#classSelect").trigger("change");
             });
-            
-        	// 유효성 검사
-    	    function validateForm() {
-    	        var classValue = $("#classSelect").val();
-    	        var time = $("#time").val();
-    	        var selectedDates = $("#selectedDates").val();
-    	        
-    	        // 선택 상자의 값이 비어 있는지 확인
-    	        if (classValue === "") {
-    	            alert('클래스를 선택해주세요');
-    	            return false; // 폼 제출을 막음
-    	        }
-    	        if (selectedDates == "") {
-    	            debugger;
-    	            alert('날짜를 선택해주세요');
-    	            return false; // 폼 제출을 막음
-    	        }
-//     	        if (time == "") {
-//     	            alert('시간을 선택해주세요');
-//     	            return false; // 폼 제출을 막음
-//     	        }
-    	
-    	        // 다른 유효성 검사나 처리 로직을 추가할 수 있음
-    	
-    	        return true; // 폼 제출을 허용
-    	    }
             
         });
     </script>

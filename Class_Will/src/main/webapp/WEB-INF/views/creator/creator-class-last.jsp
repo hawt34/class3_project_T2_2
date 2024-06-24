@@ -41,13 +41,13 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
  
 <!-- Toast UI Grid Script -->
-<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+<!-- <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script> -->
 
 <!-- Toast UI Pagination CSS -->
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
 <!-- Toast UI Pagination Script -->
-<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+<!-- <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script> -->
 
 <style>
 .delete-btn {
@@ -72,8 +72,11 @@ th, td {
 <body>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.4/jquery-ui.multidatespicker.min.js"></script>
+	<!-- Toast UI Grid Script -->
+    <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+    <!-- Toast UI Pagination Script -->
+	
 
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
@@ -104,10 +107,27 @@ th, td {
 				<div class="col-lg-12">
 					<div class="row g-4">
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
+							<!-- 	셀렉트박스 -->
+							<div class="col-md-9 creator-body">
+								<c:set var="classCode" value="${classCode}" />
+								 <div class="col-md-12  mb-2" align="center">
+									<div class="col-md-8">
+										<div class="bg-light rounded py-2 d-flex justify-content-center mb-4">
+											<select id="classSelect"
+												name="classSelect" class="border-0 form-select-sm bg-light me-3 selectClass">
+												<option value=""></option>
+												<c:forEach var="classInfo" items="${classList}">
+													<option value="${classInfo.class_code}" 
+													<c:if test="${classInfo.class_code eq classCode}">selected</c:if>
+													>
+													${classInfo.class_name} ( ${classInfo.endClass} )</option>
+												</c:forEach>
+											</select>
+										</div>
+										<hr>
+									</div>
+								</div>
 
-						<div class="col-md-9 creator-body">
-								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
-								<!-- 	셀렉트박스 -->
 								<div class="creator-main-table col-xl-12 mb-5">
 
 									<div id="scheduleTableContainer" class="col-md-12">
@@ -118,7 +138,6 @@ th, td {
 					                        </div>
 					                    </div>
 									</div>
-									
 
 								</div>
 						</div>
@@ -140,13 +159,67 @@ th, td {
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
-	<!-- Toast UI Grid Script -->
-    <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-
 	<script>
     	
 		$(document).ready(function() {
-			$("#classSelect").trigger("change");
+			
+			const data = null;
+	 	    const itemsPerPage = 10;
+	 	    let currentPage = 1;
+	
+// 	         class ButtonRenderer {
+// 	             constructor(props) {
+// 	                 const el = document.createElement('button');
+// 	                 el.className = 'btn btn-primary btn-sm';
+// 	                 el.innerText = '상세보기';
+// 	                 el.addEventListener('click', () => {
+// 	                     const rowKey = props.grid.getIndexOfRow(props.rowKey);
+// 	                     const rowData = props.grid.getRow(rowKey);
+// 	                     const memberCode = rowData.member_code;
+// 	                 });
+// 	                 this.el = el;
+// 	             }
+// 	             getElement() {
+// 	                 return this.el;
+// 	             }
+// 	             render(props) {
+// 	                 this.el.dataset.rowKey = props.rowKey;
+// 	                 this.el.dataset.columnName = props.columnName;
+// 	                 this.el.value = props.value;
+// 	             }
+// 	         }
+	         initializeGrid(data);
+	         
+	         function initializeGrid(data) {
+	             const gridContainer = document.getElementById('grid');
+	             debugger;
+	             if (gridContainer) {
+	                 new tui.Grid({
+	                     el: gridContainer,
+	                     data: data,
+	                     columns: [
+	                    	 { header: '클래스날짜', name: 'class_schedule_date', width:'auto' },
+			                 { header: '회차', name: 'class_round'},
+			                 { header: '시작시간', name: 'class_st_time' },
+			                 { header: '종료시간', name: 'class_ed_time'},
+			                 { header: '참여인원', name: 'attend_count'},
+// 	                         {
+// 	                             header: 'Action',
+// 	                             name: 'action',
+// 	                             renderer: {
+// 	                                 type: ButtonRenderer
+// 	                             }
+// 	                         }
+	                     ],
+	                     rowHeaders: ['rowNum'],
+	                     bodyHeight: 418,
+	                     pageOptions: {
+	                         useClient: true,
+	                         perPage: itemsPerPage
+	                     }
+	                 });
+	             }
+	         }
 			
 			$('#classSelect').change(function() {
 				// ajax로 기존 선택했던 날짜 가져오기
@@ -156,77 +229,8 @@ th, td {
 					method: "get",
 					data: { "classCode" : classCode },
 					success: function(result) {
-						// JSON 형태로 파싱
-						var scheduleData = JSON.parse(JSON.stringify(result));
-						// 날짜 배열 생성
-						var selectedDates = [];
-						scheduleData.forEach(function(item) {
-				        	if (item.class_schedule_date) {
-				            	selectedDates.push(item.class_schedule_date);
-				            }
-				        });
-						selectedDates = [...new Set(selectedDates)];
-						$('#scheduleTableContainer').empty();
-						if(selectedDates.length > 0){ // 등록된 일정이 있다면 달력 안보이기
-							
-							const data = result;
-					        	
-					 	    const itemsPerPage = 10;
-					 	    let currentPage = 1;
-					
-					         class ButtonRenderer {
-					             constructor(props) {
-					                 const el = document.createElement('button');
-					                 el.className = 'btn btn-primary btn-sm';
-					                 el.innerText = '상세보기';
-					                 el.addEventListener('click', () => {
-					                     const rowKey = props.grid.getIndexOfRow(props.rowKey);
-					                     const rowData = props.grid.getRow(rowKey);
-					                     const memberCode = rowData.member_code;
-// 					                     location.href="creator-classModify";
-					                 });
-					                 this.el = el;
-					             }
-					             getElement() {
-					                 return this.el;
-					             }
-					             render(props) {
-					                 this.el.dataset.rowKey = props.rowKey;
-					                 this.el.dataset.columnName = props.columnName;
-					                 this.el.value = props.value;
-					             }
-					         }
-					
-					         const grid = new tui.Grid({
-					             el: document.getElementById('grid'),
-					             data: data,
-					             columns: [
-					                 { header: '클래스제목', name: 'class_name', width: 'auto' },
-					                 { header: '지원상태', name: 'code_value' },
-					                 { header: '카테고리', name: 'cate', className: 'hide-column' },
-					                 { header: '공개여부', name: 'hide', className: 'hide-column' },
-					                 {
-					                     header: 'Action',
-					                     name: 'action',
-					                     renderer: {
-					                         type: ButtonRenderer
-					                     }
-					                 }
-					             ],
-					             rowHeaders: ['rowNum'],
-					             bodyHeight: 418,
-					 	        pageOptions: {
-					 	            useClient: true,
-					 	            perPage: itemsPerPage
-					 	        }
-					         });
-						
-							
-//                           $('#scheduleTableContainer').append(tableHtml);
-							
-						} else{ // 일정이 등록된게 없으면 보이기
-							$('#scheduleTableContainer').empty();
-						}
+						 $('#scheduleTableContainer').empty().append('<div id="grid"></div><div id="pagination"></div>');
+		                    initializeGrid(result);
 					}
 				});	
 			});

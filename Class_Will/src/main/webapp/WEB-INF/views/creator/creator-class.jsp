@@ -52,13 +52,6 @@
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
 
-	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
-	<div id="spinner"
-		class="show w-100 vh-100 bg-yellow position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-		<div class="spinner-grow text-white" role="status"></div>
-	</div>
-	<!-- Spinner End -->
-
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">Creator</h1>

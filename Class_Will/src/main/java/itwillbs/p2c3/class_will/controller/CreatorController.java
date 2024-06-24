@@ -33,7 +33,7 @@ public class CreatorController {
 	// creator-main으로
 	@GetMapping("creator-main")
 	public String createrMain() {
-		return "creator/creator-main";
+		return "redirect:/creator/creator-main";
 	}
 	
 	//======================================================
@@ -55,7 +55,7 @@ public class CreatorController {
 		
 		return "creator/creator-class";
 	}
-	// creater-class 등록페이지로
+	// creater-classReg 페이지로
 	@GetMapping("creator-classReg")
 	public String createrClassReg(Model model) {
 		
@@ -75,12 +75,9 @@ public class CreatorController {
 	@GetMapping("creator-classModify")
 	public String createrClassModify(Model model) {
 		
-//		List<Map<String, String>> class_sort_List = creatorService.getSort();
 		List<Map<String, String>> categoryList = creatorService.getCategory();
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		
-//		System.out.println("class_sort_List : " + class_sort_List);
-//		model.addAttribute("class_sort_List", class_sort_List);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("hashtagList", hashtagList);
 		
@@ -144,7 +141,7 @@ public class CreatorController {
 	@GetMapping("creator-class-last")
 	public String createrClassLast(Model model) {
 		
-		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-class-last";
@@ -275,7 +272,7 @@ public class CreatorController {
 	@GetMapping("creator-review")
 	public String createrReview(Model model) {
 		
-		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-review";
@@ -292,7 +289,7 @@ public class CreatorController {
 	@GetMapping("creator-inquiry")
 	public String creatorInquiry(Model model) {
 		
-		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-inquiry";
@@ -310,7 +307,7 @@ public class CreatorController {
 	@GetMapping("creator-analyze")
 	public String createrAnalyze(Model model) {
 		
-		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-analyze";
@@ -318,7 +315,7 @@ public class CreatorController {
 	// creater-cost로
 	@GetMapping("creator-cost")
 	public String createrCost(Model model) {
-		List<Map<String, Object>> classList = creatorService.getClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-cost";

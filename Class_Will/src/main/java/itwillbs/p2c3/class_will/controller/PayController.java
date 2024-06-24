@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwillbs.p2c3.class_will.service.PayService;
 
@@ -23,11 +24,13 @@ public class PayController {
 	@Autowired
 	private PayService payService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(PayController.class);
+	
 	//ajax 호출
 	@ResponseBody
 	@GetMapping("date-changed")
 	public List<Map<String, Object>> dateChanged(@RequestParam String date, @RequestParam String class_code) {
-		System.out.println(date);
+		
 		int parsedClass_code = Integer.parseInt(class_code);
 		List<Map<String, Object>> map = payService.getScheduleTime(date, parsedClass_code);
 		return map;
@@ -72,7 +75,6 @@ public class PayController {
 	@ResponseBody
 	@PostMapping("verify")
 	public Map<String, Object> verify(@RequestBody Map<String, Object> map) {
-		System.out.println(map);
 		
 		Map<String, Object> response = payService.verifyPayment(map);
 		

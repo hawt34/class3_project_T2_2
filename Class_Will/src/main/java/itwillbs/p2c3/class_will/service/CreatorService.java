@@ -74,13 +74,24 @@ public class CreatorService {
 		return creatorMapper.getHashtag();
 	}
 
+	// 공개여부 가져오기
 	public List<Map<String, String>> getHide(){
 		return creatorMapper.getHide();
+	}
+
+	// 등록상태 가져오기
+	public List<Map<String, String>> getStatusList(){
+		return creatorMapper.getStatusList();
 	}
 	
 	// 클래스정보 가져오기
 	public List<Map<String, Object>> getClassInfo(){
 		return creatorMapper.getClassInfo();
+	}
+
+	// 상태에 따른 클래스정보 가져오기
+	public List<Map<String, Object>> getClassStatusInfo(int status){
+		return creatorMapper.getClassStatusInfo(status);
 	}
 
 	// 등록완료된 클래스정보 가져오기

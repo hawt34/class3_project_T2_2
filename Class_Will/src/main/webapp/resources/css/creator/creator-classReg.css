@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+.searchBox{
+	height: 34px;
+	width: 100px;
+	margin-top: 5px;
+	text-align:center;
+}
 .creator-class-searchBox{
 	border-top-right-radius:10px; 
 	border-top-left-radius:10px; 

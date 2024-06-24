@@ -229,6 +229,35 @@
 		c222.common1_code = 'HIDE'
 	</select>
 	
+	<!-- 상태에 따른 클래스 정보 가져오기 -->
+	<select id="getClassStatusInfo" resultType="map">
+	SELECT 
+		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide
+	FROM 
+		class c
+	LEFT JOIN 
+		common2 c2 
+	ON 
+		c2.common2_code = c.class_regist_status
+	and
+		c2.common1_code = 'CRS'
+	JOIN 
+		common2 c22
+	ON 
+		c.class_big_category = c22.common2_code
+	and 
+		c22.common1_code = 'CLC'
+	JOIN 
+		common2 c222
+	ON 
+		c.class_hide = c222.common2_code
+	and 
+		c222.common1_code = 'HIDE'
+		<if test="!status.equals('')">
+			WHERE class_regist_status = #{status}
+		</if>
+	</select>
+	
 	<!-- 클래스 정보 가져오기 -->
 	<select id="getCertifiedClassInfo" resultType="map">
 	SELECT 
@@ -278,10 +307,14 @@
 		c.class_hide = c222.common2_code
 	and 
 		c222.common1_code = 'HIDE'
+	AND 
+		c222.common2_code = 1
 	WHERE 
 		c.class_regist_status = 2
+	
 	</select>
 	
+	<!-- 공개여부 -->
 	<select id="getHide" resultType="map">
 		SELECT 
 			common2_code, code_value
@@ -291,6 +324,15 @@
 			common1_code = 'HIDE' 
 		AND 
 			code_hide = 'N'
+	</select>
+
+	<!--  -->
+	<select id="getStatusList" resultType="map">
+		SELECT *
+		FROM 
+			common2 
+		WHERE 
+			common1_code='CRS'
 	</select>
 	
 	

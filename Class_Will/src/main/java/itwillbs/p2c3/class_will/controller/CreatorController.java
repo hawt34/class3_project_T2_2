@@ -48,13 +48,23 @@ public class CreatorController {
             JSONObject cl = new JSONObject(clas);
             cl_list.add(cl);
 		}
+		List<Map<String, String>> regStatus = creatorService.getStatusList(); 
 		
 		model.addAttribute("cl_list", cl_list);
-		
 		model.addAttribute("classList", classList);
+		model.addAttribute("regStatus", regStatus);
 		
 		return "creator/creator-class";
 	}
+	
+	@ResponseBody
+	@GetMapping("getStatusClass")
+	public List<Map<String, Object>> getStatusClass( @RequestParam(defaultValue = "0") int status){
+		List<Map<String, Object>> classList = creatorService.getClassStatusInfo(status);
+		
+		return classList;
+	}
+	
 	// creater-classReg 페이지로
 	@GetMapping("creator-classReg")
 	public String createrClassReg(Model model) {

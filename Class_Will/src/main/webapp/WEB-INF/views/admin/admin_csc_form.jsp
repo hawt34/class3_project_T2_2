@@ -82,57 +82,66 @@
 					event.preventDefault();
 					event.stopPropagation();
 				}
-	
+				
+				
+		// 카테고리 선택 여부 확인
+		const categorySelect = document.getElementById('notice_category');
+		if (categorySelect.value === "카테고리") {
+		    event.preventDefault();
+		    event.stopPropagation();
+		    alert("카테고리를 선택해주세요.");
+		}		
+				
 			form.classList.add('was-validated');
 			}, false);
 		});
 	}, false);
 </script>
 <script>
-	$('#summernote').summernote({
-	  placeholder: '공지를 입력하세요.',
-	  tabsize: 1,
-	  height: 800,
-	  toolbar: [
-	    ['style', ['style']],
-	    ['font', ['bold', 'underline', 'clear']],
-	    ['color', ['color']],
-	    ['para', ['ul', 'ol', 'paragraph']],
-	    ['table', ['table']],
-	    ['insert', ['link', 'picture', 'video']],
-	    ['view', ['fullscreen', 'codeview', 'help']],
-	    ['height', ['height']]
-	  ]
-//       ,callbacks: {
-//           onImageUpload: function(files) {
-//               for (var i = 0; i < files.length; i++) {
-//                   uploadImage(files[i]);
-//               }
-//           }
-//       }
-	});
-	
-// 	function uploadImage(file) {
-//         var data = new FormData();
-//         data.append('file', file);
-        
-//         $.ajax({
-//             url: 'admin-uploadImage',
-//             type: 'POST',
-//             data: data,
-//             contentType: false,
-//             processData: false,
-//             success: function(url) {
-//                 var jsonResponse = JSON.parse(url);
-//                 var imageUrl = jsonResponse.url;
-                
-//                 $('#summernote').summernote('insertImage', imageUrl, function ($image) {
-//                     $image.attr('src', imageUrl);
-//                     $image.attr('class', 'img-responsive');
-//                 });
-//             }
-//         });
-//     }
+$('#summernote').summernote({
+    placeholder: '공지를 입력하세요.',
+    tabsize: 1,
+    height: 800,
+    toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']],
+        ['view', ['fullscreen', 'codeview', 'help']],
+        ['height', ['height']]
+    ],
+    callbacks: {
+        onImageUpload: function(files) {
+            for (var i = 0; i < files.length; i++) {
+                uploadImage(files[i]);
+            }
+        }
+    }
+});
+
+function uploadImage(file) {
+    var data = new FormData();
+    data.append('file', file);
+
+    $.ajax({
+        url: 'admin-uploadImage',
+        type: 'POST',
+        data: data,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            var jsonResponse = JSON.parse(response);
+            var imageUrl = jsonResponse.url;
+            console.log(imageUrl);
+            $('#summernote').summernote('insertImage', imageUrl, function ($image) {
+                $image.attr('src', imageUrl);
+                $image.attr('class', 'img-responsive');
+            });
+        }
+    });
+}
 </script>
 <script>
 	function copyDisabledSelectValue() {

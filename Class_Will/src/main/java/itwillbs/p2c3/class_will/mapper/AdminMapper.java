@@ -71,6 +71,8 @@ public interface AdminMapper {
 
 	int updateRewardData(@Param("params") Map<String, Object> params);
 
+	List<Map<String, Object>> selectCategoryRanking();
+
 	
 
 }

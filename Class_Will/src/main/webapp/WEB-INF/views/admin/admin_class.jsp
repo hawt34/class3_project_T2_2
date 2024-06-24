@@ -257,7 +257,6 @@
                <button id="btn-download" class="btn btn-success btn-sm" onclick="downloadExcel('class', '전체 클래스 리스트', false)">엑셀 다운로드</button>
                           <button id="btn-upload" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#excelUploadModal">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
-                            <button id="btn-apply" class="btn btn-warning btn-sm">적용</button>
                         </div>
                     </div>
 

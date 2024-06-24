@@ -138,6 +138,10 @@ public class AdminService {
 	public boolean updateRewardData(Map<String, Object> params) {
 		return adminMapper.updateRewardData(params) > 0 ? true : false;
 	}
+
+	public List<Map<String, Object>> getCategoryRanking() {
+		return adminMapper.selectCategoryRanking();
+	}
 	
 	
 }

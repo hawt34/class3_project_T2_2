@@ -638,9 +638,10 @@
     <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
+    <!-- TODO demo차트버리고 데이터 넣은 차트 채우기! -->
     <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
-
+	
 </body>
 
 </html>

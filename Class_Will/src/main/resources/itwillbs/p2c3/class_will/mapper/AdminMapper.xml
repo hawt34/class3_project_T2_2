@@ -317,4 +317,15 @@
 		WHERE reward_code = #{params.reward_code}
 	</update>
 	
+	<select id="selectCategoryRanking" resultType="map">
+		SELECT c2.code_value ,COUNT(c2.code_value) as reservation_count
+		FROM class c
+		LEFT JOIN common2 c2
+		ON c.class_big_category = c2.common2_code 
+		AND c2.common1_code = 'CLC'
+		GROUP BY class_big_category
+		ORDER BY reservation_count DESC
+		LIMIT 6;	
+	</select>
+	
 </mapper>

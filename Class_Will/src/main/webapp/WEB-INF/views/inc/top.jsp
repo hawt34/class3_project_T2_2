@@ -180,6 +180,8 @@
         display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */
     }
 }
+
+
 /*** Top Navbar End ***/
 
 </style>
@@ -257,6 +259,11 @@
 	                            <li class="nav-item">
 	                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a>
 	                            </li>
+	                            <li class="nav-item">
+		                            <form action="" class="top-search-box">
+		                            	<input class="search-">
+		                            </form>
+								 </li>
 	                        </ul>
 	                    </div>
 	

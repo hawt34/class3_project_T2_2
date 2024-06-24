@@ -235,10 +235,10 @@
 	    <div class="container px-0 top-cate">
 	        <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	            <div class="container-fluid">
-	                <div class="row w-100 align-items-center">
+	                <div class="row w-100 align-items-end">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
-	                    <div class="col-5 d-none d-lg-flex justify-content-start">
+	                    <div class="col-5 d-none d-lg-flex justify-content-start mb-3">
 	                        <ul class="navbar-nav">
 	                            <li class="nav-item">
 	                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
@@ -254,6 +254,9 @@
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="event">이벤트</a>
 	                            </li>
+	                            <li class="nav-item">
+	                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a>
+	                            </li>
 	                        </ul>
 	                    </div>
 	
@@ -265,16 +268,13 @@
 	                    </div>
 	
 	                    <!-- 오른쪽 네비게이션 영역 -->
-	                    <div class="col-5 d-none d-lg-flex justify-content-end">
+	                    <div class="col-5 d-none d-lg-flex justify-content-end mb-3">
 	                        <ul class="navbar-nav">
-	                            <li class="nav-item">
-	                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
-	                            </li>
 	                            <li class="nav-item">
 	                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
 	                            </li>
 	                            <li class="nav-item">
-	                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
+	                                <a class="nav-link" href="main-test"><i class="bi bi-envelope bi-top"></i></a>
 	                            </li>
 	                            
 	                            <c:choose>
@@ -283,9 +283,14 @@
 		                            		<a class="nav-link" href="member-login">로그인</a>
 		                            	</li>
 	                            	</c:when>
+	                            	<c:when test="${member.member_type eq 3}">
+		                            	<li class="nav-item"> 
+		                            		<a class="nav-link" href="admin">관리자</a>
+		                            	</li>
+	                            	</c:when>
 	                            	<c:otherwise>
 	                            		<li class="nav-item">
-			                                <a class="nav-link" href="my-page"><i class="bi bi-person-circle"></i></a>
+			                                <a class="nav-link" href="my-page"><i class="bi bi-person-circle bi-top"></i></a>
 			                            </li>
 			                            <li class="nav-item">
 			                                <a class="nav-link" onclick="logout()">로그아웃</a>
@@ -424,7 +429,7 @@ $(function() {
 			 		$("#fieldCategoryArea").append(
 						 ' <div class="col col-2 text-left">'
 	                       + '<div>'
-	                           + '<a href="class-list mb-3"><span class="big-category">'+field.largeCategory+'</span></a>'
+	                           + '<a href="class-list"><span class="big-category mb-3">'+field.largeCategory+'</span></a>'
 	                           + '<ul class="top-ul mt-3 mb-3" id="'+fieldSmallAreaId+'">'
 	                           + '</ul>'
 	                       + '</div>'

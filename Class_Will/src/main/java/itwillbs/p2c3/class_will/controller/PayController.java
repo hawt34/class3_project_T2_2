@@ -3,6 +3,8 @@ package itwillbs.p2c3.class_will.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -77,19 +79,14 @@ public class PayController {
 		return response;
 	}
 	
-	
-	
-	
-	
+	//최종결제 페이지 메핑
 	@GetMapping("payment-final")
 	public String paymentFinal(@RequestParam Map<String, String> map, Model model) {
-		map = payService.getSuccessPayInfo(map);
-		System.out.println("######111: " + map);
+		Map<String, String> paySuccessInfo = payService.getSuccessPayInfo(map);
+		System.out.println("######111: " + paySuccessInfo);
 		
 		
-		
-		
-		model.addAttribute("paySuccessInfo", map);
+		model.addAttribute("paySuccessInfo", paySuccessInfo);
 		return "payment/payment_final";
 	}
 	//===============================================================
@@ -97,6 +94,11 @@ public class PayController {
 	@GetMapping("will-pay-charge")
 	public String willPayCharging() {
 		return "payment/will_pay_charge";
+	}
+	@GetMapping("/callback")
+	public String auth(@RequestParam Map<String, String> authResponse, Model model, HttpSession session) {
+		logger.info("authResponse" + authResponse.toString());
+		return "";
 	}
 	
 	

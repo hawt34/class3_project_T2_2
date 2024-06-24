@@ -112,6 +112,8 @@ public class PayService {
 	
 	//결제에 성공한 paySuccessInfo 가져오기
 	public Map<String, String> getSuccessPayInfo(Map<String, String> map) {
+		
+		
 		return payMapper.selectSuccessPayInfo(map);
 	}
 

@@ -348,6 +348,7 @@ function myFunction() {
 	
 	
 	let amount = $("#total").text().replace(/,/g, '');
+	let parsedAmount = parseInt(amount, 10);
 	let member_email = "${payInfo.member_email}";
 	let member_name = "${payInfo.member_name}";
 	let member_tel = "${payInfo.member_tel}";
@@ -360,8 +361,8 @@ function myFunction() {
             pay_method: "card",
             merchant_uid: "order_" + new Date().getTime(),
             name: className,
-//             amount: amount,
-            amount: 1000,
+            amount: parsedAmount,
+//             amount: 1000,
             buyer_email: member_email,
             buyer_name: member_name,
             buyer_tel: member_tel //필수

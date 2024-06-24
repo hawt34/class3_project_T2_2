@@ -6,10 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>클래스윌 결제 완료</title>
-<!-- 부트스트랩 CSS, JS -->
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css"> --%>
-<%-- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script> --%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <!-- 제이쿼리 -->
@@ -55,7 +53,21 @@
 	.custom-bg {
 		background: #CCCCCC;
 	}
+	.class_info {
+		color: #660066;
+		font-size: 0.8em;
+	}
+	.class_detail {
+		display: flex;
+		justify-content: flex-end;
+	}
 </style>
+<script type="text/javascript">
+    window.history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+</script>
 </head>
 <body>
 	<div class="container">
@@ -64,20 +76,22 @@
 			<h2>정상적으로 <span class="text-success">결제 완료</span> 되었습니다. </h2>	
 			<div>
 				<h5 class="text-success">결제 내역</h5>
-				<p>주문번호 : ${pay.merchant_uid}</p>
+				<p>주문번호 : ${paySuccessInfo.pay_merchant_uid}</p>
 				<p>결제일시 : 
-					<fmt:parseDate value="${pay.class_pay_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDate"/>
-					<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+<%-- 					<fmt:parseDate value="${pay.class_pay_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDate"/> --%>
+<%-- 					<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
+					${paySuccessInfo.pay_datetime} 
 				</p>
 			</div>
 			<div>
 				<h5 class="text-success">결제 정보</h5>
-				<p>결제수단 : ${pay.ticket_pay_type}</p>
+				<p>결제종류 : ${paySuccessInfo.card_name}(${paySuccessInfo.pg_provider})</p>
+				<p>결제수단 : ${paySuccessInfo.pay_type}</p>
 				<hr>
-				<p>클래스 가격 : </p>
-				<p>WILL-PAY 사용금액 : ${pay.use_credit}원</p>
+				<p>클래스 가격(인원수:&nbsp;${paySuccessInfo.pay_headcount}) : ${paySuccessInfo.pay_amount}원</p>
+				<p>WILL-PAY 사용금액 : ${paySuccessInfo.use_willpay}원</p>
 				<hr>
-				<p><b>최종 결제금액 : ${pay.class_pay_price} 원</b></p>
+				<p><b>최종 결제금액 : ${paySuccessInfo.result_amount} 원</b></p>
 			</div>
 			<div>
 				<h5 class="text-success">클래스 정보</h5>
@@ -88,31 +102,32 @@
 					<div class="col">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item custom-bg">
-								<p>카테고리: <!-- 클래스 유형 -->
-									<span id="class_category">${pay.class_name}  </span>
-								</p>
+							 	<!-- 클래스 유형 -->
+								<p class="class_info">카테고리(상세):</p>
+								<span class="class_detail">${paySuccessInfo.upper_level}(${paySuccessInfo.lower_level})  </span>
 							</li>
 							<li class="list-group-item custom-bg">
-								<p>클래스 이름: <!-- 클래스 이름 -->
-									<span id="class_name2">${payInfo.class_subject}</span>
-								</p>
+								<!-- 클래스 이름 -->
+								<p class="class_info">클래스 이름: </p>
+								<span class="class_detail">${paySuccessInfo.class_name}</span>
 							</li>
 							<li class="list-group-item custom-bg">
-								<p>일시: <!-- 클래스 일시 -->
-									<span id="selected_date">${payInfo.ticket_seat_info}</span>
-								</p>
+								<!-- 클래스 일시 -->
+								<p class="class_info">일시: </p>
+								<span class="class_detail">${paySuccessInfo.class_schedule_date}</span>
 							</li>
 							<li class="list-group-item custom-bg">
-								<p>장소: <!--클래스 장소 -->
-									<span id="select_location">${payInfo.scs_date}</span>
-								</p>
+								<!--클래스 장소 -->
+								<p class="class_info">장소: </p>
+								<span class="class_detail">${paySuccessInfo.class_location}</span>
 							</li>
 							<li class="list-group-item custom-bg">
-								<p><!--  시작 시간~ 끝나는 시간 -->
+								<!--  시작 시간~ 끝나는 시간 -->
+								<p class="class_info"> 시작시간 ~ 종료시간</p>
+								<span class="class_detail"> 
 									<img src="${pageContext.request.contextPath}/resources/img/pay_clock.svg" style="width: 15px;">
-									<span id="scs_start_time"> ${payInfo.scs_start_time}</span> ~
-									<span id="scs_end_time">${payInfo.scs_end_time}</span>
-								</p>
+									${paySuccessInfo.class_st_time} ~ ${paySuccessInfo.class_ed_time}
+								</span>
 							</li>
 						</ul>
 					</div>
@@ -128,11 +143,5 @@
 	</div>
 	</div>
 </body>
-<script type="text/javascript">
-	window.history.pushState(null, null, location.href);
-	window.onpopstate = function () {
-	    history.go(1);
-	};
 
-</script>
 </html>

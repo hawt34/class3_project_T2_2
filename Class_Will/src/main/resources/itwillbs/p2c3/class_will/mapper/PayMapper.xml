@@ -157,6 +157,43 @@
 	</insert>
 	
 	<select id="selectSuccessPayInfo" resultType="map">
-		select * from pay where pay_code = #{pay_code}
+		SELECT c.class_name
+		   , c.class_thumnail
+		   , c.class_image
+		   , c.class_location
+		   , c.class_price
+		   , m.member_credit
+		   , p.pay_amount
+		   , p.pay_merchant_uid
+		   , p.pay_headcount
+		   , p.use_willpay
+		   , p.pg_provider
+		   , p.card_name
+		   , p.pay_datetime
+		   , c2tem.code_value AS 'pay_type'
+		   , cs.class_st_time
+		   , cs.class_ed_time
+		   , cs.class_schedule_date
+		   , c2.code_value AS 'upper_level'
+		   , c3.code_value AS 'lower_level'
+		   , CAST(p.pay_amount AS SIGNED) - p.use_willpay AS 'result_amount'
+	FROM pay p 
+	JOIN class c 
+	ON p.class_code = c.class_code
+	JOIN MEMBER m
+	ON p.member_code = m.member_code
+	JOIN class_schedule cs 
+	ON p.class_schedule_code = cs.class_schedule_code
+	JOIN common2 c2 
+	ON c.class_big_category = c2.common2_code
+	AND c2.common1_code = 'CLC'
+	JOIN common2 c2tem
+	ON c2tem.common2_code = p.pay_type 
+	AND c2tem.common1_code = 'PT'
+	JOIN common3 c3 
+	ON c.class_small_category = c3.common3_code 
+	AND c3.common1_code = 'CLC'
+	AND c3.common2_code = c.class_big_category 
+	WHERE p.pay_code = #{pay_code};
 	</select>
 </mapper>

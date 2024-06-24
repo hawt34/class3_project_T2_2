@@ -40,6 +40,7 @@ body{
 	display: flex;
 	flex-flow: wrap;
 	justify-content: space-between;
+	padding: 0 10px;
 }
 .cutom-card {
 	cursor:pointer;
@@ -57,7 +58,7 @@ body{
 }
 .account_area {
 	width:100%;
-	max-height: 300px;
+	max-height: 500px;
 	margin-bottom: 10px;
 	position: relative;
 }
@@ -68,9 +69,9 @@ body{
 .btn:hover {
 	background: #6600FF;
 }
-.btn-container {
-	position: relative;
-    top: 180px;
+.btn_custom {
+/* 	position: absolute; */
+/*     top: 180px; */
 }
 </style>
 </head>
@@ -116,13 +117,15 @@ body{
 					<input type="text" class="form-control w-50" id="selected_package" readonly>
 				</div>
 				<hr>
+			</div>
 				<!-- 계좌 연동 시작 -->
+			<div class="row h-25">
 				<div class="account_area">
 					<c:choose>
 						<c:when test="${empty sessionScope.token }">
 							<p>계좌 등록</p>
 							<div class="regist_account">
-								<input type="button" value="+">
+								<input type="button" value="+" onclick="linkAccount()">
 							</div>
 						</c:when>
 						<c:otherwise>
@@ -135,10 +138,10 @@ body{
 						</c:otherwise>
 					</c:choose>
 				</div><!-- 계좌 연동 끝 -->
-				<div class="col d-flex justify-content-center btn-container">
-					<a href="#" class="btn w-100">충전하기</a>
-				</div>		
 			</div>
+			<div class="col d-flex justify-content-center btn-container btn_custom">
+				<a href="#" class="btn w-100">충전하기</a>
+			</div>		
 		</div>
 	</div>
 </div>
@@ -166,6 +169,19 @@ $(function() {
         $('#will_pay_charge').val("");
     });
 });
+</script>
+<script>
+function linkAccount() {
+	// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)
+	let authWindow = window.open("about:blank", "authWindow", "width=500, height=700" );
+	authWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?"
+					+ "response_type=code"
+					+ "&client_id=4066d795-aa6e-4720-9383-931d1f60d1a9"
+					+ "&redirect_uri=http://localhost:8081/class_will/callback"
+					+ "&scope=login inquiry transfer"
+					+ "&state=12345678901234567890123456789012"
+					+ "&auth_type=0";
+}
 </script>
 
 </body>

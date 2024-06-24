@@ -18,6 +18,13 @@
 <!-- 		WHERE common1_code = 'CLC' -->
 		WHERE common1_code = 'CLC' AND common2_code = #{big_category}
 	</select>
+	<!-- 소 카테고리 -->
+	<select id="getListSmallCategory" resultType="map">
+		SELECT *
+		FROM common3
+<!-- 		WHERE common1_code = 'CLC' -->
+		WHERE common1_code = 'CLC'
+	</select>
 	<!-- 카테고리 지역 -->
 	<select id="selectCategoryLocal" resultType="map">
 		
@@ -25,7 +32,36 @@
 		FROM common2
 		WHERE common1_code = 'LC'
 	</select>
-	
+	<!-- 클래스 리스트 -->
+	<select id="getClassList" resultType="map">
+<!-- 		SELECT * -->
+<!-- 		FROM class -->
+				SELECT class_code
+		        ,class_name
+		        ,c2.code_value AS 'class_big_category'
+		        ,c3.code_value AS 'class_small_category'
+		        ,class_thumnail
+		        ,class_image
+		        ,class_ex
+		        ,class_location
+		        ,class_hashtag
+		        ,class_creator_explain
+		        ,class_hide
+		        ,class_price
+		        ,m.member_name
+		        ,m.member_nickname
+		        
+		FROM class c
+		LEFT JOIN common2 c2
+		ON c.class_big_category = c2.common2_code
+		AND c2.common1_code = 'CLC'
+		LEFT JOIN common3 c3
+		ON c.class_small_category = c3.common3_code
+		AND c3.common2_code = c2.common2_code
+		AND c3.common1_code = 'CLC'
+		JOIN MEMBER m
+		ON c.member_code = m.member_code
+	</select>
 
     <select id="selectSmallCategories" parameterType="String" resultType="map">
         SELECT *

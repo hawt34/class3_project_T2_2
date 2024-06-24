@@ -15,9 +15,14 @@ public interface ClassMapper {
 	
 	// 소 카테고리
 	List<Map<String, Object>> getSmallCategory(String big_Category);
+	// 소 카테고리
+	List<Map<String, Object>> getListSmallCategory();
 	
 	// 카테고리 지역 
 	List<Map<String, Object>> selectCategoryLocal();
+	
+	// 클래스 리스트
+	List<Map<String, Object>> getClassList();
 	
     List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
 }

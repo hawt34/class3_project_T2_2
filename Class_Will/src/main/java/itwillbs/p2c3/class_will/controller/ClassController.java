@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.PayService;
@@ -29,29 +32,50 @@ public class ClassController {
 	
 	// 클래스 리스트
 	@GetMapping("class-list")
-	public String classList(Model model, @RequestParam(name = "common2_code", required = false) String common2_code) {
+	public String classList(Model model) {
 //	public String classList(Model model, @RequestParam(name = "common2_code", required = false) String common2Code) {
 		// =================== 카테고리바 ===================
 		// 대 카테고리
 		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		System.out.println("bigCategoryList : " + bigCategoryList);
-		// ---------------------------------------------------------------
-	    // 소 카테고리
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		List<Map<String, Object>> smallCategoryList = classService.getSmallCategoryList(common2_code);
-//		map.put("common2_code", common2_code);
-//		System.out.println("common2_code :::::::::::" + common2_code);
-//		model.addAttribute("smallCategoryList", smallCategoryList);
-//		System.out.println("smallCategoryList ::::::::::: " + smallCategoryList);
-		
-	    // 지역
-	    List<Map<String, Object>> localList = classService.getCategoryLocal();
-	    model.addAttribute("localList", localList);
-	    
-		
-		
-		return"class/class-list";
+//		// ---------------------------------------------------------------
+//	    // 소 카테고리
+		List<Map<String, Object>> smallCategoryList = classService.getListSmallCategory();
+		model.addAttribute("smallCategoryList", smallCategoryList);
+		System.out.println("class-list : smallCategory:@@@@@@ " + smallCategoryList);
+////		Map<String, Object> map = new HashMap<String, Object>();
+////		List<Map<String, Object>> smallCategoryList = classService.getSmallCategoryList(common2_code);
+////		map.put("common2_code", common2_code);
+////		System.out.println("common2_code :::::::::::" + common2_code);
+////		System.out.println("smallCategoryList ::::::::::: " + smallCategoryList);
+		List<Map<String, Object>> map = classService.getClassList();
+		model.addAttribute("map", map);
+		System.out.println("class-list map :@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@" + map);
+//	    // 지역
+		List<Map<String, Object>> localList = classService.getCategoryLocal();
+		model.addAttribute("localList", localList);
+//		
+////		for (Map<String, Object> classMap : map) {
+////		    String small_category = (String) classMap.get("class_small_category");
+////		    System.out.println("small_category : " + small_category);
+////		}
+//		for (Map<String, Object> classMap : bigCategoryList) {
+//			String big_category = (String) classMap.get("code_value");
+//			System.out.println("big_category : " + big_category);
+//		}
+//		
+//	    // 새로운 맵에 bigCategoryList의 code_value 값을 저장
+////	    Map<String, String> bigCategoryMap = new HashMap<>();
+////	    for (Map<String, Object> bigCategory : bigCategoryList) {
+////	        String code_value = (String) bigCategory.get("code_value");
+////	        if (code_value != null) {
+////	            bigCategoryMap.put(bigCategory.get("code_value").toString(), code_value);
+////	        }
+////	    }
+////	    model.addAttribute("bigCategoryMap", bigCategoryMap);
+////	    System.out.println("bigCategoryMap : " + bigCategoryMap);
+		return "class/class-list";
 	}
 	
 	@GetMapping("big-category")

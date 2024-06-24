@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -164,38 +165,46 @@ body {
 							<!-- 카테고리바 카테고리 끝 -->
 							
 						    <!-- 카테고리바 지역 시작 -->
-							<div class="selectDiv col-md-2">
-								<div class="dropdown">
-									<button class="btn btn-light dropdown-toggle w-100 categorySelect" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-									지역
-									</button>
-									<div class="dropdown-menu localDropdown" aria-labelledby="dropdownMenuButton1" style="width: 300px;">
-										<div class="d-flex">
-											<div class="col">
-												<ul class="list-unstyled localList">
-												<li><a class="dropdown-item" href="#" value="전체">전체</a></li>
-													<c:forEach var="localList" items="${localList}" varStatus="status">
-														<c:if test="${status.index < 8}">
-															<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li>
-														</c:if>
-													</c:forEach>
-												</ul>
-											</div>
-										<div class="vr-divider"></div>
-											<div class="col">
-												<ul class="list-unstyled localList">
-													<c:forEach var="localList" items="${localList}" varStatus="status">
-														<c:if test="${status.index >= 8}">
-															<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li>
-														</c:if>
-													</c:forEach>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+<!-- 							<div class="selectDiv col-md-2"> -->
+<!-- 								<div class="dropdown"> -->
+<!-- 									<button class="btn btn-light dropdown-toggle w-100 categorySelect" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> -->
+<!-- 									지역 -->
+<!-- 									</button> -->
+<!-- 									<div class="dropdown-menu localDropdown" aria-labelledby="dropdownMenuButton1" style="width: 300px;"> -->
+<!-- 										<div class="d-flex"> -->
+<!-- 											<div class="col"> -->
+<!-- 												<ul class="list-unstyled localList"> -->
+<!-- 												<li><a class="dropdown-item" href="#" value="전체">전체</a></li> -->
+<%-- 													<c:forEach var="localList" items="${localList}" varStatus="status"> --%>
+<%-- 														<c:if test="${status.index < 8}"> --%>
+<%-- 															<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li> --%>
+<%-- 														</c:if> --%>
+<%-- 													</c:forEach> --%>
+<!-- 												</ul> -->
+<!-- 											</div> -->
+<!-- 										<div class="vr-divider"></div> -->
+<!-- 											<div class="col"> -->
+<!-- 												<ul class="list-unstyled localList"> -->
+<%-- 													<c:forEach var="localList" items="${localList}" varStatus="status"> --%>
+<%-- 														<c:if test="${status.index >= 8}"> --%>
+<%-- 															<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li> --%>
+<%-- 														</c:if> --%>
+<%-- 													</c:forEach> --%>
+<!-- 												</ul> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
 							<!-- 카테고리바 지역 끝 -->
+								<div class="col-md-2">
+									<label for="class_local" class="h6">지역</label> 
+									<select name="class_local" id="class_local" class="form-control" required>
+										<c:forEach var="localList" items="${localList}">
+											<option value="${localList.common2_code}">${localList.code_value}</option>
+										</c:forEach>
+									</select>
+								</div>
 							
 <!-- 						<div class="selectDiv col-md-2"> -->
 <!-- 							<select class="form-select categorySelect w-100" aria-label="Default select example" id="customRange2"> -->
@@ -222,9 +231,9 @@ body {
 					
 					<!-- 카테고리 셀렉트 리스트 -->
 					<div class="row mx-5">
-						<c:forEach var="smallCategoryList" items="${smallCategoryList}" varStatus="status">
+						<c:forEach var="smallCategory" items="${smallCategory}" varStatus="status">
 						    <div class="mt-3 col-md-2 position-relative chooseDiv">
-						        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" value="${smallCategoryList.code_value }"readonly>
+						        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" value="${smallCategory.code_value }"readonly>
 						        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
 <%-- 								<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li> --%>
 						    </div>
@@ -287,11 +296,12 @@ body {
 		</div>
 	</div>
 	<!-- 카테고리 바 -->
-	
+	<!-- 클래스 개수를 계산하여 classCount 변수에 저장 -->
+<c:set var="classCount" value="${fn:length(map)}" />
    <div class="row">
       <div class="col-md-9">
          <div class="classCount">
-            <p>54개의 클래스</p>
+            <p>${classCount}개의 클래스</p>
          </div>
       </div>
       <div class="col-md-3 box1">
@@ -306,123 +316,126 @@ body {
    </div>
       <!-- 첫번째 줄 -->
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
+      <c:forEach var="map" items="${map}">
          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-            <div class="card shadow-sm border-0 rounded flex-fill">
+            <div class="card shadow-sm border-0 rounded flex-fill mb-4">
                <div class="card-body p-0 position-relative card-body1 position-relative1">
                   <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic"></a>
 <%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" class="w-100 card-img-top classPic"> --%>
                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
                   <div class="card-bodys d-flex flex-column">
                      <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">카테고리</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${map.class_big_category}</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${map.class_small_category}</button>
                      </div>
                      <div class="createrName d-flex align-items-center">
                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">UI 디자이너 리제</p>
+                        <p class="mb-0 ml-2">${map.member_nickname}</p>
                      </div>
                      <div class="className">
-                        <a href="class-detail"><h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6></a>
+                        <a href="class-detail"><h6>${map.class_name}</h6></a>
                      </div>
                      <div class="row classInfo">
                         <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 진구</a>
+                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${map.class_location}</a>
                         </div>
                         <div class="col-md-6 price">
-                           <p>50,000원</p>
+                           <p>${map.class_price}원</p>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
+      </c:forEach>
       
-         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative position-relative1">
-                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic"></a>
-                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
-                  <div class="card-bodys d-flex flex-column">
-                     <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
-                     </div>
-                     <div class="createrName d-flex align-items-center">
-                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">게임그래픽학원 지지스쿨</p>
-                     </div>
-                     <div class="className">
-                        <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>
-                     </div>
-                     <div class="row classInfo">
-                        <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 동래구</a>
-                        </div>
-                        <div class="col-md-6 price">
-                           <p>50,000원</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+<!--          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
+<!--             <div class="card shadow-sm border-0 rounded flex-fill"> -->
+<!--                <div class="card-body p-0 position-relative position-relative1"> -->
+<%--                   <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic"></a> --%>
+<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
+<!--                   <div class="card-bodys d-flex flex-column"> -->
+<!--                      <div class="classCategory col-md-10"> -->
+<!--                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button> -->
+<!--                      </div> -->
+<!--                      <div class="createrName d-flex align-items-center"> -->
+<%--                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!--                         <p class="mb-0 ml-2">게임그래픽학원 지지스쿨</p> -->
+<!--                      </div> -->
+<!--                      <div class="className"> -->
+<!--                         <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a> -->
+<!--                      </div> -->
+<!--                      <div class="row classInfo"> -->
+<!--                         <div class="col-md-6 add"> -->
+<!--                            <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 동래구</a> -->
+<!--                         </div> -->
+<!--                         <div class="col-md-6 price"> -->
+<!--                            <p>50,000원</p> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                </div> -->
+<!--             </div> -->
+<!--          </div> -->
       
-         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-            <!-- Card-->
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative card-body1 position-relative1">
-                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a>
-                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
-                  <div class="card-bodys d-flex flex-column">
-                     <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
-                     </div>
-                     <div class="createrName d-flex align-items-center">
-                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p>
-                     </div>
-                     <div class="className">
-                        <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a>
-                     </div>
-                     <div class="row classInfo">
-                        <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
-                        </div>
-                        <div class="col-md-6 price">
-                           <p>50,000원</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+<!--          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
+<!--             Card -->
+<!--             <div class="card shadow-sm border-0 rounded flex-fill"> -->
+<!--                <div class="card-body p-0 position-relative card-body1 position-relative1"> -->
+<%--                   <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a> --%>
+<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
+<!--                   <div class="card-bodys d-flex flex-column"> -->
+<!--                      <div class="classCategory col-md-10"> -->
+<!--                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button> -->
+<!--                      </div> -->
+<!--                      <div class="createrName d-flex align-items-center"> -->
+<%--                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!--                         <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p> -->
+<!--                      </div> -->
+<!--                      <div class="className"> -->
+<!--                         <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a> -->
+<!--                      </div> -->
+<!--                      <div class="row classInfo"> -->
+<!--                         <div class="col-md-6 add"> -->
+<!--                            <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a> -->
+<!--                         </div> -->
+<!--                         <div class="col-md-6 price"> -->
+<!--                            <p>50,000원</p> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                </div> -->
+<!--             </div> -->
+<!--          </div> -->
          
-         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative card-body1 position-relative1">
-                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a>
-                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
-                  <div class="card-bodys d-flex flex-column">
-                     <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
-                     </div>
-                     <div class="createrName d-flex align-items-center">
-                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p>
-                     </div>
-                     <div class="className">
-                        <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a>
-                     </div>
-                     <div class="row classInfo">
-                        <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
-                        </div>
-                        <div class="col-md-6 price">
-                           <p>50,000원</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+<!--          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
+<!--             <div class="card shadow-sm border-0 rounded flex-fill"> -->
+<!--                <div class="card-body p-0 position-relative card-body1 position-relative1"> -->
+<%--                   <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a> --%>
+<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
+<!--                   <div class="card-bodys d-flex flex-column"> -->
+<!--                      <div class="classCategory col-md-10"> -->
+<!--                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button> -->
+<!--                      </div> -->
+<!--                      <div class="createrName d-flex align-items-center"> -->
+<%--                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!--                         <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p> -->
+<!--                      </div> -->
+<!--                      <div class="className"> -->
+<!--                         <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a> -->
+<!--                      </div> -->
+<!--                      <div class="row classInfo"> -->
+<!--                         <div class="col-md-6 add"> -->
+<!--                            <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a> -->
+<!--                         </div> -->
+<!--                         <div class="col-md-6 price"> -->
+<!--                            <p>50,000원</p> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                </div> -->
+<!--             </div> -->
+<!--          </div> -->
       </div>
       <!-- 두번째 줄 -->
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
@@ -577,93 +590,93 @@ body {
             </div>
          </div>
       
-         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative position-relative1">
-                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic"></a>
-                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
-                  <div class="card-bodys d-flex flex-column">
-                     <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button>
-                     </div>
-                     <div class="createrName d-flex align-items-center">
-                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">게임그래픽학원 지지스쿨</p>
-                     </div>
-                     <div class="className">
-                        <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a>
-                     </div>
-                     <div class="row classInfo">
-                        <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 동래구</a>
-                        </div>
-                        <div class="col-md-6 price">
-                           <p>50,000원</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+<!--          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
+<!--             <div class="card shadow-sm border-0 rounded flex-fill"> -->
+<!--                <div class="card-body p-0 position-relative position-relative1"> -->
+<%--                   <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="w-100 card-img-top classPic"></a> --%>
+<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
+<!--                   <div class="card-bodys d-flex flex-column"> -->
+<!--                      <div class="classCategory col-md-10"> -->
+<!--                         <button type="button" class="btn btn-outline-secondary btn-sm category category1 btn1">카테고리</button> -->
+<!--                      </div> -->
+<!--                      <div class="createrName d-flex align-items-center"> -->
+<%--                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!--                         <p class="mb-0 ml-2">게임그래픽학원 지지스쿨</p> -->
+<!--                      </div> -->
+<!--                      <div class="className"> -->
+<!--                         <a href="class-detail"><h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6></a> -->
+<!--                      </div> -->
+<!--                      <div class="row classInfo"> -->
+<!--                         <div class="col-md-6 add"> -->
+<!--                            <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 동래구</a> -->
+<!--                         </div> -->
+<!--                         <div class="col-md-6 price"> -->
+<!--                            <p>50,000원</p> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                </div> -->
+<!--             </div> -->
+<!--          </div> -->
       
-         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-            <!-- Card-->
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative card-body1 position-relative1">
-                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic"></a>
-                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
-                  <div class="card-bodys d-flex flex-column">
-                     <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
-                     </div>
-                     <div class="createrName d-flex align-items-center">
-                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p>
-                     </div>
-                     <div class="className">
-                        <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a>
-                     </div>
-                     <div class="row classInfo">
-                        <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
-                        </div>
-                        <div class="col-md-6 price">
-                           <p>50,000원</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+<!--          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
+<!--             Card -->
+<!--             <div class="card shadow-sm border-0 rounded flex-fill"> -->
+<!--                <div class="card-body p-0 position-relative card-body1 position-relative1"> -->
+<%--                   <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" alt="" class="w-100 card-img-top classPic"></a> --%>
+<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
+<!--                   <div class="card-bodys d-flex flex-column"> -->
+<!--                      <div class="classCategory col-md-10"> -->
+<!--                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button> -->
+<!--                      </div> -->
+<!--                      <div class="createrName d-flex align-items-center"> -->
+<%--                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!--                         <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p> -->
+<!--                      </div> -->
+<!--                      <div class="className"> -->
+<!--                         <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a> -->
+<!--                      </div> -->
+<!--                      <div class="row classInfo"> -->
+<!--                         <div class="col-md-6 add"> -->
+<!--                            <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a> -->
+<!--                         </div> -->
+<!--                         <div class="col-md-6 price"> -->
+<!--                            <p>50,000원</p> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                </div> -->
+<!--             </div> -->
+<!--          </div> -->
          
-         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-            <div class="card shadow-sm border-0 rounded flex-fill">
-               <div class="card-body p-0 position-relative card-body1 position-relative1">
-                  <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a>
-                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
-                  <div class="card-bodys d-flex flex-column">
-                     <div class="classCategory col-md-10">
-                        <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button>
-                     </div>
-                     <div class="createrName d-flex align-items-center">
-                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                        <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p>
-                     </div>
-                     <div class="className">
-                        <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a>
-                     </div>
-                     <div class="row classInfo">
-                        <div class="col-md-6 add">
-                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a>
-                        </div>
-                        <div class="col-md-6 price">
-                           <p>50,000원</p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+<!--          <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
+<!--             <div class="card shadow-sm border-0 rounded flex-fill"> -->
+<!--                <div class="card-body p-0 position-relative card-body1 position-relative1"> -->
+<%--                   <a href="class-detail"><img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" alt="" class="w-100 card-img-top classPic"></a> --%>
+<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay"> --%>
+<!--                   <div class="card-bodys d-flex flex-column"> -->
+<!--                      <div class="classCategory col-md-10"> -->
+<!--                         <button type="button" class="btn btn-outline-secondary btn-sm category category1">카테고리</button> -->
+<!--                      </div> -->
+<!--                      <div class="createrName d-flex align-items-center"> -->
+<%--                         <img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!--                         <p class="mb-0 ml-2">3D캐릭터아티스트 고사리</p> -->
+<!--                      </div> -->
+<!--                      <div class="className"> -->
+<!--                         <a href="class-detail"><h6>Substance Painter 입문자도 쉽게 만드는 AAA급 텍스처</h6></a> -->
+<!--                      </div> -->
+<!--                      <div class="row classInfo"> -->
+<!--                         <div class="col-md-6 add"> -->
+<!--                            <a href="" class="btn btn-outline-dark btn-sm disabled btn1">부산 해운대구</a> -->
+<!--                         </div> -->
+<!--                         <div class="col-md-6 price"> -->
+<!--                            <p>50,000원</p> -->
+<!--                         </div> -->
+<!--                      </div> -->
+<!--                   </div> -->
+<!--                </div> -->
+<!--             </div> -->
+<!--          </div> -->
       </div>
       <!-- 세번째 줄 끝 -->
    </div> <!-- col-md-12 -->

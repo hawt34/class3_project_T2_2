@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <jsp:include page="../inc/top.jsp" />
 </header>
 <div class="container1">
+
 	<!-- 캐러셀 시작 -->
     <div class="row col-md-12">
 		<div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
@@ -139,330 +140,289 @@ document.addEventListener("DOMContentLoaded", function() {
 		<!-- 캐러셀 끝 -->
     </div> <!-- row -->
 
-<!--     <div class="row"> -->
-<!--     	<div class="col-md-9"> -->
-    		<!-- navbar -->
-			<nav class="sticky-nav sticky-nav1 col-md-9">
-				<div class="row">
-					<div class="col box2">
-						<ul class="nav-container nav-container1">
-							<li class="nav-item nav-item1">
-								<a class="navbar-item navbar-item1" href="#section1">프로그램 상세</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col box2">
-						<ul class="nav-container nav-container1">
-							<li class="nav-item nav-item1">
-								<a class="navbar-item navbar-item1" href="#section2">후기</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col box2">
-						<ul class="nav-container nav-container1">
-							<li class="nav-item nav-item1">
-								<a class="navbar-item navbar-item1" href="#section3">커리큘럼</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col box2">
-						<ul class="nav-container nav-container1">
-							<li class="nav-item nav-item1">
-								<a class="navbar-item navbar-item1" href="#section4">Q&A</a>
-							</li>
-						</ul>
-					</div>
-					<div class="col box2">
-						<ul class="nav-container nav-container1">
-							<li class="nav-item nav-item1">
-								<a class="navbar-item navbar-item1" href="#section5">1:1 채팅하기</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
-    		<!-- navbar -->
-<!--   		</div> -->
+	<!-- navbar -->
+	<nav class="sticky-nav sticky-nav1 col-md-9">
+		<div class="row">
+			<div class="col box2">
+				<ul class="nav-container nav-container1">
+					<li class="nav-item nav-item1">
+						<a class="navbar-item navbar-item1" href="#section1">프로그램 상세</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col box2">
+				<ul class="nav-container nav-container1">
+					<li class="nav-item nav-item1">
+						<a class="navbar-item navbar-item1" href="#section2">후기</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col box2">
+				<ul class="nav-container nav-container1">
+					<li class="nav-item nav-item1">
+						<a class="navbar-item navbar-item1" href="#section3">커리큘럼</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col box2">
+				<ul class="nav-container nav-container1">
+					<li class="nav-item nav-item1">
+						<a class="navbar-item navbar-item1" href="#section4">Q&A</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col box2">
+				<ul class="nav-container nav-container1">
+					<li class="nav-item nav-item1">
+						<a class="navbar-item navbar-item1" href="#section5">1:1 채팅하기</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+ 	<!-- navbar -->
 
 	<div class="row">
-	        <!-- navbar content -->
-	        <div class="content1 col-md-9">
-	            <div id="section1">
-                  <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg">
-	            </div>
-	            <div id="section2">
-	                <div class="classreview1">
-						<div class="classreview2 col-md-9">
-                    <div class="row reviewInfo">
-                    	<!-- 테이블 -->
-								<div class="card text-center">
-									<div class="card-body p-2">
-										<table>
-											<thead>
-												<tr>
-													<th>후기</th>
-													<th>작성일자</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="creator-review-subject">
-														<a onclick="creatorReview()">너무 재미있고 최고입니다 ㅎㅎ</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<a>너무 재미있고 최고입니다 ㅎㅎㅎㅎ하하하하</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<a>너무 재미있고 최고입니다 ㅎㅎ</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-			            <div class="col-md-1 userPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-			            </div>
-			            <div class="col-md-7 userInfoContainer">
-			                <div class="userInfoHeader">
-			                    <div class="col userNickname">
-			                        <p>유저닉네임열한글자임요</p>
-			                    </div>
-			                    <div class="col reviewDate">
-			                        <p>2024 / 06 / 15</p>
-			                    </div> 
-			                </div>
-			                <div class="reviewStar">
-			                    <ul class="list-inline small">
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-			                    </ul>
-			                </div> <!-- reviewStar -->
-			            </div>
-			        </div>
-			        
-			        <div class="userReview">
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			        </div> <!-- userReview -->
-					<div class="line col-md-12">
-						<hr>
+        <!-- navbar content -->
+        <div class="content1 col-md-9">
+            <div id="section1">
+                 <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg">
+            </div>
+            <div id="section2">
+				<div class="row reviewInfo">
+             		<!-- 테이블 -->
+					<div class="card text-center">
+						<div class="card-body p-2">
+							<table>
+								<thead>
+									<tr>
+										<th>후기</th>
+										<th>작성일자</th>
+										<th>작성자</th>
+										<th>별점</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="creator-review-subject">
+											<a onclick="creatorReview()">너무 재미있고 최고입니다 ㅎㅎ</a>
+										</td>
+										<td>
+											2024-05-11
+										</td>
+										<td>
+											asdf1234
+										</td>
+										<td>
+											<div class="reviewStar">
+											    <ul class="list-inline small">
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+											    </ul>
+											</div> <!-- reviewStar -->
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<a>너무 재미있고 최고입니다 ㅎㅎㅎㅎ하하하하</a>
+										</td>
+										<td>
+											2024-05-11
+										</td>
+										<td>
+											fksdf1234
+										</td>
+										<td>
+											<div class="reviewStar">
+											    <ul class="list-inline small">
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+											    </ul>
+											</div> <!-- reviewStar -->
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<a>너무 재미있고 최고입니다 ㅎㅎ</a>
+										</td>
+										<td>
+											2024-05-11
+										</td>
+										<td>
+											sfgsfsdf
+										</td>
+										<td>
+											<div class="reviewStar">
+											    <ul class="list-inline small">
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+											    </ul>
+											</div> <!-- reviewStar -->
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
-			    </div>
-			    <div class="col-md-9 container2">
-			        <div class="row reviewInfo">
-			            <div class="col-md-1 userPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-			            </div>
-			            <div class="col-md-7 userInfoContainer">
-			                <div class="userInfoHeader">
-			                    <div class="col-md-5 userNickname">
-			                        <p>유저닉*임</p>
-			                    </div>
-			                    <div class="col-md-7 reviewDate">
-			                        <p>2024 / 06 / 15</p>
-			                    </div> 
-			                </div>
-			                <div class="reviewStar">
-			                    <ul class="list-inline small">
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-			                    </ul>
-			                </div> 
-			                <!-- reviewStar -->
-			            </div>
-			        </div>
-			        
-			        <div class="userReview">
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			        </div> <!-- userReview -->
-					<div class="line col-md-12">
-						<hr>
+		            <div class="col-md-1 userPic">
+		                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+		            </div>
+		            <div class="col-md-7 userInfoContainer">
+		                <div class="userInfoHeader">
+		                    <div class="col userNickname">
+		                        <p>유저닉네임열한글자임요</p>
+		                    </div>
+		                    <div class="col reviewDate">
+		                        <p>2024 / 06 / 15</p>
+		                    </div> 
+		                </div>
+		                <div class="reviewStar">
+		                    <ul class="list-inline small">
+		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+		                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+		                    </ul>
+		                </div> <!-- reviewStar -->
+		            </div>
+				</div>
+		        <div class="userReview">
+		            <div class="reviewPic">
+		                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
+		            </div> <!-- reviewPic -->
+		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
+		        </div> <!-- userReview -->
+				<div class="line col-md-12">
+					<hr>
+				</div>
+			</div>
+			<!-- section2 -->
+			<div id="section3">
+				<img src="${pageContext.request.contextPath}/resources/images/class/class_curri.png" class="classImg">
+			</div>
+			<div id="section4">
+				<!-- Q&A 내용 -->
+            	<!-- 테이블 -->
+				<div class="card text-center">
+					<div class="card-body p-2">
+						<table>
+							<thead>
+								<tr>
+									<th>제목</th>
+									<th>작성일자</th>
+									<th>작성자</th>
+									<th>별점</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="creator-review-subject">
+										<a onclick="creatorReview()">클래스 날짜 변경가능한가요</a>
+									</td>
+									<td>
+										2024-05-11
+									</td>
+									<td>
+										asdf1234
+									</td>
+									<td>
+										<div class="reviewStar">
+										    <ul class="list-inline small">
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+										    </ul>
+										</div> <!-- reviewStar -->
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a>클래스 가격 문의</a>
+									</td>
+									<td>
+										2024-05-11
+									</td>
+									<td>
+										fksdf1234
+									</td>
+									<td>
+										<div class="reviewStar">
+										    <ul class="list-inline small">
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+										    </ul>
+										</div> <!-- reviewStar -->
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a>클래스 관련 문의사항</a>
+									</td>
+									<td>
+										2024-05-11
+									</td>
+									<td>
+										sfgsfsdf
+									</td>
+									<td>
+										<div class="reviewStar">
+										    <ul class="list-inline small">
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+										        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+										    </ul>
+										</div> <!-- reviewStar -->
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
-			    </div>
-			    
-			    <div class="col-md-9 container2">
-			        <div class="row reviewInfo">
-			            <div class="col-md-1 userPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-			            </div>
-			            <div class="col-md-7 userInfoContainer">
-			                <div class="userInfoHeader">
-			                    <div class="col-md-5 userNickname">
-			                        <p>유저닉*임</p>
-			                    </div>
-			                    <div class="col-md-7 reviewDate">
-			                        <p>2024 / 06 / 15</p>
-			                    </div> 
-			                </div>
-			                <div class="reviewStar">
-			                    <ul class="list-inline small">
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-			                    </ul>
-			                </div> <!-- reviewStar -->
-			            </div>
-			        </div>
-			        
-			        <div class="userReview">
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			        </div> <!-- userReview -->
-					<div class="line col-md-12">
-						<hr>
-					</div>
-			    </div>
-			    
-			    <div class="col-md-9 container2">
-			        <div class="row reviewInfo">
-			            <div class="col-md-1 userPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-			            </div>
-			            <div class="col-md-7 userInfoContainer">
-			                <div class="userInfoHeader">
-			                    <div class="col-md-5 userNickname">
-			                        <p>유저닉*임</p>
-			                    </div>
-			                    <div class="col-md-7 reviewDate">
-			                        <p>2024 / 06 / 15</p>
-			                    </div> 
-			                </div>
-			                <div class="reviewStar">
-			                    <ul class="list-inline small">
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-			                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-			                    </ul>
-			                </div> <!-- reviewStar -->
-			            </div>
-			        </div>
-			        
-			        <div class="userReview">
-			            <div class="reviewPic">
-			                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-			            </div> <!-- reviewPic -->
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-			        </div> <!-- userReview -->
-					<div class="line col-md-12">
-						<hr>
-					</div>
-	                
-	            </div>
-	            
-	        </div>
-	            <div id="section3">
-					<img src="${pageContext.request.contextPath}/resources/images/class/class_curri.png" class="classImg">
-	            </div>
-	            <div id="section4">
-	                <p>Q&A</p>
-	                <!-- Q&A 내용 -->
-	                <div class="classqa1">
-						<div class="classqa2 col-md-9">
-							<div class="accordion" id="accordionExample">
-							  <div class="accordion-item">
-							    <h2 class="accordion-header" id="headingOne">
-							      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-							        Q. 수업 일정에 관한 질문 
-							      </button>
-							    </h2>
-							    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-							      <div class="accordion-body">
-							      	<p>&nbsp;</p> A. 일정은 어쩌구 저쩌구
-							      </div>
-							    </div>
-							  </div>
-							  <div class="accordion-item">
-							    <h2 class="accordion-header" id="headingTwo">
-							      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-							        Q. 수업 비용에 관한 질문이요  
-							      </button>
-							    </h2>
-							    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-							      <div class="accordion-body">
-							      	<p>&nbsp;</p> A. 비용은 어쩌고 저쩌고
-							      </div>
-							    </div>
-							  </div>
-							  <div class="accordion-item">
-							    <h2 class="accordion-header" id="headingThree">
-							      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-							      	작성자만 확인 가능한 비밀 질문글입니다.
-							      </button>
-							    </h2>
-							    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-							      <div class="accordion-body">
-							      	<p>&nbsp;</p> A.쿵야쿵야
-							      </div>
-							    </div>
-							  </div>
-							</div>
-						</div> <!-- classqa2 -->
-					</div> <!-- classqa1 -->
-	            </div>
-	            <div id="section5">
-	                <p>1:1 채팅하기</p>
-	            </div>
-	    </div> <!-- col-md-9 -->
-	    </div><!-- content -->
-	    	
- 				<!-- 우측 강의 소개 -->
-			    <div class="col-md-3">
-			    	<form action="payment" method="post" id="class_form">
-			    		<input type="hidden" name="class_code" value="${classInfo.class_code }">
-			    		<input type="hidden" name="class_big_category" value="${classInfo.class_big_category }">
-			    		<input type="hidden" name="class_small_category" value="${classInfo.class_small_category }">
-				    	<div class="box1">
-				    		<h6>${classInfo.class_name }</h6>
-				    		<h3>${classInfo.class_ex }</h3>
-				    		<div class="row">
-						        <div id="datePicker"></div>
-						        <!-- 선택된 날짜를 저장할 input -->
-						        <input type="hidden" id="selected_dates" name="selected_dates">
-						    </div>
-						    <!-- 타임 픽커 선택div -->
-						    <div class="row ">
-						    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
-								<!-- ajax 호출 시 출력될 area -->
-								<div class="time_area" align="center">
+				</div>
+			</div>
+			<!-- section4 -->
+			<div id="section5">
+			    <p>1:1 채팅하기</p>
+			</div>
+	    </div> 
+	    <!-- content -->
+		<!-- 우측 강의 소개 -->
+	    <div class="col-md-3">
+	    	<form action="payment" method="post" id="class_form">
+	    		<input type="hidden" name="class_code" value="${classInfo.class_code }">
+	    		<input type="hidden" name="class_big_category" value="${classInfo.class_big_category }">
+	    		<input type="hidden" name="class_small_category" value="${classInfo.class_small_category }">
+		    	<div class="box1">
+		    		<h6>${classInfo.class_name }</h6>
+		    		<h3>${classInfo.class_ex }</h3>
+		    		<div class="row">
+				        <div id="datePicker"></div>
+				        <!-- 선택된 날짜를 저장할 input -->
+				        <input type="hidden" id="selected_dates" name="selected_dates">
+				    </div>
+				    <!-- 타임 픽커 선택div -->
+				    <div class="row ">
+				    	<p class="fw-bold fs-4 text-center text-white">시간 선택</p>
+						<!-- ajax 호출 시 출력될 area -->
+						<div class="time_area" align="center">
 <!-- 							    	<div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group"> -->
 <%-- 							    		<c:forEach var="time" items="${class_schedule }" varStatus="status"> --%>
 <%-- 											<input type="radio" class="btn-check" name="class_schedule_time" id="vbtn-radio${status.count }" autocomplete="off"> --%>
@@ -472,87 +432,88 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- 											</label> -->
 <%-- 							    		</c:forEach> --%>
 <!-- 									</div> -->
-								</div>
-					    		<input type="hidden" id="select_time" name="select_time">
-						    </div>
-						    <!-- 인원 수 체크 -->
-							<div class="class_headcount">
-								<div class="col d-flex justify-content-end mt-3">
-									 <p class="fw-bold text-white">인원 수 선택</p>
-								</div>
-								<div class="col d-flex justify-content-end mt-1">
-									<input class="reserve1 minusBtn" type="button" id="headcount_prev">
-									<input class="reserve1 countText" type="text" name="selected_headcount" id="class_count" value="1" readonly style="text-align: right;">
-									<input class="reserve1 addBtn" type="button" id="headcount_next">
-								</div>
-							</div>
-							
-				    		<div class="row"> <!-- 해시태그 시작 -->
-					    		<div class="col-md-4">
-					    			<b><a href="#">#원데이</a></b>
-					    		</div>
-					    		<div class="col-md-4">
-					    			<b><a href="#">#클래스</a></b>
-					    		</div>
-					    		<div class="col-md-4">
-					    			<b><a href="#">#관련</a></b>
-					    		</div>
-					    	</div>
-				    		<div class="row">
-					    		<div class="col-md-4">
-					    			<b><a href="#">#키워드</a></b>
-					    		</div>
-					    		<div class="col-md-4">
-					    			<b><a href="#">#크리에이터가</a></b>
-					    		</div>
-					    		<div class="col-md-4">
-					    			<b><a href="#">#지정가능</a></b>
-					    		</div>
-					    	</div>
-				    		<div class="row">
-					    		<div class="col-md-4">
-					    			<b><a href="#">#키워드</a></b>
-					    		</div>
-					    		<div class="col-md-4">
-					    			<b><a href="#">#크리에이터가</a></b>
-					    		</div>
-					    		<div class="col-md-4">
-					    			<b><a href="#">#지정가능</a></b>
-					    		</div>
-					    	</div> <!-- 해시태그 끝 -->
-					    	
-					    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
-						    	<div class="row"> 
-							    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
-								    	<button type="button" class="btn btn-light w-100 btn-customs">
+						</div>
+			    		<input type="hidden" id="select_time" name="select_time">
+				    </div>
+				    <!-- 인원 수 체크 -->
+					<div class="class_headcount">
+						<div class="col d-flex justify-content-end mt-3">
+							 <p class="fw-bold text-white">인원 수 선택</p>
+						</div>
+						<div class="col d-flex justify-content-end mt-1">
+							<input class="reserve1 minusBtn" type="button" id="headcount_prev">
+							<input class="reserve1 countText" type="text" name="selected_headcount" id="class_count" value="1" readonly style="text-align: right;">
+							<input class="reserve1 addBtn" type="button" id="headcount_next">
+						</div>
+					</div>
+					
+		    		<div class="row"> <!-- 해시태그 시작 -->
+			    		<div class="col-md-4">
+			    			<b><a href="#">#원데이</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#클래스</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#관련</a></b>
+			    		</div>
+			    	</div>
+		    		<div class="row">
+			    		<div class="col-md-4">
+			    			<b><a href="#">#키워드</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#크리에이터가</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#지정가능</a></b>
+			    		</div>
+			    	</div>
+		    		<div class="row">
+			    		<div class="col-md-4">
+			    			<b><a href="#">#키워드</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#크리에이터가</a></b>
+			    		</div>
+			    		<div class="col-md-4">
+			    			<b><a href="#">#지정가능</a></b>
+			    		</div>
+			    	</div> <!-- 해시태그 끝 -->
+			    	
+			    	<div class="box3"> <!-- 좋아요, 공유버튼 -->
+				    	<div class="row"> 
+					    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
+						    	<button type="button" class="btn btn-light w-100 btn-customs">
 <%-- 								    		<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
-											<div style="display: flex; align-items: center;">
-	           									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heart-overlay">
-									    		<div class="heartCount"><span>5124</span></div>
-								    		</div>
-								    	</button>
-								    </div>
-							    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
-								    	<button type="button" class="btn btn-light w-100 btn-customs">
-											<div style="display: flex; align-items: center;">
-									    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon">
-									    		<div class="shareClass"><span>공유하기</span></div>
-								    		</div>
-								    	</button>
-									</div>
-						    	</div>
-						    </div> 
-<!-- 						   <!-- 좋아요, 공유버튼 -->
-						    <div class="col-md-12">
-					    		<button type="submit" class="btn btn-light w-100">신청하기</button>
-					    	</div>
+									<div style="display: flex; align-items: center;">
+          									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heart-overlay">
+							    		<div class="heartCount"><span>5124</span></div>
+						    		</div>
+						    	</button>
+						    </div>
+					    	<div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
+						    	<button type="button" class="btn btn-light w-100 btn-customs">
+									<div style="display: flex; align-items: center;">
+							    		<img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon">
+							    		<div class="shareClass"><span>공유하기</span></div>
+						    		</div>
+						    	</button>
+							</div>
 				    	</div>
-			    	</form>
-			    	<!-- 폼 끝 -->
-				</div> 
-	    		<!-- 오른쪽 강의 소개  -->
-   		</div>
-	</div>
+				    </div> 
+<!-- 						   <!-- 좋아요, 공유버튼 -->
+				    <div class="col-md-12">
+			    		<button type="submit" class="btn btn-light w-100">신청하기</button>
+			    	</div>
+		    	</div>
+	    	</form>
+	    	<!-- 폼 끝 -->
+		</div> 
+   		<!-- 오른쪽 강의 소개  -->
+ 	</div>
+</div>
+<!-- container1 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let classScheduleArray = ${class_schedule_date};
@@ -734,10 +695,15 @@ function creatorReview() {
 }
 	
 
+function creatorInquiry() {
+	window.open("creator-inquiry-form", "pop", "width=700, height=700, left=700, top=50");
+}
+	
 </script>
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>

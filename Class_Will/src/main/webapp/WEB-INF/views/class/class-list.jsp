@@ -207,7 +207,7 @@ body {
 							</div>
 						<div class="btnResetDiv col-md-1">
 <!-- 						<div class="btnReset w-100"> -->
-							<button type="button" class="btn btn-outline-light btnReset">초기화</button>
+							<button type="button" class="btn btn-outline-light btnReset" >초기화</button>
 <!-- 						</div> -->
 						</div>
 					</div>

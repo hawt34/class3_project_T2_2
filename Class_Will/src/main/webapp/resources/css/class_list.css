@@ -193,6 +193,11 @@ body {
 	text-align : center;
 }
 
+.classPrice {
+/* 	text-align : right; */
+	margin-right : 0px;
+}
+
 .vr-divider {
     width: 1px;
     background-color: #ddd;

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +87,17 @@ public class ClassController {
         return ResponseEntity.ok().body(bigCategoryList);
     }
 	
+	// 클래스 상세 리뷰
+	@GetMapping("creator-review-form2")
+	public String creatorReviewForm2(){
+		return"creator/creator-review-form2";
+	}
+	
+	// 클래스 상세 질문
+	@GetMapping("creator-inquiry-form2")
+	public String creatorInquiryForm2(){
+		return"creator/creator-inquiry-form2";
+	}
 //	@ResponseBody
 //	@PostMapping("class-list")
 ////	public String classList(@RequestParam(name = "common2_code", required = false) String common2_code, Model model) {
@@ -127,12 +140,27 @@ public class ClassController {
 		System.out.println("smallCategory:@@@@@@ " + smallCategory);
 		return smallCategory;
 	}
+	
 	// 클래스 디테일
 	@GetMapping("class-detail")
-	public String classDetail(Model model) {
+	public String classDetail(Model model, HttpSession session, @RequestParam String class_code) {
+		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
+		Map<String, Object> map = new HashMap<>();
 		
+		String member_code = (String)session.getAttribute("member_code");
+		map.put("member_code", member_code);
+		map.put("class_code", class_code);
+		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
+		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
+		
+		List<Map<String, Object>> detail = classService.getDetail(map); 
+		model.addAttribute("detail", detail);
+	    
+	    
 		//classInfo 임시 클래스 데이터 가져오기
 		Map<String, Object> testClassCode = new HashMap<>();
+//		map.put("class_code", class_code);
+//		map.put("member_code", member_code);
 		//내가 만든 class 데이터 (임시)!! - 나중에 바꾸면 알려줘~~
 		//원래는 메인에서 해당 클래스 누르면 그 클래스의 class_code 값이 온거를 파라미터로 getClassInfo() 메서드 호출
 		//하려고 했는데 아직 메인이 완성이 안되어 있어서 내가 임시로 만든 클래스 코드 '54' 넣은거임
@@ -145,8 +173,8 @@ public class ClassController {
 		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(54);
 		// JSONArray를 생성하고 리스트의 각 맵을 JSONObject로 변환하여 추가합니다.
         JSONArray jsonArray = new JSONArray();
-        for(Map<String, Object> map : scheduleInfo) {
-            JSONObject jsonObject = new JSONObject(map);
+        for(Map<String, Object> maps : scheduleInfo) {
+            JSONObject jsonObject = new JSONObject(maps);
             jsonArray.put(jsonObject);
         }
         // JSONArray를 JSON 문자열로 변환합니다.

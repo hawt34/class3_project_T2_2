@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -193,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
              		<!-- 테이블 -->
 					<div class="card text-center">
 						<div class="card-body p-2">
+<%-- 							<c:forEach var="map" items="${map }"> --%>
 							<table>
 								<thead>
 									<tr>
@@ -203,110 +205,120 @@ document.addEventListener("DOMContentLoaded", function() {
 									</tr>
 								</thead>
 								<tbody>
+								<c:forEach var="map" items="${detail}">
 									<tr>
 										<td class="creator-review-subject">
-											<a onclick="creatorReview()">너무 재미있고 최고입니다 ㅎㅎ</a>
+											<a onclick="creatorReview()">
+											 ${map.class_review_subject} 
+											</a>
 										</td>
 										<td>
-											2024-05-11
+											<a onclick="creatorReview()">
+											 ${map.class_review_date} 
+											</a>
 										</td>
 										<td>
-											asdf1234
+											<a onclick="creatorReview()">
+											 ${map.member_name} 
+											 </a>
 										</td>
 										<td>
-											<div class="reviewStar">
+											<div class="reviewStar" onclick="creatorReview()">
 											    <ul class="list-inline small">
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+				                                    <c:forEach begin="1" end="${map.class_review_rating}">
+				                                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+				                                    </c:forEach>
+				                                    <c:forEach begin="${map.class_review_rating + 1}" end="5">
+				                                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
+				                                    </c:forEach>
 											    </ul>
 											</div> <!-- reviewStar -->
 										</td>
 									</tr>
-									<tr>
-										<td>
-											<a>너무 재미있고 최고입니다 ㅎㅎㅎㅎ하하하하</a>
-										</td>
-										<td>
-											2024-05-11
-										</td>
-										<td>
-											fksdf1234
-										</td>
-										<td>
-											<div class="reviewStar">
-											    <ul class="list-inline small">
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-											    </ul>
-											</div> <!-- reviewStar -->
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<a>너무 재미있고 최고입니다 ㅎㅎ</a>
-										</td>
-										<td>
-											2024-05-11
-										</td>
-										<td>
-											sfgsfsdf
-										</td>
-										<td>
-											<div class="reviewStar">
-											    <ul class="list-inline small">
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-											    </ul>
-											</div> <!-- reviewStar -->
-										</td>
-									</tr>
+									</c:forEach>
+<!-- 									<tr> -->
+<!-- 										<td> -->
+<!-- 											<a onclick="creatorReview()">가나다라마다ㅏ바사서아자</a> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<!-- 											<a onclick="creatorReview()"> 2024-05-11 </a> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<!-- 											<a onclick="creatorReview()"> fksdf1234 </a> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<!-- 											<div class="reviewStar" onclick="creatorReview()"> -->
+<!-- 											    <ul class="list-inline small"> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!-- 											    </ul> -->
+<!-- 											</div> reviewStar -->
+<!-- 										</td> -->
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td> -->
+<!-- 											<a onclick="creatorReview()">친구랑 참여했는데 너무 재밌어요</a> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<!-- 											<a onclick="creatorReview()"> 2024-05-11 </a> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<!-- 											<a onclick="creatorReview()"> sfgsfsdf </a> -->
+<!-- 										</td> -->
+<!-- 										<td> -->
+<!-- 											<div class="reviewStar"  onclick="creatorReview()"> -->
+<!-- 											    <ul class="list-inline small"> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!-- 											        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!-- 											    </ul> -->
+<!-- 											</div> reviewStar -->
+<!-- 										</td> -->
+<!-- 									</tr> -->
 								</tbody>
 							</table>
+<%-- 							</c:forEach> --%>
 						</div>
 					</div>
-		            <div class="col-md-1 userPic">
-		                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-		            </div>
-		            <div class="col-md-7 userInfoContainer">
-		                <div class="userInfoHeader">
-		                    <div class="col userNickname">
-		                        <p>유저닉네임열한글자임요</p>
-		                    </div>
-		                    <div class="col reviewDate">
-		                        <p>2024 / 06 / 15</p>
-		                    </div> 
-		                </div>
-		                <div class="reviewStar">
-		                    <ul class="list-inline small">
-		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-		                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-		                    </ul>
-		                </div> <!-- reviewStar -->
-		            </div>
 				</div>
-		        <div class="userReview">
-		            <div class="reviewPic">
-		                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg">
-		            </div> <!-- reviewPic -->
-		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p>
-		        </div> <!-- userReview -->
-				<div class="line col-md-12">
-					<hr>
-				</div>
+<!-- 		            <div class="col-md-1 userPic"> -->
+<%-- 		                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!-- 		            </div> -->
+<!-- 		            <div class="col-md-7 userInfoContainer"> -->
+<!-- 		                <div class="userInfoHeader"> -->
+<!-- 		                    <div class="col userNickname"> -->
+<!-- 		                        <p>유저닉네임열한글자임요</p> -->
+<!-- 		                    </div> -->
+<!-- 		                    <div class="col reviewDate"> -->
+<!-- 		                        <p>2024 / 06 / 15</p> -->
+<!-- 		                    </div>  -->
+<!-- 		                </div> -->
+<!-- 		                <div class="reviewStar"> -->
+<!-- 		                    <ul class="list-inline small"> -->
+<!-- 		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 		                        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!-- 		                        <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!-- 		                    </ul> -->
+<!-- 		                </div> reviewStar -->
+<!-- 		            </div> -->
+<!-- 		        <div class="userReview"> -->
+<!-- 		            <div class="reviewPic"> -->
+<%-- 		                <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"> --%>
+<!-- 		            </div> reviewPic -->
+<!-- 		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p> -->
+<!-- 		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p> -->
+<!-- 		            <p>리뷰가 어쩌고 너무좋아용~~!~!~!~!~!~!~!~!~!~!~~</p> -->
+<!-- 		        </div> userReview -->
+<!-- 				<div class="line col-md-12"> -->
+<!-- 					<hr> -->
+<!-- 				</div> -->
 			</div>
 			<!-- section2 -->
 			<div id="section3">
@@ -329,16 +341,16 @@ document.addEventListener("DOMContentLoaded", function() {
 							<tbody>
 								<tr>
 									<td class="creator-review-subject">
-										<a onclick="creatorReview()">클래스 날짜 변경가능한가요</a>
+										<a onclick="creatorInquiry()">클래스 날짜 변경가능한가요</a>
 									</td>
 									<td>
-										2024-05-11
+										<a onclick="creatorInquiry()"> 2024-05-11 </a>
 									</td>
 									<td>
-										asdf1234
+										<a onclick="creatorInquiry()"> asdf1234 </a>
 									</td>
 									<td>
-										<div class="reviewStar">
+										<div class="reviewStar" onclick="creatorInquiry()">
 										    <ul class="list-inline small">
 										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
 										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
@@ -351,16 +363,16 @@ document.addEventListener("DOMContentLoaded", function() {
 								</tr>
 								<tr>
 									<td>
-										<a>클래스 가격 문의</a>
+										<a onclick="creatorInquiry()">클래스 가격 문의</a>
 									</td>
 									<td>
-										2024-05-11
+										<a onclick="creatorInquiry()">2024-05-11</a>
 									</td>
 									<td>
-										fksdf1234
+										<a onclick="creatorInquiry()">fksdf1234</a>
 									</td>
 									<td>
-										<div class="reviewStar">
+										<div class="reviewStar" onclick="creatorInquiry()">
 										    <ul class="list-inline small">
 										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
 										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
@@ -373,16 +385,16 @@ document.addEventListener("DOMContentLoaded", function() {
 								</tr>
 								<tr>
 									<td>
-										<a>클래스 관련 문의사항</a>
+										<a onclick="creatorInquiry()"> 클래스 관련 문의사항</a>
 									</td>
 									<td>
-										2024-05-11
+										<a onclick="creatorInquiry()"> 2024-05-11 </a>
 									</td>
 									<td>
-										sfgsfsdf
+										<a onclick="creatorInquiry()"> sfgsfsdf </a>
 									</td>
 									<td>
-										<div class="reviewStar">
+										<div class="reviewStar" onclick="creatorInquiry()">
 										    <ul class="list-inline small">
 										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
 										        <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
@@ -691,12 +703,12 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script type="text/javascript">
 function creatorReview() {
-	window.open("creator-review-form", "pop", "width=700, height=700, left=700, top=50");
+	window.open("creator-review-form2", "pop", "width=700, height=800, left=700, top=50");
 }
 	
 
 function creatorInquiry() {
-	window.open("creator-inquiry-form", "pop", "width=700, height=700, left=700, top=50");
+	window.open("creator-inquiry-form2", "pop", "width=700, height=800, left=700, top=50");
 }
 	
 </script>

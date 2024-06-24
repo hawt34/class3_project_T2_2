@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,16 +23,17 @@
 		<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
+				<c:forEach var="map" items="${detail}">
 				<h4 class="mb-4">클래스후기</h4>
 					<div>
-						<p>작성자 : 김철철</p>
+						<p>작성자 : ${map.member_name}</p>
 					</div>
 					<div class="mb-3">
-						<label for="review-subject">후기제목</label>
+						<label for="review-subject">${map.class_review_subject}</label>
 						<input type="text" class="form-control" id="review-subject" readonly>
 					</div>
 					<div class="mb-3">
-						<label for="event_title">후기내용</label>
+						<label for="event_title">${map.class_review_content}</label>
 						<textarea rows="10" name="event_subject" id="event_title" class="form-control" cols="50" readonly></textarea> 
 					</div>
 					<div class="mb-3">
@@ -48,6 +50,7 @@
 					<form class="validation-form creator-reaply-form" novalidate action="creator-review-replyPro" method="post" onsubmit="reviewSubmit()">
 					
 					</form>
+				</c:forEach>
 			</div>
 		</div>
 		<footer class="my-3 text-center text-small">

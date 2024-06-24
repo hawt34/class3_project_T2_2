@@ -89,13 +89,36 @@ public class ClassController {
 	
 	// 클래스 상세 리뷰
 	@GetMapping("creator-review-form2")
-	public String creatorReviewForm2(){
+	public String creatorReviewForm2(Model model, HttpSession session, @RequestParam String class_code){
+		System.out.println("class_code @@@####################" + class_code);
+		Map<String, Object> map = new HashMap<>();
+		
+		String member_code = (String)session.getAttribute("member_code");
+		map.put("member_code", member_code);
+		map.put("class_code", class_code);
+		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
+		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
+		
+		List<Map<String, Object>> detail = classService.getDetail(map); 
+		model.addAttribute("detail", detail);
+	    
 		return"creator/creator-review-form2";
 	}
 	
 	// 클래스 상세 질문
 	@GetMapping("creator-inquiry-form2")
-	public String creatorInquiryForm2(){
+	public String creatorInquiryForm2(Model model, HttpSession session, @RequestParam String class_code){
+		System.out.println("class_code @@@####################" + class_code);
+		Map<String, Object> map = new HashMap<>();
+		
+		String member_code = (String)session.getAttribute("member_code");
+		map.put("member_code", member_code);
+		map.put("class_code", class_code);
+		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
+		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
+		
+		List<Map<String, Object>> detail = classService.getDetail(map); 
+		model.addAttribute("detail", detail);
 		return"creator/creator-inquiry-form2";
 	}
 //	@ResponseBody

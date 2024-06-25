@@ -27,8 +27,6 @@
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 
-<!--  포트원 SDK -->
-<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
 <style type="text/css">
 
@@ -164,7 +162,7 @@
 						<div class="regex" id="regex-tel"></div>
 					</div>	
 					<div class="d-grid gap-2 col-4 mt-3" style="height: 58px; padding: 0">
-						<button class="float-start" type="button" id="phone-auth-btn">본인인증</button>
+						<button class="float-start" type="button" id="phone-auth-btn" onclick="authSms()">인증번호 전송</button>
 					</div>	
 				</div>
 				<div class="form-floating mt-3 mb-3" id="sms-auth">
@@ -324,7 +322,7 @@
 	<script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 	
 	<!-- Template Javascript -->
-<%-- 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
+	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	<script type="text/javascript">
 		$(function() {
@@ -435,46 +433,39 @@
 			
 		});	
 		
-// 		function authPhone() {
-	
-// 			console.log('authPhone() 호출됨');
+		function authSms() {
 			
-// 			let IMP = window.IMP;   // 생략 가능
-//  			IMP.init("imp00262041");
- 			
-//  			let name = $("#member_name").val();
-// 			let phone = $("#member_tel").val();
+			$("#sms-auth").html('<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>'
+					+'<label for="phone_auth_number">인증번호</label>');
 			
-//  			IMP.certification(	
-// 				{
-// 					// param
-// 					// 주문 번호
-// 					pg: "inicis", 
-// 					merchant_uid: "order_" + new Date().getTime(),
-// 					name: name,
-// 					phone : phone,
-// 					birth : "970106",
-// 					gender_digit: "2",
-// 					carrier: "SKT",
-// 					is_mvno : "true",
-// 					popup: "true"
-// 				},
-// 				function (rsp) { // callback
-// 					if (rsp.success) { // 인증 성공 시 로직
-// 					    $("#member_tel").prop("disabled", true);
-// 					    $("#member_name").prop("disabled", true);
-// 						alert("휴대폰 본인인증이 완료되었습니다.");
-						
-// 					} else { // 인증 실패 시 로직
-// 						alert("인증에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-// 					}
-// 				},
+// 			$.ajax({
+// 				type: "GET",
+// 		        url: "send-one",
+// 		    	data : {
+// 		    		member_tel : $("#member_tel").val()
+// 			 	},
+// 			 	dataType : "json",
+// 			 	success : function(response) {
+// 			 		if(response) {
+// 			 			alert("메시지 전송이 완료되었습니다. 인증번호를 입력해 주세요.")
+// 			 		} else {
+// 			 			alert("메시지 전송에 실패했습니다.");
+// 			 		}
+					
+// 				}, 
+// 				error : function() {
+// 					alert("ajax 오류");
+					
+// 				}
 				
-// 			); // certification
+				
+				
+// 			});
 			
 			
 			
-// 		} // authPhone()
+			
+		} // authSms()
 		
 
 		

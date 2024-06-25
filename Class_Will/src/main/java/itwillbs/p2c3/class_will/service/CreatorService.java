@@ -11,7 +11,6 @@ import com.google.gson.Gson;
 import itwillbs.p2c3.class_will.mapper.CreatorMapper;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
-import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class CreatorService {
@@ -86,18 +85,18 @@ public class CreatorService {
 	}
 	
 	// 클래스정보 가져오기
-	public List<Map<String, Object>> getClassInfo(MemberVO member){
-		return creatorMapper.getClassInfo(member);
+	public List<Map<String, Object>> getClassInfo(){
+		return creatorMapper.getClassInfo();
 	}
 
 	// 상태에 따른 클래스정보 가져오기
-	public List<Map<String, Object>> getClassStatusInfo(int status, MemberVO member){
-		return creatorMapper.getClassStatusInfo(status, member);
+	public List<Map<String, Object>> getClassStatusInfo(int status){
+		return creatorMapper.getClassStatusInfo(status);
 	}
 
 	// 등록완료된 클래스정보 가져오기
-	public List<Map<String, Object>> getCertifiedClassInfo(MemberVO member){
-		return creatorMapper.getCertifiedClassInfo(member);
+	public List<Map<String, Object>> getCertifiedClassInfo(){
+		return creatorMapper.getCertifiedClassInfo();
 	}
 	
 	

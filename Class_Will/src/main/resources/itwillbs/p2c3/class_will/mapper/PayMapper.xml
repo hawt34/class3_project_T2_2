@@ -196,6 +196,7 @@
 	AND c3.common2_code = c.class_big_category 
 	WHERE p.pay_code = #{pay_code};
 	</select>
+	
 	<!-- ========금융결제원 관련 sql======== -->
 	<insert id="registAccessToken">
 		INSERT 
@@ -208,5 +209,4 @@
 			, #{email}
 		) 
 	</insert>
-	
 </mapper>

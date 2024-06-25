@@ -89,7 +89,7 @@
 </style>
 	
         <!-- Footer Start -->
-        <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">
+        <div class="container-fluid bg-dark text-white-50 footer pt-1 mt-5" style="background-color: #333;">
             <div class="container py-5">
                 <div class="pb-2 mb-2">
                     <div class="row g-4">

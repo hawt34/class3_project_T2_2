@@ -43,6 +43,9 @@ public interface PayMapper {
 	//결제에 성공한 paySuccessInfo 가져오기
 	Map<String, String> selectSuccessPayInfo(Map<String, String> map);
 	
+	//access_token 등록
+	void registAccessToken(Map map);
+	
 
 	
 }

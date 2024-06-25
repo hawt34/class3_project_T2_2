@@ -196,4 +196,17 @@
 	AND c3.common2_code = c.class_big_category 
 	WHERE p.pay_code = #{pay_code};
 	</select>
+	<!-- ========금융결제원 관련 sql======== -->
+	<insert id="registAccessToken">
+		INSERT 
+		INTO bank_user_info
+		VALUES (
+			#{access_token}
+			, #{user_seq_no}
+			, #{fintech_use_num}
+			, #{account_num}
+			, #{email}
+		) 
+	</insert>
+	
 </mapper>

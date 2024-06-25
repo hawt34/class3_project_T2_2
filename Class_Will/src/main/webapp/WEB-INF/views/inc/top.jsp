@@ -360,7 +360,7 @@
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
-	                    <div class="col-4 d-flex d-lg-none justify-content-end">
+	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3">
 	<!--                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav"> -->
 	<!--                             <span class="navbar-toggler-icon"></span> -->
 	<!--                         </button> -->

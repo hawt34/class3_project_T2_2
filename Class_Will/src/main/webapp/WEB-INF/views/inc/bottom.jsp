@@ -89,21 +89,6 @@
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>  
 	
-        <!-- Footer Start -->
-        <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">
-            <div class="container py-5">
-                <div class="pb-2 mb-2">
-                    <div class="row g-4">
-                        <div class="col-lg-3 text-center">
-                            <a href="#">
-                                 <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" id="logo" width="150px" alt="Logo" class="d-inline-block align-text-top">
-                            </a>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="position-relative mx-auto text-cente pt-5">
-                           		 <ul class="bottom-ul">
-									<li class="bottom-menu"><a href="csc?type=notice">공지사항</a></li>
-									<li class="bottom-menu"><a href="csc?type=faq">FAQ</a></li>
     <!-- Footer Start -->
     <div class="class-will-bottom">
 	    <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">

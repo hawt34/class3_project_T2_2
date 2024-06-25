@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
+import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
 import itwillbs.p2c3.class_will.vo.MemberVO;
@@ -30,18 +31,42 @@ public class CreatorController {
 	
 	@Autowired
 	private CreatorService creatorService;
+	
+	@Autowired
+	private MemberService memberService;
 
 	// creator-main으로
 	@GetMapping("creator-main")
-	public String createrMain() {
+	public String createrMain(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "로그인 후 이용 가능합니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		if(Integer.parseInt(member.getMember_type()) == 1 || member.getMember_type() == null) {
+			model.addAttribute("msg", "크리에이터 자격이 없습니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		
+		session.setAttribute("member", member);
+		session.setMaxInactiveInterval(60*60*2);
 		return "creator/creator-main";
 	}
 	
-	//======================================================
+	//=================================================================================
 	// creater-class로
 	@GetMapping("creator-class")
-	public String createrClass(Model model) {
-		List<Map<String, Object>> classList = creatorService.getClassInfo();
+	public String createrClass(Model model, HttpSession session) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		List<Map<String, Object>> classList = creatorService.getClassInfo(member);
 		
 		List<JSONObject> cl_list = new ArrayList<JSONObject>(); 
 		
@@ -60,15 +85,23 @@ public class CreatorController {
 	
 	@ResponseBody
 	@GetMapping("getStatusClass")
-	public List<Map<String, Object>> getStatusClass( @RequestParam(defaultValue = "0") int status){
-		List<Map<String, Object>> classList = creatorService.getClassStatusInfo(status);
+	public List<Map<String, Object>> getStatusClass(@RequestParam(defaultValue = "0") int status, HttpSession session, Model model){
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		List<Map<String, Object>> classList = creatorService.getClassStatusInfo(status, member);
 		
 		return classList;
 	}
 	
 	// creater-classReg 페이지로
 	@GetMapping("creator-classReg")
-	public String createrClassReg(Model model) {
+	public String createrClassReg(HttpSession session, Model model) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
 		
 		List<Map<String, String>> categoryList = creatorService.getCategory();
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
@@ -87,14 +120,12 @@ public class CreatorController {
 	public String createrClassModify(HttpSession session
 									, Model model
 									, @RequestParam(defaultValue = "0") int class_code) {
-		
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member == null) {
 			model.addAttribute("msg", "잘못된 접근입니다!");
 			model.addAttribute("targetURL", "./");
 			return "result_process/fail";
 		}
-		
 		List<Map<String, String>> categoryList = creatorService.getCategory();
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		Map<String, Object> classDetail = creatorService.getClassDetail(class_code);
@@ -119,9 +150,13 @@ public class CreatorController {
 	@PostMapping("creator-classRegPro")
 	public String createrClassRegPro(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
 		
-		String member_code = (String)session.getAttribute("member_code");
-		map.put("member_code", 1234);
-		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		map.put("member_code", member.getMember_code());
 		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
 		
 		List<CurriVO> curriList = new ArrayList<CurriVO>();
@@ -144,16 +179,22 @@ public class CreatorController {
 	}
 	
 	// 해쉬태그 추가 페이지
-	@GetMapping("creator-hashtag")
-	public String creatorHashtag() {
-		return "creator/creator-hashtag";
-	}
+//	@GetMapping("creator-hashtag")
+//	public String creatorHashtag() {
+//		return "creator/creator-hashtag";
+//	}
 		
 	// creater-class 일정등록 페이지로
 	@GetMapping("creator-class-plan")
-	public String createrClassPlan(Model model) {
+	public String createrClassPlan(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-class-plan";
@@ -161,9 +202,15 @@ public class CreatorController {
 
 	// creater-class-last 페이지로
 	@GetMapping("creator-class-last")
-	public String createrClassLast(Model model) {
+	public String createrClassLast(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-class-last";
@@ -173,7 +220,15 @@ public class CreatorController {
 	@PostMapping("creatorPlanPro")
 	public String creatorPlanPro(@RequestParam Map<String, Object> map
 								, Model model
-								,RedirectAttributes redirectAttributes) {
+								, RedirectAttributes redirectAttributes, HttpSession session) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		
 		System.out.println(">>>>>>>>>>>map : " + map);
 		// 회차별 시간 데이터 가져오기
 		List<ClassTimeVO> classTimeList = new ArrayList<ClassTimeVO>();
@@ -292,9 +347,15 @@ public class CreatorController {
 	//======================================================
 	// creater-review로
 	@GetMapping("creator-review")
-	public String createrReview(Model model) {
+	public String createrReview(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-review";
@@ -309,9 +370,15 @@ public class CreatorController {
 
 	// 문의사항 페이지로
 	@GetMapping("creator-inquiry")
-	public String creatorInquiry(Model model) {
+	public String creatorInquiry(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-inquiry";
@@ -327,17 +394,29 @@ public class CreatorController {
 	
 	// creater-analyze로
 	@GetMapping("creator-analyze")
-	public String createrAnalyze(Model model) {
+	public String createrAnalyze(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-analyze";
 	}
 	// creater-cost로
 	@GetMapping("creator-cost")
-	public String createrCost(Model model) {
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo();
+	public String createrCost(HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-cost";

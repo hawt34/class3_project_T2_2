@@ -34,13 +34,13 @@
 	
 	.social-icons {
         display: flex;
-        justify-content: center; /* 아이콘을 가운데 정렬 */
+        justify-content: center; 
         align-items: center;
         padding-top: 20px;
     }
 
     .social-icons .btn {
-        margin-right: 10px; /* 아이콘 간의 간격 조절 */
+        margin-right: 10px;
     }
     
     .back-to-top {
@@ -59,7 +59,7 @@
 	.chatbot {
 		position: fixed;
 	    right: 50px;
-	    bottom: 100px;
+	    bottom: 80px;
 	    display: flex;
 	    width: 50px;
 	    height: 50px;
@@ -81,8 +81,24 @@
 		height: 40px;
 	}
 	
-	.bt-margin-at {
-		margin: auto;
+
+
+	.bottom-nevi-var {
+		background: #333;
+		position: fixed;
+	    bottom: 0px;
+		height: 80px; 
+		color: white;
+	    z-index: 999;
+	    padding: 0px;
+	}
+	
+	.bottom-nevi-item {
+		font-size: 15px;
+	}
+	
+	.bottom-icon {
+		font-size: 23px;
 	}
 
 </style>
@@ -90,8 +106,8 @@
 	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>  
 	
     <!-- Footer Start -->
-    <div class="class-will-bottom">
-	    <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">
+    <div class="class-will-bottom mt-5">
+	    <div class="container-fluid text-white-50 footer pt-1 mt-5 pb-5" style="background-color: #191919;">
 	        <div class="container py-5">
 	            <div class="pb-2 mb-2">
 	                <div class="row g-4">
@@ -122,7 +138,7 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="row g-5">
+	            <div class="row g-5 mb-5">
 	                <div class="col-lg-3 ">
 	                    <div class="d-flex pt-3 justify-content-center">
 	                         <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" ><i class="fab fa-twitter"></i></a>
@@ -131,8 +147,8 @@
 	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
 	                     </div>
 	                </div>
-	                <div class="col-lg-6">
-	                    <div class="d-flex flex-column text-start footer-item">
+	                <div class="col-lg-6 ">
+	                    <div class="d-flex flex-column text-start footer-item" >
 	                       <ul class="bottom-ul">
 								<li class="bottom-info">(주)클래스윌</li>
 								<li class="bottom-info">대표: 김부기</li>
@@ -149,12 +165,27 @@
 	    </div>
 	    
     
-		<div class="container-fluid bottom-menu">
+		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center">
     		
-    
-    
-    
+			<ul class="nav nav-pills nav-justified d-flex align-items-center">
+				<li class="nav-item bottom-nevi-item">
+					<a class="nav-link " href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
+				</li>
+				<li class="nav-item bottom-nevi-item">
+					<a class="nav-link" href=""><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
+				</li>
+				<li class="nav-item bottom-nevi-item">
+					<a class="nav-link" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
+				</li>
+				<li class="nav-item bottom-nevi-item">
+					<a class="nav-link" href="#"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a>
+				</li>
+				<li class="nav-item bottom-nevi-item">
+					<a class="nav-link" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a>
+				</li>
+			</ul>
 		</div>	
+
 	</div>
     <!-- Footer End -->
     

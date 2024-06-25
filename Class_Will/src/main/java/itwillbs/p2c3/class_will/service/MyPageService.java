@@ -55,6 +55,13 @@ public class MyPageService {
 		return myPageMapper.updateMember(member);
 	}
 
+	public boolean nicknameDuplicate(String member_nickname) {
+		
+        int count = myPageMapper.countNickname(member_nickname);
+        return count > 0;
+
+	}
+
 	
 
 	

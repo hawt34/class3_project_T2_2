@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -243,15 +245,15 @@ public class MyPageController {
 	public String memberModify(Model model, BCryptPasswordEncoder passwordEncoder,
 			@RequestParam Map<String, String> formData) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-
-		System.out.println("회원정보하는 곳임" + formData);
-		System.out.println("평문 : " + formData.get("member_pwd"));
+		model.addAttribute("member", member);
+		//System.out.println("회원정보하는 곳임" + formData);
+		//System.out.println("평문 : " + formData.get("member_pwd"));
 
 		String addr = formData.get("member_post_code") + "/" + formData.get("member_address1") + "/"
 				+ formData.get("member_address2");
 		member.setMember_addr(addr);
-		System.out.println(addr);
-
+		//System.out.println(addr);
+		member.setMember_nickname(formData.get("member_nickname"));
 		String[] addrArr = member.getMember_addr().split("/");
 		member.setMember_post_code(addrArr[0]);
 		member.setMember_address1(addrArr[1]);
@@ -273,5 +275,13 @@ public class MyPageController {
 		}
 
 	}
-
+	
+	//회원닉네임 중복확인관련 ajax처리함
+	
+	@GetMapping("CheckDupNickname")
+	 public ResponseEntity<Boolean> checkNickname(@RequestParam String member_nickname) {
+        boolean isDuplicate = myPageService.nicknameDuplicate(member_nickname);
+        return new ResponseEntity<>(isDuplicate, HttpStatus.OK);
+    }
+	
 }

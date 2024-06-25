@@ -2,6 +2,8 @@ package itwillbs.p2c3.class_will.service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,16 +16,12 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
-import itwillbs.p2c3.class_will.handler.BankApi;
 import itwillbs.p2c3.class_will.mapper.PayMapper;
 
 @Service
 public class PayService {
 	@Autowired
 	private PayMapper payMapper;
-	
-	@Autowired
-	private BankApi bankApi;	
 	
 	private IamportClient client;
 	
@@ -114,16 +112,9 @@ public class PayService {
 	
 	//결제에 성공한 paySuccessInfo 가져오기
 	public Map<String, String> getSuccessPayInfo(Map<String, String> map) {
+		
+		
 		return payMapper.selectSuccessPayInfo(map);
-	}
-	
-	//access_token 획득
-	public Map getAccessToken(Map<String, String> authResponse) {
-		return bankApi.requestAccessToken(authResponse);
-	}
-
-	public void registAccessToken(Map map) {
-		payMapper.registAccessToken(map);
 	}
 
 	

@@ -40,7 +40,6 @@ public class MemberService {
 	
 	// 휴면 회원 전환
 	public boolean updateMemberStatus(MemberVO member) {
-		
 		if(memberMapper.updateMemberStatus(member)) {
 			return true;
 		} else {
@@ -48,7 +47,8 @@ public class MemberService {
 			
 		}
 		
-	}
+	} // updateMemberStatus
+	
 	
 	// 로그인 시 뱅크 토큰 조회
 	public Map<String, String> selectBankInfo(String member_email) {

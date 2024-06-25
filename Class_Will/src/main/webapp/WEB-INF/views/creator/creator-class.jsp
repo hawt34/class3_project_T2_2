@@ -46,6 +46,7 @@
 <link rel="stylesheet"
 	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
+
 </head>
 <body>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

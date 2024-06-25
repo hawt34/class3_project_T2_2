@@ -25,7 +25,7 @@ public interface ClassMapper {
 	List<Map<String, Object>> getClassList();
 	
 	// class-list
-	List<Map<String, Object>> getDetail(Map<String, Object> map);
+	List<Map<String, Object>> getDetail(int class_code);
 	
 	
     List<Map<String, String>> selectSmallCategories(String bigCategoryCode);

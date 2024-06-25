@@ -54,6 +54,9 @@ tr:hover .delete-btn {
 th, td {
 	text-align: center;
 }
+.info{
+	word-break: keep-all;
+}
 </style>
 </head>
 <body>
@@ -103,8 +106,9 @@ th, td {
 								</div>
 							</div>
 							<form id="dateForm" action="creatorPlanPro" method="POST">
-								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 	셀렉트박스 -->
+								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
+								<p class="text-white info" align="center">※ 일정등록은 클래스가 공개 상태에서만 가능하며 이미 일정이 등록된 경우 앞선 일정이 모두 마무리 될때 까지 추가는 불가능합니다</p>  
 								<div class="creator-main-table col-xl-12 mb-5">
 
 									<div id="scheduleTableContainer" class="col-md-12"></div>

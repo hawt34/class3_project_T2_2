@@ -100,14 +100,10 @@ public class MemberController {
 			model.addAttribute("targetURL", "member-wake-up?member_email=" + member.getMember_email());
 			return "result_process/success";
 			
-//		} else if(member.getMember_email().equals("admin") && member.getMember_pwd().equals("1234") && dbMember != null) {
-//			session.setAttribute("member", dbMember);
-//			model.addAttribute("member", dbMember);
-//			return "redirect:/";
-			
 		} else if(dbMember.getMember_type().equals("3") && member.getMember_pwd().equals(dbMember.getMember_pwd()) && dbMember != null) {
 			session.setAttribute("member", dbMember);
 			model.addAttribute("member", dbMember);
+			session.setMaxInactiveInterval(100000000);
 			return "redirect:/";
 			
 		} else if(dbMember == null || !passwordEncoder.matches(member.getMember_pwd(), dbMember.getMember_pwd())) { // 로그인 실패
@@ -118,6 +114,8 @@ public class MemberController {
 			session.setAttribute("member", dbMember);
 			model.addAttribute("member", dbMember);
 				
+			session.setMaxInactiveInterval(100000000);
+			
 			return "redirect:/";
 		} 
 		

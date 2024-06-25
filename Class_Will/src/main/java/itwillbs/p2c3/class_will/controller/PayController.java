@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.itwillbs.mvc_board.vo.BankTokenVO;
 
 import itwillbs.p2c3.class_will.service.PayService;
 
@@ -100,7 +103,48 @@ public class PayController {
 	@GetMapping("/callback")
 	public String auth(@RequestParam Map<String, String> authResponse, Model model, HttpSession session) {
 		logger.info("authResponse" + authResponse.toString());
-		return "";
+		//----------------------------------------------------------------
+//		String id = (String)session.getAttribute("sId");
+		
+		
+		// 토큰 발급 API - 사용자 토큰발급 API 요청
+		// BankApiService - requestAccesToken() 메서드 호출하여 엑세스 토큰 발급 요청
+		// -> 파라미터: 토큰 발급 요청에 필요한 정보(인증코드 요청 결과 저장된 Map 객체)
+		// -> 리턴타입: 응답 데이터가 저장된 ResponseTokenVO 타입
+		BankTokenVO token = payService.getAccessToken(authResponse);
+		logger.info("엑세스 토큰: " + token.getAccess_token());
+		
+//				ResponseTokenVO token = new ResponseTokenVO(); null 받기위한 가정
+		
+		//요청 결과 판별
+		// => ResponseTokenVO 객체가 null이거나 엑세스 토큰 값이 null 일 경우 요청 에러 처리
+		// => "result_process.fail.jsp 페이지 포워딩 시 'isClose' 값을 true로 설정하여 전달
+		// (메세지 : "토큰 발급 실패! 다시 인증을 해주세요!")
+		if(token == null || token.getAccess_token() == null) {
+			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 해주세요!");
+			model.addAttribute("isClose", true);
+			return "result_process/fail";
+		}
+		
+		//BankApiService - registAccessToken() 메서드 호출하여 토큰 관련 정보 저장 요청
+		//=> 파라미터 : 세션 아이디, BankTokenVO 객체
+		//=> 두 데이터를 하나의 객체로 전달할 경우(Map 객체 활용)
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("token", token);
+		
+		bankService.registAccessToken(map);
+		
+		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
+		// => BankTokenVO 타입 객체 형태 그대로 저장
+		session.setAttribute("access_token", token);
+		
+		//"success.jsp 페이지로 포워딩
+		// 메세지 : "계좌 인증 완료!", isClose 값을 true, "targetURL" 값을  "FintechUserInfo" 설정
+		model.addAttribute("msg", "계좌 인증 완료!");
+		model.addAttribute("isClose", true);
+		model.addAttribute("targetURL", "BankUserInfo");
+		return "result_process/success";
 	}
 	
 	

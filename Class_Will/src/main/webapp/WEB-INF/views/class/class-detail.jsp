@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 <!-- Icon Font Stylesheet -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -187,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg">
             </div>
             <div id="section2">
-                <div class="row reviewInfo">
+                <div class="row reviewInfo my-2">
                     <!-- 테이블 -->
                     <div class="card text-center">
                         <div class="card-body p-2">
@@ -201,39 +202,55 @@ document.addEventListener("DOMContentLoaded", function() {
                                         <th>별점</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <c:forEach var="map" items="${detail}">
-                                        <tr>
-                                            <td class="creator-review-subject">
-                                                <a onclick="creatorReview()">
-                                                    ${map.class_review_subject}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a onclick="creatorReview()">
-                                                    ${map.class_review_date}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a onclick="creatorReview()">
-                                                    ${map.member_name}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <div class="reviewStar" onclick="creatorReview()">
-                                                    <ul class="list-inline small">
-                                                        <c:forEach begin="1" end="${map.class_review_rating}">
-                                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                        </c:forEach>
-                                                        <c:forEach begin="${map.class_review_rating + 1}" end="5">
-                                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-                                                        </c:forEach>
-                                                    </ul>
-                                                </div> <!-- reviewStar -->
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
+							     <tbody>
+							        <c:choose>
+							            <c:when test="${empty classReview}">
+							                <tr>
+							                    <td colspan="4">
+							                        <h6 style="color: black;">리뷰가 존재하지 않습니다</h6>
+							                    </td>
+							                </tr>
+							            </c:when>
+							            <c:otherwise>
+							                <c:forEach var="map" items="${classReview}">
+							                    <c:if test="${map.class_review_subject != null}">
+							                        <tr>
+							                            <td class="creator-review-subject">
+<!-- 							                                <a onclick="creatorReview()"> -->
+<%-- 							                                    ${map.class_review_subject} --%>
+<!-- 							                                </a> -->
+                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.class_review_subject}</a>
+							                            </td>
+							                            <td>
+<!-- 							                                <a onclick="creatorReview()"> -->
+<%-- 							                                    ${map.class_review_date} --%>
+<!-- 							                                </a> -->
+                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.class_review_date}</a>
+							                            </td>
+							                            <td>
+<!-- 							                                <a onclick="creatorReview()"> -->
+<%-- 							                                    ${map.member_nickname} --%>
+<!-- 							                                </a> -->
+                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.member_nickname}</a>
+							                            </td>
+							                            <td>
+							                                <div class="reviewStar reviewStar1 col" onclick="creatorReview(event, '${param.class_code}')" style="text-align : left">
+							                                    <ul class="list-inline small">
+							                                        <c:forEach begin="1" end="${map.class_review_rating}">
+							                                            <li class="list-inline-item m-0"><i class="fa fa-star starStyle"></i></li>
+							                                        </c:forEach>
+							                                        <c:forEach begin="${map.class_review_rating + 1}" end="5">
+							                                            <li class="list-inline-item m-0"><i class="fa fa-star-o starStyle"></i></li>
+							                                        </c:forEach>
+							                                    </ul>
+							                                </div> <!-- reviewStar -->
+							                            </td>
+							                        </tr>
+							                    </c:if>
+							                </c:forEach>
+							            </c:otherwise>
+							        </c:choose>
+							    </tbody>
                             </table>
                             <%-- </c:forEach> --%>
                         </div>
@@ -247,8 +264,8 @@ document.addEventListener("DOMContentLoaded", function() {
             <div id="section4">
                 <!-- Q&A 내용 -->
                 <!-- 테이블 -->
-                <div class="card text-center">
-                    <div class="card-body p-2">
+                <div class="card text-center my-2">
+                    <div class="card-body p-2 reviewInfo">
                         <table>
                             <thead>
                                 <tr>
@@ -259,72 +276,105 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="creator-review-subject">
-                                        <a onclick="creatorInquiry()">클래스 날짜 변경가능한가요</a>
-                                    </td>
-                                    <td>
-                                        <a onclick="creatorInquiry()"> 2024-05-11 </a>
-                                    </td>
-                                    <td>
-                                        <a onclick="creatorInquiry()"> asdf1234 </a>
-                                    </td>
-                                    <td>
-                                        <div class="reviewStar" onclick="creatorInquiry()">
-                                            <ul class="list-inline small">
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-                                            </ul>
-                                        </div> <!-- reviewStar -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a onclick="creatorInquiry()">클래스 가격 문의</a>
-                                    </td>
-                                    <td>
-                                        <a onclick="creatorInquiry()">2024-05-11</a>
-                                    </td>
-                                    <td>
-                                        <a onclick="creatorInquiry()">fksdf1234</a>
-                                    </td>
-                                    <td>
-                                        <div class="reviewStar" onclick="creatorInquiry()">
-                                            <ul class="list-inline small">
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-                                            </ul>
-                                        </div> <!-- reviewStar -->
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a onclick="creatorInquiry()"> 클래스 관련 문의사항</a>
-                                    </td>
-                                    <td>
-                                        <a onclick="creatorInquiry()"> 2024-05-11 </a>
-                                    </td>
-                                    <td>
-                                        <a onclick="creatorInquiry()"> sfgsfsdf </a>
-                                    </td>
-                                    <td>
-                                        <div class="reviewStar" onclick="creatorInquiry()">
-                                            <ul class="list-inline small">
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-                                                <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li>
-                                            </ul>
-                                        </div> <!-- reviewStar -->
-                                    </td>
-                                </tr>
+<!-- <<<<<<< HEAD -->
+								<c:choose>
+						            <c:when test="${empty classInquiry}">
+						                <tr>
+						                    <td colspan="4">
+						                        <h6 style="color: black;">Q&A가 존재하지 않습니다</h6>
+						                    </td>
+						                </tr>
+						            </c:when>
+						            <c:otherwise>
+										<c:forEach var="map" items="${classInquiry}">
+			                                <tr>
+			                                    <td class="creator-review-subject">
+<%-- 			                                        <a onclick="creatorInquiry()">${map.class_inquiry_subject}</a> --%>
+                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.class_inquiry_subject}</a>
+			                                    </td>
+			                                    <td>
+<%-- 			                                        <a onclick="creatorInquiry()">${map.class_inquiry_date}</a> --%>
+                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.class_inquiry_date}</a>
+			                                    </td>
+			                                    <td>
+<%-- 			                                        <a onclick="creatorInquiry()">${map.member_nickname}</a> --%>
+<%-- 		                                            <a href="#" onclick="creatorInquiry(event)" data-class-code="${map.class_code}">${map.member_nickname}</a> --%>
+                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.member_nickname}</a>
+                                                    
+		                                            
+			                                    </td>
+			                                </tr>
+		                                </c:forEach>
+                                	</c:otherwise>
+                                </c:choose>
+<!-- ======= -->
+<!--                                 <tr> -->
+<!--                                     <td class="creator-review-subject"> -->
+<!--                                         <a onclick="creatorInquiry()">클래스 날짜 변경가능한가요</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> 2024-05-11 </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> asdf1234 </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
+<!--                                             <ul class="list-inline small"> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                             </ul> -->
+<!--                                         </div> reviewStar -->
+<!--                                     </td> -->
+<!--                                 </tr> -->
+<!--                                 <tr> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()">클래스 가격 문의</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()">2024-05-11</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()">fksdf1234</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
+<!--                                             <ul class="list-inline small"> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                             </ul> -->
+<!--                                         </div> reviewStar -->
+<!--                                     </td> -->
+<!--                                 </tr> -->
+<!--                                 <tr> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> 클래스 관련 문의사항</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> 2024-05-11 </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> sfgsfsdf </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
+<!--                                             <ul class="list-inline small"> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                             </ul> -->
+<!--                                         </div> reviewStar -->
+<!--                                     </td> -->
+<!--                                 </tr> -->
+<!-- >>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git -->
                             </tbody>
                         </table>
                     </div>
@@ -619,12 +669,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script type="text/javascript">
-function creatorReview() {
-    window.open("creator-review-form2", "pop", "width=700, height=800, left=700, top=50");
+function creatorReview(event, class_code) {
+    event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+    window.open("creator-review-form2?class_code=" + class_code, "pop", "width=700, height=800, left=700, top=50");
 }
 
-function creatorInquiry() {
-    window.open("creator-inquiry-form2", "pop", "width=700, height=800, left=700, top=50");
+function creatorInquiry(event, class_code) {
+    event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+    window.open("creator-inquiry-form2?class_code=" + class_code, "pop", "width=700, height=800, left=700, top=50");
 }
 </script>
 <!-- Required JavaScript files -->

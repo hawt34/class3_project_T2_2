@@ -31,9 +31,6 @@ public class CreatorController {
 	
 	@Autowired
 	private CreatorService creatorService;
-	
-	@Autowired
-	private MemberService memberService;
 
 	// creator-main으로
 	@GetMapping("creator-main")
@@ -41,18 +38,24 @@ public class CreatorController {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member == null) {
 			model.addAttribute("msg", "로그인 후 이용 가능합니다!");
-			model.addAttribute("targetURL", "./");
+			model.addAttribute("targetURL", "member-login");
 			return "result_process/fail";
 		}
-		if(Integer.parseInt(member.getMember_type()) == 1 || member.getMember_type() == null) {
+		if(Integer.parseInt(member.getMember_type()) != 2 && Integer.parseInt(member.getMember_type()) != 3) {
 			model.addAttribute("msg", "크리에이터 자격이 없습니다!");
-			model.addAttribute("targetURL", "./");
+			model.addAttribute("targetURL", "creator-qualify");
 			return "result_process/fail";
 		}
 		
 		session.setAttribute("member", member);
-		session.setMaxInactiveInterval(60*60*2);
+		session.setMaxInactiveInterval(60*60*60*60*60*60);
 		return "creator/creator-main";
+	}
+	
+	// creator-qualify 로
+	@GetMapping("creator-qualify")
+	public String creatorQualify(){
+		return "creator/creator-qualify";
 	}
 	
 	//=================================================================================

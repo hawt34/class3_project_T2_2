@@ -14,6 +14,21 @@
 	.boardArea {
 		color : black;
 	}	
+	th:nth-child(1), td:nth-child(1) {
+		width: 10%;
+	}
+	
+	th:nth-child(2), td:nth-child(2) {
+		width: 20%;
+	}
+	
+	th:nth-child(3), td:nth-child(3) {
+		width: 20%;
+	}
+	
+	th:nth-child(4), td:nth-child(4) {
+		width: 50%;
+	}
 </style>
     <head>
         <meta charset="utf-8">
@@ -61,14 +76,14 @@
 		<!-- content 영역 - 게시판 형식의 공지/뉴스 -->
 		<div class="col-12 main">
 			<div id="csc_mainTitle">
-				<h1>공지사항</h1>
+				<h1>고객센터</h1>
 			</div>
 			    <div class="category-buttons">
-			        <button type="button" class="btn btn-primary" onclick="location.href=csc'">공지사항</button>
-			        <button type="button" class="btn btn-secondary" onclick="location.href='csc-faq'">FAQ</button>
+			        <button type="button" class="btn btn-primary" onclick="location.href=csc?type=notice'">공지사항</button>
+			        <button type="button" class="btn btn-secondary" onclick="location.href='csc?type=faq'">FAQ</button>
 			    </div>
 			<hr>
-			<div class="row boardArea">
+			<div class="row">
 			
 				<div class="col-1 mt-3" id ="noticeCount">
 					<span id="count"><!--전체 갯수, 각 구분마다 갯수 --></span>
@@ -93,13 +108,13 @@
 			</div>
 			<hr>
 			<!-- 게시판 -->
-			<div class="row">
+			<div class="row boardArea">
 				<table>
 					<thead>
 						<tr>
 							<th>번호</th>
 							<th>카테고리</th>
-<!-- 							<th>극장</th> -->
+							<th>작성일</th>
 							<th>제목</th>
 						</tr>
 					</thead>
@@ -115,6 +130,7 @@
 									<tr>
 										<td>${board.notice_code }</td>
 										<td>${board.notice_category}</td>
+										<td>${board.notice_reg_date}</td>
 										<td>${board.notice_subject }</td>
 									</tr>
 								</c:forEach>

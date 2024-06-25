@@ -89,37 +89,38 @@ public class ClassController {
 	
 	// 클래스 상세 리뷰
 	@GetMapping("creator-review-form2")
-	public String creatorReviewForm2(Model model, HttpSession session, @RequestParam String class_code){
-		System.out.println("class_code @@@####################" + class_code);
-		Map<String, Object> map = new HashMap<>();
+	public String creatorReviewForm2(Model model, @RequestParam int class_code){
+//	public String creatorReviewForm2(Model model, HttpSession session, @RequestParam String class_code){
+//		System.out.println("class_code @@@####################" + class_code);
+//		Map<String, Object> map = new HashMap<>();
 		
-		String member_code = (String)session.getAttribute("member_code");
-		map.put("member_code", member_code);
-		map.put("class_code", class_code);
-		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
-		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
-		
-		List<Map<String, Object>> detail = classService.getDetail(map); 
-		model.addAttribute("detail", detail);
+//		map.put("class_code", class_code);
+//		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
+//		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
+//		String member_code = (String)session.getAttribute("member_code");
+//		map.put("member_code", member_code);
+//		map.put("class_code", class_code);
+//		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
+//		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
+		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
+		model.addAttribute("classReview", classReview);
+		return"creator/creator-review-show";
 	    
-		return"creator/creator-review-form2";
 	}
 	
 	// 클래스 상세 질문
 	@GetMapping("creator-inquiry-form2")
-	public String creatorInquiryForm2(Model model, HttpSession session, @RequestParam String class_code){
-		System.out.println("class_code @@@####################" + class_code);
-		Map<String, Object> map = new HashMap<>();
+	public String creatorInquiryForm2(Model model, @RequestParam int class_code){
+//		System.out.println("class_cocde @@@####################" + class_code);
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("class_code", class_code);
+//		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
+//		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
 		
-		String member_code = (String)session.getAttribute("member_code");
-		map.put("member_code", member_code);
-		map.put("class_code", class_code);
-		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
-		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		
-		List<Map<String, Object>> detail = classService.getDetail(map); 
-		model.addAttribute("detail", detail);
-		return"creator/creator-inquiry-form2";
+		List<Map<String, Object>> classInquiry = classService.getClassInquiry( class_code ); 
+		model.addAttribute("classInquiry", classInquiry);
+		return"creator/creator-inquiry-show";
 	}
 //	@ResponseBody
 //	@PostMapping("class-list")
@@ -164,21 +165,28 @@ public class ClassController {
 		return smallCategory;
 	}
 	
+	
 	// 클래스 디테일
 	@GetMapping("class-detail")
-	public String classDetail(Model model, HttpSession session, @RequestParam String class_code) {
+	public String classDetail(Model model, @RequestParam int class_code) {
+//	public String classDetail(Model model, HttpSession session, @RequestParam String class_code) {
 		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		Map<String, Object> map = new HashMap<>();
 		
-		String member_code = (String)session.getAttribute("member_code");
-		map.put("member_code", member_code);
+//		String member_code = (String)session.getAttribute("member_code");
+//		map.put("member_code", member_code);
 		map.put("class_code", class_code);
-		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
-		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		
-		List<Map<String, Object>> detail = classService.getDetail(map); 
-		model.addAttribute("detail", detail);
+		// 클래스 후기
+		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
+		model.addAttribute("classReview", classReview);
+//		List<Map<String, Object>> detail = classService.getDetail(map); 
+//		model.addAttribute("detail", detail);
 	    
+		// 클래스 질문
+		List<Map<String, Object>> classInquiry = classService.getClassInquiry(class_code); 
+		model.addAttribute("classInquiry", classInquiry);
+		
 	    
 		//classInfo 임시 클래스 데이터 가져오기
 		Map<String, Object> testClassCode = new HashMap<>();

@@ -19,30 +19,54 @@ public class CscController {
 	
 	
 	@GetMapping("csc")
-	public String cscMain(Model model,@RequestParam(defaultValue = "1") String pageNum) {
+	public String cscMain(@RequestParam(defaultValue = "notice") String type, Model model,@RequestParam(defaultValue = "1") String pageNum) {
 		int pageSize = 10;
 		int startRow = (Integer.parseInt(pageNum) - 1) * pageSize;
 		int totalCount = adminService.getBoardCount("notice");
 		int totalPages = (int) Math.ceil((double) totalCount / pageSize);
+		String common2_value	 = "";
+		String common2_code = "";
+		String common1_code 	= "";
 		//카테고리
 		List<Map<String, Object>> category = adminService.getBoardCategory("NTC");
 		
-		
 		//글 리스트
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("type", "notice");
+		params.put("type", type);
 		params.put("startRow", startRow);
 		params.put("limit", pageSize);
-		List<Map<String, Object>> list = adminService.getCscList(params);
+		List<Map<String, Object>> data = adminService.getCscList(params);
 		
 		
+		for (Map<String, Object> map : data) {
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getKey().contains("_category")) {
+                	System.out.println("ssssssssssssssssssss : " + entry.getValue());
+                	common2_code = (String)entry.getValue();
+                }
+            }
+            switch (type) {
+	    		case "notice" 	: common1_code = "NTC"; break;
+	    		case "faq" 		: common1_code = "FQC"; break;
+	    		case "event"	: common1_code = ""; break;
+            }
+            Integer common2_code_int = Integer.parseInt(common2_code);
+            common2_value = adminService.getCommon2Value(common1_code, common2_code_int);
+            map.put(type + "_category", common2_value);
+		}
 		
 		model.addAttribute("category", category);
-		model.addAttribute("list", list);
+		model.addAttribute("list", data);
 		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("type", "notice");
+		model.addAttribute("type", type);
 		
-		return "csc/csc_notice";
+		if(type.equals("notice")) {
+			return "csc/csc_notice";
+		}else if(type.equals("faq")) {
+			return "csc/csc_faq";
+		}
+		
+		return "";
 	}
 	
 	@GetMapping("csc-detail")

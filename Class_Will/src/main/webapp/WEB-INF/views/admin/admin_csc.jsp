@@ -405,6 +405,7 @@
                     { header: '제목', name: type + '_subject' , editor: 'text'},
 //                     { header: '카테고리', name: 'notice_category' , editor: 'text'},
                     { header: '카테고리', name: type + '_category' , editor: 'text'},
+                    { header: '작성일', name: type + '_reg_date' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',

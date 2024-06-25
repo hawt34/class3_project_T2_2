@@ -117,6 +117,7 @@ public class MemberController {
 			session.setAttribute("token", bank_info);
 			session.setAttribute("member", dbMember);
 			model.addAttribute("member", dbMember);
+				
 			session.setMaxInactiveInterval(100000000);
 			
 			

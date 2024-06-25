@@ -337,22 +337,30 @@
 	</select>
 	
 	<!-- 문의사항 클래스 정보 가져오기 -->
-	<select id="getinquiryClassInfo" resultType="map">
-	SELECT 
-		c.*
-		, (
-			SELECT 
-				count(*) 
-			FROM 
-				class_inquiry 
-			WHERE 
-				class_code = c.class_code
-		) AS counter
-	FROM 
-		class c
-	WHERE 
-		c.member_code = #{member_code}
-	</select>
+<!-- 	<select id="getinquiryClassInfo" resultType="map"> -->
+<!-- 	SELECT  -->
+<!-- 		   ci.class_inquiry_code -->
+<!-- 		 , ci.class_inquiry_subject -->
+<!-- 		 , ci.class_inquiry_content -->
+<!-- 		 , ci.class_inquiry_date -->
+<!-- 		 , ci.class_inquiry_time -->
+<!-- 		 , ci.class_inquiry_status -->
+<!-- 		 , m.member_name -->
+<!-- 		 , c.member_code -->
+<!-- 		 , c.class_name -->
+<!-- 	FROM  -->
+<!-- 		class_inquiry ci -->
+<!-- 	JOIN  -->
+<!-- 		class c -->
+<!-- 	ON ukf -->
+<!-- 		c.class_code = ci.class_code -->
+<!-- 	JOIN  -->
+<!-- 		`MEMBER` m -->
+<!-- 	ON  -->
+<!-- 		ci.member_code = m.member_code  -->
+<!-- 	WHERE  -->
+<!-- 		c.member_code = #{member_code} -->
+<!-- 	</select> -->
 	
 	<!-- 공개여부 -->
 	<select id="getHide" resultType="map">

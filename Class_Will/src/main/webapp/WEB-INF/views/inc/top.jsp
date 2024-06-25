@@ -179,6 +179,17 @@
     .offcanvas {
         display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */
     }
+    
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+/*         margin-left: auto; */
+/*         margin-right: auto; */
+    }
+    .navbar-toggler {
+/*         margin-left: auto; */
+    }
 }
 
 .search-box {
@@ -199,8 +210,7 @@
     padding: 0px;
     padding-left: 10px;
     color: black;
-    font-size: 16px;
-/*     line-height: 20px; */
+    font-size: 15px;
     width: 80%;
 }
 
@@ -271,14 +281,14 @@
 <!-- 본문 시작 -->
 <!-- Navbar start -->
 <div class="class-will-top">
-	<div class="container-fluid">
+	<div class="container-fluid ">
 	    <div class="container px-0 top-cate">
 	        <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	            <div class="container-fluid">
-	                <div class="row w-100 align-items-end">
+	                <div class="row w-100 d-none d-flex align-items-end top-nev-lg">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
-		                    <div class="col-5   d-none d-lg-flex justify-content-start  mb-3">
+		                    <div class="col-5  d-none d-lg-flex justify-content-start  mb-3">
 		                        <ul class="navbar-nav">
 		                            <li class="nav-item">
 		                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
@@ -329,6 +339,9 @@
 												<li class="nav-item"> 
 													<a class="nav-link" href="admin"><i class="bi bi-gear"></i> 관리자</a>
 												</li>
+												<li class="nav-item">
+												    <a class="nav-link" onclick="logout()">로그아웃</a>
+												</li>
 											</c:when>
 											<c:otherwise>
 												<li class="nav-item">
@@ -345,7 +358,7 @@
 			            	<div class="row ">
 								<div class="col  d-none d-lg-flex justify-content-end px-4">
 									<form action="search-keyword" class="search-box" method="post">
-										<input class="search-txt align-items-center" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
+										<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
 										<button class="search-btn" type="submit">
 											<i class="bi bi-search bi-top"></i>
 										</button>
@@ -353,14 +366,17 @@
 								</div>
 							</div>   
 	                    </div>
-	
-	                    <!-- 로고와 햄버거 버튼 (작은 화면) -->
+		            </div> <!-- row -->
+	                
+
+                    <!-- 로고와 햄버거 버튼 (작은 화면) -->
+					<div class="row w-100 d-flex d-lg-none align-items-end">
 	                    <div class="col-8 d-flex d-lg-none justify-content-start">
 	                        <a class="navbar-brand" href="main">
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
-	                    <div class="col-4 d-flex d-lg-none justify-content-end">
+	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3">
 	<!--                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav"> -->
 	<!--                             <span class="navbar-toggler-icon"></span> -->
 	<!--                         </button> -->
@@ -368,9 +384,10 @@
 		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
 	                    </div>
-	                </div>
-	            </div>
-	
+					</div>
+					
+				</div> <!-- container-fluid -->
+				
 	            <!-- 오프캔버스 -->
 	            <div class="offcanvas offcanvas-start" id="top-offcanvas" style="background-color: #333;">
 	                <div class="offcanvas-header">
@@ -416,9 +433,10 @@
 	                    </ul>
 	                </div>
 	            </div> <!-- offcanvas -->
+	            
 	        </nav>
-	    </div>
-	</div>
+	    </div> <!-- top-cate -->
+	</div> <!-- container-fluid -->
 	<!-- Navbar End -->
 	
 	<!-- Modal Search Start -->

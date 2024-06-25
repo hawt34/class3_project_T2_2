@@ -178,37 +178,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel" style="color: black; font-weight: bold;">크리에이터 전환 신청</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close" style="color: black;">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<form id="applyForm">
-							<div class="form-group">
-								<label><input type="checkbox" name="agreeTerms">
-									 <span style="color: black;">서비스 이용 약관에 동의합니다.</span></label>
-							</div>
-							<div class="form-group">
-								<label><input type="checkbox" name="agreePrivacy">
-								<span style="color: black;">개인정보 처리 방침에 동의합니다.</span></label>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal" >닫기</button>
-						<button type="button" class="btn btn-primary" onclick="apply()">신청하기</button>
-					</div>
-				</div>
-			</div>
-		</div>
+		
 		</div>
 		<footer>
 			<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
@@ -453,21 +423,7 @@
 					}
 				});
 			});
-			//이제부터 회원전환 
-			function openModal() {
-				$('#myModal').modal('show'); // 부트스트랩 모달 열기
-			}
-
-		    $('.modal .close, .modal .btn-secondary').click(function() {
-			    closeModal(); // 모달 닫기
-	            window.close(); // 윈도우 닫기
-	        });
 			
-		    function closeModal() {
-	            $('#myModal').modal('hide'); // 부트스트랩 모달 닫기
-	        }
-			
-		  
 
 		</script>
 </body>

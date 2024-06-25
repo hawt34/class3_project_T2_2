@@ -91,7 +91,14 @@ public class MyPageController {
 
 		return "mypage/mypage-review";
 	}
-
+	//리뷰 등록
+	@GetMapping("resist-review")
+	public String resistReview() {
+		
+		return "mypage/mypage-review-form";
+	}
+	
+	
 	// 리뷰 수정
 	@GetMapping("edit-review-page")
 	public String editReviewPage(@RequestParam("review_code") String reviewCode, Model model) {

@@ -164,7 +164,7 @@ th:nth-child(2), td:nth-child(2) {
 												<td>3</td>
 												<td>4</td>
 												<td>
-													<button class="btn btn-primary" onclick="resistReview()">등록하기</button>
+													<a href="resist-review" style="">등록하기</a>
 												</td>
 											</tr>
 										</tbody>

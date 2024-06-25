@@ -49,10 +49,16 @@ public class ClassService {
 		return mapper.getClassList();
 	}
 	
-	// class-detail
-	public List<Map<String, Object>> getDetail(Map<String, Object> map){
-		return mapper.getDetail(map);
+	// 클래스 리뷰
+	public List<Map<String, Object>> getClassReview(int class_code){
+		return mapper.selectClassReview(class_code);
 	}
+	
+	// 클래스 질문
+	public List<Map<String, Object>> getClassInquiry(int class_code){
+		return mapper.selectClassInquiry(class_code);
+	}
+	
     public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
         return mapper.selectSmallCategories(bigCategoryCode);
     }

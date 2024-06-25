@@ -371,7 +371,7 @@
 	    function updateChart(data) {
 	        var ctx = document.getElementById("myAreaChart").getContext('2d');
 	        var currentMonth = new Date().getMonth(); // 0부터 시작하므로, 0은 1월, 1은 2월 ...
-	
+			
 	        var labels = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 	        labels = labels.slice(0, currentMonth + 1);
 	

@@ -199,8 +199,7 @@
     padding: 0px;
     padding-left: 10px;
     color: black;
-    font-size: 16px;
-/*     line-height: 20px; */
+    font-size: 15px;
     width: 80%;
 }
 
@@ -329,6 +328,9 @@
 												<li class="nav-item"> 
 													<a class="nav-link" href="admin"><i class="bi bi-gear"></i> 관리자</a>
 												</li>
+												<li class="nav-item">
+												    <a class="nav-link" onclick="logout()">로그아웃</a>
+												</li>
 											</c:when>
 											<c:otherwise>
 												<li class="nav-item">
@@ -345,7 +347,7 @@
 			            	<div class="row ">
 								<div class="col  d-none d-lg-flex justify-content-end px-4">
 									<form action="search-keyword" class="search-box" method="post">
-										<input class="search-txt align-items-center" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
+										<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
 										<button class="search-btn" type="submit">
 											<i class="bi bi-search bi-top"></i>
 										</button>

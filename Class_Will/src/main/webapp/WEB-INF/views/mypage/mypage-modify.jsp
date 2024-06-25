@@ -92,7 +92,9 @@
 											
 											<div class="col-md-12 mt-2 my-4">
 												<label for="member_nickname" class="h6">닉네임</label> 
-												<input type="text" class="form-control" id="member_nickname" name="member_nickname" placeholder="nick-name"  maxlength="30">
+												<input type="text" class="form-control" id="member_nickname" name="member_nickname" placeholder="nick-name"  
+												value="${member.member_nickname == null ? '닉네임 없음' : member.member_nickname}" maxlength="15">
+												<div id="checkNickname"></div>
 											</div>
 											<div class="col-md-12 mt-2 my-4">
 												<label for="" class="h6">일반회원 전환 / 크리에이터 전환</label> 
@@ -111,23 +113,24 @@
 												<span id="msg_pwd2" style="color: red;"></span>
 											</div>
 											
-											
+											 <c:set var="memberAddress" value="${member.member_addr}" />
+        									 <c:set var="address" value="${fn:split(memberAddress, '/')}" />
    											<div class="col-md-12 my-4">
 												<label for="postCode" class="h6">주소</label><br>
 												<div class="d-flex justify-content-between">
 													<div class="col-md-3">
 														<input type="text" id="post_code" name="member_post_code"
 															class="form-control my-1" size="6" readonly
-															onclick="search_address()" placeholder="우편번호" value="${member.member_post_code}">
+															onclick="search_address()" placeholder="우편번호" value="${address[0]}">
 													</div>
 													<div class="col-md-9">
 														
 														<input type="text" id="address1" name="member_address1"  class="form-control my-1" placeholder="클릭 시 주소검색"
-															size="25" readonly onclick="search_address()" value="${member.member_address1}">
+															size="25" readonly onclick="search_address()" value="${address[1]}">
 													</div>
 												</div>
 												<input type="text" id="address2" name="member_address2" class="form-control" placeholder="상세주소" size="25"
-													pattern="^.{2,20}$" maxlength="20" value="${member.member_address2}">
+													pattern="^.{2,20}$" maxlength="20" value="${address[2]}">
 											</div>
 											
 										</div>
@@ -323,6 +326,54 @@
 	    // 초기 폼 유효성 검사
 	    checkFormValidity();
 	});
+	$(function() {
+		 let originalNickname = $("#member_nickname").val(); // 기존 닉네임 저장
+		 	
+		    // 닉네임 입력란에서 포커스를 잃었을 때
+		    $("#member_nickname").blur(function() {
+		        let nickname = $(this).val(); // 입력된 닉네임 가져오기
+		        let regex = /^[^\s]{3,15}$/; // 닉네임 유효성을 검사할 정규표현식 (공백 제외 3~15자)
+		
+		        if (nickname === originalNickname) {
+		            // 입력된 닉네임이 기존 닉네임과 동일한 경우
+		            $("#checkNickname").empty(); // 메시지 초기화
+		            return; // AJAX 요청을 보내지 않고 함수 종료
+		        }
+		        
+		        
+		        if (nickname === null || nickname === "") {
+		            // 닉네임이 null 또는 빈 문자열인 경우에는 중복 검사하지 않음
+		            $("#checkNickname").text("");
+		        } else if (regex.test(nickname)) {
+		            // AJAX 요청을 보내어 닉네임의 중복 여부를 확인
+		            $.ajax({
+		                type: "GET",
+		                url: "CheckDupNickname", // 서버 측에서 닉네임 중복을 확인할 엔드포인트
+		                data: {
+		                	member_nickname: nickname
+		                },
+		                dataType: "json",
+		                success: function(checkDupNickname) {
+		                    if (checkDupNickname) {
+		                        $("#checkNickname").text("이미 사용중인 닉네임");
+		                        $("#checkNickname").css("color", "red");
+		                    } else {
+		                        $("#checkNickname").text("사용 가능한 닉네임");
+		                        $("#checkNickname").css("color", "green");
+		                    }
+		                },
+		                error: function() {
+		                    console.log("AJAX 요청 에러 발생!");
+		                }
+		            });
+		        } else {
+		            // 닉네임이 유효하지 않은 경우
+		            $("#checkNickname").text("공백 없이 3~15자로 입력해주세요.");
+		            $("#checkNickname").css("color", "red");
+		        }
+		    });
+		});
+	      
 </script>
 </body>
 </html>

@@ -24,9 +24,15 @@
 
 		<if test="member_pwd != null">
 			<if test="member_pwd != null and !member_pwd.equals('')">
-				member_pwd = #{member_pwd}
+				member_pwd = #{member_pwd},
 			</if>
 		</if>
+		<if test="member_pwd != null">
+			<if test="member_pwd != null and !member_pwd.equals('')">
+				member_nickname = #{member_nickname}
+			</if>
+		</if>
+		
 		WHERE
 		member_code = #{member_code}
 	</update>
@@ -68,6 +74,13 @@
 		WHERE class_review_code = #{class_review_code}
 
 	</delete>
-
+	
+	<select id="countNickname">
+		<!-- 회원 닉네임 중복확인 -->
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE member_nickname = #{member_nickname}
+	</select>
+	
 
 </mapper>

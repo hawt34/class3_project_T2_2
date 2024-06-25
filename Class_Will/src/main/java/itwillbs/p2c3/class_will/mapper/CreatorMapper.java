@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Mapper
 public interface CreatorMapper {
@@ -55,12 +56,12 @@ public interface CreatorMapper {
 	List<Map<String, String>> getHide();
 	
 	// 클래스 정보 가져오기
-	List<Map<String, Object>> getClassInfo();
+	List<Map<String, Object>> getClassInfo(MemberVO member);
 
 	// 등록완료된 클래스 정보 가져오기
-	List<Map<String, Object>> getCertifiedClassInfo();
+	List<Map<String, Object>> getCertifiedClassInfo(MemberVO member);
 	
 	// 상태에 따른 클래스 리스트
-	List<Map<String, Object>> getClassStatusInfo(int status);
+	List<Map<String, Object>> getClassStatusInfo(@Param("status") int status,@Param("member") MemberVO member);
 	
 }

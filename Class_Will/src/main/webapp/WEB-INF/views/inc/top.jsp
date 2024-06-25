@@ -327,7 +327,7 @@
 											</c:when>
 											<c:when test="${member.member_type eq 3}">
 												<li class="nav-item"> 
-													<a class="nav-link" href="admin">관리자</a>
+													<a class="nav-link" href="admin"><i class="bi bi-gear"></i> 관리자</a>
 												</li>
 											</c:when>
 											<c:otherwise>

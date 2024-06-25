@@ -38,13 +38,16 @@ public class MemberService {
 	}
 	
 	
+	// 휴면 회원 전환
 	public boolean updateMemberStatus(MemberVO member) {
+		
 		if(memberMapper.updateMemberStatus(member)) {
 			return true;
 		} else {
 			return false;
 			
 		}
+		
 	}
 	
 	// 로그인 시 뱅크 토큰 조회

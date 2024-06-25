@@ -200,7 +200,7 @@
     padding-left: 10px;
     color: black;
     font-size: 16px;
-    line-height: 20px;
+/*     line-height: 20px; */
     width: 80%;
 }
 
@@ -344,8 +344,8 @@
 			            	</div> 
 			            	<div class="row ">
 								<div class="col  d-none d-lg-flex justify-content-end px-4">
-									<form action="" class="search-box ">
-										<input class="search-txt align-items-center" type="text" name="" placeholder="관심 주제, 클래스, 크리에이터">
+									<form action="search-keyword" class="search-box" method="post">
+										<input class="search-txt align-items-center" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
 										<button class="search-btn" type="submit">
 											<i class="bi bi-search bi-top"></i>
 										</button>

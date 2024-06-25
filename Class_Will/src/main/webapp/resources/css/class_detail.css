@@ -109,16 +109,21 @@
 	margin-left : 0px;
 	font-weight: bold;
 	padding-bottom : 0px;
-        display: flex;
-        align-items: flex-start;
+    display: flex;
+    align-items: flex-start;
 }
-.reviewStar {
-	
+.reviewStar1 {
+	margin-right : 0px;
+	width : 50px;
 }
 .userReview {
 	margin-left : 20px;
         margin-top: 20px;
 	
+}
+
+.starStyle{
+	color : #DC143C ;	
 }
 
 .userInfo {

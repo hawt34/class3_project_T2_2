@@ -63,12 +63,33 @@
 		ON c.member_code = m.member_code
 	</select>
 	
-	<select id="getDetail"  resultType="map">
-		SELECT *
+	<!-- 클래스 리뷰 -->
+	<select id="selectClassReview" resultType="map">
+		SELECT class_review_subject
+			, class_review_content
+			, class_review_date
+			, class_review_rating
+			, member_name
+			, member_nickname
+			, m.member_code
 		FROM class_review cr
 		JOIN MEMBER m
 		ON m.member_code = cr.member_code 
-		WHERE class_code = #{class_code}
+		WHERE cr.class_code = #{class_code}
+	</select>
+	
+	<!-- 클래스 질문 -->
+	<select id="selectClassInquiry" resultType="map">
+		SELECT class_inquiry_subject
+			, class_inquiry_content
+			, class_inquiry_date
+			, member_name
+			, member_nickname
+			, m.member_code
+		FROM class_inquiry ci
+		JOIN MEMBER m
+		ON m.member_code = ci.member_code 
+		WHERE ci.class_code = #{class_code}
 	</select>
 	
     <select id="selectSmallCategories" parameterType="String" resultType="map">

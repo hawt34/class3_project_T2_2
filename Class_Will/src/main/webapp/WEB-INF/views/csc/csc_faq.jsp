@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/csc_faq.css">
     <meta charset="utf-8">
     <title>자주묻는질문</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -36,6 +37,11 @@
         .accordion-button::after {
             background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns%3D%27http://www.w3.org/2000/svg%27 fill%3D%27%23fff%27 viewBox%3D%270 0 16 16%27%3E%3Cpath fill-rule%3D%27evenodd%27 d%3D%27M1.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5zM3 1.5a.5.5 0 0 1 1 0v13a.5.5 0 0 1-1 0v-13z%27/%3E%3C/svg%3E');
         }
+        /* Disable hover effects for accordion */
+        .accordion-button:hover {
+            cursor: pointer;
+            background-color: inherit;
+        }
     </style>
 </head>
 
@@ -60,10 +66,10 @@
                     <div id="csc_mainTitle">
                         <h1>FAQ</h1>
                     </div>
-                    <div class="category-buttons">
-                        <button type="button" class="btn btn-primary" onclick="location.href='csc?type=notice'">공지사항</button>
-                        <button type="button" class="btn btn-secondary" onclick="location.href='csc?type=faq'">FAQ</button>
-                    </div>
+					<div class="category-buttons">
+					    <button type="button" class="btn <c:if test="${param.type == 'notice'}">btn-primary active</c:if><c:if test="${param.type != 'notice'}">btn-primary</c:if>" onclick="location.href='csc?type=notice'">공지사항</button>
+					    <button type="button" class="btn <c:if test="${param.type == 'faq'}">btn-primary active</c:if><c:if test="${param.type != 'faq'}">btn-secondary</c:if>" onclick="location.href='csc?type=faq'">FAQ</button>
+					</div>
                     <hr>
                 </div>
                 <!-- 검색창 -->
@@ -82,14 +88,20 @@
                 <!-- 구분 카테고리 시작 -->
                 <div class="row mt-3">
                     <div class="csc_faq_sel">
-                        <select id="faq_category" name="faq_category" class="form-select form-select-sm w-25">
-                            <option value="">전체</option>
-                            <option value="예매/결제" data-category="예매/결제">예매/결제</option>
-                            <option value="영화관이용" data-category="영화관이용">영화관이용</option>
-                            <option value="쿠폰" data-category="쿠폰">쿠폰</option>
-                            <option value="스토어" data-category="스토어">스토어</option>
-                            <option value="홈페이지/모바일" data-category="홈페이지/모바일">홈페이지/모바일</option>
-                        </select>
+<!--                         <select id="faq_category" name="faq_category" class="form-select form-select-sm w-25"> -->
+<!--                             <option value="">전체</option> -->
+<!--                             <option value="예매/결제" data-category="예매/결제">예매/결제</option> -->
+<!--                             <option value="영화관이용" data-category="영화관이용">영화관이용</option> -->
+<!--                             <option value="쿠폰" data-category="쿠폰">쿠폰</option> -->
+<!--                             <option value="스토어" data-category="스토어">스토어</option> -->
+<!--                             <option value="홈페이지/모바일" data-category="홈페이지/모바일">홈페이지/모바일</option> -->
+<!--                         </select> -->
+						<select id="faq_category" name="faq_category" class="form-select form-select-sm w-25">
+							<option value="">전체</option>
+								<c:forEach items="${category}" var="cat">
+								    <option value="${cat.common2_code}" data-category="${cat.code_value}">${cat.code_value}</option>
+								</c:forEach>
+						</select>
                     </div>
                 </div>
                 <hr>
@@ -104,7 +116,7 @@
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="heading${status.index}">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${status.index}" aria-expanded="false" aria-controls="collapse${status.index}">
-                                            <span class="faq_category">[${faq.faq_category}]</span> ${faq.faq_subject}
+                                            <span class="faq_category">[${faq.faq_category}]&nbsp;&nbsp;&nbsp;</span> ${faq.faq_subject}
                                         </button>
                                     </h2>
                                     <div id="collapse${status.index}" class="accordion-collapse collapse" aria-labelledby="heading${status.index}" data-bs-parent="#faqAccordion">
@@ -130,7 +142,7 @@
     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
 
     <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
@@ -139,5 +151,19 @@
 
     <!-- Template Javascript -->
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+
+    <!-- Custom JavaScript to prevent hover effect -->
+    <script>
+        // Ensure accordion only toggles on click
+        document.addEventListener('DOMContentLoaded', function () {
+            var accordions = document.querySelectorAll('.accordion-button');
+
+            accordions.forEach(function (accordion) {
+                accordion.addEventListener('mouseover', function (event) {
+                    event.stopPropagation();
+                });
+            });
+        });
+    </script>
 </body>
 </html>

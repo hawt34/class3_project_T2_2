@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import itwillbs.p2c3.class_will.service.AdminService;
+import itwillbs.p2c3.class_will.service.CscService;
 
 @Controller
 public class CscController {
 	@Autowired
 	private AdminService adminService;
 	
+	@Autowired
+	private CscService cscService;
 	
 	@GetMapping("csc")
 	public String cscMain(@RequestParam(defaultValue = "notice") String type, Model model,@RequestParam(defaultValue = "1") String pageNum) {
@@ -27,8 +30,12 @@ public class CscController {
 		String common2_value	 = "";
 		String common2_code = "";
 		String common1_code 	= "";
+		List<Map<String, Object>> category = null;
 		//카테고리
-		List<Map<String, Object>> category = adminService.getBoardCategory("NTC");
+		switch (type) {
+		case "notice": category = adminService.getBoardCategory("NTC"); break;
+		case "faq": category = adminService.getBoardCategory("FQC"); break;
+		}
 		
 		//글 리스트
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -41,7 +48,6 @@ public class CscController {
 		for (Map<String, Object> map : data) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getKey().contains("_category")) {
-                	System.out.println("ssssssssssssssssssss : " + entry.getValue());
                 	common2_code = (String)entry.getValue();
                 }
             }
@@ -54,7 +60,7 @@ public class CscController {
             common2_value = adminService.getCommon2Value(common1_code, common2_code_int);
             map.put(type + "_category", common2_value);
 		}
-		
+		System.out.println("category : " + category);
 		model.addAttribute("category", category);
 		model.addAttribute("list", data);
 		model.addAttribute("totalPages", totalPages);
@@ -69,10 +75,45 @@ public class CscController {
 		return "";
 	}
 	
-	@GetMapping("csc-detail")
-	public String csctest() {
+	@GetMapping("boardDetail")
+	public String csctest(String type , int code,Model model) {
+		List<Map<String, Object>> list = null;
+		String common1_code = "";
+		String searchType = "";
+		Integer prev = 0;
+		Integer next = 0;
+		switch (type) {
+			case "notice" : common1_code = "NTC"; break;
+			case "faq" : common1_code = "FQC"; break;
+		}
 		
-		return "csc/csc_notice_detail";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("common1_code", common1_code);
+		params.put("type", type);
+		params.put("code", code);
+		
+		Map<String, String> board = cscService.getBoardDetail(params);
+		System.out.println("dddddddddddddddddddd board : " + board);
+		model.addAttribute("board", board);
+		prev = cscService.getPagingNum(code, searchType = "MIN");
+		if(prev == null) {
+			prev = 0;
+		}
+		next = cscService.getPagingNum(code, searchType = "MAX");
+		if(next == null) {
+			next = 0;
+		}
+		model.addAttribute("prev", prev);
+		model.addAttribute("next", next);
+		
+		
+		switch (type) {
+			case "notice" : return "csc/csc_notice_detail";
+			case "faq" : return "csc/csc_notice_detail";
+		}
+		
+		model.addAttribute("msg", "잘못된 페이지 요청입니다");
+		return "result_process/success";
 	}
 	
 	@GetMapping("csc-faq")

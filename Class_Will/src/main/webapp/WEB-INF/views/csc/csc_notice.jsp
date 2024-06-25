@@ -78,10 +78,10 @@
 			<div id="csc_mainTitle">
 				<h1>고객센터</h1>
 			</div>
-			    <div class="category-buttons">
-			        <button type="button" class="btn btn-primary" onclick="location.href=csc?type=notice'">공지사항</button>
-			        <button type="button" class="btn btn-secondary" onclick="location.href='csc?type=faq'">FAQ</button>
-			    </div>
+			<div class="category-buttons">
+			    <button type="button" class="btn <c:if test="${param.type == 'notice'}">btn-primary active</c:if><c:if test="${param.type != 'notice'}">btn-primary</c:if>" onclick="location.href='csc?type=notice'">공지사항</button>
+			    <button type="button" class="btn <c:if test="${param.type == 'faq'}">btn-primary active</c:if><c:if test="${param.type != 'faq'}">btn-secondary</c:if>" onclick="location.href='csc?type=faq'">FAQ</button>
+			</div>
 			<hr>
 			<div class="row">
 			
@@ -127,7 +127,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="board" items="${list}">
-									<tr>
+									<tr data-url="boardDetail?type=notice&code=${board.notice_code}">
 										<td>${board.notice_code }</td>
 										<td>${board.notice_category}</td>
 										<td>${board.notice_reg_date}</td>
@@ -160,7 +160,7 @@
 
         
     <!-- JavaScript Libraries -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
@@ -170,5 +170,17 @@
     <!-- Template Javascript -->
     <script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
     </body>
+    
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const rows = document.querySelectorAll("table tbody tr");
+        rows.forEach(row => {
+            row.addEventListener("click", function() {
+                const url = this.getAttribute("data-url");
+                window.location.href = url;
+            });
+        });
+    });
+</script>
 
 </html>

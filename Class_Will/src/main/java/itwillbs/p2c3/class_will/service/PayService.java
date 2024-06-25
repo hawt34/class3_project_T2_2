@@ -123,7 +123,7 @@ public class PayService {
 	}
 	
 	//access_token DB 등록
-	public void registAccessToken(Map map) {
+	public void registAccessToken(Map<String, String> map) {
 		payMapper.registAccessToken(map);
 	}
 	

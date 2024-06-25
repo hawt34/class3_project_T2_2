@@ -66,7 +66,7 @@ public class BankApi {
 	}
 	
 	//bankUserInfo를 받아오는 메서드(GET)
-	public Map requestUserInfo(Map map) {
+	public Map requestUserInfo(Map<String, String> map) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Bearer " + map.get("access_token"));
 		

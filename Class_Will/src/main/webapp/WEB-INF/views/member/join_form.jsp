@@ -156,13 +156,13 @@
 				<div class="row nav-fill" > 
 					<div class="col-8">
 						<div class="form-floating mt-3">
-							<input type="text" class="form-control" id="member_tel" name="member_tel" placeholder="010-1234-5678" required maxlength="13" disabled>
+							<input type="text" class="form-control" id="member_tel" name="member_tel" placeholder="010-1234-5678" required maxlength="13">
 							<label for="phone_number">휴대전화</label>
 						</div>
 						<div class="regex" id="regex-tel"></div>
 					</div>	
 					<div class="d-grid gap-2 col-4 mt-3" style="height: 58px; padding: 0">
-						<button class="float-start" type="button" id="phone-auth-btn" onclick="authSms()">본인인증</button>
+						<button class="float-start" type="button" id="phone-auth-btn" onclick="authSms()">인증번호 전송</button>
 					</div>	
 				</div>
 				<div class="form-floating mt-3 mb-3" id="sms-auth">
@@ -435,8 +435,8 @@
 		
 		function authSms() {
 			
-// 			$("#sms-auth").html('<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>'
-// 					+'<label for="phone_auth_number">인증번호</label>');
+			$("#sms-auth").html('<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>'
+					+'<label for="phone_auth_number">인증번호</label>');
 			
 // 			$.ajax({
 // 				type: "GET",
@@ -461,9 +461,6 @@
 				
 				
 // 			});
-
-
-			
 			
 			
 			

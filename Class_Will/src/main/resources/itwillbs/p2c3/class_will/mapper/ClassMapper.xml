@@ -63,14 +63,14 @@
 		ON c.member_code = m.member_code
 	</select>
 	
-	<select id="getDetail"  resultType="map">
+	<select id="getDetail"  parameterType="map" resultType="map">
 		SELECT *
 		FROM class_review cr
 		JOIN MEMBER m
 		ON m.member_code = cr.member_code 
 		WHERE class_code = #{class_code}
-	</select>
 	
+	</select>
     <select id="selectSmallCategories" parameterType="String" resultType="map">
         SELECT *
         FROM common3

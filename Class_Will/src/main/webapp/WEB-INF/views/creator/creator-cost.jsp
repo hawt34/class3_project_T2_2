@@ -86,7 +86,10 @@
 							</div>
 							
 							<div class="creator-event mt-5">
-							
+								<p class="text-white">계좌 등록</p>
+								<div class="regist_account">
+									<input type="button" class="col-md-4" value="+" onclick="linkAccount()">
+								</div>
 								<div class="card col-md-8 mt-2 mb-5">
 								  <div class="card-body">
 								    <p class="card-title h6" align="left">총수익</p>
@@ -124,7 +127,6 @@
 								</div>
 							</div>
 
-						
 						</div>
 					</div>
 				</div>
@@ -156,25 +158,38 @@
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-	document.addEventListener('DOMContentLoaded', (event) => {
-        const monthPicker = document.getElementById('monthPicker');
-        const today = new Date();
-
-        // Ensure the date object is correct
-        console.log("Today's date object:", today);
-        
-        // Correctly retrieve year and month
-        const year = today.getFullYear();
-        console.log('Year:' +  year); // Debugging output
-        const month = String(today.getMonth()).padStart(2, '0'); // Ensure month is two digits
-        console.log('Month: ' + month); // Debugging output
-
-        // Set default value to current month
-        const currentMonth = year + '-' + month;
-        
-        monthPicker.value = currentMonth;
-        monthPicker.max = currentMonth;
-    });
+		document.addEventListener('DOMContentLoaded', (event) => {
+	        const monthPicker = document.getElementById('monthPicker');
+	        const today = new Date();
+	
+	        // Ensure the date object is correct
+	        console.log("Today's date object:", today);
+	        
+	        // Correctly retrieve year and month
+	        const year = today.getFullYear();
+	        console.log('Year:' +  year); // Debugging output
+	        const month = String(today.getMonth()).padStart(2, '0'); // Ensure month is two digits
+	        console.log('Month: ' + month); // Debugging output
+	
+	        // Set default value to current month
+	        const currentMonth = year + '-' + month;
+	        
+	        monthPicker.value = currentMonth;
+	        monthPicker.max = currentMonth;
+	    });
+	
+		function linkAccount() {
+			sessionStorage.setItem("redirectUrl", "creator-cost");
+			// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)
+			let authWindow = window.open("about:blank", "authWindow", "width=500, height=700" );
+			authWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?"
+							+ "response_type=code"
+							+ "&client_id=4066d795-aa6e-4720-9383-931d1f60d1a9"
+							+ "&redirect_uri=http://localhost:8081/class_will/callback"
+							+ "&scope=login inquiry transfer"
+							+ "&state=12345678901234567890123456789012"
+							+ "&auth_type=0";
+		}
 	</script>
 
 </body>

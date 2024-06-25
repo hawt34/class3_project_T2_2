@@ -21,7 +21,6 @@ body{
 	height: 50px;
 	display:flex;
 	justify-content: center;
-	margin
 }
 .title p {
 	margin-top: 5px;
@@ -69,9 +68,17 @@ body{
 .btn:hover {
 	background: #6600FF;
 }
-.btn_custom {
-/* 	position: absolute; */
-/*     top: 180px; */
+.accountInfo {
+	width:100%;
+	height:50px;
+	border: 5px;
+	border-radius:5px;
+	background: #333333;
+	font-size: 24px;
+}
+.accountInfo img {
+	width:45px;
+	hegiht:45px;
 }
 </style>
 </head>
@@ -122,7 +129,7 @@ body{
 			<div class="row h-25">
 				<div class="account_area">
 					<c:choose>
-						<c:when test="${empty sessionScope.token }">
+						<c:when test="${empty token}">
 							<p>계좌 등록</p>
 							<div class="regist_account">
 								<input type="button" value="+" onclick="linkAccount()">
@@ -130,11 +137,13 @@ body{
 						</c:when>
 						<c:otherwise>
 							<p>출금 계좌</p>
-							<div class="regist">
-								<img src="${pageContext.request.contextPath }/resources/img/bankIcon.png">
-								<span>산업은행</span>
-								<span>104******111</span>
-							</div>
+							<c:forEach var="account" items="${bankUserInfo.res_list }">
+								<div class="accountInfo">
+									<img src="${pageContext.request.contextPath }/resources/img/bankIcon.png" >
+									<span>${account.bank_name }</span>
+									<span>${account.account_num_masked}</span>
+								</div>
+							</c:forEach>
 						</c:otherwise>
 					</c:choose>
 				</div><!-- 계좌 연동 끝 -->
@@ -171,7 +180,9 @@ $(function() {
 });
 </script>
 <script>
+
 function linkAccount() {
+	sessionStorage.setItem("redirectUrl", "will_pay_charge");
 	// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)
 	let authWindow = window.open("about:blank", "authWindow", "width=500, height=700" );
 	authWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?"

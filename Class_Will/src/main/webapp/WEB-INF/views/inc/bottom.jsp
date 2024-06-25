@@ -4,7 +4,6 @@
 	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
 	
 	.class-will-bottom {
-/* 		background: black; */
 		font-family: "Nanum Gothic", sans-serif; 
 		color: white;
 	}
@@ -87,7 +86,10 @@
 	}
 
 </style>
+	<!-- Back to Top -->
+	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>  
 	
+<<<<<<< HEAD
         <!-- Footer Start -->
         <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">
             <div class="container py-5">
@@ -103,35 +105,53 @@
                            		 <ul class="bottom-ul">
 									<li class="bottom-menu"><a href="csc?type=notice">공지사항</a></li>
 									<li class="bottom-menu"><a href="csc?type=faq">FAQ</a></li>
+=======
+    <!-- Footer Start -->
+    <div class="class-will-bottom">
+	    <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">
+	        <div class="container py-5">
+	            <div class="pb-2 mb-2">
+	                <div class="row g-4">
+	                    <div class="col-lg-3 text-center">
+	                        <a href="#">
+	                             <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" id="logo" width="150px" alt="Logo" class="d-inline-block align-text-top">
+	                        </a>
+	                    </div>
+	                    <div class="col-lg-6">
+	                        <div class="position-relative mx-auto text-cente pt-5">
+	                       		 <ul class="bottom-ul">
+									<li class="bottom-menu"><a href="csc">공지사항</a></li>
+									<li class="bottom-menu"><a href="csc-faq">FAQ</a></li>
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 									<li class="bottom-menu"><a href="use-info">이용약관</a></li>
 									<li class="bottom-menu"><a href="privacy-info">개인정보처리방침</a></li>
 									<li class="bottom-menu"><a href="refund-info">환불규정</a></li>
 								</ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                        	<div class="">
-	                           <h3>고객센터</h3>
-								<div class="d-grid gap-2 py-2">
-									<button class="btn btn-light">문의하기</button>
-								</div>
-								<p style="font-size: 13px;">*주중 10시~18시/주말 및 공휴일 제외</p>
-							</div>	
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-5">
-                    <div class="col-lg-3 ">
-                        <div class="d-flex pt-3 justify-content-center">
-                             <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" ><i class="fab fa-twitter"></i></a>
-                             <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-                             <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-                             <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
-                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="d-flex flex-column text-start footer-item">
-                           <ul class="bottom-ul">
+	                        </div>
+	                    </div>
+	                    <div class="col-lg-3">
+	                    	<div class="">
+	                        <h3>고객센터</h3>
+					<div class="d-grid gap-2 py-2">
+						<button class="btn btn-light">문의하기</button>
+					</div>
+					<p style="font-size: 13px;">*주중 10시~18시/주말 및 공휴일 제외</p>
+				</div>	
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="row g-5">
+	                <div class="col-lg-3 ">
+	                    <div class="d-flex pt-3 justify-content-center">
+	                         <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" ><i class="fab fa-twitter"></i></a>
+	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
+	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
+	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+	                     </div>
+	                </div>
+	                <div class="col-lg-6">
+	                    <div class="d-flex flex-column text-start footer-item">
+	                       <ul class="bottom-ul">
 								<li class="bottom-info">(주)클래스윌</li>
 								<li class="bottom-info">대표: 김부기</li>
 								<li class="bottom-info">사업자등록번호: 000-00-00000 </li>
@@ -140,14 +160,23 @@
 								<li class="bottom-info">051-803-0909</li>
 								<li class="bottom-info">이메일: boogimovie@gmail.com</li>
 							</ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
-        
-        
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    
+    
+		<div class="container-fluid bottom-menu">
+    		
+    
+    
+    
+		</div>	
+	</div>
+    <!-- Footer End -->
+    
+    
 	<script>
 		(function(){
 			var w=window;

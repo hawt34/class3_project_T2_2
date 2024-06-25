@@ -25,6 +25,11 @@ public class CreatorService {
 		creatorMapper.creatorCurriInsert(params);
 	}
 	
+	// 클래스 상세
+	public Map<String, Object> getClassDetail(int class_code) {
+		return creatorMapper.getClassDetail(class_code);
+	}
+	
 	// 클래스 일정 등록
 	public int insertClassPlan(Map<String, Object> map, List<ClassTimeVO> classTime) {
 		return creatorMapper.insertClassPlan(map, classTime);
@@ -98,6 +103,11 @@ public class CreatorService {
 	// 등록완료된 클래스정보 가져오기
 	public List<Map<String, Object>> getCertifiedClassInfo(MemberVO member){
 		return creatorMapper.getCertifiedClassInfo(member);
+	}
+
+	// 문의사항 클래스정보 가져오기
+	public List<Map<String, Object>> getinquiryClassInfo(MemberVO member){
+		return creatorMapper.getinquiryClassInfo(member);
 	}
 	
 	

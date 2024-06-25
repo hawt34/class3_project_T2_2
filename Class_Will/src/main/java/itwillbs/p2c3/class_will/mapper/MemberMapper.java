@@ -1,5 +1,7 @@
 package itwillbs.p2c3.class_will.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import itwillbs.p2c3.class_will.vo.MemberVO;
@@ -19,6 +21,9 @@ public interface MemberMapper {
 
 	// 휴면 해제하기
 	boolean updateMemberStatus(MemberVO member);
+
+	// 
+	Map<String, String> selectBankInfo(String member_email);
 	
 	
 	

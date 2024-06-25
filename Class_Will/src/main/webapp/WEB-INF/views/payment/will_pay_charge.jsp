@@ -103,17 +103,17 @@ body{
 				</div>
 				<!-- package group -->
 				<div class="package_group">
-					<c:forEach begin="1" end="3" varStatus="status">
+					<c:forEach var="package1" items="${packageInfo }" varStatus="">
 						<div class="card border-light mb-3 cutom-card" style="width:180px;">
-							<div class="card-header">package${status.count }</div>
+							<div class="card-header">plus package</div>
 							<div class="card-body">
-								<h5 class="card-title">33% 더!</h5>
+								<h5 class="card-title">${package1.reward_rate }% 더!</h5>
 								<!-- package 가격정보 -->
 								<p class="card-text">
-									<span class="text_deco">100000 will-pay</span><br>
-									-> <span id="package_up_price">133000</span>
+									<span class="text_deco" id="text_deco">${package1.reward_fee }원</span><br>
+									-> <span class="package_up_price" id="package_up_price">${package1.reward_total }원</span>
 								</p>
-								<input type="hidden" name="package_price" value="${will_pay.pay_price }">
+								<input type="hidden" name="package_price" value="${package1.reward_fee }">
 							</div>
 						</div>
 					</c:forEach>
@@ -156,6 +156,7 @@ body{
 </div>
 <script>
 $(function() {
+	
 	//금액 입력 이벤트
 	$('#will_pay_charge').on('input', function() {
 		var value = $(this).val().replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
@@ -172,9 +173,9 @@ $(function() {
 	$('.card').click(function() {
 		
         // 클릭된 카드 내의 package_up_price 요소의 텍스트를 가져옴
-        var packageUpPrice = $(this).find('#package_up_price').text();
+        var packageUpPrice = $(this).find('.package_up_price').text();
         // selected_package 입력 필드에 값을 설정
-        $('#selected_package').val(packageUpPrice + "will-pay");
+        $('#selected_package').val(packageUpPrice);
         $('#will_pay_charge').val("");
     });
 });

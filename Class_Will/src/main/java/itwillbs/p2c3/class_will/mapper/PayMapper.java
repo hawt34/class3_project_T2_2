@@ -45,6 +45,8 @@ public interface PayMapper {
 
 	//access_token 등록
 	void registAccessToken(Map map);
+
+	List<Map<String, Integer>> selectPackageInfoList();
 	
 
 	

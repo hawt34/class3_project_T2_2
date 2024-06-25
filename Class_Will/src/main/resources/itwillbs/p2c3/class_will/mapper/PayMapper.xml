@@ -90,7 +90,7 @@
 	</select>
 	
 	<select id="selectCredit" resultType="map">
-		SELECT member_credit
+		SELECT CASE WHEN member_credit IS NULL THEN 0 ELSE member_credit END AS 'member_credit'
 		FROM MEMBER
 		WHERE member_code = #{member_code}
 	</select>
@@ -209,4 +209,13 @@
 			, #{email}
 		) 
 	</insert>
+	
+	<select id="selectPackageInfoList" resultType="map">
+		SELECT 
+			reward_fee
+			, reward_rate 
+			, CAST(ROUND((reward_fee + (reward_fee * reward_rate / 100)), -1) AS SIGNED) AS 'reward_total'
+		FROM reward 
+		ORDER BY reward_fee
+	</select>
 </mapper>

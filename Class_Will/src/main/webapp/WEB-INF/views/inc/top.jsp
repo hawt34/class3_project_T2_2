@@ -179,6 +179,17 @@
     .offcanvas {
         display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */
     }
+    
+}
+
+@media (max-width: 992px) {
+    .navbar-brand {
+/*         margin-left: auto; */
+/*         margin-right: auto; */
+    }
+    .navbar-toggler {
+/*         margin-left: auto; */
+    }
 }
 
 .search-box {
@@ -270,14 +281,14 @@
 <!-- 본문 시작 -->
 <!-- Navbar start -->
 <div class="class-will-top">
-	<div class="container-fluid">
+	<div class="container-fluid ">
 	    <div class="container px-0 top-cate">
 	        <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	            <div class="container-fluid">
-	                <div class="row w-100 align-items-end">
+	                <div class="row w-100 d-none d-flex align-items-end top-nev-lg">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
-		                    <div class="col-5   d-none d-lg-flex justify-content-start  mb-3">
+		                    <div class="col-5  d-none d-lg-flex justify-content-start  mb-3">
 		                        <ul class="navbar-nav">
 		                            <li class="nav-item">
 		                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
@@ -355,8 +366,11 @@
 								</div>
 							</div>   
 	                    </div>
-	
-	                    <!-- 로고와 햄버거 버튼 (작은 화면) -->
+		            </div> <!-- row -->
+	                
+
+                    <!-- 로고와 햄버거 버튼 (작은 화면) -->
+					<div class="row w-100 d-flex d-lg-none align-items-end">
 	                    <div class="col-8 d-flex d-lg-none justify-content-start">
 	                        <a class="navbar-brand" href="main">
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
@@ -370,9 +384,10 @@
 		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
 	                    </div>
-	                </div>
-	            </div>
-	
+					</div>
+					
+				</div> <!-- container-fluid -->
+				
 	            <!-- 오프캔버스 -->
 	            <div class="offcanvas offcanvas-start" id="top-offcanvas" style="background-color: #333;">
 	                <div class="offcanvas-header">
@@ -418,9 +433,10 @@
 	                    </ul>
 	                </div>
 	            </div> <!-- offcanvas -->
+	            
 	        </nav>
-	    </div>
-	</div>
+	    </div> <!-- top-cate -->
+	</div> <!-- container-fluid -->
 	<!-- Navbar End -->
 	
 	<!-- Modal Search Start -->

@@ -276,26 +276,29 @@ body {
 		</div>
 	</div>
 	<!-- 카테고리 바 -->
-	<!-- 클래스 개수를 계산하여 classCount 변수에 저장 -->
-<c:set var="classCount" value="${fn:length(map)}" />
-   <div class="row">
-      <div class="col-md-9">
-         <div class="classCount">
-            <p>${classCount}개의 클래스</p>
-         </div>
-      </div>
-      <div class="col-md-3 box1">
+	
+	<!-- 클래스 개수 시작 -->
+	<c:set var="classCount" value="${fn:length(map)}" />
+	<div class="row">
+		<div class="col-md-9">
+			<div class="classCount">
+				<p>${classCount}개의 클래스</p>
+			</div>
+		</div>
+		<div class="col-md-3 box1">
 <!--          <select class="form-select-sm selectBox" aria-label="Default select example"> -->
-         <select class="form-select selectBox1 w-50" aria-label="Default select example">
-            <option selected>인기순</option>
-            <option value="1">후기순</option>
-            <option value="2">별점순</option>
-            <option value="3">낮은 가격순</option>
-            <option value="4">높은 가격순</option>
-            <option value="5">거리순</option>
-         </select>
-      </div>
-   </div>
+			<select class="form-select selectBox1 w-50" aria-label="Default select example">
+				<option selected>인기순</option>
+				<option value="1">후기순</option>
+				<option value="2">별점순</option>
+				<option value="3">낮은 가격순</option>
+				<option value="4">높은 가격순</option>
+				<option value="5">거리순</option>
+			</select>
+		</div>
+	</div> <!-- row -->
+	<!-- 클래스 개수 끝 -->
+	
       <!-- 첫번째 줄 -->
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
 	      <c:forEach var="map" items="${map}">

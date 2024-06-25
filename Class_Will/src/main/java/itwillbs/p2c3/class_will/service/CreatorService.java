@@ -104,6 +104,11 @@ public class CreatorService {
 	public List<Map<String, Object>> getCertifiedClassInfo(MemberVO member){
 		return creatorMapper.getCertifiedClassInfo(member);
 	}
+
+	// 문의사항 클래스정보 가져오기
+	public List<Map<String, Object>> getinquiryClassInfo(MemberVO member){
+		return creatorMapper.getinquiryClassInfo(member);
+	}
 	
 	
 

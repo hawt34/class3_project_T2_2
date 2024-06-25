@@ -117,7 +117,7 @@ public class MemberController {
 		} else {
 			session.setAttribute("member", dbMember);
 			model.addAttribute("member", dbMember);
-			
+				
 			return "redirect:/";
 		} 
 		

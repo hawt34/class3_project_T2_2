@@ -118,6 +118,7 @@ public class ClassController {
 		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		
 		
+		
 		List<Map<String, Object>> detail = classService.getDetail(class_code); 
 		model.addAttribute("detail", detail);
 		return"creator/creator-inquiry-form2";

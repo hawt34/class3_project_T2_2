@@ -45,8 +45,8 @@ import itwillbs.p2c3.class_will.vo.GroupedData;
 
 @Controller
 public class AdminController {
-	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+	
 	@Autowired
 	private AdminService adminService;
 	
@@ -55,7 +55,6 @@ public class AdminController {
 	
 	@Autowired
 	private CommonUtils cUtils;
-	
 	
 	@GetMapping("admin")
 	public String admin(Model model) {

@@ -241,7 +241,7 @@
 	<insert id="insertBoard" parameterType="map">
 		INSERT INTO ${map.type}
 		VALUES
-		(NULL, #{map.subject}, #{map.content}, #{map.category}, 'N')
+		(NULL, #{map.subject}, #{map.content}, #{map.category}, 'N', now())
 	</insert>
 	
 	<select id="selectCscList" resultType="map" parameterType="map">

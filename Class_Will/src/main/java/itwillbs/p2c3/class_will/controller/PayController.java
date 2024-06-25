@@ -138,7 +138,7 @@ public class PayController {
 		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
 		// => BankTokenVO 타입 객체 형태 그대로 저장
 		session.setAttribute("access_token", map.get("access_token"));
-		
+			
 		//"success.jsp 페이지로 포워딩
 		// 메세지 : "계좌 인증 완료!", isClose 값을 true, "targetURL" 값을  "FintechUserInfo" 설정
 		model.addAttribute("msg", "계좌 인증 완료!");

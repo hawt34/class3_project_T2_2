@@ -89,7 +89,6 @@
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>  
 	
-<<<<<<< HEAD
         <!-- Footer Start -->
         <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">
             <div class="container py-5">
@@ -105,7 +104,6 @@
                            		 <ul class="bottom-ul">
 									<li class="bottom-menu"><a href="csc?type=notice">공지사항</a></li>
 									<li class="bottom-menu"><a href="csc?type=faq">FAQ</a></li>
-=======
     <!-- Footer Start -->
     <div class="class-will-bottom">
 	    <div class="container-fluid text-white-50 footer pt-1 mt-5" style="background-color: #191919;">
@@ -122,7 +120,6 @@
 	                       		 <ul class="bottom-ul">
 									<li class="bottom-menu"><a href="csc">공지사항</a></li>
 									<li class="bottom-menu"><a href="csc-faq">FAQ</a></li>
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 									<li class="bottom-menu"><a href="use-info">이용약관</a></li>
 									<li class="bottom-menu"><a href="privacy-info">개인정보처리방침</a></li>
 									<li class="bottom-menu"><a href="refund-info">환불규정</a></li>

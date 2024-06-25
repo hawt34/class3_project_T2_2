@@ -182,34 +182,40 @@
 }
 
 .search-box {
-	height: 40px;
+	height: 30px;
 	width:  300px;
+<<<<<<< HEAD
 	background-color: rgba(255, 255, 255, 0.8);
+=======
+	background: white;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 	border-radius: 40px;
 	padding: 10px;
 	border: 1px solid #f9deec;
-	
 }
 
 .search-txt {
-    border: none;
-    background : none;
-    outline: none;
-    float: left;
-    padding: 0px;
-    padding-left: 10px;
-    color: black;
-    font-size: 16px;
-    line-height: 20px;
-    width: 80%;
-}
+	border: none;
+	background : none;
+	outline: none;
+	float: left;
+	padding: 0px;
+	color: #797979;
+	font-size: 16px;
+	line-height: 30px;
+	width: 200px;
+} 
 
 .search-btn {
-	color: black;
+	color: #f9deec;
 	float: right;
 	width: 40px;
 	height: 100%;
 	border-radius: 50%;
+<<<<<<< HEAD
+=======
+	background: white;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 	border: none;
 	background: none;
 	font-size: 16px;
@@ -278,27 +284,37 @@
 	                <div class="row w-100 align-items-end">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
-		                    <div class="col-5   d-none d-lg-flex justify-content-start  mb-3">
-		                        <ul class="navbar-nav">
-		                            <li class="nav-item">
-		                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
-	<!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
-		                                	<span class="fa fa-bars"></span> 카테고리
-		                                </a>
-		                            </li>
-		                            <li class="nav-item">
-		                                <a class="nav-link" href="" data-bs-toggle="collapse" id="top-local" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
-		                                	지역별
-		                                </a>
-		                            </li>
-		                            <li class="nav-item">
-		                                <a class="nav-link" href="event">이벤트</a>
-		                            </li>
-<!-- 				                            <li class="nav-item"> -->
-<!-- 				                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a> -->
-<!-- 				                            </li> -->
-		                        </ul>
-		                    </div> <!-- col-5 -->
+		                    <div class="col-5 d-none d-lg-flex justify-content-start mb-3">
+		                      <div class="row w-100">
+		                            <form action="" class="search-box ">
+		                            	<input class="search-txt align-items-center" type="text" name="" placeholder="관심 주제, 클래스, 크리에이터를 입력하세요.">
+		                            	<button class="search-btn" type="submit">
+		                            		<i class="bi bi-search bi-top"></i>
+		                            	</button>
+		                            </form>
+			                     </div>   
+		                    	<div class="row">
+			                        <ul class="navbar-nav">
+			                            <li class="nav-item">
+			                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
+		<!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
+			                                	<span class="fa fa-bars"></span> 카테고리
+			                                </a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="" data-bs-toggle="collapse" id="top-local" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
+			                                	지역별
+			                                </a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" href="event">이벤트</a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a>
+			                            </li>
+			                        </ul>
+			                     </div>
+		                    </div>
 	
 	                    <!-- 가운데 로고 영역 (큰 화면) -->
 	                    <div class="col-2 d-none d-lg-flex justify-content-center">
@@ -308,6 +324,7 @@
 	                    </div>
 	
 	                    <!-- 오른쪽 네비게이션 영역 -->
+<<<<<<< HEAD
 	                    <div class="col-5 mb-3">
 							<div class="row mb-4">
 		                    	<div class="col d-none d-lg-flex justify-content-end ">
@@ -352,6 +369,38 @@
 									</form>
 								</div>
 							</div>   
+=======
+	                    <div class="col-5 d-none d-lg-flex justify-content-end mb-3">
+	                        <ul class="navbar-nav">
+	                            <li class="nav-item">
+	                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
+	                            </li>
+	                            <li class="nav-item">
+	                                <a class="nav-link" href="main-test"><i class="bi bi-envelope bi-top"></i></a>
+	                            </li>
+	                            
+	                            <c:choose>
+	                            	<c:when test="${empty member.member_email}">
+		                            	<li class="nav-item"> 
+		                            		<a class="nav-link" href="member-login">로그인</a>
+		                            	</li>
+	                            	</c:when>
+	                            	<c:when test="${member.member_type eq 3}">
+		                            	<li class="nav-item"> 
+		                            		<a class="nav-link" href="admin">관리자</a>
+		                            	</li>
+	                            	</c:when>
+	                            	<c:otherwise>
+	                            		<li class="nav-item">
+			                                <a class="nav-link" href="my-page"><i class="bi bi-person-circle bi-top"></i></a>
+			                            </li>
+			                            <li class="nav-item">
+			                                <a class="nav-link" onclick="logout()">로그아웃</a>
+			                            </li>
+	                            	</c:otherwise>
+	                            </c:choose>
+	                        </ul>
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 	                    </div>
 	
 	                    <!-- 로고와 햄버거 버튼 (작은 화면) -->

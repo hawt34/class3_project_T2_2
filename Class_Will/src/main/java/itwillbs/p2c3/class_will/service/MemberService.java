@@ -1,7 +1,5 @@
 package itwillbs.p2c3.class_will.service;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +44,7 @@ public class MemberService {
 		}
 	}
 
-	public Map<String, String> selectBankInfo(String member_email) {
-		return memberMapper.selectBankInfo(member_email);
-	}
+	
 	
 	
 	

@@ -19,9 +19,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class BankApi {
 	@Autowired
 	private BankValueGenerator bankValueGenerator;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(BankApi.class);
-	
+
 	@Value("${client_id}")
 	private String client_id;
 	@Value("${client_secret}")
@@ -42,7 +42,7 @@ public class BankApi {
 					.encode() // 주소 인코딩
 					.build() // UriComponents 타입 객체 생성
 					.toUri(); //URI 타입 객체로 변환
-		
+
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
 		parameters.add("code", authResponse.get("code"));
 		//appdata.properties 파일 내의 값을 가져와서 전달
@@ -52,7 +52,7 @@ public class BankApi {
 		parameters.add("grant_type", "authorization_code");
 		// => 바디 정보만 설정하고, 헤더 정보는 기본적인 헤더값 사용하므로 설정 생략
 		HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = new HttpEntity<LinkedMultiValueMap<String,String>>(parameters);
-		
+
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Map> responseEntity = 
 				restTemplate.exchange(uri, HttpMethod.POST, httpEntity, Map.class);
@@ -60,7 +60,7 @@ public class BankApi {
 		logger.info("응답 코드: " + responseEntity.getStatusCode());
 		logger.info("응답 헤더: " + responseEntity.getHeaders());
 		logger.info("응답 본문: " + responseEntity.getBody());
-		
+
 		return responseEntity.getBody();
 	}
 }

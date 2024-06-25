@@ -184,7 +184,7 @@
 .search-box {
 	height: 40px;
 	width:  300px;
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 255, 255, 0.8);
 	border-radius: 40px;
 	padding: 10px;
 	border: 1px solid #f9deec;
@@ -210,8 +210,8 @@
 	width: 40px;
 	height: 100%;
 	border-radius: 50%;
-	background-color: rgba(255, 255, 255, 0.5);
 	border: none;
+	background: none;
 	font-size: 16px;
 	display:flex;
 	justify-content: center;
@@ -312,7 +312,7 @@
 							<div class="row mb-4">
 		                    	<div class="col d-none d-lg-flex justify-content-end ">
 									<ul class="navbar-nav">
-									    <li class="nav-item">
+									    <li class="nav-item px-4">
 									        <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
 									    </li>
 									    <li class="nav-item">

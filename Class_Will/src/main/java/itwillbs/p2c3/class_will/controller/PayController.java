@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import itwillbs.p2c3.class_will.service.PayService;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Controller
 public class PayController {
@@ -100,7 +101,43 @@ public class PayController {
 	@GetMapping("/callback")
 	public String auth(@RequestParam Map<String, String> authResponse, Model model, HttpSession session) {
 		logger.info("authResponse" + authResponse.toString());
-		return "";
+		//----------------------------------------------------------------
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String email = member.getMember_email();
+		
+		//access_token 발급
+		Map map = payService.getAccessToken(authResponse);
+		logger.info("엑세스 토큰: " + map.get("access_token"));
+		
+		if(map == null || map.get("access_token") == null) {
+			model.addAttribute("msg", "토큰 발급 실패! 다시 인증을 해주세요!");
+			model.addAttribute("isClose", true);
+			return "result_process/fail";
+		}
+		map.put("email", email);
+		session.setAttribute("token", map.get("access_token"));
+		
+		// access_token db저장
+		payService.registAccessToken(map);
+		
+		//bankUserInfo 가져오기
+		Map bankUserInfo = payService.getUserInfo(map);
+		logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
+		
+		model.addAttribute("bankUserInfo", bankUserInfo);
+		
+		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
+		// => BankTokenVO 타입 객체 형태 그대로 저장
+		
+		//session에 저장한 redirectUrl
+		String redirectUrl = (String)session.getAttribute("redirectUrl");
+		
+		//"success.jsp 페이지로 포워딩
+		// 메세지 : "계좌 인증 완료!", isClose 값을 true, "targetURL" 값을  "FintechUserInfo" 설정
+		model.addAttribute("msg", "계좌 인증 완료!");
+		model.addAttribute("isClose", true);
+		model.addAttribute("targetURL", redirectUrl);
+		return "result_process/success";
 	}
 	
 	

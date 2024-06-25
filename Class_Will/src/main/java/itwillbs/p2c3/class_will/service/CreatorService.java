@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import itwillbs.p2c3.class_will.mapper.CreatorMapper;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class CreatorService {
@@ -22,6 +23,11 @@ public class CreatorService {
 		creatorMapper.createrClassRegPro(map);
 		System.out.println(">>>>>>>>params: " + params);
 		creatorMapper.creatorCurriInsert(params);
+	}
+	
+	// 클래스 상세
+	public Map<String, Object> getClassDetail(int class_code) {
+		return creatorMapper.getClassDetail(class_code);
 	}
 	
 	// 클래스 일정 등록
@@ -85,18 +91,23 @@ public class CreatorService {
 	}
 	
 	// 클래스정보 가져오기
-	public List<Map<String, Object>> getClassInfo(){
-		return creatorMapper.getClassInfo();
+	public List<Map<String, Object>> getClassInfo(MemberVO member){
+		return creatorMapper.getClassInfo(member);
 	}
 
 	// 상태에 따른 클래스정보 가져오기
-	public List<Map<String, Object>> getClassStatusInfo(int status){
-		return creatorMapper.getClassStatusInfo(status);
+	public List<Map<String, Object>> getClassStatusInfo(int status, MemberVO member){
+		return creatorMapper.getClassStatusInfo(status, member);
 	}
 
 	// 등록완료된 클래스정보 가져오기
-	public List<Map<String, Object>> getCertifiedClassInfo(){
-		return creatorMapper.getCertifiedClassInfo();
+	public List<Map<String, Object>> getCertifiedClassInfo(MemberVO member){
+		return creatorMapper.getCertifiedClassInfo(member);
+	}
+
+	// 문의사항 클래스정보 가져오기
+	public List<Map<String, Object>> getinquiryClassInfo(MemberVO member){
+		return creatorMapper.getinquiryClassInfo(member);
 	}
 	
 	

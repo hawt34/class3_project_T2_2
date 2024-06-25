@@ -90,16 +90,22 @@ public class ClassController {
 	// 클래스 상세 리뷰
 	@GetMapping("creator-review-form2")
 	public String creatorReviewForm2(Model model, @RequestParam int class_code){
-		System.out.println("class_code @@@####################" + class_code);
+//	public String creatorReviewForm2(Model model, HttpSession session, @RequestParam String class_code){
+//		System.out.println("class_code @@@####################" + class_code);
 //		Map<String, Object> map = new HashMap<>();
 		
 //		map.put("class_code", class_code);
 //		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
 //		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
-		
+//		String member_code = (String)session.getAttribute("member_code");
+//		map.put("member_code", member_code);
+//		map.put("class_code", class_code);
+//		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
+//		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
 		model.addAttribute("classReview", classReview);
 		return"creator/creator-review-show";
+	    
 	}
 	
 	// 클래스 상세 질문
@@ -107,11 +113,9 @@ public class ClassController {
 	public String creatorInquiryForm2(Model model, @RequestParam int class_code){
 //		System.out.println("class_cocde @@@####################" + class_code);
 //		Map<String, Object> map = new HashMap<>();
-		
 //		map.put("class_code", class_code);
 //		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
-		System.out.println("creator-inquiry-form2 @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
-		
+//		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
 		
 		
 		List<Map<String, Object>> classInquiry = classService.getClassInquiry( class_code ); 
@@ -164,15 +168,19 @@ public class ClassController {
 	// 클래스 디테일
 	@GetMapping("class-detail")
 	public String classDetail(Model model, @RequestParam int class_code) {
+//	public String classDetail(Model model, HttpSession session, @RequestParam String class_code) {
+		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		Map<String, Object> map = new HashMap<>();
 		
+//		String member_code = (String)session.getAttribute("member_code");
+//		map.put("member_code", member_code);
 		map.put("class_code", class_code);
-//		System.out.println("member_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + member_code);
-		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		
 		// 클래스 후기
 		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
 		model.addAttribute("classReview", classReview);
+//		List<Map<String, Object>> detail = classService.getDetail(map); 
+//		model.addAttribute("detail", detail);
 	    
 		// 클래스 질문
 		List<Map<String, Object>> classInquiry = classService.getClassInquiry(class_code); 

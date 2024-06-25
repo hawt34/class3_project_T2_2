@@ -46,6 +46,14 @@
 		)		
 	</insert>
 	
+	<!-- 클래스 상세정보 -->
+	<select id="getClassDetail" resultType="map">
+		SELECT *
+		FROM class
+		WHERE
+			class_code = #{class_code}
+	</select>
+	
 	<!-- 커리큘럼 삽입 -->
 	<insert id="creatorCurriInsert" parameterType="map">
 		<selectKey order="BEFORE" keyProperty="class_code" resultType="int">
@@ -97,6 +105,10 @@
 		FROM class_schedule
 		WHERE 
 			class_code = #{classCode}
+		AND 
+			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE() 
+		ORDER BY 
+			class_schedule_date, class_round
 	</select>
 
 	<!-- 클래스 종료된 일정 가져오기 -->
@@ -107,6 +119,8 @@
 			class_code = #{classCode}
 		AND 
 			CURDATE() > STR_TO_DATE(class_schedule_date, '%Y-%m-%d') 
+		AND
+			class_total_headcount != class_remain_headcount			
 		ORDER BY 
 			class_schedule_date, class_round
 	</select>
@@ -118,6 +132,8 @@
 			class_schedule
 		WHERE 
 		  	class_schedule_code = #{classScheduleCode}
+		AND 
+			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE() 
 		AND 
 			class_total_headcount = class_remain_headcount
 	</select>
@@ -135,6 +151,8 @@
 			class_schedule
 		WHERE 
 		  	class_code = #{classCode}
+		AND 
+			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE() 
 		AND 
 			class_total_headcount = class_remain_headcount
 		LIMIT 1;
@@ -227,6 +245,7 @@
 		c.class_hide = c222.common2_code
 	and 
 		c222.common1_code = 'HIDE'
+	where c.member_code = #{member_code}
 	</select>
 	
 	<!-- 상태에 따른 클래스 정보 가져오기 -->
@@ -253,9 +272,11 @@
 		c.class_hide = c222.common2_code
 	and 
 		c222.common1_code = 'HIDE'
-		<if test="!status.equals('')">
-			WHERE class_regist_status = #{status}
+	WHERE 1=1
+		<if test="!status.equals(0)">
+			AND class_regist_status = #{status}
 		</if>
+	AND c.member_code = #{member.member_code}
 	</select>
 	
 	<!-- 클래스 정보 가져오기 -->
@@ -274,7 +295,7 @@
 				class_code=c.class_code
 			AND
 				STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE() 
-		) as counter
+		) AS counter
 		, (
 			SELECT 
 				count(*) 
@@ -311,7 +332,26 @@
 		c222.common2_code = 1
 	WHERE 
 		c.class_regist_status = 2
+	AND 
+		c.member_code = #{member_code}
+	</select>
 	
+	<!-- 문의사항 클래스 정보 가져오기 -->
+	<select id="getinquiryClassInfo" resultType="map">
+	SELECT 
+		c.*
+		, (
+			SELECT 
+				count(*) 
+			FROM 
+				class_inquiry 
+			WHERE 
+				class_code = c.class_code
+		) AS counter
+	FROM 
+		class c
+	WHERE 
+		c.member_code = #{member_code}
 	</select>
 	
 	<!-- 공개여부 -->

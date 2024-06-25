@@ -21,5 +21,7 @@ public interface MyPageMapper {
 	int deleteReview(String class_review_code);
 
 	int updateMember(MemberVO member);
+
+	int countNickname(String member_nickname);
 	
 }

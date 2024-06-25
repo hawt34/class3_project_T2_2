@@ -189,29 +189,22 @@ th, td {
 						el : gridContainer,
 						data : data,
 						columns : [ {
-							header : '클래스날짜',
-							name : 'class_schedule_date',
-							width : 'auto'
-						}, {
-							header : '회차',
-							name : 'class_round'
-						}, {
-							header : '시작시간',
-							name : 'class_st_time'
-						}, {
-							header : '종료시간',
-							name : 'class_ed_time'
-						}, {
-							header : '참여인원',
-							name : 'attend_count'
-						},
-						// 	                         {
-						// 	                             header: 'Action',
-						// 	                             name: 'action',
-						// 	                             renderer: {
-						// 	                                 type: ButtonRenderer
-						// 	                             }
-						// 	                         }
+								header : '클래스날짜',
+								name : 'class_schedule_date',
+								width : 'auto'
+							}, {
+								header : '회차',
+								name : 'class_round'
+							}, {
+								header : '시작시간',
+								name : 'class_st_time'
+							}, {
+								header : '종료시간',
+								name : 'class_ed_time'
+							}, {
+								header : '참여인원',
+								name : 'attend_count'
+							},
 						],
 						rowHeaders : [ 'rowNum' ],
 						bodyHeight : 418,

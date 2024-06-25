@@ -272,9 +272,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <th>제목</th>
                                     <th>작성일자</th>
                                     <th>작성자</th>
+                                    <th>별점</th>
                                 </tr>
                             </thead>
                             <tbody>
+<!-- <<<<<<< HEAD -->
 								<c:choose>
 						            <c:when test="${empty classInquiry}">
 						                <tr>
@@ -305,6 +307,74 @@ document.addEventListener("DOMContentLoaded", function() {
 		                                </c:forEach>
                                 	</c:otherwise>
                                 </c:choose>
+<!-- ======= -->
+<!--                                 <tr> -->
+<!--                                     <td class="creator-review-subject"> -->
+<!--                                         <a onclick="creatorInquiry()">클래스 날짜 변경가능한가요</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> 2024-05-11 </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> asdf1234 </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
+<!--                                             <ul class="list-inline small"> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                             </ul> -->
+<!--                                         </div> reviewStar -->
+<!--                                     </td> -->
+<!--                                 </tr> -->
+<!--                                 <tr> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()">클래스 가격 문의</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()">2024-05-11</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()">fksdf1234</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
+<!--                                             <ul class="list-inline small"> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                             </ul> -->
+<!--                                         </div> reviewStar -->
+<!--                                     </td> -->
+<!--                                 </tr> -->
+<!--                                 <tr> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> 클래스 관련 문의사항</a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> 2024-05-11 </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <a onclick="creatorInquiry()"> sfgsfsdf </a> -->
+<!--                                     </td> -->
+<!--                                     <td> -->
+<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
+<!--                                             <ul class="list-inline small"> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
+<!--                                             </ul> -->
+<!--                                         </div> reviewStar -->
+<!--                                     </td> -->
+<!--                                 </tr> -->
+<!-- >>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git -->
                             </tbody>
                         </table>
                     </div>

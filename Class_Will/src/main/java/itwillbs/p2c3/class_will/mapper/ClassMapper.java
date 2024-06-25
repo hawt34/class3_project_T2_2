@@ -30,6 +30,5 @@ public interface ClassMapper {
 	// 클래스 질문 
 	List<Map<String, Object>> selectClassInquiry(int class_code);
 	
-	
     List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
 }

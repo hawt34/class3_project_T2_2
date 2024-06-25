@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link
 	href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
-	rel="stylesheet">
+	rel="stylesheet">``
 <!-- Icon Font Stylesheet -->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
@@ -73,21 +73,7 @@
 								
 								<!-- 	셀렉트박스 -->
 								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
-<!-- 								<div class="col-md-12 d-flex justify-content-center mb-5"> -->
-<!-- 									<div class="col-xl-8"> -->
-<!-- 										<div class="bg-light rounded py-2 d-flex justify-content-center mb-4"> -->
-<!-- 											<select id="fruits" -->
-<!-- 												name="fruitlist" class="border-0 form-select-sm bg-light me-3 selectClass" -->
-<!-- 												form="fruitform"> -->
-<!-- 												<option value="volvo">Nothing</option> -->
-<!-- 												<option value="saab">Populari</option> -->
-<!-- 												<option value="opel">Organic</option> -->
-<!-- 												<option value="audi">Fantastic</option> -->
-<!-- 											</select> -->
-<!-- 										</div> -->
-<!-- 										<hr> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
+								
 								<!-- 상단 카테고리 -->
 								<div class="mt-5">
 									<button class="category-btn reviewType" value="respond">응답문의</button>
@@ -112,22 +98,7 @@
 														2024-05-11
 													</td>
 												</tr>
-												<tr>
-													<td>
-														<a>준비물이 따로 필요한가요?</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<a>동시에 10명 신청 가능한가요?</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
+												
 											</tbody>
 										</table>
 									</div>
@@ -189,6 +160,26 @@
 	function creatorInquiry() {
 		window.open("creator-inquiry-form", "pop", "width=700, height=700, left=700, top=50");
 	}
+	
+	$(function() {
+		$('#classSelect').change(function() {
+			// ajax로 기존 선택했던 날짜 가져오기
+			var classCode = $(
+					'#classSelect').val();
+			$.ajax({
+				url : "getEndedClass",
+				method : "get",
+				data : {
+					"classCode" : classCode
+				},
+				success : function(
+						result) {
+					$('#scheduleTableContainer').empty().append('<div id="grid"></div><div id="pagination"></div>');
+					initializeGrid(result);
+				}
+			});
+		});
+	});
 		
 	</script>
 

@@ -122,7 +122,7 @@ body{
 			<div class="row h-25">
 				<div class="account_area">
 					<c:choose>
-						<c:when test="${empty sessionScope.token }">
+						<c:when test="${empty token}">
 							<p>계좌 등록</p>
 							<div class="regist_account">
 								<input type="button" value="+" onclick="linkAccount()">
@@ -171,7 +171,9 @@ $(function() {
 });
 </script>
 <script>
+
 function linkAccount() {
+	sessionStorage.setItem("redirectUrl", "will_pay_charge");
 	// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)
 	let authWindow = window.open("about:blank", "authWindow", "width=500, height=700" );
 	authWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?"

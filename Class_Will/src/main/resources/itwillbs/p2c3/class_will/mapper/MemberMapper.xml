@@ -57,6 +57,10 @@
 		WHERE member_email = #{member_email}
 	</update>
 
-
+	<select id="selectBankInfo" resultType="map">
+		SELECT access_token, user_seq_no
+		FROM bank_user_info
+		WHERE member_email = #{member_email}
+	</select>
 
 </mapper>

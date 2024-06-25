@@ -2,6 +2,7 @@ package itwillbs.p2c3.class_will.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -111,9 +112,13 @@ public class MemberController {
 			return "result_process/fail";
 			
 		} else {
+			Map<String, String> bank_info = memberService.selectBankInfo(dbMember.getMember_email());
+			System.out.println("bank_info : " + bank_info);
+			session.setAttribute("token", bank_info);
 			session.setAttribute("member", dbMember);
 			model.addAttribute("member", dbMember);
 			session.setMaxInactiveInterval(100000000);
+			
 			
 			return "redirect:/";
 		} 

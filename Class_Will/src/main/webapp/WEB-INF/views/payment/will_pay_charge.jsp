@@ -171,7 +171,9 @@ $(function() {
 });
 </script>
 <script>
+
 function linkAccount() {
+	sessionStorage.setItem("redirectUrl", "will_pay_charge");
 	// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)
 	let authWindow = window.open("about:blank", "authWindow", "width=500, height=700" );
 	authWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?"

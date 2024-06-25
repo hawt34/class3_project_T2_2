@@ -6,11 +6,16 @@
     z-index: 99999;
  }
 
- #spinner.show {
-     transition: opacity .8s ease-out, visibility 0s linear .0s;
-     visibility: visible;
-     opacity: 1;
- }
+/*  #spinner.show { */
+/*      transition: opacity .8s ease-out, visibility 0s linear .0s; */
+/*      visibility: visible; */
+/*      opacity: 1; */
+/*  } */
+
+* >a {
+	text-decoration: none;
+	color: white;
+}
 
  .back-to-top {
     position: fixed;
@@ -86,43 +91,6 @@ body{
     color: var(--bs-white) !important;
 }
 
-/*** Topbar Start ***/
-/* .topbar { */
-/*     padding: 0px 20px; */
-/*     border-radius: 230px 100px; */
-/*     background: black; */
-/* } */
-
-/* .topbar .top-info { */
-/*     font-size: 15px; */
-/*     line-height: 0; */
-/*     letter-spacing: 1px; */
-/*     display: flex; */
-/*     align-items: center; */
-/* } */
-
-/* .topbar .top-link { */
-/*     font-size: 15px; */
-/*     line-height: 0; */
-/*     letter-spacing: 1px; */
-/*     display: flex; */
-/*     align-items: center; */
-/* } */
-
-/* .topbar .top-link a { */
-/*     letter-spacing: 1px; */
-/* } */
-
-/* .topbar .top-link a small:hover { */
-/*     color: white !important; */
-/*     transition: 0.5s; */
-/* } */
-
-/* .topbar .top-link a small:hover i { */
-/*     color: var(--bs-light) !important; */
-/* } */
-/*** Topbar End ***/
-
 /*** Navbar Start ***/
 .navbar .navbar-nav .nav-link {
     padding: 0px 20px;
@@ -179,8 +147,6 @@ body{
    background: lightgray;
    border-radius: 10px;
   }
-  
-    
 }
 
 
@@ -285,42 +251,6 @@ body{
    }
 }
 /*** Hero Header end ***/
-
-
-/* /*** featurs Start ***/ */
-/* .featurs .featurs-item .featurs-icon { */
-/*     position: relative; */
-/*     width: 120px; */
-/*     height: 120px; */
-/* } */
-
-/* .featurs .featurs-item .featurs-icon::after { */
-/*     content: ""; */
-/*     width: 35px; */
-/*     height: 35px; */
-/*     background: var(--bs-body); */
-/*     position: absolute; */
-/*     bottom: -10px; */
-/*     transform: translate(-50%); */
-/*     transform: rotate(45deg); */
-/*     background: var(--bs-body); */
-    
-/* } */
-/* /*** featurs End ***/ */
-
-
-/* /*** service Start ***/ */
-/* .service .service-item .service-content { */
-/*     position: relative; */
-/*     width: 250px;  */
-/*     height: 130px;  */
-/*     top: -50%;  */
-/*     left: 50%;  */
-/*     transform: translate(-50%, -50%); */
-/* } */
-
-/* /*** service End ***/ */
-
 
 /*** Fruits Start ***/
 .fruite .tab-class .nav-item a.active {
@@ -431,30 +361,6 @@ body{
     color: var(--bs-white);
 }
 /*** vesitable End ***/
-
-
-/* /*** Facts Start ***/ */
-/* .counter { */
-/*     height: 100%; */
-/*     text-align: center; */
-/*     box-shadow: 0 0 30px rgba(0, 0, 0, 0.05); */
-/* } */
-
-/* .counter i { */
-/*     font-size: 60px; */
-/*     margin-bottom: 25px; */
-/* } */
-
-/* .counter h4 { */
-/*     color: var(--bs-primary); */
-/*     letter-spacing: 1px; */
-/*     text-transform: uppercase; */
-/* } */
-
-/* .counter h1 { */
-/*     margin-bottom: 0; */
-/* } */
-/* /*** Facts End ***/ */
 
 
 /*** testimonial Start ***/

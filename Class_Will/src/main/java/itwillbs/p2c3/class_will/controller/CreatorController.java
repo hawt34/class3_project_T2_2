@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import itwillbs.p2c3.class_will.service.CreatorService;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
 import itwillbs.p2c3.class_will.vo.CurriVO;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Controller
 public class CreatorController {
@@ -83,13 +84,24 @@ public class CreatorController {
 
 	// creater-class 상세페이지
 	@GetMapping("creator-classModify")
-	public String createrClassModify(Model model) {
+	public String createrClassModify(HttpSession session
+									, Model model
+									, @RequestParam(defaultValue = "0") int class_code) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
 		
 		List<Map<String, String>> categoryList = creatorService.getCategory();
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
+		Map<String, Object> classDetail = creatorService.getClassDetail(class_code);
 		
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("hashtagList", hashtagList);
+		model.addAttribute("classDetail", classDetail);
 		
 		return "creator/creator-classModify";
 	}

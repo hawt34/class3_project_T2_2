@@ -137,42 +137,12 @@
 		let grid;
 		let columns;
 
-		class ButtonRenderer {
-			constructor(props) {
-				const el = document.createElement('button');
-				el.className = 'btn btn-primary btn-sm';
-				el.innerText = '상세보기';
-				el.addEventListener('click', () => {
-					const rowKey = props.grid.getIndexOfRow(props.rowKey);
-					const rowData = props.grid.getRow(rowKey);
-					const memberCode = rowData.member_code;
-					location.href = "creator-classModify";
-				});
-				this.el = el;
-			}
-			getElement() {
-				return this.el;
-			}
-			render(props) {
-				this.el.dataset.rowKey = props.rowKey;
-				this.el.dataset.columnName = props.columnName;
-				this.el.value = props.value;
-			}
-		}
-
 		function initialGrid(data) {
 			columns = [
 				{ header: '클래스제목', name: 'class_name', width: 'auto' },
 				{ header: '지원상태', name: 'code_value' },
 				{ header: '카테고리', name: 'cate', className: 'hide-column' },
 				{ header: '공개여부', name: 'hide', className: 'hide-column' },
-				{
-					header: 'Action',
-					name: 'action',
-					renderer: {
-						type: ButtonRenderer
-					}
-				}
 			];
 
 			grid = new tui.Grid({
@@ -186,8 +156,17 @@
 					perPage: itemsPerPage
 				}
 			});
-		}
+			
+			grid.on('click', (ev) => {
+	            const rowKey = ev.rowKey;  // 클릭한 행의 키 값
+	            const rowData = grid.getRow(rowKey);  // 클릭한 행의 데이터
 
+// 	            console.log('Clicked Row Data:', rowData);
+	            location.href = 'creator-classModify?class_code=' + rowData.class_code;
+// 	            console.log('class_code:' + rowData.class_code);
+	        });
+		}
+		
 		function handleResize() {
 			const isMobile = window.innerWidth <= 767;
 
@@ -220,7 +199,6 @@
 				success : function(result) {
 					$('.creator-main-table').empty().append('<div id="grid"></div><div id="pagination"></div>');
 					initialGrid(result);
-					debugger;
 				}
 			});
 		});

@@ -24,6 +24,11 @@ public class CreatorService {
 		creatorMapper.creatorCurriInsert(params);
 	}
 	
+	// 클래스 상세
+	public Map<String, Object> getClassDetail(int class_code) {
+		return creatorMapper.getClassDetail(class_code);
+	}
+	
 	// 클래스 일정 등록
 	public int insertClassPlan(Map<String, Object> map, List<ClassTimeVO> classTime) {
 		return creatorMapper.insertClassPlan(map, classTime);

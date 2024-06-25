@@ -249,7 +249,6 @@ th, td {
 				            }
 				        });
 						selectedDates = [...new Set(selectedDates)];
-						debugger;
 						$('#scheduleTableContainer').empty();
 						if(selectedDates.length > 0){ // 등록된 일정이 있다면 달력 안보이기
 							$('.creator-plan-bottom').addClass('hidden');
@@ -279,6 +278,9 @@ th, td {
 							$('#datepicker').removeClass('hidden');
 							$('#scheduleTableContainer').empty();
 						}
+						
+						
+						
 					}
 				});	
 			});

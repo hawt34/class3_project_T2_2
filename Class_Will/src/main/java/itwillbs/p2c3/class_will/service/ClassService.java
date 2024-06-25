@@ -50,9 +50,11 @@ public class ClassService {
 	}
 	
 	// class-detail
-	public List<Map<String, Object>> getDetail(Map<String, Object> map){
-		return mapper.getDetail(map);
+	public List<Map<String, Object>> getDetail(int class_code){
+		return mapper.getDetail(class_code);
 	}
+	
+	
     public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
         return mapper.selectSmallCategories(bigCategoryCode);
     }

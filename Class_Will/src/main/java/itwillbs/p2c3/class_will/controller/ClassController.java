@@ -165,6 +165,7 @@ public class ClassController {
 		return smallCategory;
 	}
 	
+	
 	// 클래스 디테일
 	@GetMapping("class-detail")
 	public String classDetail(Model model, @RequestParam int class_code) {

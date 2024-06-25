@@ -2,8 +2,6 @@ package itwillbs.p2c3.class_will.service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +14,16 @@ import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
+import itwillbs.p2c3.class_will.handler.BankApi;
 import itwillbs.p2c3.class_will.mapper.PayMapper;
 
 @Service
 public class PayService {
 	@Autowired
 	private PayMapper payMapper;
+	
+	@Autowired
+	private BankApi bankApiClient;	
 	
 	private IamportClient client;
 	

@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,21 @@ public class PayController {
 	//===============================================================
 	//윌페이 충전 페이지로 이동
 	@GetMapping("will-pay-charge")
-	public String willPayCharging() {
+	public String willPayCharging(Model model, HttpSession session) {
+		if(session.getAttribute("token") != null) {
+			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
+			
+			//bankUserInfo 가져오기
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("access_token", token.get("access_token"));
+			map.put("user_seq_no", token.get("user_seq_no"));
+			
+			Map bankUserInfo = payService.getUserInfo(map);
+			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
+			
+			model.addAttribute("bankUserInfo", bankUserInfo);
+		}
+		
 		return "payment/will_pay_charge";
 	}
 	@GetMapping("/callback")
@@ -120,18 +135,19 @@ public class PayController {
 		// access_token db저장
 		payService.registAccessToken(map);
 		
-		//bankUserInfo 가져오기
-		Map bankUserInfo = payService.getUserInfo(map);
-		logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
 		
-		model.addAttribute("bankUserInfo", bankUserInfo);
 		
 		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
 		// => BankTokenVO 타입 객체 형태 그대로 저장
+<<<<<<< HEAD
+		session.setAttribute("access_token", map.get("access_token"));
+			
+=======
 		
 		//session에 저장한 redirectUrl
 		String redirectUrl = (String)session.getAttribute("redirectUrl");
 		
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 		//"success.jsp 페이지로 포워딩
 		// 메세지 : "계좌 인증 완료!", isClose 값을 true, "targetURL" 값을  "FintechUserInfo" 설정
 		model.addAttribute("msg", "계좌 인증 완료!");

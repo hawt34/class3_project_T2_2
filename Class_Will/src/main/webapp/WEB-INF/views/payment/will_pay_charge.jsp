@@ -21,7 +21,6 @@ body{
 	height: 50px;
 	display:flex;
 	justify-content: center;
-	margin
 }
 .title p {
 	margin-top: 5px;
@@ -69,9 +68,17 @@ body{
 .btn:hover {
 	background: #6600FF;
 }
-.btn_custom {
-/* 	position: absolute; */
-/*     top: 180px; */
+.accountInfo {
+	width:100%;
+	height:50px;
+	border: 5px;
+	border-radius:5px;
+	background: #333333;
+	font-size: 24px;
+}
+.accountInfo img {
+	width:45px;
+	hegiht:45px;
 }
 </style>
 </head>
@@ -130,11 +137,13 @@ body{
 						</c:when>
 						<c:otherwise>
 							<p>출금 계좌</p>
-							<div class="regist">
-								<img src="${pageContext.request.contextPath }/resources/img/bankIcon.png">
-								<span>산업은행</span>
-								<span>104******111</span>
-							</div>
+							<c:forEach var="account" items="${bankUserInfo.res_list }">
+								<div class="accountInfo">
+									<img src="${pageContext.request.contextPath }/resources/img/bankIcon.png" >
+									<span>${account.bank_name }</span>
+									<span>${account.account_num_masked}</span>
+								</div>
+							</c:forEach>
 						</c:otherwise>
 					</c:choose>
 				</div><!-- 계좌 연동 끝 -->

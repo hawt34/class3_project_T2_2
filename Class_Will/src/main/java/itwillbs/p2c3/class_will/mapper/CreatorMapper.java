@@ -63,6 +63,9 @@ public interface CreatorMapper {
 
 	// 등록완료된 클래스 정보 가져오기
 	List<Map<String, Object>> getCertifiedClassInfo(MemberVO member);
+
+	// 문의사항 클래스 정보 가져오기
+	List<Map<String, Object>> getinquiryClassInfo(MemberVO member);
 	
 	// 상태에 따른 클래스 리스트
 	List<Map<String, Object>> getClassStatusInfo(@Param("status") int status,@Param("member") MemberVO member);

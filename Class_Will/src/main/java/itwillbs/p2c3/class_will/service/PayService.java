@@ -2,8 +2,6 @@ package itwillbs.p2c3.class_will.service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,9 +121,15 @@ public class PayService {
 	public Map getAccessToken(Map<String, String> authResponse) {
 		return bankApi.requestAccessToken(authResponse);
 	}
-
+	
+	//access_token DB 등록
 	public void registAccessToken(Map map) {
 		payMapper.registAccessToken(map);
+	}
+	
+	//token과 user_seq_no을 이용하여 bankUserInfo 가져오기
+	public Map getUserInfo(Map map) {
+		return bankApi.requestUserInfo(map);
 	}
 
 	

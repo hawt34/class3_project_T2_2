@@ -336,6 +336,24 @@
 		c.member_code = #{member_code}
 	</select>
 	
+	<!-- 문의사항 클래스 정보 가져오기 -->
+	<select id="getinquiryClassInfo" resultType="map">
+	SELECT 
+		c.*
+		, (
+			SELECT 
+				count(*) 
+			FROM 
+				class_inquiry 
+			WHERE 
+				class_code = c.class_code
+		) AS counter
+	FROM 
+		class c
+	WHERE 
+		c.member_code = #{member_code}
+	</select>
+	
 	<!-- 공개여부 -->
 	<select id="getHide" resultType="map">
 		SELECT 

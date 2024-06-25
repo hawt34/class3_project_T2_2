@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -61,6 +62,32 @@ public class BankApi {
 		logger.info("응답 헤더: " + responseEntity.getHeaders());
 		logger.info("응답 본문: " + responseEntity.getBody());
 
+		return responseEntity.getBody();
+	}
+	
+	//bankUserInfo를 받아오는 메서드(GET)
+	public Map requestUserInfo(Map map) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + map.get("access_token"));
+		
+		HttpEntity<String> httpEntity = new HttpEntity<String>(headers);
+		
+		//3. HTTP 요청에 필요한 URI 정보 생성
+		// => GET 방식 요청 시 전달할 파라미터는 queryParam() 메서드로 직접 전달 가능
+		URI uri = UriComponentsBuilder
+				.fromUriString(base_url) //기본요청 주소
+				.path("/v2.0/user/me") //작업 요청 상세 주소(세부 경로)
+				.queryParam("user_seq_no", map.get("user_seq_no")) //파라미터
+				.encode() // 주소 인코딩
+				.build() // UriComponents 타입 객체 생성
+				.toUri(); //URI 타입 객체로 변환
+		
+		//4.Restful API 요청을 위한 RestTemplate 객체 활용
+		RestTemplate restTemplate = new RestTemplate();
+		
+		ResponseEntity<Map> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, Map.class);
+		
+		//6. ResponseEntity 객체의 getBody() 메서드 호출하여 응답데이터 파싱결과 객체 리턴
 		return responseEntity.getBody();
 	}
 }

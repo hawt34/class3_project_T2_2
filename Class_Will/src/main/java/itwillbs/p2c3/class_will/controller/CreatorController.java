@@ -378,7 +378,7 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
+		List<Map<String, Object>> classList = creatorService.getinquiryClassInfo(member);
 		model.addAttribute("classList", classList);
 		
 		return "creator/creator-inquiry";

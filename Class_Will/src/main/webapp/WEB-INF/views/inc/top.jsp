@@ -277,15 +277,15 @@
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
 		                    <div class="col-5 d-none d-lg-flex justify-content-start mb-3">
-		                      <div class="row w-100">
-		                            <form action="" class="search-box ">
-		                            	<input class="search-txt align-items-center" type="text" name="" placeholder="관심 주제, 클래스, 크리에이터를 입력하세요.">
-		                            	<button class="search-btn" type="submit">
-		                            		<i class="bi bi-search bi-top"></i>
-		                            	</button>
-		                            </form>
-			                     </div>   
-		                    	<div class="row">
+<!-- 		                      <div class="row w-100"> -->
+<!-- 		                            <form action="" class="search-box "> -->
+<!-- 		                            	<input class="search-txt align-items-center" type="text" name="" placeholder="관심 주제, 클래스, 크리에이터를 입력하세요."> -->
+<!-- 		                            	<button class="search-btn" type="submit"> -->
+<!-- 		                            		<i class="bi bi-search bi-top"></i> -->
+<!-- 		                            	</button> -->
+<!-- 		                            </form> -->
+<!-- 			                     </div>    -->
+<!-- 		                    	<div class="row"> -->
 			                        <ul class="navbar-nav">
 			                            <li class="nav-item">
 			                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
@@ -305,7 +305,7 @@
 			                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a>
 			                            </li>
 			                        </ul>
-			                     </div>
+<!-- 			                     </div> -->
 		                    </div>
 	
 	                    <!-- 가운데 로고 영역 (큰 화면) -->

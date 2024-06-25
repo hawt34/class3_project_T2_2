@@ -38,14 +38,7 @@ public class MemberService {
 	}
 	
 	
-	public boolean updateMemberStatus(MemberVO member) {
-		if(memberMapper.updateMemberStatus(member)) {
-			return true;
-		} else {
-			return false;
-			
-		}
-	}
+	
 	
 	// 로그인 시 뱅크 토큰 조회
 	public Map<String, String> selectBankInfo(String member_email) {

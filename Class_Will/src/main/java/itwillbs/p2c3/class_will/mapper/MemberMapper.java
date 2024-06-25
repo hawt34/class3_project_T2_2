@@ -22,7 +22,7 @@ public interface MemberMapper {
 	// 휴면 해제하기
 	boolean updateMemberStatus(MemberVO member);
 
-
+	// 
 	Map<String, String> selectBankInfo(String member_email);
 	
 	

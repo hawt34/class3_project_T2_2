@@ -1,5 +1,7 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,8 @@ public class MemberService {
 		}
 		
 	}
-
+	
+	
 	public boolean updateMemberStatus(MemberVO member) {
 		if(memberMapper.updateMemberStatus(member)) {
 			return true;
@@ -42,6 +45,11 @@ public class MemberService {
 			return false;
 			
 		}
+	}
+	
+	// 로그인 시 뱅크 토큰 조회
+	public Map<String, String> selectBankInfo(String member_email) {
+		return memberMapper.selectBankInfo(member_email);
 	}
 
 	

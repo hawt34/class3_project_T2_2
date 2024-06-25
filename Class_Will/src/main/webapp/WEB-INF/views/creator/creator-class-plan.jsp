@@ -264,7 +264,11 @@ th, td {
                                 tableHtml += '<td>' + schedule.class_st_time + '</td>';
                                 tableHtml += '<td>' + schedule.class_ed_time + '</td>';
                                 tableHtml += '<td>' + schedule.attend_count + "/" + schedule.class_total_headcount + '</td>';
-                                tableHtml += '<td><button type="button" class="scheduleBtn btn btn-outline-primary" data-class-schedule-code="' + schedule.class_schedule_code + '">삭제</button></td>';
+                                tableHtml += '<td><button type="button" class="scheduleBtn btn btn-outline-primary" data-class-schedule-code="' + schedule.class_schedule_code + '"';
+                                if(schedule.attend_count != 0){
+                                		tableHtml += ' disabled style="background:lightgray;"';
+                                }
+                                tableHtml += '>삭제</button></td>';
                                 tableHtml += '</tr>';
                             });
                             
@@ -278,8 +282,6 @@ th, td {
 							$('#datepicker').removeClass('hidden');
 							$('#scheduleTableContainer').empty();
 						}
-						
-						
 						
 					}
 				});	
@@ -300,9 +302,7 @@ th, td {
 			          data: { "classScheduleCode": classScheduleCode },
 			          success: function(data) {
 			        	alert(data.answer);
-// 			  			$("#classSelect").trigger("change");
 			        	location.reload();
-// 			  			$("#classSelect").val(classCode);
 			          }
 			      });
 				} else{

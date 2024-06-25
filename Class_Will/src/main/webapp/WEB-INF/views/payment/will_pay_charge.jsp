@@ -122,7 +122,7 @@ body{
 			<div class="row h-25">
 				<div class="account_area">
 					<c:choose>
-						<c:when test="${empty sessionScope.token }">
+						<c:when test="${empty token}">
 							<p>계좌 등록</p>
 							<div class="regist_account">
 								<input type="button" value="+" onclick="linkAccount()">

@@ -132,5 +132,9 @@ public class PayService {
 		return bankApi.requestUserInfo(map);
 	}
 
+	public List<Map<String, Integer>> getPackageInfo() {
+		return payMapper.selectPackageInfoList();
+	}
+
 	
 }

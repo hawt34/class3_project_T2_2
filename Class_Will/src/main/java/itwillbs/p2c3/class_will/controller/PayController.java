@@ -108,6 +108,10 @@ public class PayController {
 			Map bankUserInfo = payService.getUserInfo(map);
 			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
 			
+			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
+			logger.info("@@@@ packageInfo:" + packageInfo);
+			
+			model.addAttribute("packageInfo", packageInfo);
 			model.addAttribute("bankUserInfo", bankUserInfo);
 		}
 		

@@ -23,7 +23,7 @@ public class PayService {
 	private PayMapper payMapper;
 	
 	@Autowired
-	private BankApi bankApiClient;	
+	private BankApi bankApi;	
 	
 	private IamportClient client;
 	
@@ -114,9 +114,16 @@ public class PayService {
 	
 	//결제에 성공한 paySuccessInfo 가져오기
 	public Map<String, String> getSuccessPayInfo(Map<String, String> map) {
-		
-		
 		return payMapper.selectSuccessPayInfo(map);
+	}
+	
+	//access_token 획득
+	public Map getAccessToken(Map<String, String> authResponse) {
+		return bankApi.requestAccessToken(authResponse);
+	}
+
+	public void registAccessToken(Map map) {
+		payMapper.registAccessToken(map);
 	}
 
 	

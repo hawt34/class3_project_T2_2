@@ -143,7 +143,7 @@ public class PayController {
 		// 메세지 : "계좌 인증 완료!", isClose 값을 true, "targetURL" 값을  "FintechUserInfo" 설정
 		model.addAttribute("msg", "계좌 인증 완료!");
 		model.addAttribute("isClose", true);
-		model.addAttribute("targetURL", "BankUserInfo");
+		model.addAttribute("targetURL", "will-pay-charge");
 		return "result_process/success";
 	}
 	

@@ -139,18 +139,21 @@
 			<form action="member-join" method="POST">
 				<h2>회원가입</h2>
 				<div class="form-floating mt-3">
-					<input type="text" class="form-control" id="member_name" name="member_name" placeholder="name" required maxlength="30">
+					<input type="text" class="form-control" id="member_name" name="member_name" placeholder="name" required 
+						maxlength="30" pattern="^[가-힣a-zA-Z]{2,30}$">
 					<label for="name">이름</label>
 				</div>
 				<div class="regex" id="regex-name"></div>
 				
 				<div class="form-floating mt-3">
-					<input type="email" class="form-control" id="member_email" name="member_email" placeholder="name@example.com" required maxlength="50">
+					<input type="email" class="form-control" id="member_email" name="member_email" placeholder="name@example.com" required 
+						maxlength="50" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
 					<label for="email">이메일</label>
 				</div>
 				<div class="regex" id="regex-email"></div>
 				<div class="form-floating mt-3">
-					<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required maxlength="20">
+					<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required 
+						maxlength="20" pattern="^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$">
 					<label for="passwd">비밀번호</label>
 				</div>
 				<div class="regex " id="regex-pwd"></div>

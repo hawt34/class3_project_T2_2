@@ -47,10 +47,7 @@
 /*  		font-family: "Noto Sans KR", sans-serif; */
  	} 
  	
- 	article {
-/*  		height: auto; */
- 		
- 	}
+
  	
  	article h1, h2 {
  		color : white;

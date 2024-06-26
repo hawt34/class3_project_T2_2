@@ -231,6 +231,16 @@
 	
 }
 
+
+#search-box-area {
+	border: 1px solid green;
+	background: black;
+	height: 200px;
+ 	display: none; 
+}
+
+
+
 /*** Top Navbar End ***/
 
 </style>
@@ -356,10 +366,11 @@
 									</ul>
 			                     </div>  <!--  col -->           
 			            	</div> 
-			            	<div class="row ">
+			            	<!-- top 검색창 -->
+			            	<div class="row">
 								<div class="col d-none d-lg-flex justify-content-end px-4">
-									<form action="search-keyword" class="search-box" method="post">
-										<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
+									<form class="search-box">
+										<input class="search-txt align-items-center" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
 										<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
 											<i class="bi bi-search bi-top"></i>
 										</button>
@@ -461,7 +472,7 @@
 	
 	<!-- Modal Search2 Start -->
 	<div class="modal fade container-fluid" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog modal-xl">
 	        <div class="modal-content rounded-0">
 	            <div class="modal-header d-flex justify-content-center">
 	                <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
@@ -479,6 +490,30 @@
 	    </div>
 	</div>
 	<!-- Modal Search End -->
+	
+	<div class="container-fluid" id="search-box-area">
+		<div class="row container" >
+			<div class="col d-flex justify-content-center">
+				<form action="search-keyword" class="search-box " method="post">
+					<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
+					<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
+						<i class="bi bi-search bi-top"></i>
+					</button>
+				</form>
+			</div>
+			<div class="col d-flex justify-content-end">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+		</div>
+		<div class="row container d-flex align-items-center justify-content-center">
+			<div class="col">
+				<h5>추천 검색어</h5>
+			</div>
+		</div>
+	
+	</div>
+	
+	
 	
 	<div class="container-fluid">
 		<!-- 분야 카테고리 -->
@@ -576,6 +611,10 @@ $(function() {
 		
 	});
 	
+	$(".search-box").on("click", function() {
+		alert("search 클릭");
+		
+	});
 	
 	
 	

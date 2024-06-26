@@ -258,6 +258,11 @@
                           <button id="btn-upload" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#excelUploadModal">데이터 업로드</button>
                             <input type="file" id="file-input" style="display:none;" />
                         </div>
+                        </div>
+   						<div>
+	                        <button class="category-btn" data-category="member" onclick="location.href='admin-class?type=1'">등록대기</button>
+	                        <button class="category-btn" data-category="teacher" onclick="location.href='admin-class?type=2'">등록완료</button>
+	                    </div>
                     </div>
 
                     <!-- Content Row -->
@@ -343,7 +348,6 @@
                         }
                     }
                 ],
-                rowHeaders: ['rowNum'],
     	        pageOptions: {
     	            useClient: true,
     	            perPage: itemsPerPage

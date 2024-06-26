@@ -150,10 +150,6 @@ body {
 							<div class="subject">클래스 가격</div>
 							<input type="text" id="screen_round" class="form-control" value="${classInfo.class_price }" readonly />
 						</div>
-						<div class="col-md-6">
-							<div class="subject">총 수용 인원</div>
-							<input type="text" id="pay_status" class="form-control" value="${classInfo.class_total_headcount}" readonly />
-						</div>
 					</div>
 					<div class="row mb-3">
 						<div class="col-md-6">
@@ -161,11 +157,11 @@ body {
 							<input type="text" id="movie_name" class="form-control" value="${classInfo.class_ex }" readonly />
 						</div>
 						<c:choose>
-						    <c:when test="${classInfo.class_type eq 0}">
-						        <c:set var="class_type" value="신청상태" />
+						    <c:when test="${classInfo.class_regist_status eq 1}">
+						        <c:set var="class_type" value="등록대기" />
 						    </c:when>
-						    <c:when test="${classInfo.class_type eq 1}">
-						        <c:set var="class_type" value="등록상태" />
+						    <c:when test="${classInfo.class_regist_status eq 2}">
+						        <c:set var="class_type" value="등록완료" />
 						    </c:when>
 						</c:choose>
 						<div class="col-md-6">
@@ -187,14 +183,17 @@ body {
 					<div class="space"></div>
 					<hr class="mb-4">
 					<div class="mb-4" align="center">
-						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
+						<c:if test="${classInfo.class_regist_status eq 1}">
+							<input type="button" value="등록처리" class="btn btn-primary btn-lg btn-block" onclick="registClass(${classInfo.class_code})">
+						</c:if>
+						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
 			</div>
 		</div>
 	</div>
 	
 		<footer class="my-3 text-center text-small">
-			<p class="mb-1">&copy; Boogi Movie</p>
+			<p class="mb-1">&copy; Class Will</p>
 		</footer>
 	<script>
 	    window.addEventListener('load', () => {
@@ -211,6 +210,12 @@ body {
 	        }, false);
 	      });
 	    }, false);
+	    
+	    function registClass(code){
+			if(confirm("정말 등록처리 하겠습니까?")){
+				location.href = "registClass?class_code=" + code;
+			}	    		
+	    }
  	</script>
 </body>
 </html>

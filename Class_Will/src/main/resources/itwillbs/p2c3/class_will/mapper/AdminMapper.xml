@@ -341,4 +341,41 @@
 		WHERE ${type}_code = #{code}
 	</update>
 	
+	<select id="selectClassListType" resultType="map">
+		SELECT class_code
+		        ,class_name
+		        ,c2.code_value AS 'class_big_category'
+		        ,c3.code_value AS 'class_small_category'
+		        ,class_thumnail
+		        ,class_image
+		        ,class_ex
+		        ,class_location
+		        ,class_hashtag
+		        ,class_creator_explain
+		        ,class_hide
+		        ,class_price
+		        ,crs.code_value AS 'class_regist_status'
+		        ,m.member_name
+		FROM class c
+		LEFT JOIN common2 c2
+		ON c.class_big_category = c2.common2_code
+		AND c2.common1_code = 'CLC'
+		LEFT JOIN common3 c3
+		ON c.class_small_category = c3.common3_code
+		AND c3.common2_code = c2.common2_code
+		AND c3.common1_code = 'CLC'
+		LEFT JOIN common2 crs
+		ON c.class_regist_status = crs.common2_code
+		AND crs.common1_code = 'CRS'
+		JOIN MEMBER m
+		ON c.member_code = m.member_code
+		WHERE c.class_regist_status = #{type}
+	</select>
+	
+	<update id="registClass">
+		UPDATE class
+		SET class_regist_status = 2
+		WHERE class_code = #{class_code}
+	</update>
+	
 </mapper>

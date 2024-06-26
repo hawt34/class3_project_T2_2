@@ -77,6 +77,10 @@ public interface AdminMapper {
 
 	int deleteBoard(Map<String, Object> params);
 
+	List<Map<String, Object>> selectClassListType(String type);
+
+	int registClass(String class_code);
+
 	
 
 }

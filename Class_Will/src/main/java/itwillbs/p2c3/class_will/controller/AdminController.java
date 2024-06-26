@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,8 +99,9 @@ public class AdminController {
 	}
 	
 	@GetMapping("admin-class")
-	public String adminClass(Model model) {
-		List<Map<String, Object>> class_list = adminService.getClassList();
+	public String adminClass(Model model,@RequestParam(defaultValue = "1") String type) {
+		
+		List<Map<String, Object>> class_list = adminService.getClassList(type);
 		
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
 		
@@ -554,6 +556,20 @@ public class AdminController {
         jsonResponse.put("url", webUrl.replace("\\", "/"));
         
         return jsonResponse.toString();
+    }
+    
+    @GetMapping("registClass")
+    public String registClass(String class_code,Model model) {
+    	boolean isSuccess = adminService.registClass(class_code);
+    	String result = "";
+    	if(!isSuccess) {
+    		result = WillUtils.checkDeleteSuccess(false, model, "클래스 등록 실패!", true);
+    		return result;
+    	}
+    	
+    	result = WillUtils.checkDeleteSuccess(true, model, "클래스 등록 성공!", true);
+    	
+    	return result;
     }
     
 }

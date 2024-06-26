@@ -49,8 +49,8 @@ public class AdminService {
 		return adminMapper.selectColumnDataTypes(tableName);
 	}
 
-	public List<Map<String, Object>> getClassList() {
-		return adminMapper.selectClassList();
+	public List<Map<String, Object>> getClassList(String type) {
+		return adminMapper.selectClassListType(type);
 	}
 
 	public Map<String, String> getClassInfo(String class_code) {
@@ -149,6 +149,10 @@ public class AdminService {
 
 	public boolean deleteBoard(Map<String, Object> params) {
 		return adminMapper.deleteBoard(params) > 0 ? true : false;
+	}
+
+	public boolean registClass(String class_code) {
+		return adminMapper.registClass(class_code) > 0 ? true : false;
 	}
 	
 	

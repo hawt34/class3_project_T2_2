@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>클래스윌 회원가입</title>
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,6 +122,13 @@
 		margin: 0;
 		padding: 0;
 /* 		color: red; */
+	}
+	
+	@media (min-width: 992px) {
+/* 	    .offcanvas { */
+/* 	        display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */ */
+/* 	    } */
+	    
 	}
 	
 </style>

@@ -183,14 +183,14 @@
 }
 
 @media (max-width: 992px) {
-    .navbar-brand {
-/*         margin-left: auto; */
-/*         margin-right: auto; */
-    }
-    .navbar-toggler {
-/*         margin-left: auto; */
-    }
+    .navbar {
+	    height: 120px;
+	    border-bottom: 1px solid rgba(255, 255, 255, .3);
+	    background: black !important; /* Navbar 배경을 검정색으로 설정 */
+	}
+    
 }
+
 
 .search-box {
 	height: 40px;
@@ -285,7 +285,7 @@
 	    <div class="container px-0 top-cate">
 	        <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	            <div class="container-fluid">
-	                <div class="row w-100 d-lg-flex d-md-none d-none d-xs-none align-items-end top-nev-lg">
+	                <div class="row w-100 d-lg-flex d-md-none d-none align-items-end top-nev-lg">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
 		                    <div class="col-5 d-none d-lg-flex justify-content-start  mb-3">
@@ -373,7 +373,7 @@
 					<div class="row w-100 d-flex d-lg-none align-items-end">
 	                    <div class="col-8 d-flex d-lg-none justify-content-start">
 	                        <a class="navbar-brand" href="main">
-	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
+	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="150px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
 	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3">

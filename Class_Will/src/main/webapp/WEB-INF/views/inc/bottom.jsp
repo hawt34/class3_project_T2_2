@@ -87,18 +87,21 @@
 		background: #333;
 		position: fixed;
 	    bottom: 0px;
-		height: 80px; 
+		height: 65px; 
 		color: white;
 	    z-index: 999;
 	    padding: 0px;
+	    margin: 0 auto;
 	}
 	
 	.bottom-nevi-item {
-		font-size: 15px;
+		font-size: 12px;
+		margin: 0px;
+		padding: 0px;
 	}
 	
 	.bottom-icon {
-		font-size: 23px;
+		font-size: 20px;
 	}
 
 </style>
@@ -167,22 +170,24 @@
     
 		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center">
     		
-			<ul class="nav nav-pills nav-justified d-flex align-items-center">
-				<li class="nav-item bottom-nevi-item">
-					<a class="nav-link " href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
+			<ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center">
+			
+				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
 				</li>
-				<li class="nav-item bottom-nevi-item">
-					<a class="nav-link" href=""><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
+				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
 				</li>
-				<li class="nav-item bottom-nevi-item">
-					<a class="nav-link" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
+				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+					<a class="nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
 				</li>
-				<li class="nav-item bottom-nevi-item">
-					<a class="nav-link" href="#"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a>
+				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a>
 				</li>
-				<li class="nav-item bottom-nevi-item">
-					<a class="nav-link" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a>
+				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+					<a class="nav-link px-0 mx-2" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a>
 				</li>
+				
 			</ul>
 		</div>	
 

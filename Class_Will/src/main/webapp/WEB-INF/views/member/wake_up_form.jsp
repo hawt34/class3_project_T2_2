@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>클래스윌 로그인</title>
 
 

@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>클래스윌 비밀번호 찾기</title>
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -68,7 +68,7 @@
 	    z-index: 999;
 	}
 	
-	h3 {
+	.customer_service_center {
 		color: white;
 	}
 	
@@ -79,9 +79,8 @@
 	.rounded-circle {
 		width: 40PX;
 		height: 40px;
+		color: white;
 	}
-	
-
 
 	.bottom-nevi-var {
 		background: #333;
@@ -102,6 +101,13 @@
 	
 	.bottom-icon {
 		font-size: 20px;
+	}
+	
+	.navbar .navbar-nav .nav-link:hover,
+	.navbar .navbar-nav .nav-link.active,
+	.navbar .navbar-nav .nav-link:hover .nav-link.active {
+	    color: white; /* 호버 상태에서 글자 색을 흰색으로 유지 */
+	    font-weight: bold; /* 호버 상태에서 볼드체 */
 	}
 
 </style>
@@ -131,7 +137,7 @@
 	                        </div>
 	                    </div>
 	                    <div class="col-lg-3">
-	                    	<div class="">
+	                    	<div class="customer_service_center">
 	                        <h3>고객센터</h3>
 					<div class="d-grid gap-2 py-2">
 						<button class="btn btn-light">문의하기</button>
@@ -143,11 +149,11 @@
 	            </div>
 	            <div class="row g-5 mb-5">
 	                <div class="col-lg-3 ">
-	                    <div class="d-flex pt-3 justify-content-center">
-	                         <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" ><i class="fab fa-twitter"></i></a>
-	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-facebook-f"></i></a>
-	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-youtube"></i></a>
-	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i class="fab fa-linkedin-in"></i></a>
+	                    <div class="d-flex pt-3 justify-content-center social-icons">
+	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" ><i class="fab fa-twitter"></i></a>
+	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" href=""><i class="fab fa-facebook-f"></i></a>
+	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" href=""><i class="fab fa-youtube"></i></a>
+	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" href=""><i class="fab fa-linkedin-in"></i></a>
 	                     </div>
 	                </div>
 	                <div class="col-lg-6 ">
@@ -176,7 +182,7 @@
 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
 				</li>
 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
+					<a class="nav-link px-0 mx-2" href="#"  data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
 				</li>
 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
 					<a class="nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>

@@ -121,7 +121,7 @@
 	.regex {
 		margin: 0;
 		padding: 0;
-/* 		color: red; */
+		font-size: 12px;
 	}
 	
 	@media (min-width: 992px) {

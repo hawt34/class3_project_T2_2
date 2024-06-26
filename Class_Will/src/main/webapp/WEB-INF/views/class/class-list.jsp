@@ -152,7 +152,7 @@ body {
 								<div class="col-md-2">
 									<label for="class_big_category" class="h6">카테고리</label> 
 									<select name="class_big_category" id="class_big_category" class="form-control" onchange="updateCategory()">
-											<option value="bigCategoryAll">전체</option>
+											<option value="bigCategoryAll" id="class_big_category_all">전체</option>
 										<c:forEach var="bigCategoryList" items="${bigCategoryList}">
 											<option value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</option>
 										</c:forEach>
@@ -160,8 +160,8 @@ body {
 								</div>
 								<div class="col-md-2">
 									<label for="class_small_category" class="h6">상세분류</label> 
-									<select name="class_small_category" id="class_small_category" class="form-control">
-										<option value="smallCategoryAll">전체</option>
+									<select name="class_small_category" id="class_small_category" class="form-control"  onchange="updateSmallCategory()">
+										<option value="smallCategoryAll" id="class_small_category_all">전체</option>
 									</select>
 								</div>
 <!-- 							</div> -->
@@ -171,7 +171,7 @@ body {
 								<div class="col-md-2">
 									<label for="class_local" class="h6">지역</label> 
 									<select name="class_local" id="class_local" class="form-control" onchange="updateLocal()">
-										<option value="classLocalAll">전체</option>
+										<option value="classLocalAll" id="class_local_all">전체</option>
 										<c:forEach var="localList" items="${localList}">
 											<option value="${localList.common2_code}">${localList.code_value}</option>
 										</c:forEach>
@@ -368,6 +368,7 @@ $(function() {
 	});
 });
 // ------------------------------------------------------------------------------------
+// 대카테고리 카테고리바 셀렉
 function updateCategory() {
     const selectElement = document.getElementById('class_big_category');
     const selectedCategoryValue = selectElement.value;
@@ -408,6 +409,48 @@ function updateCategory() {
     addCategoryToContainer(selectedCategoryValue, selectedCategoryText);
 }
 
+// 소카테고리 카테고리바 셀렉
+function updateSmallCategory() {
+    const selectElement = document.getElementById('class_small_category');
+    const selectedSmallCategoryValue = selectElement.value;
+    const selectedSmallCategoryText = selectElement.options[selectElement.selectedIndex].text;
+    const categoryContainer = document.getElementById('categoryContainer');
+    
+    // '전체'를 선택한 경우 모든 소카테고리 값을 추가합니다.
+    if (selectedSmallCategoryValue === 'smallCategoryAll') {
+        allSmallCategory.forEach(small => {
+            const smallText = small.code_value;
+            const smallValue = small.common2_code;
+
+            // 중복 확인: 이미 존재하는 값인지 확인
+            const existingValues = categoryContainer.getElementsByTagName('input');
+            let isDuplicate = false;
+            for (let i = 0; i < existingValues.length; i++) {
+                if (existingValues[i].value === smallValue) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (!isDuplicate) {
+                addCategoryToContainer(smallValue, smallText);
+            }
+        });
+        return;
+    }
+
+    // 중복 확인: 이미 존재하는 값인지 확인
+    const existingValues = categoryContainer.getElementsByTagName('input');
+    for (let i = 0; i < existingValues.length; i++) {
+        if (existingValues[i].value === selectedSmallCategoryValue) {
+            return;  // 이미 존재하는 경우 추가하지 않음
+        }
+    }
+
+    // 선택한 소카테고리 값을 추가합니다.
+    addCategoryToContainer(selectedSmallCategoryValue, selectedSmallCategoryText);
+}
+
+// 지역 카테고리바 셀렉
 function updateLocal() {
     const selectElement = document.getElementById('class_local');
     const selectedLocalValue = selectElement.value;
@@ -447,6 +490,8 @@ function updateLocal() {
     // 선택한 지역 값을 추가합니다.
     addCategoryToContainer(selectedLocalValue, selectedLocalText);
 }
+
+
 
 function addCategoryToContainer(value, text) {
     const categoryContainer = document.getElementById('categoryContainer');

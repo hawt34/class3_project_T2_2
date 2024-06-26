@@ -122,7 +122,8 @@
 }
 
 #searchModal .modal-content {
-    background: rgba(255, 255, 255, .7);
+    background: black;
+   	margin: auto;
 }
 
 .collapse-category {
@@ -356,10 +357,10 @@
 			                     </div>  <!--  col -->           
 			            	</div> 
 			            	<div class="row ">
-								<div class="col  d-none d-lg-flex justify-content-end px-4">
+								<div class="col d-none d-lg-flex justify-content-end px-4">
 									<form action="search-keyword" class="search-box" method="post">
 										<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-										<button class="search-btn" type="submit">
+										<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
 											<i class="bi bi-search bi-top"></i>
 										</button>
 									</form>
@@ -440,7 +441,7 @@
 	<!-- Navbar End -->
 	
 	<!-- Modal Search Start -->
-	<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="searchModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	    <div class="modal-dialog">
 	        <div class="modal-content rounded-0">
 	            <div class="modal-header">
@@ -452,6 +453,27 @@
 	                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
 	                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
 	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<!-- Modal Search End -->
+	
+	<!-- Modal Search2 Start -->
+	<div class="modal fade container-fluid" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content rounded-0">
+	            <div class="modal-header d-flex justify-content-center">
+	                <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
+						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
+						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
+							<i class="bi bi-search bi-top"></i>
+						</button>
+					</form>
+	                <button type="button" class="btn-close d-flex justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button>
+	            </div>
+	            <div class="modal-body d-flex align-items-center justify-content-center">
+	                <h5>추천 검색어</h5>
 	            </div>
 	        </div>
 	    </div>

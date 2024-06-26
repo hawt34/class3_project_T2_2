@@ -13,6 +13,9 @@ import itwillbs.p2c3.class_will.vo.MemberVO;
 @Mapper
 public interface CreatorMapper {
 	
+	// 크리에이터 자격 부여
+	void updateMemberType(MemberVO member);
+
 	// 클래스 등록
 	void createrClassRegPro(Map<String, Object> map);
 	

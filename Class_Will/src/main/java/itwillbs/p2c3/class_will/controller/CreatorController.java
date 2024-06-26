@@ -31,11 +31,18 @@ public class CreatorController {
 	
 	@Autowired
 	private CreatorService creatorService;
+	
+	@Autowired
+	private MemberService memberService;
 
 	// creator-main으로
 	@GetMapping("creator-main")
 	public String createrMain(HttpSession session, Model model) {
-		MemberVO member = (MemberVO)session.getAttribute("member");
+		MemberVO dbmember = new MemberVO();
+		dbmember.setMember_email("bjm0209@naver.com");
+		MemberVO member = memberService.selectMember(dbmember);
+//		MemberVO member = (MemberVO)session.getAttribute("member");
+		session.setAttribute("member", member);
 		if(member == null) {
 			model.addAttribute("msg", "로그인 후 이용 가능합니다!");
 			model.addAttribute("targetURL", "member-login");
@@ -47,15 +54,32 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		
-		session.setAttribute("member", member);
-		session.setMaxInactiveInterval(60*60*60*60*60*60);
+		session.setMaxInactiveInterval(60*60*60*60*60*60*100);
 		return "creator/creator-main";
 	}
 	
 	// creator-qualify 로
 	@GetMapping("creator-qualify")
-	public String creatorQualify(){
+	public String creatorQualify(HttpSession session, Model model){
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		Map<String, String> bank_info = (Map<String, String>)session.getAttribute("token");
+		if(member == null) {
+			model.addAttribute("msg", "로그인 후 이용 가능합니다!");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		}
+		
+		model.addAttribute("bank_info", bank_info);
+		
 		return "creator/creator-qualify";
+	}
+
+	// creator-regist PRO 
+	@GetMapping("creator-regist")
+	public String creatorRegist(HttpSession session){
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		creatorService.updateMemberType(member);
+		return "redirect:/creator-main";
 	}
 	
 	//=================================================================================

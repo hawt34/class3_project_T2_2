@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -80,6 +82,12 @@ public class ClassController {
 		return "class/class-list";
 	}
 	
+    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {
+        return classService.getChooseBigCategory(category);
+    }
+    
 	@GetMapping("big-category")
 	@ResponseBody
     public ResponseEntity<List<Map<String, Object>>> getBigCategories() {

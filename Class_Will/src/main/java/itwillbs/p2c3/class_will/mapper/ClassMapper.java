@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
 public interface ClassMapper {
+	
+	//
+	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
+	
 	// 큰 카테고리
 	List<Map<String, Object>> selectBigCategoryList();
 	

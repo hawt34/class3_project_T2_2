@@ -59,11 +59,20 @@ public class ClassController {
 		return "class/class-list";
 	}
 	
-    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {
-        return classService.getChooseBigCategory(category);
-    }
+	// 카테고리바 소카테고리 ajax
+	@ResponseBody
+	@GetMapping("small-category")
+	public List<Map<String, Object>> getCategoryDetail(@RequestParam String big_category){
+		List<Map<String, Object>> smallCategory = classService.getSmallCategory(big_category);
+		System.out.println("smallCategory:@@@@@@ " + smallCategory);
+		return smallCategory;
+	}
+	
+//    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
+//    @ResponseBody
+//    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {
+//        return classService.getChooseBigCategory(category);
+//    }
     
 	@GetMapping("big-category")
 	@ResponseBody
@@ -72,30 +81,6 @@ public class ClassController {
         return ResponseEntity.ok().body(bigCategoryList);
     }
 	
-	// 클래스 상세 리뷰
-	@GetMapping("creator-review-form2")
-	public String creatorReviewForm2(Model model, @RequestParam int class_code){
-		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
-		model.addAttribute("classReview", classReview);
-		return"creator/creator-review-show";
-	    
-	}
-	
-	// 클래스 상세 질문
-	@GetMapping("creator-inquiry-form2")
-	public String creatorInquiryForm2(Model model, @RequestParam int class_code){
-		List<Map<String, Object>> classInquiry = classService.getClassInquiry( class_code ); 
-		model.addAttribute("classInquiry", classInquiry);
-		return"creator/creator-inquiry-show";
-	}
-	// 카테고리바
-	@ResponseBody
-	@GetMapping("small-category")
-	public List<Map<String, Object>> getCategoryDetail(@RequestParam String big_category){
-		List<Map<String, Object>> smallCategory = classService.getSmallCategory(big_category);
-		System.out.println("smallCategory:@@@@@@ " + smallCategory);
-		return smallCategory;
-	}
 	
 	// 클래스 디테일
 	@GetMapping("class-detail")
@@ -144,6 +129,23 @@ public class ClassController {
         //========================================================================
         
 		return"class/class-detail";
+	}
+	
+	// 클래스 상세 리뷰
+	@GetMapping("creator-review-form2")
+	public String creatorReviewForm2(Model model, @RequestParam int class_code){
+		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
+		model.addAttribute("classReview", classReview);
+		return"creator/creator-review-show";
+		
+	}
+	
+	// 클래스 상세 질문
+	@GetMapping("creator-inquiry-form2")
+	public String creatorInquiryForm2(Model model, @RequestParam int class_code){
+		List<Map<String, Object>> classInquiry = classService.getClassInquiry( class_code ); 
+		model.addAttribute("classInquiry", classInquiry);
+		return"creator/creator-inquiry-show";
 	}
 	
 	// 신고하기

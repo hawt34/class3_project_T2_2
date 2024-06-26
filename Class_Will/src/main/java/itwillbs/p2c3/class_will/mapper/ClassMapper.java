@@ -11,22 +11,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Mapper
 public interface ClassMapper {
 	
-	//
-	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
-	
 	// 큰 카테고리
 	List<Map<String, Object>> selectBigCategoryList();
 	
 	// 소 카테고리
 	List<Map<String, Object>> getSmallCategory(String big_Category);
-	// 소 카테고리
-	List<Map<String, Object>> getListSmallCategory();
+
+	//
+	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
 	
 	// 카테고리 지역 
 	List<Map<String, Object>> selectCategoryLocal();
 	
 	// 클래스 리스트
 	List<Map<String, Object>> getClassList();
+	
+	// 소 카테고리
+	List<Map<String, Object>> getListSmallCategory();
 	
 	// 클래스 리뷰
 	List<Map<String, Object>> selectClassReview(int class_code);

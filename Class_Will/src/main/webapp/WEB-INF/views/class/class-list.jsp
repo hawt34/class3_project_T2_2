@@ -204,7 +204,7 @@ body {
 							</div>
 						<div class="btnResetDiv col-md-1">
 <!-- 						<div class="btnReset w-100"> -->
-							<button type="button" class="btn btn-outline-light btnReset" >초기화</button>
+							<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
 <!-- 						</div> -->
 						</div>
 					</div>
@@ -349,23 +349,34 @@ body {
 <script type="text/javascript">
 
 $(function() {
-	// 카테고리 선택시 상세카테
-	$("#class_big_category").change(function() {
-		var big_category = $("#class_big_category").val();
-		$.ajax({
-			url: "small-category",
-			method: "get",
-			data: { "big_category" : big_category },
-			success: function(data) {
-				$("#class_small_category").empty();
-				$.each(data, function(index, item) {
-					$("#class_small_category").append(
-						$('<option></option>').val(item.common3_code).text(item.code_value)	
-					);
-				});
-			}
-		});		
-	});
+    // 카테고리 선택시 상세카테
+    $("#class_big_category").change(function() {
+    	
+        var big_category = $("#class_big_category").val();
+        
+        $.ajax({
+            url: "small-category",
+            method: "get",
+            data: { "big_category" : big_category },
+            success: function(data) {
+            	
+                $("#class_small_category").empty();
+                
+                // 데이터에 이미 전체 옵션이 포함되어 있으면 추가하지 않음
+                if (data.length > 0 && data[0].common3_code !== 'smallCategoryAll') {
+                    $("#class_small_category").append(
+                        $('<option></option>').val('smallCategoryAll').text('전체')
+                    );
+                }
+                
+                $.each(data, function(index, item) {
+                    $("#class_small_category").append(
+                        $('<option></option>').val(item.common3_code).text(item.code_value)	
+                    );
+                });
+            }
+        });		
+    });
 });
 // ------------------------------------------------------------------------------------
 // 대카테고리 카테고리바 셀렉
@@ -383,22 +394,29 @@ function updateCategory() {
 
             // 중복 확인: 이미 존재하는 값인지 확인
             const existingValues = categoryContainer.getElementsByTagName('input');
+            
             let isDuplicate = false;
+            
             for (let i = 0; i < existingValues.length; i++) {
                 if (existingValues[i].value === categoryText) {
                     isDuplicate = true;
                     break;
                 }
             }
+            
             if (!isDuplicate) {
                 addCategoryToContainer(categoryValue, categoryText);
             }
+            
         });
+        
         return;
+        
     }
 
     // 중복 확인: 이미 존재하는 값인지 확인
     const existingValues = categoryContainer.getElementsByTagName('input');
+    
     for (let i = 0; i < existingValues.length; i++) {
         if (existingValues[i].value === selectedCategoryText) {
             return;  // 이미 존재하는 경우 추가하지 않음
@@ -407,6 +425,10 @@ function updateCategory() {
 
     // 선택한 카테고리 값을 추가합니다.
     addCategoryToContainer(selectedCategoryValue, selectedCategoryText);
+    
+    // categoryBarBox 높이 변경
+    adjustCategoryBarHeight();
+    
 }
 
 // 소카테고리 카테고리바 셀렉
@@ -418,28 +440,36 @@ function updateSmallCategory() {
     
     // '전체'를 선택한 경우 모든 소카테고리 값을 추가합니다.
     if (selectedSmallCategoryValue === 'smallCategoryAll') {
+    	
         allSmallCategory.forEach(small => {
             const smallText = small.code_value;
             const smallValue = small.common2_code;
 
             // 중복 확인: 이미 존재하는 값인지 확인
             const existingValues = categoryContainer.getElementsByTagName('input');
+            
             let isDuplicate = false;
+            
             for (let i = 0; i < existingValues.length; i++) {
                 if (existingValues[i].value === smallValue) {
                     isDuplicate = true;
                     break;
                 }
             }
+            
             if (!isDuplicate) {
                 addCategoryToContainer(smallValue, smallText);
             }
+            
         });
+        
         return;
+        
     }
 
     // 중복 확인: 이미 존재하는 값인지 확인
     const existingValues = categoryContainer.getElementsByTagName('input');
+    
     for (let i = 0; i < existingValues.length; i++) {
         if (existingValues[i].value === selectedSmallCategoryValue) {
             return;  // 이미 존재하는 경우 추가하지 않음
@@ -448,6 +478,10 @@ function updateSmallCategory() {
 
     // 선택한 소카테고리 값을 추가합니다.
     addCategoryToContainer(selectedSmallCategoryValue, selectedSmallCategoryText);
+    
+    // categoryBarBox 높이 변경
+    adjustCategoryBarHeight();
+    
 }
 
 // 지역 카테고리바 셀렉
@@ -459,28 +493,36 @@ function updateLocal() {
 
     // '전체'를 선택한 경우 모든 지역 값을 추가합니다.
     if (selectedLocalValue === 'classLocalAll') {
+    	
         allLocals.forEach(local => {
             const localText = local.code_value;
             const localValue = local.common2_code;
 
             // 중복 확인: 이미 존재하는 값인지 확인
             const existingValues = categoryContainer.getElementsByTagName('input');
+            
             let isDuplicate = false;
+            
             for (let i = 0; i < existingValues.length; i++) {
                 if (existingValues[i].value === localText) {
                     isDuplicate = true;
                     break;
                 }
             }
+            
             if (!isDuplicate) {
                 addCategoryToContainer(localValue, localText);
             }
+            
         });
+        
         return;
+        
     }
 
     // 중복 확인: 이미 존재하는 값인지 확인
     const existingValues = categoryContainer.getElementsByTagName('input');
+    
     for (let i = 0; i < existingValues.length; i++) {
         if (existingValues[i].value === selectedLocalText) {
             return;  // 이미 존재하는 경우 추가하지 않음
@@ -489,10 +531,12 @@ function updateLocal() {
 
     // 선택한 지역 값을 추가합니다.
     addCategoryToContainer(selectedLocalValue, selectedLocalText);
+    
+    // categoryBarBox 높이 변경
+    adjustCategoryBarHeight();
 }
 
-
-
+// 카테고리바 셀렉트 한 값 categoryContainer에 추가
 function addCategoryToContainer(value, text) {
     const categoryContainer = document.getElementById('categoryContainer');
 
@@ -512,6 +556,24 @@ function addCategoryToContainer(value, text) {
     div.appendChild(input);
     div.appendChild(img);
     categoryContainer.appendChild(div);
+}
+
+// categoryContainer 초기화
+function resetCategory() {
+    // categoryContainer 초기화
+    const categoryContainer = document.getElementById('categoryContainer');
+    categoryContainer.innerHTML = ''; // 모든 자식 요소 제거
+
+    // categoryBarBox 높이 초기화
+    adjustCategoryBarHeight();
+}
+
+// categoryBarBox 높이 조절
+function adjustCategoryBarHeight() {
+    // categoryBarBox의 높이를 동적으로 조정하는 함수
+    var categoryBarBox = $(".categoryBarBox");
+    var newHeight = $(".categoryBarBox").height();
+    categoryBarBox.css("height", newHeight + "px");
 }
 
 </script>

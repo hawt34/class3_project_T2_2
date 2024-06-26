@@ -110,19 +110,22 @@
 	</header>
 	
 	<article>
-		<div class="main-event py-3">
+		<div class="main-event">
 			<div class="container-fluid main-event">
 				<div class="container align-items-center">
 					<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 						<div class="carousel-inner ">
 							<div class="carousel-item active ">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main-event1.jpg" class="d-block w-100 " alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event1.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event1_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="...">
 							</div>
 							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main-event2.jpg"  class="d-block w-100" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event2.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event2_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="...">
 							</div>
 							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main-event3.jpg" class="d-block w-100" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event3.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event3_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="...">
 							</div>
 						</div>
 						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">

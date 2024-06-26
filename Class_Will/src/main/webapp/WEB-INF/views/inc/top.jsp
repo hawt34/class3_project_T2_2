@@ -356,10 +356,10 @@
 			                     </div>  <!--  col -->           
 			            	</div> 
 			            	<div class="row ">
-								<div class="col  d-none d-lg-flex justify-content-end px-4">
+								<div class="col d-none d-lg-flex justify-content-end px-4">
 									<form action="search-keyword" class="search-box" method="post">
 										<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-										<button class="search-btn" type="submit">
+										<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
 											<i class="bi bi-search bi-top"></i>
 										</button>
 									</form>

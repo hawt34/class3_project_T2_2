@@ -227,7 +227,16 @@ public class MemberController {
 	 
 
 	
-	
+	@GetMapping("user-chat")
+	public String userChat(MemberVO member, Model model, HttpSession session) {
+		
+		
+		
+		
+		model.addAttribute("member", member);
+		return "member/wake_up_form";
+		
+	} // wakeUpForm()
 	
 	
 	

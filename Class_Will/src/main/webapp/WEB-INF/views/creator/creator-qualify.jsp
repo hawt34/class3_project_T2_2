@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -56,6 +57,11 @@
 	margin: 0 auto;
 	border-radius: 10px;
 	}
+	.regist_account{
+		border: 1px solid black;
+		border-radius: 10px;
+		margin: 0 auto;
+	}
 
 
 </style>
@@ -67,8 +73,9 @@
 	</header>
 	<div class="qualify-body col-md-6 mt-5">
 		<!-- Single Page Header start -->
-		<div class="container-fluid py-3">
+		<div class="container py-3 col-md-8">
 			<h2 class="text-center display-6">Creator 등록</h2>
+			<hr class="text-center text-black">
 		</div>
 		<!-- Single Page Header End -->
 	
@@ -107,12 +114,13 @@
 			<input type="checkbox" value="여기체크박스" class="checkBox">
 		</div>
 		
-		<div class="regist_account text-center">
-			<h6 class="text-white">계좌 등록</h6>
+		<div class="regist_account col-md-6 text-center py-4">
+			<h6 class="text-black">계좌 등록</h6>
 			<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
 		</div>
+		
 		<div align="center" class="mt-5 pb-5">
-			<button class="btn btn-outline-primary btn-lg">크리에이터 등록</button>
+			<button onclick="location.href='creator-regist'" class="btn btn-outline-primary btn-lg">크리에이터 등록</button>
 		</div>
 	</div>
 

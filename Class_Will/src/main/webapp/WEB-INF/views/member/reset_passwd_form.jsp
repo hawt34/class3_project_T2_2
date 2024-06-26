@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>클래스윌 비밀번호 찾기</title>
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,7 +138,7 @@
 			
 			      if (!regex.test(inputPwd)) {
 			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
-			          $("#regex-pwd").css("color", "red");
+			          $("#regex-pwd").css("color", "#FF4848");
 			      } else {
 			      	 $("#regex-pwd").text("");
 			      }

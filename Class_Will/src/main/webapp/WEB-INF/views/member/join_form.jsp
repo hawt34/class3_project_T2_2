@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>클래스윌 회원가입</title>
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,6 +122,13 @@
 		margin: 0;
 		padding: 0;
 /* 		color: red; */
+	}
+	
+	@media (min-width: 992px) {
+/* 	    .offcanvas { */
+/* 	        display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */ */
+/* 	    } */
+	    
 	}
 	
 </style>
@@ -369,7 +377,7 @@
 				
 				 if (!regex.test(inputName)) {
 			            $("#regex-name").text("올바르지 않은 이름입니다.");
-			            $("#regex-name").css("color", "red");
+			            $("#regex-name").css("color", "#FF4848");
 			        } else {
 			            $("#regex-name").text("");
 			        }
@@ -385,7 +393,7 @@
 				 if (!regex.test(inputEmail)) {
 // 			            $(this).val("");
 			            $("#regex-email").text("규칙에 맞는 이메일 주소를 입력해 주세요.");
-			            $("#regex-email").css("color", "red");
+			            $("#regex-email").css("color", "#FF4848");
 			        } else {
 			            $("#regex-email").text("");
 			        }
@@ -399,7 +407,7 @@
 			
 			      if (!regex.test(inputPwd)) {
 			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
-			          $("#regex-pwd").css("color", "red");
+			          $("#regex-pwd").css("color", "#FF4848");
 			      } else {
 			      	 $("#regex-pwd").text("");
 			      }
@@ -413,7 +421,7 @@
 			
 			      if (!regex.test(inputTel)) {
 			          $("#regex-tel").text("규칙에 맞는 핸드폰 번호를 입력해 주세요.");
-			          $("#regex-tel").css("color", "red");
+			          $("#regex-tel").css("color", "#FF4848");
 			      } else {
 			      	 $("#regex-tel").text("");
 			      }

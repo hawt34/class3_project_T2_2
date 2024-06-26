@@ -18,6 +18,11 @@ public class CreatorService {
 	@Autowired
 	private CreatorMapper creatorMapper;
 	
+	// 크리에이터 자격부여
+	public void updateMemberType(MemberVO member) {
+		creatorMapper.updateMemberType(member);
+	}
+
 	// 클래스 등록
 	public void createrClassRegPro(Map<String, Object> map, List<CurriVO> params) {
 		creatorMapper.createrClassRegPro(map);

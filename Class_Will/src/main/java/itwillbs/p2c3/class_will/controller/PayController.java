@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import itwillbs.p2c3.class_will.service.PayService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
 
@@ -42,6 +46,7 @@ public class PayController {
 	@GetMapping("will-pay-all")
 	public Map<String, String> willPayAll(@RequestParam Map<String, String> map) {
 		Map<String, String> credit = payService.getCredit(map);
+		System.out.println("크레딧!!!:" + credit.get("member_credit"));
 		
 		return credit;
 	}
@@ -97,6 +102,8 @@ public class PayController {
 	//윌페이 충전 페이지로 이동
 	@GetMapping("will-pay-charge")
 	public String willPayCharging(Model model, HttpSession session) {
+		
+		
 		if(session.getAttribute("token") != null) {
 			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
 			
@@ -106,16 +113,50 @@ public class PayController {
 			map.put("user_seq_no", token.get("user_seq_no"));
 			
 			Map bankUserInfo = payService.getUserInfo(map);
+			
 			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
 			
+			//패키지 info
 			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
 			logger.info("@@@@ packageInfo:" + packageInfo);
 			
 			model.addAttribute("packageInfo", packageInfo);
+			
 			model.addAttribute("bankUserInfo", bankUserInfo);
 		}
 		
 		return "payment/will_pay_charge";
+	}
+	@GetMapping("will-pay-charge2")
+	public String willPayCharging2(Model model, HttpSession session) {
+		if(session.getAttribute("token") != null) {
+			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
+			
+			//bankUserInfo 가져오기
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("access_token", token.get("access_token"));
+			map.put("user_seq_no", token.get("user_seq_no"));
+			
+			Map bankUserInfo = payService.getUserInfo(map);
+			
+			 bankUserInfo.get("res_list");
+			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
+			Gson gson = new Gson();
+			JsonObject jsonObject = gson.toJsonTree(bankUserInfo).getAsJsonObject();
+			JsonArray jsonArray = jsonObject.getAsJsonArray("res_list");
+			
+			logger.info(">>>>>> jsonArray: " + jsonArray);
+			
+			//패키지 info
+			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
+			logger.info("@@@@ packageInfo:" + packageInfo);
+			
+			model.addAttribute("packageInfo", packageInfo);
+			model.addAttribute("packageInfoJson", jsonArray);
+			model.addAttribute("bankUserInfo", bankUserInfo);
+		}
+		
+		return "payment/will_pay_charge2";
 	}
 	@GetMapping("/callback")
 	public String auth(@RequestParam Map<String, String> authResponse, Model model, HttpSession session) {

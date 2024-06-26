@@ -272,7 +272,6 @@ document.addEventListener("DOMContentLoaded", function() {
                                     <th>제목</th>
                                     <th>작성일자</th>
                                     <th>작성자</th>
-                                    <th>별점</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -307,74 +306,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		                                </c:forEach>
                                 	</c:otherwise>
                                 </c:choose>
-<!-- ======= -->
-<!--                                 <tr> -->
-<!--                                     <td class="creator-review-subject"> -->
-<!--                                         <a onclick="creatorInquiry()">클래스 날짜 변경가능한가요</a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()"> 2024-05-11 </a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()"> asdf1234 </a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
-<!--                                             <ul class="list-inline small"> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
-<!--                                             </ul> -->
-<!--                                         </div> reviewStar -->
-<!--                                     </td> -->
-<!--                                 </tr> -->
-<!--                                 <tr> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()">클래스 가격 문의</a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()">2024-05-11</a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()">fksdf1234</a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
-<!--                                             <ul class="list-inline small"> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
-<!--                                             </ul> -->
-<!--                                         </div> reviewStar -->
-<!--                                     </td> -->
-<!--                                 </tr> -->
-<!--                                 <tr> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()"> 클래스 관련 문의사항</a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()"> 2024-05-11 </a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <a onclick="creatorInquiry()"> sfgsfsdf </a> -->
-<!--                                     </td> -->
-<!--                                     <td> -->
-<!--                                         <div class="reviewStar" onclick="creatorInquiry()"> -->
-<!--                                             <ul class="list-inline small"> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
-<!--                                                 <li class="list-inline-item m-0"><i class="fa fa-star-o text-success"></i></li> -->
-<!--                                             </ul> -->
-<!--                                         </div> reviewStar -->
-<!--                                     </td> -->
-<!--                                 </tr> -->
-<!-- >>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git -->
                             </tbody>
                         </table>
                     </div>
@@ -474,15 +405,23 @@ document.addEventListener("DOMContentLoaded", function() {
                                     </div>
                                 </button>
                             </div>
+<!--                             <div class="col-md-4 btn mx-auto" style="display: flex; align-items: center;"> -->
+<!--                                 <button type="button" class="btn btn-light w-100 btn-customs"> -->
+<!--                                     <div style="display: flex; align-items: center;"> -->
+<%--                                         <img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon"> --%>
+<!--                                         <div class="shareClass"><span>공유하기</span></div> -->
+<!--                                     </div> -->
+<!--                                 </button> -->
+<!--                             </div> -->
                             <div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
                                 <button type="button" class="btn btn-light w-100 btn-customs">
-                                    <div style="display: flex; align-items: center;">
-                                        <img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon">
-                                        <div class="shareClass"><span>공유하기</span></div>
+                                    <div style="display: flex; align-items: center;" onclick="classComplain(event, '${param.class_code}')">
+                                        <img src="${pageContext.request.contextPath}/resources/img/warning.png" class="button-icon">
+                                        <div class="shareClass"><span>신고하기</span></div>
                                     </div>
                                 </button>
                             </div>
-                        </div>
+                        </div> <!-- row -->
                     </div> 
                     <!-- 좋아요, 공유버튼 -->
                     <div class="col-md-12">
@@ -677,6 +616,11 @@ function creatorReview(event, class_code) {
 function creatorInquiry(event, class_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
     window.open("creator-inquiry-form2?class_code=" + class_code, "pop", "width=700, height=800, left=700, top=50");
+}
+
+function classComplain(event, class_code) {
+    event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+	window.open("class-complain?class_code=" + class_code, "pop", "width=700, height=500, left=700, top=50");	
 }
 </script>
 <!-- Required JavaScript files -->

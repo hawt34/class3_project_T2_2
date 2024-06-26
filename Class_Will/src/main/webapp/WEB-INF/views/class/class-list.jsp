@@ -151,7 +151,7 @@ body {
 <!-- 							<div class="row">  -->
 								<div class="col-md-2">
 									<label for="class_big_category" class="h6">카테고리</label> 
-									<select name="class_big_category" id="class_big_category" class="form-control">
+									<select name="class_big_category" id="class_big_category" class="form-control" onchange="updateCategory()">
 											<option value="bigCategoryAll">전체</option>
 										<c:forEach var="bigCategoryList" items="${bigCategoryList}">
 											<option value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</option>
@@ -170,7 +170,8 @@ body {
 							<!-- 카테고리바 지역 시작 -->
 								<div class="col-md-2">
 									<label for="class_local" class="h6">지역</label> 
-									<select name="class_local" id="class_local" class="form-control" required>
+									<select name="class_local" id="class_local" class="form-control" onchange="updateLocal()">
+										<option value="classLocalAll">전체</option>
 										<c:forEach var="localList" items="${localList}">
 											<option value="${localList.common2_code}">${localList.code_value}</option>
 										</c:forEach>
@@ -210,20 +211,20 @@ body {
 					<!-- 셀렉트박스 리스트 끝 -->
 					
 					<!-- 카테고리 셀렉트 리스트 -->
-					<div class="row mx-5">
-						<c:forEach var="smallCategory" items="${smallCategory}" varStatus="status">
-						    <div class="mt-3 col-md-2 position-relative chooseDiv">
-						        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" value="${smallCategory.code_value }"readonly>
-						        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon">
+					<div class="row mx-5" id="categoryContainer">
+<%-- 						<c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status" > --%>
+<!-- 						    <div class="mt-3 col-md-2 position-relative chooseDiv"> -->
+<%-- 						        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" value="${bigCategoryList.code_value}"readonly> --%>
+<%-- 						        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon"> --%>
 <%-- 								<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li> --%>
-						    </div>
-						</c:forEach>
-						<hr>
+<!-- 						    </div> -->
+<%-- 						</c:forEach> --%>
 					</div>
 					<!-- 카테고리 셀렉트 리스트 -->
 					
 					<!-- 해시태그 리스트 -->
 					<div class="row mx-5">
+						<hr>
 						<div class="col hashtagDiv">
 							<div class="form form1">
 								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
@@ -276,26 +277,29 @@ body {
 		</div>
 	</div>
 	<!-- 카테고리 바 -->
-	<!-- 클래스 개수를 계산하여 classCount 변수에 저장 -->
-<c:set var="classCount" value="${fn:length(map)}" />
-   <div class="row">
-      <div class="col-md-9">
-         <div class="classCount">
-            <p>${classCount}개의 클래스</p>
-         </div>
-      </div>
-      <div class="col-md-3 box1">
+	
+	<!-- 클래스 개수 시작 -->
+	<c:set var="classCount" value="${fn:length(map)}" />
+	<div class="row">
+		<div class="col-md-9">
+			<div class="classCount">
+				<p>${classCount}개의 클래스</p>
+			</div>
+		</div>
+		<div class="col-md-3 box1">
 <!--          <select class="form-select-sm selectBox" aria-label="Default select example"> -->
-         <select class="form-select selectBox1 w-50" aria-label="Default select example">
-            <option selected>인기순</option>
-            <option value="1">후기순</option>
-            <option value="2">별점순</option>
-            <option value="3">낮은 가격순</option>
-            <option value="4">높은 가격순</option>
-            <option value="5">거리순</option>
-         </select>
-      </div>
-   </div>
+			<select class="form-select selectBox1 w-50" aria-label="Default select example">
+				<option selected>인기순</option>
+				<option value="1">후기순</option>
+				<option value="2">별점순</option>
+				<option value="3">낮은 가격순</option>
+				<option value="4">높은 가격순</option>
+				<option value="5">거리순</option>
+			</select>
+		</div>
+	</div> <!-- row -->
+	<!-- 클래스 개수 끝 -->
+	
       <!-- 첫번째 줄 -->
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
 	      <c:forEach var="map" items="${map}">
@@ -363,123 +367,108 @@ $(function() {
 		});		
 	});
 });
-// $(document).ready(function() {
-//     // 마우스 오버 이벤트 핸들러 설정
-//     $('.bigCategory').mouseenter(function() {
-//         $(this).css('width', '300px'); // bigCategory 요소의 넓이를 300px로 설정
-//         createSubDropdown($(this)); // 서브 드롭다운 생성 함수 호출
+// ------------------------------------------------------------------------------------
+function updateCategory() {
+    const selectElement = document.getElementById('class_big_category');
+    const selectedCategoryValue = selectElement.value;
+    const selectedCategoryText = selectElement.options[selectElement.selectedIndex].text;
+    const categoryContainer = document.getElementById('categoryContainer');
 
-//     });
+    // '전체'를 선택한 경우 모든 큰 카테고리 값을 추가합니다.
+    if (selectedCategoryValue === 'bigCategoryAll') {
+        allCategories.forEach(category => {
+            const categoryText = category.code_value;
+            const categoryValue = category.common2_code;
 
-// //     // 마우스 아웃 이벤트 핸들러 설정
-//     $('.bigCategory').mouseleave(function() {
-//         $(this).css('width', ''); // bigCategory 요소의 넓이를 초기화
-//         $('.subDropdown').remove(); // 서브 드롭다운 제거
+            // 중복 확인: 이미 존재하는 값인지 확인
+            const existingValues = categoryContainer.getElementsByTagName('input');
+            let isDuplicate = false;
+            for (let i = 0; i < existingValues.length; i++) {
+                if (existingValues[i].value === categoryText) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (!isDuplicate) {
+                addCategoryToContainer(categoryValue, categoryText);
+            }
+        });
+        return;
+    }
 
-//     });
+    // 중복 확인: 이미 존재하는 값인지 확인
+    const existingValues = categoryContainer.getElementsByTagName('input');
+    for (let i = 0; i < existingValues.length; i++) {
+        if (existingValues[i].value === selectedCategoryText) {
+            return;  // 이미 존재하는 경우 추가하지 않음
+        }
+    }
 
-// //     // 클릭 이벤트 핸들러 설정
-//     $('.bigCategory a').click(function(e) {
-//         e.preventDefault(); // 기본 이벤트 방지
+    // 선택한 카테고리 값을 추가합니다.
+    addCategoryToContainer(selectedCategoryValue, selectedCategoryText);
+}
 
-//         var common2_code = $(this).data('code');
-//         var code_value = $(this).text();
-//         console.log('Clicked common2_code:', common2_code); // 디버깅을 위한 로그 추가
+function updateLocal() {
+    const selectElement = document.getElementById('class_local');
+    const selectedLocalValue = selectElement.value;
+    const selectedLocalText = selectElement.options[selectElement.selectedIndex].text;
+    const categoryContainer = document.getElementById('categoryContainer');
 
-//         // AJAX 요청
-//         $.ajax({
-//             type: "POST",
-//             url: "class-list",
-//             data: {
-//                 common2_code: common2_code
-//             },
-//             dataType: "json",
-//             success: function(response) {
-// //                 if (response === true) { // 예시로 받은 응답 데이터의 형식에 따라 수정
-//                 if (response.success === true) { // 예시로 받은 응답 데이터의 형식에 따라 수정
+    // '전체'를 선택한 경우 모든 지역 값을 추가합니다.
+    if (selectedLocalValue === 'classLocalAll') {
+        allLocals.forEach(local => {
+            const localText = local.code_value;
+            const localValue = local.common2_code;
 
-//                     alert('class-list 성공' + common2_code + code_value);
-//                     console.log("class-list 성공" + common2_code + code_value);
-//                     // 선택한 값을 카테고리 셀렉트 리스트에 추가
-//                     // addCategoryToList(code_value);
-//                 } else {
-//                     alert('class-list 실패');
-//                     console.log('class-list 실패');
-//                 }
-//             },
-//             error: function(xhr, status, error) {
-//                 alert('class-list ajax 실패');
-//                 console.log('Status: ' + status);
-//                 console.log('Error: ' + error);
-//             }
-//         });
-//     });
-    
-//     // 서브 드롭다운을 생성하는 함수
-//     function createSubDropdown($bigCategory) {
-// //         var common2_code = $bigCategory.find('a').data('code'); // bigCategory의 data-code 가져오기
-// //         console.log('Sub dropdown common2_code:', common2_code); // 디버깅을 위한 로그 추가
-        
-//         var $anchor = $bigCategory.find('a'); // bigCategory의 <a> 요소 찾기
-//         var common2_code = $anchor.data('code'); // <a> 요소의 data-code 가져오기
-//         console.log('Sub dropdown common2_code:', common2_code); // 디버깅을 위한 로그 추가
+            // 중복 확인: 이미 존재하는 값인지 확인
+            const existingValues = categoryContainer.getElementsByTagName('input');
+            let isDuplicate = false;
+            for (let i = 0; i < existingValues.length; i++) {
+                if (existingValues[i].value === localText) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (!isDuplicate) {
+                addCategoryToContainer(localValue, localText);
+            }
+        });
+        return;
+    }
 
+    // 중복 확인: 이미 존재하는 값인지 확인
+    const existingValues = categoryContainer.getElementsByTagName('input');
+    for (let i = 0; i < existingValues.length; i++) {
+        if (existingValues[i].value === selectedLocalText) {
+            return;  // 이미 존재하는 경우 추가하지 않음
+        }
+    }
 
-//         // AJAX 요청
-//         $.ajax({
-//             type: "POST",
-//             url: "class-list",
-//             data: {
-//                 common2_code: common2_code
-//             },
-//             dataType: "json",
-//             success: function(response) {
-//                 if (response.success === true) {
-//                     var smallCategoryList = response.smallCategoryList;
-// //                     displaySubDropdown($('.smallCategory'), smallCategoryList); // 서브 드롭다운 표시 함수 호출
-// //                     displaySubDropdown($(e.target).closest('.bigCategory'), smallCategoryList); // 서브 드롭다운 표시 함수 호출
-// 		               displaySubDropdown($bigCategory, smallCategoryList); // $bigCategory를 인자로 넘겨서 호출
+    // 선택한 지역 값을 추가합니다.
+    addCategoryToContainer(selectedLocalValue, selectedLocalText);
+}
 
-//                     console.log('소 카테고리 불러오기 성공');
-//                 } else {
-//                     console.log('소 카테고리 불러오기 실패');
-//                 }
-//             },
-//             error: function(xhr, status, error) {
-//                 console.log('AJAX 요청 실패');
-//                 console.log('Status: ' + status);
-//                 console.log('Error: ' + error);
-//             }
-//         });
-//     }
+function addCategoryToContainer(value, text) {
+    const categoryContainer = document.getElementById('categoryContainer');
 
-//     // 서브 드롭다운을 화면에 표시하는 함수
-//     function displaySubDropdown($bigCategory, smallCategoryList) {
-//         // 서브 드롭다운 요소 생성
-//         var $subDropdown = $('<div class="dropdown-menu subDropdown" aria-labelledby="dropdownMenuButton2">');
-//         var $list = $('<ul class="list-unstyled">');
+    const div = document.createElement('div');
+    div.className = 'mt-3 col-md-2 position-relative chooseDiv';
 
-//         // 소 카테고리 항목 추가
-//         $.each(smallCategoryList, function(index, smallCategory) {
-//             var $item = $('<li><a class="dropdown-item" href="#">' + smallCategory.code_value + '</a></li>');
-//             $list.append($item);
-//         console.log('$item :::::::::::', $item.text());
-//         });
-		
-//         // 디버깅을 위한 로그 추가
-//         console.log('Generated $list:', $list.text());
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'form-control chooseResult';
+    input.value = text;
+    input.readOnly = true;
 
-// //         // 서브 드롭다운을 $smallCategory 옆에 추가
-// //         $smallCategory.find('.smallCategory').html($subDropdown.append($list));
+    const img = document.createElement('img');
+    img.src = '<%= request.getContextPath() %>/resources/images/class/x.png';
+    img.className = 'xicon';
 
-//         // 서브 드롭다운을 $bigCategory 옆에 추가
-//         $bigCategory.next('.smallCategory').find('ul').html($list.html());
-        
+    div.appendChild(input);
+    div.appendChild(img);
+    categoryContainer.appendChild(div);
+}
 
-//         // 디버깅을 위한 로그 추가
-//         console.log('Sub dropdown $subDropdown:', $subDropdown);
-//     }
-// });
 </script>
 </body>
 </html>

@@ -47,7 +47,8 @@
 		 	   , m.member_email 
 		 	   , m.member_nickname 
 		 	   , m.member_tel
-		 	   , m.member_credit
+<!-- 		 	   , m.member_credit -->
+		 	   , CASE WHEN m.member_credit IS NULL THEN '0' ELSE m.member_credit END as 'member_credit'
 		 	   , m.member_name
 			   , cs.class_schedule_date
 			   , cs.class_st_time 
@@ -90,7 +91,7 @@
 	</select>
 	
 	<select id="selectCredit" resultType="map">
-		SELECT CASE WHEN member_credit IS NULL THEN 0 ELSE member_credit END AS 'member_credit'
+		SELECT CASE WHEN member_credit IS NULL THEN '0' ELSE member_credit END AS 'member_credit'
 		FROM MEMBER
 		WHERE member_code = #{member_code}
 	</select>

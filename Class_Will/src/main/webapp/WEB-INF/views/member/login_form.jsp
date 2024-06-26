@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>클래스윌 로그인</title>
 
 
@@ -32,6 +33,7 @@
 	
  	body { 
  		background: black;  
+ 		color: white;
  	} 
 	
 	article {
@@ -40,7 +42,7 @@
 	}
 	
 	.login-form {
- 		width: 900px; 
+/*  		width: 900px;  */
 		padding: 30px;
 		margin-top: 50px;
 		margin-bottom: 100px;
@@ -48,10 +50,23 @@
 	
 	.login-social {
 		margin-top: 100px; 
-		padding: 20px 50px;
+		padding: 20px 20px;
 		
 	}
 	
+	@media (min-width: 576px) {
+		.login-form {
+			padding: 30px 100px;;
+		}
+	    
+	}
+	
+	@media (min-width: 992px) {
+		.login-form {
+			width: 800px;
+		}
+	    
+	}
 	.social{
 		margin-bottom: 20px;
 	}
@@ -69,6 +84,7 @@
 	
 	p a {
 		font-size: 12px;
+		color: white;
 	}
 	
 	.login-form-input {
@@ -93,8 +109,8 @@
 	<article>
 		<div class="container-fluid">
 			<div class="container login-form ">
-				<div class="row "> 
-					<div class="col">
+				<div class="row gx-5""> 
+					<div class="col-lg-6 col-md-12 ">
 						<h2 align="center">로그인</h2>
 						<form action="member-login" method="POST">
 							<div class="login-form-input">
@@ -124,11 +140,11 @@
 								<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light btn-lg">
 							</div>
 						</form>
-						<div align="center" style="color: white;">
-							클래스윌이 처음이신가요? <a href="member-join"><u><b>가입하기</b></u></a>
+						<div align="center" >
+							클래스윌이 처음이신가요? <a href="member-join" style="color: white;" ><u><b>가입하기</b></u></a>
 						</div>			
 					</div><!-- col -->
-					<div class="col login-social">
+					<div class="col-lg-6 col-md-12 login-social">
 						<div class="container d-flex flex-column mb-3">
 							<input type="button" id="login-google" value="Google로 로그인" class="btn btn-outline-light btn-lg p-2 social">
 							<input type="button" id="login-kakao" value="카카오로 로그인" class="btn btn-outline-light btn-lg p-2 social">
@@ -180,7 +196,7 @@
 				 if (!regex.test(inputEmail)) {
 // 			            $(this).val("");
 			            $("#regex-email").text("규칙에 맞는 이메일 주소를 입력해 주세요.");
-			            $("#regex-email").css("color", "red");
+			            $("#regex-email").css("color", "#FF4848");
 			        } else {
 			            $("#regex-email").text("");
 			        }
@@ -194,7 +210,7 @@
 			
 			      if (!regex.test(inputPwd)) {
 			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
-			          $("#regex-pwd").css("color", "red");
+			          $("#regex-pwd").css("color", "#FF4848");
 			      } else {
 			      	 $("#regex-pwd").text("");
 			      }

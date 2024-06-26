@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import itwillbs.p2c3.class_will.mapper.ClassMapper;
 
@@ -21,6 +22,11 @@ public class ClassService {
 		final_list.put("bigCategory", bigCategory);
 		final_list.put("smallCategory", smallCategory);
 		return final_list;
+	}
+	
+	// 
+	public List<Map<String, Object>> getChooseBigCategory(@RequestParam("category") String category) {
+		return mapper.selectChooseBigCategory(category);
 	}
 	// 큰 카테고리
 	public List<Map<String, Object>> getBigCategoryList() {

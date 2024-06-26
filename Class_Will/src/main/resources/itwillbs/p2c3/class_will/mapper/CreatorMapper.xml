@@ -176,7 +176,7 @@
 		WHERE 
 			common1_code = 'CLC'
 		AND 
-			code_hide = 'N' -- 3은 카테고리 공통코드
+			code_hide = 'N'
 	</select>
 
 	<!-- 카테고리 상세 -->
@@ -374,16 +374,23 @@
 			code_hide = 'N'
 	</select>
 
-	<!--  -->
+	<!-- 상태리스트  -->
 	<select id="getStatusList" resultType="map">
 		SELECT *
 		FROM 
 			common2 
 		WHERE 
 			common1_code='CRS'
+		AND 
+			code_hide = 'N'
 	</select>
 	
+	<update id="updateMemberType">
+		UPDATE MEMBER
+		SET member_type = 2
+		WHERE member_email = #{member_email}
 	
+	</update>
 	
 	
 

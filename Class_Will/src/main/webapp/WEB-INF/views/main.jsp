@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta property="og:title" content="Class Will">
 <meta property="og:image" content="${pageContext.request.contextPath}/resources/img/class_will_thumb.png" />
 <meta property="og:description" content="✨WE WILL JOURNEY, WE WILL GROW UP✨">
@@ -115,7 +116,7 @@
 					<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 						<div class="carousel-inner ">
 							<div class="carousel-item active ">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main-event1.jpg" class="d-block w-100" alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main-event1.jpg" class="d-block w-100 " alt="...">
 							</div>
 							<div class="carousel-item">
 								<img src="${pageContext.request.contextPath}/resources/images/event/main-event2.jpg"  class="d-block w-100" alt="...">
@@ -377,40 +378,8 @@
 							</div>
 	                    </div>
 	                    
-<!-- 	                    <div class="rounded  vesitable-item"> -->
-<!-- 							<div class="vesitable-img"> -->
-<%-- 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
-<!-- 							</div> -->
-<!-- 	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;"> -->
-<%-- 		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" > --%>
-<!-- 	                        </div> -->
-<!-- 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> -->
-<!-- 								<div class="classCategory col-md-10"> -->
-<!-- 									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
-<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 								</div> -->
-<!-- 								<div class="createrName d-flex align-items-center"> -->
-<!-- 									<div class="px-3 py-1 position-absolute"  style="top: 30px; left: 5px;"> -->
-<%-- 										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-<!-- 									</div>	 -->
-<!-- 									<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p> -->
-<!-- 								</div> -->
-<!-- 								<div class="className"> -->
-<!-- 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6> -->
-<!-- 								</div> -->
-<!-- 					            <div class="row classInfo"> -->
-<!-- 									<div class="col-md-6 add"> -->
-<!-- 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
-<!-- 									</div> -->
-<!-- 									<div class="col-md-6 price"> -->
-<!-- 										<h5>50,000원</h5> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 	                    </div> -->
 	                    
-		                   <div class="rounded  vesitable-item">
+		                <div class="rounded  vesitable-item">
 							<div class="vesitable-img">
 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
@@ -496,7 +465,7 @@
                              <div class="row g-4">
                              
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
@@ -528,7 +497,7 @@
                                  </div>
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
@@ -560,7 +529,7 @@
                                  </div>
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
@@ -592,7 +561,7 @@
                                  </div>
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
@@ -624,7 +593,7 @@
                                  </div>
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
@@ -656,7 +625,7 @@
                                  </div>
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
@@ -688,7 +657,7 @@
                                  </div>
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
@@ -720,7 +689,7 @@
                                  </div>
                                  
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative fruite-item classCard">
+                                     <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">

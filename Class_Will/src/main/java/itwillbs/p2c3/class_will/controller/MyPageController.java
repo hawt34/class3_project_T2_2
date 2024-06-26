@@ -53,16 +53,17 @@ public class MyPageController {
 
 	@GetMapping("my-page")
 	public String myPage(Model model) {
+
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		System.out.println("여기는 마이페이지" + member);
-//		if (member == null) {
-//            return "redirect:/";
-//        }
-		// System.out.println("멤버코드" +member.getMember_code());
-		// 나중에 여기에 조건 걸어서 로그인여부 확인할 예정
 
-		return "mypage/mypage";
-
+		if (member == null) { // 실패
+			model.addAttribute("msg", "로그인이 필요한 페이지입니다");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		} else {
+			System.out.println("여기는 마이페이지" + member);
+			return "mypage/mypage";
+		}
 	}
 
 	// 위시리스트
@@ -80,80 +81,100 @@ public class MyPageController {
 	// 내가 쓴 리뷰
 	@GetMapping("my-review")
 	public String myReview(Model model) {
+
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		// System.out.println("리뷰쪽 시작"+member.getMember_code());
 
-		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member.getMember_code());
+		if (member == null) { // 실패
+			model.addAttribute("msg", "로그인이 필요한 페이지입니다");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		} else {
 
-		model.addAttribute("member", member);
-		model.addAttribute("memberReviews", memberReviews);
-		// System.out.println(memberReviews);
+			List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member.getMember_code());
 
-		return "mypage/mypage-review";
+			model.addAttribute("member", member);
+			model.addAttribute("memberReviews", memberReviews);
+			// System.out.println(memberReviews);
+
+			return "mypage/mypage-review";
+
+		}
 	}
-	//리뷰 등록
+
+	// 리뷰 등록
 	@GetMapping("resist-review")
 	public String resistReview() {
-		
+
 		return "mypage/mypage-review-form";
 	}
-	
-	
+
 	// 리뷰 수정
 	@GetMapping("edit-review-page")
 	public String editReviewPage(@RequestParam("review_code") String reviewCode, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		model.addAttribute("member", member);
 
-		Map<String, String> review = myPageService.getReviewByCode(reviewCode);
+		if (member == null) { // 실패
+			
+			return "error/error_404";
+		} else {
+			model.addAttribute("member", member);
+			Map<String, String> review = myPageService.getReviewByCode(reviewCode);
 
-		// 리뷰 작성자 검증
+			// 리뷰 작성자 검증
 //	    if (!member_code.equals(String.valueOf(review.get("member_code")))) {
 //	        throw new SecurityException("리뷰를 수정할 권한이 없습니다.");
 //	    }
 
-		model.addAttribute("review", review);
-		System.out.println("이건 수정할 때 데리고 오는 특정리뷰 1건" + review);
-		return "mypage/mypage-review-modify"; // 리뷰 수정 페이지
+			model.addAttribute("review", review);
+			System.out.println("이건 수정할 때 데리고 오는 특정리뷰 1건" + review);
+			return "mypage/mypage-review-modify"; // 리뷰 수정 페이지
+		}
 	}
 
 	@PostMapping("edit-review")
-	public String editReview(Model model, @RequestParam Map<String, String> formData,
-			BCryptPasswordEncoder passwordEncoder) {
+	public String editReview(Model model, @RequestParam Map<String, String> formData) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		model.addAttribute("member", member);
 
-		System.out.println("여기요 여기!formdata: " + formData);
-		int updateCount = myPageService.updateReview(formData);
-
-		if (updateCount > 0) {
-			return "redirect:/my-review";
+		if (member == null) { // 실패
+			
+			return "error/error_404";
 		} else {
-			model.addAttribute("msg", "리뷰수정 실패");
-			model.addAttribute("msg", "삭제 실패!");
-			return "result_process/fail";
+			model.addAttribute("member", member);
+			System.out.println("여기요 여기!formdata: " + formData);
+			int updateCount = myPageService.updateReview(formData);
+			if (updateCount > 0) {
+				return "redirect:/my-review";
+			} else {
+				model.addAttribute("msg", "리뷰수정 실패");
+				return "result_process/fail";
+			}
 		}
-
 	}
 
 	// 리뷰삭제
 	@PostMapping("delete-review")
 	public String deleteReview(Model model, @RequestParam Map<String, String> map) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		model.addAttribute("member", member);
-
-		String class_review_code = map.get("review_code");
-		System.out.println(class_review_code);
-
-		int deleteCount = myPageService.deleteReview(class_review_code);
-		if (deleteCount > 0) {
-
-			return "redirect:/my-review";
+		if (member == null) { // 실패
+			
+			return "error/error_404";
 		} else {
-			model.addAttribute("msg", "삭제 실패!");
-			return "result_process/fail";
-		}
 
+			model.addAttribute("member", member);
+
+			String class_review_code = map.get("review_code");
+			System.out.println(class_review_code);
+
+			int deleteCount = myPageService.deleteReview(class_review_code);
+			if (deleteCount > 0) {
+
+				return "redirect:/my-review";
+			} else {
+				model.addAttribute("msg", "삭제 실패!");
+				return "result_process/fail";
+			}
+		}
 	}
 
 	// 크레딧관련
@@ -166,75 +187,80 @@ public class MyPageController {
 	@RequestMapping("upload_image")
 	public String handleFileUpload(@RequestParam("imageFile") MultipartFile file, HttpServletRequest request,
 			Model model) {
-		// System.out.println(file); 파일 넘어오는지 확인
-//	        String id = (String) session.getAttribute("sId");
-		//
-//	        if (id == null || !id.equals("admin")) {
-//	            model.addAttribute("msg", "잘못된 접근입니다");
-//	            model.addAttribute("targetURL", "member_login");
-//	            return "error/fail";
-//	        }
+
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		member.setMember_imageFile(file);
-		String uploadDir = "/resources/upload";
-		String saveDir = session.getServletContext().getRealPath(uploadDir);
-		System.out.println("실제 업로드 경로(session): " + saveDir);
-		// 실제 업로드 경로
+		if (member == null) { // 실패
+			return "error/error_404";
+		} else {
 
-		System.out.println(saveDir);
+			member.setMember_imageFile(file);
+			String uploadDir = "/resources/upload";
+			String saveDir = session.getServletContext().getRealPath(uploadDir);
+			System.out.println("실제 업로드 경로(session): " + saveDir);
+			// 실제 업로드 경로
 
-		Path path = Paths.get(saveDir);
+			System.out.println(saveDir);
 
-		try {
-			// Files 클래스의 createDirectories() 메서드 호출하여 실제 경로 생성
-			Files.createDirectories(path);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		member.setMember_img("");
+			Path path = Paths.get(saveDir);
 
-		String fileName1 = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
-		System.out.println("파일네임" + fileName1);
-
-		if (!file.getOriginalFilename().equals("")) {
-			member.setMember_img(fileName1);
-		}
-		System.out.println("저장파일" + member.getMember_img());
-
-		System.out.println("업로드 파일명: " + member.getMember_imageFile());
-
-		int updateCount = myPageService.updateMemberImg(member);
-
-		if (updateCount > 0) {
 			try {
-				if (!file.getOriginalFilename().equals("")) {
-					file.transferTo(new File(saveDir, fileName1));
-				}
-
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
+				// Files 클래스의 createDirectories() 메서드 호출하여 실제 경로 생성
+				Files.createDirectories(path);
 			} catch (IOException e) {
-
 				e.printStackTrace();
 			}
+			member.setMember_img("");
 
-			return "redirect:/my-page";
-		} else {
-			return "error/fail";
+			String fileName1 = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
+			System.out.println("파일네임" + fileName1);
+
+			if (!file.getOriginalFilename().equals("")) {
+				member.setMember_img(fileName1);
+			}
+			System.out.println("저장파일" + member.getMember_img());
+
+			System.out.println("업로드 파일명: " + member.getMember_imageFile());
+
+			int updateCount = myPageService.updateMemberImg(member);
+
+			if (updateCount > 0) {
+				try {
+					if (!file.getOriginalFilename().equals("")) {
+						file.transferTo(new File(saveDir, fileName1));
+					}
+
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+
+				return "redirect:/my-page";
+			} else {
+				return "error/fail";
+			}
 		}
 	}
 
 	// 이미지 삭제 관련 실제삭제는 아니고 null값을 줘서 업데이트하는 개념.
 	@RequestMapping("delete_image")
-	public String resetImg() {
+	public String resetImg(Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		member.setMember_img(null);
-		int updateCount = myPageService.updateMemberImg(member);
-
-		if (updateCount > 0) {
-			return "redirect:/my-page";
+		if (member == null) { // 실패
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
-			return "error/fail";
+
+			member.setMember_img(null);
+			int updateCount = myPageService.updateMemberImg(member);
+
+			if (updateCount > 0) {
+				return "redirect:/my-page";
+			} else {
+				return "error/fail";
+			}
 		}
 	}
 
@@ -242,9 +268,16 @@ public class MyPageController {
 	@GetMapping("my-modify")
 	public String myModify(Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		model.addAttribute("member", member);
+		if (member == null) { // 실패
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		} else {
 
-		return "mypage/mypage-modify";
+			model.addAttribute("member", member);
+
+			return "mypage/mypage-modify";
+		}
 	}
 
 	// 회원수정폼 관련
@@ -252,43 +285,49 @@ public class MyPageController {
 	public String memberModify(Model model, BCryptPasswordEncoder passwordEncoder,
 			@RequestParam Map<String, String> formData) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		model.addAttribute("member", member);
-		//System.out.println("회원정보하는 곳임" + formData);
-		//System.out.println("평문 : " + formData.get("member_pwd"));
 
-		String addr = formData.get("member_post_code") + "/" + formData.get("member_address1") + "/"
-				+ formData.get("member_address2");
-		member.setMember_addr(addr);
-		//System.out.println(addr);
-		member.setMember_nickname(formData.get("member_nickname"));
-		String[] addrArr = member.getMember_addr().split("/");
-		member.setMember_post_code(addrArr[0]);
-		member.setMember_address1(addrArr[1]);
-		member.setMember_address2(addrArr[2]);
-
-		String plainPassword = formData.get("member_pwd");
-		if (plainPassword != null && !plainPassword.isEmpty()) {
-			// 비밀번호가 비어 있지 않으면 암호화하여 설정
-			String securePassword = passwordEncoder.encode(plainPassword);
-			member.setMember_pwd(securePassword);
-		}
-
-		int updateCount = myPageService.updateMemberInfo(member);
-		if (updateCount > 0) {
-
-			return "redirect:/my-page";
+		if (member == null) { // 실패
+			return "error/error_404";
 		} else {
-			return "error/fail";
-		}
+			model.addAttribute("member", member);
+			// System.out.println("회원정보하는 곳임" + formData);
+			// System.out.println("평문 : " + formData.get("member_pwd"));
 
+			String addr = formData.get("member_post_code") + "/" + formData.get("member_address1") + "/"
+					+ formData.get("member_address2");
+			member.setMember_addr(addr);
+			// System.out.println(addr);
+			member.setMember_nickname(formData.get("member_nickname"));
+			String[] addrArr = member.getMember_addr().split("/");
+			member.setMember_post_code(addrArr[0]);
+			member.setMember_address1(addrArr[1]);
+			member.setMember_address2(addrArr[2]);
+
+			String plainPassword = formData.get("member_pwd");
+			if (plainPassword != null && !plainPassword.isEmpty()) {
+				// 비밀번호가 비어 있지 않으면 암호화하여 설정
+				String securePassword = passwordEncoder.encode(plainPassword);
+				member.setMember_pwd(securePassword);
+			}
+
+			int updateCount = myPageService.updateMemberInfo(member);
+			if (updateCount > 0) {
+				model.addAttribute("msg", "회원정보가 수정되었습니다");
+				model.addAttribute("targetURL", "my-page");
+				return "result_process/success";
+				//return "redirect:/my-page";
+			} else {
+				return "error/fail";
+			}
+
+		}
 	}
-	
-	//회원닉네임 중복확인관련 ajax처리함
-	
+	// 회원닉네임 중복확인관련 ajax처리함
+
 	@GetMapping("CheckDupNickname")
-	 public ResponseEntity<Boolean> checkNickname(@RequestParam String member_nickname) {
-        boolean isDuplicate = myPageService.nicknameDuplicate(member_nickname);
-        return new ResponseEntity<>(isDuplicate, HttpStatus.OK);
-    }
-	
+	public ResponseEntity<Boolean> checkNickname(@RequestParam String member_nickname) {
+		boolean isDuplicate = myPageService.nicknameDuplicate(member_nickname);
+		return new ResponseEntity<>(isDuplicate, HttpStatus.OK);
+	}
+
 }

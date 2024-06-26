@@ -30,7 +30,7 @@ public class CscController {
 		String common2_value	 = "";
 		String common2_code = "";
 		String common1_code 	= "";
-		List<Map<String, Object>> category = null;
+		List<Map<String, String>> category = null;
 		//카테고리
 		switch (type) {
 		case "notice": category = adminService.getBoardCategory("NTC"); break;

@@ -176,7 +176,7 @@
 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
 				</li>
 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
+					<a class="nav-link px-0 mx-2" href="#"  data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
 				</li>
 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
 					<a class="nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>

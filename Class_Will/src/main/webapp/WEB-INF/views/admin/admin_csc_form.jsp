@@ -33,28 +33,77 @@
 	<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-				<h4 class="mb-4">공지사항등록</h4>
+				<h4 class="mb-4">
+					<c:choose>
+					    <c:when test="${param.type eq 'notice'}">
+					        공지사항
+					    </c:when>
+					    <c:when test="${param.type eq 'faq'}">
+					        FAQ
+					    </c:when>
+					</c:choose>
+					
+					<c:choose>
+					    <c:when test="${registType eq 'modify'}">
+					        수정
+					    </c:when>
+					    <c:otherwise>
+					        등록
+					    </c:otherwise>
+					</c:choose>
+				폼</h4>
 				<form class="validation-form" novalidate action="<c:out value='admin-csc-pro'/>" method="post">
 				<input type="hidden" name="type" value="<c:out value='${param.type}'/>">
+				<input type="hidden" name="registType" value="<c:out value='${registType}'/>">
+				<input type="hidden" name="code" value="<c:choose>
+				    <c:when test='${param.type eq "notice"}'>
+				        <c:out value='${notice.notice_code}'/>
+				    </c:when>
+				    <c:when test='${param.type eq "faq"}'>
+				        <c:out value='${faq.faq_code}'/>
+				    </c:when>
+				</c:choose>">
 					<div class="mb-3">
 						<label for="movie_name">글제목</label> 
-						<input type="text"  id="notice_name" class="form-control" required name="subject" required placeholder="글제목을 입력하세요"/>
+						<c:choose>
+						    <c:when test="${not empty notice}">
+						        <input type="text" id="notice_name" class="form-control" required name="subject" 
+						               placeholder="글제목을 입력하세요" value="${notice.notice_subject}" />
+						    </c:when>
+						    <c:when test="${not empty faq}">
+						        <input type="text" id="notice_name" class="form-control" required name="subject" 
+						               placeholder="글제목을 입력하세요" value="${faq.faq_subject}" />
+						    </c:when>
+						    <c:otherwise>
+						    	<input type="text" id="notice_name" class="form-control" required name="subject" 
+						               placeholder="글제목을 입력하세요"/>
+						    </c:otherwise>
+					    </c:choose>
 						<div class="invalid-feedback">글제목을 입력해주세요.</div>
 					</div>
 					<div class="mb-3">
-						<select name="category" id="notice_category">
-							<option>카테고리</option>
-							
-							<c:forEach items="${category}" var="cat">
-								<option value="${cat.common2_code}" >${cat.code_value }</option>
-							</c:forEach>
-							
+						<select name="category" id="notice_category" class="form-control">
+						    <option value="">카테고리</option>
+						    <c:forEach items="${category}" var="cat">
+						        <option value="${cat.common2_code}"
+						            ${cat.code_value eq collectCat ? 'selected="selected"' : ''}>
+						            ${cat.code_value}
+						        </option>
+						    </c:forEach>
 						</select>
-						
 					</div>
 					<div class="mb-3">
 						<label for="movie_story">내용</label> 
-						<textarea id="summernote" class="form-control" rows="10" cols="100" required name="content"></textarea>
+						<textarea id="summernote" class="form-control" rows="10" cols="100" required name="content">
+							<c:choose>
+						    <c:when test="${not empty notice}">
+						    	${notice.notice_content}
+						    </c:when>
+						    <c:when test="${not empty faq}">
+						    	${faq.faq_content}
+						    </c:when>
+					    </c:choose>
+						</textarea>
 						<div class="invalid-feedback">내용을 입력해주세요.</div>
 					</div>
 					
@@ -74,6 +123,7 @@
 	</div>
 <script>
 	window.addEventListener('load', () => {
+		console.log("${registType}");
 		const forms = document.getElementsByClassName('validation-form');
 	
 		Array.prototype.filter.call(forms, (form) => {

@@ -6,6 +6,7 @@
 		if("${targetURL}" != ""){
 			window.opener.location.href="${targetURL}";
 		}
+		window.opener.location.reload();
 		window.close();
 	}
 	if("${targetURL}" != ""){

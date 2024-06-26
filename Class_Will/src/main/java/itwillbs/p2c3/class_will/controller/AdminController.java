@@ -38,7 +38,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.handler.CommonUtils;
+import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
+import itwillbs.p2c3.class_will.service.CscService;
 import itwillbs.p2c3.class_will.service.ExcelService;
 import itwillbs.p2c3.class_will.vo.CategoryData;
 import itwillbs.p2c3.class_will.vo.GroupedData;
@@ -55,6 +57,9 @@ public class AdminController {
 	
 	@Autowired
 	private CommonUtils cUtils;
+	
+	@Autowired
+	private CscService cscService;
 	
 	@GetMapping("admin")
 	public String admin(Model model) {
@@ -193,7 +198,26 @@ public class AdminController {
 	
 	
 	@GetMapping("admin-csc-detail")
-	public String adminCscDetail() {
+	public String adminCscDetail(String type,int code, Model model) {
+		List<Map<String, Object>> list = null;
+		String common1_code = "";
+		switch (type) {
+			case "notice" : common1_code = "NTC"; break;
+			case "faq" : common1_code = "FQC"; break;
+		}
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("common1_code", common1_code);
+		params.put("type", type);
+		params.put("code", code);
+		
+		Map<String, String> board = cscService.getBoardDetail(params);
+		switch (type) {
+			case "notice" : model.addAttribute("notice", board); break;
+			case "faq" : model.addAttribute("faq", board); break;
+		}
+		
+		
 		return "admin/admin_csc_detail";
 	}
 	
@@ -206,11 +230,59 @@ public class AdminController {
 		case "faq" 		: code = "FQC"; break;
 		case "event"	: break;
 		}
-		List<Map<String, Object>> category =  adminService.getBoardCategory(code);
+		List<Map<String, String>> category =  adminService.getBoardCategory(code);
 		
 		model.addAttribute("category", category);
+		model.addAttribute("registType", "regist");
+		return "admin/admin_csc_form";
+	}
+	
+	@GetMapping("admin-csc-modify")
+	public String adminCscModify(String type, Model model, int code){
+		model.addAttribute("type", type);
+		String colCat = "";
+		//카테고리 데이터들고오기
+		String common1_code = "";
+		switch (type) {
+		case "notice" 	: common1_code = "NTC"; break;
+		case "faq" 		: common1_code = "FQC"; break;
+		case "event"	: break;
+		}
+		List<Map<String, String>> category =  adminService.getBoardCategory(common1_code);
+		model.addAttribute("category", category);
+		
+		//글 정보 들고오기
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("common1_code", common1_code);
+		params.put("code", code);
+		params.put("type", type);
+		Map<String, String> board = cscService.getBoardDetail(params);
+		
+		switch (type) {
+			case "notice" : model.addAttribute("notice", board); colCat = board.get("notice_category");break; 
+			case "faq" : model.addAttribute("faq", board); colCat = board.get("faq_category"); break; 
+		}
+		model.addAttribute("collectCat", colCat);
+		model.addAttribute("registType", "modify");
 		
 		return "admin/admin_csc_form";
+	}
+	
+	@GetMapping("admin-csc-delete")
+	public String adminCscDelete(String type, int code, Model model) {
+		String result = "";
+		model.addAttribute("type", type);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		params.put("code", code);
+		boolean deleteSuccess = adminService.deleteBoard(params);
+		if(!deleteSuccess) {
+			result = WillUtils.checkDeleteSuccess(false, model, "글 삭제 실패!", true);
+			return result;
+		}
+		
+		result = WillUtils.checkDeleteSuccess(true, model, "글 삭제 성공!", true);
+		return result;
 	}
 	
 	@GetMapping("admin-member-detail")
@@ -379,15 +451,23 @@ public class AdminController {
     @PostMapping("admin-csc-pro")
     public String noticePro(@RequestParam Map<String, Object> map, Model model) {
     	boolean isInsertSuccess = false;
-    	isInsertSuccess = adminService.insertBoard(map);
+    	String registType = (String)map.get("registType");
     	
+    	if(registType.equals("regist")) {
+    		isInsertSuccess = adminService.insertBoard(map);
+    	}else if(registType.equals("modify")) {
+    		isInsertSuccess = adminService.updateBoard(map);
+    	}
     	if(!isInsertSuccess) {
     		model.addAttribute("msg", "글 등록 실패!");
     		model.addAttribute("isClose", "true");
     		return "result_process/fail";
     	}
     	
-    	return "";
+    	model.addAttribute("isClose", "true");
+    	model.addAttribute("msg", "글 등록 완료!");
+    	
+    	return "result_process/success";
     }
     
   @GetMapping("admin-pay")
@@ -403,6 +483,8 @@ public class AdminController {
 	model.addAttribute("jo_list", jo_list);
 	return "admin/admin_pay";
   }
+  
+
   
   
   @GetMapping("admin-pay-willpay")

@@ -328,4 +328,17 @@
 		LIMIT 6;	
 	</select>
 	
+	<update id="updateBoard" parameterType="map">
+		UPDATE ${type}
+		SET ${type}_subject = #{subject}
+			,${type}_content = #{content}
+			,${type}_category = #{category}
+		WHERE ${type}_code = #{code}		
+	</update>
+	
+	<update id="deleteBoard" parameterType="map">
+		DELETE FROM ${type}
+		WHERE ${type}_code = #{code}
+	</update>
+	
 </mapper>

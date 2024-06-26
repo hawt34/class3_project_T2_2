@@ -55,7 +55,7 @@ public interface AdminMapper {
 
 	int insertBoard(@Param("map") Map<String, Object> map);
 	
-	List<Map<String, Object>> selectBoardCategory(String code);
+	List<Map<String, String>> selectBoardCategory(String code);
 
 	int selectCscCount(String type);
 
@@ -72,6 +72,10 @@ public interface AdminMapper {
 	int updateRewardData(@Param("params") Map<String, Object> params);
 
 	List<Map<String, Object>> selectCategoryRanking();
+
+	int updateBoard(Map<String, Object> map);
+
+	int deleteBoard(Map<String, Object> params);
 
 	
 

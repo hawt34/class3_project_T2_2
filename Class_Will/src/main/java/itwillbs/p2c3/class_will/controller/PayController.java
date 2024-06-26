@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -137,12 +138,21 @@ public class PayController {
 			map.put("user_seq_no", token.get("user_seq_no"));
 			
 			Map bankUserInfo = payService.getUserInfo(map);
-			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
 			
+			 bankUserInfo.get("res_list");
+			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
+			Gson gson = new Gson();
+			JsonObject jsonObject = gson.toJsonTree(bankUserInfo).getAsJsonObject();
+			JsonArray jsonArray = jsonObject.getAsJsonArray("res_list");
+			
+			logger.info(">>>>>> jsonArray: " + jsonArray);
+			
+			//패키지 info
 			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
 			logger.info("@@@@ packageInfo:" + packageInfo);
 			
 			model.addAttribute("packageInfo", packageInfo);
+			model.addAttribute("packageInfoJson", jsonArray);
 			model.addAttribute("bankUserInfo", bankUserInfo);
 		}
 		

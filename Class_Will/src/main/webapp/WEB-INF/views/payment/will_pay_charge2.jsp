@@ -80,11 +80,24 @@ body{
 	width:45px;
 	hegiht:45px;
 }
-#buttons-container {
-}
 #buttons-container button{
 	display:block;
 	width:100%;
+	background: black;
+}
+#buttons-container button:hover{
+	background: white;
+	color: black !important;
+	transition-duration : 0.5s
+}
+.modal-title {
+	color: black;
+}
+.modal-body {
+	color: black;
+}
+.custom-btn {
+	color: white !important;
 }
 </style>
 </head>
@@ -111,7 +124,7 @@ body{
 				<div class="package_group">
 					<c:forEach var="package1" items="${packageInfo }" varStatus="">
 						<div class="card border-light mb-3 cutom-card" style="width:180px;">
-							<div class="card-header">plus package</div>
+							<div class="card-header">PLUS PACKAGE</div>
 							<div class="card-body">
 								<h5 class="card-title">${package1.reward_rate }% 더!</h5>
 								<!-- package 가격정보 -->
@@ -147,6 +160,7 @@ body{
 <script>
 $(function() {
 	
+	
 	//금액 입력 이벤트
 	$('#will_pay_charge').on('input', function() {
 		var value = $(this).val().replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
@@ -172,47 +186,42 @@ $(function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-	const modalsData = [
-        { id: '1', title: "Modal 1", body: "This is the body of Modal 1", imgSrc: "/resources/img/oh.jpg" },
-        { id: '2', title: "Modal 2", body: "This is the body of Modal 2", imgSrc: "/resources/img/oh.jpg" },
-        { id: '3', title: "Modal 3", body: "This is the body of Modal 3", imgSrc: "/resources/img/oh.jpg" }
-    ];
-
+	const bankInfo = ${packageInfoJson};
+	
     const buttonsContainer = document.getElementById("buttons-container");
     const modalsContainer = document.getElementById("modals-container");
-    modalsData.forEach(modalData => {
-        // Create a button to open the modal
+    bankInfo.forEach(info => {
         const button = document.createElement("button");
-        button.type = "button";
-        button.className = "btn btn-light text-black m-2";
+        button.type = "button ";
+        button.className = "btn btn-light text-black m-2 custom-btn";
         button.setAttribute("data-bs-toggle", "modal");
-        button.setAttribute("data-bs-target", "#modal-" + modalData.id);
-        const img = document.createElement("img");
-        img.src = modalData.imgSrc;
-        button.appendChild(img);
+        button.setAttribute("data-bs-target", "#modal-" + info.transfer_agree_dtime);
+//         const img = document.createElement("img");
+//         img.src = info.imgSrc;
+//         button.appendChild(img);
+        button.textContent  = "등록된 계좌";
         buttonsContainer.appendChild(button);
-		
+		debugger;
         // Create the modal
         const modal = document.createElement("div");
         modal.className = "modal fade";
-        modal.id = "modal-" + modalData.id;
+        modal.id = "modal-" + info.transfer_agree_dtime;
         modal.tabIndex = -1;
-        modal.innerHTML = `
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5">${modalData.title}</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        ${modalData.body}
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">계좌 추가</button>
-                    </div>
-                </div>
-            </div>
-        `;
+        modal.innerHTML = 
+            "<div class='modal-dialog'>" 
+                + "<div class='modal-content'>"
+                    + "<div class='modal-header'>"
+                        + "<h1 class='modal-title fs-5'>" + info.bank_name + "</h1>"
+                        + "<button type='button' class='btn-close' data-bs-dismiss='modal'></button>"
+                    + "</div>"
+                    + "<div class='modal-body'>"
+                        + "계좌:" + info.account_num_masked
+                    + "</div>"
+                    + "<div class='modal-footer'>"
+                        + "<button type='button' class='btn btn-primary'>계좌 추가</button>"
+                    + "</div>"
+                + "</div>"
+            + "</div>";
         modalsContainer.appendChild(modal);
     });
 });

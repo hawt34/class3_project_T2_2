@@ -126,6 +126,7 @@ public class ClassController {
 		Map<String, Object> classInfo = payService.getClassInfo(testClassCode);
 		System.out.println("$$$$$$$$$$$$: " + classInfo);
 		model.addAttribute("classInfo", classInfo);
+		
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)
 		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(54);

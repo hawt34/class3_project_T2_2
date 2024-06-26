@@ -37,48 +37,25 @@ public class ClassController {
 	// 클래스 리스트
 	@GetMapping("class-list")
 	public String classList(Model model) {
-//	public String classList(Model model, @RequestParam(name = "common2_code", required = false) String common2Code) {
 		// =================== 카테고리바 ===================
 		// 대 카테고리
 		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		System.out.println("bigCategoryList : " + bigCategoryList);
-//		// ---------------------------------------------------------------
-//	    // 소 카테고리
+		// ---------------------------------------------------------------
+	    // 소 카테고리
 		List<Map<String, Object>> smallCategoryList = classService.getListSmallCategory();
 		model.addAttribute("smallCategoryList", smallCategoryList);
 		System.out.println("class-list : smallCategory:@@@@@@ " + smallCategoryList);
-////		Map<String, Object> map = new HashMap<String, Object>();
-////		List<Map<String, Object>> smallCategoryList = classService.getSmallCategoryList(common2_code);
-////		map.put("common2_code", common2_code);
-////		System.out.println("common2_code :::::::::::" + common2_code);
-////		System.out.println("smallCategoryList ::::::::::: " + smallCategoryList);
+		
 		List<Map<String, Object>> map = classService.getClassList();
 		model.addAttribute("map", map);
 		System.out.println("class-list map :@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@" + map);
-//	    // 지역
+		
+	    // 지역
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
 		model.addAttribute("localList", localList);
-//		
-////		for (Map<String, Object> classMap : map) {
-////		    String small_category = (String) classMap.get("class_small_category");
-////		    System.out.println("small_category : " + small_category);
-////		}
-//		for (Map<String, Object> classMap : bigCategoryList) {
-//			String big_category = (String) classMap.get("code_value");
-//			System.out.println("big_category : " + big_category);
-//		}
-//		
-//	    // 새로운 맵에 bigCategoryList의 code_value 값을 저장
-////	    Map<String, String> bigCategoryMap = new HashMap<>();
-////	    for (Map<String, Object> bigCategory : bigCategoryList) {
-////	        String code_value = (String) bigCategory.get("code_value");
-////	        if (code_value != null) {
-////	            bigCategoryMap.put(bigCategory.get("code_value").toString(), code_value);
-////	        }
-////	    }
-////	    model.addAttribute("bigCategoryMap", bigCategoryMap);
-////	    System.out.println("bigCategoryMap : " + bigCategoryMap);
+		
 		return "class/class-list";
 	}
 	
@@ -111,40 +88,6 @@ public class ClassController {
 		model.addAttribute("classInquiry", classInquiry);
 		return"creator/creator-inquiry-show";
 	}
-//	@ResponseBody
-//	@PostMapping("class-list")
-////	public String classList(@RequestParam(name = "common2_code", required = false) String common2_code, Model model) {
-//	public  Map<String, Object> classList(@RequestParam(name = "common2_code", required = false) String common2_code, Model model) {
-//	    System.out.println("Received common2_code: " + common2_code); // common2_code 값 확인
-//
-//	    Map<String, Object> response = new HashMap<>();
-//		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
-//		model.addAttribute("bigCategoryList", bigCategoryList);
-//		System.out.println("bigCategoryList : " + bigCategoryList);
-//		System.out.println("classlist ajax 들어옴");
-//		// ---------------------------------------------------------------
-//		// 소 카테고리
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("common2_code", common2_code);
-//		List<Map<String, Object>> smallCategoryList = classService.getSmallCategoryList(common2_code);
-//		model.addAttribute("smallCategoryList", smallCategoryList);
-//		System.out.println("ajax common2_code :::::::::::!!" + common2_code);
-//		System.out.println("ajax smallCategoryList :::::::::::!! " + smallCategoryList);
-//		
-//		System.out.println("classlist ajax 들어옴ㅁㅁㅁㅁ");
-//		if (common2_code != null) {
-////			return "true";
-//	        response.put("success", true);
-//	        response.put("smallCategoryList", smallCategoryList);
-//		} else { 
-////			return "false";
-//	        response.put("success", false);
-//
-//		}
-//		
-//	    return response;
-//
-//	}
 	// 카테고리바
 	@ResponseBody
 	@GetMapping("small-category")
@@ -153,7 +96,6 @@ public class ClassController {
 		System.out.println("smallCategory:@@@@@@ " + smallCategory);
 		return smallCategory;
 	}
-	
 	
 	// 클래스 디테일
 	@GetMapping("class-detail")
@@ -203,6 +145,7 @@ public class ClassController {
 		return"class/class-detail";
 	}
 	
+	// 신고하기
 	@GetMapping("class-complain")
 	public String classComplain(Model model, @RequestParam int class_code) {
 		System.out.println("class-complain class-code @@@@@@%^%^%^% :" + class_code);

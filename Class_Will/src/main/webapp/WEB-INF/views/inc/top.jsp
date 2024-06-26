@@ -285,10 +285,10 @@
 	    <div class="container px-0 top-cate">
 	        <nav class="navbar navbar-expand-lg bg-body-tertiary">
 	            <div class="container-fluid">
-	                <div class="row w-100 d-none d-flex align-items-end top-nev-lg">
+	                <div class="row w-100 d-lg-flex d-md-none align-items-end top-nev-lg">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
-		                    <div class="col-5  d-none d-lg-flex justify-content-start  mb-3">
+		                    <div class="col-5 d-none d-lg-flex justify-content-start  mb-3">
 		                        <ul class="navbar-nav">
 		                            <li class="nav-item">
 		                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">

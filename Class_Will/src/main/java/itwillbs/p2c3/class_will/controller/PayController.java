@@ -54,12 +54,19 @@ public class PayController {
 	
 	
 	@PostMapping("payment")
-	public String paymentPro(Model model, @RequestParam Map<String, String> map) {
-		System.out.println("@@@@@@@@@@:" + map);
+	public String paymentPro(Model model, @RequestParam Map<String, String> map, HttpSession session) {
+		MemberVO member= (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "로그인 후 이용바랍니다");
+			return "result_process/fail";
+		}
+		
+		
 		String[] splitTime = map.get("select_time").split("~");
 		map.put("class_st_time", splitTime[0]);
 		map.put("class_ed_time", splitTime[1]);
 		Map<String, String> payInfo = payService.getPayInfo(map);
+		
 		
 		if(payInfo == null) {
 			model.addAttribute("msg", "결과가 없습니다.");
@@ -67,6 +74,10 @@ public class PayController {
 		}
 		//필요한 데이터 map에서 가져오기
 		payInfo.put("headcount", map.get("selected_headcount"));
+		
+		//고객 멤버코드 
+		String member_code = Integer.toString(member.getMember_code()); 
+		payInfo.put("member_code", member_code);
 		
 		//소계
 		int price = Integer.parseInt(payInfo.get("class_price"));
@@ -102,8 +113,6 @@ public class PayController {
 	//윌페이 충전 페이지로 이동
 	@GetMapping("will-pay-charge")
 	public String willPayCharging(Model model, HttpSession session) {
-		
-		
 		if(session.getAttribute("token") != null) {
 			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
 			
@@ -114,32 +123,7 @@ public class PayController {
 			
 			Map bankUserInfo = payService.getUserInfo(map);
 			
-			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
-			
-			//패키지 info
-			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
-			logger.info("@@@@ packageInfo:" + packageInfo);
-			
-			model.addAttribute("packageInfo", packageInfo);
-			
-			model.addAttribute("bankUserInfo", bankUserInfo);
-		}
-		
-		return "payment/will_pay_charge";
-	}
-	@GetMapping("will-pay-charge2")
-	public String willPayCharging2(Model model, HttpSession session) {
-		if(session.getAttribute("token") != null) {
-			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
-			
-			//bankUserInfo 가져오기
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("access_token", token.get("access_token"));
-			map.put("user_seq_no", token.get("user_seq_no"));
-			
-			Map bankUserInfo = payService.getUserInfo(map);
-			
-			 bankUserInfo.get("res_list");
+			bankUserInfo.get("res_list");
 			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
 			Gson gson = new Gson();
 			JsonObject jsonObject = gson.toJsonTree(bankUserInfo).getAsJsonObject();
@@ -156,14 +140,47 @@ public class PayController {
 			model.addAttribute("bankUserInfo", bankUserInfo);
 		}
 		
-		return "payment/will_pay_charge2";
+		return "payment/will_pay_charge";
 	}
+//	@GetMapping("will-pay-charge2")
+//	public String willPayCharging2(Model model, HttpSession session) {
+//		if(session.getAttribute("token") != null) {
+//			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
+//			
+//			//bankUserInfo 가져오기
+//			Map<String, String> map = new HashMap<String, String>();
+//			map.put("access_token", token.get("access_token"));
+//			map.put("user_seq_no", token.get("user_seq_no"));
+//			
+//			Map bankUserInfo = payService.getUserInfo(map);
+//			
+//			bankUserInfo.get("res_list");
+//			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
+//			Gson gson = new Gson();
+//			JsonObject jsonObject = gson.toJsonTree(bankUserInfo).getAsJsonObject();
+//			JsonArray jsonArray = jsonObject.getAsJsonArray("res_list");
+//			
+//			logger.info(">>>>>> jsonArray: " + jsonArray);
+//			
+//			//패키지 info
+//			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
+//			logger.info("@@@@ packageInfo:" + packageInfo);
+//			
+//			model.addAttribute("packageInfo", packageInfo);
+//			model.addAttribute("packageInfoJson", jsonArray);
+//			model.addAttribute("bankUserInfo", bankUserInfo);
+//		}
+//		
+//		return "payment/will_pay_charge2";
+//	}
 	@GetMapping("/callback")
 	public String auth(@RequestParam Map<String, String> authResponse, Model model, HttpSession session) {
 		logger.info("authResponse" + authResponse.toString());
 		//----------------------------------------------------------------
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		System.out.println("member:" + member);
 		String email = member.getMember_email();
+		System.out.println("email:" + email);
 		
 		//access_token 발급
 		Map map = payService.getAccessToken(authResponse);
@@ -175,16 +192,17 @@ public class PayController {
 			return "result_process/fail";
 		}
 		map.put("email", email);
-		session.setAttribute("token", map.get("access_token"));
+		
+		Map<String, String> bank_info = new HashMap<String, String>();
+		bank_info.put("access_token", (String)map.get("access_token"));
+		bank_info.put("user_seq_no", (String)map.get("user_seq_no"));
+		session.setAttribute("token", bank_info);
 		
 		// access_token db저장
 		payService.registAccessToken(map);
 		
-		
-		
 		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
 		// => BankTokenVO 타입 객체 형태 그대로 저장
-		session.setAttribute("access_token", map.get("access_token"));
 			
 		
 		//session에 저장한 redirectUrl
@@ -193,7 +211,7 @@ public class PayController {
 		//"success.jsp 페이지로 포워딩
 		// 메세지 : "계좌 인증 완료!", isClose 값을 true, "targetURL" 값을  "FintechUserInfo" 설정
 		model.addAttribute("msg", "계좌 인증 완료!");
-		model.addAttribute("isClose", true);
+		model.addAttribute("isClose", "true");
 		model.addAttribute("targetURL", redirectUrl);
 		return "result_process/success";
 	}

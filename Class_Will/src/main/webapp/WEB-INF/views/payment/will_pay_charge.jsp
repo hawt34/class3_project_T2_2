@@ -15,6 +15,10 @@
 body{
 	color:white;
 }
+
+.full-height{
+	height:100vh;
+}
 .title {
 	background: #333333;
 	color: white;
@@ -30,7 +34,7 @@ body{
 
 .custom-bg {
 	background: black;
-	height: 100vh;
+	height: 90vh;
 }
 .margin_use {
 	margin-top: 20px;
@@ -62,11 +66,7 @@ body{
 	position: relative;
 }
 .btn {
-	background: #6600FF;
 	color:white;
-}
-.btn:hover {
-	background: #6600FF;
 }
 .accountInfo {
 	width:100%;
@@ -76,21 +76,46 @@ body{
 	background: #333333;
 	font-size: 24px;
 }
-.accountInfo img {
+.accountInfo button img {
 	width:45px;
 	hegiht:45px;
+}
+#buttons-container button{
+	display:block;
+	width:100%;
+	background: black;
+}
+#buttons-container button:hover{
+	background: white;
+	color: black !important;
+	transition-duration : 0.5s
+}
+.modal-title {
+	color: black;
+}
+.modal-body {
+	color: black;
+}
+.custom-btn {
+	color: white !important;
+}
+.btn_custom #submitBtn {
+	border: none;
+	border-radius: 5px;
+}
+.selected {
+    background: #336633 !important; /* 클릭 시 배경 색상 */
 }
 </style>
 </head>
 <body>
-<header>
+<div class="container full-height">
 	<div class="title">
 		<p style="font-size: 24px">충전하기</p>
 	</div>
-</header>
-<div class="container ">
-	<div class="row">
-		<div class="col-md-6 offset-md-3 custom-bg">
+<!-- 	<div class="row"> -->
+	<div class="row d-flex justify-content-center align-items-center">
+		<div class="col-md-6  custom-bg">
 			<div class="mx-3 margin_use">
 				<label for="will_pay_charge" class="form-label">Will-pay 충전하기</label>
 				<input type="text" class="form-control w-75" id="will_pay_charge" placeholder="충전할 금액을 입력해주세요.">
@@ -105,7 +130,7 @@ body{
 				<div class="package_group">
 					<c:forEach var="package1" items="${packageInfo }" varStatus="">
 						<div class="card border-light mb-3 cutom-card" style="width:180px;">
-							<div class="card-header">plus package</div>
+							<div class="card-header">PLUS PACKAGE</div>
 							<div class="card-body">
 								<h5 class="card-title">${package1.reward_rate }% 더!</h5>
 								<!-- package 가격정보 -->
@@ -125,37 +150,42 @@ body{
 				</div>
 				<hr>
 			</div>
-				<!-- 계좌 연동 시작 -->
-			<div class="row h-25">
-				<div class="account_area">
-					<c:choose>
-						<c:when test="${empty token}">
-							<p>계좌 등록</p>
-							<div class="regist_account">
-								<input type="button" value="+" onclick="linkAccount()">
+			<!-- 계좌 연동 시작 -->
+			<div class="row">
+				<c:choose>
+					<c:when test="${empty token }">
+						<p>계좌 등록</p>
+						<div class="regist_account">
+							<input type="button" value="+" onclick="linkAccount()">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="row h-25">
+							<div id="buttons-container" class="row">
 							</div>
-						</c:when>
-						<c:otherwise>
-							<p>출금 계좌</p>
-							<c:forEach var="account" items="${bankUserInfo.res_list }">
-								<div class="accountInfo">
-									<img src="${pageContext.request.contextPath }/resources/img/bankIcon.png" >
-									<span>${account.bank_name }</span>
-									<span>${account.account_num_masked}</span>
-								</div>
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</div><!-- 계좌 연동 끝 -->
+							<div id="modals-container">
+							</div>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
-			<div class="col d-flex justify-content-center btn-container btn_custom">
-				<a href="#" class="btn w-100">충전하기</a>
-			</div>		
+			<footer>
+				<div class="row">
+					<div class="d-grid btn_custom">
+						<form action="" method="post">
+							<input type="hidden" name="fintech_use_num" id="form_fintech_use_num">
+							<input type="hidden" name="user_name" id="form_user_name">
+							<button type="submit" class="btn btn-success w-100">충전하기</button>
+						</form>
+					</div>		
+				</div>			
+			</footer>
 		</div>
 	</div>
 </div>
 <script>
 $(function() {
+	
 	
 	//금액 입력 이벤트
 	$('#will_pay_charge').on('input', function() {
@@ -177,6 +207,78 @@ $(function() {
         // selected_package 입력 필드에 값을 설정
         $('#selected_package').val(packageUpPrice);
         $('#will_pay_charge').val("");
+    });
+	
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+	const bankInfo = ${packageInfoJson};
+	
+    const buttonsContainer = document.getElementById("buttons-container");
+    const modalsContainer = document.getElementById("modals-container");
+    bankInfo.forEach(info => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "btn btn-light text-black m-2 custom-btn";
+        button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("data-bs-target", "#modal-" + info.transfer_agree_dtime);
+//         const img = document.createElement("img");
+//         img.src = info.imgSrc;
+//         button.appendChild(img);
+        button.textContent  = "등록된 계좌";
+        buttonsContainer.appendChild(button);
+        
+        // Create the modal
+        const modal = document.createElement("div");
+        modal.className = "modal fade";
+        modal.id = "modal-" + info.transfer_agree_dtime;
+        modal.tabIndex = -1;
+        modal.innerHTML = 
+            "<div class='modal-dialog'>" 
+                + "<div class='modal-content'>"
+                    + "<div class='modal-header'>"
+                        + "<h1 class='modal-title fs-5'>" + info.bank_name + "</h1>"
+                        + "<button type='button' class='btn-close' data-bs-dismiss='modal'></button>"
+                    + "</div>"
+                    + "<div class='modal-body'>"
+                        + "계좌:" + info.account_num_masked
+                    + "</div>"
+                    + "<div class='modal-footer'>"
+                    	+ "<button type='button' class='btn btn-dark select-account' data-fintech-use-num='" + info.fintech_use_num + "' data-user-name='" + info.account_holder_name + "'>계좌 선택</button>"
+                        + "<button type='button' class='btn btn-dark'>계좌 추가</button>"
+                    + "</div>"
+                + "</div>"
+            + "</div>";
+        modalsContainer.appendChild(modal);
+    });
+    
+ 	// 계좌 선택 버튼 클릭 이벤트
+    modalsContainer.addEventListener("click", function(event) {
+    	debugger;
+        if (event.target && event.target.classList.contains("select-account")) {
+            const fintechUseNum = event.target.getAttribute("data-fintech-use-num");
+            const userName = event.target.getAttribute("data-user-name");
+            
+            document.getElementById("form_fintech_use_num").value = fintechUseNum;
+            document.getElementById("form_user_name").value = userName;
+
+            // 모달 닫기
+            const modal = event.target.closest(".modal");
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+            
+         // 모든 버튼의 selected 클래스를 제거
+            var allButtons = document.querySelectorAll(".custom-btn");
+            allButtons.forEach(function(btn) {
+                btn.classList.remove("selected");
+            });
+
+            // 클릭된 모달을 연 버튼에 selected 클래스 추가
+            var triggerButton = document.querySelector("[data-bs-target='#" + modal.id + "']");
+            if (triggerButton) {
+                triggerButton.classList.add("selected");
+            }
+        }
     });
 });
 </script>

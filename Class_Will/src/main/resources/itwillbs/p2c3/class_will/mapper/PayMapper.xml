@@ -43,11 +43,10 @@
 			   , c.class_thumnail
 			   , c.class_location
 			   , c.class_price
-		 	   , m.member_code 
+		 	   , m.member_code AS 'class_member_code'
 		 	   , m.member_email 
 		 	   , m.member_nickname 
 		 	   , m.member_tel
-<!-- 		 	   , m.member_credit -->
 		 	   , CASE WHEN m.member_credit IS NULL THEN '0' ELSE m.member_credit END as 'member_credit'
 		 	   , m.member_name
 			   , cs.class_schedule_date

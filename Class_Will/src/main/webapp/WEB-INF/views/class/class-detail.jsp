@@ -620,7 +620,7 @@ function creatorInquiry(event, class_code) {
 
 function classComplain(event, class_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
-	window.open("class-complain?class_code=" + class_code, "pop", "width=700, height=500, left=700, top=50");	
+	window.open("class-complain?class_code=" + class_code, "pop", "width=700, height=600, left=700, top=50");	
 }
 </script>
 <!-- Required JavaScript files -->

@@ -69,6 +69,7 @@
 	
 	p a {
 		font-size: 12px;
+		color: white;
 	}
 	
 	.login-form-input {
@@ -124,8 +125,8 @@
 								<input type="submit" id="btnSub" value="로그인" class="btn btn-outline-light btn-lg">
 							</div>
 						</form>
-						<div align="center" style="color: white;">
-							클래스윌이 처음이신가요? <a href="member-join"><u><b>가입하기</b></u></a>
+						<div align="center" >
+							클래스윌이 처음이신가요? <a href="member-join" style="color: white;" ><u><b>가입하기</b></u></a>
 						</div>			
 					</div><!-- col -->
 					<div class="col login-social">
@@ -180,7 +181,7 @@
 				 if (!regex.test(inputEmail)) {
 // 			            $(this).val("");
 			            $("#regex-email").text("규칙에 맞는 이메일 주소를 입력해 주세요.");
-			            $("#regex-email").css("color", "red");
+			            $("#regex-email").css("color", "#FF4848");
 			        } else {
 			            $("#regex-email").text("");
 			        }
@@ -194,7 +195,7 @@
 			
 			      if (!regex.test(inputPwd)) {
 			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
-			          $("#regex-pwd").css("color", "red");
+			          $("#regex-pwd").css("color", "#FF4848");
 			      } else {
 			      	 $("#regex-pwd").text("");
 			      }

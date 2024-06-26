@@ -120,7 +120,7 @@
 				
 				 if (!regex.test(inputEmail)) {
 			            $("#regex-email").text("올바르지 않은 이메일 형식입니다.");
-			            $("#regex-email").css("color", "red");
+			            $("#regex-email").css("color", "#FF4848");
 			        } else {
 			            $("#regex-email").text("");
 			        }

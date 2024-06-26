@@ -299,10 +299,10 @@
 
     <script>
     	var currentParam = "";
-    	
+    	var type = "${param.type}";
     	
 	    function regist(type){
-			window.open("admin-csc-regist?type=" + type, "등록폼", "width=500,height=600");	
+			window.open("admin-csc-regist?type=" + type, "등록폼", "width=1200,height=1000");	
 	    }
 	    
         document.addEventListener('DOMContentLoaded', function () {
@@ -369,31 +369,48 @@
     	        }
     	    }
             
-            // 상세보기 버튼
-            class ActionRenderer {
-                constructor(props) {
-                    const container = document.createElement('div');
-                    
-                    const viewButton = document.createElement('button');
-                    viewButton.className = 'btn btn-primary btn-sm';
-                    viewButton.innerText = '상세보기';
-                    viewButton.addEventListener('click', () => {
-                        window.open("CscDetail", "상세정보", "width=700px,height=800px")
-                    });
 
-                    container.appendChild(viewButton);
-                    
-                    this.el = container;
-                }
-                getElement() {
-                    return this.el;
-                }
-                render(props) {
-                    this.el.dataset.rowKey = props.rowKey;
-                    this.el.dataset.columnName = props.columnName;
-                    this.el.value = props.value;
-                }
-            }
+    	    // 상세보기 버튼
+    	    class ActionRenderer {
+    	        constructor(props) {
+    	            const container = document.createElement('div');
+    	            
+    	            const viewButton = document.createElement('button');
+    	            viewButton.className = 'btn btn-primary btn-sm';
+    	            viewButton.innerText = '상세보기';
+					
+					
+    	            // 버튼 클릭 이벤트 추가
+    	            viewButton.addEventListener('click', () => {
+                        const rowKey = props.grid.getIndexOfRow(props.rowKey);
+                        const rowData = props.grid.getRow(rowKey);
+                        let code = 0;
+                        console.log(rowData);
+    	            	if(rowData.notice_code != null){
+    	            		code = rowData.notice_code;	
+    	            	}else if(rowData.faq_code != null){
+    	            		code = rowData.faq_code;
+    	            	}
+    	                window.open("admin-csc-detail?type=" + type + "&code=" + code, "상세정보", "width=1200px,height=1000px");
+    	            });
+
+    	            container.appendChild(viewButton);
+    	            
+    	            this.el = container;
+    	        }
+    	        getElement() {
+    	            return this.el;
+    	        }
+    	        render(props) {
+    	            this.el.dataset.rowKey = props.rowKey;
+    	            this.el.dataset.columnName = props.columnName;
+    	            if (type === 'notice') {
+    	                this.el.dataset.code = props.value.notice_code; // notice인 경우
+    	            } else if(type === 'faq'){
+    	                this.el.dataset.code = props.value.faq_code; // 다른 경우
+    	            }
+    	        }
+    	    }
 
             const grid = new tui.Grid({
                 el: document.getElementById('grid'),
@@ -421,7 +438,6 @@
     	                }
                     }
                 ],
-                rowHeaders: ['rowNum'],
     	        pageOptions: {
     	            useClient: true,
     	            perPage: itemsPerPage

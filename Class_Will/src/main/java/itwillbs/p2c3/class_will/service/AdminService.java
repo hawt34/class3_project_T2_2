@@ -103,7 +103,7 @@ public class AdminService {
 		return adminMapper.insertBoard(map) > 0 ? true : false;
 	}
 
-	public List<Map<String, Object>> getBoardCategory(String common_code) {
+	public List<Map<String, String>> getBoardCategory(String common_code) {
 		return adminMapper.selectBoardCategory(common_code);
 	}
 	
@@ -141,6 +141,14 @@ public class AdminService {
 
 	public List<Map<String, Object>> getCategoryRanking() {
 		return adminMapper.selectCategoryRanking();
+	}
+
+	public boolean updateBoard(Map<String, Object> map) {
+		return adminMapper.updateBoard(map) > 0 ? true : false;
+	}
+
+	public boolean deleteBoard(Map<String, Object> params) {
+		return adminMapper.deleteBoard(params) > 0 ? true : false;
 	}
 	
 	

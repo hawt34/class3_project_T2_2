@@ -38,11 +38,11 @@ public class CreatorController {
 	// creator-main으로
 	@GetMapping("creator-main")
 	public String createrMain(HttpSession session, Model model) {
-		MemberVO dbmember = new MemberVO();
-		dbmember.setMember_email("bjm0209@naver.com");
-		MemberVO member = memberService.selectMember(dbmember);
-//		MemberVO member = (MemberVO)session.getAttribute("member");
-		session.setAttribute("member", member);
+//		MemberVO dbmember = new MemberVO();
+//		dbmember.setMember_email("bjm0209@naver.com");
+//		MemberVO member = memberService.selectMember(dbmember);
+//		session.setAttribute("member", member);
+		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member == null) {
 			model.addAttribute("msg", "로그인 후 이용 가능합니다!");
 			model.addAttribute("targetURL", "member-login");

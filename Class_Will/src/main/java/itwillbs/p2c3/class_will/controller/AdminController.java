@@ -70,8 +70,6 @@ public class AdminController {
 		// 월별 매출 서치
 		List<Integer> sales_list = adminService.getWillpayChart(); 
 		
-		
-		
 		return "admin/admin_main";
 	}
 	
@@ -563,11 +561,11 @@ public class AdminController {
     	boolean isSuccess = adminService.registClass(class_code);
     	String result = "";
     	if(!isSuccess) {
-    		result = WillUtils.checkDeleteSuccess(false, model, "클래스 등록 실패!", true);
+    		result = WillUtils.checkDeleteSuccess(WillUtils.FAIL, model, "클래스 등록 실패!", WillUtils.CLOSE);
     		return result;
     	}
     	
-    	result = WillUtils.checkDeleteSuccess(true, model, "클래스 등록 성공!", true);
+    	result = WillUtils.checkDeleteSuccess(WillUtils.SUCCESS, model, "클래스 등록 성공!", WillUtils.CLOSE);
     	
     	return result;
     }

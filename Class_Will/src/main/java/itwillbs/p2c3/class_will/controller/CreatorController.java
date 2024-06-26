@@ -434,6 +434,7 @@ public class CreatorController {
 		
 		return "creator/creator-analyze";
 	}
+	
 	// creater-cost로
 	@GetMapping("creator-cost")
 	public String createrCost(HttpSession session, Model model) {
@@ -443,8 +444,12 @@ public class CreatorController {
 			model.addAttribute("targetURL", "./");
 			return "result_process/fail";
 		}
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
-		model.addAttribute("classList", classList);
+//		creatorService.getMonthSettlement();
+		Map<String, String> SumSettlement = creatorService.getSumSettlement(member);
+//		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
+//		model.addAttribute("classList", classList);
+		model.addAttribute("SumSettlement", SumSettlement);
+		
 		
 		return "creator/creator-cost";
 	}

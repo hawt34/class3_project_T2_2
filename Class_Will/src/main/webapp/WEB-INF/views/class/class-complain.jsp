@@ -39,9 +39,9 @@
 <!-- 						<textarea rows="10" name="event_subject" id="event_title" class="form-control" cols="50"></textarea>  -->
 					</div>
 					<div class="mb-3 checkComplain">
-						<input type="checkbox">욕설<br>
-						<input type="checkbox">욕설<br>
-						<input type="checkbox">욕설
+						<input type="radio">욕설<br>
+						<input type="radio">스팸<br>
+						<input type="radio">사기<br>
 					</div>
 					<div class="mb-3">
 						<label for="event_imageFile">첨부이미지</label> 

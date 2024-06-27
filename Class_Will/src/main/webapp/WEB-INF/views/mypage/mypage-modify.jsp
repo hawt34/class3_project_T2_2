@@ -160,7 +160,8 @@
 									</div>
 									<c:choose>
 										<c:when test="${member.member_type eq 1}">
-											<button class="btn btn-primary btn-lg btn-block"
+											<button class="btn btn-primary btn-lg btn-block" id="change-member-btn"
+												data-member-code="${member.member_code}"
 												onclick="location.href=''">크리에이터 신청하기</button>
 										</c:when>
 										<c:when test="${member.member_type eq 2}">
@@ -417,7 +418,7 @@
 		$(function() { //이건 일반회원 전환임.
 				  $('#change-member-btn').click(function() {
 				        // 확인 대화 상자를 표시
-				        if (confirm("정말 일반회원으로 전환하시겠습니까?")) {
+				        if (confirm("정말 회원 전환을 하시겠습니까?")) {
 				            // 확인을 누르면 멤버 코드를 가져옴
 				            var memberCode = $(this).data('member-code'); // data-member-code 속성에서 멤버 코드를 가져옴
 

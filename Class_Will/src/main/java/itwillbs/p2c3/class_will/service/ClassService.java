@@ -45,6 +45,11 @@ public class ClassService {
 	public List<Map<String, Object>> getFilterClass(List<String> bigCategories, List<String> smallCategories, List<String> locals){
 		return mapper.selectFilterClass(bigCategories, smallCategories, locals);
 	}
+	
+	// 클래스 좋아요
+	public List<Map<String, Object>> updateLikeClass(List<Map<String, Integer>> memberCode, Boolean heartStatus, int class_code){
+		return mapper.updateLikeClass(memberCode, heartStatus, class_code);
+	}
 	// 
 	public List<Map<String, Object>> getChooseBigCategory(@RequestParam("category") String category) {
 		return mapper.selectChooseBigCategory(category);

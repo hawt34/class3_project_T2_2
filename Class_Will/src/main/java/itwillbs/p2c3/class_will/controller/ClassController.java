@@ -67,8 +67,6 @@ public class ClassController {
 		model.addAttribute("map", map);
 		System.out.println("class-list map :@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@" + map);
 		
-		
-		
 	    // 지역
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
 		model.addAttribute("localList", localList);
@@ -78,11 +76,6 @@ public class ClassController {
 		model.addAttribute("hashtagList", hashtagList);
 		
 		
-		MemberVO dbMember = memberService.selectMember(member);
-        session.setAttribute("member_code", dbMember.getMember_code());
-        model.addAttribute("member_code", dbMember.getMember_code());
-		System.out.println("member_code$$$$$$$$$$ : " + dbMember.getMember_code());
-
 		return "class/class-list";
 	}
 	
@@ -114,18 +107,22 @@ public class ClassController {
 	}
 	
 	// like_class 상태변경 
-    @PostMapping("update-heart-status")
-    @ResponseBody
-    public String updateHeartStatus(@RequestBody Map<String, Object> payload, Model model) {
-        Boolean heartStatus = (Boolean)payload.get("heartStatus");
-        // DB 업데이트 로직을 추가합니다.
-        // 예: heartStatus가 true면 좋아요, false면 좋아요 취소
-        
-//        List<Map<String, Object>> likeClass = classService.updateLikeClass(userId, heartStatus);
-//        model.addAttribute("likeClass", likeClass);
-//        System.out.println("Heart status updated: " + heartStatus);
-        return "success";
-    }
+//    @PostMapping("update-heart-status")
+//    @ResponseBody
+//    public String updateHeartStatus(@RequestBody Map<String, Object> requestBody, HttpSession session, Model model) {
+//        Boolean heartStatus = (Boolean) requestBody.get("heartStatus");
+//        String memberCode = (String) requestBody.get("member_code");
+//        int classCode = (int) requestBody.get("class_code"); // class_code를 int로 가져옵니다.
+//
+//        // DB 업데이트 로직 호출
+//        int rowsUpdated = classService.updateLikeClass(memberCode, classCode, heartStatus);
+//
+//        if (rowsUpdated > 0) {
+//            return "success";
+//        } else {
+//            return "fail";
+//        }
+//    }
     
 //    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
 //    @ResponseBody

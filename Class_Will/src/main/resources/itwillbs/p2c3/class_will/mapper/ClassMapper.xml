@@ -75,6 +75,12 @@
 		
 	</select>
 	
+	<!-- 클래스 좋아요 -->
+	<update id="updateLikeClass"  parameterType="map">
+		UPDATE like_class
+		SET like_class_code = #{heartStatus ? 'Y' : 'N'}
+		WHERE member_code = #{likeClassList} AND class_code = #{class_code} 
+	</update>
 	<!-- 소 카테고리 -->
 	<select id="selectListSmallCategory" resultType="map">
 		SELECT *

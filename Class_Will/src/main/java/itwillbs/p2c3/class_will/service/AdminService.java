@@ -172,6 +172,22 @@ public class AdminService {
 		return adminMapper.updateClassStatusHide(class_code) > 0 ? true : false;
 	}
 
+	public int getTotalMember() {
+		return adminMapper.selectTotalMember();
+	}
+
+	public int getNewMember() {
+		return adminMapper.selectNewMemberCount();
+	}
+
+	public int getDailyVisit() {
+		return adminMapper.selectDailyVisit();
+	}
+
+	public int getTotalVisit() {
+		return adminMapper.selectTotalVisit();
+	}
+
 	
 	
 }

@@ -89,6 +89,14 @@ public interface AdminMapper {
 
 	int updateClassStatusHide(String class_code);
 
+	int selectTotalMember();
+	
+	int selectNewMemberCount();
+
+	int selectDailyVisit();
+
+	int selectTotalVisit();
+
 
 	
 

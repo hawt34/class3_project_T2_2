@@ -240,7 +240,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+				
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">대쉬보드</h1>
@@ -259,7 +259,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 오늘 방문자</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">20 명</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${daily_visit }명</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa-regular fa-user fa-2x"></i>
@@ -277,7 +277,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 총 방문자</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">340,322 명</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 totalVisit">${total_visit }명</div>
                                         </div>
                                         <div class="col-auto">
                                            <i class="fa-solid fa-users fa-2x"></i>
@@ -297,14 +297,7 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">5 명</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${new_member}명</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -324,7 +317,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 총 회원수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">201,333 명</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${total_member}명</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa-solid fa-users fa-2x"></i>
@@ -397,27 +390,7 @@
                                     <div class="chart-pie pt-4 pb-2">
                                         <canvas id="myPieChart"></canvas>
                                     </div>
-                                    <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> 카테고리1
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> 카테고리2
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> 카테고리3
-                                        </span>
-                                        <br>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> 카테고리4
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> 카테고리5
-                                        </span>
-                                    
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> 카테고리6
-                                        </span>
+                                    <div class="mt-4 text-center small" id="categoryLabels">
                                     </div>
                                 </div>
                             </div>
@@ -636,12 +609,182 @@
 
     <!-- Page level plugins -->
     <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
-
+    
+    <!-- Page level custom scripts -->
+    <script src="${pageContext.request.contextPath}/resources/js/demo/number_format.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/resources/js/demo/pie_chart.js"></script>
+    
     <!-- Page level custom scripts -->
     <!-- TODO demo차트버리고 데이터 넣은 차트 채우기! -->
-    <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
-	
 </body>
+<script>
+$(document).ready(function() {
+	var myLineChart;
+	var category_name_data = ${category_name_list};
+	var reservation_count_data = ${reservation_count_list};
+	
+	updatePieChart(reservation_count_data, category_name_data);
+    // 카테고리 레이블 동적 생성
+    var categoryLabelsContainer = $("#categoryLabels");
+    var colors = ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#e74a3b', '#858796'];
+    
+    category_name_data.forEach(function(category, index) {
+        var colorClass = index < colors.length ? colors[index] : colors[index % colors.length];
+        categoryLabelsContainer.append(
+            '<span class="mr-2"><i class="fas fa-circle" style="color:' + colorClass + '"></i> ' + category + '</span>'
+        );
+        if ((index + 1) % 3 === 0) {
+            categoryLabelsContainer.append('<br>');
+        }
+    });
+    function fetchSalesData() {
+        $.ajax({
+            url: 'willpay-chart',
+            method: 'GET',
+            success: function(data) {
+                updateChart(data);
+            },
+            error: function(error) {
+                console.error('Error fetching sales data:', error);
+            }
+        });
+    }
+    
+	function updatePieChart(data, lables){
+		var ctx = document.getElementById("myPieChart");
+		var labels = lables;
+		var myPieChart = new Chart(ctx, {
+		  type: 'doughnut',
+		  data: {
+		    labels: lables,
+		    datasets: [{
+		      data: data,
+		      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+		      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+		      hoverBorderColor: "rgba(234, 236, 244, 1)",
+		    }],
+		  },
+		  options: {
+		    maintainAspectRatio: false,
+		    tooltips: {
+		      backgroundColor: "rgb(255,255,255)",
+		      bodyFontColor: "#858796",
+		      borderColor: '#dddfeb',
+		      borderWidth: 1,
+		      xPadding: 15,
+		      yPadding: 15,
+		      displayColors: false,
+		      caretPadding: 10,
+		    },
+		    legend: {
+		      display: false
+		    },
+		    cutoutPercentage: 80,
+		  },
+		});
+	}
+	
+    function updateChart(data) {
+        var ctx = document.getElementById("myAreaChart").getContext('2d');
+        var currentMonth = new Date().getMonth(); // 0부터 시작하므로, 0은 1월, 1은 2월 ...
+		
+        var labels = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+        labels = labels.slice(0, currentMonth + 1);
+
+        myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "총 매출",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2,
+                    data: data,
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                layout: {
+                    padding: {
+                        left: 10,
+                        right: 25,
+                        top: 25,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            maxTicksLimit: 5,
+                            padding: 10,
+                            callback: function(value, index, values) {
+                                return number_format(value) + "원";
+                            }
+                        },
+                        gridLines: {
+                            color: "rgb(234, 236, 244)",
+                            zeroLineColor: "rgb(234, 236, 244)",
+                            drawBorder: false,
+                            borderDash: [2],
+                            zeroLineBorderDash: [2]
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    titleMarginBottom: 10,
+                    titleFontColor: '#6e707e',
+                    titleFontSize: 14,
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    intersect: false,
+                    mode: 'index',
+                    caretPadding: 10,
+                    callbacks: {
+                        label: function(tooltipItem, chart) {
+                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+                            return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + "원";
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    fetchSalesData();
+
+
+});
+
+</script>
 
 </html>

@@ -449,4 +449,25 @@
 		WHERE class_code = #{class_code}
 	</update>	
 	
+	<select id="selectTotalMember">
+		SELECT count(member_code)
+		FROM MEMBER
+	</select>
+	
+	<select id="selectNewMemberCount">
+		SELECT COUNT(*) AS new_member_count
+		FROM MEMBER
+		WHERE DATE_FORMAT(STR_TO_DATE(member_reg_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE();
+	</select>
+	
+	<select id="selectDailyVisit">
+		SELECT visit_count
+		FROM daily_visit
+		WHERE DATE_FORMAT(STR_TO_DATE(visit_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE();
+	</select>
+	
+	<select id="selectTotalVisit">
+		SELECT SUM(visit_count)
+		FROM daily_visit
+	</select>
 </mapper>

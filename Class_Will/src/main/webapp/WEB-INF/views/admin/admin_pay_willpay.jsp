@@ -423,7 +423,7 @@
 	                            maxTicksLimit: 5,
 	                            padding: 10,
 	                            callback: function(value, index, values) {
-	                                return '$' + number_format(value);
+	                                return number_format(value) + "원";
 	                            }
 	                        },
 	                        gridLines: {
@@ -455,7 +455,7 @@
 	                    callbacks: {
 	                        label: function(tooltipItem, chart) {
 	                            var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-	                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+	                            return datasetLabel + ': ' + number_format(tooltipItem.yLabel) + "원";
 	                        }
 	                    }
 	                }

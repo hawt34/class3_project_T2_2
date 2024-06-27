@@ -67,9 +67,42 @@ public class AdminController {
 	public String admin(Model model) {
 		// 대분류 카테고리 순위
 		List<Map<String, Object>> category_list = adminService.getCategoryRanking();
-		
+		//카테고리 키값,벨류값 분류
+        List<String> category_name_list = new ArrayList<>();
+        List<Integer> reservation_count_list = new ArrayList<>();
+        
+        for (Map<String, Object> category : category_list) {
+        	category_name_list.add("\"" + (String) category.get("code_value") + "\"");
+        	reservation_count_list.add(((Long) category.get("reservation_count")).intValue());
+        }
+        
 		// 월별 매출 서치
-		List<Integer> sales_list = adminService.getWillpayChart(); 
+		List<Integer> sales_list = adminService.getWillpayChart();
+		
+		// 오늘 회원가입 숫자
+		int new_member = adminService.getNewMember();
+		
+		// 총 회원 수
+		int total_member = adminService.getTotalMember();	
+		
+		System.out.println("월별 매출 : " + sales_list);
+		System.out.println("오늘 회원가입 숫자 : " + new_member);
+		System.out.println("총 회원 수 : " + total_member);
+		System.out.println("카테고리 순위 : " + category_name_list);
+		System.out.println("숫자 리스트 : " + reservation_count_list);
+		// 오늘 방문자
+		int daily_visit = adminService.getDailyVisit();
+		
+		//총 방문자
+		int total_visit = adminService.getTotalVisit();
+		
+		model.addAttribute("category_name_list", category_name_list);
+		model.addAttribute("reservation_count_list", reservation_count_list);
+		model.addAttribute("sales_list", sales_list);
+		model.addAttribute("new_member", new_member);
+		model.addAttribute("total_member", total_member);
+		model.addAttribute("daily_visit", daily_visit);
+		model.addAttribute("total_visit", total_visit);
 		
 		return "admin/admin_main";
 	}

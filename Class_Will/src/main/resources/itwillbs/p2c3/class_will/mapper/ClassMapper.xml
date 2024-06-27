@@ -10,6 +10,7 @@
 		WHERE common1_code = 'CLC'
 		
 	</select>
+	
 	<!-- 큰 카테고리 -->
 	<select id="selectBigCategoryList">
 		SELECT *
@@ -18,28 +19,37 @@
 	</select>
 	
 	<!-- 소 카테고리 -->
-	<select id="getSmallCategory" resultType="map">
+	<select id="selectSmallCategory" resultType="map">
 		SELECT *
 		FROM common3
 <!-- 		WHERE common1_code = 'CLC' -->
 		WHERE common1_code = 'CLC' AND common2_code = #{big_category}
 	</select>
+	
+	<!-- 카테고리 지역 -->
+	<select id="selectCategoryLocal" resultType="map">
+		SELECT *
+		FROM common2
+		WHERE common1_code = 'LC'
+	</select>
+	
+	<!-- 해시태그 -->
+	<select id="selectHashtag" resultType="map">
+		SELECT *
+		FROM hash_tag
+	</select>
+	
 	<!-- 소 카테고리 -->
-	<select id="getListSmallCategory" resultType="map">
+	<select id="selectListSmallCategory" resultType="map">
 		SELECT *
 		FROM common3
 <!-- 		WHERE common1_code = 'CLC' -->
 		WHERE common1_code = 'CLC'
 	</select>
-	<!-- 카테고리 지역 -->
-	<select id="selectCategoryLocal" resultType="map">
-		
-		SELECT *
-		FROM common2
-		WHERE common1_code = 'LC'
-	</select>
+	
+	
 	<!-- 클래스 리스트 -->
-	<select id="getClassList" resultType="map">
+	<select id="selectClassList" resultType="map">
 <!-- 		SELECT * -->
 <!-- 		FROM class -->
 				SELECT class_code

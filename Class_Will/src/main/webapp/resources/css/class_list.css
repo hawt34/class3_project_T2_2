@@ -207,7 +207,7 @@ body {
 /* 	background: #333; */
     border-radius: 10px;
 	opacity: 0.95;
-	height : 300px;
+	height : 230px;
 	padding-top : 20px;
 /* 	background : #333; */
 	opacity: 0.9;
@@ -306,15 +306,16 @@ body {
 
 .hashtag {
 	width : 100px;
-	
-/* 	font-weight: bold; */
+    margin-right: 15px; /* 요소 간의 가로 간격 */
+    margin-bottom: 15px; /* 줄 바꿈될 때 요소 간의 세로 간격 */
 }
 
 .hashtagDiv {
 /* 	margin-right : 20px; */
 	padding-top : 0px;
 	margin-bottom : 20px;
-	width : 150px;
+	width : 160px;
+    font-size : 0.9em;
 }
 
 .categorySelect {

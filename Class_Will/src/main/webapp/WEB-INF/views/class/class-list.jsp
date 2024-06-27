@@ -33,7 +33,7 @@
 <!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7ie2koOHD8y5Lx5ujD6nco4k5RfF7UoE6G7" crossorigin="anonymous">
     
-
+<!-- 클래스 좋아요 -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
     var heartOverlays = document.querySelectorAll(".heart-overlay");
@@ -64,9 +64,9 @@ body {
 }
 
 .hashtag {
-	width : 130px;
-	height : 50px;
-	font-size : 1.0em;
+	width : 123px;
+	height : 45px;
+	font-size : 0.9em;
     cursor: pointer;
     border-radius : 30px !important;
 }
@@ -212,13 +212,7 @@ body {
 					
 					<!-- 카테고리 셀렉트 리스트 -->
 					<div class="row mx-5" id="categoryContainer">
-<%-- 						<c:forEach var="bigCategoryList" items="${bigCategoryList}" varStatus="status" > --%>
-<!-- 						    <div class="mt-3 col-md-2 position-relative chooseDiv"> -->
-<%-- 						        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" value="${bigCategoryList.code_value}"readonly> --%>
-<%-- 						        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon"> --%>
-<%-- 								<li><a class="dropdown-item" href="class-list?local_common2_code=${localList.common2_code}" value="${localList.code_value}">${localList.code_value}</a></li> --%>
-<!-- 						    </div> -->
-<%-- 						</c:forEach> --%>
+						<!-- 선택된 카테고리 값들이 추가됨 -->
 					</div>
 					<!-- 카테고리 셀렉트 리스트 -->
 					
@@ -226,52 +220,16 @@ body {
 					<div class="row mx-5">
 						<hr>
 						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 커플" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 반려동물" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 선물" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 데이트" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 단체" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
-							</div>
-						</div>
-						<div class="col hashtagDiv">
-							<div class="form form1">
-								<input type="text" class="form-control form-inputs hashtag" placeholder="# 가족" readonly>
+							<div class="form form1 d-flex flex-wrap">
+								<c:forEach var="hashtag" items="${hashtagList}">
+<!-- 									<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button> -->
+								<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_name}" value="#${hashtag.hash_tag_name}" readonly>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
 					<!-- 해시태그 리스트 -->
+					
 				</div>
 			</div>
 		</div>
@@ -429,6 +387,7 @@ function updateCategory() {
     // categoryBarBox 높이 변경
     adjustCategoryBarHeight();
     
+    selectCategory();
 }
 
 // 소카테고리 카테고리바 셀렉
@@ -482,6 +441,7 @@ function updateSmallCategory() {
     // categoryBarBox 높이 변경
     adjustCategoryBarHeight();
     
+    selectCategory();
 }
 
 // 지역 카테고리바 셀렉
@@ -534,6 +494,8 @@ function updateLocal() {
     
     // categoryBarBox 높이 변경
     adjustCategoryBarHeight();
+    
+    selectCategory();
 }
 
 // 카테고리바 셀렉트 한 값 categoryContainer에 추가
@@ -576,6 +538,20 @@ function adjustCategoryBarHeight() {
     categoryBarBox.css("height", newHeight + "px");
 }
 
+function selectCategory () {
+	$.ajax({
+        url: "filter-class",
+        method: "get",
+        data: {             
+        	bigCategories: selectedCategories,
+            smallCategories: selectedSmallCategories,
+            locals: selectedLocals
+		},
+        success: function(data) {
+            renderClasses(data);
+        }
+    });
+}
 </script>
 </body>
 </html>

@@ -77,16 +77,30 @@
 			<div>
 				<h5 class="text-success">충전 내역</h5>
 				<p>은행 이름 : ${withdrawResult.payAc_bank_name}</p>
-				<p>이체된 금액 : ${withdrawResult.tran_amt}</p> 
+				<p>
+					<fmt:formatNumber var="withdraw_amt" value="${withdrawResult.tran_amt }" pattern="#,###"/>
+					이체된 금액 : ${withdraw_amt}원
+				</p> 
 				<p>결제일시 : ${withdrawResult.payAc_date}</p>
+				<hr>
 				<c:choose>
 					<c:when test="${empty withdrawResult.tran_amt_total }">
-						<p><span class="text-success">충전된 WILL-PAY</span> : ${withdrawResult.tran_amt}</p>
+						<p><span class="text-success">충전된 WILL-PAY</span>
+							<fmt:formatNumber var="amt" value="${withdrawResult.tran_amt }" pattern="#,###"/>
+							: ${amt}원
+						</p>
 					</c:when>
 					<c:otherwise>
-						<p><span class="text-success">충전된 WILL-PAY</span> : ${withdrawResult.tran_amt_total}</p>
+						<p><span class="text-success">충전된 WILL-PAY</span>
+							<fmt:formatNumber var="amt_total" value="${withdrawResult.tran_amt_total }" pattern="#,###"/>
+							: ${amt_total}원
+						</p>
 					</c:otherwise>
 				</c:choose>
+				<p><span class="text-success">현재 보유 WILL-PAY</span>
+					<fmt:formatNumber var="amt_total" value="${withdrawResult.tran_amt_total }" pattern="#,###"/>
+					: ${amt_total}원
+				</p>
 			</div>
 			<div>
 				<div class="row mt-5">

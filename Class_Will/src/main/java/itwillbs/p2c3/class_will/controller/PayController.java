@@ -123,7 +123,6 @@ public class PayController {
 		
 		int member_code = member.getMember_code();
 		model.addAttribute("member_code", member_code);
-		System.out.println("memberCode: " + member_code);
 		
 		if(session.getAttribute("token") != null) {
 			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
@@ -182,12 +181,14 @@ public class PayController {
 		
 		//willpay 결제 성공 시 member_credit - update
 		payService.updateWillPay(map);
+		//willpay 결제 성공 시 member_credit - select
+//		payService.select
 		
 		String date = ((String)withdrawResult.get("api_tran_dtm")).substring(0, 14);
 		DateTimeFormatter parsedDate = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		LocalDateTime datetime = LocalDateTime.parse(date, parsedDate);
 		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String payAc_date = datetime.format(dtf);
 		
 		

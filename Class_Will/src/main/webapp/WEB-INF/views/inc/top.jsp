@@ -235,13 +235,13 @@
 #search-box-area {
 	position: fixed;
     top: 0px;
-    display: flex;
+/*     display: flex; */
     align-items: center;
     justify-content: center;
     z-index: 999;
 	background: black;
 	height: 200px;
-/*  	display: none;  */
+  	display: none;  
 	margin: 0 auto;
 	border: 1px solid green;
 }

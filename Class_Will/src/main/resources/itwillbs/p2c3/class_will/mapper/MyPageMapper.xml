@@ -81,6 +81,19 @@
 		FROM MEMBER
 		WHERE member_nickname = #{member_nickname}
 	</select>
+	<update id="updateMemberNormal">
+		UPDATE MEMBER
+    	SET member_type = 1
+    	WHERE member_code = #{member_code}
+	</update>
+	
+	
+	<select id="selectMember">
+		SELECT * FROM MEMBER
+		WHERE member_code = ${member_code}
+	
+	</select>
+	
 	
 
 </mapper>

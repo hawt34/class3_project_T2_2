@@ -10,11 +10,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 @Component
 public class BankApi {
@@ -88,6 +92,59 @@ public class BankApi {
 		ResponseEntity<Map> responseEntity = restTemplate.exchange(uri, HttpMethod.GET, httpEntity, Map.class);
 		
 		//6. ResponseEntity 객체의 getBody() 메서드 호출하여 응답데이터 파싱결과 객체 리턴
+		return responseEntity.getBody();
+	}
+
+	public Map requestWithdraw(Map<String, Object> map) {
+		HttpHeaders headers = new HttpHeaders();
+		
+//		headers.add("Authorization", "Bearer " + token.getAccess_token());
+		headers.setBearerAuth((String)map.get("access_token"));
+		
+		//"application/json; charset=UTF-8" 
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		String url = base_url + "/v2.0/transfer/withdraw/fin_num";
+		
+		//org.json 패키지의 JSONObject 클래스 또는 com.google.code.gson.Gson 클래스 활용
+//		JSONObject jo = new JSONObject();
+//		jo.put("bank_tran_id", bankValueGenerator.getBankTranId());
+		
+		Gson gson = new Gson();
+		JsonObject jsonObject = new JsonObject();
+		//------- 핀테크 이용기관 정보 --------------
+		jsonObject.addProperty("bank_tran_id", bankValueGenerator.getBankTranId()); // 거래고유번호
+		jsonObject.addProperty("cntr_account_type", "N"); // 약정계좌 /계정구분("N" : 계좌)
+		jsonObject.addProperty("cntr_account_num", cntr_account_num); // 약정 계좌 / 계정 번호
+		jsonObject.addProperty("dps_print_content", (String)map.get("user_name") + "_출금"); // 입금계좌인자내역(입금되는 계좌(이용기관)에 보내는 메세지)
+		
+		//------- 요청 고객(출금 계좌) 정보 ---------------
+		jsonObject.addProperty("fintech_use_num", (String)map.get("fintech_use_num")); // 출금계좌 핀테크이용번호 
+		jsonObject.addProperty("wd_print_content", "아이티윌_입금"); // 출금계좌인좌내역(출금되는 계좌(고객: 나)에 보낼 메세지) 
+		jsonObject.addProperty("tran_amt", (String)map.get("tran_amt")); //출금 금액
+		jsonObject.addProperty("tran_dtime", bankValueGenerator.getTranDTime()); //요청 일시
+		jsonObject.addProperty("req_client_name", (String)map.get("user_name"));  
+		jsonObject.addProperty("req_client_fintech_use_num", (String)map.get("withdraw_fintech_use_num"));
+		//=> 요청고객 계좌번호 미사용 시 핀테크 이용번호 설정 필수!
+		jsonObject.addProperty("req_client_num", ((String)map.get("member_code")).toUpperCase()); //요청고객회원번호(아이디처럼 사용) 
+		jsonObject.addProperty("transfer_purpose", "ST"); //이체용도(송금: TR, 결제: ST 등) 
+		
+		//------- 수취 고객(실제 최종 입금 대상) 정보 ---------------
+		jsonObject.addProperty("recv_client_name", "아이티윌"); //최종수취 고객성명(입금대상) 
+		jsonObject.addProperty("recv_client_bank_code", "002"); //최종수취고객계좌 개설기관 표시 
+		jsonObject.addProperty("recv_client_account_num", "23062003999"); //최종수취고객계좌번호 
+		
+		logger.info(">>>>>>>>>> 출금이체 요청 JSON 데이터: " + gson.toJson(jsonObject));
+		
+		HttpEntity<String> httpEntity = new HttpEntity<String>(gson.toJson(jsonObject), headers);
+		logger.info(">>>>>>>>>> httpEntity.getHeaders(): " + httpEntity.getHeaders());
+		logger.info(">>>>>>>>>> httpEntity.getBody(): " + httpEntity.getBody());
+		
+		//   POST 방식 HTTP 요청 수행
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Map> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Map.class);
+		logger.info(">>>>>>>>>> 출금 이체 요청 결과: " + responseEntity.getBody());
+		
 		return responseEntity.getBody();
 	}
 }

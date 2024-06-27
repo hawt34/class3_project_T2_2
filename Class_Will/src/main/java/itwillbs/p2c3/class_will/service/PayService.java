@@ -132,30 +132,15 @@ public class PayService {
 		Map userInfo = bankApi.requestUserInfo(map);
 		
 		
-		
-//		Object obj = userInfo.get("res_list");
-//		if (obj instanceof List<?>) {
-//            List<?> list = (List<?>) obj;
-//            if (!list.isEmpty() && list.get(0) instanceof Map<?, ?>) {
-//                List<Map<String, String>> resultList = (List<Map<String, String>>) list;
-//                
-//                // 리스트의 각 항목 사용 예시
-//                for (Map<String, String> item : resultList) {
-//                    System.out.println("fintech_use_num: " + item.get("fintech_use_num"));
-//                    System.out.println("account_alias: " + item.get("account_alias"));
-//                    System.out.println("bank_code_std: " + item.get("bank_code_std"));
-//                    System.out.println("bank_code_sub: " + item.get("bank_code_sub"));
-//                    System.out.println("bank_name: " + item.get("bank_name"));
-//                    System.out.println("--------------");
-//                }
-//            }
-//		}
-		
 		return userInfo;
 	}
 
 	public List<Map<String, Integer>> getPackageInfo() {
 		return payMapper.selectPackageInfoList();
+	}
+
+	public Map withdraw(Map<String, Object> map) {
+		return bankApi.requestWithdraw(map);
 	}
 
 	

@@ -23,7 +23,7 @@ public interface MemberMapper {
 	boolean updateMemberStatus(MemberVO member);
 
 	// 
-	Map<String, String> selectBankInfo(String member_email);
+	Map<String, String> selectBankInfo(int member_code);
 	
 	
 	

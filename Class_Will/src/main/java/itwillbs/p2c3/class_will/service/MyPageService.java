@@ -62,6 +62,15 @@ public class MyPageService {
 
 	}
 
+	public void updateNomal(String member_code) {
+		myPageMapper.updateMemberNormal(member_code);
+	}
+
+	public MemberVO selectMemberInfo(int member_code) {
+		return myPageMapper.selectMember(member_code);
+		
+	}
+
 	
 
 	

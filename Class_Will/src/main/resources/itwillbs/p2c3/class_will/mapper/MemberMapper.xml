@@ -60,7 +60,7 @@
 	<select id="selectBankInfo" resultType="map">
 		SELECT access_token, user_seq_no
 		FROM bank_user_info
-		WHERE member_email = #{member_email}
+		WHERE member_code = #{member_code}
 	</select>
 
 </mapper>

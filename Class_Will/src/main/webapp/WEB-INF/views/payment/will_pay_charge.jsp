@@ -39,6 +39,12 @@ body{
 .margin_use {
 	margin-top: 20px;
 }
+#result { 
+	box-sizing: border-box;
+	height:60px;
+	padding: 3px;
+	margin: 0 15px;
+} 
 .package_group {
 	display: flex;
 	flex-flow: wrap;
@@ -99,10 +105,11 @@ body{
 .custom-btn {
 	color: white !important;
 }
-.btn_custom #submitBtn {
-	border: none;
-	border-radius: 5px;
+.submit_container {
+	display: flex;
+    flex-direction: column;
 }
+
 .selected {
     background: #336633 !important; /* 클릭 시 배경 색상 */
 }
@@ -120,6 +127,7 @@ body{
 				<label for="will_pay_charge" class="form-label">Will-pay 충전하기</label>
 				<input type="text" class="form-control w-75" id="will_pay_charge" placeholder="충전할 금액을 입력해주세요.">
 			</div>
+			<p id="result"></p>
 			<!-- package 종류 -->
 			<hr>
 			<div class="will_pay_package">
@@ -128,7 +136,7 @@ body{
 				</div>
 				<!-- package group -->
 				<div class="package_group">
-					<c:forEach var="package1" items="${packageInfo }" varStatus="">
+					<c:forEach var="package1" items="${packageInfo }" varStatus="status">
 						<div class="card border-light mb-3 cutom-card" style="width:180px;">
 							<div class="card-header">PLUS PACKAGE</div>
 							<div class="card-body">
@@ -160,7 +168,7 @@ body{
 						</div>
 					</c:when>
 					<c:otherwise>
-						<div class="row h-25">
+						<div class="row d-flex justify-content-center h-25">
 							<div id="buttons-container" class="row">
 							</div>
 							<div id="modals-container">
@@ -170,11 +178,14 @@ body{
 				</c:choose>
 			</div>
 			<footer>
-				<div class="row">
-					<div class="d-grid btn_custom">
-						<form action="" method="post">
+				<div class="row submit_container">
+					<div class="d-grid btn_area_custom">
+						<form action="account-withdraw" method="post" id="withdraw_form">
 							<input type="hidden" name="fintech_use_num" id="form_fintech_use_num">
 							<input type="hidden" name="user_name" id="form_user_name">
+							<input type="hidden" name="tran_amt" id="form_tran_amt">
+							<input type="hidden" name="tran_amt_total" id="form_tran_amt_total">
+							<input type="hidden" name="payAc_type" id="form_payAc_type">
 							<button type="submit" class="btn btn-success w-100">충전하기</button>
 						</form>
 					</div>		
@@ -185,17 +196,23 @@ body{
 </div>
 <script>
 $(function() {
-	
-	
 	//금액 입력 이벤트
 	$('#will_pay_charge').on('input', function() {
+	let willpay = $('#will_pay_charge').val();
+		let regex = /^\d+0$/g;
+		let formTranAmt = $("#form_tran_amt");
 		var value = $(this).val().replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
-		$('#selected_package').val("");
-		if (value) {
-		    $(this).val(value + '원');
+		
+		if(regex.test(willpay) && willpay != "") {
+			$("#result").text("");
 		} else {
-			$(this).val('');
+			$("#result").text("10원 단위로 입력해 주세요");
+			$("#result").css("color", "red");
 		}
+		
+		$('#selected_package').val("");
+		$("#form_payAc_type").val("normal");
+		formTranAmt.val(willpay);
 	});
 	
 	//카드 클릭 이벤트
@@ -203,11 +220,47 @@ $(function() {
 	$('.card').click(function() {
 		
         // 클릭된 카드 내의 package_up_price 요소의 텍스트를 가져옴
-        var packageUpPrice = $(this).find('.package_up_price').text();
+        let packageUpPrice = $(this).find('.package_up_price').text();
+        let rewardFee = $(this).find("#text_deco").text(); //안에 있는 id,class 찾는 find() 메서드
+        
+        packageUpPrice = packageUpPrice.replace("원/g", '');
+        $("#form_tran_amt_total").val(packageUpPrice);
+//         console.log("amt_total", packageUpPrice);
+        
+        rewardFee = rewardFee.replace("원/g", '');
+        $("#form_tran_amt").val(rewardFee);
+        $("#form_payAc_type").val("package");
+//         console.log("amt", rewardFee);
+        
         // selected_package 입력 필드에 값을 설정
         $('#selected_package').val(packageUpPrice);
         $('#will_pay_charge').val("");
     });
+	
+	$("#withdraw_form").on("submit", function(event){
+// 		event.preventDefault();
+		let amt = $("#form_tran_amt").val();
+		let regex = /^0\d*[1-9]$|^\d*[1-9]$/;
+		let willpay = $("#will_pay_charge").val();
+		
+		if(!amt) {
+			alert("금액 입력 또는 패키지를 선택해 주세요");
+			return false;
+		}
+		
+		if(willpay != '') {
+			if(regex.test(willpay)) {
+				alert("정확한 금액을 입력해주세요");
+				return false;
+			}
+		}
+		
+		if(!$("#form_fintech_use_num").val() || !$("#form_user_name").val()) {
+			alert("계좌를 선택해 주세요");
+			return false;
+		}
+		
+	});
 	
 });
 

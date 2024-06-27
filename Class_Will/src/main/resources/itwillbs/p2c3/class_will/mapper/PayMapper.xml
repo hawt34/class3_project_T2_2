@@ -206,7 +206,7 @@
 			, #{user_seq_no}
 			, #{fintech_use_num}
 			, #{account_num}
-			, #{email}
+			, #{member_code}
 		) 
 	</insert>
 	

@@ -121,14 +121,16 @@
 	.bottom-nav-link:active .bottom-icon {
 	   font-size: 23px;
 	}
+	
+	
 </style>
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up text-black"></i></a>  
 	
     <!-- Footer Start -->
     <div class="class-will-bottom mt-5">
-	    <div class="container-fluid text-white-50 footer pt-1 mt-5 pb-5" style="background-color: #191919;">
-	        <div class="container py-5">
+	    <div class="container-fluid text-white-50 footer pt-1 mt-5 pb-3" style="background-color: #191919;">
+	        <div class="container py-3">
 	            <div class="pb-2 mb-2">
 	                <div class="row g-4">
 	                    <div class="col-lg-3 text-center">
@@ -147,18 +149,18 @@
 								</ul>
 	                        </div>
 	                    </div>
-	                    <div class="col-lg-3">
+	                    <div class="col-lg-3 pt-5">
 	                    	<div class="customer_service_center">
-	                        <h3>고객센터</h3>
-					<div class="d-grid gap-2 py-2">
-						<button class="btn btn-light">문의하기</button>
-					</div>
-					<p style="font-size: 13px;">*주중 10시~18시/주말 및 공휴일 제외</p>
-				</div>	
+		                        <h3>고객센터</h3>
+								<div class="d-grid gap-2 py-2">
+									<button class="btn btn-light">문의하기</button>
+								</div>
+								<p style="font-size: 13px;">*주중 10시~18시/주말 및 공휴일 제외</p>
+							</div>	
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="row g-5 mb-5">
+	            <div class="row g-5 mb-2">
 	                <div class="col-lg-3 ">
 	                    <div class="d-flex pt-3 justify-content-center social-icons">
 	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" ><i class="fab fa-twitter"></i></a>
@@ -214,7 +216,7 @@
 		            <a class="nav-link bottom-nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
 		        </li>
 		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-		            <a class="nav-link bottom-nav-link px-0 mx-2" href="#" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
+		            <a class="nav-link search-btn2 bottom-nav-link px-0 mx-2 " href="#"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
 		        </li>
 		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
 		            <a class="nav-link bottom-nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
@@ -227,6 +229,22 @@
 		        </li>
 		    </ul>
 		</div>
+
+		<!-- Add the searchModal here -->
+<!-- 		<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true"> -->
+<!-- 		    <div class="modal-dialog"> -->
+<!-- 		        <div class="modal-content"> -->
+<!-- 		            <div class="modal-header"> -->
+<!-- 		                <h5 class="modal-title" id="searchModalLabel">Search</h5> -->
+<!-- 		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 		            </div> -->
+<!-- 		            <div class="modal-body"> -->
+<!-- 		                Modal content here -->
+<!-- 		            </div> -->
+<!-- 		        </div> -->
+<!-- 		    </div> -->
+<!-- 		</div> -->
+
 		
 
 	</div>
@@ -235,6 +253,8 @@
     
 	<script>
 		(function(){
+			
+			// 챗봇
 			var w=window;
 			if(w.ChannelIO){
 				return w.console.error("ChannelIO script included twice.");
@@ -256,8 +276,12 @@
 			if(document.readyState==="complete"){l();}
 			else{w.addEventListener("DOMContentLoaded",l);
 			w.addEventListener("load",l);}})();
-		ChannelIO('boot', {
+			ChannelIO('boot', {
 			"pluginKey": "e4e4b39e-51da-4d32-b93f-b4e5dcacd689" // fill your plugin key
+			
+			
+			
+			
 		});
 		
 	</script>

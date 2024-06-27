@@ -171,10 +171,10 @@
 }
 
 
-.offcanvas {
-	color: white !important;
-}
 
+.offcanvas-body {
+    color: white !important;
+}
 
 @media (min-width: 992px) {
     .offcanvas {
@@ -231,19 +231,46 @@
 	
 }
 
-
-#search-box-area {
-	position: fixed;
-    top: 0px;
-/*     display: flex; */
+.search-box-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;  
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
     z-index: 999;
-	background: black;
-	height: 200px;
-  	display: none;  
-	margin: 0 auto;
-	border: 1px solid green;
+}
+
+.search-box-area .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.search-box-area .modal-header .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.recommend-keyword {
+	color: white;
+	border: 1px solid white;
+	border-radius: 30px;
+	padding: 10px 15px;;
+	margin: 10px;
+	font-size: 14px;
 }
 
 
@@ -281,6 +308,9 @@
             target.addEventListener('mouseenter', () => openCollapse(target));
             target.addEventListener('mouseleave', () => closeCollapse(target));
         });
+        
+        
+       
     });
     
     function logout() {
@@ -378,9 +408,7 @@
 								<div class="col d-none d-lg-flex justify-content-end px-4">
 									<form class="search-box">
 										<input class="search-txt align-items-center" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-										<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-											<i class="bi bi-search bi-top"></i>
-										</button>
+										<button class="search-btn" type="button" ><i class="bi bi-search bi-top"></i></button>
 									</form>
 								</div>
 							</div>   
@@ -395,11 +423,8 @@
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="150px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
-	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3">
-	<!--                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav"> -->
-	<!--                             <span class="navbar-toggler-icon"></span> -->
-	<!--                         </button> -->
-	                         <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
+	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3 mx-0">
+	                         <button class="navbar-toggler py-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
 		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
 	                    </div>
@@ -408,49 +433,52 @@
 				</div> <!-- container-fluid -->
 				
 	            <!-- 오프캔버스 -->
-	            <div class="offcanvas offcanvas-start" id="top-offcanvas" style="background-color: #333;">
+	            <div class="offcanvas offcanvas-start " id="top-offcanvas" style="background-color: #333; color: white;">
 	                <div class="offcanvas-header">
 	                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	                </div>
 	                <div class="offcanvas-body">
-	                    <ul class="navbar-nav">
-							<li class="nav-item">
-                                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
-                                	<span class="fa fa-bars"></span> 카테고리
-                                </a>
-                            </li>
-	                         <li class="nav-item">
-                                <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
-                                	지역별
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="event">이벤트</a>
-                            </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="creator-main">클래스등록</a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
-	                        </li>
-	                        <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
-                            </li>
-                            <li class="nav-item">
-                            	<a class="nav-link" href="member-login">로그인</a>
-<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
-                            </li>
-	                    </ul>
-	                </div>
+	                	<div>
+		                    <ul>
+		                    	<c:choose>
+									<c:when test="${empty member.member_email}">
+										<li class=""> 
+											<a class="" href="member-login">로그인</a>
+										</li>
+									</c:when>
+									<c:when test="${member.member_type eq 3}">
+										<li class=""> 
+											<a class="" href="admin"><i class="bi bi-gear"></i> 관리자</a>
+										</li>
+										<li class="">
+										    <a class="" onclick="logout()">로그아웃</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li class="">
+										    <a class="" href="my-page"><i class="bi bi-person-circle bi-top"></i> 내 정보</a>
+										</li>
+										<li class="">
+										    <a class="" onclick="logout()">로그아웃</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+		                    	<li>이벤트</li>
+		                    	<li>카테고리</li>
+		                    	<li>지역별</li>
+	                 	   </ul>
+	                    </div>
+	                     <div class="dropdown mt-3">
+					      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+					        Dropdown button
+					      </button>
+					      <ul class="dropdown-menu">
+					        <li><a class="dropdown-item" href="#">Action</a></li>
+					        <li><a class="dropdown-item" href="#">Another action</a></li>
+					        <li><a class="dropdown-item" href="#">Something else here</a></li>
+					      </ul>
+					    </div>
+	                </div> <!-- offcanvas-body -->
 	            </div> <!-- offcanvas -->
 	            
 	        </nav>
@@ -458,68 +486,72 @@
 	</div> <!-- container-fluid -->
 	<!-- Navbar End -->
 	
-	<!-- Modal Search Start -->
-	<div class="modal fade" id="searchModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content rounded-0">
-	            <div class="modal-header">
-	                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	            </div>
-	            <div class="modal-body d-flex align-items-center">
-	                <div class="input-group w-75 mx-auto d-flex">
-	                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-	                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-	                </div>
-	            </div>
+<!-- 	<!-- Modal Search Start --> 
+<!-- 	<div class="modal fade" id="searchModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 	    <div class="modal-dialog"> -->
+<!-- 	        <div class="modal-content rounded-0"> -->
+<!-- 	            <div class="modal-header"> -->
+<!-- 	                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5> -->
+<!-- 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 	            </div> -->
+<!-- 	            <div class="modal-body d-flex align-items-center"> -->
+<!-- 	                <div class="input-group w-75 mx-auto d-flex"> -->
+<!-- 	                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> -->
+<!-- 	                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span> -->
+<!-- 	                </div> -->
+<!-- 	            </div> -->
+<!-- 	        </div> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+<!-- 	<!-- Modal Search End --> 
+	
+<!-- 	<!-- Modal Search2 Start --> 
+<!-- 	<div class="modal fade container-fluid" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 	    <div class="modal-dialog modal-xl"> -->
+<!-- 	        <div class="modal-content rounded-0"> -->
+<!-- 	            <div class="modal-header d-flex justify-content-center"> -->
+<!-- 	                <form action="search-keyword" class="search-box d-flex justify-content-center" method="post"> -->
+<!-- 						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터"> -->
+<!-- 						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"> -->
+<!-- 							<i class="bi bi-search bi-top"></i> -->
+<!-- 						</button> -->
+<!-- 					</form> -->
+<!-- 	                <button type="button" class="btn-close d-flex justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 	            </div> -->
+<!-- 	            <div class="modal-body d-flex align-items-center justify-content-center"> -->
+<!-- 	                <h5>추천 검색어</h5> -->
+<!-- 	            </div> -->
+<!-- 	        </div> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+<!-- 	<!-- Modal Search End --> 
+	
+	<!-- Search Box Area -->
+	<div class="search-box-area" id="searchModal">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <span class="close">&times;</span>
+	        </div>
+	        <div class="modal-body">
+	            <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
+	                <input class="search-txt align-items-center" id="keyword" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
+	                <button class="search-btn" type="submit"> <i class="bi bi-search bi-top"></i></button>
+	            </form>
+	        </div>
+	        <div class="recommend my-3 py-3 text-center">
+	            <!-- 추천 검색어 영역 -->
+	            <h5 class="mb-3">추천 검색어</h5>
+	            <ul class="d-flex justify-content-center">
+	            	<li class="btn recommend-keyword"><a href="">추천어1</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어2</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어3</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어4</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어5</a></li>
+	            </ul>
 	        </div>
 	    </div>
 	</div>
-	<!-- Modal Search End -->
-	
-	<!-- Modal Search2 Start -->
-	<div class="modal fade container-fluid" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	    <div class="modal-dialog modal-xl">
-	        <div class="modal-content rounded-0">
-	            <div class="modal-header d-flex justify-content-center">
-	                <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
-						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="bi bi-search bi-top"></i>
-						</button>
-					</form>
-	                <button type="button" class="btn-close d-flex justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button>
-	            </div>
-	            <div class="modal-body d-flex align-items-center justify-content-center">
-	                <h5>추천 검색어</h5>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<!-- Modal Search End -->
-	
-	<div class="container-fluid" id="search-box-area">
-		<div class="row w-100 container" >
-			<div class="col d-flex justify-content-center">
-				<form action="search-keyword" class="search-box " method="post">
-					<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-					<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-						<i class="bi bi-search bi-top"></i>
-					</button>
-				</form>
-			</div>
-			<div class="col d-flex justify-content-end">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-		</div>
-		<div class="row w-100 container d-flex align-items-center justify-content-center">
-			<div class="col-12 d-flex justify-content-center">
-				<h5>추천 검색어</h5>
-			</div>
-		</div>
-	
-	</div>
-	
+				
 	
 	
 	<div class="container-fluid">
@@ -618,16 +650,50 @@ $(function() {
 		
 	});
 	
-	$(".search-box").on("click", function() {
-		alert("search 클릭");
-		
-	});
+	
+    // 검색창과 검색 버튼 클릭 시 #search-box-area 나타남
+    $('.search-box, .search-txt, .search-btn, .search-btn2').on('click', function(event) {
+        $('#searchModal').fadeIn();
+        $("#keyword").focus();
+    });
+
+    // close 버튼 클릭 시 #search-box-area 사라짐
+    $('.search-box-area .close').on('click', function() {
+        $('#searchModal').fadeOut();
+    });
+	
+    const collapseElements = $('[data-bs-toggle="collapse"]');
+
+    let currentOpenCollapse = null;
+
+    const openCollapse = (target) => {
+        if (currentOpenCollapse && currentOpenCollapse !== target) {
+            currentOpenCollapse.removeClass('show');
+        }
+        target.addClass('show');
+        currentOpenCollapse = target;
+    };
+
+    const closeCollapse = (target) => {
+        target.removeClass('show');
+        if (currentOpenCollapse === target) {
+            currentOpenCollapse = null;
+        }
+    };
+
+    collapseElements.each(function() {
+        const elem = $(this);
+        const target = $(elem.attr('data-bs-target'));
+
+        elem.on('mouseenter', () => openCollapse(target));
+        target.on('mouseenter', () => openCollapse(target));
+        target.on('mouseleave', () => closeCollapse(target));
+    });
 	
 	
-	
-	
-	
-	
+
+    
+
 	
 });
 

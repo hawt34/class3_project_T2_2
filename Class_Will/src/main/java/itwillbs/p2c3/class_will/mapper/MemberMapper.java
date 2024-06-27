@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -24,6 +25,9 @@ public interface MemberMapper {
 
 	// 
 	Map<String, String> selectBankInfo(int member_code);
+
+
+	List<Map<String, Integer>> selectLikeClassList(int member_code);
 	
 	
 	

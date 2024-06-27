@@ -11,11 +11,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.google.gson.Gson;
+
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import itwillbs.p2c3.class_will.service.ClassService;
+import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
+<<<<<<< HEAD
+=======
+import itwillbs.p2c3.class_will.vo.MemberVO;
+import retrofit2.http.GET;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 
 
 @Controller
@@ -25,11 +44,14 @@ public class ClassController {
 	private PayService payService;
 	
 	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
 	private ClassService classService;
 	
 	// 클래스 리스트
 	@GetMapping("class-list")
-	public String classList(Model model) {
+	public String classList(Model model, HttpSession session,MemberVO member) {
 		// =================== 카테고리바 ===================
 		// 대 카테고리
 		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
@@ -45,6 +67,8 @@ public class ClassController {
 		model.addAttribute("map", map);
 		System.out.println("class-list map :@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@" + map);
 		
+		
+		
 	    // 지역
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
 		model.addAttribute("localList", localList);
@@ -53,6 +77,12 @@ public class ClassController {
 		List<Map<String, Object>> hashtagList = classService.getHashtag();
 		model.addAttribute("hashtagList", hashtagList);
 		
+		
+		MemberVO dbMember = memberService.selectMember(member);
+        session.setAttribute("member_code", dbMember.getMember_code());
+        model.addAttribute("member_code", dbMember.getMember_code());
+		System.out.println("member_code$$$$$$$$$$ : " + dbMember.getMember_code());
+
 		return "class/class-list";
 	}
 	
@@ -66,11 +96,37 @@ public class ClassController {
 	}
 	
 	@ResponseBody
-	@GetMapping("filter-class")
-	public List<Map<String, Object>> getFilterClass(){
-		System.out.println("filter-class controller");
-		return null;
-	}	
+	@PostMapping("filter-class")
+	public List<Map<String, Object>> getFilterClass(@RequestBody Map<String, Object> filters) {
+	    System.out.println("filter-class controller");
+	    System.out.println("Filters: " + filters);
+
+	    List<String> bigCategories = (List<String>) filters.get("bigCategories");
+	    List<String> smallCategories = (List<String>) filters.get("smallCategories");
+	    List<String> locals = (List<String>) filters.get("locals");
+
+	    // Service layer call to fetch filtered classes based on the parameters
+	    List<Map<String, Object>> filterClass = classService.getFilterClass(bigCategories, smallCategories, locals);
+
+	    System.out.println("filterClass //////////////" + filterClass);
+
+	    return filterClass;
+	}
+	
+	// like_class 상태변경 
+    @PostMapping("update-heart-status")
+    @ResponseBody
+    public String updateHeartStatus(@RequestBody Map<String, Object> payload, Model model) {
+        Boolean heartStatus = (Boolean)payload.get("heartStatus");
+        // DB 업데이트 로직을 추가합니다.
+        // 예: heartStatus가 true면 좋아요, false면 좋아요 취소
+        
+//        List<Map<String, Object>> likeClass = classService.updateLikeClass(userId, heartStatus);
+//        model.addAttribute("likeClass", likeClass);
+//        System.out.println("Heart status updated: " + heartStatus);
+        return "success";
+    }
+    
 //    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
 //    @ResponseBody
 //    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {

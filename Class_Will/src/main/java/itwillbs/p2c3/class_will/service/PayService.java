@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,6 +132,19 @@ public class PayService {
 	public Map getUserInfo(Map map) {
 		Map userInfo = bankApi.requestUserInfo(map);
 		
+		List<Map<String, Object>> res_list = (List<Map<String, Object>>)userInfo.get("res_list");
+		
+		//update를 하기위한 Map객체
+		Map<String, String> fintech = new HashMap<String, String>();
+		fintech.put("access_token", (String)map.get("access_token"));
+		
+		//마지막 계좌에서 fintech_use_num 가져오기
+		Map<String, Object> thirdMap = res_list.get(res_list.size() - 1);
+		for(Map.Entry<String, Object> entry : thirdMap.entrySet()) {
+			fintech.put((String)entry.getKey(), (String)entry.getValue());
+		}
+		
+		payMapper.updateFintechUseNum(fintech);
 		
 		return userInfo;
 	}
@@ -141,6 +155,10 @@ public class PayService {
 
 	public Map withdraw(Map<String, Object> map) {
 		return bankApi.requestWithdraw(map);
+	}
+
+	public void registPayAccountInfo(Map withdrawResult) {
+		payMapper.insertPayAccountInfo(withdrawResult);
 	}
 
 	

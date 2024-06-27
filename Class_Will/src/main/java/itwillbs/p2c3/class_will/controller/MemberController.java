@@ -2,6 +2,7 @@ package itwillbs.p2c3.class_will.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -113,10 +114,14 @@ public class MemberController {
 			
 		} else {
 			Map<String, String> bank_info = memberService.selectBankInfo(dbMember.getMember_code());
+			List<Map<String, Integer>> like_class_list = memberService.selectLikeClassList(dbMember.getMember_code());
+			
 			System.out.println("bank_info : " + bank_info);
-			session.setAttribute("token", bank_info);
+			System.out.println("like_class_list : " + like_class_list);
+			
 			session.setAttribute("member", dbMember);
-			model.addAttribute("member", dbMember);
+			session.setAttribute("token", bank_info); 
+			session.setAttribute("likeClassList", like_class_list);
 				
 			session.setMaxInactiveInterval(100000000);
 			
@@ -125,8 +130,10 @@ public class MemberController {
 		} 
 		
 		
+		
 	} // memberLoginPro()
 	
+
 	// 멤버 로그아웃
 	@GetMapping("member-logout")
 	public String memberLogout() {
@@ -240,8 +247,7 @@ public class MemberController {
 	
 	
 	
-	
-	
+
 	
 	
 	

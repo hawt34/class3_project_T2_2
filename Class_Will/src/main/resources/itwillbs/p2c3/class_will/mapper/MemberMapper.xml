@@ -62,5 +62,11 @@
 		FROM bank_user_info
 		WHERE member_code = #{member_code}
 	</select>
+	
+	<select id="selectLikeClassList" resultType="map">
+		SELECT *
+		FROM like_class
+		WHERE member_code = #{member_code}
+	</select>
 
 </mapper>

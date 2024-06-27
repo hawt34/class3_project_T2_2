@@ -27,7 +27,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Required JavaScript files -->
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -35,6 +35,28 @@
     
 <!-- 클래스 좋아요 -->
 <script type="text/javascript">
+// document.addEventListener("DOMContentLoaded", function() {
+//     var heartOverlays = document.querySelectorAll(".heart-overlay");
+//     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+//     var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+
+//     heartOverlays.forEach(function(heartOverlay) {
+//         heartOverlay.addEventListener("click", function() {
+//             var img = this;
+//             img.classList.add("fade");
+
+//             setTimeout(function() {
+//                 if (img.src.includes("heart_full.png")) {
+//                     img.src = originalSrc;
+//                 } else {
+//                     img.src = changeSrc;
+//                 }
+//                 img.classList.remove("fade");
+//             }, 300); 
+//         });
+//     });
+// });
+//------------------------
 document.addEventListener("DOMContentLoaded", function() {
     var heartOverlays = document.querySelectorAll(".heart-overlay");
     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
@@ -43,18 +65,48 @@ document.addEventListener("DOMContentLoaded", function() {
     heartOverlays.forEach(function(heartOverlay) {
         heartOverlay.addEventListener("click", function() {
             var img = this;
+            var memberCode = img.getAttribute("data-member-code");
             img.classList.add("fade");
 
             setTimeout(function() {
-                if (img.src.includes("heart_full.png")) {
+                var isFullHeart = img.src.includes("heart_full.png");
+                
+                if (isFullHeart) {
                     img.src = originalSrc;
                 } else {
                     img.src = changeSrc;
                 }
+                
                 img.classList.remove("fade");
+
+                // AJAX 요청을 통해 서버로 업데이트 요청 전송
+                var heartStatus = !isFullHeart; // true면 heart_full.png, false면 heart.png
+                updateHeartStatus(memberCode, heartStatus);
             }, 300); 
         });
     });
+
+    function updateHeartStatus(memberCode, heartStatus) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+//         var data = JSON.stringify({ heartStatus: isFullHeart });
+        var data = JSON.stringify({ 
+        	heartStatus: isFullHeart,
+        	member_code : memberCode
+        	});
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log("Heart status updated successfully");
+            } else if (xhr.readyState === 4) {
+                console.error("Error updating heart status");
+            }
+        };
+
+        xhr.send(data);
+    }
 });
 </script>
 <style type="text/css">
@@ -266,6 +318,7 @@ body {
 	               <div class="card-body p-0 position-relative card-body1 position-relative1">
 	                  <a href="class-detail?class_code=${map.class_code}"><img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic"></a>
 	<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" class="w-100 card-img-top classPic"> --%>
+<%-- 	                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" data-member-code="{map.}" id="heartOverlay" class="heart-overlay"> --%>
 	                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
 	                  <div class="card-bodys d-flex flex-column">
 	                     <div class="classCategory col-md-10">
@@ -338,6 +391,8 @@ $(function() {
 });
 // ------------------------------------------------------------------------------------
 // 대카테고리 카테고리바 셀렉
+let allCategories = [];
+
 function updateCategory() {
     const selectElement = document.getElementById('class_big_category');
     const selectedCategoryValue = selectElement.value;
@@ -391,6 +446,8 @@ function updateCategory() {
 }
 
 // 소카테고리 카테고리바 셀렉
+let allSmallCategory = [];
+
 function updateSmallCategory() {
     const selectElement = document.getElementById('class_small_category');
     const selectedSmallCategoryValue = selectElement.value;
@@ -538,17 +595,28 @@ function adjustCategoryBarHeight() {
     categoryBarBox.css("height", newHeight + "px");
 }
 
+let selectedCategories = [];
+let selectedSmallCategories = [];
+let selectedLocals = [];
+
 function selectCategory () {
 	$.ajax({
         url: "filter-class",
-        method: "get",
+        method: "post",
         data: {             
         	bigCategories: selectedCategories,
             smallCategories: selectedSmallCategories,
             locals: selectedLocals
 		},
-        success: function(data) {
-            renderClasses(data);
+        success: function(response) {
+            console.log(response + "1111"); // 결과를 콘솔에 출력하여 데이터가 올바르게 도착하는지 확인
+            alert("성공"); // AJAX 요청이 성공적으로 완료된 경우 알림 창 표시
+            // 받은 데이터를 기반으로 UI를 업데이트하는 함수 호출
+//             renderClasses(result); // 예시: 받은 데이터를 기반으로 클래스를 렌더링하는 함수 호출
+        },
+        error: function(xhr, status, error) {
+            alert("실패"); // AJAX 요청이 실패한 경우 알림 창 표시
+            console.error('AJAX 요청 중 오류 발생: ' + error); // 오류 메시지 출력
         }
     });
 }

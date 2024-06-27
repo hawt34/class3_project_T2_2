@@ -26,6 +26,9 @@ public interface ClassMapper {
 	// 해시태그
 	List<Map<String, Object>> selectHashtag();
 	
+	// 카테고리바 필터링된 클래스
+	List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
+	
 	// 클래스 리스트
 	List<Map<String, Object>> selectClassList();
 	

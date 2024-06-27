@@ -68,6 +68,7 @@ public class ClassController {
 		System.out.println("class-list map :@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@" + map);
 		
 		
+		
 	    // 지역
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
 		model.addAttribute("localList", localList);

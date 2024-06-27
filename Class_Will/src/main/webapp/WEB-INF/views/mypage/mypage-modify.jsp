@@ -162,7 +162,7 @@
 										<c:when test="${member.member_type eq 1}">
 											<button class="btn btn-primary btn-lg btn-block" id="change-member-btn"
 												data-member-code="${member.member_code}"
-												onclick="location.href=''">크리에이터 신청하기</button>
+												onclick="location.href='creator-qualify'">크리에이터 신청하기</button>
 										</c:when>
 										<c:when test="${member.member_type eq 2}">
 											<button class="btn btn-primary btn-lg btn-block"

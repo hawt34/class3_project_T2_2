@@ -35,7 +35,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-classReg.css" rel="stylesheet">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!-- 썸머노트 cdn -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
@@ -315,7 +315,8 @@
 					    ['color', ['color']],
 					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
 					    ['para', ['ul', 'ol', 'paragraph']],
-					    ['height', ['height']]
+					    ['height', ['height']],
+					    ['insert',['picture']]// 이미지 첨부
 					  ],
 					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
@@ -329,16 +330,50 @@
 			  lang: "ko-KR",					// 한글 설정
 			  placeholder: '최대500자까지 쓸 수 있습니다'	,//placeholder 설정
 			  toolbar: [
-					    // [groupName, [list of button]]
-					    ['fontname', ['fontname']],
-					    ['fontsize', ['fontsize']],
-					    ['style', ['bold', 'italic', 'underline', 'clear']],
-					    ['para', ['ul', 'ol']],
-					  ],
-					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
-		          
+					     // [groupName, [list of button]]
+					     ['fontname', ['fontname']],
+					     ['fontsize', ['fontsize']],
+					     ['style', ['bold', 'italic', 'underline', 'clear']],
+					     ['para', ['ul', 'ol']],
+					   ],
+			  fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+			  fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+			  // callbacks은 이미지 업로드 처리
+// 			  callbacks : {                                                    
+// 			  onImageUpload : function(files, editor, welEditable) {   
+		        // 다중 이미지 처리를 위해 for문을 사용
+// 					for (var i = 0; i < files.length; i++) {
+// 						imageUploader(files[i], this);
+// 					}
+// 				 }
+// 			  }
 		});
+		
+// 		// 써머노트 이미지 업로드
+// 		function imageUploader(file, el) {
+// 			var formData = new FormData();
+// 			formData.append('file', file);
+		  
+// 			$.ajax({                                                              
+// 				data : formData,
+// 				type : "POST",
+// 				url : 'creatorUploadExImage',  
+// 				contentType : false,
+// 				processData : false,
+// 				enctype : 'multipart/form-data', 
+// 				success : function(response) {
+// 					var jsonResponse = JSON.parse(response);
+// 		            var imageUrl = jsonResponse.url;
+// 		         // 값이 잘 넘어오는지 콘솔 확인
+// 					console.log(response);
+// 		            console.log(imageUrl);
+// 					$(el).summernote('insertImage', imageUrl, function($image) {
+// 						 $image.attr('src', imageUrl);
+// 			             $image.attr('class', 'img-responsive');
+// 					});
+// 				}
+// 			});
+// 		}
 		
 		// 해쉬태그 다중선택
 		document.addEventListener('DOMContentLoaded', () => {

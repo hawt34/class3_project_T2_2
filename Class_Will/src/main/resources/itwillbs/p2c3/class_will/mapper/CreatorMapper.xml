@@ -202,7 +202,10 @@
 	<!-- 클래스 정보 가져오기 -->
 	<select id="getClassInfo" resultType="map">
 	SELECT 
-		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide, 
+		c.*
+		, c2.code_value
+		, c22.code_value as cate
+		, c222.code_value as hide, 
 		(
 			SELECT 
 				count(*) 
@@ -231,27 +234,32 @@
 		common2 c2 
 	ON 
 		c2.common2_code = c.class_regist_status
-	and
+	AND
 		c2.common1_code = 'CRS'
 	JOIN 
 		common2 c22
 	ON 
 		c.class_big_category = c22.common2_code
-	and 
+	AND 
 		c22.common1_code = 'CLC'
 	JOIN 
 		common2 c222
 	ON 
 		c.class_hide = c222.common2_code
-	and 
+	AND 
 		c222.common1_code = 'HIDE'
-	where c.member_code = #{member_code}
+	WHERE
+		c.member_code = #{member_code}
 	</select>
 	
 	<!-- 상태에 따른 클래스 정보 가져오기 -->
 	<select id="getClassStatusInfo" resultType="map">
 	SELECT 
-		c.*, c2.code_value, c22.code_value as cate, c222.code_value as hide
+		c.class_code
+		, c.class_name 
+		, c2.code_value
+		, c22.code_value as cate
+		, c222.code_value as hide
 	FROM 
 		class c
 	LEFT JOIN 
@@ -282,7 +290,8 @@
 	<!-- 클래스 정보 가져오기 -->
 	<select id="getCertifiedClassInfo" resultType="map">
 	SELECT 
-		c.*
+		c.class_code
+		, c.class_name 
 		, c2.code_value
 		, c22.code_value as cate
 		, c222.code_value as hide
@@ -337,30 +346,30 @@
 	</select>
 	
 	<!-- 문의사항 클래스 정보 가져오기 -->
-<!-- 	<select id="getinquiryClassInfo" resultType="map"> -->
-<!-- 	SELECT  -->
-<!-- 		   ci.class_inquiry_code -->
-<!-- 		 , ci.class_inquiry_subject -->
-<!-- 		 , ci.class_inquiry_content -->
-<!-- 		 , ci.class_inquiry_date -->
-<!-- 		 , ci.class_inquiry_time -->
-<!-- 		 , ci.class_inquiry_status -->
-<!-- 		 , m.member_name -->
-<!-- 		 , c.member_code -->
-<!-- 		 , c.class_name -->
-<!-- 	FROM  -->
-<!-- 		class_inquiry ci -->
-<!-- 	JOIN  -->
-<!-- 		class c -->
-<!-- 	ON ukf -->
-<!-- 		c.class_code = ci.class_code -->
-<!-- 	JOIN  -->
-<!-- 		`MEMBER` m -->
-<!-- 	ON  -->
-<!-- 		ci.member_code = m.member_code  -->
-<!-- 	WHERE  -->
-<!-- 		c.member_code = #{member_code} -->
-<!-- 	</select> -->
+	<select id="getinquiryClassInfo" resultType="map">
+	SELECT 
+		   ci.class_inquiry_code
+		 , ci.class_inquiry_subject
+		 , ci.class_inquiry_content
+		 , ci.class_inquiry_date
+		 , ci.class_inquiry_time
+		 , ci.class_inquiry_status
+		 , m.member_name
+		 , c.member_code
+		 , c.class_name
+	FROM 
+		class_inquiry ci
+	JOIN 
+		class c
+	ON 
+		c.class_code = ci.class_code
+	JOIN 
+		MEMBER m
+	ON 
+		ci.member_code = m.member_code 
+	WHERE 
+		c.member_code = #{member_code}
+	</select>
 	
 	<!-- 공개여부 -->
 	<select id="getHide" resultType="map">

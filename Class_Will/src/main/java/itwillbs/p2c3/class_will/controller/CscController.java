@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.CscService;
 
@@ -27,9 +28,11 @@ public class CscController {
 		int startRow = (Integer.parseInt(pageNum) - 1) * pageSize;
 		int totalCount = adminService.getBoardCount("notice");
 		int totalPages = (int) Math.ceil((double) totalCount / pageSize);
-		String common2_value	 = "";
-		String common2_code = "";
+		
+		String common2_value	= "";
+		String common2_code 	= "";
 		String common1_code 	= "";
+		
 		List<Map<String, String>> category = null;
 		//카테고리
 		switch (type) {
@@ -60,11 +63,6 @@ public class CscController {
             common2_value = adminService.getCommon2Value(common1_code, common2_code_int);
             map.put(type + "_category", common2_value);
 		}
-		System.out.println("category : " + category);
-		model.addAttribute("category", category);
-		model.addAttribute("list", data);
-		model.addAttribute("totalPages", totalPages);
-		model.addAttribute("type", type);
 		
 		if(type.equals("notice")) {
 			return "csc/csc_notice";
@@ -72,7 +70,7 @@ public class CscController {
 			return "csc/csc_faq";
 		}
 		
-		return "";
+		return "csc/csc_notice";
 	}
 	
 	@GetMapping("boardDetail")
@@ -82,6 +80,7 @@ public class CscController {
 		String searchType = "";
 		Integer prev = 0;
 		Integer next = 0;
+		String result = "";
 		switch (type) {
 			case "notice" : common1_code = "NTC"; break;
 			case "faq" : common1_code = "FQC"; break;
@@ -112,8 +111,8 @@ public class CscController {
 			case "faq" : return "csc/csc_notice_detail";
 		}
 		
-		model.addAttribute("msg", "잘못된 페이지 요청입니다");
-		return "result_process/success";
+		result = WillUtils.checkDeleteSuccess(true, model, "잘못된 페이지 요청입니다", false);
+		return result;
 	}
 	
 	@GetMapping("csc-faq")

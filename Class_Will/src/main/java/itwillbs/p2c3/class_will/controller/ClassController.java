@@ -1,10 +1,16 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
@@ -23,6 +29,7 @@ import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.PayService;
+import retrofit2.http.GET;
 
 
 @Controller
@@ -56,6 +63,10 @@ public class ClassController {
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
 		model.addAttribute("localList", localList);
 		
+		// 해시태그
+		List<Map<String, Object>> hashtagList = classService.getHashtag();
+		model.addAttribute("hashtagList", hashtagList);
+		
 		return "class/class-list";
 	}
 	
@@ -68,12 +79,17 @@ public class ClassController {
 		return smallCategory;
 	}
 	
+	@ResponseBody
+	@GetMapping("filter-class")
+	public List<Map<String, Object>> getFilterClass(){
+		System.out.println("filter-class controller");
+		return null;
+	}	
 //    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
 //    @ResponseBody
 //    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {
 //        return classService.getChooseBigCategory(category);
 //    }
-    
 	@GetMapping("big-category")
 	@ResponseBody
     public ResponseEntity<List<Map<String, Object>>> getBigCategories() {

@@ -23,12 +23,12 @@ public class ClassService {
 	
 	// 소 카테고리
 	public List<Map<String, Object>> getSmallCategory(String big_category) {
-		return mapper.getSmallCategory(big_category);
+		return mapper.selectSmallCategory(big_category);
 	}
 	
 	// 클래스 리스트
 	public List<Map<String, Object>> getClassList(){
-		return mapper.getClassList();
+		return mapper.selectClassList();
 	}
 	
 	// 지역 
@@ -36,13 +36,17 @@ public class ClassService {
 		return mapper.selectCategoryLocal();
 	}
 	
+	// 해시태그
+	public List<Map<String, Object>> getHashtag(){
+		return mapper.selectHashtag();
+	}
 	// 
 	public List<Map<String, Object>> getChooseBigCategory(@RequestParam("category") String category) {
 		return mapper.selectChooseBigCategory(category);
 	}
 	public List<Map<String, Object>> getListSmallCategory() {
 		
-		return mapper.getListSmallCategory();
+		return mapper.selectListSmallCategory();
 	}
 	
 	// 클래스 리뷰

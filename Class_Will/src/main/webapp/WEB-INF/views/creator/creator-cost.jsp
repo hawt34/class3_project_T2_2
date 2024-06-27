@@ -40,6 +40,7 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/creator/creator-cost.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -81,25 +82,15 @@
 										<label for="monthPicker"></label>
     									<input type="month" id="monthPicker" name="monthPicker">
 									</div>
-									<hr>
+									<hr class="text-white">
 								</div>
 							</div>
 							
 							<div class="creator-event mt-5">
-								<p class="text-white">계좌 등록</p>
-								<div class="regist_account">
-									<input type="button" class="col-md-4" value="+" onclick="linkAccount()">
+								<p class="text-white">계좌변경</p>
+								<div class="regist_account mb-5">
+									<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
 								</div>
-								<div class="card col-md-8 mt-2 mb-5">
-								  <div class="card-body">
-								    <p class="card-title h6" align="left">총수익</p>
-								    <div class="d-flex justify-content-center card-content">
-									    <p class="card-text word-break h4 mb-3">금액: 42000000 원</p> 
-								    </div>
-									<p class="card-text word-break " align="left">정산기간 : 0월 한달간</p> 
-								  </div>
-								</div>
-								<hr class="col-md-8">
 								<h5 class="col-md-8 mt-5 text-white" align="left">상세정산</h5>
 								<div class="card col-md-8 my-2">
 								  <div class="card-body">
@@ -125,6 +116,23 @@
 								    </div>
 								  </div>
 								</div>
+								<hr class="col-md-8 text-white">
+								
+								
+								<h5 class="col-md-8 mt-5 text-white" align="left">총정산금</h5>
+								<div class="card col-md-8 mt-2 mb-5">
+								  <div class="card-body">
+								  	<div class="d-flex justify-content-between mb-3">
+									    <p class="card-title h6" align="left">누적 정산금</p>
+										<p class="card-text word-break " align="left">정산기간 : 2024-05 ~</p>
+									</div> 
+								    <div class="d-flex justify-content-center card-content mb-3">
+									    <p class="card-text word-break h4 mb-3">금액: ${SumSettlement} 원</p> 
+								    </div>
+									<button class="btn btn-outline-primary btn-lg">정산받기</button>
+								  </div>
+								</div>
+								
 							</div>
 
 						</div>
@@ -142,21 +150,11 @@
 	</footer>
 
 	<!-- JavaScript Libraries -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- 	<script -->
+<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
-	<!-- Template Javascript -->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded', (event) => {
 	        const monthPicker = document.getElementById('monthPicker');
@@ -177,7 +175,8 @@
 	        monthPicker.value = currentMonth;
 	        monthPicker.max = currentMonth;
 	    });
-	
+		
+		// 계좌 등록
 		function linkAccount() {
 			sessionStorage.setItem("redirectUrl", "creator-cost");
 			// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)

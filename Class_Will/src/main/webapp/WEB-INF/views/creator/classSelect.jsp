@@ -17,6 +17,6 @@
 				</c:forEach>
 			</select>
 		</div>
-		<hr>
+		<hr class="text-white">
 	</div>
 </div>

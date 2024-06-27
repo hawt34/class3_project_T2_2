@@ -15,7 +15,7 @@ public interface ClassMapper {
 	List<Map<String, Object>> selectBigCategoryList();
 	
 	// 소 카테고리
-	List<Map<String, Object>> getSmallCategory(String big_Category);
+	List<Map<String, Object>> selectSmallCategory(String big_Category);
 
 	//
 	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
@@ -23,11 +23,14 @@ public interface ClassMapper {
 	// 카테고리 지역 
 	List<Map<String, Object>> selectCategoryLocal();
 	
+	// 해시태그
+	List<Map<String, Object>> selectHashtag();
+	
 	// 클래스 리스트
-	List<Map<String, Object>> getClassList();
+	List<Map<String, Object>> selectClassList();
 	
 	// 소 카테고리
-	List<Map<String, Object>> getListSmallCategory();
+	List<Map<String, Object>> selectListSmallCategory();
 	
 	// 클래스 리뷰
 	List<Map<String, Object>> selectClassReview(int class_code);

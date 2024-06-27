@@ -40,6 +40,11 @@ public class ClassService {
 	public List<Map<String, Object>> getHashtag(){
 		return mapper.selectHashtag();
 	}
+	
+	// 카테고리바 필터링된 클래스
+	public List<Map<String, Object>> getFilterClass(List<String> bigCategories, List<String> smallCategories, List<String> locals){
+		return mapper.selectFilterClass(bigCategories, smallCategories, locals);
+	}
 	// 
 	public List<Map<String, Object>> getChooseBigCategory(@RequestParam("category") String category) {
 		return mapper.selectChooseBigCategory(category);

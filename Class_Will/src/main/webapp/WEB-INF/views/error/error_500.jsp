@@ -33,13 +33,14 @@
 		<jsp:include page = "../inc/top.jsp"></jsp:include>
 	</header>
 
-	<article align="center">
-		<h1>500 에러</h1>
-		<h3>죄송합니다. 일시적인 오류가 발생하였습니다.</h3>
-		<h5>
-			잠시후 다시 접속하여 주시기 바랍니다.<br>
-			
-		</h5>
+	<article class="col-md-12 d-flex justify-content-center" style="margin: 100px auto;">
+		<div>
+			<h1 class="mb-5">500 에러</h1>
+			<h3 style="line-height: 50px;">죄송합니다. 일시적인 오류가 발생하였습니다.</h3>
+			<h5 style="line-height: 50px;">
+				잠시후 다시 접속하여 주시기 바랍니다.<br>
+			</h5>
+		</div>
 	</article>
 	
 	<footer>

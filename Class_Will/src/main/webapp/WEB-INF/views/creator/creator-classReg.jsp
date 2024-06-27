@@ -213,7 +213,7 @@
 											</div>
 											<div class="mt-5 mb-3" align="center">
 												<button type="submit" value="1" name="class_regist_status" class="btn btn-outline-primary btn-lg">제출하기</button>
-												<button type="submit" value="2" name="class_regist_status" class="btn btn-outline-primary btn-lg" >저장하기</button>
+												<button type="submit" value="3" name="class_regist_status" class="btn btn-outline-primary btn-lg" >저장하기</button>
 												<input type="button" value="돌아가기" class="btn btn-outline-primary btn-lg" onclick="history.back()">
 												<hr class="mb-4">
 											</div>

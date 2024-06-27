@@ -115,6 +115,14 @@ public class CreatorService {
 		return creatorMapper.getinquiryClassInfo(member);
 	}
 	
+	// 누적 정산금 가져오기
+	public Map<String, String> getSumSettlement(MemberVO member) {
+		String settlementDate = creatorMapper.getsettlementDate(member);
+		return creatorMapper.getSumSettlement(member, settlementDate);
+	}
+	
+	
+	
 	
 
 }

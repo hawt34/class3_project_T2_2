@@ -73,4 +73,10 @@ public interface CreatorMapper {
 	// 상태에 따른 클래스 리스트
 	List<Map<String, Object>> getClassStatusInfo(@Param("status") int status,@Param("member") MemberVO member);
 	
+	// 누적 정산금 가져오기
+	Map<String, String> getSumSettlement(MemberVO member);
+	
+	// 정산 날짜 가져오기
+	String getsettlementDate(@Param("member") MemberVO member, @Param("settlementDate") String settlementDate);
+	
 }

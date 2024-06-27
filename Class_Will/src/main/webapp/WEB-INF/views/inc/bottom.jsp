@@ -103,16 +103,27 @@
 		font-size: 20px;
 	}
 	
-	.navbar .navbar-nav .nav-link:hover,
-	.navbar .navbar-nav .nav-link.active,
-	.navbar .navbar-nav .nav-link:hover .nav-link.active {
-	    color: white; /* 호버 상태에서 글자 색을 흰색으로 유지 */
-	    font-weight: bold; /* 호버 상태에서 볼드체 */
+	.bottom-nav-link {
+	    color: white !important;
 	}
-
+	
+	.bottom-nav-link:hover,
+	.bottom-nav-link:focus {
+	    color: white !important;
+	    font-weight: bold;
+	}
+	
+	.bottom-nav-link:active {
+	    color: white !important;
+	    font-weight: bold;
+	}
+	
+	.bottom-nav-link:active .bottom-icon {
+	   font-size: 23px;
+	}
 </style>
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>  
+	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up text-black"></i></a>  
 	
     <!-- Footer Start -->
     <div class="class-will-bottom mt-5">
@@ -174,28 +185,49 @@
 	    </div>
 	    
     
-		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center">
+<!-- 		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center"> -->
     		
-			<ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center">
+<!-- 			<ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center"> -->
 			
-				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
-				</li>
-				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-					<a class="nav-link px-0 mx-2" href="#"  data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
-				</li>
-				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-					<a class="nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
-				</li>
-				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a>
-				</li>
-				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-					<a class="nav-link px-0 mx-2" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a>
-				</li>
+<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
+<!-- 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a> -->
+<!-- 				</li> -->
+<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
+<!-- 					<a class="nav-link px-0 mx-2" href="#"  data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a> -->
+<!-- 				</li> -->
+<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
+<!-- 					<a class="nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a> -->
+<!-- 				</li> -->
+<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
+<!-- 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a> -->
+<!-- 				</li> -->
+<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
+<!-- 					<a class="nav-link px-0 mx-2" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a> -->
+<!-- 				</li> -->
 				
-			</ul>
-		</div>	
+<!-- 			</ul> -->
+<!-- 		</div>	 -->
+
+		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center">
+		    <ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center">
+		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+		            <a class="nav-link bottom-nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
+		        </li>
+		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+		            <a class="nav-link bottom-nav-link px-0 mx-2" href="#" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
+		        </li>
+		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+		            <a class="nav-link bottom-nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
+		        </li>
+		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+		            <a class="nav-link bottom-nav-link px-0 mx-2" href="./"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a>
+		        </li>
+		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
+		            <a class="nav-link bottom-nav-link px-0 mx-2" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a>
+		        </li>
+		    </ul>
+		</div>
+		
 
 	</div>
     <!-- Footer End -->

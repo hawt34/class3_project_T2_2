@@ -385,12 +385,54 @@
 			code_hide = 'N'
 	</select>
 	
+	<!-- 멤버 타입 변경 -->
 	<update id="updateMemberType">
 		UPDATE MEMBER
 		SET member_type = 2
 		WHERE member_email = #{member_email}
-	
 	</update>
+	
+	<!-- settlement 값 가져오기 -->
+	<select id="getsettlementDate">
+		SELECT settlement_date
+		FROM settlement
+		where member_code = #{member_code}
+	</select>
+	
+	<!-- 누적 정산금 가져오기 -->
+	<select id="getSumSettlement" resultType="map">
+		SELECT IFNULL(SUM(total_amount), 0) AS total_sum
+		FROM(
+			SELECT 
+				(IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount
+			FROM 
+				MEMBER m
+			LEFT JOIN 
+				class c
+			ON 
+				m.member_code = c.member_code
+			LEFT JOIN 
+				class_schedule cs 
+			ON 
+				cs.class_code = c.class_code 
+			JOIN 
+				pay p
+			ON 
+				p.class_schedule_code  = cs.class_schedule_code 
+			left JOIN 
+				settlement st
+			ON 
+				st.member_code = m.member_code 
+			WHERE 
+				c.member_code = #{member.member_code}
+			<if test="!settlementDate.equals('')">
+			AND 
+				DATE_FORMAT(cs.class_schedule_date, '%Y-%m') BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m')
+															 AND #{settlementDate}
+			</if>
+		) AS subquery;
+		
+	</select>
 	
 	
 

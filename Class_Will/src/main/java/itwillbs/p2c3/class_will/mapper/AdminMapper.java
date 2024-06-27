@@ -81,6 +81,15 @@ public interface AdminMapper {
 
 	int registClass(String class_code);
 
+	List<Map<String, String>> selectClassReportData(String status);
+
+	Map<String, String> selectClssReportDetail(int class_report_code);
+
+	int updateClassReportStatus(@Param("class_report_code") String class_report_code,@Param("status") String status);
+
+	int updateClassStatusHide(String class_code);
+
+
 	
 
 }

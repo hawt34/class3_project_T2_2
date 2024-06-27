@@ -154,6 +154,24 @@ public class AdminService {
 	public boolean registClass(String class_code) {
 		return adminMapper.registClass(class_code) > 0 ? true : false;
 	}
+
+	public List<Map<String, String>> getClassReportData(String status) {
+		return adminMapper.selectClassReportData(status);
+	}
+
+	public Map<String, String> getClassReportDetail(int class_report_code) {
+		return adminMapper.selectClssReportDetail(class_report_code);
+	}
+
+
+	public boolean updateClassReportStatus(String class_report_code, String status) {
+		return adminMapper.updateClassReportStatus(class_report_code, status) > 0 ? true : false;
+	}
+
+	public boolean updateClassStatusHide(String class_code) {
+		return adminMapper.updateClassStatusHide(class_code) > 0 ? true : false;
+	}
+
 	
 	
 }

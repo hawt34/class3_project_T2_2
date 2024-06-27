@@ -133,8 +133,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">신고 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Csc">클래스 신고</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/Admin/Csc">1대1채팅 신고</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리중">클래스 신고</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리완료">1대1채팅 신고</a>
                     </div>
                 </div>
             </li>

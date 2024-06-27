@@ -378,4 +378,75 @@
 		WHERE class_code = #{class_code}
 	</update>
 	
+	<select id="selectClassReportData" resultType="map">
+		SELECT class_report_code
+			  ,c2.code_value AS 'class_report_big_category'
+			  ,c3.code_value  AS 'class_report_small_category'
+			  ,class_report_content
+			  ,class_report_status
+			  ,c.class_name 
+			  ,m.member_email 
+		FROM class_report cr
+		LEFT JOIN common2 c2
+		ON cr.class_report_big_category = c2.common2_code
+		AND c2.common1_code = "RPC"
+		LEFT JOIN common3 c3
+		ON cr.class_report_small_category = c3.common3_code
+		AND c3.common1_code = "RPC"
+		AND c3.common2_code = c2.common2_code 
+		LEFT JOIN class c 
+		ON c.class_code = cr.class_code
+		LEFT JOIN MEMBER m
+		ON m.member_code = cr.member_code
+		WHERE class_report_status  
+		<if test="status.equals('처리완료')">
+			IN ('숨김처리', '신고취소')
+		</if>
+		<if test="status.equals('처리중')">
+			= '처리중'
+		</if>
+	</select>
+	
+	<select id="selectClssReportDetail" resultType="map">
+		SELECT class_report_code
+			  ,c2.code_value AS 'class_report_big_category'
+			  ,c3.code_value  AS 'class_report_small_category'
+			  ,class_report_content
+			  ,class_report_status
+			  ,c.class_name 
+			  ,m.member_email 
+			  ,cr.class_code
+		FROM class_report cr
+		LEFT JOIN common2 c2
+		ON cr.class_report_big_category = c2.common2_code
+		AND c2.common1_code = "RPC"
+		LEFT JOIN common3 c3
+		ON cr.class_report_small_category = c3.common3_code
+		AND c3.common1_code = "RPC"
+		AND c3.common2_code = c2.common2_code 
+		LEFT JOIN class c 
+		ON c.class_code = cr.class_code
+		LEFT JOIN MEMBER m
+		ON m.member_code = cr.member_code
+		WHERE class_report_code = #{class_report_code}
+	</select>
+	
+	<update id="updateClassReportStatus">
+		UPDATE class_report
+		SET class_report_status = 
+		<if test="status.equals('hide')">
+			"숨김처리"	
+		</if>
+		<if test="status.equals('cancel')">
+			"신고취소"			
+		</if>
+		WHERE class_report_code = #{class_report_code}
+	</update>
+	
+	<update id="updateClassStatusHide">
+		UPDATE class
+		SET class_active = "N"
+		WHERE class_code = #{class_code}
+	</update>	
+	
 </mapper>

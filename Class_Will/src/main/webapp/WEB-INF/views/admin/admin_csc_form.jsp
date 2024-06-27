@@ -42,7 +42,6 @@
 					        FAQ
 					    </c:when>
 					</c:choose>
-					
 					<c:choose>
 					    <c:when test="${registType eq 'modify'}">
 					        수정

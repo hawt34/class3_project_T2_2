@@ -45,6 +45,7 @@ import itwillbs.p2c3.class_will.service.CscService;
 import itwillbs.p2c3.class_will.service.ExcelService;
 import itwillbs.p2c3.class_will.vo.CategoryData;
 import itwillbs.p2c3.class_will.vo.GroupedData;
+import retrofit2.http.GET;
 
 @Controller
 public class AdminController {
@@ -570,7 +571,57 @@ public class AdminController {
     	return result;
     }
     
+    @GetMapping("admin-report")
+    public String classReport(@RequestParam(defaultValue = "처리중") String status, Model model) {
+    	List<Map<String, String>> list = adminService.getClassReportData(status);
+		List<JSONObject> jo_list = new ArrayList<JSONObject>();
+		
+		for(Map<String, String> report : list) {
+            JSONObject jo = new JSONObject(report);
+            jo_list.add(jo);
+		}
+    	model.addAttribute("jo_list", jo_list);
+    	
+    	return "admin/admin_report";
+    }
     
+    @GetMapping("admin-class-report-detail")
+    public String classReportDetail(int class_report_code, Model model) {
+    	Map<String, String> report = adminService.getClassReportDetail(class_report_code);
+    	String category = report.get("class_report_big_category") + " / " + report.get("class_report_small_category");
+    	report.put("category", category);
+    	
+    	model.addAttribute("report", report);
+    	return "admin/admin_class_report_detail";
+    }
+    
+    @ResponseBody
+    @PostMapping("hideClass")
+    public boolean hideClass(@RequestParam Map<String, Object> params,Model model) {
+    	String class_code = (String)params.get("class_code");
+    	String class_report_code = (String)params.get("class_report_code");
+    	boolean isSuccess = adminService.updateClassReportStatus(class_report_code, "hide");
+    	if(!isSuccess) {
+    		return isSuccess;
+    	}
+    	isSuccess = adminService.updateClassStatusHide(class_code);
+    	if(!isSuccess) {
+    		return isSuccess;
+    	}
+    	
+    	return true;
+    }
+    
+    @ResponseBody
+    @PostMapping("cancelReport")
+    public boolean cancelReport(@RequestParam Map<String, Object> params) {
+    	String class_report_code = (String)params.get("class_report_code");
+    	boolean isSuccess = adminService.updateClassReportStatus(class_report_code, "cancel");
+    	if(!isSuccess) {
+    		return isSuccess;
+    	}
+    	return true;
+    }
     
 }
 	

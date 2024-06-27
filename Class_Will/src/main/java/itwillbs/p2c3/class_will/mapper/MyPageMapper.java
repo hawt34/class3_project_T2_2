@@ -23,5 +23,9 @@ public interface MyPageMapper {
 	int updateMember(MemberVO member);
 
 	int countNickname(String member_nickname);
+
+	void updateMemberNormal(String member_Code);
+
+	MemberVO selectMember(int member_code);
 	
 }

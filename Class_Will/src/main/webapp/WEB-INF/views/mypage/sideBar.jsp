@@ -18,7 +18,7 @@ a {
 	<div class="row g-4">
 		<div class="col-lg-12">
 			<div class="mb-3">
-				<div style="margin-bottom: 10px ">
+				<div style="margin-bottom: 10px">
 					<c:choose>
 						<c:when test="${member.member_img != null}">
 							<img
@@ -39,7 +39,12 @@ a {
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
 							<a href="my-page" class="h5"><i class="fas fa-user fa-1x"></i>&nbsp;
-								${member.member_name}님 </a>
+								${member.member_name}님 <c:choose>
+								<c:when test="${member.member_type eq 1}">일반회원</c:when>
+								<c:when test="${member.member_type eq 2}">크리에이터</c:when>
+								<c:otherwise>관리자님..</c:otherwise>
+							</c:choose></a>
+							
 						</div>
 					</li>
 					<li>
@@ -68,12 +73,14 @@ a {
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="my-powerup" class="h5"><i class="bi bi-sunrise-fill"></i>&nbsp; 나의 성장</a>
+							<a href="my-powerup" class="h5"><i class="bi bi-sunrise-fill"></i>&nbsp;
+								나의 성장</a>
 						</div>
 					</li>
 					<li>
 						<div class="d-flex justify-content-between fruite-name">
-							<a href="my-modify" class="h5"><i class="bi bi-gear"></i>&nbsp; 회원정보변경</a>
+							<a href="my-modify" class="h5"><i class="bi bi-gear"></i>&nbsp;
+								회원정보변경</a>
 						</div>
 					</li>
 					<li>
@@ -114,14 +121,14 @@ a {
 						<img id="previewImage" src="#" alt="이미지 미리보기"
 							style="width: 150px; height: 150px" />
 					</div>
-					
+
 					<div class="form-group">
-					<button type="submit" class="btn btn-primary">업로드</button>
-					<button type="button" class="btn btn-primary"
-						onclick="cancelUpload()">취소</button>
-					<input type="button" value="이미지삭제" class="btn btn-primary"
-						onclick="resetImg()">
-					</div>	
+						<button type="submit" class="btn btn-primary">업로드</button>
+						<button type="button" class="btn btn-primary"
+							onclick="cancelUpload()">취소</button>
+						<input type="button" value="이미지삭제" class="btn btn-primary"
+							onclick="resetImg()">
+					</div>
 				</form>
 			</div>
 		</div>
@@ -190,7 +197,7 @@ a {
 					location.reload(); // 부모창 새로고침
 
 				},
-				
+
 				error : function(response) {
 					alert('이미지 업로드 실패!');
 				}

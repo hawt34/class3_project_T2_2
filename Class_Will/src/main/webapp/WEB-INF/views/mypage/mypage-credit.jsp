@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -110,8 +113,9 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">
-			마이페이지<i class="bi bi-wallet"></i>윌페이 </h1>
-		
+			마이페이지<i class="bi bi-wallet"></i>윌페이
+		</h1>
+
 	</div>
 
 	<div class="container-fluid fruite">
@@ -123,12 +127,16 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-						
+
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">윌페이 사용 내역</div>	
+								<div class="col-md-12 text-center h2 mb-5">윌페이 사용 내역</div>
 								<div class="container">
-									<h2>윌페이</h2><a href="will-pay-charge" class="btn btn-primary">계좌 등록 및 충전</a>
+									<c:set var="credit" value="${member.member_credit}" />
+									
+									<h2>윌페이 잔액 <fmt:formatNumber value="${credit}" type="number" pattern="#,##0" /> 원</h2>
+									<a href="will-pay-charge" class="btn btn-primary">계좌 등록 및
+										충전</a>
 									<p>사용 내역</p>
 									<table class="table table-hover">
 										<thead>
@@ -136,15 +144,15 @@ th:nth-child(2), td:nth-child(2) {
 												<th>신청 클래스</th>
 												<th>강의 진도</th>
 												<th>결제 상태</th>
-												
+
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
-												<td>라면 </td>
+												<td>라면</td>
 												<td>면 꼬들</td>
 												<td>john@example.com</td>
-												
+
 											</tr>
 											<tr>
 												<td>짜파게티</td>

@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import itwillbs.p2c3.class_will.handler.CommonUtils;
+import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.MyPageService;
@@ -56,26 +58,41 @@ public class MyPageController {
 
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
-		if (member == null) { // 실패
-			model.addAttribute("msg", "로그인이 필요한 페이지입니다");
-			model.addAttribute("targetURL", "member-login");
-			return "result_process/fail";
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
-			System.out.println("여기는 마이페이지" + member);
 			return "mypage/mypage";
 		}
 	}
 
-	// 위시리스트
+	// 관심 클래스
 	@GetMapping("my-wish")
-	public String myWish() {
-		return "mypage/mypage-wish";
+	public String myWish(Model model) {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		// System.out.println("리뷰쪽 시작"+member.getMember_code());
+
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+		} else {
+			return "mypage/mypage-wish";
+		}
+
 	}
 
 	// 마이클래스
 	@GetMapping("my-class")
-	public String myClass() {
-		return "mypage/mypage-class";
+	public String myClass(Model model) {
+
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		// System.out.println("리뷰쪽 시작"+member.getMember_code());
+
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+		} else {
+			return "mypage/mypage-class";
+		}
+
 	}
 
 	// 내가 쓴 리뷰
@@ -85,12 +102,9 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		// System.out.println("리뷰쪽 시작"+member.getMember_code());
 
-		if (member == null) { // 실패
-			model.addAttribute("msg", "로그인이 필요한 페이지입니다");
-			model.addAttribute("targetURL", "member-login");
-			return "result_process/fail";
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
-
 			List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member.getMember_code());
 
 			model.addAttribute("member", member);
@@ -98,8 +112,8 @@ public class MyPageController {
 			// System.out.println(memberReviews);
 
 			return "mypage/mypage-review";
-
 		}
+
 	}
 
 	// 리뷰 등록
@@ -115,7 +129,7 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) { // 실패
-			
+
 			return "error/error_404";
 		} else {
 			model.addAttribute("member", member);
@@ -137,7 +151,7 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) { // 실패
-			
+
 			return "error/error_404";
 		} else {
 			model.addAttribute("member", member);
@@ -157,7 +171,7 @@ public class MyPageController {
 	public String deleteReview(Model model, @RequestParam Map<String, String> map) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		if (member == null) { // 실패
-			
+
 			return "error/error_404";
 		} else {
 
@@ -179,8 +193,15 @@ public class MyPageController {
 
 	// 크레딧관련
 	@GetMapping("my-credit")
-	public String myCredit() {
-		return "mypage/mypage-credit";
+	public String myCredit(Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+		} else {
+			return "mypage/mypage-credit";
+		}
+
 	}
 
 	// 이미지 업로드 관련
@@ -259,7 +280,7 @@ public class MyPageController {
 			if (updateCount > 0) {
 				return "redirect:/my-page";
 			} else {
-				return "error/fail";
+				return "result_process/fail";
 			}
 		}
 	}
@@ -268,16 +289,16 @@ public class MyPageController {
 	@GetMapping("my-modify")
 	public String myModify(Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		if (member == null) { // 실패
-			model.addAttribute("msg", "권한이 없습니다.");
-			model.addAttribute("targetURL", "member-login");
-			return "result_process/fail";
+		
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
-
-			model.addAttribute("member", member);
-
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
 			return "mypage/mypage-modify";
 		}
+
 	}
 
 	// 회원수정폼 관련
@@ -315,9 +336,9 @@ public class MyPageController {
 				model.addAttribute("msg", "회원정보가 수정되었습니다");
 				model.addAttribute("targetURL", "my-page");
 				return "result_process/success";
-				//return "redirect:/my-page";
+				// return "redirect:/my-page";
 			} else {
-				return "error/fail";
+				return "result_process/fail";
 			}
 
 		}
@@ -328,6 +349,21 @@ public class MyPageController {
 	public ResponseEntity<Boolean> checkNickname(@RequestParam String member_nickname) {
 		boolean isDuplicate = myPageService.nicknameDuplicate(member_nickname);
 		return new ResponseEntity<>(isDuplicate, HttpStatus.OK);
+	}
+
+	// 크리에이터가 일반회원으로 전환 ajax
+	@PostMapping("change-nomal")
+	@ResponseBody
+	public String changeNomal(Model model, @RequestParam("member_code") String member_code) {
+		try {
+			// 멤버 정보 업데이트
+			myPageService.updateNomal(member_code);
+
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error"; // 실패했을 경우 클라이언트에게 error 반환
+		}
 	}
 
 }

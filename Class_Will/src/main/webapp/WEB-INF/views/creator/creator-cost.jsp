@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -75,61 +76,61 @@
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body" align="center">
-						<!-- 	셀렉트박스 -->
+							<!-- 날짜 선택 셀렉트박스 -->
 							<div class="col-md-6  mb-5" >
 								<div class="col-xl-8">
 									<div class="bg-light rounded py-2 mb-4">
 										<label for="monthPicker"></label>
     									<input type="month" id="monthPicker" name="monthPicker">
 									</div>
-									<hr class="text-white">
+<!-- 									<hr class="text-white"> -->
 								</div>
 							</div>
 							
-							<div class="creator-event mt-5">
+							<div class="creator-event my-3">
+								<h5 class="col-md-8 mt-5 text-white" align="left">상세정산</h5>
+								<div class="card col-md-8 my-1 card-body">
+<!-- 								    <div class="d-flex justify-content-start card-content"> -->
+<!-- 									    <p class="card-text">상태&nbsp;:</p> -->
+<!-- 									    <p class="card-text">&nbsp;지급완료</p> -->
+<!-- 								    </div> -->
+								    <div class="d-flex justify-content-between card-content">
+									    <p class="card-text h6">원데이클래스 수익&nbsp;:</p>
+									    <p class="card-text h6 classIncome"></p>
+									    
+								    </div>
+								    <div class="d-flex justify-content-between card-content">
+									    <p class="card-text h6">수수료(10%)&nbsp;:</p>
+									    <p class="card-text h6 classFee"></p>
+								    </div>
+								    <div class="d-flex justify-content-between card-content">
+									    <p class="card-text h4">정산금&nbsp;:</p>
+									    <p class="card-text h4 totalSettle"></p>
+								    </div>
+								</div>
+								
+								<hr class="col-md-8 text-white mt-5">
+								
 								<p class="text-white">계좌변경</p>
 								<div class="regist_account mb-5">
 									<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
 								</div>
-								<h5 class="col-md-8 mt-5 text-white" align="left">상세정산</h5>
-								<div class="card col-md-8 my-2">
-								  <div class="card-body">
-								    <div class="d-flex justify-content-start card-content">
-									    <p class="card-text">상태&nbsp;:</p>
-									    <p class="card-text">&nbsp;지급완료</p>
-								    </div>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text h6">원데이클래스 수익&nbsp;:</p>
-									    <p class="card-text h6">&nbsp;2400000 원</p>
-								    </div>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text h6">정기클래스 수익&nbsp;:</p>
-									    <p class="card-text h6">&nbsp;2300000 원</p>
-								    </div>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text h6">부가세&nbsp;:</p>
-									    <p class="card-text h6">&nbsp;300000 원</p>
-								    </div>
-								    <div class="d-flex justify-content-between card-content">
-									    <p class="card-text h4">합계&nbsp;:</p>
-									    <p class="card-text h4">&nbsp;4200000 원</p>
-								    </div>
-								  </div>
-								</div>
-								<hr class="col-md-8 text-white">
 								
+								<hr class="col-md-8 text-white">
 								
 								<h5 class="col-md-8 mt-5 text-white" align="left">총정산금</h5>
 								<div class="card col-md-8 mt-2 mb-5">
 								  <div class="card-body">
 								  	<div class="d-flex justify-content-between mb-3">
 									    <p class="card-title h6" align="left">누적 정산금</p>
-										<p class="card-text word-break " align="left">정산기간 : 2024-05 ~</p>
+										<p class="card-text word-break " >정산기간 : ${settlementDate} ~</p>
 									</div> 
-								    <div class="d-flex justify-content-center card-content mb-3">
-									    <p class="card-text word-break h4 mb-3">금액: ${SumSettlement} 원</p> 
-								    </div>
-									<button class="btn btn-outline-primary btn-lg">정산받기</button>
+									<form action="creatorSettlement" method="Post">
+									    <div class="d-flex justify-content-center card-content mb-3">
+										    <input type="text" class="card-text word-break h4 mb-3 form-control col-md-4" disabled name="total_sum" value="금액 : ${SumSettlement.total_sum} 원" pattern="#,###"> 
+									    </div>
+										<button type="submit" class="btn btn-outline-primary btn-lg settlement">정산받기</button>
+									</form>
 								  </div>
 								</div>
 								
@@ -166,7 +167,7 @@
 	        // Correctly retrieve year and month
 	        const year = today.getFullYear();
 	        console.log('Year:' +  year); // Debugging output
-	        const month = String(today.getMonth()).padStart(2, '0'); // Ensure month is two digits
+	        const month = String(today.getMonth()+1).padStart(2, '0'); // Ensure month is two digits
 	        console.log('Month: ' + month); // Debugging output
 	
 	        // Set default value to current month
@@ -180,7 +181,7 @@
 		function linkAccount() {
 			sessionStorage.setItem("redirectUrl", "creator-cost");
 			// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)
-			let authWindow = window.open("about:blank", "authWindow", "width=500, height=700" );
+			let authWindow = window.open("about:blank", "authWindow", "width=500, height=700, left=700, top=100" );
 			authWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?"
 							+ "response_type=code"
 							+ "&client_id=4066d795-aa6e-4720-9383-931d1f60d1a9"
@@ -189,6 +190,40 @@
 							+ "&state=12345678901234567890123456789012"
 							+ "&auth_type=0";
 		}
+		
+		// 월에 따른 정산금 불러오기
+		$(function() {
+			if(${SumSettlement.total_sum} == 0){
+				$(".settlement").prop('disabled', true);
+			}
+			
+			var monthPicker = $("#monthPicker").val();
+			monthPick(monthPicker);
+			
+			$("#monthPicker").change(function() {
+				var monthPicker = $("#monthPicker").val();
+				monthPick(monthPicker);
+			});
+			
+			function monthPick(monthPicker) {
+				$.ajax({
+					url: "getMonthSettlement",
+					method: "get",
+					data: { "monthPicker" : monthPicker },
+					success: function(data) {
+						console.log(data);
+						$(".classIncome").text(formatNumber(data.total_sum) + ' 원');
+						$(".classFee").text(formatNumber(data.total_sum * 0.1)  + ' 원');
+						$(".totalSettle").text(formatNumber(data.total_sum * 0.9)  + ' 원');
+					}
+				});
+			}
+			
+			function formatNumber(number) {
+			    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			
+		});
 	</script>
 
 </body>

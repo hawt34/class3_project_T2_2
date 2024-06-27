@@ -116,9 +116,28 @@ public class CreatorService {
 	}
 	
 	// 누적 정산금 가져오기
-	public Map<String, String> getSumSettlement(MemberVO member) {
-		String settlementDate = creatorMapper.getsettlementDate(member);
+	public Map<String, String> getSumSettlement(MemberVO member, String settlementDate) {
 		return creatorMapper.getSumSettlement(member, settlementDate);
+	}
+
+	// 한달 정산금 가져오기
+	public Map<String, Object> getMonthSettlement(String monthPicker, MemberVO member) {
+		return creatorMapper.getMonthSettlement(monthPicker, member);
+	}
+
+	// 정산 날짜 가져오기
+	public String getsettlementDate(MemberVO member) {
+		return creatorMapper.getsettlementDate(member);
+	}
+
+	// 정산하기
+	public void settlementPro(MemberVO member, int total_sum) {
+		String settlementDate = creatorMapper.checkSettlement(member);
+		if(!settlementDate.equals("0")) {
+			creatorMapper.insertSettlement(member, total_sum);
+		} else {
+			creatorMapper.updateSettlement(member, total_sum);
+		}
 	}
 	
 	

@@ -401,7 +401,7 @@
 	
 	<!-- 누적 정산금 가져오기 -->
 	<select id="getSumSettlement" resultType="map">
-		SELECT IFNULL(SUM(total_amount), 0) AS total_sum
+		SELECT CONVERT(IFNULL(SUM(total_amount), 0), SIGNED) AS total_sum
 		FROM(
 			SELECT 
 				(IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount
@@ -425,15 +425,66 @@
 				st.member_code = m.member_code 
 			WHERE 
 				c.member_code = #{member.member_code}
-			<if test="!settlementDate.equals('')">
+			<if test="!settlementDate == null">
 			AND 
-				DATE_FORMAT(cs.class_schedule_date, '%Y-%m') BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m')
+				DATE_FORMAT(cs.class_schedule_date, '%Y-%m') BETWEEN  DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m')
 															 AND #{settlementDate}
 			</if>
+			AND 
+				DATE_FORMAT(CURDATE(), '%Y-%m') > DATE_FORMAT(cs.class_schedule_date, '%Y-%m')  
 		) AS subquery;
-		
 	</select>
 	
+	<!-- 한달 정산금 -->
+	<select id="getMonthSettlement" resultType="map">
+	SELECT CONVERT(IFNULL(SUM(total_amount), 0), SIGNED) AS total_sum
+	FROM(
+		SELECT (IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount
+		FROM MEMBER m
+		LEFT JOIN class c
+		ON m.member_code = c.member_code
+		LEFT JOIN class_schedule cs 
+		ON cs.class_code = c.class_code 
+		JOIN pay p
+		ON p.class_schedule_code  = cs.class_schedule_code 
+		WHERE c.member_code = #{member.member_code}
+		AND cs.class_schedule_date LIKE CONCAT(#{monthPicker}, '%')
+	) AS subquery;
+	</select>
+	
+	<!-- settlement 테이블에 데이터 조회 -->
+	<select id="checkSettlement" resultType="String">
+		SELECT IFNULL(settlement_date, '0')
+		FROM settlement
+		WHERE member_code = #{member_code}
+		LIMIT 1
+	</select>	
+	
+	<!-- settlement 테이블에 데이터 삽입 -->
+	<insert id="insertSettlement">
+		INSERT INTO settlement(
+			member_code
+			, settlement_amt
+			, settlement_date
+			, settlement_month
+		)
+		VALUES(
+			#{member.member_code}
+			, #{total_sum}
+			, DATE_FORMAT(CURDATE(), '%Y-%m')
+			, DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m')
+		)
+	</insert>
+
+	<!-- settlement 테이블에 데이터 업데이트 -->
+	<update id="updateSettlement">
+		UPDATE settlement
+		SET 
+			settlement_amt =  #{total_sum}
+			, settlement_date = settleDATE_FORMAT(CURDATE(), '%Y-%m')
+			, settlement_month = DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m')
+		WHERE member_code = #{member.member_code}
+	</update>
 	
 
 

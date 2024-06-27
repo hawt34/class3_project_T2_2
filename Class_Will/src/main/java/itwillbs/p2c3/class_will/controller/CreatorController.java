@@ -444,12 +444,37 @@ public class CreatorController {
 			model.addAttribute("targetURL", "./");
 			return "result_process/fail";
 		}
-//		creatorService.getMonthSettlement();
-		Map<String, String> SumSettlement = creatorService.getSumSettlement(member);
-//		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
-//		model.addAttribute("classList", classList);
+		
+		String settlementDate = creatorService.getsettlementDate(member);
+		Map<String, String> SumSettlement = creatorService.getSumSettlement(member, settlementDate);
+		
+		model.addAttribute("settlementDate", settlementDate);
 		model.addAttribute("SumSettlement", SumSettlement);
 		
+		return "creator/creator-cost";
+	}
+	
+	@ResponseBody
+	@GetMapping("getMonthSettlement")
+	public Map<String, Object> getMonthSettlement(@RequestParam String monthPicker, HttpSession session, Model model) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		Map<String, Object> monthSettlement = creatorService.getMonthSettlement(monthPicker, member);
+		System.out.println(">>>>>>>>>>>>monthSettlement" + monthSettlement);
+		return monthSettlement;
+	}
+	
+	@PostMapping("creator-settlement")
+	public String creatorSettlement(@RequestParam(defaultValue = "0") int total_sum, HttpSession session, Model model) {
+		System.out.println(">>>>>>>>>>total_sum" + total_sum);
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		creatorService.settlementPro(member, total_sum);
 		
 		return "creator/creator-cost";
 	}

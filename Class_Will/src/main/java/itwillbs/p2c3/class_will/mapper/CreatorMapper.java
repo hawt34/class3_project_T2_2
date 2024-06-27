@@ -74,9 +74,21 @@ public interface CreatorMapper {
 	List<Map<String, Object>> getClassStatusInfo(@Param("status") int status,@Param("member") MemberVO member);
 	
 	// 누적 정산금 가져오기
-	Map<String, String> getSumSettlement(MemberVO member);
+	Map<String, String> getSumSettlement(@Param("member")MemberVO member, @Param("settlementDate") String settlementDate);
 	
 	// 정산 날짜 가져오기
-	String getsettlementDate(@Param("member") MemberVO member, @Param("settlementDate") String settlementDate);
+	String getsettlementDate(MemberVO member);
+	
+	// 한달 정산금 가져오기
+	Map<String, Object> getMonthSettlement(@Param("monthPicker") String monthPicker, @Param("member") MemberVO member);
+
+	// settlement 데이터 확인
+	String checkSettlement(MemberVO member);
+	
+	// settlement 데이터 삽입
+	void insertSettlement (@Param("member")MemberVO member, @Param("total_sum")int total_sum);
+
+	// settlement 데이터 업데이트
+	void updateSettlement (@Param("member")MemberVO member, @Param("total_sum")int total_sum);
 	
 }

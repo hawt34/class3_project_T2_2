@@ -125,6 +125,8 @@ public class MemberController {
 		} 
 		
 		
+		
+		
 	} // memberLoginPro()
 	
 	// 멤버 로그아웃
@@ -240,8 +242,7 @@ public class MemberController {
 	
 	
 	
-	
-	
+
 	
 	
 	

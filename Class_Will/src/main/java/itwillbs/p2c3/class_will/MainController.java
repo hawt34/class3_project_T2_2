@@ -126,12 +126,16 @@ public class MainController {
 	} // localCategory()
 	
 	
-	
+	// top & bottom 검색창
 	@PostMapping("search-keyword")
 	public String searchKeyword(@RequestParam String keyword) {
 		
-		return "";
+		System.out.println("keyword : " + keyword);
 		
-	}
+		
+		return "class/class-list";
+		
+	} // searchKeyword()
+
 
 }

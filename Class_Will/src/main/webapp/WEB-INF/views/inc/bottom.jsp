@@ -121,6 +121,8 @@
 	.bottom-nav-link:active .bottom-icon {
 	   font-size: 23px;
 	}
+	
+	
 </style>
 	<!-- Back to Top -->
 	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up text-black"></i></a>  
@@ -214,7 +216,7 @@
 		            <a class="nav-link bottom-nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a>
 		        </li>
 		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-		            <a class="nav-link bottom-nav-link px-0 mx-2" href="#" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
+		            <a class="nav-link search-btn2 bottom-nav-link px-0 mx-2 " href="#"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a>
 		        </li>
 		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
 		            <a class="nav-link bottom-nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
@@ -227,6 +229,49 @@
 		        </li>
 		    </ul>
 		</div>
+
+		<!-- Add the searchModal here -->
+<!-- 		<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true"> -->
+<!-- 		    <div class="modal-dialog"> -->
+<!-- 		        <div class="modal-content"> -->
+<!-- 		            <div class="modal-header"> -->
+<!-- 		                <h5 class="modal-title" id="searchModalLabel">Search</h5> -->
+<!-- 		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 		            </div> -->
+<!-- 		            <div class="modal-body"> -->
+<!-- 		                Modal content here -->
+<!-- 		            </div> -->
+<!-- 		        </div> -->
+<!-- 		    </div> -->
+<!-- 		</div> -->
+
+
+<!-- 		<div id="search-box-area"> -->
+<!-- 		    <div class="modal-content"> -->
+<!-- 		        <div class="modal-header"> -->
+<!-- 		            <span class="close">&times;</span> -->
+<!-- 		        </div> -->
+<!-- 		        <div class="modal-body"> -->
+<!-- 		            <form action="search-keyword" class="search-box d-flex justify-content-center" method="post"> -->
+<!-- 						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터"> -->
+<!-- 						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"> -->
+<!-- 							<i class="bi bi-search bi-top"></i> -->
+<!-- 						</button> -->
+<!-- 					</form> -->
+<!-- 		        </div> -->
+<!-- 		        <div class="recommended-terms"> -->
+<!-- 		            추천 검색어 영역 -->
+<!-- 		            추천 검색어:  -->
+<!-- 		            <ul> -->
+<!-- 		                <li>추천어 1</li> -->
+<!-- 		                <li>추천어 2</li> -->
+<!-- 		                <li>추천어 3</li> -->
+<!-- 		            </ul> -->
+<!-- 		        </div> -->
+<!-- 		    </div> -->
+<!-- 		</div> -->
+
+			
 		
 
 	</div>
@@ -235,6 +280,8 @@
     
 	<script>
 		(function(){
+			
+			// 챗봇
 			var w=window;
 			if(w.ChannelIO){
 				return w.console.error("ChannelIO script included twice.");
@@ -256,8 +303,12 @@
 			if(document.readyState==="complete"){l();}
 			else{w.addEventListener("DOMContentLoaded",l);
 			w.addEventListener("load",l);}})();
-		ChannelIO('boot', {
+			ChannelIO('boot', {
 			"pluginKey": "e4e4b39e-51da-4d32-b93f-b4e5dcacd689" // fill your plugin key
+			
+			
+			
+			
 		});
 		
 	</script>

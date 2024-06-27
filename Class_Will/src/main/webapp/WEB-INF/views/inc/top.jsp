@@ -231,20 +231,40 @@
 	
 }
 
-
-#search-box-area {
-	position: fixed;
-    top: 0px;
-/*     display: flex; */
+.search-box-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;  
     align-items: center;
     justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
     z-index: 999;
-	background: black;
-	height: 200px;
-  	display: none;  
-	margin: 0 auto;
-	border: 1px solid green;
 }
+
+.search-box-area .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.search-box-area .modal-header .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
 
 
 
@@ -281,6 +301,9 @@
             target.addEventListener('mouseenter', () => openCollapse(target));
             target.addEventListener('mouseleave', () => closeCollapse(target));
         });
+        
+        
+       
     });
     
     function logout() {
@@ -378,9 +401,7 @@
 								<div class="col d-none d-lg-flex justify-content-end px-4">
 									<form class="search-box">
 										<input class="search-txt align-items-center" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-										<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-											<i class="bi bi-search bi-top"></i>
-										</button>
+										<button class="search-btn" type="button" ><i class="bi bi-search bi-top"></i></button>
 									</form>
 								</div>
 							</div>   
@@ -396,9 +417,6 @@
 	                        </a>
 	                    </div>
 	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3">
-	<!--                         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav"> -->
-	<!--                             <span class="navbar-toggler-icon"></span> -->
-	<!--                         </button> -->
 	                         <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
 		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
@@ -458,68 +476,93 @@
 	</div> <!-- container-fluid -->
 	<!-- Navbar End -->
 	
-	<!-- Modal Search Start -->
-	<div class="modal fade" id="searchModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content rounded-0">
-	            <div class="modal-header">
-	                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	            </div>
-	            <div class="modal-body d-flex align-items-center">
-	                <div class="input-group w-75 mx-auto d-flex">
-	                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-	                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-	                </div>
-	            </div>
+<!-- 	<!-- Modal Search Start --> 
+<!-- 	<div class="modal fade" id="searchModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 	    <div class="modal-dialog"> -->
+<!-- 	        <div class="modal-content rounded-0"> -->
+<!-- 	            <div class="modal-header"> -->
+<!-- 	                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5> -->
+<!-- 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 	            </div> -->
+<!-- 	            <div class="modal-body d-flex align-items-center"> -->
+<!-- 	                <div class="input-group w-75 mx-auto d-flex"> -->
+<!-- 	                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> -->
+<!-- 	                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span> -->
+<!-- 	                </div> -->
+<!-- 	            </div> -->
+<!-- 	        </div> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+<!-- 	<!-- Modal Search End --> 
+	
+<!-- 	<!-- Modal Search2 Start --> 
+<!-- 	<div class="modal fade container-fluid" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 	    <div class="modal-dialog modal-xl"> -->
+<!-- 	        <div class="modal-content rounded-0"> -->
+<!-- 	            <div class="modal-header d-flex justify-content-center"> -->
+<!-- 	                <form action="search-keyword" class="search-box d-flex justify-content-center" method="post"> -->
+<!-- 						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터"> -->
+<!-- 						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"> -->
+<!-- 							<i class="bi bi-search bi-top"></i> -->
+<!-- 						</button> -->
+<!-- 					</form> -->
+<!-- 	                <button type="button" class="btn-close d-flex justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 	            </div> -->
+<!-- 	            <div class="modal-body d-flex align-items-center justify-content-center"> -->
+<!-- 	                <h5>추천 검색어</h5> -->
+<!-- 	            </div> -->
+<!-- 	        </div> -->
+<!-- 	    </div> -->
+<!-- 	</div> -->
+<!-- 	<!-- Modal Search End --> 
+
+
+<!-- 	<div class="container-fluid" id="search-box-area"> -->
+<!-- 		<div class="row w-100 container" > -->
+<!-- 			<div class="col d-flex justify-content-center"> -->
+<!-- 				<form action="search-keyword" class="search-box " method="post"> -->
+<!-- 					<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터"> -->
+<!-- 					<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"> -->
+<!-- 						<i class="bi bi-search bi-top"></i> -->
+<!-- 					</button> -->
+<!-- 				</form> -->
+<!-- 			</div> -->
+<!-- 			<div class="col d-flex justify-content-end"> -->
+<!-- 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="row w-100 container d-flex align-items-center justify-content-center"> -->
+<!-- 			<div class="col-12 d-flex justify-content-center"> -->
+<!-- 				<h5>추천 검색어</h5> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+	
+<!-- 	</div> -->
+	
+	<!-- Search Box Area -->
+	<div class="search-box-area" id="searchModal">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <span class="close">&times;</span>
+	        </div>
+	        <div class="modal-body">
+	            <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
+	                <input class="search-txt align-items-center" id="keyword" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
+	                <button class="search-btn" type="submit"> <i class="bi bi-search bi-top"></i></button>
+	            </form>
+	        </div>
+	        <div class="recommended-terms mt-5">
+	            <!-- 추천 검색어 영역 -->
+	            <h5>추천 검색어</h5>
+	            <ul>
+	                <li>추천어 1</li>
+	                <li>추천어 2</li>
+	                <li>추천어 3</li>
+	            </ul>
 	        </div>
 	    </div>
 	</div>
-	<!-- Modal Search End -->
-	
-	<!-- Modal Search2 Start -->
-	<div class="modal fade container-fluid" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	    <div class="modal-dialog modal-xl">
-	        <div class="modal-content rounded-0">
-	            <div class="modal-header d-flex justify-content-center">
-	                <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
-						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-							<i class="bi bi-search bi-top"></i>
-						</button>
-					</form>
-	                <button type="button" class="btn-close d-flex justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button>
-	            </div>
-	            <div class="modal-body d-flex align-items-center justify-content-center">
-	                <h5>추천 검색어</h5>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<!-- Modal Search End -->
-	
-	<div class="container-fluid" id="search-box-area">
-		<div class="row w-100 container" >
-			<div class="col d-flex justify-content-center">
-				<form action="search-keyword" class="search-box " method="post">
-					<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
-					<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-						<i class="bi bi-search bi-top"></i>
-					</button>
-				</form>
-			</div>
-			<div class="col d-flex justify-content-end">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-		</div>
-		<div class="row w-100 container d-flex align-items-center justify-content-center">
-			<div class="col-12 d-flex justify-content-center">
-				<h5>추천 검색어</h5>
-			</div>
-		</div>
-	
-	</div>
-	
+				
 	
 	
 	<div class="container-fluid">
@@ -618,16 +661,50 @@ $(function() {
 		
 	});
 	
-	$(".search-box").on("click", function() {
-		alert("search 클릭");
-		
-	});
+	
+    // 검색창과 검색 버튼 클릭 시 #search-box-area 나타남
+    $('.search-box, .search-txt, .search-btn, .search-btn2').on('click', function(event) {
+        $('#searchModal').fadeIn();
+        $("#keyword").focus();
+    });
+
+    // close 버튼 클릭 시 #search-box-area 사라짐
+    $('.search-box-area .close').on('click', function() {
+        $('#searchModal').fadeOut();
+    });
+	
+    const collapseElements = $('[data-bs-toggle="collapse"]');
+
+    let currentOpenCollapse = null;
+
+    const openCollapse = (target) => {
+        if (currentOpenCollapse && currentOpenCollapse !== target) {
+            currentOpenCollapse.removeClass('show');
+        }
+        target.addClass('show');
+        currentOpenCollapse = target;
+    };
+
+    const closeCollapse = (target) => {
+        target.removeClass('show');
+        if (currentOpenCollapse === target) {
+            currentOpenCollapse = null;
+        }
+    };
+
+    collapseElements.each(function() {
+        const elem = $(this);
+        const target = $(elem.attr('data-bs-target'));
+
+        elem.on('mouseenter', () => openCollapse(target));
+        target.on('mouseenter', () => openCollapse(target));
+        target.on('mouseleave', () => closeCollapse(target));
+    });
 	
 	
-	
-	
-	
-	
+
+    
+
 	
 });
 

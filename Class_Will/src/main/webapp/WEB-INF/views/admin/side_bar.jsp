@@ -132,13 +132,15 @@
                 <div id="collapseComplaint" class="collapse" aria-labelledby="headingComplaint"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">신고 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리중">클래스 신고</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리완료">1대1채팅 신고</a>
+                        <h6 class="collapse-header">클래스신고 관리:</h6>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리중">처리중 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리완료">처리완료 리스트</a>
+                        <h6 class="collapse-header">1:1 채팅 관리:</h6>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리중">처리중 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리완료">처리완료 리스트</a>
                     </div>
                 </div>
             </li>
-
             <hr class="sidebar-divider">
             <li class="nav-item active">
                 <a class="nav-link" href="${pageContext.request.contextPath}">

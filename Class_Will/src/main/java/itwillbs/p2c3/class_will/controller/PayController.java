@@ -1,5 +1,7 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,12 +161,31 @@ public class PayController {
 		Map<String, String> token = (Map<String, String>)session.getAttribute("token");
 		map.put("access_token", token.get("access_token"));
 		map.put("user_seq_no", token.get("user_seq_no"));
-		map.put("member_code", member.getMember_code());
+		String member_code = Integer.toString(member.getMember_code());
+		map.put("member_code", member_code);
 		
 		Map withdrawResult = payService.withdraw(map);
 		
+		String date = ((String)withdrawResult.get("api_tran_dtm")).substring(0, 14);
+		DateTimeFormatter parsedDate = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+		LocalDateTime datetime = LocalDateTime.parse(date, parsedDate);
 		
-		return "";	
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
+		String payAc_date = datetime.format(dtf);
+		
+		
+		withdrawResult.put("payAc_amount", withdrawResult.get("tran_amt"));
+		withdrawResult.put("payAc_fintech_use_num", withdrawResult.get("fintech_use_num"));
+		withdrawResult.put("payAc_bank_name", withdrawResult.get("bank_name"));
+		withdrawResult.put("member_code", member_code);
+		withdrawResult.put("payAc_date", payAc_date);
+		withdrawResult.put("payAc_product_type", map.get("payAc_type"));
+		
+		payService.registPayAccountInfo(withdrawResult);
+		
+		model.addAttribute("withdrawResult", withdrawResult);
+		
+		return "payment/payment_willpay_final";	
 	}
 	
 	@GetMapping("/callback")

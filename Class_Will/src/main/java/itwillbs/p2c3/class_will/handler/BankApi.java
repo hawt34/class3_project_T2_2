@@ -124,7 +124,7 @@ public class BankApi {
 		jsonObject.addProperty("tran_amt", (String)map.get("tran_amt")); //출금 금액
 		jsonObject.addProperty("tran_dtime", bankValueGenerator.getTranDTime()); //요청 일시
 		jsonObject.addProperty("req_client_name", (String)map.get("user_name"));  
-		jsonObject.addProperty("req_client_fintech_use_num", (String)map.get("withdraw_fintech_use_num"));
+		jsonObject.addProperty("req_client_fintech_use_num", (String)map.get("fintech_use_num"));
 		//=> 요청고객 계좌번호 미사용 시 핀테크 이용번호 설정 필수!
 		jsonObject.addProperty("req_client_num", ((String)map.get("member_code")).toUpperCase()); //요청고객회원번호(아이디처럼 사용) 
 		jsonObject.addProperty("transfer_purpose", "ST"); //이체용도(송금: TR, 결제: ST 등) 

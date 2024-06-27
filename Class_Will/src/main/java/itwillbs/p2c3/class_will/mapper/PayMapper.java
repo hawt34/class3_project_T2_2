@@ -48,6 +48,12 @@ public interface PayMapper {
 
 	List<Map<String, Integer>> selectPackageInfoList();
 	
+	//계좌 결제 정보 저장
+	void insertPayAccountInfo(Map withdrawResult);
+	
+	//fintech_use_num 업데이트
+	void updateFintechUseNum(Map<String, String> fintech);
+	
 
 	
 }

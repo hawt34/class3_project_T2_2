@@ -218,4 +218,24 @@
 		FROM reward 
 		ORDER BY reward_fee
 	</select>
+	
+	<update id="updateFintechUseNum">
+		UPDATE bank_user_info
+		SET fintech_use_num = #{fintech_use_num}
+		WHERE access_token = #{access_token}
+	</update>
+	
+	<insert id="insertPayAccountInfo">
+		INSERT 
+		INTO pay_account
+		VALUES (
+			null
+			, #{tran_amt}
+			, #{payAc_bank_name}
+			, #{payAc_fintech_use_num}
+			, #{payAc_date}
+			, #{payAc_product_type}
+			, #{member_code}
+		)
+	</insert>
 </mapper>

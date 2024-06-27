@@ -233,10 +233,17 @@
 
 
 #search-box-area {
-	border: 1px solid green;
+	position: fixed;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
 	background: black;
 	height: 200px;
- 	display: none; 
+/*  	display: none;  */
+	margin: 0 auto;
+	border: 1px solid green;
 }
 
 
@@ -492,7 +499,7 @@
 	<!-- Modal Search End -->
 	
 	<div class="container-fluid" id="search-box-area">
-		<div class="row container" >
+		<div class="row w-100 container" >
 			<div class="col d-flex justify-content-center">
 				<form action="search-keyword" class="search-box " method="post">
 					<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
@@ -505,8 +512,8 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 		</div>
-		<div class="row container d-flex align-items-center justify-content-center">
-			<div class="col">
+		<div class="row w-100 container d-flex align-items-center justify-content-center">
+			<div class="col-12 d-flex justify-content-center">
 				<h5>추천 검색어</h5>
 			</div>
 		</div>

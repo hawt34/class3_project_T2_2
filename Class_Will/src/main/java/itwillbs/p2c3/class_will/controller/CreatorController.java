@@ -1,10 +1,18 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
@@ -141,6 +150,53 @@ public class CreatorController {
 		
 		return "creator/creator-classReg";
 	}
+	
+	//  썸머노트 이미지업로드
+//	 @ResponseBody
+//	 @PostMapping("creatorUploadExImage")
+//	 public String uploadImage(@RequestParam("file") MultipartFile file, HttpSession session) {
+//	     if (file.isEmpty()) {
+//	         return "{\"url\":\"\"}";
+//	     }
+//	
+//	     String uploadDir = "/resources/upload";
+//	     String saveDir = session.getServletContext().getRealPath(uploadDir);
+//	     System.out.println("실제 업로드 경로(session): " + saveDir);
+//	
+//	     LocalDate today = LocalDate.now();
+//	     String datePattern = "yyyy/MM/dd";
+//	     DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
+//	     String subDir = today.format(dtf);
+//	
+//	     saveDir += "/" + subDir;
+//	     System.out.println(saveDir);
+//	     Path path = Paths.get(saveDir);
+//	
+//	     try {
+//	         Files.createDirectories(path);
+//	     } catch (IOException e) {
+//	         e.printStackTrace();
+//	     }
+//	
+//	     String fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
+//	     String webUrl = uploadDir + "/" + subDir + "/" + fileName;
+//	
+//	     try {
+//	         if (!file.getOriginalFilename().equals("")) {
+//	             file.transferTo(new File(saveDir, fileName));
+//	         }
+//	     } catch (IllegalStateException | IOException e) {
+//	         e.printStackTrace();
+//	     }
+//	
+//	     System.out.println("파일 저장 경로: " + saveDir + "/" + fileName);
+//	     System.out.println("웹 접근 경로: " + webUrl);
+//	
+//	     JSONObject jsonResponse = new JSONObject();
+//	     jsonResponse.put("url", webUrl.replace("\\", "/"));
+//	     
+//	     return jsonResponse.toString();
+//	 }
 
 	// creater-class 상세페이지
 	@GetMapping("creator-classModify")
@@ -205,12 +261,6 @@ public class CreatorController {
 		return "redirect:/creator-class";
 	}
 	
-	// 해쉬태그 추가 페이지
-//	@GetMapping("creator-hashtag")
-//	public String creatorHashtag() {
-//		return "creator/creator-hashtag";
-//	}
-		
 	// creater-class 일정등록 페이지로
 	@GetMapping("creator-class-plan")
 	public String createrClassPlan(HttpSession session, Model model) {

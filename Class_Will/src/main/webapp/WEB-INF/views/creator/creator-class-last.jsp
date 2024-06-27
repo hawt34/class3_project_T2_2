@@ -38,18 +38,15 @@
 	rel="stylesheet">
 
 <!-- Toast UI Grid Script -->
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
 
 <!-- Toast UI Grid Script -->
 <!-- <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script> -->
 
 <!-- Toast UI Pagination CSS -->
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+<link rel="stylesheet"	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 
 <!-- Toast UI Pagination Script -->
-<!-- <script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script> -->
 
 <style>
 .delete-btn {
@@ -226,8 +223,7 @@ th, td {
 					data : {
 						"classCode" : classCode
 					},
-					success : function(
-							result) {
+					success : function(result) {
 						$('#scheduleTableContainer').empty().append('<div id="grid"></div><div id="pagination"></div>');
 						initializeGrid(result);
 					}

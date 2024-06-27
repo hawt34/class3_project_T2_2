@@ -139,10 +139,10 @@
 
 		function initialGrid(data) {
 			columns = [
-				{ header: '클래스제목', name: 'class_name', width: 'auto' },
-				{ header: '지원상태', name: 'code_value' },
-				{ header: '카테고리', name: 'cate', className: 'hide-column' },
-				{ header: '공개여부', name: 'hide', className: 'hide-column' },
+				{ header: '클래스제목', name: 'class_name', width: 'auto', align: 'center'  },
+				{ header: '지원상태', name: 'code_value', align: 'center'  },
+				{ header: '카테고리', name: 'cate', className: 'hide-column', align: 'center'  },
+				{ header: '공개여부', name: 'hide', className: 'hide-column', align: 'center'  },
 			];
 
 			grid = new tui.Grid({
@@ -172,15 +172,9 @@
 
 			// 그리드 API를 사용하여 컬럼 숨기기/보이기
 			grid.setColumns(isMobile ? [
-				{ header: '클래스제목', name: 'class_name', width: 'auto' },
-				{ header: '지원상태', name: 'code_value' },
-				{
-					header: 'Action',
-					name: 'action',
-					renderer: {
-						type: ButtonRenderer
-					}
-				}
+				{ header: '클래스제목', name: 'class_name', width: 'auto', align: 'center' },
+				{ header: '지원상태', name: 'code_value', align: 'center'  },
+				{ header: '공개여부', name: 'hide', align: 'center'  }
 			] : columns);
 		}
 

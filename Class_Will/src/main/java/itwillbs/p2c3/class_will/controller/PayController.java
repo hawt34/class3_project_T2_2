@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.PayService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
 
@@ -123,7 +124,7 @@ public class PayController {
 			
 			Map bankUserInfo = payService.getUserInfo(map);
 			
-			bankUserInfo.get("res_list");
+//			bankUserInfo.get("res_list");
 			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
 			Gson gson = new Gson();
 			JsonObject jsonObject = gson.toJsonTree(bankUserInfo).getAsJsonObject();
@@ -142,45 +143,37 @@ public class PayController {
 		
 		return "payment/will_pay_charge";
 	}
-//	@GetMapping("will-pay-charge2")
-//	public String willPayCharging2(Model model, HttpSession session) {
-//		if(session.getAttribute("token") != null) {
-//			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
-//			
-//			//bankUserInfo 가져오기
-//			Map<String, String> map = new HashMap<String, String>();
-//			map.put("access_token", token.get("access_token"));
-//			map.put("user_seq_no", token.get("user_seq_no"));
-//			
-//			Map bankUserInfo = payService.getUserInfo(map);
-//			
-//			bankUserInfo.get("res_list");
-//			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
-//			Gson gson = new Gson();
-//			JsonObject jsonObject = gson.toJsonTree(bankUserInfo).getAsJsonObject();
-//			JsonArray jsonArray = jsonObject.getAsJsonArray("res_list");
-//			
-//			logger.info(">>>>>> jsonArray: " + jsonArray);
-//			
-//			//패키지 info
-//			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
-//			logger.info("@@@@ packageInfo:" + packageInfo);
-//			
-//			model.addAttribute("packageInfo", packageInfo);
-//			model.addAttribute("packageInfoJson", jsonArray);
-//			model.addAttribute("bankUserInfo", bankUserInfo);
-//		}
-//		
-//		return "payment/will_pay_charge2";
-//	}
+	
+	@PostMapping("account-withdraw")
+	public String accountWithdraw(@RequestParam Map<String, Object> map, HttpSession session, Model model)	{
+		System.out.println("withdraw-map: " + map);
+		MemberVO member= (MemberVO)session.getAttribute("member");
+		
+		String result = "";
+		if(member == null) {
+			result = WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
+			return result;
+		}
+		
+		//토큰 가져와서 넣기
+		Map<String, String> token = (Map<String, String>)session.getAttribute("token");
+		map.put("access_token", token.get("access_token"));
+		map.put("user_seq_no", token.get("user_seq_no"));
+		map.put("member_code", member.getMember_code());
+		
+		Map withdrawResult = payService.withdraw(map);
+		
+		
+		return "";	
+	}
+	
 	@GetMapping("/callback")
 	public String auth(@RequestParam Map<String, String> authResponse, Model model, HttpSession session) {
 		logger.info("authResponse" + authResponse.toString());
 		//----------------------------------------------------------------
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		System.out.println("member:" + member);
-		String email = member.getMember_email();
-		System.out.println("email:" + email);
+		int member_code = member.getMember_code();
 		
 		//access_token 발급
 		Map map = payService.getAccessToken(authResponse);
@@ -191,7 +184,7 @@ public class PayController {
 			model.addAttribute("isClose", true);
 			return "result_process/fail";
 		}
-		map.put("email", email);
+		map.put("member_code", member_code);
 		
 		Map<String, String> bank_info = new HashMap<String, String>();
 		bank_info.put("access_token", (String)map.get("access_token"));

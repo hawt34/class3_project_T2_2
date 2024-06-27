@@ -81,10 +81,10 @@
 				<p>결제일시 : ${withdrawResult.payAc_date}</p>
 				<c:choose>
 					<c:when test="${empty withdrawResult.tran_amt_total }">
-						<p>충전된 WILL-PAY : ${withdrawResult.tran_amt}</p>
+						<p><span class="text-success">충전된 WILL-PAY</span> : ${withdrawResult.tran_amt}</p>
 					</c:when>
 					<c:otherwise>
-						<p>충전된 WILL-PAY : ${withdrawResult.tran_amt_total}</p>
+						<p><span class="text-success">충전된 WILL-PAY</span> : ${withdrawResult.tran_amt_total}</p>
 					</c:otherwise>
 				</c:choose>
 			</div>

@@ -112,7 +112,7 @@ public class MemberController {
 			return "result_process/fail";
 			
 		} else {
-			Map<String, String> bank_info = memberService.selectBankInfo(dbMember.getMember_email());
+			Map<String, String> bank_info = memberService.selectBankInfo(dbMember.getMember_code());
 			System.out.println("bank_info : " + bank_info);
 			session.setAttribute("token", bank_info);
 			session.setAttribute("member", dbMember);

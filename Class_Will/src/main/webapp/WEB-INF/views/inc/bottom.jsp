@@ -129,8 +129,8 @@
 	
     <!-- Footer Start -->
     <div class="class-will-bottom mt-5">
-	    <div class="container-fluid text-white-50 footer pt-1 mt-5 pb-5" style="background-color: #191919;">
-	        <div class="container py-5">
+	    <div class="container-fluid text-white-50 footer pt-1 mt-5 pb-3" style="background-color: #191919;">
+	        <div class="container py-3">
 	            <div class="pb-2 mb-2">
 	                <div class="row g-4">
 	                    <div class="col-lg-3 text-center">
@@ -149,18 +149,18 @@
 								</ul>
 	                        </div>
 	                    </div>
-	                    <div class="col-lg-3">
+	                    <div class="col-lg-3 pt-5">
 	                    	<div class="customer_service_center">
-	                        <h3>고객센터</h3>
-					<div class="d-grid gap-2 py-2">
-						<button class="btn btn-light">문의하기</button>
-					</div>
-					<p style="font-size: 13px;">*주중 10시~18시/주말 및 공휴일 제외</p>
-				</div>	
+		                        <h3>고객센터</h3>
+								<div class="d-grid gap-2 py-2">
+									<button class="btn btn-light">문의하기</button>
+								</div>
+								<p style="font-size: 13px;">*주중 10시~18시/주말 및 공휴일 제외</p>
+							</div>	
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="row g-5 mb-5">
+	            <div class="row g-5 mb-2">
 	                <div class="col-lg-3 ">
 	                    <div class="d-flex pt-3 justify-content-center social-icons">
 	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" ><i class="fab fa-twitter"></i></a>
@@ -245,33 +245,6 @@
 <!-- 		    </div> -->
 <!-- 		</div> -->
 
-
-<!-- 		<div id="search-box-area"> -->
-<!-- 		    <div class="modal-content"> -->
-<!-- 		        <div class="modal-header"> -->
-<!-- 		            <span class="close">&times;</span> -->
-<!-- 		        </div> -->
-<!-- 		        <div class="modal-body"> -->
-<!-- 		            <form action="search-keyword" class="search-box d-flex justify-content-center" method="post"> -->
-<!-- 						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터"> -->
-<!-- 						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"> -->
-<!-- 							<i class="bi bi-search bi-top"></i> -->
-<!-- 						</button> -->
-<!-- 					</form> -->
-<!-- 		        </div> -->
-<!-- 		        <div class="recommended-terms"> -->
-<!-- 		            추천 검색어 영역 -->
-<!-- 		            추천 검색어:  -->
-<!-- 		            <ul> -->
-<!-- 		                <li>추천어 1</li> -->
-<!-- 		                <li>추천어 2</li> -->
-<!-- 		                <li>추천어 3</li> -->
-<!-- 		            </ul> -->
-<!-- 		        </div> -->
-<!-- 		    </div> -->
-<!-- 		</div> -->
-
-			
 		
 
 	</div>

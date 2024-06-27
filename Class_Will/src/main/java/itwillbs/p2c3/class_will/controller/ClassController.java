@@ -1,17 +1,8 @@
 package itwillbs.p2c3.class_will.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,21 +11,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< HEAD
+=======
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
+=======
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.Gson;
 
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
+<<<<<<< HEAD
+=======
 import itwillbs.p2c3.class_will.vo.MemberVO;
 import retrofit2.http.GET;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 
 
 @Controller

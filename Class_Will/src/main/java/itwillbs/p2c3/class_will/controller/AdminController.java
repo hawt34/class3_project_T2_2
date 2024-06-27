@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
+import itwillbs.p2c3.class_will.handler.AdminServiceHelper;
 import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
@@ -45,7 +45,6 @@ import itwillbs.p2c3.class_will.service.CscService;
 import itwillbs.p2c3.class_will.service.ExcelService;
 import itwillbs.p2c3.class_will.vo.CategoryData;
 import itwillbs.p2c3.class_will.vo.GroupedData;
-import retrofit2.http.GET;
 
 @Controller
 public class AdminController {
@@ -62,6 +61,9 @@ public class AdminController {
 	
 	@Autowired
 	private CscService cscService;
+	
+	@Autowired
+	private AdminServiceHelper adminServiceHelper;
 	
 	@GetMapping("admin")
 	public String admin(Model model) {
@@ -332,7 +334,6 @@ public class AdminController {
 	@GetMapping("admin-class-detail")
 	public String adminClassDetail(String class_code, Model model) {
 		Map<String, String> class1 = adminService.getClassInfo(class_code);
-		System.out.println(class1);
 		model.addAttribute("classInfo", class1);
 		return "admin/admin_class_detail";
 	}
@@ -401,66 +402,21 @@ public class AdminController {
     @ResponseBody
     @PostMapping(value = "insert", consumes = "application/json", produces = "application/json")
     public Map<String, Object> categoryInsert(@RequestBody CategoryData data) {
-    	Integer common2_code = null;
-    	 // updateRows largeCategory로 그룹화
         try {
-			Map<String, List<Map<String, Object>>> groupedData = data.getUpdatedRows().stream()
-			        .collect(Collectors.groupingBy(row -> (String) row.get("largeCategory")));
-			// 그룹화한 데이터를 묶기
-			List<GroupedData> sortedData = groupedData.entrySet().stream()
-			        .sorted(Map.Entry.comparingByKey())
-			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
-			        .collect(Collectors.toList());
-			for(GroupedData gd : sortedData) {
-				common2_code = adminService.getCommon2Code("CLC", gd.getLargeCategory());
-				for(Map<String, Object> rowMap : gd.getRows()) {
-					rowMap.put("common2_code", common2_code);
-					adminService.updateCategoryData(rowMap);
-				}
-			}
-			//Update 완료
-			
-			//Insert 시작
-			groupedData = data.getCreatedRows().stream()
-			        .collect(Collectors.groupingBy(row -> (String) row.get("largeCategory")));
-			sortedData = groupedData.entrySet().stream()
-			        .sorted(Map.Entry.comparingByKey())
-			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
-			        .collect(Collectors.toList());
-			for(GroupedData gd : sortedData) {
-				common2_code = adminService.getCommon2Code("CLC", gd.getLargeCategory());
-				for(Map<String, Object> rowMap : gd.getRows()) {
-					int max_code = adminService.getMaxCommon3Code(common2_code);
-					rowMap.put("common2_code", common2_code);
-					rowMap.put("max_code", max_code);
-					adminService.insertCategoryData(rowMap);
-				}
-			}
-			//Insert 종료
-			
-			
-			//Delete 시작
-			System.out.println("ddddddddddddddddddddd" + data.getDeletedRows());
-			groupedData = data.getDeletedRows().stream()
-			        .collect(Collectors.groupingBy(row -> (String) row.get("largeCategory")));
-			sortedData = groupedData.entrySet().stream()
-			        .sorted(Map.Entry.comparingByKey())
-			        .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
-			        .collect(Collectors.toList());
-			for(GroupedData gd : sortedData) {
-				common2_code = adminService.getCommon2Code("CLC", gd.getLargeCategory());
-				for(Map<String, Object> rowMap : gd.getRows()) {
-					System.out.println("33333333333333333333" + rowMap);
-					rowMap.put("common2_code", common2_code);
-					adminService.deleteCategoryData(rowMap);
-				}
-			}
-			//Delete 끝
-			return Map.of("success", true, "message", "변경 사항이 성공적으로 저장되었습니다.");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Map.of("success", false, "message", "변경 사항 적용 실패: " + e.getMessage());
-		}
+            // Update 작업
+            adminServiceHelper.processRows(data.getUpdatedRows(), "update");
+
+            // Insert 작업
+            adminServiceHelper.processRows(data.getCreatedRows(), "insert");
+
+            // Delete 작업
+            adminServiceHelper.processRows(data.getDeletedRows(), "delete");
+
+            return Map.of("success", true, "message", "변경 사항이 성공적으로 저장되었습니다.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Map.of("success", false, "message", "변경 사항 적용 실패: " + e.getMessage());
+        }
     }
     
     @ResponseBody
@@ -485,6 +441,7 @@ public class AdminController {
     @PostMapping("admin-csc-pro")
     public String noticePro(@RequestParam Map<String, Object> map, Model model) {
     	boolean isInsertSuccess = false;
+    	String result = "";
     	String registType = (String)map.get("registType");
     	
     	if(registType.equals("regist")) {
@@ -492,16 +449,15 @@ public class AdminController {
     	}else if(registType.equals("modify")) {
     		isInsertSuccess = adminService.updateBoard(map);
     	}
+    	
     	if(!isInsertSuccess) {
-    		model.addAttribute("msg", "글 등록 실패!");
-    		model.addAttribute("isClose", "true");
-    		return "result_process/fail";
+		result = WillUtils.checkDeleteSuccess(false, model, "글 등록 실패!", true);
+    		return result;
     	}
     	
-    	model.addAttribute("isClose", "true");
-    	model.addAttribute("msg", "글 등록 완료!");
+    	result = WillUtils.checkDeleteSuccess(true, model, "글 등록 완료!", true);    	
     	
-    	return "result_process/success";
+    	return result;
     }
     
   @GetMapping("admin-pay")

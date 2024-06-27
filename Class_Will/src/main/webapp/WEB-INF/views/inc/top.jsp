@@ -264,7 +264,14 @@
     cursor: pointer;
 }
 
-
+.recommend-keyword {
+	color: white;
+	border: 1px solid white;
+	border-radius: 30px;
+	padding: 10px 15px;;
+	margin: 10px;
+	font-size: 14px;
+}
 
 
 
@@ -449,7 +456,7 @@
 									</c:when>
 									<c:otherwise>
 										<li class="">
-										    <a class="" href="my-page"><i class="bi bi-person-circle bi-top"></i></a>
+										    <a class="" href="my-page"><i class="bi bi-person-circle bi-top"></i> 내 정보</a>
 										</li>
 										<li class="">
 										    <a class="" onclick="logout()">로그아웃</a>
@@ -518,29 +525,6 @@
 <!-- 	    </div> -->
 <!-- 	</div> -->
 <!-- 	<!-- Modal Search End --> 
-
-
-<!-- 	<div class="container-fluid" id="search-box-area"> -->
-<!-- 		<div class="row w-100 container" > -->
-<!-- 			<div class="col d-flex justify-content-center"> -->
-<!-- 				<form action="search-keyword" class="search-box " method="post"> -->
-<!-- 					<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터"> -->
-<!-- 					<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"> -->
-<!-- 						<i class="bi bi-search bi-top"></i> -->
-<!-- 					</button> -->
-<!-- 				</form> -->
-<!-- 			</div> -->
-<!-- 			<div class="col d-flex justify-content-end"> -->
-<!-- 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div class="row w-100 container d-flex align-items-center justify-content-center"> -->
-<!-- 			<div class="col-12 d-flex justify-content-center"> -->
-<!-- 				<h5>추천 검색어</h5> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-	
-<!-- 	</div> -->
 	
 	<!-- Search Box Area -->
 	<div class="search-box-area" id="searchModal">
@@ -554,13 +538,15 @@
 	                <button class="search-btn" type="submit"> <i class="bi bi-search bi-top"></i></button>
 	            </form>
 	        </div>
-	        <div class="recommended-terms mt-5">
+	        <div class="recommend my-3 py-3 text-center">
 	            <!-- 추천 검색어 영역 -->
-	            <h5>추천 검색어</h5>
-	            <ul>
-	                <li>추천어 1</li>
-	                <li>추천어 2</li>
-	                <li>추천어 3</li>
+	            <h5 class="mb-3">추천 검색어</h5>
+	            <ul class="d-flex justify-content-center">
+	            	<li class="btn recommend-keyword"><a href="">추천어1</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어2</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어3</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어4</a></li>
+	            	<li class="btn recommend-keyword"><a href="">추천어5</a></li>
 	            </ul>
 	        </div>
 	    </div>

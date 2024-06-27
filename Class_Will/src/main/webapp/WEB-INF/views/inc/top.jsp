@@ -171,10 +171,10 @@
 }
 
 
-.offcanvas {
-	color: white !important;
-}
 
+.offcanvas-body {
+    color: white !important;
+}
 
 @media (min-width: 992px) {
     .offcanvas {
@@ -416,8 +416,8 @@
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="150px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
-	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3">
-	                         <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
+	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3 mx-0">
+	                         <button class="navbar-toggler py-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
 		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
 	                    </div>
@@ -426,49 +426,52 @@
 				</div> <!-- container-fluid -->
 				
 	            <!-- 오프캔버스 -->
-	            <div class="offcanvas offcanvas-start" id="top-offcanvas" style="background-color: #333;">
+	            <div class="offcanvas offcanvas-start " id="top-offcanvas" style="background-color: #333; color: white;">
 	                <div class="offcanvas-header">
 	                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	                </div>
 	                <div class="offcanvas-body">
-	                    <ul class="navbar-nav">
-							<li class="nav-item">
-                                <a href="#" class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
-                                	<span class="fa fa-bars"></span> 카테고리
-                                </a>
-                            </li>
-	                         <li class="nav-item">
-                                <a class="nav-link" href="" data-bs-toggle="collapse" data-bs-target="#collapse-zone" aria-expanded="false" aria-controls="collapse-zone">
-                                	지역별
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="event">이벤트</a>
-                            </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="creator-main">클래스등록</a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#"><i class="bi bi-envelope"></i></a>
-	                        </li>
-	                        <li class="nav-item">
-	                            <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a>
-	                        </li>
-	                        <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="main-test"><i class="bi bi-envelope"></i></a>
-                            </li>
-                            <li class="nav-item">
-                            	<a class="nav-link" href="member-login">로그인</a>
-<!--                                 <a class="nav-link" href="#"><i class="bi bi-person-circle"></i></a> -->
-                            </li>
-	                    </ul>
-	                </div>
+	                	<div>
+		                    <ul>
+		                    	<c:choose>
+									<c:when test="${empty member.member_email}">
+										<li class=""> 
+											<a class="" href="member-login">로그인</a>
+										</li>
+									</c:when>
+									<c:when test="${member.member_type eq 3}">
+										<li class=""> 
+											<a class="" href="admin"><i class="bi bi-gear"></i> 관리자</a>
+										</li>
+										<li class="">
+										    <a class="" onclick="logout()">로그아웃</a>
+										</li>
+									</c:when>
+									<c:otherwise>
+										<li class="">
+										    <a class="" href="my-page"><i class="bi bi-person-circle bi-top"></i></a>
+										</li>
+										<li class="">
+										    <a class="" onclick="logout()">로그아웃</a>
+										</li>
+									</c:otherwise>
+								</c:choose>
+		                    	<li>이벤트</li>
+		                    	<li>카테고리</li>
+		                    	<li>지역별</li>
+	                 	   </ul>
+	                    </div>
+	                     <div class="dropdown mt-3">
+					      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+					        Dropdown button
+					      </button>
+					      <ul class="dropdown-menu">
+					        <li><a class="dropdown-item" href="#">Action</a></li>
+					        <li><a class="dropdown-item" href="#">Another action</a></li>
+					        <li><a class="dropdown-item" href="#">Something else here</a></li>
+					      </ul>
+					    </div>
+	                </div> <!-- offcanvas-body -->
 	            </div> <!-- offcanvas -->
 	            
 	        </nav>

@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,10 @@ public class MemberService {
 	// 로그인 시 뱅크 토큰 조회
 	public Map<String, String> selectBankInfo(int member_code) {
 		return memberMapper.selectBankInfo(member_code);
+	}
+
+	public List<Map<String, Integer>> selectLikeClassList(int member_code) {
+		return memberMapper.selectLikeClassList(member_code);
 	}
 
 	

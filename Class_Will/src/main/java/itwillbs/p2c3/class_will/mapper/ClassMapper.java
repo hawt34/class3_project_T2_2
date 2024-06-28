@@ -31,7 +31,10 @@ public interface ClassMapper {
 	List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
 	
 	// 클래스 좋아요
-	List<Map<String, Object>> updateLikeClass(@RequestParam("memberCode") List<Map<String, Integer>> memberCode, @RequestParam("heartStatus") Boolean heartStatus, @RequestParam("class_code") int class_code);
+	int insertLikeClass(Map<String, Object> map);
+	
+	// 클래스 좋아요 취소
+	int deleteLikeClass(Map<String, Object> map);
 	
 	// 클래스 리스트
 	List<Map<String, Object>> selectClassList();

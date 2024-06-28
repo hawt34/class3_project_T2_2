@@ -15,28 +15,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-<<<<<<< HEAD
-=======
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.Gson;
 
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
-<<<<<<< HEAD
-=======
 import retrofit2.http.GET;
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 
 
 @Controller

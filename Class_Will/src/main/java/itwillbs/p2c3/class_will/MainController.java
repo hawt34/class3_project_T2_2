@@ -1,19 +1,18 @@
 package itwillbs.p2c3.class_will;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -128,14 +127,23 @@ public class MainController {
 	
 	// top & bottom 검색창
 	@PostMapping("search-keyword")
-	public String searchKeyword(@RequestParam String keyword) {
+	public String searchKeyword(@RequestParam String keyword, Model model) {
 		
 		System.out.println("keyword : " + keyword);
 		
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String searchDateTime = currentDateTime.format(formatter);
 		
-		return "class/class-list";
+//		List<Map<String, Object>> searchClassList = mainService.checkKeyword(keyword, searchDateTime);
+//		System.out.println("searchClassList : " + searchClassList);
+//		model.addAttribute("searchClassList", searchClassList);
 		
+		mainService.checkKeyword(keyword, searchDateTime);
+		
+		
+		return "redirect:/class-list";
 	} // searchKeyword()
-
+	
 
 }

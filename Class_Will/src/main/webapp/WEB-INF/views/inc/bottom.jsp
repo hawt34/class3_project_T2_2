@@ -131,15 +131,15 @@
     <div class="class-will-bottom mt-5">
 	    <div class="container-fluid text-white-50 footer pt-1 mt-5 pb-3" style="background-color: #191919;">
 	        <div class="container py-3">
-	            <div class="pb-2 mb-2">
-	                <div class="row g-4">
-	                    <div class="col-lg-3 text-center">
+	            <div class="pb-2">
+	                <div class="row g-4" >
+	                    <div class="col-lg-3 d-flex align-items-center justify-content-center" >
 	                        <a href="#">
 	                             <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" id="logo" width="150px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
-	                    <div class="col-lg-6">
-	                        <div class="position-relative mx-auto text-cente pt-5">
+	                    <div class="col-lg-6 d-flex justify-content-start align-items-center" >
+	                        <div class="position-relative mx-auto">
 	                       		 <ul class="bottom-ul">
 									<li class="bottom-menu"><a href="csc">공지사항</a></li>
 									<li class="bottom-menu"><a href="csc-faq">FAQ</a></li>
@@ -161,7 +161,7 @@
 	                </div>
 	            </div>
 	            <div class="row g-5 mb-2">
-	                <div class="col-lg-3 ">
+	                <div class="col-lg-3 d-flex align-items-start justify-content-center">
 	                    <div class="d-flex pt-3 justify-content-center social-icons">
 	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" ><i class="fab fa-twitter"></i></a>
 	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" href=""><i class="fab fa-facebook-f"></i></a>

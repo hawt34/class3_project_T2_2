@@ -27,7 +27,6 @@ public interface MemberMapper {
 	Map<String, String> selectBankInfo(int member_code);
 
 
-	List<Map<String, Integer>> selectLikeClassList(int member_code);
 	
 	
 	

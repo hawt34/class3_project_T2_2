@@ -186,6 +186,7 @@ body{
 							<input type="hidden" name="tran_amt" id="form_tran_amt">
 							<input type="hidden" name="tran_amt_total" id="form_tran_amt_total">
 							<input type="hidden" name="payAc_type" id="form_payAc_type">
+							<input type="hidden" name="member_code" value="${member_code }">
 							<button type="submit" class="btn btn-success w-100">충전하기</button>
 						</form>
 					</div>		

@@ -15,13 +15,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+<<<<<<< HEAD
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.google.gson.Gson;
+
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
+<<<<<<< HEAD
+=======
+import retrofit2.http.GET;
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 
 
 @Controller
@@ -54,8 +69,6 @@ public class ClassController {
 		model.addAttribute("map", map);
 		System.out.println("class-list map :@@@@@@@@@@@@@!!!!!@@@@@@@@@@@@@" + map);
 		
-		
-		
 	    // 지역
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
 		model.addAttribute("localList", localList);
@@ -65,11 +78,6 @@ public class ClassController {
 		model.addAttribute("hashtagList", hashtagList);
 		
 		
-		MemberVO dbMember = memberService.selectMember(member);
-        session.setAttribute("member_code", dbMember.getMember_code());
-        model.addAttribute("member_code", dbMember.getMember_code());
-		System.out.println("member_code$$$$$$$$$$ : " + dbMember.getMember_code());
-
 		return "class/class-list";
 	}
 	
@@ -101,19 +109,24 @@ public class ClassController {
 	}
 	
 	// like_class 상태변경 
-    @PostMapping("update-heart-status")
-    @ResponseBody
-    public String updateHeartStatus(@RequestBody Map<String, Object> payload, Model model) {
-        Boolean heartStatus = (Boolean)payload.get("heartStatus");
-        // DB 업데이트 로직을 추가합니다.
-        // 예: heartStatus가 true면 좋아요, false면 좋아요 취소
-        
-//        List<Map<String, Object>> likeClass = classService.updateLikeClass(userId, heartStatus);
-//        model.addAttribute("likeClass", likeClass);
-//        System.out.println("Heart status updated: " + heartStatus);
-        return "success";
-    }
+//    @PostMapping("update-heart-status")
+//    @ResponseBody
+//    public String updateHeartStatus(@RequestBody Map<String, Object> requestBody, HttpSession session, Model model) {
+//        Boolean heartStatus = (Boolean) requestBody.get("heartStatus");
+//        String memberCode = (String) requestBody.get("member_code");
+//        int classCode = (int) requestBody.get("class_code"); // class_code를 int로 가져옵니다.
+//
+//        // DB 업데이트 로직 호출
+//        int rowsUpdated = classService.updateLikeClass(memberCode, classCode, heartStatus);
+//
+//        if (rowsUpdated > 0) {
+//            return "success";
+//        } else {
+//            return "fail";
+//        }
+//    }
     
+	
 //    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
 //    @ResponseBody
 //    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {

@@ -43,8 +43,8 @@
 	<select id="selectFilterClass" resultType="map">
 		SELECT class_code
 		        ,class_name
-		        ,c2.code_value AS 'class_big_category'
-		        ,c3.code_value AS 'class_small_category'
+		        ,c2.code_value AS class_big_category
+		        ,c3.code_value AS class_small_category
 		        ,class_thumnail
 		        ,class_image
 		        ,class_location
@@ -54,7 +54,7 @@
 		        ,class_creator_explain
 		        ,class_hide
 		        ,class_price
-		        ,crs.code_value AS 'class_regist_status'
+		        ,crs.code_value AS class_regist_status
 		        ,m.member_name
 		FROM class c
 		LEFT JOIN common1 c1
@@ -75,6 +75,12 @@
 		
 	</select>
 	
+	<!-- 클래스 좋아요 -->
+	<update id="updateLikeClass"  parameterType="map">
+		UPDATE like_class
+		SET like_class_code = #{heartStatus}
+		WHERE member_code = #{likeClassList} AND class_code = #{class_code} 
+	</update>
 	<!-- 소 카테고리 -->
 	<select id="selectListSmallCategory" resultType="map">
 		SELECT *
@@ -90,8 +96,8 @@
 <!-- 		FROM class -->
 				SELECT class_code
 		        ,class_name
-		        ,c2.code_value AS 'class_big_category'
-		        ,c3.code_value AS 'class_small_category'
+		        ,c2.code_value AS class_big_category
+		        ,c3.code_value AS class_small_category
 		        ,class_thumnail
 		        ,class_image
 		        ,class_ex
@@ -102,7 +108,6 @@
 		        ,class_price
 		        ,m.member_name
 		        ,m.member_nickname
-		        
 		FROM class c
 		LEFT JOIN common2 c2
 		ON c.class_big_category = c2.common2_code

@@ -236,6 +236,16 @@
 			, #{payAc_date}
 			, #{payAc_product_type}
 			, #{member_code}
+			, 2
+			, 'paid'
 		)
 	</insert>
+	
+	<update id="updateWillpay">
+		UPDATE MEMBER
+		SET member_credit = COALESCE(member_credit, 0) + #{member_credit}
+		WHERE member_code = #{member_code}
+	</update>
+	
+	
 </mapper>

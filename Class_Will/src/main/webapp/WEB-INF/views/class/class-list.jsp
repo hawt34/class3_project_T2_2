@@ -66,42 +66,47 @@ document.addEventListener("DOMContentLoaded", function() {
         heartOverlay.addEventListener("click", function() {
             var img = this;
             var memberCode = img.getAttribute("data-member-code");
+            var classCode = img.getAttribute("data-class-code");
+
             img.classList.add("fade");
 
             setTimeout(function() {
                 var isFullHeart = img.src.includes("heart_full.png");
-                
+
                 if (isFullHeart) {
                     img.src = originalSrc;
                 } else {
                     img.src = changeSrc;
                 }
-                
+
                 img.classList.remove("fade");
 
                 // AJAX 요청을 통해 서버로 업데이트 요청 전송
                 var heartStatus = !isFullHeart; // true면 heart_full.png, false면 heart.png
-                updateHeartStatus(memberCode, heartStatus);
+
+                var data = JSON.stringify({ 
+                    heartStatus: heartStatus,
+                    member_code: memberCode,
+                    class_code: classCode
+                });
+
+                updateHeartStatus(data);
             }, 300); 
         });
     });
 
-    function updateHeartStatus(memberCode, heartStatus) {
+    function updateHeartStatus(data) {
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-//         var data = JSON.stringify({ heartStatus: isFullHeart });
-        var data = JSON.stringify({ 
-        	heartStatus: isFullHeart,
-        	member_code : memberCode
-        	});
-
         xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log("Heart status updated successfully");
-            } else if (xhr.readyState === 4) {
-                console.error("Error updating heart status");
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("Heart status updated successfully");
+                } else {
+                    console.error("Error updating heart status");
+                }
             }
         };
 

@@ -160,6 +160,21 @@ public class PayService {
 	public void registPayAccountInfo(Map withdrawResult) {
 		payMapper.insertPayAccountInfo(withdrawResult);
 	}
+	
+	//will-pay 충전 성공 시 member_credit update
+	public void updateWillPay(Map<String, Object> map) {
+		if(map.get("tran_amt_total") != "") {
+			String stringTotalAmt = (String)map.get("tran_amt_total");
+			int tranAmtTotal = Integer.parseInt(stringTotalAmt);
+			map.put("member_credit", tranAmtTotal);
+		} else {
+			String stringAmt = (String)map.get("tran_amt");
+			int tranAmt = Integer.parseInt(stringAmt);
+			map.put("member_credit", tranAmt);
+		}
+		payMapper.updateWillpay(map);
+		
+	}
 
 	
 }

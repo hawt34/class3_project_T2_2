@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
@@ -28,6 +29,9 @@ public interface ClassMapper {
 	
 	// 카테고리바 필터링된 클래스
 	List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
+	
+	// 클래스 좋아요
+	List<Map<String, Object>> updateLikeClass(@RequestParam("memberCode") List<Map<String, Integer>> memberCode, @RequestParam("heartStatus") Boolean heartStatus, @RequestParam("class_code") int class_code);
 	
 	// 클래스 리스트
 	List<Map<String, Object>> selectClassList();

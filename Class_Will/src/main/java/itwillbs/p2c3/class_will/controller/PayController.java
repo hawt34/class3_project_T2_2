@@ -116,6 +116,14 @@ public class PayController {
 	//윌페이 충전 페이지로 이동
 	@GetMapping("will-pay-charge")
 	public String willPayCharging(Model model, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다", false, "member-login");
+		}
+		
+		int member_code = member.getMember_code();
+		model.addAttribute("member_code", member_code);
+		
 		if(session.getAttribute("token") != null) {
 			Map<String, String> token = (Map<String, String>)session.getAttribute("token");
 			
@@ -123,7 +131,6 @@ public class PayController {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("access_token", token.get("access_token"));
 			map.put("user_seq_no", token.get("user_seq_no"));
-			
 			Map bankUserInfo = payService.getUserInfo(map);
 			
 //			bankUserInfo.get("res_list");
@@ -151,10 +158,10 @@ public class PayController {
 		System.out.println("withdraw-map: " + map);
 		MemberVO member= (MemberVO)session.getAttribute("member");
 		
-		String result = "";
+		String result1 = "";
 		if(member == null) {
-			result = WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
-			return result;
+			result1 = WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
+			return result1;
 		}
 		
 		//토큰 가져와서 넣기
@@ -166,11 +173,22 @@ public class PayController {
 		
 		Map withdrawResult = payService.withdraw(map);
 		
+		String result2 = "";
+		if(withdrawResult == null) {
+			result2 = WillUtils.checkDeleteSuccess(false, model, "충전에 실패하였습니다", false);
+			return result2;
+		}
+		
+		//willpay 결제 성공 시 member_credit - update
+		payService.updateWillPay(map);
+		//willpay 결제 성공 시 member_credit - select
+//		payService.select
+		
 		String date = ((String)withdrawResult.get("api_tran_dtm")).substring(0, 14);
 		DateTimeFormatter parsedDate = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		LocalDateTime datetime = LocalDateTime.parse(date, parsedDate);
 		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy:MM:dd HH:mm:ss");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String payAc_date = datetime.format(dtf);
 		
 		

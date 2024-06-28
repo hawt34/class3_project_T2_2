@@ -75,28 +75,37 @@
 		<div class="payment_all">
 			<h2>정상적으로 <span class="text-success">충전 완료</span> 되었습니다. </h2>	
 			<div>
-				<h5 class="text-success">결제 내역</h5>
-				<p>주문번호 : ${paySuccessInfo.pay_merchant_uid}</p>
-				<p>결제일시 : 
-<%-- 					<fmt:parseDate value="${pay.class_pay_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDate"/> --%>
-<%-- 					<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
-					${paySuccessInfo.pay_datetime} 
+				<h5 class="text-success">충전 내역</h5>
+				<p>은행 이름 : ${withdrawResult.payAc_bank_name}</p>
+				<p>
+					<fmt:formatNumber var="withdraw_amt" value="${withdrawResult.tran_amt }" pattern="#,###"/>
+					이체된 금액 : ${withdraw_amt}원
+				</p> 
+				<p>결제일시 : ${withdrawResult.payAc_date}</p>
+				<hr>
+				<c:choose>
+					<c:when test="${empty withdrawResult.tran_amt_total }">
+						<p><span class="text-success">충전된 WILL-PAY</span>
+							<fmt:formatNumber var="amt" value="${withdrawResult.tran_amt }" pattern="#,###"/>
+							: ${amt}원
+						</p>
+					</c:when>
+					<c:otherwise>
+						<p><span class="text-success">충전된 WILL-PAY</span>
+							<fmt:formatNumber var="amt_total" value="${withdrawResult.tran_amt_total }" pattern="#,###"/>
+							: ${amt_total}원
+						</p>
+					</c:otherwise>
+				</c:choose>
+				<p><span class="text-success">현재 보유 WILL-PAY</span>
+					<fmt:formatNumber var="amt_total" value="${withdrawResult.tran_amt_total }" pattern="#,###"/>
+					: ${amt_total}원
 				</p>
-			</div>
-			<div>
-				<h5 class="text-success">결제 정보</h5>
-				<p>결제종류 : ${paySuccessInfo.card_name}(${paySuccessInfo.pg_provider})</p>
-				<p>결제수단 : ${paySuccessInfo.pay_type}</p>
-				<hr>
-				<p>클래스 가격(인원수:&nbsp;${paySuccessInfo.pay_headcount}) : ${paySuccessInfo.pay_amount}원</p>
-				<p>WILL-PAY 사용금액 : ${paySuccessInfo.use_willpay}원</p>
-				<hr>
-				<p><b>최종 결제금액 : ${paySuccessInfo.result_amount} 원</b></p>
 			</div>
 			<div>
 				<div class="row mt-5">
 					<div class="d-flex justify-content-center bg-secondary-subtle rounded-bottom p-2">
-						<button class="btn btn-dark mx-2" type="button" onclick="location.href='myp_reservation'">예매 내역 확인</button>
+						<button class="btn btn-dark mx-2" type="button" onclick="location.href='myp_reservation'">결제 내역 확인</button>
 						<button class="btn btn-dark mx-2" type="button" onclick="location.href='./'">클래스윌 메인</button>
 					</div>
 				</div>

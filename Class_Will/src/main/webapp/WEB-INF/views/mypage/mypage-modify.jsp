@@ -74,7 +74,7 @@
 
 						<div class="col-lg-9 creator-body">
 							<div class="creator-main-table col-xl-8 mb-5">
-								<form action="member-modify" name="fr" method="post">
+								<form action="member-modify" name="fr" method="post"  id="memberForm">
 
 									<!-- 	셀렉트박스 -->
 									<div class="classReg-basic">
@@ -144,8 +144,7 @@
 
 									<div class="mb-4" align="center">
 										<button type="submit" class="btn btn-primary btn-lg btn-block">제출하기</button>
-										<input type="button" value="돌아가기"
-											class="btn btn-primary btn-lg btn-block"
+										<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block"
 											onclick="history.back()">
 									</div>
 								</form>
@@ -369,6 +368,18 @@
 			// 초기 폼 유효성 검사
 			checkFormValidity();
 		});
+		// 폼 제출 시 유효성 검사
+        $("#memberForm").on("submit", function(event) {
+            let pwd = $("#member_pwd").val();
+            let pwd2 = $("#member_pwd2").val();
+            let lengthRegx = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
+
+            if (pwd !== "" && (!lengthRegx.test(pwd) || pwd !== pwd2)) {
+                event.preventDefault();
+                alert("비밀번호가 유효하지 않습니다. 영문자, 숫자, 특수문자(!, @, #, $)를 포함한 6~16자리를 입력하고 비밀번호 확인란과 일치해야 합니다.");
+            }
+        });
+		
 		$(function() { //이거 닉네임관련임.
 			let originalNickname = $("#member_nickname").val(); // 기존 닉네임 저장
 

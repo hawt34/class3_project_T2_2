@@ -144,8 +144,7 @@
 
 									<div class="mb-4" align="center">
 										<button type="submit" class="btn btn-primary btn-lg btn-block">제출하기</button>
-										<input type="button" value="돌아가기"
-											class="btn btn-primary btn-lg btn-block"
+										<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block"
 											onclick="history.back()">
 									</div>
 								</form>

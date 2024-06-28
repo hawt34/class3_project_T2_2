@@ -80,20 +80,20 @@ public class MyPageController {
 
 	}
 
-	// 마이클래스
-	@GetMapping("my-class")
-	public String myClass(Model model) {
-
-		MemberVO member = (MemberVO) session.getAttribute("member");
-		// System.out.println("리뷰쪽 시작"+member.getMember_code());
-
-		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
-		} else {
-			return "mypage/mypage-class";
-		}
-
-	}
+//	// 마이클래스
+//	@GetMapping("my-class")
+//	public String myClass(Model model) {
+//
+//		MemberVO member = (MemberVO) session.getAttribute("member");
+//		// System.out.println("리뷰쪽 시작"+member.getMember_code());
+//
+//		if (member == null) {
+//			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+//		} else {
+//			return "mypage/mypage-class";
+//		}
+//
+//	}
 
 	// 내가 쓴 리뷰
 	@GetMapping("my-review")

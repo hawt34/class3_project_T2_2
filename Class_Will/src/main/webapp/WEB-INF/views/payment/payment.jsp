@@ -246,6 +246,11 @@ $(function() {
 			success: function(data) {
 				let credit = parseInt(data.member_credit);
 				
+	            if (credit == 0) {
+	                $('#will_pay_input').val(0);
+	                $('#memberCredit').prop("disabled", true);
+	            }
+				
 				if(credit > subtotal) {
 					$("#will_pay_input").val(subtotal);
 				} else {

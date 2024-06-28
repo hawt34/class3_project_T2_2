@@ -66,7 +66,7 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div id="grid"></div>
-                            <button type="button" class="btn btn-secondary" name="registBtn" onclick="javascript:regist('${param.type}')">등록하기</button>
+                            <button type="button" class="btn btn-secondary" name="registBtn" onclick="javascript:regist()">등록하기</button>
                         </div>
                     </div>
 
@@ -95,18 +95,15 @@
     <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
     <script>
-    	var currentParam = "";
-    	var type = "${param.type}";
     	
-	    function regist(type){
-			window.open("admin-csc-regist?type=" + type, "등록폼", "width=1200,height=1000");	
+	    function regist(){
+			window.open("admin-event-regist", "등록폼", "width=1200,height=1000");	
 	    }
 	    
         document.addEventListener('DOMContentLoaded', function () {
     	    const itemsPerPage = 10;
     	    let currentPage = 1;
-    	    let type = '${param.type}';
-    	    const data = ${jo_list};
+//     	    const data = ${jo_list};
     	    
     	    
     	    $('#btn-apply').on('click', function () {
@@ -114,13 +111,11 @@
     	        // modifiedRows가 배열인지 확인하고 배열로 변환
     	        const rowsArray = Array.isArray(modifiedRows) ? modifiedRows : [modifiedRows];
 
-    	        // modifiedRows에 type 파라미터 추가
-    	        rowsArray.forEach(row => row.type = type);
     	        
     	        const jsonData = JSON.stringify(rowsArray);
 
     	        $.ajax({
-    	            url: 'updateCsc',
+    	            url: 'updateEvent',
     	            type: 'POST',
     	            contentType: 'application/json',
     	            data: jsonData,
@@ -138,28 +133,6 @@
     	                alert('변경 사항 적용 실패: 서버 오류');
     	            }
     	        });
-    	    });
-    	    
-    	    // 페이지 제목 변경
-    	    const pageTitle = document.getElementById('page-title');
-    	    if (type === 'notice') {
-    	        pageTitle.textContent = '공지사항 리스트';
-    	    } else if (type === 'faq') {
-    	        pageTitle.textContent = 'FAQ 리스트';
-    	    } else if (type === 'event') {
-    	        pageTitle.textContent = '이벤트 리스트';
-    	    } else {
-    	        pageTitle.textContent = '고객센터 리스트';
-    	    }
-    	    
-    	    // 버튼 색깔 변경
-    	    const buttons = document.querySelectorAll('.category-btn');
-    	    buttons.forEach(button => {
-    	        if (button.getAttribute('data-category') === type) {
-    	            button.classList.add('btn-primary');
-    	        } else {
-    	            button.classList.remove('btn-primary');
-    	        }
     	    });
     	    
     	    
@@ -212,14 +185,8 @@
     	            viewButton.addEventListener('click', () => {
                         const rowKey = props.grid.getIndexOfRow(props.rowKey);
                         const rowData = props.grid.getRow(rowKey);
-                        let code = 0;
-                        console.log(rowData);
-    	            	if(rowData.notice_code != null){
-    	            		code = rowData.notice_code;	
-    	            	}else if(rowData.faq_code != null){
-    	            		code = rowData.faq_code;
-    	            	}
-    	                window.open("admin-csc-detail?type=" + type + "&code=" + code, "상세정보", "width=1200px,height=1000px");
+                        let code = rowData.event_code;
+    	                window.open("admin-event-detail?&code=" + code, "상세정보", "width=1200px,height=1000px");
     	            });
 
     	            container.appendChild(viewButton);
@@ -232,11 +199,7 @@
     	        render(props) {
     	            this.el.dataset.rowKey = props.rowKey;
     	            this.el.dataset.columnName = props.columnName;
-    	            if (type === 'notice') {
-    	                this.el.dataset.code = props.value.notice_code; // notice인 경우
-    	            } else if(type === 'faq'){
-    	                this.el.dataset.code = props.value.faq_code; // 다른 경우
-    	            }
+    	            this.el.dataset.code = props.value.event_code;
     	        }
     	    }
 
@@ -244,13 +207,10 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-//                 	{ header: '글번호', name: 'notice_code' , editor: 'text'},
-                	{ header: '글번호', name: type + '_code' , editor: 'text'},
-//                     { header: '제목', name: 'notice_subject' , editor: 'text'},
-                    { header: '제목', name: type + '_subject' , editor: 'text'},
-//                     { header: '카테고리', name: 'notice_category' , editor: 'text'},
-                    { header: '카테고리', name: type + '_category' , editor: 'text'},
-                    { header: '작성일', name: type + '_reg_date' , editor: 'text'},
+                    { header: '제목', name: 'event_subject' , editor: 'text'},
+                    { header: '카테고리', name: 'event_category' , editor: 'text'},
+                    { header: '이벤트 기간', name: 'event_date' , editor: 'text'},
+                    { header: '지급 포인트', name: 'event_point' , editor: 'text'},
                     {
                         header: 'Action',
                         name: 'action',

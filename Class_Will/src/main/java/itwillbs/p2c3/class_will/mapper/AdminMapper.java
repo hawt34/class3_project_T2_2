@@ -101,6 +101,8 @@ public interface AdminMapper {
 
 	boolean updateFaqHide(@Param("params") Map<String, Object> params);
 
+	int insertEvent(@Param("params") Map<String, Object> map);
+
 
 	
 

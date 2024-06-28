@@ -26,7 +26,7 @@ public class AdminServiceHelper {
                 .sorted(Map.Entry.comparingByKey())
                 .map(entry -> new GroupedData(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toList());
-
+        
         for (GroupedData gd : sortedData) {
             Integer common2_code = adminService.getCommon2Code("CLC", gd.getLargeCategory());
             for (Map<String, Object> rowMap : gd.getRows()) {

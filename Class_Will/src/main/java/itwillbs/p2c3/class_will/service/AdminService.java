@@ -172,20 +172,29 @@ public class AdminService {
 		return adminMapper.updateClassStatusHide(class_code) > 0 ? true : false;
 	}
 
-	public int getTotalMember() {
+	public Integer getTotalMember() {
 		return adminMapper.selectTotalMember();
 	}
 
-	public int getNewMember() {
+	public Integer getNewMember() {
 		return adminMapper.selectNewMemberCount();
 	}
 
-	public int getDailyVisit() {
+	public Integer getDailyVisit() {
 		return adminMapper.selectDailyVisit();
 	}
 
-	public int getTotalVisit() {
+	public Integer getTotalVisit() {
 		return adminMapper.selectTotalVisit();
+	}
+
+
+	public boolean updateNoticeHide(Map<String, Object> params) {
+		return adminMapper.updateNoticeHide(params);
+	}
+
+	public boolean updateFaqHide(Map<String, Object> params) {
+		return adminMapper.updateFaqHide(params);
 	}
 
 	

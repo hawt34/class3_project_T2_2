@@ -72,7 +72,7 @@ public class AdminController {
 		//카테고리 키값,벨류값 분류
         List<String> category_name_list = new ArrayList<>();
         List<Integer> reservation_count_list = new ArrayList<>();
-        
+        //category_name_list 요소들에 강제로 ""따옴표 삽입
         for (Map<String, Object> category : category_list) {
         	category_name_list.add("\"" + (String) category.get("code_value") + "\"");
         	reservation_count_list.add(((Long) category.get("reservation_count")).intValue());
@@ -82,10 +82,10 @@ public class AdminController {
 		List<Integer> sales_list = adminService.getWillpayChart();
 		
 		// 오늘 회원가입 숫자
-		int new_member = adminService.getNewMember();
+		Integer new_member = adminService.getNewMember();
 		
 		// 총 회원 수
-		int total_member = adminService.getTotalMember();	
+		Integer total_member = adminService.getTotalMember();	
 		
 		System.out.println("월별 매출 : " + sales_list);
 		System.out.println("오늘 회원가입 숫자 : " + new_member);
@@ -93,10 +93,9 @@ public class AdminController {
 		System.out.println("카테고리 순위 : " + category_name_list);
 		System.out.println("숫자 리스트 : " + reservation_count_list);
 		// 오늘 방문자
-		int daily_visit = adminService.getDailyVisit();
-		
+		Integer daily_visit = adminService.getDailyVisit();
 		//총 방문자
-		int total_visit = adminService.getTotalVisit();
+		Integer total_visit = adminService.getTotalVisit();
 		
 		model.addAttribute("category_name_list", category_name_list);
 		model.addAttribute("reservation_count_list", reservation_count_list);
@@ -111,16 +110,19 @@ public class AdminController {
 	
 	@GetMapping("admin-member")
 	public String adminMain(@RequestParam(defaultValue = "일반회원") String type, Model model) {
-		List<Map<String, String>> member_list = null;
+		// 공통코드 추출을 위한 변수 선언
 		String code_value = "member_type";
+		String table_name = "MEMBER";
+		// 파라미터로 사용될 (WHERE절 삽입) 공통코드값 추출
 		String common1_code = adminService.getCommonCode(code_value);
 		int common2_code = adminService.getCommon2Code(common1_code, type);
-		Map<String, Object> params = cUtils.commonProcess("MEMBER", common2_code);
-		
-		member_list = adminService.getMemberList(params);
-		
+		// 컬럼명에 대한 공통코드값(JOIN절 삽입) 추출 
+		Map<String, Object> params = cUtils.commonProcess(table_name, common2_code);
+		// 회원리스트 추출
+		List<Map<String, String>> member_list = adminService.getMemberList(params);
+		// 뷰로 전달할 JSONObject 생성
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
-		
+		// jSONObject에 회원정보 삽입
 		for(Map<String, String> member : member_list) {
             JSONObject jo = new JSONObject(member);
             jo_list.add(jo);
@@ -134,11 +136,11 @@ public class AdminController {
 	
 	@GetMapping("admin-class")
 	public String adminClass(Model model,@RequestParam(defaultValue = "1") String type) {
-		
+		// 클래스리스트 추출
 		List<Map<String, Object>> class_list = adminService.getClassList(type);
-		
+		// 뷰로 전달할 JSONObject 생성
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
-		
+		// JSONObject에 클래스 리스트 삽입
 		for(Map<String, Object> class1 : class_list) {
             JSONObject jo = new JSONObject(class1);
             jo.put("class_category", class1.get("class_big_category") + "/" + class1.get("class_small_category"));
@@ -152,24 +154,29 @@ public class AdminController {
 	
 	@GetMapping("admin-category")
 	public String adminCategory(Model model) {
+		// 최종적으로 뷰로 전달할 리스트 생성
 	    List<Map<String, Object>> data = new ArrayList<>();
+	    // 카테고리 테이블의 모든 정보 추출
 	    Map<String, List<Map<String, Object>>> categoryData = adminService.getCategoryData();
+	    // 대 카테고리 , 소 카테고리 분류
 	    List<Map<String, Object>> bigCategory = categoryData.get("bigCategory");
 	    List<Map<String, Object>> smallCategory = categoryData.get("smallCategory");
 	    
-	    // 대분류에 소분류를 추가
+	    // 대분류에 상속되는 소분류를 대분류 _children 배열안에 추가
 	    for (Map<String, Object> bcg : bigCategory) {
 	        Map<String, Object> map = new HashMap<>();
+	        // Grid형식에서 사용할 값들 추출 및 삽입
 	        String bigValue = (String) bcg.get("code_value");
 	        Integer common2_code = (Integer) bcg.get("common2_code"); // Integer로 변환
 	        map.put("id", common2_code);
 	        map.put("largeCategory", bigValue);
-	        map.put("hidden", bcg.get("code_hide").equals("N") ? false : true);
+	        map.put("hidden", bcg.get("code_hide").equals("N") ? false : true); // Toast UI 에서는 boolean을 인식하기때문에 변환
 	        
 	        // 소분류 데이터를 _children 배열에 추가
 	        List<Map<String, Object>> children = new ArrayList<>();
 	        for (Map<String, Object> scg : smallCategory) {
 	            Integer parent_code = (Integer) scg.get("common2_code"); // Integer로 변환
+	            // 대 카테고리 코드값과 소 카테고리 코드값을 비교하여 _children 배열에 데이터 삽입
 	            if (common2_code.equals(parent_code)) {
 	                Map<String, Object> map2 = new HashMap<>();
 	                map2.put("id", scg.get("common3_code"));
@@ -182,6 +189,7 @@ public class AdminController {
 	        if (!children.isEmpty()) {
 	            map.put("_children", children);
 	        }
+	        // 최종 리스트에 계층형식의 데이터 삽입
 	        data.add(map);
 	    }
 	    model.addAttribute("jo_list", new Gson().toJson(data)); // JSON 형식으로 변환하여 전달
@@ -190,17 +198,19 @@ public class AdminController {
 	
 	@GetMapping("admin-csc")
 	public String adminCsc(Model model, String type) {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("type", type);
-		List<Map<String, Object>> data = adminService.getCscList(params);
+		// type은 notice or faq
 		String common2_value	 = "";
 		String common2_code = "";
 		String common1_code 	= "";
-		System.out.println(data);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("type", type);
+		
+		// 고객센터(공지사항, faq) 리스트 type값에 따라 추출
+		List<Map<String, Object>> data = adminService.getCscList(params);
+		// 공통코드에 대한 키값 비교 및 벨류값 추출
 		for (Map<String, Object> map : data) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
                 if (entry.getKey().contains("_category")) {
-                	System.out.println("ssssssssssssssssssss : " + entry.getValue());
                 	common2_code = (String)entry.getValue();
                 }
             }
@@ -208,20 +218,19 @@ public class AdminController {
     		case "notice" 	: common1_code = "NTC"; break;
     		case "faq" 		: common1_code = "FQC"; break;
     		case "event"	: common1_code = ""; break;
-        }
+            }
             Integer common2_code_int = Integer.parseInt(common2_code);
+            // 카테고리 테이블에 기록된 공통코드 값(숫자) 를 벨류값(공통코드 벨류값) 으로 변환
             common2_value = adminService.getCommon2Value(common1_code, common2_code_int);
             map.put(type + "_category", common2_value);
             
-            
+            // 게시글 숨김처리 값을 TOAST UI 스위치 버튼에 대한 boolean 값 으로 변환 
             map.put("hidden", map.get(type + "_hide").equals("Y") ? true : false); 
             
             
-            System.out.println(map);
 		}
-		
+		// 뷰로 전달할 JSONObject 생성 및 삽입
 		List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
-		
 		for(Map<String, Object> board : data) {
             JSONObject jo = new JSONObject(board);
             jo_list.add(jo);
@@ -237,38 +246,43 @@ public class AdminController {
 	public String adminCscDetail(String type,int code, Model model) {
 		List<Map<String, Object>> list = null;
 		String common1_code = "";
+		// type에 따라 common1_code 정의
 		switch (type) {
 			case "notice" : common1_code = "NTC"; break;
 			case "faq" : common1_code = "FQC"; break;
 		}
-		
+		// 쿼리에 필요한 파라미터 정의
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("common1_code", common1_code);
 		params.put("type", type);
 		params.put("code", code);
-		
+		// 게시글 상세정보 조회
 		Map<String, String> board = cscService.getBoardDetail(params);
+		// 뷰에서 EL태그 사용을 위해 type에 따라 변수이름 다르게 저장
 		switch (type) {
 			case "notice" : model.addAttribute("notice", board); break;
 			case "faq" : model.addAttribute("faq", board); break;
 		}
-		
 		
 		return "admin/admin_csc_detail";
 	}
 	
 	@GetMapping("admin-csc-regist")
 	public String adminCscRegist(String type, Model model) {
+		// 동적인 뷰를 위해 type값 전달
 		model.addAttribute("type", type);
 		String code = "";
+		// type값에 따라 common1_code값 저장
 		switch (type) {
 		case "notice" 	: code = "NTC"; break;
 		case "faq" 		: code = "FQC"; break;
 		case "event"	: break;
 		}
+		// type , code값에 따라 공통코드 테이블에서 카테고리 값들 추출(뷰에 노출할)
 		List<Map<String, String>> category =  adminService.getBoardCategory(code);
 		
 		model.addAttribute("category", category);
+		// 동적인 뷰를 위해 registType 저장(regist or modify)
 		model.addAttribute("registType", "regist");
 		return "admin/admin_csc_form";
 	}
@@ -294,11 +308,13 @@ public class AdminController {
 		params.put("type", type);
 		Map<String, String> board = cscService.getBoardDetail(params);
 		
+		// 동적 뷰를 위한 변수값 다르게 저장, 원래 게시글의 카테고리값 저장
 		switch (type) {
 			case "notice" : model.addAttribute("notice", board); colCat = board.get("notice_category");break; 
 			case "faq" : model.addAttribute("faq", board); colCat = board.get("faq_category"); break; 
 		}
 		model.addAttribute("collectCat", colCat);
+		// 동적인 뷰를 위해 registType 저장(regist or modify)
 		model.addAttribute("registType", "modify");
 		
 		return "admin/admin_csc_form";
@@ -311,6 +327,7 @@ public class AdminController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("type", type);
 		params.put("code", code);
+		// type값에 따른 DB delete작업
 		boolean deleteSuccess = adminService.deleteBoard(params);
 		if(!deleteSuccess) {
 			result = WillUtils.checkDeleteSuccess(false, model, "글 삭제 실패!", true);
@@ -352,13 +369,13 @@ public class AdminController {
 //        } else {
             data = adminService.getAllData(tableName); // 전체 데이터 가져오기
 //        }
-        
+        // excelService에 excel 생성요청
         byte[] excelBytes = excelService.createExcel(title, columns, data);
-
+        
         HttpHeaders headers = new HttpHeaders();
         // 파일명에 확장자를 명시적으로 추가
         String encodedTitle = URLEncoder.encode(title + ".xlsx", StandardCharsets.UTF_8.toString());
-
+        
         headers.add("Content-Disposition", "attachment; filename=\"" + encodedTitle + "\"");
         
         return new ResponseEntity<>(excelBytes, headers, HttpStatus.OK);
@@ -610,6 +627,46 @@ public class AdminController {
     		return isSuccess;
     	}
     	return true;
+    }
+    
+//    @ResponseBody
+//    @PostMapping(value = "insert", consumes = "application/json", produces = "application/json")
+//    public Map<String, Object> categoryInsert(@RequestBody CategoryData data) {
+//        try {
+//            // Update 작업
+//            adminServiceHelper.processRows(data.getUpdatedRows(), "update");
+//
+//            // Insert 작업
+//            adminServiceHelper.processRows(data.getCreatedRows(), "insert");
+//
+//            // Delete 작업
+//            adminServiceHelper.processRows(data.getDeletedRows(), "delete");
+//
+//            return Map.of("success", true, "message", "변경 사항이 성공적으로 저장되었습니다.");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return Map.of("success", false, "message", "변경 사항 적용 실패: " + e.getMessage());
+//        }
+//    }
+    
+    @ResponseBody
+    @PostMapping("updateCsc")
+    public Map<String, Object> updateCsc(@RequestBody List<Map<String, Object>> map) {
+    	boolean isSuccess = false;
+    	Map<String, Object> originalMap = map.get(0);
+    	String type = (String)originalMap.get("type");
+    	List<Map<String, Object>> realList = (List<Map<String, Object>>)originalMap.get("updatedRows");
+    	for(Map<String, Object> params : realList) {
+    		switch (type) {
+			case "notice": isSuccess = adminService.updateNoticeHide(params); break;
+			case "faq": isSuccess = adminService.updateFaqHide(params); break;
+			}
+    	}
+    	if(!isSuccess) {
+    		return Map.of("success", false, "message", "변경 사항 적용 실패");
+    	}	
+    	
+    	return Map.of("success", true, "message", "변경 사항이 성공적으로 저장되었습니다.");
     }
     
 }

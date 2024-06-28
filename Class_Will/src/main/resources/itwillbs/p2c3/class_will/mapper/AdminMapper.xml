@@ -85,10 +85,10 @@
 	    FROM MEMBER m
 	    LEFT JOIN common2 status 
 	    ON m.member_status = status.common2_code 
-	    AND status.common1_code = 1
+	    AND status.common1_code = 'MES'
 	    LEFT JOIN common2 type 
 	    ON m.member_type = type.common2_code 
-	    AND type.common1_code = 2
+	    AND type.common1_code = 'MET'
 	</select>
 	
 	<select id="selectColumnDataTypes" resultType="String">
@@ -449,25 +449,49 @@
 		WHERE class_code = #{class_code}
 	</update>	
 	
-	<select id="selectTotalMember">
+	<select id="selectTotalMember" resultType="Integer">
 		SELECT count(member_code)
 		FROM MEMBER
 	</select>
 	
-	<select id="selectNewMemberCount">
+	<select id="selectNewMemberCount" resultType="Integer">
 		SELECT COUNT(*) AS new_member_count
 		FROM MEMBER
 		WHERE DATE_FORMAT(STR_TO_DATE(member_reg_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE();
 	</select>
 	
-	<select id="selectDailyVisit">
-		SELECT visit_count
+	<select id="selectDailyVisit" resultType="Integer">
+		SELECT IFNULL(visit_count , 0)
 		FROM daily_visit
 		WHERE DATE_FORMAT(STR_TO_DATE(visit_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE();
 	</select>
 	
-	<select id="selectTotalVisit">
+	<select id="selectTotalVisit" resultType="Integer">
 		SELECT SUM(visit_count)
 		FROM daily_visit
 	</select>
+	
+	<update id="updateNoticeHide" parameterType="map">
+		UPDATE notice
+		SET notice_hide = 
+		<if test="params.hidden">
+			'Y'
+		</if>
+		<if test="!params.hidden">
+			'N'
+		</if>
+		WHERE notice_code = #{params.notice_code}
+	</update>
+	
+	<update id="updateFaqHide" parameterType="map">
+		UPDATE faq
+		SET faq_hide = 
+				<if test="params.hidden">
+			'Y'
+		</if>
+		<if test="!params.hidden">
+			'N'
+		</if>
+		WHERE faq_code = #{params.faq_code}
+	</update>
 </mapper>

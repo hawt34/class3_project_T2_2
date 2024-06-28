@@ -89,13 +89,17 @@ public interface AdminMapper {
 
 	int updateClassStatusHide(String class_code);
 
-	int selectTotalMember();
+	Integer selectTotalMember();
 	
-	int selectNewMemberCount();
+	Integer selectNewMemberCount();
 
-	int selectDailyVisit();
+	Integer selectDailyVisit();
 
-	int selectTotalVisit();
+	Integer selectTotalVisit();
+
+	boolean updateNoticeHide(@Param("params") Map<String, Object> params);
+
+	boolean updateFaqHide(@Param("params") Map<String, Object> params);
 
 
 	

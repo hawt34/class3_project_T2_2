@@ -21,4 +21,12 @@ public class CscService {
 	public Integer getPagingNum(int code, String searchType) {
 		return cscMapper.searchPaging(code, searchType);
 	}
+
+	public List<Map<String, String>> getBoardCategoryHide(String code) {
+		return cscMapper.selectBoardCategoryHide(code);
+	}
+
+	public int getBoardCountHide(String type) {
+		return cscMapper.selectBoardCountHide(type);
+	}
 }

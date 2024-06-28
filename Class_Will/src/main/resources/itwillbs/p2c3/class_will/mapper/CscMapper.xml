@@ -29,5 +29,19 @@
             &gt; #{code}
         </if>
     </select>
+    
+	<select id="selectBoardCategoryHide" resultType="map">
+		SELECT common2_code , code_value
+		FROM common2
+		WHERE common1_code = #{code}
+		AND code_hide = 'N'
+	</select>
 	
+	<select id="selectBoardCountHide" resultType="Integer">
+	    SELECT COUNT(*)
+	    FROM ${type}
+	    WHERE ${type}_hide = 'N'
+	</select>
+	
+		
 </mapper>

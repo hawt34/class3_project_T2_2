@@ -26,7 +26,7 @@ public class CscController {
 	public String cscMain(@RequestParam(defaultValue = "notice") String type, Model model,@RequestParam(defaultValue = "1") String pageNum) {
 		int pageSize = 10;
 		int startRow = (Integer.parseInt(pageNum) - 1) * pageSize;
-		int totalCount = adminService.getBoardCount("notice");
+		int totalCount = cscService.getBoardCountHide("notice"); 
 		int totalPages = (int) Math.ceil((double) totalCount / pageSize);
 		
 		String common2_value	= "";
@@ -36,8 +36,8 @@ public class CscController {
 		List<Map<String, String>> category = null;
 		//카테고리
 		switch (type) {
-		case "notice": category = adminService.getBoardCategory("NTC"); break;
-		case "faq": category = adminService.getBoardCategory("FQC"); break;
+		case "notice": category = cscService.getBoardCategoryHide("NTC"); break;
+		case "faq": category = cscService.getBoardCategoryHide("FQC"); break;
 		}
 		
 		//글 리스트
@@ -46,7 +46,6 @@ public class CscController {
 		params.put("startRow", startRow);
 		params.put("limit", pageSize);
 		List<Map<String, Object>> data = adminService.getCscList(params);
-		
 		
 		for (Map<String, Object> map : data) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -63,6 +62,9 @@ public class CscController {
             common2_value = adminService.getCommon2Value(common1_code, common2_code_int);
             map.put(type + "_category", common2_value);
 		}
+		model.addAttribute("list", data);
+		model.addAttribute("category", category);
+		
 		
 		if(type.equals("notice")) {
 			return "csc/csc_notice";
@@ -92,7 +94,6 @@ public class CscController {
 		params.put("code", code);
 		
 		Map<String, String> board = cscService.getBoardDetail(params);
-		System.out.println("dddddddddddddddddddd board : " + board);
 		model.addAttribute("board", board);
 		prev = cscService.getPagingNum(code, searchType = "MIN");
 		if(prev == null) {
@@ -104,7 +105,6 @@ public class CscController {
 		}
 		model.addAttribute("prev", prev);
 		model.addAttribute("next", next);
-		
 		
 		switch (type) {
 			case "notice" : return "csc/csc_notice_detail";

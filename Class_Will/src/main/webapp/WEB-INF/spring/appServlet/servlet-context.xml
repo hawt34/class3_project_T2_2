@@ -46,5 +46,29 @@
 	
 	<context:property-placeholder location="classpath:/appdata.properties"/>
 	
+	<!-- CORS 설정 추가 -->
+<!--     <beans:bean id="corsConfigurationSource" class="org.springframework.web.cors.UrlBasedCorsConfigurationSource"> -->
+<!--         <beans:property name="corsConfigurations"> -->
+<!--             <beans:map> -->
+<!--                 <beans:entry key="/**"> -->
+<!--                     <beans:bean class="org.springframework.web.cors.CorsConfiguration"> -->
+<!--                         <beans:property name="allowedOrigins"> -->
+<!--                             <beans:list> -->
+<!--                                 <beans:value>http://localhost:8081</beans:value> -->
+<!--                             </beans:list> -->
+<!--                         </beans:property> -->
+<!--                         <beans:property name="allowedMethods" value="GET,POST,PUT,DELETE,OPTIONS,HEAD"/> -->
+<!--                         <beans:property name="allowedHeaders" value="Origin,Content-Type,Accept"/> -->
+<!--                         <beans:property name="allowCredentials" value="true"/> -->
+<!--                     </beans:bean> -->
+<!--                 </beans:entry> -->
+<!--             </beans:map> -->
+<!--         </beans:property> -->
+<!--     </beans:bean> -->
+
+<!--     <beans:bean id="corsFilter" class="org.springframework.web.filter.CorsFilter"> -->
+<!--         <beans:constructor-arg ref="corsConfigurationSource"/> -->
+<!--     </beans:bean> -->
+	
 	
 </beans:beans>

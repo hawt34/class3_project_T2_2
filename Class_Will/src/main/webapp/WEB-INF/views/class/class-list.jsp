@@ -61,37 +61,31 @@ document.addEventListener("DOMContentLoaded", function() {
     var heartOverlays = document.querySelectorAll(".heart-overlay");
     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
     var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
-
+	
     heartOverlays.forEach(function(heartOverlay) {
         heartOverlay.addEventListener("click", function() {
             var img = this;
-            var memberCode = img.getAttribute("data-member-code");
-            var classCode = img.getAttribute("data-class-code");
+            var member_code = img.getAttribute("data-member-code");
+            var class_code = img.getAttribute("data-class-code");
 
-            img.classList.add("fade");
+            var isFullHeart = img.src.includes("heart_full.png");
 
-            setTimeout(function() {
-                var isFullHeart = img.src.includes("heart_full.png");
+            var heart_status = !isFullHeart;
+			
+            if (heart_status) {
+                img.src = changeSrc;
+            } else {
+                img.src = originalSrc;
+            }
 
-                if (isFullHeart) {
-                    img.src = originalSrc;
-                } else {
-                    img.src = changeSrc;
-                }
+            // AJAX 요청을 통해 서버로 업데이트 요청 전송
+            var data = JSON.stringify({
+                heart_status: heart_status,
+                member_code: member_code,
+                class_code: class_code
+            });
 
-                img.classList.remove("fade");
-
-                // AJAX 요청을 통해 서버로 업데이트 요청 전송
-                var heartStatus = !isFullHeart; // true면 heart_full.png, false면 heart.png
-
-                var data = JSON.stringify({ 
-                    heartStatus: heartStatus,
-                    member_code: memberCode,
-                    class_code: classCode
-                });
-
-                updateHeartStatus(data);
-            }, 300); 
+            updateHeartStatus(data);
         });
     });
 
@@ -105,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (xhr.status === 200) {
                     console.log("Heart status updated successfully");
                 } else {
-                    console.error("Error updating heart status");
+                    console.error("Error updating heartStatus");
                 }
             }
         };
@@ -294,7 +288,7 @@ body {
 	<!-- 카테고리 바 -->
 	
 	<!-- 클래스 개수 시작 -->
-	<c:set var="classCount" value="${fn:length(map)}" />
+	<c:set var="classCount" value="${fn:length(classList)}" />
 	<div class="row">
 		<div class="col-md-9">
 			<div class="classCount">
@@ -317,32 +311,30 @@ body {
 	
       <!-- 첫번째 줄 -->
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
-	      <c:forEach var="map" items="${map}">
+	      <c:forEach var="classList" items="${classList}">
 	         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 	            <div class="card shadow-sm border-0 rounded flex-fill mb-4">
 	               <div class="card-body p-0 position-relative card-body1 position-relative1">
-	                  <a href="class-detail?class_code=${map.class_code}"><img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic"></a>
-	<%--                   <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" class="w-100 card-img-top classPic"> --%>
-<%-- 	                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" data-member-code="{map.}" id="heartOverlay" class="heart-overlay"> --%>
-	                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+	                  <a href="class-detail?class_code=${classList.class_code}"><img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a>
+	                  <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
 	                  <div class="card-bodys d-flex flex-column">
 	                     <div class="classCategory col-md-10">
-	                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${map.class_big_category}</button>
-	                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${map.class_small_category}</button>
+	                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button>
+	                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button>
 	                     </div>
 	                     <div class="createrName d-flex align-items-center">
 	                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-	                        <p class="mb-0 ml-2">${map.member_nickname}</p>
+	                        <p class="mb-0 ml-2">${classList.member_nickname}</p>
 	                     </div>
 	                     <div class="className">
-	                        <a href="class-detail"><h6>${map.class_name}</h6></a>
+	                        <a href="class-detail"><h6>${classList.class_name}</h6></a>
 	                     </div>
 	                     <div class="row classInfo">
 	                        <div class="col-md-6 add">
-	                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${map.class_location}</a>
+	                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.class_location}</a>
 	                        </div>
 	                        <div class="col-md-6 price">
-	                           <p>${map.class_price}원</p>
+	                           <p>${classList.class_price}원</p>
 	                        </div>
 	                     </div>
 	                  </div>

@@ -94,6 +94,9 @@ public class AdminController {
 		System.out.println("숫자 리스트 : " + reservation_count_list);
 		// 오늘 방문자
 		Integer daily_visit = adminService.getDailyVisit();
+		if(daily_visit == null) {
+			daily_visit = 0;
+		}
 		//총 방문자
 		Integer total_visit = adminService.getTotalVisit();
 		
@@ -524,7 +527,7 @@ public class AdminController {
         if (file.isEmpty()) {
             return "{\"url\":\"\"}";
         }
-
+        
         String uploadDir = "resources/upload";
         String saveDir = session.getServletContext().getRealPath(uploadDir);
         System.out.println("실제 업로드 경로(session): " + saveDir);
@@ -545,7 +548,7 @@ public class AdminController {
 
         String fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
         String webUrl = uploadDir + "/" + subDir + "/" + fileName;
-
+        
         try {
             if (!file.getOriginalFilename().equals("")) {
                 file.transferTo(new File(saveDir, fileName));
@@ -553,7 +556,7 @@ public class AdminController {
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
-
+        
         System.out.println("파일 저장 경로: " + saveDir + "/" + fileName);
         System.out.println("웹 접근 경로: " + webUrl);
 
@@ -667,6 +670,83 @@ public class AdminController {
     	}	
     	
     	return Map.of("success", true, "message", "변경 사항이 성공적으로 저장되었습니다.");
+    }
+    
+    @GetMapping("admin-event")
+    public String adminEvent() {
+    	
+    	return "admin/admin_event";
+    }
+    
+    @GetMapping("admin-event-regist")
+    public String adminEventRegist() {
+    	
+    	
+    	return "admin/admin_event_form";
+    }
+    
+    @PostMapping("admin-event-regist-pro")
+    public String adminEventRegistPro(@RequestParam Map<String, Object> map
+    		,@RequestParam MultipartFile event_thumbFile
+    		,@RequestParam MultipartFile event_imageFile
+    		,HttpSession session) {
+    	map.put("event_start_date", ((String)map.get("event_start_date")).replace("-", ""));
+    	map.put("event_end_date", ((String)map.get("event_end_date")).replace("-", ""));
+    	System.out.println("map : " + map);
+    	
+    	System.out.println("event_thumbFile : " + event_thumbFile);
+    	System.out.println("event_imageFile : " + event_imageFile);
+        
+        String uploadDir = "resources/upload";
+        String saveDir = session.getServletContext().getRealPath(uploadDir);
+        System.out.println("실제 업로드 경로(session): " + saveDir);
+
+        LocalDate today = LocalDate.now();
+        String datePattern = "yyyy/MM/dd";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
+        String subDir = today.format(dtf);
+
+        saveDir += "/" + subDir;
+        Path path = Paths.get(saveDir);
+
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String event_thumbFile_fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + event_thumbFile.getOriginalFilename();
+        String event_imageFile_fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + event_imageFile.getOriginalFilename();
+        
+        String event_thumbFile_webUrl = uploadDir + "/" + subDir + "/" + event_thumbFile_fileName;
+        String event_imageFile_webUrl = uploadDir + "/" + subDir + "/" + event_imageFile_fileName;
+
+        try {
+            if (!event_thumbFile.getOriginalFilename().equals("")) {
+            	event_thumbFile.transferTo(new File(saveDir, event_thumbFile_fileName));
+            }
+            
+            if (!event_imageFile.getOriginalFilename().equals("")) {
+            	event_imageFile.transferTo(new File(saveDir, event_imageFile_fileName));
+            }
+            
+            
+        } catch (IllegalStateException | IOException e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("파일 저장 경로: " + saveDir + "/" + event_thumbFile_fileName);
+        System.out.println("파일 저장 경로: " + saveDir + "/" + event_imageFile_fileName);
+        System.out.println("웹 접근 경로: " + event_thumbFile_webUrl);
+        System.out.println("웹 접근 경로: " + event_imageFile_webUrl);
+    	
+        map.put("event_image", event_imageFile_webUrl);
+        map.put("event_thumbnail", event_thumbFile_webUrl);
+        
+        boolean isSuccess = adminService.insertEvent(map);
+        
+        
+    	return "";
     }
     
 }

@@ -457,13 +457,13 @@
 	<select id="selectNewMemberCount" resultType="Integer">
 		SELECT COUNT(*) AS new_member_count
 		FROM MEMBER
-		WHERE DATE_FORMAT(STR_TO_DATE(member_reg_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE();
+		WHERE DATE_FORMAT(STR_TO_DATE(member_reg_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE()
 	</select>
 	
 	<select id="selectDailyVisit" resultType="Integer">
 		SELECT IFNULL(visit_count , 0)
 		FROM daily_visit
-		WHERE DATE_FORMAT(STR_TO_DATE(visit_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE();
+		WHERE DATE_FORMAT(STR_TO_DATE(visit_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE()
 	</select>
 	
 	<select id="selectTotalVisit" resultType="Integer">
@@ -486,7 +486,7 @@
 	<update id="updateFaqHide" parameterType="map">
 		UPDATE faq
 		SET faq_hide = 
-				<if test="params.hidden">
+		<if test="params.hidden">
 			'Y'
 		</if>
 		<if test="!params.hidden">
@@ -494,4 +494,20 @@
 		</if>
 		WHERE faq_code = #{params.faq_code}
 	</update>
+	
+	<insert id="insertEvent" parameterType="map">
+		INSERT INTO event
+		VALUES
+		(
+		null, 
+		#{params.event_subject}, 
+		now(), 
+		#{params.event_start_date}, 
+		#{params.event_end_date}, 
+		#{params.event_thumbnail}, 
+		#{params.event_image}, 
+		#{params.event_point_active}, 
+		#{params.event_point}
+		)
+	</insert>
 </mapper>

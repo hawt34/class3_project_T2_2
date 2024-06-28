@@ -197,6 +197,10 @@ public class AdminService {
 		return adminMapper.updateFaqHide(params);
 	}
 
+	public boolean insertEvent(Map<String, Object> map) {
+		return adminMapper.insertEvent(map) > 0 ? true : false;
+	}
+
 	
 	
 }

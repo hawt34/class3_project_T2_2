@@ -100,7 +100,7 @@
                         <h6 class="collapse-header">고객센터 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=notice">공지사항 리스트</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=faq">FAQ 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-csc?type=event">이벤트 리스트</a>
+                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-event">이벤트 리스트</a>
                     </div>
                 </div>
             </li>

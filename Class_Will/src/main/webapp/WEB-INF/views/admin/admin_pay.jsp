@@ -102,28 +102,6 @@
     	    const itemsPerPage = 10;
     	    let currentPage = 1;
     	    
-            class ButtonRenderer {
-                constructor(props) {
-                    const el = document.createElement('button');
-                    el.className = 'btn btn-primary btn-sm';
-                    el.innerText = '상세보기';
-                    el.addEventListener('click', () => {
-                        const rowKey = props.grid.getIndexOfRow(props.rowKey);
-                        const rowData = props.grid.getRow(rowKey);
-                        const memberCode = rowData.member_code;
-                        window.open("admin-member-detail?member_code=" + memberCode, "회원 상세보기", "height=600px, width=800px");
-                    });
-                    this.el = el;
-                }
-                getElement() {
-                    return this.el;
-                }
-                render(props) {
-                    this.el.dataset.rowKey = props.rowKey;
-                    this.el.dataset.columnName = props.columnName;
-                    this.el.value = props.value;
-                }
-            }
             const grid = new tui.Grid({
                 el: document.getElementById('grid'),
                 data: data,
@@ -134,13 +112,6 @@
                     { header: '결제금액', name: 'pay_amount', editor: 'text' },
                     { header: '결제수단', name: 'pay_type', editor: 'text' },
                     { header: '결제상태', name: 'pay_status', editor: 'text' },
-                    {
-                        header: 'Action',
-                        name: 'action',
-                        renderer: {
-                            type: ButtonRenderer
-                        }
-                    }
                 ],
                 rowHeaders: ['rowNum'],
                 bodyHeight: 400,

@@ -24,6 +24,7 @@
 				, class_map_x
 				, class_map_y
 				, class_active
+				, common2_code
 		)
 		VALUES (
 			NULL
@@ -43,6 +44,12 @@
 			, null
 			, null
 			, 'Y'
+			, (
+				SELECT common2_code 
+				FROM common2 
+				WHERE code_value = #{sido}
+				AND common1_code = 'LC'
+			  )
 		)		
 	</insert>
 	

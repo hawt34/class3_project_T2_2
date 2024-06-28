@@ -11,12 +11,15 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwillbs.p2c3.class_will.service.CreatorService;
@@ -140,6 +143,22 @@ public class CreatorController {
 		
 		return "creator/creator-classReg";
 	}
+	
+    @Value("${vworld.api.key}")
+    private String vworldApiKey;
+
+    private static final String VWORLD_API_URL = "https://api.vworld.kr/req/address";
+    
+	@ResponseBody
+	@GetMapping("geocode")
+	 public ResponseEntity<String> geocode(@RequestParam String address) {
+        String url = String.format("%s?service=address&request=getcoord&version=2.0&crs=epsg:4326&address=%s&refine=true&simple=false&format=xml&type=road&key=%s", VWORLD_API_URL, address, vworldApiKey);
+
+        RestTemplate restTemplate = new RestTemplate();
+        String response = restTemplate.getForObject(url, String.class);
+
+        return ResponseEntity.ok(response);
+    } 
 	
 	//  썸머노트 이미지업로드
 //	 @ResponseBody

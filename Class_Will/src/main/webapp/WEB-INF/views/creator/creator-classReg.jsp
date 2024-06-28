@@ -164,6 +164,7 @@
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="postCode" class="h6">주소</label><br>
+												<input type="hidden" id="sido" name="sido" class="form-control" placeholder="시 / 도" onclick="search_address()" readonly>
 												<div class="d-flex justify-content-between">
 													<div class="col-md-3">
 											    		<input type="text" id="post_code" name="post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
@@ -173,6 +174,15 @@
 													</div>
 												</div>
 												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+												
+												<div class="d-flex justify-content-between">
+													<div class="col-md-6">
+											    		<input type="text" id="location_x" name="location_x" class="form-control my-1" readonly>
+													</div>
+													<div class="col-md-6">
+														<input type="text" id="location_y" name="location_y" class="form-control my-1" readonly>
+													</div>
+												</div>
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_price" class="h6">회당 클래스가격(원)</label> 
@@ -349,31 +359,6 @@
 // 			  }
 		});
 		
-// 		// 써머노트 이미지 업로드
-// 		function imageUploader(file, el) {
-// 			var formData = new FormData();
-// 			formData.append('file', file);
-		  
-// 			$.ajax({                                                              
-// 				data : formData,
-// 				type : "POST",
-// 				url : 'creatorUploadExImage',  
-// 				contentType : false,
-// 				processData : false,
-// 				enctype : 'multipart/form-data', 
-// 				success : function(response) {
-// 					var jsonResponse = JSON.parse(response);
-// 		            var imageUrl = jsonResponse.url;
-// 		         // 값이 잘 넘어오는지 콘솔 확인
-// 					console.log(response);
-// 		            console.log(imageUrl);
-// 					$(el).summernote('insertImage', imageUrl, function($image) {
-// 						 $image.attr('src', imageUrl);
-// 			             $image.attr('class', 'img-responsive');
-// 					});
-// 				}
-// 			});
-// 		}
 		
 		// 해쉬태그 다중선택
 		document.addEventListener('DOMContentLoaded', () => {
@@ -411,17 +396,42 @@
 	            oncomplete: function(data) {
 	                console.log(data);
 	                document.fr.post_code.value = data.zonecode;
-	        		let address = data.address; // 기본주소 변수에 저장
+	        		let address = data.roadAddress; // 기본주소 변수에 저장
 	        		if(data.buildingName != "") {
 	        			address += " (" + data.buildingName + ")";
 	        		}
+	        		document.fr.sido.value = data.sido;
 	        		// 기본주소 출력
 	        		document.fr.address1.value = address;
 	        		// 상세주소 입력 항목에 커서 요청
 	        		document.fr.address2.focus();
+	        		let location = address.replace(/\s+/g, '');// 공백 제거
+	        		
+	        		 $.ajax({
+        		        url: 'geocode',
+        		        type: 'GET',
+        		        data: { address: address },
+        		        success: function(response) {
+        		            console.log('Coordinates:', response);
+        		            // XML 파싱 및 좌표 추출
+        		            var parser = new DOMParser();
+        		            var xmlDoc = parser.parseFromString(response, "text/xml");
+        		            var x = xmlDoc.getElementsByTagName("x")[0].childNodes[0].nodeValue;
+        		            var y = xmlDoc.getElementsByTagName("y")[0].childNodes[0].nodeValue;
+//         		            console.log('Longitude:', x);
+//         		            console.log('Latitude:', y);
+							$("#location_x").val(x);
+							$("#location_y").val(y);
+        		        },
+        		        error: function(error) {
+        		            console.log('Error:', error);
+        		        }
+        		    });
 	            }
 	        }).open();
 	    }
+		
+		
 	</script>
 
 </body>

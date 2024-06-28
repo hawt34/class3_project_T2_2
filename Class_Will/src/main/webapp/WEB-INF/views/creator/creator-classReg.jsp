@@ -175,6 +175,7 @@
 												</div>
 												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
 												
+												<!-- 주소지의 x y 좌표 -->
 												<div class="d-flex justify-content-between">
 													<div class="col-md-6">
 											    		<input type="text" id="location_x" name="location_x" class="form-control my-1" readonly>
@@ -326,7 +327,7 @@
 					    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
 					    ['para', ['ul', 'ol', 'paragraph']],
 					    ['height', ['height']],
-					    ['insert',['picture']]// 이미지 첨부
+// 					    ['insert',['picture']]// 이미지 첨부
 					  ],
 					fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']

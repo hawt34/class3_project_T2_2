@@ -367,7 +367,7 @@ public class CreatorController {
 		}
 		
 		System.out.println(">>>>>>>classTimerList" + classTimerList);
-		System.out.println(">>>>>>>classSelect" + map.get("classSelect"));
+//		System.out.println(">>>>>>>classSelect" + map.get("classSelect"));
  
 		int insertCount = creatorService.insertClassPlan(map, classTimerList);
 		if(insertCount > 0) {

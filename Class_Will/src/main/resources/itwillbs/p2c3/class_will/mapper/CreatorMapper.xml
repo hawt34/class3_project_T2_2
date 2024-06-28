@@ -41,8 +41,8 @@
 			, #{class_price}
 			, #{class_regist_status}
 			, #{member_code}
-			, null
-			, null
+			, #{location_x}
+			, #{location_y}
 			, 'Y'
 			, (
 				SELECT common2_code 

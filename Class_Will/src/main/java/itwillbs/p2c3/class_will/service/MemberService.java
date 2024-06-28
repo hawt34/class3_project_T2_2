@@ -56,9 +56,6 @@ public class MemberService {
 		return memberMapper.selectBankInfo(member_code);
 	}
 
-	public List<Map<String, Integer>> selectLikeClassList(int member_code) {
-		return memberMapper.selectLikeClassList(member_code);
-	}
 
 	
 	

@@ -16,7 +16,22 @@
 		SELECT *
 		FROM common2
 		WHERE common1_code = 'CLC'
+		
 	</select>
+<!-- 		SELECT * -->
+<!-- 		FROM class c -->
+<!-- 		LEFT JOIN common1 c1 -->
+<!-- 		ON c.class_big_category = c1.common1_code -->
+<!-- 		LEFT JOIN common2 c2 -->
+<!-- 		ON c.class_big_category = c2.common2_code -->
+<!-- 		AND c2.common1_code = 'CLC' -->
+<!-- 		LEFT JOIN common3 c3 -->
+<!-- 		ON c.class_small_category = c3.common3_code -->
+<!-- 		AND c3.common2_code = c2.common2_code -->
+<!-- 		AND c3.common1_code = 'CLC' -->
+<!-- 		LEFT JOIN common2 crs -->
+<!-- 		ON c.class_regist_status = crs.common2_code -->
+<!-- 		AND crs.common1_code = 'CRS' -->
 	
 	<!-- 소 카테고리 -->
 	<select id="selectSmallCategory" resultType="map">
@@ -76,11 +91,19 @@
 	</select>
 	
 	<!-- 클래스 좋아요 -->
-	<update id="updateLikeClass"  parameterType="map">
-		UPDATE like_class
-		SET like_class_code = #{heartStatus}
-		WHERE member_code = #{likeClassList} AND class_code = #{class_code} 
-	</update>
+	<insert id="insertLikeClass" parameterType="java.util.Map">
+		INSERT INTO like_class(member_code, class_code)
+		VALUES(
+			#{member_code}, #{class_code}
+		)
+	</insert>
+	
+	<!-- 클래스 좋아요 취소 -->
+	<delete id="deleteLikeClass">
+		DELETE FROM like_class 
+		WHERE member_code = #{member_code} AND class_code = #{class_code}
+	</delete>
+	
 	<!-- 소 카테고리 -->
 	<select id="selectListSmallCategory" resultType="map">
 		SELECT *

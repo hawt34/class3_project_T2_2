@@ -224,11 +224,11 @@ $(function() {
         let packageUpPrice = $(this).find('.package_up_price').text();
         let rewardFee = $(this).find("#text_deco").text(); //안에 있는 id,class 찾는 find() 메서드
         
-        packageUpPrice = packageUpPrice.replace("원/g", '');
+        packageUpPrice = packageUpPrice.replace(/원/g, '');
         $("#form_tran_amt_total").val(packageUpPrice);
 //         console.log("amt_total", packageUpPrice);
         
-        rewardFee = rewardFee.replace("원/g", '');
+        rewardFee = rewardFee.replace(/원/g, '');
         $("#form_tran_amt").val(rewardFee);
         $("#form_payAc_type").val("package");
 //         console.log("amt", rewardFee);

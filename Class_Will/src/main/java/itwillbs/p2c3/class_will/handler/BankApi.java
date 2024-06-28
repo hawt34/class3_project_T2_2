@@ -96,6 +96,9 @@ public class BankApi {
 	}
 
 	public Map requestWithdraw(Map<String, Object> map) {
+		//String으로 형변환
+		String member_code = Integer.toString((int) map.get("member_code"));
+		
 		HttpHeaders headers = new HttpHeaders();
 		
 //		headers.add("Authorization", "Bearer " + token.getAccess_token());
@@ -126,7 +129,7 @@ public class BankApi {
 		jsonObject.addProperty("req_client_name", (String)map.get("user_name"));  
 		jsonObject.addProperty("req_client_fintech_use_num", (String)map.get("fintech_use_num"));
 		//=> 요청고객 계좌번호 미사용 시 핀테크 이용번호 설정 필수!
-		jsonObject.addProperty("req_client_num", ((String)map.get("member_code")).toUpperCase()); //요청고객회원번호(아이디처럼 사용) 
+		jsonObject.addProperty("req_client_num", member_code.toUpperCase()); //요청고객회원번호(아이디처럼 사용) 
 		jsonObject.addProperty("transfer_purpose", "ST"); //이체용도(송금: TR, 결제: ST 등) 
 		
 		//------- 수취 고객(실제 최종 입금 대상) 정보 ---------------

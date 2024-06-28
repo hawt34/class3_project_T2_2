@@ -54,8 +54,10 @@ public interface PayMapper {
 	//fintech_use_num 업데이트
 	void updateFintechUseNum(Map<String, String> fintech);
 	
-	//member_credit 업데이트
+	//member_credit 업데이트 후 조회
 	void updateWillpay(Map<String, Object> map);
+
+	int selectWillpay(Map<String, Object> map);
 	
 
 	

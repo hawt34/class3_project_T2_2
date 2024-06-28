@@ -127,7 +127,7 @@ th:nth-child(2), td:nth-child(2) {
 
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">열심히 성장 중인  ${member.member_name} 님</div>
+								<div class="col-md-12 text-center h2 mb-5">진짜 무능하고 멍청한 ${member.member_name} 님</div>
 								<div class="container">
 									<h2>신청한 클래스</h2>
 									<p>클래스 정보</p>

@@ -106,7 +106,7 @@ public class PayController {
 	@GetMapping("payment-final")
 	public String paymentFinal(@RequestParam Map<String, String> map, Model model) {
 		Map<String, String> paySuccessInfo = payService.getSuccessPayInfo(map);
-		System.out.println("######111: " + paySuccessInfo);
+		System.out.println("######paySuccessInfo: " + paySuccessInfo);
 		
 		
 		model.addAttribute("paySuccessInfo", paySuccessInfo);
@@ -168,7 +168,9 @@ public class PayController {
 		Map<String, String> token = (Map<String, String>)session.getAttribute("token");
 		map.put("access_token", token.get("access_token"));
 		map.put("user_seq_no", token.get("user_seq_no"));
-		String member_code = Integer.toString(member.getMember_code());
+		
+		String stringMemberCode = Integer.toString(member.getMember_code());
+		int member_code = Integer.parseInt(stringMemberCode);
 		map.put("member_code", member_code);
 		
 		Map withdrawResult = payService.withdraw(map);
@@ -179,10 +181,8 @@ public class PayController {
 			return result2;
 		}
 		
-		//willpay 결제 성공 시 member_credit - update
-		payService.updateWillPay(map);
-		//willpay 결제 성공 시 member_credit - select
-//		payService.select
+		//willpay 결제 성공 시 member_credit - update -> select
+		int member_credit = payService.updateWillPay(map);
 		
 		String date = ((String)withdrawResult.get("api_tran_dtm")).substring(0, 14);
 		DateTimeFormatter parsedDate = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
@@ -192,7 +192,9 @@ public class PayController {
 		String payAc_date = datetime.format(dtf);
 		
 		
+		withdrawResult.put("member_credit", member_credit);
 		withdrawResult.put("payAc_amount", withdrawResult.get("tran_amt"));
+		withdrawResult.put("tran_amt_total", map.get("tran_amt_total"));
 		withdrawResult.put("payAc_fintech_use_num", withdrawResult.get("fintech_use_num"));
 		withdrawResult.put("payAc_bank_name", withdrawResult.get("bank_name"));
 		withdrawResult.put("member_code", member_code);
@@ -228,13 +230,12 @@ public class PayController {
 		Map<String, String> bank_info = new HashMap<String, String>();
 		bank_info.put("access_token", (String)map.get("access_token"));
 		bank_info.put("user_seq_no", (String)map.get("user_seq_no"));
+		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
 		session.setAttribute("token", bank_info);
 		
 		// access_token db저장
 		payService.registAccessToken(map);
 		
-		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
-		// => BankTokenVO 타입 객체 형태 그대로 저장
 			
 		
 		//session에 저장한 redirectUrl

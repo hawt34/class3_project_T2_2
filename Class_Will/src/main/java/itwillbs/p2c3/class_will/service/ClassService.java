@@ -47,9 +47,25 @@ public class ClassService {
 	}
 	
 	// 클래스 좋아요
-	public List<Map<String, Object>> updateLikeClass(List<Map<String, Integer>> memberCode, Boolean heartStatus, int class_code){
-		return mapper.updateLikeClass(memberCode, heartStatus, class_code);
+	public int insertLikeClass(Map<String, Object> map){
+		return mapper.insertLikeClass(map);
 	}
+	
+//	// 클래스 좋아요 추가
+//	public int insertLikeClass(Map<String, Object> map){
+//	   mapper.insertLikeClass(map);
+//	}
+	
+	// 클래스 좋아요 취소
+	public int deleteLikeClass(Map<String, Object> map){
+		return mapper.deleteLikeClass(map);
+	}
+	
+//	// 클래스 좋아요 취소
+//	public int deleteLikeClass(Map<String, Object> map){
+//	    mapper.deleteLikeClass(map);
+//	}
+	
 	// 
 	public List<Map<String, Object>> getChooseBigCategory(@RequestParam("category") String category) {
 		return mapper.selectChooseBigCategory(category);

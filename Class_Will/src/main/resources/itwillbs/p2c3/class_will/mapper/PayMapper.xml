@@ -240,12 +240,16 @@
 			, 'paid'
 		)
 	</insert>
-	
+	<!-- member_credit 업데이트 이후 조회  -->
 	<update id="updateWillpay">
 		UPDATE MEMBER
 		SET member_credit = COALESCE(member_credit, 0) + #{member_credit}
 		WHERE member_code = #{member_code}
 	</update>
-	
+	<select id="selectWillpay" resultType="int">
+		SELECT member_credit
+		FROM MEMBER
+		WHERE member_code = #{member_code}
+	</select>
 	
 </mapper>

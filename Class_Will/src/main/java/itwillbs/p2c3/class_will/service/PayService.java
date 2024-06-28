@@ -162,18 +162,23 @@ public class PayService {
 	}
 	
 	//will-pay 충전 성공 시 member_credit update
-	public void updateWillPay(Map<String, Object> map) {
+	public int updateWillPay(Map<String, Object> map) {
+		int amt = 0;
 		if(map.get("tran_amt_total") != "") {
+			System.out.println("패키지 선택해서 얻는 돈");
 			String stringTotalAmt = (String)map.get("tran_amt_total");
-			int tranAmtTotal = Integer.parseInt(stringTotalAmt);
-			map.put("member_credit", tranAmtTotal);
+			amt = Integer.parseInt(stringTotalAmt);
 		} else {
+			System.out.println("적어서 얻는 돈");
 			String stringAmt = (String)map.get("tran_amt");
-			int tranAmt = Integer.parseInt(stringAmt);
-			map.put("member_credit", tranAmt);
+			amt = Integer.parseInt(stringAmt);
 		}
+		map.put("member_credit", amt);
+		System.out.println("vslfsd" + map.get("member_credit"));
+		System.out.println(map);
 		payMapper.updateWillpay(map);
-		
+		//return은 크레딧을 선택하는 메서드 호출
+		return payMapper.selectWillpay(map);
 	}
 
 	

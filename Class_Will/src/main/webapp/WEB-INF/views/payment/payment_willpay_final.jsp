@@ -98,8 +98,8 @@
 					</c:otherwise>
 				</c:choose>
 				<p><span class="text-success">현재 보유 WILL-PAY</span>
-					<fmt:formatNumber var="amt_total" value="${withdrawResult.tran_amt_total }" pattern="#,###"/>
-					: ${amt_total}원
+					<fmt:formatNumber var="remain" value="${withdrawResult.member_credit }" pattern="#,###"/>
+					: ${remain}원
 				</p>
 			</div>
 			<div>

@@ -92,28 +92,28 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 //현재위치
-function myLocation() {
- event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
- window.open("pop", "width=700, height=800, left=700, top=50");
-}
-function success(pos) { // 위치 정보를 가져오는데 성공했을 때 호출되는 콜백 함수 (pos : 위치 정보 객체)
- const lat = pos.coords.latitude;
- const lng = pos.coords.longitude;
- console.log(`현위치 : ${lat}, ${lng}`);
-}
-function fail(err) { // 위치 정보를 가져오는데 실패했을 때 호출되는 콜백 함수
- alert('현위치를 찾을 수 없습니다.');
-}
-navigator.geolocation.getCurrentPosition(success, fail);
-------됨 -----------------
-navigator.geolocation.getCurrentPosition(function(pos) {
- console.log(pos);
- var latitude = pos.coords.latitude;
- var longitude = pos.coords.longitude;
- alert("현재 위치는 : " + latitude + ", "+ longitude);
-});
-navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
-------됨 -----------------
+// function myLocation() {
+//  event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+//  window.open("pop", "width=700, height=800, left=700, top=50");
+// }
+// function success(pos) { // 위치 정보를 가져오는데 성공했을 때 호출되는 콜백 함수 (pos : 위치 정보 객체)
+//  const lat = pos.coords.latitude;
+//  const lng = pos.coords.longitude;
+//  console.log(`현위치 : ${lat}, ${lng}`);
+// }
+// function fail(err) { // 위치 정보를 가져오는데 실패했을 때 호출되는 콜백 함수
+//  alert('현위치를 찾을 수 없습니다.');
+// }
+// navigator.geolocation.getCurrentPosition(success, fail);
+// ------됨 -----------------
+// navigator.geolocation.getCurrentPosition(function(pos) {
+//  console.log(pos);
+//  var latitude = pos.coords.latitude;
+//  var longitude = pos.coords.longitude;
+//  alert("현재 위치는 : " + latitude + ", "+ longitude);
+// });
+// navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
+// ------됨 -----------------
 function getCurrentLocation() {
  if (navigator.geolocation) {
      navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
@@ -122,8 +122,8 @@ function getCurrentLocation() {
  }
 }
 function showYourLocation(position) {
- var userLat = position.coords.latitude;
- var userLng = position.coords.longitude;
+ var userLat = position.coords.latitude; // 현재위치 위도
+ var userLng = position.coords.longitude; // 현재위치 경도
  alert("현재 위치는 : " + userLat + ", " + userLng);
  // 카카오 지도에 현재 위치 표시
  var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -131,15 +131,44 @@ function showYourLocation(position) {
          center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표
          level: 3 // 지도의 확대 레벨
      };
+var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png', // 마커이미지의 주소입니다    
+   imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
+   imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition = new kakao.maps.LatLng(userLat, userLng); // 마커가 표시될 위치입니다
+    
  var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ 
  // 마커가 표시될 위치입니다 
  var markerPosition  = new kakao.maps.LatLng(userLat, userLng); 
- // 마커를 생성합니다
- var marker = new kakao.maps.Marker({
-     position: markerPosition
- });
- // 마커가 지도 위에 표시되도록 설정합니다
- marker.setMap(map);
+ 
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+  position: markerPosition,
+  image: markerImage // 마커이미지 설정 
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);  
+
+// 커스텀 오버레이가 표시될 위치입니다 
+var position = new kakao.maps.LatLng(userLat, userLng);  
+
+// 커스텀 오버레이를 생성합니다
+var customOverlay = new kakao.maps.CustomOverlay({
+    map: map,
+    position: position,
+    content: content,
+    yAnchor: 1 
+});
+ 
+ 
+ 
+ 
+ 
+ 
 }
 function showErrorMsg(error) {
  var loc = document.getElementById("location");
@@ -158,62 +187,153 @@ function showErrorMsg(error) {
          break;
  }
 }
-    window.onload = function() {
-        var class_map_x = "${classInfo.class_map_x}";
-        var class_map_y = "${classInfo.class_map_y}";
+//     window.onload = function() {
+//         var class_map_x = "${classInfo.class_map_x}";
+//         var class_map_y = "${classInfo.class_map_y}";
         
-        var mapContainer = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
-        var mapOption = { // 지도를 생성할 때 필요한 기본 옵션
-            center: new kakao.maps.LatLng(parseFloat(class_map_x), parseFloat(class_map_y)), // 지도의 중심좌표
-            level: 4 // 지도의 레벨(확대, 축소 정도)
-        };
+//         var mapContainer = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
+//         var mapOption = { // 지도를 생성할 때 필요한 기본 옵션
+//             center: new kakao.maps.LatLng(parseFloat(class_map_x), parseFloat(class_map_y)), // 지도의 중심좌표
+//             level: 4 // 지도의 레벨(확대, 축소 정도)
+//         };
 
-        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
+//         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
     	
     	
-		var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png', // 마커이미지의 주소입니다    
-		    imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
-		    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+// 		var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png', // 마커이미지의 주소입니다    
+// 		    imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
+// 		    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-		    markerPosition = new kakao.maps.LatLng(class_map_x, class_map_y); // 마커가 표시될 위치입니다
+// 		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+// 		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+// 		    markerPosition = new kakao.maps.LatLng(class_map_x, class_map_y); // 마커가 표시될 위치입니다
 
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-		  position: markerPosition,
-		  image: markerImage // 마커이미지 설정 
-		});
+// 		// 마커를 생성합니다
+// 		var marker = new kakao.maps.Marker({
+// 		  position: markerPosition,
+// 		  image: markerImage // 마커이미지 설정 
+// 		});
 
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map);  
+// 		// 마커가 지도 위에 표시되도록 설정합니다
+// 		marker.setMap(map);  
 
-		// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-// 		var content = '<div class="customoverlay">' +
-// 		    '    <span class="title">${classInfo.class_name}위치' + '</span>' +
-// 		    '</div>';
+// 		// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+// // 		var content = '<div class="customoverlay">' +
+// // 		    '    <span class="title">${classInfo.class_name}위치' + '</span>' +
+// // 		    '</div>';
 
-		// 커스텀 오버레이가 표시될 위치입니다 
-		var position = new kakao.maps.LatLng(class_map_x, class_map_y);  
+// 		// 커스텀 오버레이가 표시될 위치입니다 
+// 		var position = new kakao.maps.LatLng(class_map_x, class_map_y);  
 
-		// 커스텀 오버레이를 생성합니다
-		var customOverlay = new kakao.maps.CustomOverlay({
-		    map: map,
-		    position: position,
-		    content: content,
-		    yAnchor: 1 
-		});
+// 		// 커스텀 오버레이를 생성합니다
+// 		var customOverlay = new kakao.maps.CustomOverlay({
+// 		    map: map,
+// 		    position: position,
+// 		    content: content,
+// 		    yAnchor: 1 
+// 		});
 		
-    };
+//     };
+    
+ // -----------------------
+ 
+//  window.onload = function() {
+//     var class_map_x = "${classInfo.class_map_x}";
+//     var class_map_y = "${classInfo.class_map_y}";
+    
+//     var mapContainer = document.createElement('div');
+//     mapContainer.id = 'map';
+//     document.body.appendChild(mapContainer);
+
+//     var mapOption = {
+//         center: new kakao.maps.LatLng(parseFloat(class_map_x), parseFloat(class_map_y)),
+//         level: 4
+//     };
+
+//     var map = new kakao.maps.Map(mapContainer, mapOption);
+
+//     var markerPosition = new kakao.maps.LatLng(class_map_x, class_map_y);
+
+//     var marker = new kakao.maps.Marker({
+//         position: markerPosition
+//     });
+
+//     marker.setMap(map);
+    
+//     mapContainer.style.position = 'fixed';
+//     mapContainer.style.top = '300px';
+//     mapContainer.style.right = '20px';
+//     mapContainer.style.width = '300px'; // 원하는 크기로 설정
+//     mapContainer.style.height = '300px'; // 원하는 크기로 설정
+//     mapContainer.style.zIndex = '1000';
+// //     mapContainer.style.border = '1px solid #ccc';
+// //     mapContainer.style.backgroundColor = '#fff';
+// //     mapContainer.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+// };
+ 
+ 
+ 
+ 
+ 
+ 
 </script>
 
 <!-- 카카오 지도 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
+    <!-- JavaScript 코드 -->
+    <script>
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showYourLocation(position) {
+            var userLat = position.coords.latitude;
+            var userLng = position.coords.longitude;
+            
+            var mapOption = {
+                center: new kakao.maps.LatLng(userLat, userLng),
+                level: 3
+            };
+            var map = new kakao.maps.Map(document.getElementById('mapContainer'), mapOption);
+
+            var markerPosition = new kakao.maps.LatLng(userLat, userLng);
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+            marker.setMap(map);
+            
+        }
+
+        function showErrorMsg(error) {
+            alert("위치 정보를 가져오지 못했습니다.");
+            console.error(error);
+        }
+    </script>
 <style>
-   #map {
-       width: 500px;
-       height: 400px;
-   }
+/*    #map { */
+/*        width: 200px; */
+/*        height: 600px; */
+/*        right : 0px; */
+/*        top : 300px; */
+/*    } */
+   
+        body {
+            position: relative;
+            padding-top: 50px; /* 내 위치 버튼과 겹치지 않도록 상단 패딩 설정 */
+        }
+        #mapContainer {
+            position: absolute;
+            top: 400px; /* 내 위치 버튼 아래에 표시될 위치 지정 */
+            right: 20px; /* 오른쪽 여백 설정 */
+            width: 370px; /* 지도 컨테이너의 너비 설정 */
+            height: 800px; /* 지도 컨테이너의 높이 설정 */
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 </style>
 <script type="text/javascript">
 </script>
@@ -408,16 +528,12 @@ body {
 		</div>
 		<div class="col box11">
 <!-- 			<button type="button" class="btn btn-outline-light btnLocation" onclick="getCurrentLocation()" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">내 주변 검색</button> -->
-			<button type="button" class="btn btn-outline-light btnLocation" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">내 주변 검색</button>
-				<div class="collapse" id="collapseExample">
-				  <div class="card card-body">
-    				<div id="map"></div>
+<!-- 			<button type="button" class="btn btn-outline-light btnLocation" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">내 주변 검색</button> -->
+<!--     				<div id="map"></div> -->
 					<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
-				  </div>
-				</div>
-			    
-			    <p id="location"></p>
-			
+    <button type="button" onclick="getCurrentLocation()">내 위치 지도 보기</button>
+    <!-- 지도를 표시할 컨테이너 -->
+    <div id="mapContainer"></div>		
 <!--          <select class="form-select-sm selectBox" aria-label="Default select example"> -->
 			<select class="form-select selectBox1 w-50" aria-label="Default select example">
 				<option selected>인기순</option>
@@ -465,7 +581,11 @@ body {
 	            </div>
 	         </div>
 	      </c:forEach>
+	      <div class="col-3" id="map"></div>
       </div>
+<!--       <div clas="row" id="map"> -->
+<!-- 		<div id="map"></div> -->
+<!--       </div> -->
    </div> <!-- col-md-12 -->
 </div> <!-- container -->
 

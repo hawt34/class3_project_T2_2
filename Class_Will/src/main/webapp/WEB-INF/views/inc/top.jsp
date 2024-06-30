@@ -213,6 +213,8 @@
     color: black;
     font-size: 15px;
     width: 80%;
+    align-items: center;
+   
 }
 
 .search-btn {

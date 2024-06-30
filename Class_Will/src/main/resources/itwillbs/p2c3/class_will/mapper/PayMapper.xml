@@ -16,6 +16,8 @@
 			   , c.class_price
 			   , c.class_ex
 			   , c.class_creator_explain 
+			   , c.class_map_x
+			   , c.class_map_y
 		--	   , cs.class_schedule_date
 		--	   , cs.class_st_time 
 		-- 	   , cs.class_ed_time

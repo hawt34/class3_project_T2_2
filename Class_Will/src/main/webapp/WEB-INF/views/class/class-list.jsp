@@ -27,7 +27,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Required JavaScript files -->
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -37,7 +37,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<!-- 카카오 지도 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
 
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
@@ -90,87 +91,131 @@ document.addEventListener("DOMContentLoaded", function() {
         xhr.send(data);
     }
 });
-
-// 현재위치
-// function myLocation() {
-//     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
-//     window.open("pop", "width=700, height=800, left=700, top=50");
-// }
-// function success(pos) { // 위치 정보를 가져오는데 성공했을 때 호출되는 콜백 함수 (pos : 위치 정보 객체)
-//     const lat = pos.coords.latitude;
-//     const lng = pos.coords.longitude;
-//     console.log(`현위치 : ${lat}, ${lng}`);
-// }
-
-// function fail(err) { // 위치 정보를 가져오는데 실패했을 때 호출되는 콜백 함수
-//     alert('현위치를 찾을 수 없습니다.');
-// }
-
-// navigator.geolocation.getCurrentPosition(success, fail);
-
-// ------됨 -----------------
-// navigator.geolocation.getCurrentPosition(function(pos) {
-//     console.log(pos);
-//     var latitude = pos.coords.latitude;
-//     var longitude = pos.coords.longitude;
-//     alert("현재 위치는 : " + latitude + ", "+ longitude);
-// });
-
-// navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
-// ------됨 -----------------
-
-
-function getCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
+//현재위치
+function myLocation() {
+ event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+ window.open("pop", "width=700, height=800, left=700, top=50");
 }
-
+function success(pos) { // 위치 정보를 가져오는데 성공했을 때 호출되는 콜백 함수 (pos : 위치 정보 객체)
+ const lat = pos.coords.latitude;
+ const lng = pos.coords.longitude;
+ console.log(`현위치 : ${lat}, ${lng}`);
+}
+function fail(err) { // 위치 정보를 가져오는데 실패했을 때 호출되는 콜백 함수
+ alert('현위치를 찾을 수 없습니다.');
+}
+navigator.geolocation.getCurrentPosition(success, fail);
+------됨 -----------------
+navigator.geolocation.getCurrentPosition(function(pos) {
+ console.log(pos);
+ var latitude = pos.coords.latitude;
+ var longitude = pos.coords.longitude;
+ alert("현재 위치는 : " + latitude + ", "+ longitude);
+});
+navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg); 
+------됨 -----------------
+function getCurrentLocation() {
+ if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
+ } else {
+     alert("Geolocation is not supported by this browser.");
+ }
+}
 function showYourLocation(position) {
-    var userLat = position.coords.latitude;
-    var userLng = position.coords.longitude;
-    alert("현재 위치는 : " + userLat + ", " + userLng);
-
-    // 카카오 지도에 현재 위치 표시
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        mapOption = {
-            center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표
-            level: 3 // 지도의 확대 레벨
+ var userLat = position.coords.latitude;
+ var userLng = position.coords.longitude;
+ alert("현재 위치는 : " + userLat + ", " + userLng);
+ // 카카오 지도에 현재 위치 표시
+ var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+     mapOption = {
+         center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표
+         level: 3 // 지도의 확대 레벨
+     };
+ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+ // 마커가 표시될 위치입니다 
+ var markerPosition  = new kakao.maps.LatLng(userLat, userLng); 
+ // 마커를 생성합니다
+ var marker = new kakao.maps.Marker({
+     position: markerPosition
+ });
+ // 마커가 지도 위에 표시되도록 설정합니다
+ marker.setMap(map);
+}
+function showErrorMsg(error) {
+ var loc = document.getElementById("location");
+ switch(error.code) {
+     case error.PERMISSION_DENIED:
+         loc.innerHTML = "이 문장은 사용자가 Geolocation API의 사용 요청을 거부했을 때 나타납니다!";
+         break;
+     case error.POSITION_UNAVAILABLE:
+         loc.innerHTML = "이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!";
+         break;
+     case error.TIMEOUT:
+         loc.innerHTML = "이 문장은 위치 정보를 가져오기 위한 요청이 허용 시간을 초과했을 때 나타납니다!";
+         break;
+     case error.UNKNOWN_ERROR:
+         loc.innerHTML = "이 문장은 알 수 없는 오류가 발생했을 때 나타납니다!";
+         break;
+ }
+}
+    window.onload = function() {
+        var class_map_x = "${classInfo.class_map_x}";
+        var class_map_y = "${classInfo.class_map_y}";
+        
+        var mapContainer = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
+        var mapOption = { // 지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(parseFloat(class_map_x), parseFloat(class_map_y)), // 지도의 중심좌표
+            level: 4 // 지도의 레벨(확대, 축소 정도)
         };
 
-    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
+    	
+    	
+		var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png', // 마커이미지의 주소입니다    
+		    imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
+		    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-    // 마커가 표시될 위치입니다 
-    var markerPosition  = new kakao.maps.LatLng(userLat, userLng); 
+		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+		    markerPosition = new kakao.maps.LatLng(class_map_x, class_map_y); // 마커가 표시될 위치입니다
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		  position: markerPosition,
+		  image: markerImage // 마커이미지 설정 
+		});
 
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-}
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);  
 
-function showErrorMsg(error) {
-    var loc = document.getElementById("location");
-    switch(error.code) {
-        case error.PERMISSION_DENIED:
-            loc.innerHTML = "이 문장은 사용자가 Geolocation API의 사용 요청을 거부했을 때 나타납니다!";
-            break;
-        case error.POSITION_UNAVAILABLE:
-            loc.innerHTML = "이 문장은 가져온 위치 정보를 사용할 수 없을 때 나타납니다!";
-            break;
-        case error.TIMEOUT:
-            loc.innerHTML = "이 문장은 위치 정보를 가져오기 위한 요청이 허용 시간을 초과했을 때 나타납니다!";
-            break;
-        case error.UNKNOWN_ERROR:
-            loc.innerHTML = "이 문장은 알 수 없는 오류가 발생했을 때 나타납니다!";
-            break;
-    }
-}
+		// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+// 		var content = '<div class="customoverlay">' +
+// 		    '    <span class="title">${classInfo.class_name}위치' + '</span>' +
+// 		    '</div>';
+
+		// 커스텀 오버레이가 표시될 위치입니다 
+		var position = new kakao.maps.LatLng(class_map_x, class_map_y);  
+
+		// 커스텀 오버레이를 생성합니다
+		var customOverlay = new kakao.maps.CustomOverlay({
+		    map: map,
+		    position: position,
+		    content: content,
+		    yAnchor: 1 
+		});
+		
+    };
+</script>
+
+<!-- 카카오 지도 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
+<style>
+   #map {
+       width: 500px;
+       height: 400px;
+   }
+</style>
+<script type="text/javascript">
 </script>
 <style type="text/css">
 body {
@@ -362,10 +407,16 @@ body {
 			</div>
 		</div>
 		<div class="col box11">
-			<button type="button" class="btn btn-outline-light btnLocation" onclick="getCurrentLocation()">내 주변 검색</button>
+<!-- 			<button type="button" class="btn btn-outline-light btnLocation" onclick="getCurrentLocation()" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">내 주변 검색</button> -->
+			<button type="button" class="btn btn-outline-light btnLocation" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">내 주변 검색</button>
+				<div class="collapse" id="collapseExample">
+				  <div class="card card-body">
+    				<div id="map"></div>
+					<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
+				  </div>
+				</div>
+			    
 			    <p id="location"></p>
-    <div id="map" style="width:100%; height:400px;"></div>
-			    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
 			
 <!--          <select class="form-select-sm selectBox" aria-label="Default select example"> -->
 			<select class="form-select selectBox1 w-50" aria-label="Default select example">

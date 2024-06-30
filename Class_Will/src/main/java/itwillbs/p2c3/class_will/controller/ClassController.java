@@ -46,6 +46,7 @@ public class ClassController {
 	@GetMapping("class-list")
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
 	public String classList(Model model, HttpSession session) {
+		
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		int member_code = member.getMember_code();
 		System.out.println("mmmmmmmmmmmmmmmmmmmemberCode" + member.getMember_code());
@@ -75,6 +76,7 @@ public class ClassController {
 	    System.out.println("class-list map : " + classList);
 	    System.out.println("memberCode : " + member_code);
 		
+	    
 	    List<Map<String, Object>> likeClassCode = classService.selectLikeClassCode(member_code);
 	    model.addAttribute("likeClassCode", likeClassCode);
 	    System.out.println("likeClassCode  :::::::::::" + likeClassCode);
@@ -202,6 +204,7 @@ public class ClassController {
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)
 		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(class_code);
+		System.out.println(">>>>>>>>> scheduleInfo : " + scheduleInfo);
 		// JSONArray를 생성하고 리스트의 각 맵을 JSONObject로 변환하여 추가합니다.
         JSONArray jsonArray = new JSONArray();
         for(Map<String, Object> maps : scheduleInfo) {

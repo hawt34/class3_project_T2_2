@@ -139,8 +139,7 @@ th:nth-child(2), td:nth-child(2) {
 												<th>클래스 이름</th>
 												<th>클래스 위치</th>
 												<th>클래스 가격</th>
-												<th>상세보기
-												<th>
+												<th>상세보기</th>
 												<th>관심 취소하기</th>
 											</tr>
 										</thead>
@@ -149,8 +148,9 @@ th:nth-child(2), td:nth-child(2) {
 												<tr>
 													<td>${memberLike.class_name}</td>
 													<td>${memberLike.class_location}</td>
-													<td>${memberLike.class_price}</td>
-													<td><button>바로가기</button>${memberLike.class_code}</td>
+													<c:set var="credit" value="${memberLike.class_price}" />
+													<td><fmt:formatNumber value="${credit}" type="number" pattern="#,##0" /> 원</td>
+													<td><a href="class-detail?class_code=${memberLike.class_code}" class="btn btn-primary">상세보기</a></td>
 													<td><button class="btn btn-danger"
 														onclick="cancelLike('${memberLike.class_code}', '${member.member_code}')">취소</button></td>
 												</tr>

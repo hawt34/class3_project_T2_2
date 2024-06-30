@@ -67,6 +67,7 @@
 		}
 	    
 	}
+	
 	.social{
 		margin-bottom: 20px;
 	}

@@ -434,6 +434,7 @@
 					
 				</div> <!-- container-fluid -->
 				
+	        </nav>
 	            <!-- 오프캔버스 -->
 	            <div class="offcanvas offcanvas-start " id="top-offcanvas" style="background-color: #333; color: white;">
 	                <div class="offcanvas-header">
@@ -483,7 +484,6 @@
 	                </div> <!-- offcanvas-body -->
 	            </div> <!-- offcanvas -->
 	            
-	        </nav>
 	    </div> <!-- top-cate -->
 	</div> <!-- container-fluid -->
 	<!-- Navbar End -->
@@ -529,7 +529,7 @@
 <!-- 	<!-- Modal Search End --> 
 	
 	<!-- Search Box Area -->
-	<div class="search-box-area" id="searchModal">
+	<div class="search-box-area container-fluid" id="searchModal">
 	    <div class="modal-content">
 	        <div class="modal-header">
 	            <span class="close">&times;</span>

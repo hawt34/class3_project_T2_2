@@ -28,6 +28,15 @@
 			</exclusions>
 		</dependency>
 		
+				
+		<!-- 쿨에스엠에스  -->
+		<dependency>
+		    <groupId>net.nurigo</groupId>
+		    <artifactId>sdk</artifactId>
+		    <version>4.3.0</version>
+		</dependency>
+		
+		
 		<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-webmvc</artifactId>
@@ -207,13 +216,6 @@
 		    <version>0.2.23</version>
 		</dependency>
 		
-		
-		<!-- 쿨에스엠에스  -->
-<!-- 		<dependency> -->
-<!-- 		    <groupId>net.nurigo</groupId> -->
-<!-- 		    <artifactId>sdk</artifactId> -->
-<!-- 		    <version>4.3.0</version> -->
-<!-- 		</dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
 		<!-- WEBSOCKET 라이브러리 -->

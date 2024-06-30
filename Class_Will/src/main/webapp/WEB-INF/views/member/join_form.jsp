@@ -102,10 +102,11 @@
 		text-align: center;
 	}
 	
-	#phone-auth-btn {
+	#phone-auth-btn, #auth-btn {
 		height: 58px;
 		border-radius: 10px;
-		background: #FFCC80;
+		background: #FF4848;
+		color: white;
 	}
 	
 	.form-check-center {
@@ -117,7 +118,7 @@
 	}
 	
 	.regex {
-		margin: 0;
+		margin: 5px;
 		padding: 0;
 		font-size: 12px;
 	}
@@ -149,24 +150,24 @@
 			<div class="container join-form">
 				<form action="member-join" method="POST">
 					<h2>회원가입</h2>
-					<div class="form-floating mt-3">
+					<div class="form-floating mt-2">
 						<input type="text" class="form-control" id="member_name" name="member_name" placeholder="name" required maxlength="30">
 						<label for="name">이름</label>
 					</div>
 					<div class="regex" id="regex-name"></div>
 					
-					<div class="form-floating mt-3">
+					<div class="form-floating mt-2">
 						<input type="email" class="form-control" id="member_email" name="member_email" placeholder="name@example.com" required maxlength="50">
 						<label for="email">이메일</label>
 					</div>
 					<div class="regex" id="regex-email"></div>
-					<div class="form-floating mt-3">
+					<div class="form-floating mt-2">
 						<input type="password" class="form-control" id="member_pwd" name="member_pwd" placeholder="Password" required maxlength="20">
 						<label for="passwd">비밀번호</label>
 					</div>
 					<div class="regex" id="regex-pwd"></div>
 					
-					<div class="form-floating mt-3">
+					<div class="form-floating mt-2">
 						<input type="password" class="form-control" id="member_pwd2" name="member_pwd2" placeholder="Password" required maxlength="20">
 						<label for="passwd">비밀번호 확인</label>
 					</div>
@@ -174,21 +175,28 @@
 					
 					<div class="row nav-fill" > 
 						<div class="col-8">
-							<div class="form-floating mt-3">
-								<input type="text" class="form-control" id="member_tel" name="member_tel" placeholder="010-1234-5678" required maxlength="13">
+							<div class="form-floating mt-2">
+								<input type="text" class="form-control" id="member_tel" name="member_tel" placeholder="010-1234-5678" required maxlength="11">
 								<label for="phone_number">휴대전화</label>
 							</div>
 							<div class="regex" id="regex-tel"></div>
 						</div>	
-						<div class="d-grid gap-2 col-4 mt-3 pe-3" style="height: 58px; padding: 0">
+						<div class="d-grid gap-2 col-4  mt-2 pe-3 mb-2 " style="height: 58px; padding: 0">
 							<button class="float-start" type="button" id="phone-auth-btn" onclick="authSms()">인증번호 전송</button>
 						</div>	
 					</div>
-					<div class="form-floating mt-3 mb-3" id="sms-auth">
-	<!-- 					<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required> -->
-	<!-- 					<label for="phone_auth_number">인증번호</label> -->
+					<div class="row nav-fill" id="sms-auth"> 
+<!-- 						<div class="col-8 "> -->
+<!-- 							<div class="form-floating mt-2 " > -->
+<!-- 								<input type="text" class="form-control " id="phone_auth_number" name="phone_auth_number" placeholder="123456" required> -->
+<!-- 								<label for="phone_auth_number">인증번호</label> -->
+<!-- 							</div> -->
+<!-- 						</div>	 -->
+<!-- 						<div class="d-grid gap-2 col-4 mt-2 pe-3" style="height: 58px; padding: 0"> -->
+<!-- 							<button class="float-start join-btn" type="button" id="auth-btn" onclick="authSmsBtn()">확인</button> -->
+<!-- 						</div> -->
 					</div>
-					<div class="regex" id="regex-auth"></div>
+					<div class="regex mb-3" id="regex-auth"></div>
 					<fieldset>
 						<h5>서비스 정책</h5>
 						<div class="form-check">
@@ -347,6 +355,7 @@
 	<script type="text/javascript">
 		$(function() {
 			
+			
 			// 전체선택 체크박스 체크 상태값을 각 체크박스의 체크 상태값으로 설정
 			$("#allCheck").click(function() {
 				let checkboxes = document.querySelectorAll('input[name="check-agree"]');
@@ -407,6 +416,7 @@
 			        } else {
 			            $("#regex-name").text("");
 			        }
+
 				
 			});
 			
@@ -456,7 +466,7 @@
 			$("#member_tel").on("input", function() {
 			      let inputTel = $(this).val();
 			
-			      let regex = /^[0-9-]{0,13}$/;
+			      let regex = /^\d{11}$/;
 			
 			      if (!regex.test(inputTel)) {
 			          $("#regex-tel").text("규칙에 맞는 핸드폰 번호를 입력해 주세요.");
@@ -466,9 +476,9 @@
 			      }
 			 });
 			
-			$("#member_tel").on("blur", function() {
+			$("#member_tel").on("keyup", function() {
 				let inputTel = $(this).val();
-			    let regex = /^[0-9-]{0,13}$/;
+			    let regex = /^[0-9]{0,11}$/;
 			    if (!regex.test(inputTel)) {
 			    	$(this).val("");
 			    }
@@ -482,39 +492,73 @@
 		
 		function authSms() {
 			
-			$("#sms-auth").html('<input type="text" class="form-control" id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>'
-					+'<label for="phone_auth_number">인증번호</label>');
+			let inputTel = $("#member_tel").val();
+			let regex = /^\d{11}$/;
 			
-// 			$.ajax({
-// 				type: "GET",
-// 		        url: "send-one",
-// 		    	data : {
-// 		    		member_tel : $("#member_tel").val()
-// 			 	},
-// 			 	dataType : "json",
-// 			 	success : function(response) {
-// 			 		if(response) {
-// 			 			alert("메시지 전송이 완료되었습니다. 인증번호를 입력해 주세요.")
-// 			 		} else {
-// 			 			alert("메시지 전송에 실패했습니다.");
-// 			 		}
+			if(inputTel == "" || !regex.test(inputTel)) {
+				alert("휴대폰 번호를 올바르게 입력해 주세요.");
+			} else {
+			
+				$.ajax({
+					type: "POST",
+			        url: "send-one",
+			    	data : {
+			    		member_tel : $("#member_tel").val()
+				 	},
+				 	dataType : "json",
+				 	success : function(response) {
+				 		if(response.success) {
+				 			
+				 			let serverAuthNum = response.auth_num; 
+				 			console.log("serverAuthNum : " + serverAuthNum);
+				 			
+				 			$("#sms-auth").html(
+				 					'<div class="col-8">'
+									+ '<div class="form-floating mt-2">'
+									+ 	'<input type="text" class="form-control " id="phone_auth_number" name="phone_auth_number" placeholder="123456" required>'
+									+ 	'<label for="phone_auth_number">인증번호</label>'
+									+ '</div>'
+									+ '</div>'	
+									+ '<div class="d-grid gap-2 col-4 mt-2 pe-3" style="height: 58px; padding: 0">'
+									+ 	'<button class="float-start join-btn" type="button" id="auth-btn" onclic="authSmsCheck(serverAuthNum)">확인</button>'
+									+ '</div>'
+									);
+							$("#regex-auth").text("인증번호가 전송되었습니다. 카카오톡/문자 메시지를 확인해 주세요.");
+				            $("#regex-auth").css("color", "#FF4848");
+				            $("#phone-auth-btn").html("재전송")
+				 		} else {
+				 			if(response.already) {
+					 			alert("이미 가입된 번호입니다.");
+					 		}
+				 			alert("메시지 전송에 실패했습니다.");
+				 		}
+				 		
+				 		
+						
+					}, 
+					error : function() {
+						alert("전화번호 인증에 실패했습니다. 다시 시도해주세요.");
+						
+					}
 					
-// 				}, 
-// 				error : function() {
-// 					alert("ajax 오류");
-					
-// 				}
-				
-				
-				
-// 			});
-			
-			
+				});
+
+			} // else
 			
 			
 		} // authSms()
 		
-
+		function authSmsCheck(serverAuthNum) {
+			console.log("authSmsCheck - serverAuthNum : " + serverAuthNum);
+			let phone_auth_number = $("#phone_auth_number").val();
+			
+			if(phone_auth_number === serverAuthNum) {
+				$("#regex-auth").text("인증이 완료되었습니다.");
+	            $("#regex-auth").css("color", "green");
+			} else {
+				alert("인증번호가 일치하지 않습니다. 다시 확인해 주세요.");
+			}
+		}
 		
 	</script>
 	

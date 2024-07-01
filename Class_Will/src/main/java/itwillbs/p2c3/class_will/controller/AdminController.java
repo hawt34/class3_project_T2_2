@@ -673,7 +673,19 @@ public class AdminController {
     }
     
     @GetMapping("admin-event")
-    public String adminEvent() {
+    public String adminEvent(Model model) {
+    	List<Map<String, String>> list = adminService.getEventList();
+    	for(Map<String, String> event : list) {
+    		event.put("event_date", event.get("event_start_date") + " ~ " + event.get("event_end_date"));
+    	}
+		List<JSONObject> jo_list = new ArrayList<JSONObject>();
+		
+		for(Map<String, String> event : list) {
+            JSONObject jo = new JSONObject(event);
+            jo_list.add(jo);
+		}
+    	model.addAttribute("jo_list", jo_list);
+    	
     	
     	return "admin/admin_event";
     }
@@ -689,7 +701,8 @@ public class AdminController {
     public String adminEventRegistPro(@RequestParam Map<String, Object> map
     		,@RequestParam MultipartFile event_thumbFile
     		,@RequestParam MultipartFile event_imageFile
-    		,HttpSession session) {
+    		,HttpSession session
+    		,Model model) {
     	map.put("event_start_date", ((String)map.get("event_start_date")).replace("-", ""));
     	map.put("event_end_date", ((String)map.get("event_end_date")).replace("-", ""));
     	System.out.println("map : " + map);
@@ -744,9 +757,14 @@ public class AdminController {
         map.put("event_thumbnail", event_thumbFile_webUrl);
         
         boolean isSuccess = adminService.insertEvent(map);
+        String result = "";
+        if(!isSuccess) {
+        	result = WillUtils.checkDeleteSuccess(false, model, "이벤트 등록 실패!", true);
+        }
         
+        result = WillUtils.checkDeleteSuccess(true, model, "이벤트 등록 성공!", true);
         
-    	return "";
+    	return result;
     }
     
 }

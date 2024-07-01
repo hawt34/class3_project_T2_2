@@ -186,7 +186,7 @@ function uploadImage(file) {
             console.log(imageUrl);
             $('#summernote').summernote('insertImage', imageUrl, function ($image) {
                 $image.attr('src', imageUrl);
-                $image.attr('class', 'img-responsive');
+                $image.attr('class', 'img-responsive');	
             });
         }
     });

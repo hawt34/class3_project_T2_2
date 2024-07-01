@@ -83,14 +83,20 @@
 		</if>
 	</select>
 	
-	<!-- 클래스 좋아요 -->
-	<insert id="insertLikeClass" parameterType="java.util.Map">
+	<!-- 클래스 좋아요 추가 -->
+	<insert id="insertLikeClass" parameterType="java.util.Map" >
 		INSERT INTO like_class(member_code, class_code)
 		VALUES(
 			#{member_code}, #{class_code}
 		)
 	</insert>
 	
+	<!-- 클래스 좋아요 리스트 -->
+	<select id="selectLikeClassList">
+		SELECT *
+		FROM like_class
+		WHERE member_code = #{member_code}
+	</select>
 	<!-- 클래스 좋아요 취소 -->
 	<delete id="deleteLikeClass">
 		DELETE FROM like_class 

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
@@ -105,9 +107,11 @@ public class ClassController {
 		return smallCategory;
 	}
 	
+	// 카테고리 필터링 ajax
 	@ResponseBody
 	@PostMapping("filter-class")
-	public List<Map<String, Object>> getFilterClass(@RequestBody(required = false) Map<String, Object> filters, Model model) {
+//	public List<Map<String, Object>> getFilterClass(@RequestBody(required = false) Map<String, Object> filters, Model model) {
+		public List<Map<String, Object>> getFilterClass(@RequestBody Map<String, Object> filters, Model model) {
 	    System.out.println("filter-class controller");
 	    System.out.println("Filters: " + filters);
 
@@ -122,7 +126,6 @@ public class ClassController {
 	    List<Map<String, Object>> filterClass = classService.getFilterClass(filters);
 	    model.addAttribute("filterClass", filterClass);
 	    System.out.println("filterClass //////////////" + filterClass);
-
 	    return filterClass;
 	}
 	
@@ -132,6 +135,7 @@ public class ClassController {
     public String updateHeartStatus(@RequestBody Map<String, Object> requestBody, HttpSession session, Model model) {
     	
 		MemberVO member = (MemberVO)session.getAttribute("member");
+
 		Boolean heart_status = (Boolean) requestBody.get("heart_status");
 	    String member_code = (String) requestBody.get("member_code"); // Integer로 받지 않고 String으로 받음
 	    String class_code = (String) requestBody.get("class_code"); // Integer로 받지 않고 String으로 받음
@@ -145,18 +149,18 @@ public class ClassController {
         System.out.println("member_code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + member_code);
         System.out.println("class_code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + class_code);
         
-		if(member == null) {
-        	model.addAttribute("msg", "로그인 후 이용할 수 있습니다.");
-        	model.addAttribute("targetURL", "member-login");
-        	return "result_process/fail";
-		}
 		
 		
 	    // heart_status가 true이면 좋아요를 추가, false이면 좋아요를 제거
 	    if (heart_status != null && member_code != null && class_code != null) {
 	        if (heart_status) {
 	            // 클래스 좋아요 추가
-	            classService.insertLikeClass(map);
+	            int insertLikeClass  = classService.insertLikeClass(map);
+		            if (insertLikeClass > 0) {
+		            	List<Map<String, Object>> likeClassList = classService.getLikeClassList(map);
+		            	model.addAttribute("likeClassList", likeClassList);
+		            }
+	            
 	        } else {
 	            // 클래스 좋아요 제거
 	            classService.deleteLikeClass(map);

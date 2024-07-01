@@ -57,6 +57,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             var heart_status = !isFullHeart;
 			
+            
+			if(member_code == null || member_code == ""){
+	            alert("로그인이 필요한 페이지 입니다.");
+	            window.location.href = "member-login";
+	            return;
+			}
+			
             if (heart_status) {
                 img.src = changeSrc;
  				alert("좋아요 heart_status : " + heart_status + ", member_code : " + member_code + ", class_code : " + class_code);
@@ -457,14 +464,38 @@ body {
 	<!-- 클래스 개수 끝 -->
 	
       <!-- 첫번째 줄 -->
-      <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap">
+      <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap" id="classListContainer">
 	      <c:forEach var="classList" items="${classList}">
 	         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 	            <div class="card shadow-sm border-0 rounded flex-fill mb-4">
 	               <div class="card-body p-0 position-relative card-body1 position-relative1">
 						<a href="class-detail?class_code=${classList.class_code}">
 						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a>
-						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+<%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+							<c:choose>
+					            <c:when test="${not empty likeClassList}"> <!-- likeClassList 존재 -->
+					            
+<%-- 					              <c:set var="isLiked" value="false"/> <!-- 삭제 --> --%>
+<%-- 						              <c:forEach var="likeClass" items="${likeClassList}"> --%>
+<%-- 						                <c:if test="${likeClass.class_code == classList.class_code}"> --%>
+<%-- 						                  <c:set var="isLiked" value="true"/> <!-- 추가 --> --%>
+<%-- 						                </c:if> --%>
+<%-- 						              </c:forEach> --%>
+					              
+<%-- 					              <c:if test="${isLiked}"> --%>
+					                <img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+<%-- 					              </c:if> --%>
+					              
+<%-- 					              <c:if test="${not isLiked}"> --%>
+<%-- 					                <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+<%-- 					              </c:if> --%>
+					              
+					            </c:when>
+					            
+					            <c:otherwise> <!-- likeClassList 존재 X -->
+					              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+					            </c:otherwise>
+				          </c:choose>
 	                  <div class="card-bodys d-flex flex-column">
 	                     <div class="classCategory col-md-10">
 							<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button>
@@ -490,7 +521,10 @@ body {
 	            </div>
 	         </div>
 	      </c:forEach>
-	      <div class="col-3" id="map"></div>
+<!-- 		<div id="classListContainer" class="row pb-4 mx-5 mb-4 d-flex flex-wrap"> -->
+<!-- <!--     필터링된 클래스 목록이 여기에 동적으로 추가됩니다. --> -->
+<!-- 		</div> -->
+		<div class="col-3" id="map"></div>
       </div>
 <!--       <div clas="row" id="map"> -->
 <!-- 		<div id="map"></div> -->
@@ -568,6 +602,7 @@ function updateCategory() {
     
     selectCategory();
 }
+//------------------------------------------------------------------------------------
 
 // 소카테고리
 function updateSmallCategory() {
@@ -592,6 +627,7 @@ function updateSmallCategory() {
     selectCategory();
 }
 
+//------------------------------------------------------------------------------------
 // 지역
 function updateLocal() {
     const selectElement = document.getElementById('class_local');
@@ -615,6 +651,7 @@ function updateLocal() {
     selectCategory();
 }
 
+//------------------------------------------------------------------------------------
 // 셀렉트 값 셀렉트 컨테이너에 추가
 function addContainer(value, text) {
     const categoryContainer = document.getElementById('categoryContainer');
@@ -646,6 +683,7 @@ function addContainer(value, text) {
     });
 }
 
+//------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
 function resetCategory() {
     const categoryContainer = document.getElementById('categoryContainer');
@@ -658,6 +696,7 @@ function resetCategory() {
     categoryBarHeight();
 }
 
+//------------------------------------------------------------------------------------
 // 카테고리 바 높이
 function categoryBarHeight() {
     var categoryBarBox = $(".categoryBarBox");
@@ -666,6 +705,8 @@ function categoryBarHeight() {
     categoryBarBox.css("height", newHeight + "px");
 }
 
+//------------------------------------------------------------------------------------
+// 카테고리에 따른 필터링
 function selectCategory () {
 	var obj = {
             bigCategories: selectedCategories,
@@ -679,12 +720,57 @@ function selectCategory () {
         data: JSON.stringify(obj),
         success: function(response) {
             console.log(response + "1111");
+            displayFilteredClasses(response);
             alert("성공"); 
         },
         error: function(xhr, status, error) {
             alert("실패ㅏㅏㅏㅏㅏㅏㅏㅏㅏ"); 
             console.error('AJAX 요청 중 오류 발생: ' + error); 
         }
+    });
+}
+
+//필터링된 클래스 표시
+function displayFilteredClasses(classes) {
+    var classListContainer = $("#classListContainer"); // 클래스 목록을 표시할 컨테이너
+    classListContainer.empty(); // 기존 클래스 목록 비우기
+    // 각 클래스 정보를 반복하여 HTML에 추가
+    $.each(classes, function(index, classData) {
+        var classHtml = `
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
+                <div class="card shadow-sm border-0 rounded flex-fill mb-4">
+                    <div class="card-body p-0 position-relative card-body1 position-relative1">
+                        <a href="class-detail?class_code=${classData.class_code}">
+                            <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
+                        </a>
+                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classData.class_code}" data-member-code="${classData.member_code}">
+                        <div class="card-bodys d-flex flex-column">
+                            <div class="classCategory col-md-10">
+                                <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${filterClass.class_big_category}</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classData.class_small_category}</button>
+                            </div>
+                            <div class="createrName d-flex align-items-center">
+                                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+                                <p class="mb-0 ml-2">${filterClass.member_nickname}</p>
+                            </div>
+                            <div class="className">
+                                <a href="class-detail"><h6>${filterClass.class_name}</h6></a>
+                            </div>
+                            <div class="row classInfo">
+                                <div class="col-md-6 add">
+                                    <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classData.class_location}</a>
+                                </div>
+                                <div class="col-md-6 price">
+                                    <p>${classData.class_price}원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        classListContainer.append(classHtml); // 클래스 정보를 컨테이너에 추가
     });
 }
 </script>

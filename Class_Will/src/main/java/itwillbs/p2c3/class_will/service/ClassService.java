@@ -55,11 +55,15 @@ public class ClassService {
 		return mapper.selectFilterClass(map);
 	}
 	
-	// 클래스 좋아요
+	// 클래스 좋아요 추가
 	public int insertLikeClass(Map<String, Object> map){
 		return mapper.insertLikeClass(map);
 	}
 	
+	// 클래스 좋아요 리스트
+	public List<Map<String, Object>> getLikeClassList(Map<String, Object> map){
+		return mapper.selectLikeClassList(map);
+	}
 	// 클래스 좋아요 취소
 	public int deleteLikeClass(Map<String, Object> map){
 		return mapper.deleteLikeClass(map);

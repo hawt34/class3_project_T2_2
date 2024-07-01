@@ -35,8 +35,11 @@ public interface ClassMapper {
 	List<Map<String, Object>> selectFilterClass(Map<String, Object> map);
 	
 	
-	// 클래스 좋아요
+	// 클래스 좋아요 추가
 	int insertLikeClass(Map<String, Object> map);
+	
+	// 클래스 좋아요 리스트
+	List<Map<String, Object>> selectLikeClassList(Map<String, Object> map);
 	
 	// 클래스 좋아요 취소
 	int deleteLikeClass(Map<String, Object> map);

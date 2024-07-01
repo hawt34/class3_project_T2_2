@@ -217,6 +217,7 @@ public class ClassController {
         // JSONArray를 JSON 문자열로 변환합니다.
         String jsonString = jsonArray.toString();
         model.addAttribute("class_schedule", scheduleInfo);
+        
 		//클래스 스케쥴
 		model.addAttribute("class_schedule_date", jsonString);
         //========================================================================

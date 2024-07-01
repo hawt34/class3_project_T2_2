@@ -456,6 +456,26 @@ public class CreatorController {
 		
 		return "creator/creator-review";
 	}
+	
+	@ResponseBody
+	@GetMapping("getReviewByClass")
+	public List<Map<String, Object>> getReviewByClass(@RequestParam(defaultValue = "0") int classCode, HttpSession session){
+		MemberVO member =  (MemberVO)session.getAttribute("member");
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> reviewListByClass = creatorService.getReviewByClass(classCode, member_code);
+		return reviewListByClass;
+	}
+
+	@ResponseBody
+	@GetMapping("getReviewByType")
+	public List<Map<String, Object>> getReviewByType(@RequestParam(defaultValue = "0") int classCode
+													, @RequestParam(defaultValue = "N") String type, HttpSession session){
+		MemberVO member =  (MemberVO)session.getAttribute("member");
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> reviewListByType = creatorService.getReviewByType(classCode, type, member_code);
+		return reviewListByType;
+	}
+	
 	// creater-review-form으로
 	@GetMapping("creator-review-form")
 	public String createrReviewForm() {

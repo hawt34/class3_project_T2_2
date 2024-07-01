@@ -404,7 +404,7 @@
 		c.member_code = #{member_code}
 	</select>
 	
-	<!-- 클래스리스트 후기 가져오기 -->
+	<!-- 후기에 따른 클래스 정보 가져오기 -->
 	<select id="getClassByReview" resultType="map">
 	SELECT count(class_review_code) as counter
 		 , c.class_name
@@ -418,6 +418,42 @@
 	WHERE 
 		c.member_code = #{member_code}
 	GROUP BY c.class_code
+	</select>
+
+	<!-- 클래스에 따른 후기 가져오기 -->
+	<select id="getReviewByClass" resultType="map">
+	SELECT *
+	FROM 
+		class_review cr
+		<choose>
+			<when test="!classCode.equals(0)">
+				WHERE class_code = #{classCode}
+			</when>
+			<otherwise>
+				JOIN class c
+				ON c.class_code = cr.class_code
+				WHERE c.member_code = #{member_code}
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 타입에 따른 후기 가져오기 -->
+	<select id="getReviewByType" resultType="map">
+	SELECT *
+	FROM 
+		class_review cr
+		<choose>
+			<when test="!classCode.equals(0)">
+				WHERE class_code = #{classCode}
+			</when>
+			<otherwise>
+				JOIN class c
+				ON c.class_code = cr.class_code
+				WHERE c.member_code = #{member_code}
+			</otherwise>
+		</choose>
+	AND 
+		review_reply_status = #{type}
 	</select>
 	
 	<!-- 공개여부 -->

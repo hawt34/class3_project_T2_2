@@ -81,40 +81,13 @@
 								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 상단 카테고리 -->
 								<div class="mt-5">
-									<button class="category-btn reviewType" value="respond">응답후기</button>
-									<button class="category-btn reviewType" value="respond">미응답후기</button>
+									<button class="category-btn reviewTypeNo" value="N">미응답후기</button>
+									<button class="category-btn reviewTypeYes" value="Y">응답후기</button>
 								</div>
 								<!-- 테이블 -->
 								<div id="scheduleTableContainer" class="col-md-12">
-									<div class="row">
-										<div class="col-md-12">
-											<div id="grid"></div>
-											<div id="pagination"></div>
-										</div>
-									</div>
-								</div>
-								<div class="card text-center">
-									<div class="card-body p-2">
-										<table>
-											<thead>
-												<tr>
-													<th>후기</th>
-													<th>작성일자</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td class="creator-review-subject">
-														<a onclick="creatorReview()">너무 재미있고 최고입니다 ㅎㅎ</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
-						
-											</tbody>
-										</table>
-									</div>
+									<div id="grid"></div>
+									<div id="pagination"></div>
 								</div>
 
 							</div>
@@ -144,8 +117,6 @@
 	
 	$(function() {
 		
-// 		const data = ${classReviewList};
-
 		$('.category-btn').click(function() {
 			$('.category-btn').removeClass('active');
 			$(this).addClass('active');
@@ -170,7 +141,7 @@
 		function initialGrid(data) {
 			columns = [
 				{ header: '후기제목', name: 'class_review_subject', align: 'center'  },
-				{ header: '작성일', name: 'class_review_date', align: 'center'  },
+				{ header: '작성일', name: 'class_review_date', align: 'center', width: 'auto' },
 			];
 
 			grid = new tui.Grid({
@@ -188,9 +159,51 @@
 			grid.on('click', (ev) => {
 	            const rowKey = ev.rowKey;  // 클릭한 행의 키 값
 	            const rowData = grid.getRow(rowKey);  // 클릭한 행의 데이터
+	            console.log("rowKey: " + rowKey);
+	            console.log("rowData: " + rowData);
+	            debugger;
 	            window.open("creator-review-form?class_review_code=" + rowData.class_review_code, "pop", "width=700, height=700, left=700, top=50");
 	        });
 		}
+		var classCode;
+		//클래스에 따른 후기
+		$('#classSelect').change(function() {
+			classCode = $('#classSelect').val();
+			$.ajax({
+				url: "getReviewByClass",
+				method: "get",
+				data: { "classCode" : classCode },
+				success: function(data) {
+					// JSON 형태로 파싱
+					var reviewData = JSON.parse(JSON.stringify(data));
+					$('#scheduleTableContainer').empty().append('<div id="scheduleTableContainer" class="col-md-12">'
+					 + '<div id="grid"></div><div id="pagination"></div></div></div>');
+					// 데이터 ToastUI에 넣어서 전환
+					initialGrid(reviewData);
+					
+				}
+			});	
+		});
+		
+		$('.category-btn').click(function() {
+			var type = $(this).val();
+			console.log("type: " + type);
+			$.ajax({
+				url: "getReviewByType",
+				method: "get",
+				data: { "classCode" : classCode,
+						"type" : type	
+				},
+				success: function(data) {
+					// JSON 형태로 파싱
+					var reviewData = JSON.parse(JSON.stringify(data));
+					$('#scheduleTableContainer').empty().append('<div id="scheduleTableContainer" class="col-md-12">'
+					 + '<div id="grid"></div><div id="pagination"></div></div></div>');
+					// 데이터 ToastUI에 넣어서 전환
+					initialGrid(reviewData);
+				}
+			});	
+		});
 		
 		
 		

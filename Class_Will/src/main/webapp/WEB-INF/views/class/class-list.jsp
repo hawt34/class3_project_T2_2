@@ -44,11 +44,11 @@
 
 // like-class
 document.addEventListener("DOMContentLoaded", function() {
-    var heartOverlays = document.querySelectorAll(".heart-overlay");
-    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
-    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+    var heartImges = document.querySelectorAll(".heartImg");
+    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
+    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
 
-    heartOverlays.forEach(function(heartOverlay) {
+    heartImges.forEach(function(heartOverlay) {
         heartOverlay.addEventListener("click", function() {
             var img = this;
             var member_code = img.getAttribute("data-member-code");
@@ -57,19 +57,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
             var heart_status = !isFullHeart;
 			
-            
-			if(member_code == null || member_code == ""){
+			// 로그인 해야만 이용 가능
+			if(member_code == null || member_code == ""){ 
 	            alert("로그인이 필요한 페이지 입니다.");
 	            window.location.href = "member-login";
 	            return;
 			}
 			
-            if (heart_status) {
+            if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
                 img.src = changeSrc;
- 				alert("좋아요 heart_status : " + heart_status + ", member_code : " + member_code + ", class_code : " + class_code);
-            } else {
+ 				alert("관심 클래스에 추가되었습니다.");
+            } else { // heart_status가 false일 때 (like-class 삭제 시)
                 img.src = originalSrc;
- 				alert("좋아요 취소 heart_status : " + heart_status + ", member_code : " + member_code + ", class_code : " + class_code);
+ 				alert("관심 클래스에서 삭제되었습니다.");
             }
             
             // AJAX 요청을 통해 서버로 업데이트 요청 전송
@@ -84,7 +84,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     
     function updateHeartStatus(data) {
+    	
         var xhr = new XMLHttpRequest();
+        
         xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhr.onreadystatechange = function() {
@@ -472,61 +474,59 @@ body {
 						<a href="class-detail?class_code=${classList.class_code}">
 						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a>
 <%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-							<c:choose>
-					            <c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
-
-					            
-					              <c:set var="isLiked" value="false"/> <!-- 삭제 -->
-						              <c:forEach var="likeClassCode" items="${likeClassCode}">
-						                <c:if test="${likeClassCode.class_code == classList.class_code}">
-						                  <c:set var="isLiked" value="true"/> <!-- 추가 -->
-						                </c:if>
-						              </c:forEach>
-					              
-					              <c:if test="${isLiked}">
-					                <img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-					              </c:if>
-					              
-					              <c:if test="${not isLiked}">
-					                <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-					              </c:if>
-					              
-					            </c:when>
-					            
-					            <c:otherwise> <!-- likeClassList 존재 X -->
-					              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-					            </c:otherwise>
-				          </c:choose>
-	                  <div class="card-bodys d-flex flex-column">
-	                     <div class="classCategory col-md-10">
-							<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button>
-	                        <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button>
-	                     </div>
-	                     <div class="createrName d-flex align-items-center">
-	                        <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-	                        <p class="mb-0 ml-2">${classList.member_nickname}</p>
-	                     </div>
-	                     <div class="className">
-	                        <a href="class-detail"><h6>${classList.class_name}</h6></a>
-	                     </div>
-	                     <div class="row classInfo">
-	                        <div class="col-md-6 add">
-	                           <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.class_location}</a>
-	                        </div>
-	                        <div class="col-md-6 price">
-	                           <p>${classList.class_price}원</p>
-	                        </div>
-	                     </div>
-	                  </div>
-	               </div>
-	            </div>
-	         </div>
-	      </c:forEach>
+						
+						<!-- 라이크 클래스 하트 이미지 변경-->
+						<c:choose>
+							<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
+								<c:set var="isLiked" value="false"/> <!-- 삭제 -->
+								<c:forEach var="likeClassCode" items="${likeClassCode}">
+									<c:if test="${likeClassCode.class_code == classList.class_code}">
+										<c:set var="isLiked" value="true"/> <!-- 추가 -->
+									</c:if>
+								</c:forEach>
+								<c:if test="${isLiked}">
+									<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+								</c:if>
+								<c:if test="${not isLiked}">
+									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+								</c:if>
+							</c:when>
+							<c:otherwise> <!-- likeClassList 존재 X -->
+								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+							</c:otherwise>
+						</c:choose>
+						<!-- 라이크 클래스 하트 이미지 변경 -->
+						
+						<div class="card-bodys d-flex flex-column">
+							<div class="classCategory col-md-10">
+								<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button>
+								<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button>
+							</div>
+							<div class="createrName d-flex align-items-center">
+								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+								<p class="mb-0 ml-2">${classList.member_nickname}</p>
+							</div>
+							<div class="className">
+							   <a href="class-detail"><h6>${classList.class_name}</h6></a>
+							</div>
+							<div class="row classInfo">
+								<div class="col-md-6 add">
+									<a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.class_location}</a>
+								</div>
+								<div class="col-md-6 price">
+									<p>${classList.class_price}원</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
 <!-- 		<div id="classListContainer" class="row pb-4 mx-5 mb-4 d-flex flex-wrap"> -->
 <!-- <!--     필터링된 클래스 목록이 여기에 동적으로 추가됩니다. --> -->
 <!-- 		</div> -->
 		<div class="col-3" id="map"></div>
-      </div>
+	</div>
 <!--       <div clas="row" id="map"> -->
 <!-- 		<div id="map"></div> -->
 <!--       </div> -->
@@ -744,7 +744,7 @@ function displayFilteredClasses(classes) {
                         <a href="class-detail?class_code=${classData.class_code}">
                             <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
                         </a>
-                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classData.class_code}" data-member-code="${classData.member_code}">
+                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classData.class_code}" data-member-code="${classData.member_code}">
                         <div class="card-bodys d-flex flex-column">
                             <div class="classCategory col-md-10">
                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${filterClass.class_big_category}</button>

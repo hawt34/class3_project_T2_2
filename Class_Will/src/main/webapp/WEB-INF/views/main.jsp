@@ -152,7 +152,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;">
-								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -185,7 +185,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -218,7 +218,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                     	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+		                     	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
 							</div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -251,7 +251,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1">
+		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
 		                    </div>    
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -284,7 +284,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary px-2 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay ratio ratio-1x1" >
+		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1" >
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -317,7 +317,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary px-2 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                    	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" width="25px">
+		                    	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" width="25px">
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -350,7 +350,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-	                        	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" width="25px">
+	                        	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" width="25px">
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -384,7 +384,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" >
+		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" >
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -417,7 +417,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 							</div>
 	                        <div class="bg-tertiary px-3 py-1 position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" >
+		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" >
 	                        </div>
 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 								<div class="classCategory col-md-10">
@@ -468,7 +468,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -500,7 +500,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -532,7 +532,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -564,7 +564,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -596,7 +596,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -628,7 +628,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -660,7 +660,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -692,7 +692,7 @@
                                      <div class="rounded position-relative class-item classCard">
                                          <div class="">
                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay">
+                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
                                          <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
@@ -750,11 +750,11 @@
 	
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function() {
-		    var heartOverlays = document.querySelectorAll(".heart-overlay");
+		    var heartImges = document.querySelectorAll(".heartImg");
 		    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
 		    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
 		
-		    heartOverlays.forEach(function(heartOverlay) {
+		    heartImges.forEach(function(heartOverlay) {
 		        heartOverlay.addEventListener("click", function() {
 		            var img = this;
 		            img.classList.add("fade");

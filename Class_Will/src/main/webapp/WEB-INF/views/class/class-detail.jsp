@@ -87,7 +87,7 @@
 </style>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
-    var heartOverlays = document.querySelectorAll(".heart-overlay");
+    var heartOverlays = document.querySelectorAll(".heartImg");
     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
     var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
 
@@ -477,7 +477,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <button type="button" class="btn btn-light w-100 btn-customs">
                                     <%-- <img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
                                     <div style="display: flex; align-items: center;">
-                                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heart-overlay">
+                                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heartImg">
                                         <div class="heartCount"><span>5124</span></div>
                                     </div>
                                 </button>

@@ -134,7 +134,7 @@ public class ClassController {
     @ResponseBody
     public String updateHeartStatus(@RequestBody Map<String, Object> requestBody, HttpSession session, Model model) {
     	
-		MemberVO member = (MemberVO)session.getAttribute("member");
+//		MemberVO member = (MemberVO)session.getAttribute("member");
 
 		Boolean heart_status = (Boolean) requestBody.get("heart_status");
 	    String member_code = (String) requestBody.get("member_code"); // Integer로 받지 않고 String으로 받음
@@ -161,7 +161,6 @@ public class ClassController {
 		            	model.addAttribute("likeClassList", likeClassList);
 		            	System.out.println(">>>>>>>>>>>> likeClassList : " + likeClassList);
 		            }
-	            
 	        } else {
 	            // 클래스 좋아요 제거
 	            classService.deleteLikeClass(map);

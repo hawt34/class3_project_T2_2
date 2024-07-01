@@ -48,8 +48,11 @@ public class ClassService {
 	}
 	
 	// 카테고리바 필터링된 클래스
-	public List<Map<String, Object>> getFilterClass(List<String> bigCategories, List<String> smallCategories, List<String> locals){
-		return mapper.selectFilterClass(bigCategories, smallCategories, locals);
+//	public List<Map<String, Object>> getFilterClass(List<String> bigCategories, List<String> smallCategories, List<String> locals){
+//		return mapper.selectFilterClass(bigCategories, smallCategories, locals);
+//	}
+	public List<Map<String, Object>> getFilterClass(Map<String, Object> map){
+		return mapper.selectFilterClass(map);
 	}
 	
 	// 클래스 좋아요

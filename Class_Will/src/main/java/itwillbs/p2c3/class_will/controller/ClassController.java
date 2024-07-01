@@ -107,17 +107,20 @@ public class ClassController {
 	
 	@ResponseBody
 	@PostMapping("filter-class")
-	public List<Map<String, Object>> getFilterClass(@RequestParam Map<String, Object> filters) {
+	public List<Map<String, Object>> getFilterClass(@RequestBody(required = false) Map<String, Object> filters, Model model) {
 	    System.out.println("filter-class controller");
 	    System.out.println("Filters: " + filters);
 
-	    List<String> bigCategories = (List<String>) filters.get("bigCategories");
+//	    new HashMap<String, List<String>>();
+	    
+	    List<String> bigCategories = (List<String>)filters.get("bigCategories");
 	    List<String> smallCategories = (List<String>) filters.get("smallCategories");
 	    List<String> locals = (List<String>) filters.get("locals");
 
 	    // Service layer call to fetch filtered classes based on the parameters
-	    List<Map<String, Object>> filterClass = classService.getFilterClass(bigCategories, smallCategories, locals);
-
+//	    List<Map<String, Object>> filterClass = classService.getFilterClass(bigCategories, smallCategories, locals);
+	    List<Map<String, Object>> filterClass = classService.getFilterClass(filters);
+	    model.addAttribute("filterClass", filterClass);
 	    System.out.println("filterClass //////////////" + filterClass);
 
 	    return filterClass;

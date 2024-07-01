@@ -37,39 +37,50 @@
 		FROM hash_tag
 	</select>
 	
-	<!-- 카테고리바 필터링된 클래스 -->
 	<select id="selectFilterClass" resultType="map">
-		SELECT class_code
-		        ,class_name
-		        ,c2.code_value AS class_big_category
-		        ,c3.code_value AS class_small_category
-		        ,class_thumnail
-		        ,class_image
-		        ,class_location
-		        ,class_map_x 
-		        ,class_map_y 
-		        ,class_hashtag
-		        ,class_creator_explain
-		        ,class_hide
-		        ,class_price
-		        ,crs.code_value AS class_regist_status
-		        ,m.member_name
+		SELECT 
+			class_code,
+			class_name,
+			c2.code_value AS class_big_category,
+			c3.code_value AS class_small_category,
+			c2.common2_code,
+			c3.common3_code,
+			class_thumnail,
+			class_image,
+			class_location,
+			class_map_x,
+			class_map_y,
+			class_hashtag,
+			class_creator_explain,
+			class_hide,
+			class_price,
+			crs.code_value AS class_regist_status,
+			m.member_name
 		FROM class c
-		LEFT JOIN common1 c1
-		ON c.class_big_category = c1.common1_code
-		LEFT JOIN common2 c2
-		ON c.class_big_category = c2.common2_code
-		AND c2.common1_code = 'CLC'
-		LEFT JOIN common3 c3
-		ON c.class_small_category = c3.common3_code
-		AND c3.common2_code = c2.common2_code
-		AND c3.common1_code = 'CLC'
-		LEFT JOIN common2 crs
-		ON c.class_regist_status = crs.common2_code
-		AND crs.common1_code = 'CRS'
-		JOIN MEMBER m
-		ON c.member_code = m.member_code
-		WHERE c2.code_value = #{bigCategories} AND c3.code_value = #{smallCategories} AND c.class_location LIKE CONCAT('%', #{locals}, '%')
+		LEFT JOIN common1 c1 ON c.class_big_category = c1.common1_code
+		LEFT JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
+		LEFT JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
+		LEFT JOIN common2 crs ON c.class_regist_status = crs.common2_code AND crs.common1_code = 'CRS'
+		JOIN MEMBER m ON c.member_code = m.member_code
+		WHERE 1=1
+		<if test="bigCategories != null and bigCategories.size() > 0">
+			AND c2.common2_code IN
+			<foreach item="bigCategory" collection="bigCategories" open="(" separator="," close=")">
+			    #{bigCategory}
+			</foreach>
+		</if>
+		<if test="smallCategories != null and smallCategories.size() > 0">
+			AND c3.common3_code IN
+			<foreach item="smallCategory" collection="smallCategories" open="(" separator="," close=")">
+			    #{smallCategory}
+			</foreach>
+		</if>
+		<if test="locals != null and locals.size() > 0">
+			AND c2.common2_code IN
+			<foreach item="local" collection="locals" open="(" separator="," close=")">
+			    #{local}
+			</foreach>
+		</if>
 	</select>
 	
 	<!-- 클래스 좋아요 -->

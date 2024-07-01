@@ -540,231 +540,152 @@ $(function() {
     });
 });
 //------------------------------------------------------------------------------------
-//대카테고리 카테고리바 셀렉
-let allCategories = [];
-
-function updateCategory() {
-	const selectElement = document.getElementById('class_big_category');
-	const selectedCategoryValue = selectElement.value;
-	const selectedCategoryText = selectElement.options[selectElement.selectedIndex].text;
-	const categoryContainer = document.getElementById('categoryContainer');
-	
-	// '전체'를 선택한 경우 모든 큰 카테고리 값을 추가합니다.
-	if (selectedCategoryValue === 'bigCategoryAll') {
-		
-		allCategories.forEach(category => {
-		    const categoryText = category.code_value;
-		    const categoryValue = category.common2_code;
-		    // 중복 확인
-		    const existingValues = categoryContainer.getElementsByTagName('input');
-		    
-		    let isDuplicate = false;
-		    
-		    for (let i = 0; i < existingValues.length; i++) {
-		        if (existingValues[i].value === categoryText) {
-		            isDuplicate = true;
-		            break;
-		        }
-		    }
-		    
-		    if (!isDuplicate) {
-		        addCategoryToContainer(categoryValue, categoryText);
-		    }
-		    
-		});
-		
-		return;
-	}
-	
-	// 중복 확인: 이미 존재하는 값인지 확인
-	const existingValues = categoryContainer.getElementsByTagName('input');
- 
-	for (let i = 0; i < existingValues.length; i++) {
-		if (existingValues[i].value === selectedCategoryText) {
-		    return;  // 이미 존재하는 경우 추가하지 않음
-		}
-	}
-	
-	// 선택한 카테고리 값을 추가합니다.
-	addCategoryToContainer(selectedCategoryValue, selectedCategoryText);
-	
-	// categoryBarBox 높이 변경
-	categoryBarHeight();
-	
-	selectCategory();
-}
-// -------------------------------------------------------------------------------------------
-//소카테고리 카테고리바 셀렉
-let allSmallCategory = [];
-function updateSmallCategory() {
-	const selectElement = document.getElementById('class_small_category');
-	const selectedSmallCategoryValue = selectElement.value;
-	const selectedSmallCategoryText = selectElement.options[selectElement.selectedIndex].text;
-	const categoryContainer = document.getElementById('categoryContainer');
- 
-	// '전체'를 선택한 경우 모든 소카테고리 값을 추가합니다.
-	if (selectedSmallCategoryValue === 'smallCategoryAll') {
- 	
-		allSmallCategory.forEach(small => {
-		    const smallText = small.code_value;
-		    const smallValue = small.common2_code;
-		    // 중복 확인: 이미 존재하는 값인지 확인
-		    const existingValues = categoryContainer.getElementsByTagName('input');
-		    
-		    let isDuplicate = false;
-		    
-		    for (let i = 0; i < existingValues.length; i++) {
-		        if (existingValues[i].value === smallValue) {
-		            isDuplicate = true;
-		            break;
-		        }
-		    }
-		    
-		    if (!isDuplicate) {
-		        addCategoryToContainer(smallValue, smallText);
-		    }
-		    
-		});
-		
-		return;
-     
-	}
-	// 중복 확인: 이미 존재하는 값인지 확인
-	const existingValues = categoryContainer.getElementsByTagName('input');
- 
-	for (let i = 0; i < existingValues.length; i++) {
-	    if (existingValues[i].value === selectedSmallCategoryValue) {
-	        return;  // 이미 존재하는 경우 추가하지 않음
-	    }
-	}
-	// 선택한 소카테고리 값을 추가합니다.
-	addCategoryToContainer(selectedSmallCategoryValue, selectedSmallCategoryText);
-	
-	// categoryBarBox 높이 변경
-	categoryBarHeight();
-	
-	selectCategory();
-}
-// -------------------------------------------------------------------------------------------
-//지역 카테고리바 셀렉
-function updateLocal() {
-	const selectElement = document.getElementById('class_local');
-	const selectedLocalValue = selectElement.value;
-	const selectedLocalText = selectElement.options[selectElement.selectedIndex].text;
-	const categoryContainer = document.getElementById('categoryContainer');
-	// '전체'를 선택한 경우 모든 지역 값을 추가합니다.
-	if (selectedLocalValue === 'classLocalAll') {
- 	
-		allLocals.forEach(local => {
-		    const localText = local.code_value;
-		    const localValue = local.common2_code;
-		    // 중복 확인: 이미 존재하는 값인지 확인
-		    const existingValues = categoryContainer.getElementsByTagName('input');
-		    
-		    let isDuplicate = false;
-		    
-		    for (let i = 0; i < existingValues.length; i++) {
-		        if (existingValues[i].value === localText) {
-		            isDuplicate = true;
-		            break;
-		        }
-		    }
-		    
-		    if (!isDuplicate) {
-		        addCategoryToContainer(localValue, localText);
-		    }
-		    
-		});
-     
-		return;
-     
-	}
-	
- // 중복 확인: 이미 존재하는 값인지 확인
- const existingValues = categoryContainer.getElementsByTagName('input');
- 
- for (let i = 0; i < existingValues.length; i++) {
-     if (existingValues[i].value === selectedLocalText) {
-         return;  // 이미 존재하는 경우 추가하지 않음
-     }
- }
- // 선택한 지역 값을 추가합니다.
- addCategoryToContainer(selectedLocalValue, selectedLocalText);
- 
- // categoryBarBox 높이 변경
- categoryBarHeight();
- 
- selectCategory();
-}
-// -------------------------------------------------------------------------------------------
-//카테고리바 셀렉트 한 값 categoryContainer에 추가
-function addCategoryToContainer(value, text) {
-	const categoryContainer = document.getElementById('categoryContainer');
-	const div = document.createElement('div');
-	
-	div.className = 'mt-3 col-md-2 position-relative chooseDiv';
-	
-	const input = document.createElement('input');
-	
-	input.type = 'text';
-	input.className = 'form-control chooseResult';
-	input.value = text;
-	input.readOnly = true;
-	
-	const img = document.createElement('img');
-	
-	img.src = '<%= request.getContextPath() %>/resources/images/class/x.png';
-	img.className = 'xicon';
-	
-	div.appendChild(input);
-	div.appendChild(img);
-	
-	categoryContainer.appendChild(div);
-}
-
-// -------------------------------------------------------------------------------------------
-//categoryContainer 초기화
-function resetCategory() {
-	const categoryContainer = document.getElementById('categoryContainer');
-	categoryContainer.innerHTML = ''; 
-	
-	categoryBarHeight();
-}
-
-// -------------------------------------------------------------------------------------------
-//categoryBarBox 높이 조절
-function categoryBarHeight() {
-	// categoryBarBox의 높이를 동적으로 조정하는 함수
-	var categoryBarBox = $(".categoryBarBox");
-	var additionalHeight = 20; 
-	var newHeight = categoryBarBox.height() + additionalHeight;
-	categoryBarBox.css("height", newHeight + "px");
-}
-
-// -------------------------------------------------------------------------------------------
 let selectedCategories = [];
 let selectedSmallCategories = [];
 let selectedLocals = [];
 
+// 대카테고리값
+function updateCategory() {
+	
+    const selectElement = document.getElementById('class_big_category');
+    const selectedValue = selectElement.value;
+    const selectedText = selectElement.options[selectElement.selectedIndex].text;
+
+    if (selectedValue === 'bigCategoryAll') {
+        selectedCategories = allCategories.map(category => category.common2_code);
+        
+    } else {
+        if (!selectedCategories.includes(selectedValue)) {
+        	console.log("updateCategory 추가");
+            selectedCategories.push(selectedValue);
+        }
+    }
+    // 추가된 카테고리를 화면에 표시
+    addContainer(selectedValue, selectedText);
+    
+    // 높이
+    categoryBarHeight();
+    
+    selectCategory();
+}
+
+// 소카테고리
+function updateSmallCategory() {
+    const selectElement = document.getElementById('class_small_category');
+    const selectedValue = selectElement.value;
+    const selectedText = selectElement.options[selectElement.selectedIndex].text;
+
+    if (selectedText === 'smallCategoryAll') {
+        selectedSmallCategories = allSmallCategory.map(small => small.common2_code);
+    } else {
+        if (!selectedSmallCategories.includes(selectedValue)) {
+        	console.log("updateSmallCategory 추가");
+            selectedSmallCategories.push(selectedValue);
+        }
+    }
+    // 추가된 소카테고리를 화면에 표시
+    addContainer(selectedValue, selectedText);
+    
+    // 높이
+    categoryBarHeight();
+    
+    selectCategory();
+}
+
+// 지역
+function updateLocal() {
+    const selectElement = document.getElementById('class_local');
+    const selectedValue = selectElement.value;
+    const selectedText = selectElement.options[selectElement.selectedIndex].text;
+
+    if (selectedValue === 'classLocalAll') {
+        selectedLocals = allLocals.map(local => local.common2_code);
+    } else {
+        if (!selectedLocals.includes(selectedValue)) {
+        	console.log("updateLocal 추가");
+            selectedLocals.push(selectedValue);
+        }
+    }
+    // 추가된 지역을 화면에 표시
+    addContainer(selectedValue, selectedText);
+    
+    // 높이
+    categoryBarHeight();
+    
+    selectCategory();
+}
+
+// 셀렉트 값 셀렉트 컨테이너에 추가
+function addContainer(value, text) {
+    const categoryContainer = document.getElementById('categoryContainer');
+    const div = document.createElement('div');
+
+    div.className = 'mt-3 col-md-2 position-relative chooseDiv';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'form-control chooseResult';
+    input.value = text;
+    input.readOnly = true;
+
+    const img = document.createElement('img');
+    img.src = '<%= request.getContextPath() %>/resources/images/class/x.png';
+    img.className = 'xicon';
+
+    div.appendChild(input);
+    div.appendChild(img);
+    categoryContainer.appendChild(div);
+
+    // 카테고리를 삭제하는 기능 추가
+    img.addEventListener('click', function() {
+        categoryContainer.removeChild(div);
+        // 배열에서 값 제거
+        selectedCategories = selectedCategories.filter(item => item !== value);
+        selectedSmallCategories = selectedSmallCategories.filter(item => item !== value);
+        selectedLocals = selectedLocals.filter(item => item !== value);
+    });
+}
+
+// 초기화 버튼 (셀렉트 컨테이너 값 초기화)
+function resetCategory() {
+    const categoryContainer = document.getElementById('categoryContainer');
+    categoryContainer.innerHTML = ''; 
+
+    selectedCategories = [];
+    selectedSmallCategories = [];
+    selectedLocals = [];
+
+    categoryBarHeight();
+}
+
+// 카테고리 바 높이
+function categoryBarHeight() {
+    var categoryBarBox = $(".categoryBarBox");
+    var additionalHeight = 20; 
+    var newHeight = categoryBarBox.height() + additionalHeight;
+    categoryBarBox.css("height", newHeight + "px");
+}
+
 function selectCategory () {
-	$.ajax({
-		url: "filter-class",
-		method: "post",
-		contentType: "application/json",
-		data: JSON.stringify({
-		    bigCategories: selectedCategories,
-		    smallCategories: selectedSmallCategories,
-		    locals: selectedLocals
-		}),
-		success: function(response) {
-		    console.log(response + "1111");
-		    alert("성공"); 
-		},
-		error: function(xhr, status, error) {
-		    alert("실패ㅏㅏㅏㅏㅏㅏㅏㅏㅏ"); 
-		    console.error('AJAX 요청 중 오류 발생: ' + error); 
-		}
-	});
+	var obj = {
+            bigCategories: selectedCategories,
+            smallCategories: selectedSmallCategories,
+            locals: selectedLocals
+    };
+    $.ajax({
+        url: "filter-class",
+        method: "post",
+        contentType: "application/json",
+        data: JSON.stringify(obj),
+        success: function(response) {
+            console.log(response + "1111");
+            alert("성공"); 
+        },
+        error: function(xhr, status, error) {
+            alert("실패ㅏㅏㅏㅏㅏㅏㅏㅏㅏ"); 
+            console.error('AJAX 요청 중 오류 발생: ' + error); 
+        }
+    });
 }
 </script>
 </body>

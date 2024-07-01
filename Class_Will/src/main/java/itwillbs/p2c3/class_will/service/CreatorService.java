@@ -110,6 +110,16 @@ public class CreatorService {
 		return creatorMapper.getCertifiedClassInfo(member);
 	}
 
+	// 전체 후기 정보 가져오기
+	public List<Map<String, Object>> getReviewInfo(MemberVO member){
+		return creatorMapper.getReviewInfo(member);
+	}
+
+	// 클래스에 따른 후기 정보 가져오기
+	public List<Map<String, Object>> getClassByReview(MemberVO member){
+		return creatorMapper.getClassByReview(member);
+	}
+	
 	// 문의사항 클래스정보 가져오기
 	public List<Map<String, Object>> getinquiryClassInfo(MemberVO member){
 		return creatorMapper.getinquiryClassInfo(member);

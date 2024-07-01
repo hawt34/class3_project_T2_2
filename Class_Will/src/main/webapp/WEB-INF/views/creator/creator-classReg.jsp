@@ -421,8 +421,8 @@
         		            var y = xmlDoc.getElementsByTagName("y")[0].childNodes[0].nodeValue;
 //         		            console.log('Longitude:', x);
 //         		            console.log('Latitude:', y);
-							$("#location_x").val(x);
-							$("#location_y").val(y);
+							$("#location_x").val(y);
+							$("#location_y").val(x);
         		        },
         		        error: function(error) {
         		            console.log('Error:', error);

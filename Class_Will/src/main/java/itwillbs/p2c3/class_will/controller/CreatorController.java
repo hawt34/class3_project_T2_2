@@ -441,8 +441,18 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
+		List<Map<String, Object>> classList = creatorService.getClassByReview(member);
+		List<Map<String, Object>> classReviewList = creatorService.getReviewInfo(member);
+		
+		List<JSONObject> rw_list = new ArrayList<JSONObject>(); 
+		
+		for(Map<String, Object> clas : classReviewList) {
+            JSONObject cl = new JSONObject(clas);
+            rw_list.add(cl);
+		}
+		
 		model.addAttribute("classList", classList);
+		model.addAttribute("rw_list", rw_list);
 		
 		return "creator/creator-review";
 	}

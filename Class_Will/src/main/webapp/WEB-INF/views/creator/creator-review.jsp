@@ -21,29 +21,28 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
 	rel="stylesheet">
 
-<!-- Libraries Stylesheet -->
-<link
-	href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-
-
 <!-- Customized Bootstrap Stylesheet -->
 <link
 	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/css/style.css"
-	rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
-<link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-review.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style.css"	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/creator/creator-review.css" rel="stylesheet">
+	
+	<!-- Toast UI Grid Script -->
+<link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
+<!-- Toast UI Pagination CSS -->
+<link rel="stylesheet"	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
 </head>
 <body>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<!-- Toast UI Pagination Script -->
+	<script src="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.js"></script>
+	<!-- Toast UI Grid Script -->
+	<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
 
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
@@ -86,6 +85,14 @@
 									<button class="category-btn reviewType" value="respond">미응답후기</button>
 								</div>
 								<!-- 테이블 -->
+								<div id="scheduleTableContainer" class="col-md-12">
+									<div class="row">
+										<div class="col-md-12">
+											<div id="grid"></div>
+											<div id="pagination"></div>
+										</div>
+									</div>
+								</div>
 								<div class="card text-center">
 									<div class="card-body p-2">
 										<table>
@@ -104,22 +111,7 @@
 														2024-05-11
 													</td>
 												</tr>
-												<tr>
-													<td>
-														<a>너무 재미있고 최고입니다 ㅎㅎㅎㅎ하하하하</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
-												<tr>
-													<td>
-														<a>너무 재미있고 최고입니다 ㅎㅎ</a>
-													</td>
-													<td>
-														2024-05-11
-													</td>
-												</tr>
+						
 											</tbody>
 										</table>
 									</div>
@@ -129,19 +121,6 @@
 
 						</div>
 					</div>
-
-
-
-					<!-- 					<div class="col-12"> -->
-					<!-- 						<div class="pagination d-flax justify-content-center mt-5"> -->
-					<!-- 							<a href="#" class="rounded">&laquo;</a> <a href="#" -->
-					<!-- 								class="active rounded">1</a> <a href="#" class="rounded">2</a> <a -->
-					<!-- 								href="#" class="rounded">3</a> <a href="#" class="rounded">4</a> -->
-					<!-- 							<a href="#" class="rounded">5</a> <a href="#" class="rounded">6</a> -->
-					<!-- 							<a href="#" class="rounded">&raquo;</a> -->
-					<!-- 						</div> -->
-					<!-- 					</div> -->
-
 				</div>
 			</div>
 		</div>
@@ -156,24 +135,17 @@
 
 	<!-- JavaScript Libraries -->
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
 	<!-- Template Javascript -->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
 	
 	<script type="text/javascript">
 	
 	$(function() {
+		
+// 		const data = ${classReviewList};
+
 		$('.category-btn').click(function() {
 			$('.category-btn').removeClass('active');
 			$(this).addClass('active');
@@ -186,10 +158,47 @@
 		    	$(this).removeClass('hover');
 		    }
 		);
-	});		
+		
+		const itemsPerPage = 10;
+		let currentPage = 1;
+		const data = ${rw_list};
+		let grid;
+		let columns;
+		
+		initialGrid(data);
+		
+		function initialGrid(data) {
+			columns = [
+				{ header: '후기제목', name: 'class_review_subject', align: 'center'  },
+				{ header: '작성일', name: 'class_review_date', align: 'center'  },
+			];
+
+			grid = new tui.Grid({
+				el: document.getElementById('grid'),
+				data: data,
+				columns: columns,
+				rowHeaders: ['rowNum'],
+				bodyHeight: 418,
+				pageOptions: {
+					useClient: true,
+					perPage: itemsPerPage
+				}
+			});
+			
+			grid.on('click', (ev) => {
+	            const rowKey = ev.rowKey;  // 클릭한 행의 키 값
+	            const rowData = grid.getRow(rowKey);  // 클릭한 행의 데이터
+	            window.open("creator-review-form?class_review_code=" + rowData.class_review_code, "pop", "width=700, height=700, left=700, top=50");
+	        });
+		}
+		
+		
+		
+		
+	});	// onready 끝	
 	
 	function creatorReview() {
-		window.open("creator-review-form", "pop", "width=700, height=700, left=700, top=50");
+		
 	}
 		
 	</script>

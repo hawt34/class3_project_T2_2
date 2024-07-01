@@ -59,6 +59,7 @@ public interface CreatorMapper {
 	// 등록상태
 	List<Map<String, String>> getStatusList();
 	
+	// 숨김여부
 	List<Map<String, String>> getHide();
 	
 	// 클래스 정보 가져오기
@@ -66,6 +67,12 @@ public interface CreatorMapper {
 
 	// 등록완료된 클래스 정보 가져오기
 	List<Map<String, Object>> getCertifiedClassInfo(MemberVO member);
+	
+	// 전체 후기 정보 가져오기
+	List<Map<String, Object>> getReviewInfo(MemberVO member);
+	
+	// 클래스에 따른 후기
+	List<Map<String, Object>> getClassByReview(MemberVO member);
 
 	// 문의사항 클래스 정보 가져오기
 	List<Map<String, Object>> getinquiryClassInfo(MemberVO member);

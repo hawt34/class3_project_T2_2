@@ -378,6 +378,48 @@
 		c.member_code = #{member_code}
 	</select>
 	
+	<!-- 후기정보 가져오기 -->
+	<select id="getReviewInfo" resultType="map">
+	SELECT cr.class_review_code
+		 , cr.class_review_subject 
+		 , cr.class_review_content 
+		 , cr.class_review_date 
+		 , cr.class_review_time
+		 , m.member_nickname 
+		 , cr.class_review_rating 
+		 , cr.review_reply_status
+		 , c.class_name
+		 , c.class_code
+	FROM 
+		class_review cr
+	JOIN 
+		class c
+	ON 
+		c.class_code = cr.class_code 
+	JOIN 
+		MEMBER m
+	ON 
+		m.member_code = cr.member_code
+	WHERE 
+		c.member_code = #{member_code}
+	</select>
+	
+	<!-- 클래스리스트 후기 가져오기 -->
+	<select id="getClassByReview" resultType="map">
+	SELECT count(class_review_code) as counter
+		 , c.class_name
+		 , c.class_code
+	FROM 
+		class_review cr
+	RIGHT JOIN 
+		class c
+	ON 
+		c.class_code = cr.class_code 
+	WHERE 
+		c.member_code = #{member_code}
+	GROUP BY c.class_code
+	</select>
+	
 	<!-- 공개여부 -->
 	<select id="getHide" resultType="map">
 		SELECT 

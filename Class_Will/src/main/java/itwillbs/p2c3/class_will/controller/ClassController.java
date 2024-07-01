@@ -15,19 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
-import retrofit2.http.GET;
 
 
 @Controller
@@ -48,11 +42,18 @@ public class ClassController {
 	public String classList(Model model, HttpSession session) {
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		
+		if(member == null) {
+			List<Map<String, Object>> classList = classService.getClassList();
+			model.addAttribute("classList", classList);
+			
+			return "class/class-list";
+		}
+		
 		int member_code = member.getMember_code();
 		System.out.println("mmmmmmmmmmmmmmmmmmmemberCode" + member.getMember_code());
 		System.out.println("mmmmmmmmmmmmmmmmmmmember" + member);
 //		map.put("member_code", member_code);
-		
 		// =================== 카테고리바 ===================
 		// 대 카테고리
 		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
@@ -67,7 +68,8 @@ public class ClassController {
 //		List<Map<String, Object>> map = classService.getClassList();
 	    List<Map<String, Object>> classList = classService.getClassList();
 	    model.addAttribute("classList", classList);
-
+	    
+	    // 지도
 	    // 클래스 리스트에 member_code 추가
 	    for (Map<String, Object> classMap : classList) {
 	        classMap.put("member_code", member_code);
@@ -80,7 +82,6 @@ public class ClassController {
 	    List<Map<String, Object>> likeClassCode = classService.selectLikeClassCode(member_code);
 	    model.addAttribute("likeClassCode", likeClassCode);
 	    System.out.println("likeClassCode  :::::::::::" + likeClassCode);
-	    
 	    
 	    // 지역
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
@@ -95,6 +96,7 @@ public class ClassController {
 	}
 	
 	// 카테고리바 소카테고리 ajax
+	// ajax smallCategory
 	@ResponseBody
 	@GetMapping("small-category")
 	public List<Map<String, Object>> getCategoryDetail(@RequestParam String big_category){
@@ -105,7 +107,7 @@ public class ClassController {
 	
 	@ResponseBody
 	@PostMapping("filter-class")
-	public List<Map<String, Object>> getFilterClass(@RequestBody Map<String, Object> filters) {
+	public List<Map<String, Object>> getFilterClass(@RequestParam Map<String, Object> filters) {
 	    System.out.println("filter-class controller");
 	    System.out.println("Filters: " + filters);
 
@@ -168,6 +170,7 @@ public class ClassController {
 //    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {
 //        return classService.getChooseBigCategory(category);
 //    }
+    // ajax bigCategory
 	@GetMapping("big-category")
 	@ResponseBody
     public ResponseEntity<List<Map<String, Object>>> getBigCategories() {

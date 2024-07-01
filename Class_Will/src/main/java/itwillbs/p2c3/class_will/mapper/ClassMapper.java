@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ClassMapper {
 	
 	// 큰 카테고리
+    // ajax bigCategory
 	List<Map<String, Object>> selectBigCategoryList();
 	
 	// 소 카테고리
+	// ajax smallCategory
 	List<Map<String, Object>> selectSmallCategory(String big_Category);
 
 	//
-	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
+//	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
 	
 	// 카테고리 지역 
 	List<Map<String, Object>> selectCategoryLocal();
@@ -51,5 +53,5 @@ public interface ClassMapper {
 	// 클래스 질문 
 	List<Map<String, Object>> selectClassInquiry(int class_code);
 	
-    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
+//    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
 }

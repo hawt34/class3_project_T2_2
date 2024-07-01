@@ -17,11 +17,13 @@ public class ClassService {
 	private ClassMapper mapper;
 	
 	// 큰 카테고리
+    // ajax bigCategory
 	public List<Map<String, Object>> getBigCategoryList() {
 		return mapper.selectBigCategoryList();
 	}
 	
 	// 소 카테고리
+	// ajax smallCategory
 	public List<Map<String, Object>> getSmallCategory(String big_category) {
 		return mapper.selectSmallCategory(big_category);
 	}
@@ -55,25 +57,15 @@ public class ClassService {
 		return mapper.insertLikeClass(map);
 	}
 	
-//	// 클래스 좋아요 추가
-//	public int insertLikeClass(Map<String, Object> map){
-//	   mapper.insertLikeClass(map);
-//	}
-	
 	// 클래스 좋아요 취소
 	public int deleteLikeClass(Map<String, Object> map){
 		return mapper.deleteLikeClass(map);
 	}
 	
-//	// 클래스 좋아요 취소
-//	public int deleteLikeClass(Map<String, Object> map){
-//	    mapper.deleteLikeClass(map);
-//	}
-	
 	// 
-	public List<Map<String, Object>> getChooseBigCategory(@RequestParam("category") String category) {
-		return mapper.selectChooseBigCategory(category);
-	}
+//	public List<Map<String, Object>> getChooseBigCategory(@RequestParam("category") String category) {
+//		return mapper.selectChooseBigCategory(category);
+//	}
 	public List<Map<String, Object>> getListSmallCategory() {
 		
 		return mapper.selectListSmallCategory();
@@ -89,11 +81,9 @@ public class ClassService {
 		return mapper.selectClassInquiry(class_code);
 	}
 	
-	
-	
-    public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
-        return mapper.selectSmallCategories(bigCategoryCode);
-    }
+//    public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
+//        return mapper.selectSmallCategories(bigCategoryCode);
+//    }
     
 //	public Map<String, List<Map<String, Object>>> getCategoryData() {
 //		Map<String, List<Map<String, Object>>> final_list = new HashMap<String, List<Map<String,Object>>>();

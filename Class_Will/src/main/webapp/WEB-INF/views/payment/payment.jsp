@@ -199,7 +199,7 @@
 					<hr>
 						<p class="card-text text-end">
 							총 결제 금액: 
-							<span class="font_color" id="total"></span>만원
+							<span class="font_color" id="total"></span>원
 						</p>
 						<div class="row">
 							<div class="col d-flex justify-content-center">

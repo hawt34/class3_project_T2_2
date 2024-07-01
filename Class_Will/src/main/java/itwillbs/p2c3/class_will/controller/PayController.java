@@ -249,5 +249,19 @@ public class PayController {
 		return "result_process/success";
 	}
 	
+	// 마이클래스
+	@GetMapping("my-class")
+	public String myClass(Model model, HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", false, "member-login");
+		}
+		
+		
+		
+		
+		return "mypage/mypage-class";
+	}
+	
 	
 }

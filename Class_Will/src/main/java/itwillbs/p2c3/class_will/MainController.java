@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,27 +28,9 @@ public class MainController {
 	
 	// 메인으로
 	@GetMapping("main")
-	public String main() {
+	public String main(HttpServletRequest request) {
 		
 		return "main";
-	}
-	
-	// chackout으로
-	@GetMapping("chackout")
-	public String chackout() {
-		return "chackout";
-	}
-	
-	// shop으로
-	@GetMapping("shop")
-	public String shop() {
-		return "shop";
-	}
-	
-	// shop-detail으로
-	@GetMapping("shop-detail")
-	public String shopDetail() {
-		return "shop-detail";
 	}
 
 	

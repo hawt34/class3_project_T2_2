@@ -46,6 +46,7 @@ public class ClassController {
 	@GetMapping("class-list")
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
 	public String classList(Model model, HttpSession session) {
+		
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		int member_code = member.getMember_code();
 		System.out.println("mmmmmmmmmmmmmmmmmmmemberCode" + member.getMember_code());
@@ -75,6 +76,12 @@ public class ClassController {
 	    System.out.println("class-list map : " + classList);
 	    System.out.println("memberCode : " + member_code);
 		
+	    
+	    List<Map<String, Object>> likeClassCode = classService.selectLikeClassCode(member_code);
+	    model.addAttribute("likeClassCode", likeClassCode);
+	    System.out.println("likeClassCode  :::::::::::" + likeClassCode);
+	    
+	    
 	    // 지역
 		List<Map<String, Object>> localList = classService.getCategoryLocal();
 		model.addAttribute("localList", localList);
@@ -185,23 +192,19 @@ public class ClassController {
 		// 클래스 질문
 		List<Map<String, Object>> classInquiry = classService.getClassInquiry(class_code); 
 		model.addAttribute("classInquiry", classInquiry);
-		
 	    
-		//classInfo 임시 클래스 데이터 가져오기
-		Map<String, Object> testClassCode = new HashMap<>();
-//		map.put("class_code", class_code);
-//		map.put("member_code", member_code);
-		//내가 만든 class 데이터 (임시)!! - 나중에 바꾸면 알려줘~~
-		//원래는 메인에서 해당 클래스 누르면 그 클래스의 class_code 값이 온거를 파라미터로 getClassInfo() 메서드 호출
-		//하려고 했는데 아직 메인이 완성이 안되어 있어서 내가 임시로 만든 클래스 코드 '54' 넣은거임
-		testClassCode.put("class_code", 54);
-		Map<String, Object> classInfo = payService.getClassInfo(testClassCode);
-		System.out.println("$$$$$$$$$$$$: " + classInfo);
+		//classInfo 클래스 데이터 가져오기
+		Map<String, Object> classCode = new HashMap<>();
+		classCode.put("class_code", class_code);
+		
+		Map<String, Object> classInfo = payService.getClassInfo(classCode);
+		System.out.println("$$$$$$classInfo: " + classInfo);
 		model.addAttribute("classInfo", classInfo);
 		
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)
-		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(54);
+		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(class_code);
+		System.out.println(">>>>>>>>> scheduleInfo : " + scheduleInfo);
 		// JSONArray를 생성하고 리스트의 각 맵을 JSONObject로 변환하여 추가합니다.
         JSONArray jsonArray = new JSONArray();
         for(Map<String, Object> maps : scheduleInfo) {

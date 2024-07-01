@@ -52,6 +52,22 @@ public class MainService {
 		
 		
 	}
+	
+	
+	@Transactional
+	public void insertVisitIp(String ip, String visitDate) {
+		
+		
+		Map<String, String> map = mainMapper.selectVisitIp(ip, visitDate);
+		
+		if(map == null) {
+			mainMapper.insertVisitIp(ip, visitDate);
+			System.out.println(visitDate + "오늘의 방문자수 +1");
+		}
+		System.out.println("[ " + ip + " ] : [ " + visitDate + "] 기존 방문자");
+		
+		
+	}
 
 	
 	

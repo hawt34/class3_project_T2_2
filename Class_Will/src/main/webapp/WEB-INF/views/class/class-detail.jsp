@@ -82,6 +82,8 @@
     .headcount {
         color: white;
     }
+    
+    
 </style>
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
@@ -106,6 +108,76 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
+<!-- 카카오 지도 api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
+<style>
+   #map {
+       width: 500px;
+       height: 400px;
+   }
+</style>
+<script type="text/javascript">
+    window.onload = function() {
+        var class_map_x = "${classInfo.class_map_x}";
+        var class_map_y = "${classInfo.class_map_y}";
+        
+        var mapContainer = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
+        var mapOption = { // 지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(parseFloat(class_map_x), parseFloat(class_map_y)), // 지도의 중심좌표
+            level: 4 // 지도의 레벨(확대, 축소 정도)
+        };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
+    	
+    	
+		var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png', // 마커이미지의 주소입니다    
+		    imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
+		    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+		    markerPosition = new kakao.maps.LatLng(class_map_x, class_map_y); // 마커가 표시될 위치입니다
+
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		  position: markerPosition,
+		  image: markerImage // 마커이미지 설정 
+		});
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);  
+
+		// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+// 		var content = '<div class="customoverlay">' +
+// 		    '    <span class="title">${classInfo.class_name}위치' + '</span>' +
+// 		    '</div>';
+
+		// 커스텀 오버레이가 표시될 위치입니다 
+		var position = new kakao.maps.LatLng(class_map_x, class_map_y);  
+
+		// 커스텀 오버레이를 생성합니다
+		var customOverlay = new kakao.maps.CustomOverlay({
+		    map: map,
+		    position: position,
+		    content: content,
+		    yAnchor: 1 
+		});
+		
+    };
+</script>
+<!-- <script type="text/javascript"> -->
+<%-- // 	var class_map_x = ${classInfo.class_map_x}; --%>
+<%-- // 	var class_map_y = ${classInfo.class_map_y}; --%>
+	
+<!-- // 	var mapContainer = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스 -->
+<!-- // 	var mapOption = { //지도를 생성할 때 필요한 기본 옵션 -->
+<!-- // 		center: new kakao.maps.LatLng(class_map_x, class_map_y), //지도의 중심좌표. -->
+<!-- // 		level: 3 //지도의 레벨(확대, 축소 정도) -->
+<!-- // 	}; -->
+
+<!-- // 	var map = new kakao.maps.Map(mapContainer, mapOption); //지도 생성 및 객체 리턴 -->
+	
+<!-- </script> -->
 </head>
 <body>
 <header>
@@ -185,7 +257,12 @@ document.addEventListener("DOMContentLoaded", function() {
         <!-- navbar content -->
         <div class="content1 col-md-9">
             <div id="section1">
-                <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg">
+<%--                 <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg"> --%>
+				<p>클래스 위치 : ${classInfo.class_location}</p>
+                <div id="map" style="width: 500px; height: 400px;"></div>
+				
+<!-- 				<div id="map" style="width:350px; height:350px;"></div> -->
+
             </div>
             <div id="section2">
                 <div class="row reviewInfo my-2">
@@ -607,6 +684,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 </script>
+
+				
 <script type="text/javascript">
 function creatorReview(event, class_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)

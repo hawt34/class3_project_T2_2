@@ -510,4 +510,9 @@
 		#{params.event_point}
 		)
 	</insert>
+	
+	<select id="selectEventList" resultType="map">
+		SELECT *
+		FROM event
+	</select>
 </mapper>

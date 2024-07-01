@@ -18,7 +18,6 @@ public class WillUtils {
 	
 	
 	public static String checkDeleteSuccess(boolean isSuccess, Model model, String msg, boolean isClose) {
-		System.out.println("checkDeleteSuccess-로딩");
 		if(isSuccess) {
 			model.addAttribute("msg", msg);
 			

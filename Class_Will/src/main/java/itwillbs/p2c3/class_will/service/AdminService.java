@@ -201,6 +201,10 @@ public class AdminService {
 		return adminMapper.insertEvent(map) > 0 ? true : false;
 	}
 
+	public List<Map<String, String>> getEventList() {
+		return adminMapper.selectEventList();
+	}
+
 	
 	
 }

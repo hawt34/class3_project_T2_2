@@ -208,19 +208,23 @@ body {
 		<h1 class="display-6 text-white">이벤트</h1>
 	</div>
 	<div class="row event_flow">
-<%-- 		<c:forEach var="eventList" items="${eventList}" > --%>
-			<c:forEach begin="1" end="10">
-<%-- 			<div class="item movie-event" onclick="event_detail(${eventList.event_num})"> --%>
-			<div class="item movie-event" onclick="event_detail()">
+			<div class="item movie-event" onclick="event_detail(0)">
 				<div class="imgBox">
-<%-- 					<img src="${pageContext.request.contextPath}/resources/upload/${eventList.event_thumbnail}" alt="썸네일"/> --%>
-					<img src="${pageContext.request.contextPath}/resources/img/best-product-6.jpg" alt="썸네일"/>
+					<img src="${pageContext.request.contextPath}/resources/images/event/invite_friend_cut.png" alt="썸네일"/>
 				</div>
 				<div class="textBox">
-<%-- 					<p class="textBox_name">${eventList.event_subject}</p> --%>
-					<p class="textBox_name">11111111111</p>
-<%-- 					<p class="textBox_price">${eventList.event_start}  ~  ${eventList.event_end}</p> --%>
-					<p class="textBox_price">2024-06-01  ~  2024-06-30</p>
+					<p class="textBox_name">클래스윌 친구초대 이벤트!</p>
+					<p class="textBox_price">2024-07-01  ~  무기한</p>
+				</div>
+			</div>
+		<c:forEach var="eventList" items="${list}" >
+			<div class="item movie-event" onclick="event_detail(${eventList.event_num})">
+				<div class="imgBox">
+					<img src="${pageContext.request.contextPath}/${eventList.event_thumbnail}" alt="썸네일"/>
+				</div>
+				<div class="textBox">
+					<p class="textBox_name">${eventList.event_subject}</p>
+					<p class="textBox_price">${eventList.event_start_date}  ~  ${eventList.event_end_date}</p>
 				</div>
 			</div>
 		</c:forEach>

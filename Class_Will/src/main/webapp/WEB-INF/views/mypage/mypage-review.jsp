@@ -163,9 +163,7 @@ th:nth-child(2), td:nth-child(2) {
 												<td>2</td>
 												<td>3</td>
 												<td>4</td>
-												<td>
-													<a href="resist-review" style="">등록하기</a>
-												</td>
+												<td><a href="resist-review" style="">등록하기</a></td>
 											</tr>
 										</tbody>
 									</table>
@@ -180,6 +178,7 @@ th:nth-child(2), td:nth-child(2) {
 												<th>리뷰 제목</th>
 												<th>리뷰 별점</th>
 												<th>작성 날짜</th>
+												<th>답변 여부</th>
 												<th>수정</th>
 												<th>삭제</th>
 											</tr>
@@ -212,6 +211,18 @@ th:nth-child(2), td:nth-child(2) {
 									                document.write(stars${loop.index});
 									            </script></td>
 													<td>${review.class_review_date}</td>
+													<td><c:choose>
+															<c:when test="${review.review_reply_status eq 'N'}">
+																<button>미응답</button>
+															</c:when>
+															<c:when test="${review.review_reply_status eq 'Y'}">
+																<button>응답</button>
+															</c:when>
+															<c:otherwise>
+																<button>상태 불명</button>
+															</c:otherwise>
+														</c:choose>
+													</td>
 													<td>
 														<button class="btn btn-primary"
 															onclick="location.href='edit-review-page?review_code=${review.class_review_code}'">수정</button>

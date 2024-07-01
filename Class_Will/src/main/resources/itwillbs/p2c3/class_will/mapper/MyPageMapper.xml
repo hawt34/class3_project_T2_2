@@ -46,11 +46,14 @@
 		cr.class_review_date,
 		cr.class_review_time,
 		c.class_name,
-		cr.class_review_rating
-		FROM class_review cr
+		cr.class_review_rating,
+		cr.review_reply_status
+		FROM
+		class_review cr
 		LEFT JOIN class
 		c ON cr.class_code = c.class_code
-		WHERE cr.member_code = #{member_code}
+		WHERE
+		cr.member_code = #{member_code}
 	</select>
 
 	<select id="selectReviewByCode">
@@ -86,15 +89,9 @@
 		<!-- 크리에이터 회원이 일반회원으로 -->
 		<!-- 일반 회원이 크리에이터로 -->
 		UPDATE MEMBER
-		SET member_type =
-		CASE
-		WHEN member_type = 1 THEN 2
-		WHEN
-		member_type = 2 THEN 1
-		ELSE member_type
-		END
-		WHERE member_code =
-		#{member_code}
+		SET member_type = 1
+		WHERE member_type = 2
+		AND member_code = #{member_code}
 	</update>
 
 
@@ -109,15 +106,13 @@
 	<select id="selectLike">
 		<!-- 멤버코드 좋아요한 클래스 데리고 오기 -->
 		SELECT
-		c.class_name, c.class_location , c.class_price, lc.class_code, lc.member_code
-		FROM
-		class c
-		JOIN
-		like_class lc
-		ON
-		c.class_code = lc.class_code
-		WHERE
-		lc.member_code = ${member_code}
+		c.class_name, c.class_location , c.class_price, lc.class_code,
+		lc.member_code
+		FROM class c
+		JOIN like_class lc
+		ON c.class_code =
+		lc.class_code
+		WHERE lc.member_code = ${member_code}
 		ORDER BY
 		c.class_code
 

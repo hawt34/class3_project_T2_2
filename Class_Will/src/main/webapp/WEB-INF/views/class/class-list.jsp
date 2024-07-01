@@ -474,6 +474,7 @@ body {
 <%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
 							<c:choose>
 					            <c:when test="${not empty likeClassList}"> <!-- likeClassList 존재 -->
+
 					            
 <%-- 					              <c:set var="isLiked" value="false"/> <!-- 삭제 --> --%>
 <%-- 						              <c:forEach var="likeClass" items="${likeClassList}"> --%>

@@ -41,58 +41,58 @@ public class ClassController {
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
 	public String classList(Model model, HttpSession session) {
 		
-		MemberVO member = (MemberVO)session.getAttribute("member");
-		
-		if(member == null) {
-			List<Map<String, Object>> classList = classService.getClassList();
-			model.addAttribute("classList", classList);
-			
-			return "class/class-list";
-		}
-		
-		int member_code = member.getMember_code();
-		System.out.println("mmmmmmmmmmmmmmmmmmmemberCode" + member.getMember_code());
-		System.out.println("mmmmmmmmmmmmmmmmmmmember" + member);
-//		map.put("member_code", member_code);
-		// =================== 카테고리바 ===================
-		// 대 카테고리
-		List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
-		model.addAttribute("bigCategoryList", bigCategoryList);
-		System.out.println("bigCategoryList : " + bigCategoryList);
-		// ---------------------------------------------------------------
+	    MemberVO member = (MemberVO) session.getAttribute("member");
+	    Integer member_code = null;
+	    
+	    if (member != null) {
+	        member_code = member.getMember_code();
+	        System.out.println("mmmmmmmmmmmmmmmmmmmemberCode: " + member.getMember_code());
+	        System.out.println("mmmmmmmmmmmmmmmmmmmember: " + member);
+	    } else {
+	        System.out.println("Member is null");
+	    }
+
+	    // =================== 카테고리바 ===================
+	    // 대 카테고리
+	    List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
+	    model.addAttribute("bigCategoryList", bigCategoryList);
+	    System.out.println("bigCategoryList: " + bigCategoryList);
+	    
+	    // ---------------------------------------------------------------
 	    // 소 카테고리
-		List<Map<String, Object>> smallCategoryList = classService.getListSmallCategory();
-		model.addAttribute("smallCategoryList", smallCategoryList);
-		System.out.println("class-list : smallCategory:@@@@@@ " + smallCategoryList);
-		
-//		List<Map<String, Object>> map = classService.getClassList();
+	    List<Map<String, Object>> smallCategoryList = classService.getListSmallCategory();
+	    model.addAttribute("smallCategoryList", smallCategoryList);
+	    System.out.println("class-list: smallCategory: " + smallCategoryList);
+	    
+	    // 지역
+	    List<Map<String, Object>> localList = classService.getCategoryLocal();
+	    model.addAttribute("localList", localList);
+	    
+	    // 클래스 리스트
 	    List<Map<String, Object>> classList = classService.getClassList();
 	    model.addAttribute("classList", classList);
 	    
-	    // 지도
+	    // 해시태그
+	    List<Map<String, Object>> hashtagList = classService.getHashtag();
+	    model.addAttribute("hashtagList", hashtagList);
+	    
 	    // 클래스 리스트에 member_code 추가
-	    for (Map<String, Object> classMap : classList) {
-	        classMap.put("member_code", member_code);
+	    if (member_code != null) {
+	        for (Map<String, Object> classMap : classList) {
+	            classMap.put("member_code", member_code);
+	        }
+	        System.out.println("class-list map: " + classList);
+	        System.out.println("memberCode: " + member_code);
+	        
+	        // 좋아하는 클래스 코드
+	        List<Map<String, Object>> likeClassCode = classService.selectLikeClassCode(member_code);
+	        model.addAttribute("likeClassCode", likeClassCode);
+	        System.out.println("likeClassCode: " + likeClassCode);
+	    } else {
+	        System.out.println("Member code is null, skipping likeClassCode.");
 	    }
 	    
-	    System.out.println("class-list map : " + classList);
-	    System.out.println("memberCode : " + member_code);
-		
-	    
-	    List<Map<String, Object>> likeClassCode = classService.selectLikeClassCode(member_code);
-	    model.addAttribute("likeClassCode", likeClassCode);
-	    System.out.println("likeClassCode  :::::::::::" + likeClassCode);
-	    
-	    // 지역
-		List<Map<String, Object>> localList = classService.getCategoryLocal();
-		model.addAttribute("localList", localList);
-		
-		// 해시태그
-		List<Map<String, Object>> hashtagList = classService.getHashtag();
-		model.addAttribute("hashtagList", hashtagList);
-		
-		
-		return "class/class-list";
+	    return "class/class-list";
 	}
 	
 	// 카테고리바 소카테고리 ajax

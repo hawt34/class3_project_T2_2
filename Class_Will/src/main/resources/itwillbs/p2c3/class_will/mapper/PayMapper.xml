@@ -255,4 +255,53 @@
 		WHERE member_code = #{member_code}
 	</select>
 	
+	<select id="selectPayInfoList" resultType="map">
+	<![CDATA[
+		SELECT c.class_name
+		   , c.class_code
+		   , cs.class_schedule_date
+		   , cs.class_st_time
+		   , cs.class_ed_time
+		   , p.pg_provider
+		   , p.card_name
+		   , p.pay_amount
+		   , p.use_willpay
+		   , p.pay_headcount
+		   , p.imp_uid
+		   , p.pay_code
+		   , p.member_code
+		   , p.pay_datetime 
+		   , upper_code_value AS 'upper_value'
+		   , lower_code_value AS 'lower_value'
+		   , m.member_name
+		   ,CASE 
+		       WHEN TIMESTAMPDIFF(MINUTE, p.pay_datetime , NOW()) < 1 THEN CONCAT(TIMESTAMPDIFF(SECOND, p.pay_datetime, NOW()), ' 초전')
+		       WHEN TIMESTAMPDIFF(HOUR, p.pay_datetime, NOW()) < 1 THEN CONCAT(TIMESTAMPDIFF(MINUTE, p.pay_datetime, NOW()), ' 분전')
+		       WHEN TIMESTAMPDIFF(HOUR, p.pay_datetime, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, p.pay_datetime, NOW()), ' 시간전')
+		       ELSE CONCAT(TIMESTAMPDIFF(DAY, p.pay_datetime, NOW()), ' 일전')
+	       END AS diff_date
+	       , CASE
+		        WHEN TIMESTAMPDIFF(HOUR, cs.class_schedule_date, NOW()) > 0 THEN '2' 
+		        ELSE '1'
+		   END AS refund_type
+		FROM pay p
+		JOIN class_schedule cs 
+		ON p.class_schedule_code = cs.class_schedule_code 
+		JOIN class c 
+		ON c.class_code = p.class_code
+		LEFT JOIN (
+		    SELECT c2.code_value AS upper_code_value, c2.common2_code, c3.code_value AS lower_code_value, c3.common3_code
+		    FROM common2 c2
+		    LEFT JOIN common3 c3 
+		    ON c2.common2_code = c3.common2_code
+		    WHERE c2.common1_code = 'CLC'
+		) AS combined_values
+		ON c.class_big_category = combined_values.common2_code
+		AND c.class_small_category = combined_values.common3_code
+		JOIN MEMBER m
+		ON p.member_code = m.member_code 
+		WHERE p.member_code = #{member_code}
+		ORDER BY p.pay_code DESC
+	]]>
+	</select>
 </mapper>

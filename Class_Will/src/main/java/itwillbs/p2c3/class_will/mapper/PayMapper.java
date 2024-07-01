@@ -59,6 +59,9 @@ public interface PayMapper {
 
 	int selectWillpay(Map<String, Object> map);
 	
+	//결제 성공 List 가져오기
+	List<Map<String, String>> selectPayInfoList(Map<String, Object> memberCode);
+	
 
 	
 }

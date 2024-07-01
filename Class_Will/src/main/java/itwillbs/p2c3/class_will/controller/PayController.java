@@ -256,10 +256,14 @@ public class PayController {
 		if (member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", false, "member-login");
 		}
+		int member_code = member.getMember_code();
+		Map<String, Object> memberCode = new HashMap<String, Object>();
+		memberCode.put("member_code", member_code);
+		List<Map<String, String>> payInfoList = payService.getPayInfoList(memberCode);
+		System.out.println(payInfoList);
 		
 		
-		
-		
+		model.addAttribute("payInfoList", payInfoList);
 		return "mypage/mypage-class";
 	}
 	

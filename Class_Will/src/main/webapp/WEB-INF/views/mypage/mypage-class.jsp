@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -127,7 +128,11 @@ th:nth-child(2), td:nth-child(2) {
 
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">성장해 나가는 ${member.member_name} 님</div>
+								<div class="col-md-12 text-center h2 mb-5">
+								<c:forEach var="name" begin="1" end="1" items="${payInfoList }" >
+									성장해 나가는 ${name.member_name } 님
+								 </c:forEach>
+								</div>
 								<div class="container">
 									<h2>신청한 클래스</h2>
 									<p>클래스 정보</p>
@@ -137,42 +142,40 @@ th:nth-child(2), td:nth-child(2) {
 												<th>신청 클래스</th>
 												<th>클래스 시작 일시</th>
 												<th>결제 상태</th>
+												<th>사용한 will-pay</th>
 												<th>결제 날짜</th>
 												<th>환불</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>
-													드로잉/ 일러스트<br>
-													이런 클래스 이름어뗘! 
-												</td>
-												<td>
-													2024-05-24<br>
-													05:00 ~ 12:00<br>
-												</td>
-												<td>
-													nkn(국민은행카드) 110000원<br>
-													인원수(2)
-												</td>
-												<td>
-													결제 날짜<br>
-													(3일 전)
-												</td>
-												<td>
-													<input type="button" value="환불하기" id="refundClass">
-												</td>
-											</tr>
-<!-- 											<tr> -->
-<!-- 												<td>짜파게티</td> -->
-<!-- 												<td>국물없게</td> -->
-<!-- 												<td>mary@example.com</td> -->
-<!-- 											</tr> -->
-<!-- 											<tr> -->
-<!-- 												<td>삼양불닭</td> -->
-<!-- 												<td>너무 매움</td> -->
-<!-- 												<td>july@example.com</td> -->
-<!-- 											</tr> -->
+											<c:forEach var="pay" items="${payInfoList }">
+												<tr>
+													<td>
+														${pay.upper_value }/ ${pay.lower_value }<br>
+														${pay.class_name } 
+													</td>
+													<td>
+														${pay.class_schedule_date }<br>
+														${pay.class_st_time } ~ ${pay.class_ed_time }<br>
+													</td>
+													<td>
+														${pay.pg_provider }(${pay.card_name }) ${pay.pay_amount }원<br>
+														인원수(2)
+													</td>
+													<td>
+														${pay.use_willpay } WILL-PAY
+													</td>
+													<td>
+														${pay.pay_datetime }<br>
+														(${pay.diff_date })
+													</td>
+													<td>
+														<c:if test="${pay.refund_type eq '1' }">
+															<input type="button" value="환불하기" id="refundClass" onclick="refund()">
+														</c:if>
+													</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

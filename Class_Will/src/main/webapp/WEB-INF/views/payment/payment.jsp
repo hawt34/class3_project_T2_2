@@ -203,7 +203,7 @@
 						</p>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<a href="javascript:void(0);" class="btn btn-dark w-100" onclick="myFunction()">결제하기</a>
+								<a href="javascript:void(0);" class="btn btn-dark w-100" onclick="paymentValidation()">결제하기</a>
 							</div>
 						</div>
 					</div>
@@ -248,7 +248,7 @@ $(function() {
 				
 	            if (credit == 0) {
 	                $('#will_pay_input').val(0);
-	                $('#memberCredit').prop("disabled", true);
+	                $('#will_btnCredit').prop("disabled", true);
 	            }
 				
 				if(credit > subtotal) {
@@ -271,7 +271,15 @@ $(function() {
 			}
 		});
 	});
-	//---------------------------------------------------
+	//-----------------------------------------------------------------------
+	let totalWillpay = ${payInfo.member_credit};
+	if(totalWillpay == 0) {
+		$('#will_pay_input').val(0);
+		$('#will_pay_input').prop("readonly", true);
+		
+		$('#will_btnCredit').prop("disabled", true);
+	}
+	
 	//total 관련 자바스크립트
 	$("#will_pay_input").on("input", function() {
 		let payInput = parseInt($("#will_pay_input").val());
@@ -328,10 +336,10 @@ $(function() {
     });
 });
 //-------------------------------------------------------------------------------------------------
-function myFunction() {
+function paymentValidation() {
 	//결제 전 유효성 체크
 	let willPayCredit = $("#will_pay_input").val();
-	let regex = /^\d+0$/;
+	let regex = /^\d*0$/;
 	
 	if(!regex.test(willPayCredit) && willPayCredit != "") {
 		alert("10원 단위로 입력해 주세요.");

@@ -180,6 +180,11 @@ public class PayService {
 		//return은 크레딧을 선택하는 메서드 호출
 		return payMapper.selectWillpay(map);
 	}
+	
+	//결제성공 리스트 가져오기
+	public List<Map<String, String>> getPayInfoList(Map<String, Object> memberCode) {
+		return payMapper.selectPayInfoList(memberCode);
+	}
 
 	
 }

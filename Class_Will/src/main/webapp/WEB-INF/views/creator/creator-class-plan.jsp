@@ -325,6 +325,7 @@ th, td {
 		                        width : 'auto'
 		                    }
 						],
+						rowHeaders : [ 'rowNum' ],
 						bodyHeight : 418,
 						pageOptions : {
 							useClient : true,

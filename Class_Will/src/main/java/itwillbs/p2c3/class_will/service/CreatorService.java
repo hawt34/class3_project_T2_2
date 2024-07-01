@@ -115,10 +115,23 @@ public class CreatorService {
 		return creatorMapper.getReviewInfo(member);
 	}
 
-	// 클래스에 따른 후기 정보 가져오기
+	// 후기에 따른 클래스 정보 가져오기
 	public List<Map<String, Object>> getClassByReview(MemberVO member){
 		return creatorMapper.getClassByReview(member);
 	}
+	
+	// 클래스에 따른 후기
+	public List<Map<String, Object>> getReviewByClass(int classCode, int member_code){
+		return creatorMapper.getReviewByClass(classCode, member_code);
+	}
+
+	// 타입에 따른 후기
+	public List<Map<String, Object>> getReviewByType(int classCode, String type, int member_code){
+		return creatorMapper.getReviewByType(classCode, type, member_code);
+	}
+
+	
+	
 	
 	// 문의사항 클래스정보 가져오기
 	public List<Map<String, Object>> getinquiryClassInfo(MemberVO member){

@@ -71,8 +71,14 @@ public interface CreatorMapper {
 	// 전체 후기 정보 가져오기
 	List<Map<String, Object>> getReviewInfo(MemberVO member);
 	
-	// 클래스에 따른 후기
+	// 후기에 따른 클래스 정보
 	List<Map<String, Object>> getClassByReview(MemberVO member);
+	
+	// 클래스에 따른 후기
+	List<Map<String, Object>> getReviewByClass(@Param("classCode") int classCode, @Param("member_code") int member_code);
+	
+	// 타입에 따른 후기
+	List<Map<String, Object>> getReviewByType(@Param("classCode") int classCode, @Param("type") String type, @Param("member_code") int member_code);
 
 	// 문의사항 클래스 정보 가져오기
 	List<Map<String, Object>> getinquiryClassInfo(MemberVO member);

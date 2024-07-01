@@ -127,7 +127,7 @@
 									</div> 
 									<form action="creatorSettlement" method="Post">
 									    <div class="d-flex justify-content-center card-content mb-3">
-										    <input type="text" class="card-text word-break h4 mb-3 form-control col-md-4" disabled name="total_sum" value="금액 : ${SumSettlement.total_sum} 원" pattern="#,###"> 
+										    <input type="text" class="card-text word-break h4 mb-3 form-control col-md-4 total_sum" disabled name="total_sum" value="" pattern="#,###"> 
 									    </div>
 										<button type="submit" class="btn btn-outline-primary btn-lg settlement">정산받기</button>
 									</form>
@@ -196,6 +196,8 @@
 			if(${SumSettlement.total_sum} == 0){
 				$(".settlement").prop('disabled', true);
 			}
+			var fmtTotalSum = formatNumber(${SumSettlement.total_sum}*0.9);
+			$('.total_sum').val("금액 : " + fmtTotalSum + " 원");
 			
 			var monthPicker = $("#monthPicker").val();
 			monthPick(monthPicker);
@@ -222,6 +224,8 @@
 			function formatNumber(number) {
 			    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
+			
+			
 			
 		});
 	</script>

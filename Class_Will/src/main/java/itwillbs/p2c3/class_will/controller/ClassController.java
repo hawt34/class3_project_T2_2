@@ -159,6 +159,7 @@ public class ClassController {
 		            if (insertLikeClass > 0) {
 		            	List<Map<String, Object>> likeClassList = classService.getLikeClassList(map);
 		            	model.addAttribute("likeClassList", likeClassList);
+		            	System.out.println(">>>>>>>>>>>> likeClassList : " + likeClassList);
 		            }
 	            
 	        } else {

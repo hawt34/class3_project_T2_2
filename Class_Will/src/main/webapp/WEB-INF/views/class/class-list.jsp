@@ -473,23 +473,23 @@ body {
 						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a>
 <%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
 							<c:choose>
-					            <c:when test="${not empty likeClassList}"> <!-- likeClassList 존재 -->
+					            <c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
 
 					            
-<%-- 					              <c:set var="isLiked" value="false"/> <!-- 삭제 --> --%>
-<%-- 						              <c:forEach var="likeClass" items="${likeClassList}"> --%>
-<%-- 						                <c:if test="${likeClass.class_code == classList.class_code}"> --%>
-<%-- 						                  <c:set var="isLiked" value="true"/> <!-- 추가 --> --%>
-<%-- 						                </c:if> --%>
-<%-- 						              </c:forEach> --%>
+					              <c:set var="isLiked" value="false"/> <!-- 삭제 -->
+						              <c:forEach var="likeClassCode" items="${likeClassCode}">
+						                <c:if test="${likeClassCode.class_code == classList.class_code}">
+						                  <c:set var="isLiked" value="true"/> <!-- 추가 -->
+						                </c:if>
+						              </c:forEach>
 					              
-<%-- 					              <c:if test="${isLiked}"> --%>
+					              <c:if test="${isLiked}">
 					                <img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-<%-- 					              </c:if> --%>
+					              </c:if>
 					              
-<%-- 					              <c:if test="${not isLiked}"> --%>
-<%-- 					                <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-<%-- 					              </c:if> --%>
+					              <c:if test="${not isLiked}">
+					                <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+					              </c:if>
 					              
 					            </c:when>
 					            

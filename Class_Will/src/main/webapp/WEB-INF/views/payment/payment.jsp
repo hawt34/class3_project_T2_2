@@ -362,9 +362,9 @@ function paymentValidation() {
 	
 	let amount = $("#total").text().replace(/,/g, '');
 	let parsedAmount = parseInt(amount, 10);
-	let member_email = "${payInfo.member_email}";
-	let member_name = "${payInfo.member_name}";
-	let member_tel = "${payInfo.member_tel}";
+	let member_email = "${memberInfo.member_email}";
+	let member_name = "${memberInfo.member_name}";
+	let member_tel = "${memberInfo.member_tel}";
 	
 	let IMP = window.IMP;   // 생략 가능
 	IMP.init("imp00262041"); //imp00262041

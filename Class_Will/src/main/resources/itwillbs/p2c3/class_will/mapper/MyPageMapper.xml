@@ -145,7 +145,6 @@
 		WHERE
 		p.pay_status = 'paid'
 		AND p.member_code =  ${member_code}
-		AND cs.class_schedule_date < CURRENT_DATE
 		ORDER BY cs.class_schedule_date ASC
 		 ]]>
 	</select>

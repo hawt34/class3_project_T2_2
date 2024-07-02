@@ -107,8 +107,8 @@
 	
 	<select id="selectObjects" resultType="map">
 		SELECT
-			c.member_code
-		    , cs.class_schedule_code
+<!-- 			c.member_code -->
+		    cs.class_schedule_code
 		    , c.class_code
 		FROM class c
 		join class_schedule cs

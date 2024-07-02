@@ -395,7 +395,7 @@ function paymentValidation() {
 		            	class_schedule_date : "${payInfo.class_schedule_date}",
 		            	pay_headcount: "${payInfo.headcount }",
 		            	use_willpay: use_willpay,
-		            	member_code: "${payInfo.member_code}",
+		            	member_code: "${memberInfo.member_code}",
 		            	class_schedule_code: "${payInfo.class_schedule_code}"
 		            }),
 					contentType: "application/json",

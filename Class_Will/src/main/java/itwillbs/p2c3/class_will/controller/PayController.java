@@ -49,7 +49,7 @@ public class PayController {
 	@GetMapping("will-pay-all")
 	public Map<String, String> willPayAll(@RequestParam Map<String, String> map) {
 		Map<String, String> credit = payService.getCredit(map);
-		System.out.println("크레딧!!!:" + credit.get("member_credit"));
+//		System.out.println("크레딧!!!:" + credit.get("member_credit"));
 		
 		return credit;
 	}

@@ -569,15 +569,18 @@ public class AdminController {
     @GetMapping("registClass")
     public String registClass(String class_code,Model model) {
     	boolean isSuccess = adminService.registClass(class_code);
-    	String result = "";
-    	if(!isSuccess) {
-    		result = WillUtils.checkDeleteSuccess(WillUtils.FAIL, model, "클래스 등록 실패!", WillUtils.CLOSE);
-    		return result;
+    	
+    	StringBuilder str = new StringBuilder("클래스 등록 ");
+    	int failOrSucees = 0;
+    	if (isSuccess) {
+    		failOrSucees = WillUtils.SUCCESS;
+    		str.append("성공");
+    	} else {
+    		failOrSucees = WillUtils.FAIL;
+    		str.append("성공");
     	}
     	
-    	result = WillUtils.checkDeleteSuccess(WillUtils.SUCCESS, model, "클래스 등록 성공!", WillUtils.CLOSE);
-    	
-    	return result;
+		return WillUtils.checkDeleteSuccess(failOrSucees, model, str.toString(), WillUtils.CLOSE);
     }
     
     @GetMapping("admin-report")
@@ -625,11 +628,7 @@ public class AdminController {
     @PostMapping("cancelReport")
     public boolean cancelReport(@RequestParam Map<String, Object> params) {
     	String class_report_code = (String)params.get("class_report_code");
-    	boolean isSuccess = adminService.updateClassReportStatus(class_report_code, "cancel");
-    	if(!isSuccess) {
-    		return isSuccess;
-    	}
-    	return true;
+    	return adminService.updateClassReportStatus(class_report_code, "cancel");
     }
     
 //    @ResponseBody

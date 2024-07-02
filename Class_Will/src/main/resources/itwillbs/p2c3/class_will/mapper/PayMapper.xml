@@ -269,6 +269,7 @@
 		   , cs.class_schedule_date
 		   , cs.class_st_time
 		   , cs.class_ed_time
+		   , cs.class_schedule_code
 		   , p.pg_provider
 		   , p.card_name
 		   , p.pay_amount
@@ -278,6 +279,7 @@
 		   , p.pay_code
 		   , p.member_code
 		   , p.pay_datetime 
+		   , p.pay_status
 		   , upper_code_value AS 'class_upper'
 		   , lower_code_value AS 'class_lower'
 		   , m.member_name
@@ -288,8 +290,8 @@
 		       ELSE CONCAT(TIMESTAMPDIFF(DAY, p.pay_datetime, NOW()), ' 일전')
 	       END AS diff_date
 	       , CASE
-		        WHEN TIMESTAMPDIFF(HOUR, cs.class_schedule_date, NOW()) > 0 THEN '2' 
-		        ELSE '1'
+		       WHEN TIMESTAMPDIFF(HOUR, cs.class_schedule_date, NOW()) > 0 THEN '2' 
+		       ELSE '1'
 		   END AS refund_type
 		FROM pay p
 		JOIN class_schedule cs 
@@ -311,4 +313,30 @@
 		ORDER BY p.pay_code DESC
 	]]>
 	</select>
+	
+	<!-- 환불금액 결정 -->
+	<select id="selectRefundAmt" resultType="int">
+	<![CDATA[
+		SELECT 
+			CASE WHEN TIMESTAMPDIFF(DAY, now(), cs.class_schedule_date) < 3 THEN FLOOR(ROUND((p.pay_amount / 2), -1)) 
+				 ELSE p.pay_amount 
+			END
+		FROM pay p 
+		JOIN class_schedule cs 
+		ON p.class_schedule_code = cs.class_schedule_code
+		WHERE p.pay_code = #{pay_code}; 
+	]]>
+	</select>
+	
+	<update id="updatePayStatus">
+		UPDATE pay
+		SET pay_status = 'canceled'
+		WHERE pay_code = #{pay_code}
+	</update>
+	
+	<update id="resetHeadcount">
+		UPDATE class_schedule
+		SET class_remain_headcount = class_remain_headcount + #{pay_headcount}
+		WHERE class_schedule_code = #{class_schedule_code}
+	</update>
 </mapper>

@@ -249,8 +249,8 @@ body {
 // 	function event_detail(event_num) {
 // 		location.href='eventDetail?event_num=' + event_num;
 // 	} 
-	function event_detail() {
-		location.href='eventDetail';
+	function event_detail(event_code) {
+		location.href='eventDetail?event_code=' + event_code;
 	} 
 	
 	$(function() {

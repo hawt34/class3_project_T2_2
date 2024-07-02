@@ -93,23 +93,27 @@ td > img{
 				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
 			</li>
 		</ul>
+		
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 				<h5> 초대 메일 발송 </h5>
 				<p>초대 하실 친구분의 메일 계정을 입력해 주세요</p>
-				<p>나의 추천인 코드 : 665D8A3D55C6795E4783BE5B</p>
+				<p>나의 추천인 코드 : ${invite_code}</p>
 				<p>친구 초대 메일 발송하기</p>
-				<input type="text" placeholder="이메일">
-				<input type="button" value="이메일 발송하기">
+				<input type="text" placeholder="이메일" id="friendEmail">
+				<input type="button" value="이메일 발송하기" id="sendingMail" onclick="javascript:sendingMail('${invite_code}')">
 			</div>
 			<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
 				<h5> 초대 메일 발송 </h5>
 				<p>초대해 주신 친구 분의 코드를 입력해 주세요</p>
-				<input type="text" placeholder="코드">
-				<input type="button" value="코드입력">
+				<input type="text" placeholder="코드" id="invite_code">
+				<input type="button" value="코드입력" onclick="javascript:requestInvite('${invite_code}')">
 			</div>
 			<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-				
+				<div>
+					초대 코드   : ${invite_info.invite_code} <br>
+					연결된 친구 : ${invite_info.friend_email }
+				</div>
 			</div>
 		</div>
 	</div><!-- row 끝 -->
@@ -147,7 +151,59 @@ td > img{
 		location.href="event";
 	}
 	
+	function requestInvite(invite_code){
+		$.ajax({
+			type: "post", 			
+			url: "RequestInvite", 		
+			data: {					
+				invite_code: invite_code
+			},
+		 	dataType: "text", 		
+		 	success: function (response) {
+		 		if(response === "true"){
+		 			alert("메일 발송 완료");
+		 		}else{
+		 			alert(response);
+		 		}			
+			},
+			error: function (xhr, status, error) { 
+				 console.log("error", e, status);
+			}
+		 });//end ajax	
+	}
 	
+	function sendingMail(invite_code){
+		 $.ajax({
+				type: "post", 			
+				url: "SendingEmail", 		
+				data: {					
+					friend_email: $("#friendEmail").val(), 
+					invite_code: invite_code
+				},
+			 	dataType: "text", 		
+			 	success: function (response) {
+			 		if(response === "true"){
+			 			alert("메일 발송 완료");
+			 		}else{
+			 			alert(response);
+			 		}			
+				},
+				error: function (xhr, status, error) { 
+					 console.log("error", e, status);
+				}
+			 });//end ajax 
+	}
+	
+	
+	$(document).ready(function() {
+	    var tab = "${tab}";
+	    var inviteCode = "${invite_code}";
+		
+	    if (tab === 'code') {
+	        $('#profile-tab').tab('show');
+	        $('#invite_code').val(inviteCode);
+	    }
+	});
 </script>
 
 

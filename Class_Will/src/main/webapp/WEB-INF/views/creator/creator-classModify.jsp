@@ -118,7 +118,7 @@
 											</div>
 											<div class="col-md-12 mt-2 my-4">
 												<label for="class_name" class="h6">클래스 제목</label> 
-												<input type="text" name="class_name" id="class_name" class="form-control" required />
+												<input type="text" name="class_name" id="class_name" class="form-control" value="${classDetail.class_name}" required />
 												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
 											</div>
 											<div class="row"> 

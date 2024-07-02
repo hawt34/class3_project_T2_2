@@ -495,6 +495,13 @@ public class CreatorController {
 		
 		creatorService.insertReviewReply(reviewCode, reviewReply, reviewStatus);
 	}
+
+	@ResponseBody
+	@GetMapping("deleteReviewReply")
+	public void deleteReviewReply(@RequestParam(defaultValue = "0") int reviewCode) {
+		
+		creatorService.deleteReviewReply(reviewCode);
+	}
 	
 	//======================================================
 

@@ -86,15 +86,19 @@ public interface CreatorMapper {
 	// 리뷰코드에 따른 답변
 	Map<String, Object> getReplyByReviewCode(int review_code);
 	
+	// 리뷰status 변환
+	void changeReviewStatus(int reviewCode);
+	
 	// 리뷰답변 저장
 	void insertReviewReply(@Param("reviewCode") int reviewCode
-						 , @Param("reviewReply") String reviewReply
-						 , @Param("reviewStatus") String reviewStatus);
+						 , @Param("reviewReply") String reviewReply);
 
 	// 리뷰답변 수정
 	void updateReviewReply(@Param("reviewCode") int reviewCode
-			, @Param("reviewReply") String reviewReply
-			, @Param("reviewStatus") String reviewStatus);
+						 , @Param("reviewReply") String reviewReply);
+
+	// 리뷰답변 삭제
+	void deleteReviewReply(@Param("reviewCode") int reviewCode);
 	
 	// 문의사항 클래스 정보 가져오기
 	List<Map<String, Object>> getinquiryClassInfo(MemberVO member);

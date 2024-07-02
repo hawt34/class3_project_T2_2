@@ -483,8 +483,55 @@
 		AND c2.common1_code = 'RT'
 		WHERE parent_code = #{review_code}
 		AND c2.code_hide = 'N'
-		
 	</select>
+	
+	<update id="changeReviewStatus">
+	    UPDATE
+	        class_review
+	    SET
+	        review_reply_status = 
+	        CASE
+	            WHEN review_reply_status = 'N' THEN 'Y'
+	            WHEN review_reply_status = 'Y' THEN 'N'
+	        END
+	    WHERE 
+	        class_review_code = #{reviewCode}
+	</update>
+	
+	<insert id="insertReviewReply">
+		INSERT INTO 
+			class_reply 
+		VALUES(
+			   NULL
+			 , #{reviewReply}
+			 , DATE_FORMAT(NOW(), '%Y-%m-%d')
+			 , DATE_FORMAT(NOW(), '%H:%i:%s')
+			 , 1
+			 , #{reviewCode}
+		)
+	</insert>
+	
+	<update id="updateReviewReply">
+		UPDATE
+			class_reply
+		SET
+			class_reply_content = #{reviewReply}
+			, class_reply_date = DATE_FORMAT(NOW(), '%Y-%m-%d')
+			, class_reply_time = DATE_FORMAT(NOW(), '%H:%i:%s')
+		WHERE 
+			parent_code = #{reviewCode}
+		AND 
+			reply_type = 1
+	</update>
+	
+	<delete id="deleteReviewReply">
+		DELETE FROM 
+			class_reply
+		WHERE 
+			parent_code = #{reviewCode}
+		AND 
+			reply_type = 1
+	</delete>
 	
 	<!-- 공개여부 -->
 	<select id="getHide" resultType="map">

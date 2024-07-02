@@ -63,8 +63,8 @@
 					</div>
 					<hr class="mb-4">
 					
-					<div class="mb-4 creator-review-form-btn" align="center">
-						<input type="button" value="답글쓰기" onclick="writeReply()" class="btn btn-primary btn-lg btn-block writeReview">
+					<div class="mb-4 creator-review-form-btn writeReview" align="center">
+						<input type="button" value="답글쓰기" onclick="writeReply()" class="btn btn-primary btn-lg btn-block">
 						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
 					
@@ -87,7 +87,8 @@
 					+ "</div>"
 					+ "<hr class='mb-4'>"
 					+ "<div class='mb-4 creator-review-form-btn' align='center'>"
-					+ "<input type='button' value='등록하기' class='btn btn-primary btn-lg btn-block' onclick='reviewSubmit()'>"
+					+ "<input type='button' value='등록하기' class='btn btn-primary btn-lg btn-block mx-1' onclick='reviewSubmit()'>"
+					+ "<input type='button' value='돌아가기' class='btn btn-primary btn-lg btn-block' onclick='window.close()'>"
 					+ "</div>"
 			);
 			$(".writeReview").hide();
@@ -95,7 +96,8 @@
 		
 		function reviewSubmit() {
 			var reviewCode = ${review.class_review_code};
-			var reviewStatus = ${review.review_reply_status};
+			var reviewStatus = "${review.review_reply_status}";
+			var reviewReply = $("#creator-review-replyPro").val();
 			event.preventDefault(); // 폼 제출을 막음
 			if(confirm("답글을 등록하시겠습니까?")){
 				$.ajax({
@@ -106,9 +108,26 @@
 								"reviewStatus" : reviewStatus
 						},
 						success: function(data) {
+						window.close();
 					}
 				});	
-				window.close();
+			}
+		}
+
+		function reviewDelete() {
+			var reviewCode = ${review.class_review_code};
+			event.preventDefault(); // 폼 제출을 막음
+			if(confirm("답글을 삭제하시겠습니까?")){
+				$.ajax({
+					url: "deleteReviewReply",
+					method: "get",
+					data: { "reviewCode" : reviewCode,
+					},
+					success: function(data) {
+						$(window.opener).location.reload(); // 부모창 리로드
+					    window.close(); 
+					}
+				});	
 			}
 		}
 		
@@ -120,8 +139,9 @@
 						+ "</div>"
 						+ "<hr class='mb-4'>"
 						+ "<div class='mb-4 creator-review-form-btn' align='center'>"
-						+ "<input type='button' value='답글수정' class='btn btn-primary btn-lg btn-block' onclick='reviewSubmit()'>"
-						+ "<input type='button' value='답글삭제' class='btn btn-primary btn-lg btn-block' onclick='reviewDelete()'>"
+						+ "<input type='button' value='답글수정' class='btn btn-primary btn-lg btn-block mx-1' onclick='reviewSubmit()'>"
+						+ "<input type='button' value='돌아가기' class='btn btn-primary btn-lg btn-block' onclick='window.close()'>"
+						+ "<input type='button' value='답글삭제' class='btn btn-danger btn-lg btn-block mx-1' onclick='reviewDelete()'>"
 						+ "</div>"
 				);
 				$(".writeReview").hide();

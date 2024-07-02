@@ -144,12 +144,17 @@ public class CreatorService {
 	// 리뷰답변 저장 
 	public void insertReviewReply(int reviewCode, String reviewReply, String reviewStatus) {
 		if(reviewStatus.equals("N")) {
-			creatorMapper.insertReviewReply(reviewCode, reviewReply, reviewStatus);
+			creatorMapper.insertReviewReply(reviewCode, reviewReply);
+			creatorMapper.changeReviewStatus(reviewCode);
 		} else {
-			creatorMapper.updateReviewReply(reviewCode, reviewReply, reviewStatus);
+			creatorMapper.updateReviewReply(reviewCode, reviewReply);
 		}
 	}
 	
+	public void deleteReviewReply(int reviewCode) {
+		creatorMapper.deleteReviewReply(reviewCode);
+		creatorMapper.changeReviewStatus(reviewCode);
+	}
 	
 	
 	// 문의사항 클래스정보 가져오기

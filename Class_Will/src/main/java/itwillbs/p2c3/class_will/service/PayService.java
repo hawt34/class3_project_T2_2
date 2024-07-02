@@ -51,7 +51,7 @@ public class PayService {
 		return payMapper.selectScheduleTime(date, parsedClass_code);
 	}
 	//고객 정보 가져오기
-	public Map<String, String> getMemberInfo(MemberVO member) {
+	public Map<String, Object> getMemberInfo(MemberVO member) {
 		return payMapper.selectMemberInfo(member);
 	}
 	
@@ -71,6 +71,7 @@ public class PayService {
 		try {
 			IamportResponse<Payment> paymentResponse = client.paymentByImpUid((String)map.get("imp_uid"));
 			response = new HashMap<String, Object>();
+			//결제 성공 시
 			if(paymentResponse.getResponse() != null && paymentResponse.getResponse().getStatus().equals("paid")) {
 				//use_willpay 처리
 				payMapper.updateCredit(map);
@@ -93,7 +94,7 @@ public class PayService {
 				map.put("pay_datetime", payDate);
 				map.put("class_code", objects.get("class_code"));
 				map.put("class_schedule_code", objects.get("class_schedule_code"));
-				map.put("member_code", objects.get("member_code"));
+				map.put("member_code", map.get("member_code"));
 				map.put("pg_provider", pr.getPgProvider());
 				map.put("card_name", pr.getCardName());
 				payMapper.registPaySuccessInfo(map);

@@ -240,7 +240,7 @@ $(function() {
 			url: "will-pay-all",
 			type: "GET",
 			data: {
-				member_code: "${payInfo.member_code}"
+				member_code: "${memberInfo.member_code}"
 			},
 			dataType: 'json',
 			success: function(data) {
@@ -358,7 +358,6 @@ function paymentValidation() {
 	
 	let pg = "kcp.AO09C";
 	let className = "${payInfo.class_name}";
-	
 	
 	let amount = $("#total").text().replace(/,/g, '');
 	let parsedAmount = parseInt(amount, 10);

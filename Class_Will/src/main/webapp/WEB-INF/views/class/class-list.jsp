@@ -103,90 +103,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
-// ------------------------------------------------------------------------------------------------------------
-//     window.onload = function() {
-//         var class_map_x = "${classInfo.class_map_x}";
-//         var class_map_y = "${classInfo.class_map_y}";
-        
-//         var mapContainer = document.getElementById('map'); // 지도를 담을 영역의 DOM 레퍼런스
-//         var mapOption = { // 지도를 생성할 때 필요한 기본 옵션
-//             center: new kakao.maps.LatLng(parseFloat(class_map_x), parseFloat(class_map_y)), // 지도의 중심좌표
-//             level: 4 // 지도의 레벨(확대, 축소 정도)
-//         };
-
-//         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
-    	
-    	
-// 		var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png', // 마커이미지의 주소입니다    
-// 		    imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
-// 		    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-// 		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-// 		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-// 		    markerPosition = new kakao.maps.LatLng(class_map_x, class_map_y); // 마커가 표시될 위치입니다
-
-// 		// 마커를 생성합니다
-// 		var marker = new kakao.maps.Marker({
-// 		  position: markerPosition,
-// 		  image: markerImage // 마커이미지 설정 
-// 		});
-
-// 		// 마커가 지도 위에 표시되도록 설정합니다
-// 		marker.setMap(map);  
-
-// 		// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-// // 		var content = '<div class="customoverlay">' +
-// // 		    '    <span class="title">${classInfo.class_name}위치' + '</span>' +
-// // 		    '</div>';
-
-// 		// 커스텀 오버레이가 표시될 위치입니다 
-// 		var position = new kakao.maps.LatLng(class_map_x, class_map_y);  
-
-// 		// 커스텀 오버레이를 생성합니다
-// 		var customOverlay = new kakao.maps.CustomOverlay({
-// 		    map: map,
-// 		    position: position,
-// 		    content: content,
-// 		    yAnchor: 1 
-// 		});
-		
-//     };
-    
- // -----------------------
- 
-//  window.onload = function() {
-//     var class_map_x = "${classInfo.class_map_x}";
-//     var class_map_y = "${classInfo.class_map_y}";
-    
-//     var mapContainer = document.createElement('div');
-//     mapContainer.id = 'map';
-//     document.body.appendChild(mapContainer);
-
-//     var mapOption = {
-//         center: new kakao.maps.LatLng(parseFloat(class_map_x), parseFloat(class_map_y)),
-//         level: 4
-//     };
-
-//     var map = new kakao.maps.Map(mapContainer, mapOption);
-
-//     var markerPosition = new kakao.maps.LatLng(class_map_x, class_map_y);
-
-//     var marker = new kakao.maps.Marker({
-//         position: markerPosition
-//     });
-
-//     marker.setMap(map);
-    
-//     mapContainer.style.position = 'fixed';
-//     mapContainer.style.top = '300px';
-//     mapContainer.style.right = '20px';
-//     mapContainer.style.width = '300px'; // 원하는 크기로 설정
-//     mapContainer.style.height = '300px'; // 원하는 크기로 설정
-//     mapContainer.style.zIndex = '1000';
-// //     mapContainer.style.border = '1px solid #ccc';
-// //     mapContainer.style.backgroundColor = '#fff';
-// //     mapContainer.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
-// };
 </script>
 
 <!-- JavaScript 코드 -->
@@ -330,17 +246,6 @@ body {
 			<div class="row justify-content-center"> <!-- 가운데 정렬 -->
 				<div class="categoryBarBox col-md-11">
 				
-					<!--  키워드 검색창 시작 -->
-					<div class="row height d-flex align-items-center mx-5">
-						<div class="col-md-3">
-							<div class="form form1">
-								<i class="fa fa-search"></i>
-								<input type="text" class="form-control form-input search-input form-controls" placeholder="클래스 검색">
-							</div>
-						</div>
-					</div>
-					<!--  키워드 검색창 끝 -->
-					
 					<!-- 셀렉트박스 리스트 -->
 					<div class="row mx-5 rowCenter">
 
@@ -376,23 +281,31 @@ body {
 						</div>
 <!-- 					카테고리바 지역 끝 -->
 							
-						<div class="selectDiv col-md-5">
-							<div class="row">
-								<div class="col">
-							    	<label for="customRange3" class="form-label">금액</label>
-							    </div>
-							    <div class="classPrice col-2">
-							    	<span class="badge bg-light text-dark ">금액</span>
-							    </div>
-						    </div>
-						    <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+<!-- 						<div class="selectDiv col-md-4"> -->
+<!-- 							<div class="row"> -->
+<!-- 								<div class="col"> -->
+<!-- 							    	<label for="customRange3" class="form-label">금액</label> -->
+<!-- 							    </div> -->
+<!-- 							    <div class="classPrice col-2"> -->
+<!-- 							    	<span class="badge bg-light text-dark ">금액</span> -->
+<!-- 							    </div> -->
+<!-- 						    </div> -->
+<!-- 						    <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3"> -->
+<!-- 						</div> -->
+						
+						<!-- 셀렉트 검색 버튼 -->
+						<div class="btnSearchDiv col-md-1">
+<!-- 							<div class="btnSearch w-100"> -->
+								<button type="button" class="btn btn-outline-light btnSearch" onclick="searchCategory()">검색</button>
+<!-- 							</div> -->
 						</div>
+						<!-- 셀렉트 검색 버튼 -->
 						
 						<!-- 셀렉트 초기화 버튼 -->
 						<div class="btnResetDiv col-md-1">
-<!-- 						<div class="btnReset w-100"> -->
-							<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
-<!-- 						</div> -->
+<!-- 							<div class="btnReset w-100"> -->
+								<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
+<!-- 							</div> -->
 						</div>
 						<!-- 셀렉트 초기화 버튼 -->
 					</div>
@@ -423,7 +336,7 @@ body {
 							<div class="form form1 d-flex flex-wrap">
 								<c:forEach var="hashtag" items="${hashtagList}">
 <!-- 									<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button> -->
-								<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_name}" value="#${hashtag.hash_tag_name}" readonly>
+								<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_code}" value="#${hashtag.hash_tag_name}" onclick="hashtagSelect()" readonly>
 								</c:forEach>
 							</div>
 						</div>
@@ -595,11 +508,7 @@ function updateCategory() {
             selectedCategories.push(selectedValue);
         }
     }
-    // 추가된 카테고리를 화면에 표시
     addContainer(selectedValue, selectedText);
-    
-    // 높이
-    categoryBarHeight();
     
     selectCategory();
 }
@@ -619,11 +528,7 @@ function updateSmallCategory() {
             selectedSmallCategories.push(selectedValue);
         }
     }
-    // 추가된 소카테고리를 화면에 표시
     addContainer(selectedValue, selectedText);
-    
-    // 높이
-    categoryBarHeight();
     
     selectCategory();
 }
@@ -643,11 +548,7 @@ function updateLocal() {
             selectedLocals.push(selectedValue);
         }
     }
-    // 추가된 지역을 화면에 표시
     addContainer(selectedValue, selectedText);
-    
-    // 높이
-    categoryBarHeight();
     
     selectCategory();
 }
@@ -685,6 +586,15 @@ function addContainer(value, text) {
 }
 
 //------------------------------------------------------------------------------------
+// 검색 버튼 (카테고리 셀렉트)
+function searchCategory() {
+    var big_category = $("#class_big_category").val();
+	var small_category = $("#class_small_category").val();
+	var local = $("#class_local").val();
+	
+	
+}
+//------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
 function resetCategory() {
     const categoryContainer = document.getElementById('categoryContainer');
@@ -698,13 +608,20 @@ function resetCategory() {
 }
 
 //------------------------------------------------------------------------------------
-// 카테고리 바 높이
-function categoryBarHeight() {
-    var categoryBarBox = $(".categoryBarBox");
-    var additionalHeight = 20; 
-    var newHeight = categoryBarBox.height() + additionalHeight;
-    categoryBarBox.css("height", newHeight + "px");
+// 해시태그 셀렉트 
+function hashtagSelect() {
+	var selectHashtag = $(".hashtag").val();
+	
 }
+
+//------------------------------------------------------------------------------------
+// 카테고리 바 높이
+// function categoryBarHeight() {
+//     var categoryBarBox = $(".categoryBarBox");
+//     var additionalHeight = 20; 
+//     var newHeight = categoryBarBox.height() + additionalHeight;
+//     categoryBarBox.css("height", newHeight + "px");
+// }
 
 //------------------------------------------------------------------------------------
 // 카테고리에 따른 필터링

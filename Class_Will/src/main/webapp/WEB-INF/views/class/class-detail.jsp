@@ -107,6 +107,68 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+// -------------------------------------------------------------
+// // like-class
+// document.addEventListener("DOMContentLoaded", function() {
+//     var heartImges = document.querySelectorAll(".heartImg");
+//     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
+//     var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
+
+//     heartImges.forEach(function(heartOverlay) {
+//         heartOverlay.addEventListener("click", function() {
+//             var img = this;
+//             var member_code = img.getAttribute("data-member-code");
+//             var class_code = img.getAttribute("data-class-code");
+//             var isFullHeart = img.src.includes("heart_full.png");
+
+//             var heart_status = !isFullHeart;
+			
+// 			// 로그인 해야만 이용 가능
+// 			if(member_code == null || member_code == ""){ 
+// 	            alert("로그인이 필요한 페이지 입니다.");
+// 	            window.location.href = "member-login";
+// 	            return;
+// 			}
+			
+//             if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
+//                 img.src = changeSrc;
+//  				alert("관심 클래스에 추가되었습니다.");
+//             } else { // heart_status가 false일 때 (like-class 삭제 시)
+//                 img.src = originalSrc;
+//  				alert("관심 클래스에서 삭제되었습니다.");
+//             }
+            
+//             // AJAX 요청을 통해 서버로 업데이트 요청 전송
+//             var data = JSON.stringify({
+//                 heart_status: heart_status,
+//                 member_code: member_code,
+//                 class_code: class_code
+//             });
+            
+//             updateHeartStatus(data);
+//         });
+//     });
+    
+//     function updateHeartStatus(data) {
+    	
+//         var xhr = new XMLHttpRequest();
+        
+//         xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
+//         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//         xhr.onreadystatechange = function() {
+//             if (xhr.readyState === 4) {
+//                 if (xhr.status === 200) {
+//                     console.log("Heart status updated successfully");
+//                 } else {
+//                     console.error("Error updating heartStatus");
+//                 }
+//             }
+//         };
+        
+//         xhr.send(data);
+//     }
+// });
+
 </script>
 <!-- 카카오 지도 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
@@ -164,6 +226,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 		
     };
+
+ // ------------------------------------------------------------------------
+ 
 </script>
 <!-- <script type="text/javascript"> -->
 <%-- // 	var class_map_x = ${classInfo.class_map_x}; --%>

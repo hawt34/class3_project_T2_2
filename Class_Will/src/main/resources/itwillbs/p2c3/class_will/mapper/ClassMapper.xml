@@ -82,6 +82,22 @@
 			</foreach>
 		</if>
 	</select>
+	<!-- =================== -->
+<!-- 	    WHERE 1=1 -->
+<!--     <if test="bigSmallCategories != null and bigSmallCategories.size() > 0"> -->
+<!--         AND ( -->
+<!--             <foreach item="bigSmallCategory" collection="bigSmallCategories" separator=" OR "> -->
+<!--                 (c2.code_value = #{bigSmallCategory.big} AND c3.code_value = #{bigSmallCategory.small}) -->
+<!--             </foreach> -->
+<!--         ) -->
+<!--     </if> -->
+<!--     <if test="locals != null and locals.size() > 0"> -->
+<!--         AND c.class_location IN -->
+<!--         <foreach item="local" collection="locals" open="(" separator="," close=")"> -->
+<!--             #{local} -->
+<!--         </foreach> -->
+<!--     </if> -->
+<!-- </select> -->
 	
 	<!-- 클래스 좋아요 추가 -->
 	<insert id="insertLikeClass" parameterType="java.util.Map" >

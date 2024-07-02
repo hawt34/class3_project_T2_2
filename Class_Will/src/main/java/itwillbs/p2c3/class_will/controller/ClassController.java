@@ -73,6 +73,21 @@ public class ClassController {
 	    model.addAttribute("classList", classList);
 //	    System.out.println(">>>classList : " + classList);
 	    
+	    
+//		JsonArray jsonList = new JsonArray();
+//		
+//		for(Map<String, Object> class1  : classList) {
+//			JsonObject json = new JsonObject();
+//			json.addProperty("class_map_x", class1.get("class_map_x"));
+//			jsonList.add(json);
+//			System.out.println(json);
+//		}
+//		
+//		
+//		model.addAttribute("class_map_x", class_map_x);
+//		System.out.println(">>>!!! class_map_x : " + class_map_x);
+		
+	    
 	    // 해시태그
 	    List<Map<String, Object>> hashtagList = classService.getHashtag();
 	    model.addAttribute("hashtagList", hashtagList);

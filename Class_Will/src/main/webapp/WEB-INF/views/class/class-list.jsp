@@ -146,21 +146,33 @@ function showLocations(position) {
         xAnchor: 0.5, // 수평 방향에서 중앙에 위치
         yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
     });
-    
+	let classList = JSON.parse('${classList}');
+// 	let classList = ${classList};
+	console.log("classList : " +'${classList}');
+	
+// 	let classListString = '[{"class_map_x": "35.0986158", "class_map_y": "129.0287567"}, {"class_map_x": "35.12345", "class_map_y": "129.67890"}]';
+// 	let classList = JSON.parse(classListString);
     // 클래스 위치들 (예시 데이터)
-    var classLocations = [
-        { lat: 35.1629768, lng: 129.158492, name: '클래스 위치 1' },
-        { lat: 35.1542604, lng: 129.0572997, name: '클래스 위치 2' },
-        { lat: 35.0622864, lng: 129.0834289, name: '클래스 위치 3' }
-    ];
+//     var classLocations = [];
+    var classLocations = [];
     
+	for (var i = 0; i < classList.length; i++) {
+	    var classes = classList[i];
+	    classLocations.push({
+	    	title: 'classwill ' + classes.class_name,
+	        latlng: new kakao.maps.LatLng(classes.class_map_x, classes.class_map_y)
+	    });
+	    console.log("title : " + classes.class_name);
+	    console.log("latlng : " + classes.class_map_x, classes.class_map_y);
+	}
+	
     // 클래스 위치 마커와 커스텀 오버레이 생성
     classLocations.forEach(function(location) {
         var markerImage = '${pageContext.request.contextPath}/resources/images/class/map2.png'; // 클래스 위치 마커 이미지 주소
         var markerSize = new kakao.maps.Size(50, 50); // 클래스 위치 마커 이미지 크기
         var markerImage = new kakao.maps.MarkerImage(markerImage, markerSize);
         
-        var markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
+        var markerPosition = new kakao.maps.LatLng(location.class_map_x, location.class_map_y);
         var marker = new kakao.maps.Marker({
             position: markerPosition,
             image: markerImage // 클래스 위치 마커 이미지 설정

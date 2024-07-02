@@ -32,6 +32,7 @@ import itwillbs.p2c3.class_will.handler.CommonUtils;
 import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.ClassService;
+import itwillbs.p2c3.class_will.service.CreatorService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.MyPageService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
@@ -48,11 +49,12 @@ public class MyPageController {
 
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private CreatorService creatorService;
 
-	
 	@Autowired
 	private ClassService classService;
-	
+
 	@Autowired
 	private MyPageService myPageService;
 
@@ -95,9 +97,8 @@ public class MyPageController {
 		}
 
 	}
-	
-	//관심클래스 취소
-	
+
+	// 관심클래스 취소
 
 //	// 마이클래스
 //	@GetMapping("my-class")
@@ -126,30 +127,66 @@ public class MyPageController {
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
-			//이건 작성 후기들 
+			// 이건 작성 후기들
 			List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code);
 			model.addAttribute("member", member2);
 			model.addAttribute("memberReviews", memberReviews);
 			// System.out.println(memberReviews);
-			
-			//이건 내가 결제를 해서 리뷰를 등록할 수 있는 후기들
+
+			// 이건 내가 결제를 해서 리뷰를 등록할 수 있는 후기들
 			List<Map<String, String>> possibleReview = myPageService.getPossibleReview(member_code);
 			int totalPossible = possibleReview.size();
 			model.addAttribute("totalPossible", totalPossible);
 			model.addAttribute("possibleReview", possibleReview);
 			System.out.println("등록가능한 리뷰" + possibleReview);
-			
-			
+
 			return "mypage/mypage-review";
 		}
 
 	}
 
-	// 리뷰 등록
+	// 리뷰 등록폼으로
 	@GetMapping("resist-review")
-	public String resistReview() {
+	public String resistReview(@RequestParam Map<String, String> params, Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
 
-		return "mypage/mypage-review-form";
+		if (member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+		} else {
+			String classCode = params.get("class_code");
+			String memberCode = params.get("member_code");
+			Integer classCode2 = Integer.parseInt(classCode);
+			// 클래스 코드와 멤버 코드를 모델에 추가
+			model.addAttribute("class_code", classCode);
+			model.addAttribute("member_code", memberCode);
+
+			Map<String, Object> classInfo = creatorService.getClassDetail(classCode2);
+			model.addAttribute("classInfo", classInfo);
+			System.out.println(classInfo);
+			return "mypage/mypage-review-form";
+		}
+
+	}
+
+	@PostMapping("insert-review")
+	public String insertReview(@RequestParam Map<String, String> formData, Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		if (member == null) { // 실패
+
+			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
+		} else {
+			
+			System.out.println("데이터 확인" + formData);
+			int insertCount = myPageService.insertReview(formData);
+			  if (insertCount > 0) {
+		            return "redirect:/my-review"; 
+		        } else {
+		            model.addAttribute("msg", "리뷰 등록 실패");
+		            return "result_process/fail"; 
+		        }
+			
+		}
 	}
 
 	// 리뷰 수정
@@ -159,7 +196,7 @@ public class MyPageController {
 
 		if (member == null) { // 실패
 
-			return "error/error_404";
+			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
 		} else {
 			model.addAttribute("member", member);
 			Map<String, String> review = myPageService.getReviewByCode(reviewCode);
@@ -181,7 +218,7 @@ public class MyPageController {
 
 		if (member == null) { // 실패
 
-			return "error/error_404";
+			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -203,7 +240,7 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		if (member == null) { // 실패
 
-			return "error/error_404";
+			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -324,7 +361,7 @@ public class MyPageController {
 	@GetMapping("my-modify")
 	public String myModify(Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		
+
 		if (member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {

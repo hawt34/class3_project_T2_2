@@ -67,7 +67,8 @@
 		UPDATE class_review
 		SET class_review_subject = #{class_review_subject},
 		class_review_content = #{class_review_content},
-		class_review_rating = #{class_review_rating}
+		class_review_rating =
+		#{class_review_rating}
 		WHERE class_review_code = #{class_review_code}
 	</update>
 
@@ -86,7 +87,7 @@
 	</select>
 	<update id="updateMemberNormal">
 		<!-- 크리에이터 회원이 일반회원으로 이것만 되겠끔 바꿈 -->
-		<!-- 일반 회원이 크리에이터로 이거 종민이가 구현해서 빼버림!-->
+		<!-- 일반 회원이 크리에이터로 이거 종민이가 구현해서 빼버림! -->
 		UPDATE MEMBER
 		SET member_type = 1
 		WHERE member_type = 2
@@ -119,7 +120,7 @@
 	</select>
 
 	<select id="selectPossibleReview">
-	<!-- 클래스 결제 및 날짜를 기준으로 등록가능한 리뷰 클래스 데리고 오기 -->
+		<!-- 클래스 결제 및 날짜를 기준으로 등록가능한 리뷰 클래스 데리고 오기 -->
 		 <![CDATA[
 		SELECT
 		p.pay_code,
@@ -145,10 +146,34 @@
 		WHERE
 		p.pay_status = 'paid'
 		AND p.member_code =  ${member_code}
+		AND cs.class_schedule_date < CURRENT_DATE
 		ORDER BY cs.class_schedule_date ASC
 		 ]]>
 	</select>
 
+	<insert id="insertReview">
+	<!-- 리뷰 등록 -->
+		INSERT INTO class_review (
+		class_review_subject,
+		class_review_content,
+		class_review_date,
+		class_review_time,
+		member_code,
+		class_code,
+		class_review_rating,
+		review_reply_status
+		) VALUES (
+		#{class_review_subject},
+		#{class_review_content},
+		CURRENT_DATE,
+		CURRENT_TIME,
+		#{member_code},
+		#{class_code},
+		#{class_review_rating},
+		'N'
+		)
+
+	</insert>
 
 
 </mapper>

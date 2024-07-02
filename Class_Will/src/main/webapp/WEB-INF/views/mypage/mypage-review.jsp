@@ -147,16 +147,16 @@ th:nth-child(2), td:nth-child(2) {
 									${member.member_name}님</div>
 								<!-- 								여기부터 토스트 ui -->
 								<div class="table-responsive">
-									<h2>내가 신청한 클래스가 ${totalPossible}개 있습니다.</h2>
+									<h2>등록 가능한 클래스 후기가 ${totalPossible}개 있습니다.</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
 												<th>클래스 이름</th>
+												<th>결제일</th>
 												<th>결제 상태</th>
 												<th>교육 일정</th>
 												<th>회차</th>
-												<th>결제일</th>
 												<th>수료 여부</th>
 												<th>등록하기</th>
 											</tr>
@@ -166,20 +166,14 @@ th:nth-child(2), td:nth-child(2) {
 												varStatus="loop">
 												<tr>
 													<td>${possibleReview.class_name}</td>
-													<td>결제완료</td>
+													<td>${possibleReview.pay_date}</td>
+													<td>결제 완료</td>
 													<td>${possibleReview.class_schedule_date}</td>
 													<td>${possibleReview.class_round}</td>
-													<td>${possibleReview.pay_date}</td>
-													<td>ㅁㄴㅇ</td>
-													<td><c:choose>
-															<c:when
-																test="${possibleReview.class_schedule_date lt now}">
-																<a href="resist-review" style="">등록하기</a>
-															</c:when>
-															<c:otherwise>
-																<span style="color: gray;">등록하기</span>
-															</c:otherwise>
-														</c:choose></td>
+													<td>수료 완료</td>
+													<td>
+													<a href="resist-review?class_code=${possibleReview.class_code}&member_code=${member.member_code}" style="">등록하기</a>
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>

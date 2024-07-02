@@ -108,16 +108,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- JavaScript 코드 -->
 <script>
 // ------ 현재 위치 ------ 
-
-// 현재 위치
-function getCurrentLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
-	} else {
-		alert("Geolocation is not supported by this browser.");
-	}
-}
-function showYourLocation(position) {
+// 현재 위치와 클래스 위치를 표시하는 함수
+function showLocations(position) {
     var userLat = position.coords.latitude; // 현재위치 위도
     var userLng = position.coords.longitude; // 현재위치 경도
     
@@ -132,30 +124,70 @@ function showYourLocation(position) {
     
     var map = new kakao.maps.Map(mapContainer, mapOption);
     
-    var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png'; // 마커이미지의 주소입니다    
-    var imageSize = new kakao.maps.Size(50, 50); // 마커이미지의 크기입니다
-    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+    // 현재 위치 마커 생성
+    var currentMarkerImage = '${pageContext.request.contextPath}/resources/images/class/map.png'; // 현재 위치 마커 이미지 주소
+    var currentMarkerSize = new kakao.maps.Size(50, 50); // 현재 위치 마커 이미지 크기
+    var currentMarkerImage = new kakao.maps.MarkerImage(currentMarkerImage, currentMarkerSize);
     
-    var markerPosition = new kakao.maps.LatLng(userLat, userLng);
-    var marker = new kakao.maps.Marker({
-        position: markerPosition,
-        image: markerImage // 마커이미지 설정 
+    var currentMarkerPosition = new kakao.maps.LatLng(userLat, userLng);
+    var currentMarker = new kakao.maps.Marker({
+        position: currentMarkerPosition,
+        image: currentMarkerImage // 현재 위치 마커 이미지 설정
     });
-    marker.setMap(map);
+    currentMarker.setMap(map);
     
-    // 커스텀 오버레이가 표시될 위치입니다 
-    var position = new kakao.maps.LatLng(userLat, userLng);
-    
-    // 커스텀 오버레이를 생성합니다
-    var content = '<div style="padding:20px; color:red; font-weight: bold">내 위치</div>'; // 예시 컨텐츠
-    var customOverlay = new kakao.maps.CustomOverlay({
+    // 현재 위치 커스텀 오버레이 생성
+    var currentPosition = new kakao.maps.LatLng(userLat, userLng);
+    var currentContent = '<div style="padding:20px; color:red; font-weight: bold;">내 위치</div>'; // 현재 위치 커스텀 오버레이 내용
+    var currentCustomOverlay = new kakao.maps.CustomOverlay({
         map: map,
-        position: position,
-        content: content,
+        position: currentPosition,
+        content: currentContent,
         xAnchor: 0.5, // 수평 방향에서 중앙에 위치
-        yAnchor: 0.4, // 수직 방향에서 아래쪽에 위치
+        yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
+    });
+    
+    // 클래스 위치들 (예시 데이터)
+    var classLocations = [
+        { lat: 35.1629768, lng: 129.158492, name: '클래스 위치 1' },
+        { lat: 35.1542604, lng: 129.0572997, name: '클래스 위치 2' },
+        { lat: 35.0622864, lng: 129.0834289, name: '클래스 위치 3' }
+    ];
+    
+    // 클래스 위치 마커와 커스텀 오버레이 생성
+    classLocations.forEach(function(location) {
+        var markerImage = '${pageContext.request.contextPath}/resources/images/class/map2.png'; // 클래스 위치 마커 이미지 주소
+        var markerSize = new kakao.maps.Size(50, 50); // 클래스 위치 마커 이미지 크기
+        var markerImage = new kakao.maps.MarkerImage(markerImage, markerSize);
+        
+        var markerPosition = new kakao.maps.LatLng(location.lat, location.lng);
+        var marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage // 클래스 위치 마커 이미지 설정
+        });
+        marker.setMap(map);
+        
+        var content = '<div style="padding:10px; color:blue; font-weight: bold;">' + location.name + '</div>'; // 클래스 위치 커스텀 오버레이 내용
+        var customOverlay = new kakao.maps.CustomOverlay({
+            map: map,
+            position: markerPosition,
+            content: content,
+			xAnchor: 0.5, // 수평 방향에서 중앙에 위치
+			yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
+        });
     });
 }
+
+// 현재 위치를 가져오는 함수
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
+
+// 위치 가져오기 실패 시 에러 메시지 출력 함수
 function showErrorMsg(error) {
     alert("위치 정보를 가져오지 못했습니다.");
     console.error(error);

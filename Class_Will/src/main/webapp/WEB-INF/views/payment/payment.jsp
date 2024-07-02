@@ -112,14 +112,14 @@
 					<div class="card-body">
 						<h5 class="card-title text-success">연락처</h5>
 						<p class="card-text">
-							<c:set var="phoneNumber" value="${payInfo.member_tel }" />
+							<c:set var="phoneNumber" value="${memberInfo.member_tel }" />
 							<c:set var="formatPhoneNumber" value="${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}" />
 							${formatPhoneNumber }
 						</p>
 						<h5 class="card-title text-success">이메일</h5>
-						<p class="card-text">${payInfo.member_email }</p>
+						<p class="card-text">${memberInfo.member_email }</p>
 						<h5 class="card-title text-success">이름(닉네임)</h5>
-						<p class="card-text">${payInfo.member_nickname }</p>
+						<p class="card-text">${memberInfo.member_nickname }</p>
 					</div>
 				</div>
 			</div>
@@ -199,11 +199,11 @@
 					<hr>
 						<p class="card-text text-end">
 							총 결제 금액: 
-							<span class="font_color" id="total"></span>만원
+							<span class="font_color" id="total"></span>원
 						</p>
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<a href="javascript:void(0);" class="btn btn-dark w-100" onclick="myFunction()">결제하기</a>
+								<a href="javascript:void(0);" class="btn btn-dark w-100" onclick="paymentValidation()">결제하기</a>
 							</div>
 						</div>
 					</div>
@@ -240,7 +240,7 @@ $(function() {
 			url: "will-pay-all",
 			type: "GET",
 			data: {
-				member_code: "${payInfo.member_code}"
+				member_code: "${memberInfo.member_code}"
 			},
 			dataType: 'json',
 			success: function(data) {
@@ -248,7 +248,7 @@ $(function() {
 				
 	            if (credit == 0) {
 	                $('#will_pay_input').val(0);
-	                $('#memberCredit').prop("disabled", true);
+	                $('#will_btnCredit').prop("disabled", true);
 	            }
 				
 				if(credit > subtotal) {
@@ -271,7 +271,15 @@ $(function() {
 			}
 		});
 	});
-	//---------------------------------------------------
+	//-----------------------------------------------------------------------
+	let totalWillpay = ${payInfo.member_credit};
+	if(totalWillpay == 0) {
+		$('#will_pay_input').val(0);
+		$('#will_pay_input').prop("readonly", true);
+		
+		$('#will_btnCredit').prop("disabled", true);
+	}
+	
 	//total 관련 자바스크립트
 	$("#will_pay_input").on("input", function() {
 		let payInput = parseInt($("#will_pay_input").val());
@@ -328,10 +336,10 @@ $(function() {
     });
 });
 //-------------------------------------------------------------------------------------------------
-function myFunction() {
+function paymentValidation() {
 	//결제 전 유효성 체크
 	let willPayCredit = $("#will_pay_input").val();
-	let regex = /^\d+0$/;
+	let regex = /^\d*0$/;
 	
 	if(!regex.test(willPayCredit) && willPayCredit != "") {
 		alert("10원 단위로 입력해 주세요.");
@@ -351,12 +359,11 @@ function myFunction() {
 	let pg = "kcp.AO09C";
 	let className = "${payInfo.class_name}";
 	
-	
 	let amount = $("#total").text().replace(/,/g, '');
 	let parsedAmount = parseInt(amount, 10);
-	let member_email = "${payInfo.member_email}";
-	let member_name = "${payInfo.member_name}";
-	let member_tel = "${payInfo.member_tel}";
+	let member_email = "${memberInfo.member_email}";
+	let member_name = "${memberInfo.member_name}";
+	let member_tel = "${memberInfo.member_tel}";
 	
 	let IMP = window.IMP;   // 생략 가능
 	IMP.init("imp00262041"); //imp00262041
@@ -387,7 +394,7 @@ function myFunction() {
 		            	class_schedule_date : "${payInfo.class_schedule_date}",
 		            	pay_headcount: "${payInfo.headcount }",
 		            	use_willpay: use_willpay,
-		            	member_code: "${payInfo.member_code}",
+		            	member_code: "${memberInfo.member_code}",
 		            	class_schedule_code: "${payInfo.class_schedule_code}"
 		            }),
 					contentType: "application/json",

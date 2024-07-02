@@ -49,5 +49,19 @@
 		WHERE  visit_date = #{visitDate}
           AND  ip_address = #{ip}
 	</select>
+	
+<!-- 	<select id="selectTop10"> -->
+<!-- 		SELECT c.* -->
+<!-- 		FROM class c -->
+<!-- 		JOIN ( -->
+<!-- 			    SELECT class_code, COUNT(*) AS count -->
+<!-- 			    FROM pay -->
+<!-- 			    GROUP BY class_code -->
+<!-- 			    ORDER BY count DESC -->
+<!-- 			    LIMIT 10 -->
+<!-- 		) AS top_classes -->
+<!-- 		ON c.class_code = top_classes.class_code -->
+<!-- 		WHERE c.class_active LIKE 'N' -->
+<!-- 	</select> -->
 
 </mapper>

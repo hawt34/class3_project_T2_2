@@ -60,8 +60,9 @@ public class GenerateRandomCode {
 		
 		SecureRandom r = new SecureRandom();
 		int rNum = r.nextInt(100000);
+		String strNum = String.format("%05d", rNum);
 		
-		return rNum+"";
+		return strNum;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -77,12 +78,13 @@ public class HomeController {
 		String visitDate = today.format(dtf);
         
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ip : "+ ip);
+        // 방문자 카운트
         mainService.insertVisitIp(ip, visitDate);
         
+//        List<Map<String, String>> top10List = mainService.selectTop10();
         
         
-        
-        
+//        model.addAttribute("top10List", top10List);
 		
 		return "main";
 	}

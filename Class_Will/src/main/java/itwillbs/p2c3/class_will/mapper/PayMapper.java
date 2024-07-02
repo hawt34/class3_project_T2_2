@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 
+import itwillbs.p2c3.class_will.vo.MemberVO;
+
 @Mapper
 public interface PayMapper {
 	
@@ -20,6 +22,9 @@ public interface PayMapper {
 	//date로 클래스 스케쥴 타임 가져오기
 	List<Map<String, Object>> selectScheduleTime(@Param("date")String date,
 												 @Param("class_code")int parsedClass_code);
+	
+	//고객정보 가져오기
+	Map<String, Object> selectMemberInfo(MemberVO member);
 	
 	//pay관련 모든 정보 가져오기
 	Map<String, String> selectPayInfo(Map<String, String> map);
@@ -58,6 +63,11 @@ public interface PayMapper {
 	void updateWillpay(Map<String, Object> map);
 
 	int selectWillpay(Map<String, Object> map);
+	
+	//결제 성공 List 가져오기
+	List<Map<String, String>> selectPayInfoList(Map<String, Object> memberCode);
+	
+	
 	
 
 	

@@ -17,6 +17,7 @@ import com.siot.IamportRestClient.response.Payment;
 
 import itwillbs.p2c3.class_will.handler.BankApi;
 import itwillbs.p2c3.class_will.mapper.PayMapper;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class PayService {
@@ -49,6 +50,10 @@ public class PayService {
 	public List<Map<String, Object>> getScheduleTime(String date, int parsedClass_code) {
 		return payMapper.selectScheduleTime(date, parsedClass_code);
 	}
+	//고객 정보 가져오기
+	public Map<String, Object> getMemberInfo(MemberVO member) {
+		return payMapper.selectMemberInfo(member);
+	}
 	
 	//payment 관련 정보 모두 가져오기
 	public Map<String, String> getPayInfo(Map<String, String> map) {
@@ -66,6 +71,7 @@ public class PayService {
 		try {
 			IamportResponse<Payment> paymentResponse = client.paymentByImpUid((String)map.get("imp_uid"));
 			response = new HashMap<String, Object>();
+			//결제 성공 시
 			if(paymentResponse.getResponse() != null && paymentResponse.getResponse().getStatus().equals("paid")) {
 				//use_willpay 처리
 				payMapper.updateCredit(map);
@@ -88,7 +94,7 @@ public class PayService {
 				map.put("pay_datetime", payDate);
 				map.put("class_code", objects.get("class_code"));
 				map.put("class_schedule_code", objects.get("class_schedule_code"));
-				map.put("member_code", objects.get("member_code"));
+				map.put("member_code", map.get("member_code"));
 				map.put("pg_provider", pr.getPgProvider());
 				map.put("card_name", pr.getCardName());
 				payMapper.registPaySuccessInfo(map);
@@ -180,6 +186,13 @@ public class PayService {
 		//return은 크레딧을 선택하는 메서드 호출
 		return payMapper.selectWillpay(map);
 	}
+	
+	//결제성공 리스트 가져오기
+	public List<Map<String, String>> getPayInfoList(Map<String, Object> memberCode) {
+		return payMapper.selectPayInfoList(memberCode);
+	}
+
+	
 
 	
 }

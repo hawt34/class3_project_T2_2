@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 
@@ -110,6 +111,52 @@ public class CreatorService {
 		return creatorMapper.getCertifiedClassInfo(member);
 	}
 
+	// 전체 후기 정보 가져오기
+	public List<Map<String, Object>> getReviewInfo(MemberVO member){
+		return creatorMapper.getReviewInfo(member);
+	}
+
+	// 후기에 따른 클래스 정보 가져오기
+	public List<Map<String, Object>> getClassByReview(MemberVO member){
+		return creatorMapper.getClassByReview(member);
+	}
+	
+	// 클래스에 따른 후기
+	public List<Map<String, Object>> getReviewByClass(int classCode, int member_code){
+		return creatorMapper.getReviewByClass(classCode, member_code);
+	}
+
+	// 타입에 따른 후기
+	public List<Map<String, Object>> getReviewByType(int classCode, String type, int member_code){
+		return creatorMapper.getReviewByType(classCode, type, member_code);
+	}
+
+	// 리뷰코드에 따른 리뷰
+	public Map<String, Object> getReviewByReviewCode(int review_code){
+		return creatorMapper.getReviewByReviewCode(review_code);
+	}
+
+	// 리뷰코드에 따른 답변
+	public Map<String, Object> getReplyByReviewCode(int review_code){
+		return creatorMapper.getReplyByReviewCode(review_code);
+	}
+
+	// 리뷰답변 저장 
+	public void insertReviewReply(int reviewCode, String reviewReply, String reviewStatus) {
+		if(reviewStatus.equals("N")) {
+			creatorMapper.insertReviewReply(reviewCode, reviewReply);
+			creatorMapper.changeReviewStatus(reviewCode);
+		} else {
+			creatorMapper.updateReviewReply(reviewCode, reviewReply);
+		}
+	}
+	
+	public void deleteReviewReply(int reviewCode) {
+		creatorMapper.deleteReviewReply(reviewCode);
+		creatorMapper.changeReviewStatus(reviewCode);
+	}
+	
+	
 	// 문의사항 클래스정보 가져오기
 	public List<Map<String, Object>> getinquiryClassInfo(MemberVO member){
 		return creatorMapper.getinquiryClassInfo(member);

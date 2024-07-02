@@ -259,7 +259,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 							  <h1 class="modal-title fs-5" id="serviceAgreeInfoLabel">서비스 이용약관</h1>
-							  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							  <button type="button"class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
 								
@@ -354,7 +354,7 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			
+			let serverAuthNum;
 			
 			// 전체선택 체크박스 체크 상태값을 각 체크박스의 체크 상태값으로 설정
 			$("#allCheck").click(function() {
@@ -490,6 +490,8 @@
 			
 		});	
 		
+		
+		
 		function authSms() {
 			
 			let inputTel = $("#member_tel").val();
@@ -509,7 +511,7 @@
 				 	success : function(response) {
 				 		if(response.success) {
 				 			
-				 			let serverAuthNum = response.auth_num; 
+				 			serverAuthNum = response.auth_num; 
 				 			console.log("serverAuthNum : " + serverAuthNum);
 				 			
 				 			$("#sms-auth").html(
@@ -520,12 +522,13 @@
 									+ '</div>'
 									+ '</div>'	
 									+ '<div class="d-grid gap-2 col-4 mt-2 pe-3" style="height: 58px; padding: 0">'
-									+ 	'<button class="float-start join-btn" type="button" id="auth-btn" onclic="authSmsCheck(serverAuthNum)">확인</button>'
+									+ 	'<button class="float-start join-btn" type="button" id="auth-btn" onclick="authSmsCheck(serverAuthNum)">확인</button>'
 									+ '</div>'
 									);
 							$("#regex-auth").text("인증번호가 전송되었습니다. 카카오톡/문자 메시지를 확인해 주세요.");
 				            $("#regex-auth").css("color", "#FF4848");
 				            $("#phone-auth-btn").html("재전송")
+				            $("#btnSub").prop("disabled", true);
 				 		} else {
 				 			if(response.already) {
 					 			alert("이미 가입된 번호입니다.");
@@ -548,13 +551,14 @@
 			
 		} // authSms()
 		
-		function authSmsCheck(serverAuthNum) {
+		function authSmsCheck() {
 			console.log("authSmsCheck - serverAuthNum : " + serverAuthNum);
 			let phone_auth_number = $("#phone_auth_number").val();
 			
 			if(phone_auth_number === serverAuthNum) {
 				$("#regex-auth").text("인증이 완료되었습니다.");
 	            $("#regex-auth").css("color", "green");
+	            $("#btnSub").prop("disabled", false);
 			} else {
 				alert("인증번호가 일치하지 않습니다. 다시 확인해 주세요.");
 			}

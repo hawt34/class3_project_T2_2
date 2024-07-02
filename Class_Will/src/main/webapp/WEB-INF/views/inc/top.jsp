@@ -171,18 +171,6 @@
 }
 
 
-
-.offcanvas-body {
-    color: white !important;
-}
-
-@media (min-width: 992px) {
-    .offcanvas {
-        display: none !important; /* 992px 이상 화면에서는 offcanvas 숨기기 */
-    }
-    
-}
-
 @media (max-width: 992px) {
     .navbar {
 	    height: 120px;
@@ -276,6 +264,68 @@
 }
 
 
+@media (min-width: 576px) {
+    .mini-top-menu {
+        width: 350px;
+    }
+}
+
+@media (max-width: 576px) {
+    .mini-top-menu {
+        width: 100%;
+    }
+}
+
+.mini-top-menu {
+	position:fixed;
+	left: 0px;
+	top:0px;
+	background: white;
+	color: black;
+	height: 100%; 
+	z-index: 99;
+	display: none;
+	overflow-y:auto;
+}
+
+.mini-top-menu-header {
+	height: 50px;
+	background: #EAEAEA;
+	padding: 10px 20px;
+	align-items: center;
+}
+
+.mini-cate-big {
+ 	font-size: 18px; 
+/* 	font-weight: bold; */
+	margin-bottom: 8px;
+	margin-top: 8px;
+}
+
+.mini-cate-small{
+	font-size: 15px;
+	margin-bottom: 5px;
+}
+
+.mini-cate-small-area {
+	list-style: none;
+	padding: 0px;
+}
+
+.mini-cate-local {
+	font-size: 18px; 
+	margin-bottom: 8px;
+	color: black;
+}
+
+#mini-cate-local-area {
+	margin-bottom: 80px;
+}
+
+.mini-cate-small-area {
+/* 	display: none; */
+	
+}
 
 /*** Top Navbar End ***/
 
@@ -342,7 +392,6 @@
 		                        <ul class="navbar-nav">
 		                            <li class="nav-item">
 		                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
-	<!-- 	                                	<i class="bi bi-list"></i> 카테고리 -->
 		                                	<span class="fa fa-bars"></span> 카테고리
 		                                </a>
 		                            </li>
@@ -362,7 +411,7 @@
 	
 	                    <!-- 가운데 로고 영역 (큰 화면) -->
 	                    <div class="col-2 d-none d-lg-flex justify-content-center">
-	                        <a class="navbar-brand" href="main">
+	                        <a class="navbar-brand" href="./">
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
@@ -421,12 +470,12 @@
                     <!-- 로고와 햄버거 버튼 (작은 화면) -->
 					<div class="row w-100 d-flex d-lg-none align-items-end">
 	                    <div class="col-8 d-flex d-lg-none justify-content-start">
-	                        <a class="navbar-brand" href="main">
+	                        <a class="navbar-brand" href="./">
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="150px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
 	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3 mx-0">
-	                         <button class="navbar-toggler py-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#top-offcanvas">
+	                         <button class="navbar-toggler py-2" type="button" id="mini-menu-toggle" >
 		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
 	                    </div>
@@ -435,98 +484,59 @@
 				</div> <!-- container-fluid -->
 				
 	        </nav>
-	            <!-- 오프캔버스 -->
-	            <div class="offcanvas offcanvas-start " id="top-offcanvas" style="background-color: #333; color: white;">
-	                <div class="offcanvas-header">
-	                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-	                </div>
-	                <div class="offcanvas-body">
-	                	<div>
-		                    <ul>
-		                    	<c:choose>
-									<c:when test="${empty member.member_email}">
-										<li class=""> 
-											<a class="" href="member-login">로그인</a>
-										</li>
-									</c:when>
-									<c:when test="${member.member_type eq 3}">
-										<li class=""> 
-											<a class="" href="admin"><i class="bi bi-gear"></i> 관리자</a>
-										</li>
-										<li class="">
-										    <a class="" onclick="logout()">로그아웃</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li class="">
-										    <a class="" href="my-page"><i class="bi bi-person-circle bi-top"></i> 내 정보</a>
-										</li>
-										<li class="">
-										    <a class="" onclick="logout()">로그아웃</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-		                    	<li>이벤트</li>
-		                    	<li>카테고리</li>
-		                    	<li>지역별</li>
-	                 	   </ul>
-	                    </div>
-	                     <div class="dropdown mt-3">
-					      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-					        Dropdown button
-					      </button>
-					      <ul class="dropdown-menu">
-					        <li><a class="dropdown-item" href="#">Action</a></li>
-					        <li><a class="dropdown-item" href="#">Another action</a></li>
-					        <li><a class="dropdown-item" href="#">Something else here</a></li>
-					      </ul>
-					    </div>
-	                </div> <!-- offcanvas-body -->
-	            </div> <!-- offcanvas -->
+	           
+			<div class="mini-top-menu">
+				<div class="mini-top-menu-header d-flex justify-content-between mb-3">
+					<div class="">	 
+                    	<c:choose>
+							<c:when test="${empty member.member_email}">
+								<a class="d-flex align-items-center" href="member-login"><i class="bi bi-person"></i> 로그인<i class="bi bi-chevron-right" style="font-size: 13px;"></i></a>
+							</c:when>
+							<c:when test="${member.member_type eq 3}">
+								<a class="" href="admin"><i class="bi bi-gear"></i> 관리자</a>
+								<a class="" onclick="logout()">로그아웃</a>
+							</c:when>
+							<c:otherwise>
+								<a class="" href="my-page"><i class="bi bi-person-circle bi-top"></i> 내 정보</a>
+								<a class="" onclick="logout()">로그아웃</a>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="">			
+	                    <button type="button" class="btn-close text-reset " id="mini-top-close" aria-label="Close"></button>
+	                </div>    
+				</div>
+				<div class="mini-top-menu-body px-3">
+					<div>
+	                    <h5 class="mb-3"><a class="" href="event">✨이벤트</a></h5>
+	                    <h5 class="mb-2 d-flex align-items-center"><i class="bi bi-grid-fill" style="font-size: 15px;"></i>&nbsp;카테고리</h5>
+                    	<div class="mx-4" id="mini-cate-field-area">
+<!-- 	                    	<div class="mini-cate-field"> -->
+<!-- 	                    		<h5 class="mini-cate-big"><a href="">드로잉</a></h5> -->
+<!-- 	                    		<ul class="mini-cate-small-area"> -->
+<!-- 	                    			<li class="mini-cate-small"><a href="">소묘</a></li> -->
+<!-- 	                    			<li class="mini-cate-small"><a href="">캘리그라피</a></li> -->
+<!-- 	                    			<li class="mini-cate-small"><a href="">수채화</a></li> -->
+<!-- 	                    			<li class="mini-cate-small"><a href="">동양화</a></li> -->
+<!-- 	                    			<li class="mini-cate-small"><a href="">서양화</a></li> -->
+<!-- 	                    		</ul> -->
+<!-- 	                    	</div> -->
+                    	</div><!-- mini-cate-field-area -->
+	                    <h5 class="my-3 d-flex align-items-center"><i class="bi bi-geo-alt-fill"></i>&nbsp;지역별</h5>
+	                    <div class="mx-4" id="mini-cate-local-area">
+<!-- 	                    	<h5 class="mini-cate-local"><a href="">서울</a></h5> -->
+<!-- 	                    	<h5 class="mini-cate-local"><a href="">부산</a></h5> -->
+<!-- 	                    	<h5 class="mini-cate-local"><a href="">인천</a></h5> -->
+<!-- 	                    	<h5 class="mini-cate-local"><a href="">대구</a></h5> -->
+	                    </div><!-- mini-cate-local-area -->
+					</div>
+				</div> <!-- mini-top-menu-body -->
+			
+			</div><!-- mini-top-menu -->
 	            
 	    </div> <!-- top-cate -->
 	</div> <!-- container-fluid -->
 	<!-- Navbar End -->
-	
-<!-- 	<!-- Modal Search Start --> 
-<!-- 	<div class="modal fade" id="searchModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-<!-- 	    <div class="modal-dialog"> -->
-<!-- 	        <div class="modal-content rounded-0"> -->
-<!-- 	            <div class="modal-header"> -->
-<!-- 	                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5> -->
-<!-- 	                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 	            </div> -->
-<!-- 	            <div class="modal-body d-flex align-items-center"> -->
-<!-- 	                <div class="input-group w-75 mx-auto d-flex"> -->
-<!-- 	                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1"> -->
-<!-- 	                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span> -->
-<!-- 	                </div> -->
-<!-- 	            </div> -->
-<!-- 	        </div> -->
-<!-- 	    </div> -->
-<!-- 	</div> -->
-<!-- 	<!-- Modal Search End --> 
-	
-<!-- 	<!-- Modal Search2 Start --> 
-<!-- 	<div class="modal fade container-fluid" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-<!-- 	    <div class="modal-dialog modal-xl"> -->
-<!-- 	        <div class="modal-content rounded-0"> -->
-<!-- 	            <div class="modal-header d-flex justify-content-center"> -->
-<!-- 	                <form action="search-keyword" class="search-box d-flex justify-content-center" method="post"> -->
-<!-- 						<input class="search-txt align-items-center " type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터"> -->
-<!-- 						<button class="search-btn" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"> -->
-<!-- 							<i class="bi bi-search bi-top"></i> -->
-<!-- 						</button> -->
-<!-- 					</form> -->
-<!-- 	                <button type="button" class="btn-close d-flex justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 	            </div> -->
-<!-- 	            <div class="modal-body d-flex align-items-center justify-content-center"> -->
-<!-- 	                <h5>추천 검색어</h5> -->
-<!-- 	            </div> -->
-<!-- 	        </div> -->
-<!-- 	    </div> -->
-<!-- 	</div> -->
-<!-- 	<!-- Modal Search End --> 
 	
 	<!-- Search Box Area -->
 	<div class="search-box-area container-fluid" id="searchModal">
@@ -540,16 +550,16 @@
 	                <button class="search-btn" type="submit"> <i class="bi bi-search bi-top"></i></button>
 	            </form>
 	        </div>
-	        <div class="recommend my-3 py-3 text-center">
+	        <div class="recommend my-3 py-3 text-center container">
 	            <!-- 추천 검색어 영역 -->
 	            <h5 class="mb-3">추천 검색어</h5>
-	            <ul class="d-flex justify-content-center">
-	            	<li class="btn recommend-keyword"><a href="">추천어1</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어2</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어3</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어4</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어5</a></li>
-	            </ul>
+	            <div class="justify-content-center">
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1scas</a></div>
+	            </div>
 	        </div>
 	    </div>
 	</div>
@@ -692,8 +702,73 @@ $(function() {
         target.on('mouseleave', () => closeCollapse(target));
     });
 	
+    
+    $("#mini-menu-toggle").on("click", function() {
+		
+		$.ajax({
+			type: "GET",
+	        url: "top-field-category",
+		 	dataType : "json",
+		 	contentType: "application/json",
+		 	success : function(fieldCategory) {
+		 		$("#mini-cate-field-area").html("");
+			 	for(field of fieldCategory) {
+			 		console.log("field.id : " + field.id);
+			 		console.log("field.largeCategory : " + field.largeCategory);
+			 		let miniSmallAreaId = "mini-cate-small-area"+field.id;
+			 		
+			 		$("#mini-cate-field-area").append(
+					 		 '<div class="mini-cate-field">'
+			            	+ 	 '<h5 class="mini-cate-big"><a href="">'+field.largeCategory+'</a></h5>'
+			            	+	 '<ul class="mini-cate-small-area" id="'+miniSmallAreaId+'"></ul>'
+			            	+ '</div>'
+			 		);
+			 		for(children of field.children) {
+			 			console.log("children.id : "+ children.id);
+			 			console.log("children.largeCategory : "+children.largeCategory);
+			 			console.log("children.smallCategory : "+children.smallCategory);
+						$("#" + miniSmallAreaId).append('<li class="mini-cate-small"><a href="">' + children.smallCategory + '</a></li>');
+			 		}
+			 	}
+		 		
+		 	},
+		 	error: function(xhr, status, error) {
+		        console.error("Error details:", xhr, status, error); // 디버깅 정보 출력
+				
+		        alert("mini-menu-toggle / top-field-category  오류 발생" + error);
+		    }
+			
+		});
+		
+		$.ajax({
+			type: "GET",
+	        url: "top-local-category",
+		 	dataType : "json",
+		 	contentType: "application/json",
+		 	success : function(localCategory) {
+		 		$("#mini-cate-local-area").html("");
+			 	for(local of localCategory) {
+		 		console.log("local.local_name : " + local.local_name);
+				 	$("#mini-cate-local-area").append(
+	                    '<h5 class="mini-cate-local"><a href="class-list">'+ local.local_name +'</a></h5>'
+				 	);
+			 	}
+		 	},
+		 	error: function(xhr, status, error) {
+		        console.error("Error details:", xhr, status, error); // 디버깅 정보 출력
+		        alert("mini-menu-toggle / top-local-category 오류 발생" + error);
+		    }
+		});
+		
+		
+		$(".mini-top-menu").toggle();
+	});
+    
+    $("#mini-top-close").on("click", function() {
+		$(".mini-top-menu").toggle();
+	});
 	
-
+	
     
 
 	

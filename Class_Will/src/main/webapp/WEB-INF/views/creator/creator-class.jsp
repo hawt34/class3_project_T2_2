@@ -162,8 +162,8 @@
 	            const rowData = grid.getRow(rowKey);  // 클릭한 행의 데이터
 
 // 	            console.log('Clicked Row Data:', rowData);
-	            location.href = 'creator-classModify?class_code=' + rowData.class_code;
 // 	            console.log('class_code:' + rowData.class_code);
+	            location.href = 'creator-classModify?class_code=' + rowData.class_code;
 	        });
 		}
 		

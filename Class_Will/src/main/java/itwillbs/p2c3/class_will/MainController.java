@@ -27,12 +27,11 @@ public class MainController {
 	private MainService mainService;
 	
 	// 메인으로
-	@GetMapping("main")
-	public String main(HttpServletRequest request) {
-		
-		return "main";
-	}
-
+//	@GetMapping("main")
+//	public String main(HttpServletRequest request) {
+//		
+//		return "main";
+//	}
 	
 	// top-분야 카테고리
 	@ResponseBody
@@ -75,10 +74,10 @@ public class MainController {
 	        	json.add("children", children);
 	        	System.out.println("json : " + json);
 	        }
+	        
 	        fieldCateList.add(json);
 	        System.out.println("fieldCateList : " + fieldCateList);
 	    }
-		
 		
 		return fieldCateList.toString();
 	}
@@ -128,6 +127,10 @@ public class MainController {
 		
 		return "redirect:/class-list";
 	} // searchKeyword()
+	
+	
+	
+	
 	
 
 }

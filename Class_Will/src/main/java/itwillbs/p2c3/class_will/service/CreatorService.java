@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 
@@ -130,6 +131,24 @@ public class CreatorService {
 		return creatorMapper.getReviewByType(classCode, type, member_code);
 	}
 
+	// 리뷰코드에 따른 리뷰
+	public Map<String, Object> getReviewByReviewCode(int review_code){
+		return creatorMapper.getReviewByReviewCode(review_code);
+	}
+
+	// 리뷰코드에 따른 답변
+	public Map<String, Object> getReplyByReviewCode(int review_code){
+		return creatorMapper.getReplyByReviewCode(review_code);
+	}
+
+	// 리뷰답변 저장 
+	public void insertReviewReply(int reviewCode, String reviewReply, String reviewStatus) {
+		if(reviewStatus.equals("N")) {
+			creatorMapper.insertReviewReply(reviewCode, reviewReply, reviewStatus);
+		} else {
+			creatorMapper.updateReviewReply(reviewCode, reviewReply, reviewStatus);
+		}
+	}
 	
 	
 	

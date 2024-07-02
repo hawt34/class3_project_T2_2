@@ -478,8 +478,22 @@ public class CreatorController {
 	
 	// creater-review-form으로
 	@GetMapping("creator-review-form")
-	public String createrReviewForm() {
+	public String createrReviewForm(@RequestParam(defaultValue = "0") int class_review_code, Model model) {
+		Map<String, Object> review = creatorService.getReviewByReviewCode(class_review_code);
+		Map<String, Object> reply = creatorService.getReplyByReviewCode(class_review_code);
+		model.addAttribute("review", review);
+		model.addAttribute("reply", reply);
+		
 		return "creator/creator-review-form";
+	}
+	
+	@ResponseBody
+	@GetMapping("insertReviewReply")
+	public void insertReviewReply(@RequestParam(defaultValue = "0") int reviewCode
+								, @RequestParam(defaultValue = "0") String reviewReply
+								, @RequestParam(defaultValue = "0") String reviewStatus) {
+		
+		creatorService.insertReviewReply(reviewCode, reviewReply, reviewStatus);
 	}
 	
 	//======================================================

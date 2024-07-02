@@ -79,7 +79,23 @@ public interface CreatorMapper {
 	
 	// 타입에 따른 후기
 	List<Map<String, Object>> getReviewByType(@Param("classCode") int classCode, @Param("type") String type, @Param("member_code") int member_code);
+	
+	// 리뷰코드에 따른 리뷰
+	Map<String, Object> getReviewByReviewCode(int review_code);
 
+	// 리뷰코드에 따른 답변
+	Map<String, Object> getReplyByReviewCode(int review_code);
+	
+	// 리뷰답변 저장
+	void insertReviewReply(@Param("reviewCode") int reviewCode
+						 , @Param("reviewReply") String reviewReply
+						 , @Param("reviewStatus") String reviewStatus);
+
+	// 리뷰답변 수정
+	void updateReviewReply(@Param("reviewCode") int reviewCode
+			, @Param("reviewReply") String reviewReply
+			, @Param("reviewStatus") String reviewStatus);
+	
 	// 문의사항 클래스 정보 가져오기
 	List<Map<String, Object>> getinquiryClassInfo(MemberVO member);
 	

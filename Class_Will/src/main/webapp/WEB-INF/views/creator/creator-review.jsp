@@ -168,6 +168,7 @@
 		var classCode;
 		//클래스에 따른 후기
 		$('#classSelect').change(function() {
+			$('.category-btn').removeClass("active");
 			classCode = $('#classSelect').val();
 			$.ajax({
 				url: "getReviewByClass",

@@ -152,7 +152,7 @@ th:nth-child(2), td:nth-child(2) {
 										<c:forEach var="pay" items="${payInfoList }">
 											<tr>
 												<td>
-													${pay.upper_value }/ ${pay.lower_value }<br>
+													${pay.class_upper }/ ${pay.class_lower }<br>
 													${pay.class_name } 
 												</td>
 												<td>

@@ -65,7 +65,17 @@ public class PayController {
 			return result;
 		}
 		//고객정보 가져오기
-		Map<String, String> memberInfo = payService.getMemberInfo(member);
+		Map<String, Object> memberInfo = payService.getMemberInfo(member);
+		
+		//형변환
+		Object memberCode = memberInfo.get("member_code");
+		if(memberCode instanceof Integer) {
+			String member_code = Integer.toString((int)memberCode);
+			//payInfo에 쓰일 파라미터
+			map.put("member_code", member_code);
+			//memberInfo에 쓰일 파라미터
+			memberInfo.put("member_code", member_code);
+		}
 		model.addAttribute("memberInfo", memberInfo);
 		
 		
@@ -73,6 +83,7 @@ public class PayController {
 		map.put("class_st_time", splitTime[0]);
 		map.put("class_ed_time", splitTime[1]);
 		Map<String, String> payInfo = payService.getPayInfo(map);
+		System.out.println("payInfo!!!!" + payInfo);
 		
 		
 		if(payInfo == null) {
@@ -83,8 +94,8 @@ public class PayController {
 		payInfo.put("headcount", map.get("selected_headcount"));
 		
 		//고객 멤버코드 
-		String member_code = Integer.toString(member.getMember_code()); 
-		payInfo.put("member_code", member_code);
+//		String member_code = memberInfo.get("member_code"); 
+//		payInfo.put("member_code", member_code);
 		
 		//소계
 		int price = Integer.parseInt(payInfo.get("class_price"));
@@ -100,7 +111,7 @@ public class PayController {
 	@ResponseBody
 	@PostMapping("verify")
 	public Map<String, Object> verify(@RequestBody Map<String, Object> map) {
-		
+		System.out.println(map);
 		Map<String, Object> response = payService.verifyPayment(map);
 		
 		return response;

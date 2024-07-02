@@ -51,7 +51,7 @@ public class PayService {
 		return payMapper.selectScheduleTime(date, parsedClass_code);
 	}
 	//고객 정보 가져오기
-	public Map<String, String> getMemberInfo(MemberVO member) {
+	public Map<String, Object> getMemberInfo(MemberVO member) {
 		return payMapper.selectMemberInfo(member);
 	}
 	

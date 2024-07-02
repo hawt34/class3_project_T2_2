@@ -24,7 +24,7 @@ public interface PayMapper {
 												 @Param("class_code")int parsedClass_code);
 	
 	//고객정보 가져오기
-	Map<String, String> selectMemberInfo(MemberVO member);
+	Map<String, Object> selectMemberInfo(MemberVO member);
 	
 	//pay관련 모든 정보 가져오기
 	Map<String, String> selectPayInfo(Map<String, String> map);

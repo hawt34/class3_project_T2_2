@@ -59,6 +59,7 @@ public interface CreatorMapper {
 	// 등록상태
 	List<Map<String, String>> getStatusList();
 	
+	// 숨김여부
 	List<Map<String, String>> getHide();
 	
 	// 클래스 정보 가져오기
@@ -66,7 +67,39 @@ public interface CreatorMapper {
 
 	// 등록완료된 클래스 정보 가져오기
 	List<Map<String, Object>> getCertifiedClassInfo(MemberVO member);
+	
+	// 전체 후기 정보 가져오기
+	List<Map<String, Object>> getReviewInfo(MemberVO member);
+	
+	// 후기에 따른 클래스 정보
+	List<Map<String, Object>> getClassByReview(MemberVO member);
+	
+	// 클래스에 따른 후기
+	List<Map<String, Object>> getReviewByClass(@Param("classCode") int classCode, @Param("member_code") int member_code);
+	
+	// 타입에 따른 후기
+	List<Map<String, Object>> getReviewByType(@Param("classCode") int classCode, @Param("type") String type, @Param("member_code") int member_code);
+	
+	// 리뷰코드에 따른 리뷰
+	Map<String, Object> getReviewByReviewCode(int review_code);
 
+	// 리뷰코드에 따른 답변
+	Map<String, Object> getReplyByReviewCode(int review_code);
+	
+	// 리뷰status 변환
+	void changeReviewStatus(int reviewCode);
+	
+	// 리뷰답변 저장
+	void insertReviewReply(@Param("reviewCode") int reviewCode
+						 , @Param("reviewReply") String reviewReply);
+
+	// 리뷰답변 수정
+	void updateReviewReply(@Param("reviewCode") int reviewCode
+						 , @Param("reviewReply") String reviewReply);
+
+	// 리뷰답변 삭제
+	void deleteReviewReply(@Param("reviewCode") int reviewCode);
+	
 	// 문의사항 클래스 정보 가져오기
 	List<Map<String, Object>> getinquiryClassInfo(MemberVO member);
 	

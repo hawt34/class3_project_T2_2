@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.swing.text.StyleContext.SmallAttributeSet;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,13 +14,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ClassMapper {
 	
 	// 큰 카테고리
+    // ajax bigCategory
 	List<Map<String, Object>> selectBigCategoryList();
 	
 	// 소 카테고리
+	// ajax smallCategory
 	List<Map<String, Object>> selectSmallCategory(String big_Category);
 
 	//
-	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
+//	List<Map<String, Object>> selectChooseBigCategory(@RequestParam("category") String category);
 	
 	// 카테고리 지역 
 	List<Map<String, Object>> selectCategoryLocal();
@@ -28,10 +31,15 @@ public interface ClassMapper {
 	List<Map<String, Object>> selectHashtag();
 	
 	// 카테고리바 필터링된 클래스
-	List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
+	// List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
+	List<Map<String, Object>> selectFilterClass(Map<String, Object> map);
 	
-	// 클래스 좋아요
+	
+	// 클래스 좋아요 추가
 	int insertLikeClass(Map<String, Object> map);
+	
+	// 클래스 좋아요 리스트
+	List<Map<String, Object>> selectLikeClassList(Map<String, Object> map);
 	
 	// 클래스 좋아요 취소
 	int deleteLikeClass(Map<String, Object> map);
@@ -51,5 +59,5 @@ public interface ClassMapper {
 	// 클래스 질문 
 	List<Map<String, Object>> selectClassInquiry(int class_code);
 	
-    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
+//    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
 }

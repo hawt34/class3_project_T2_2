@@ -103,6 +103,8 @@ public interface AdminMapper {
 
 	int insertEvent(@Param("params") Map<String, Object> map);
 
+	List<Map<String, String>> selectEventList();
+
 
 	
 

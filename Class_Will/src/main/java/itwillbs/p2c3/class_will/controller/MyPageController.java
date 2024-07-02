@@ -67,6 +67,9 @@ public class MyPageController {
 		if (member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
 			return "mypage/mypage";
 		}
 	}
@@ -121,12 +124,22 @@ public class MyPageController {
 		if (member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
-			List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member.getMember_code());
-
-			model.addAttribute("member", member);
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			//이건 작성 후기들 
+			List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code);
+			model.addAttribute("member", member2);
 			model.addAttribute("memberReviews", memberReviews);
 			// System.out.println(memberReviews);
-
+			
+			//이건 내가 결제를 해서 리뷰를 등록할 수 있는 후기들
+			List<Map<String, String>> possibleReview = myPageService.getPossibleReview(member_code);
+			int totalPossible = possibleReview.size();
+			model.addAttribute("totalPossible", totalPossible);
+			model.addAttribute("possibleReview", possibleReview);
+			System.out.println("등록가능한 리뷰" + possibleReview);
+			
+			
 			return "mypage/mypage-review";
 		}
 
@@ -170,7 +183,9 @@ public class MyPageController {
 
 			return "error/error_404";
 		} else {
-			model.addAttribute("member", member);
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
 			System.out.println("여기요 여기!formdata: " + formData);
 			int updateCount = myPageService.updateReview(formData);
 			if (updateCount > 0) {
@@ -190,8 +205,9 @@ public class MyPageController {
 
 			return "error/error_404";
 		} else {
-
-			model.addAttribute("member", member);
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
 
 			String class_review_code = map.get("review_code");
 			System.out.println(class_review_code);
@@ -215,6 +231,9 @@ public class MyPageController {
 		if (member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
 			return "mypage/mypage-credit";
 		}
 
@@ -326,7 +345,9 @@ public class MyPageController {
 		if (member == null) { // 실패
 			return "error/error_404";
 		} else {
-			model.addAttribute("member", member);
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
 			// System.out.println("회원정보하는 곳임" + formData);
 			// System.out.println("평문 : " + formData.get("member_pwd"));
 

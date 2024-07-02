@@ -63,5 +63,11 @@
 		WHERE member_code = #{member_code}
 	</select>
 	
+	<select id="selectMemberTel" resultType="string">
+		SELECT member_tel
+		FROM MEMBER
+		WHERE member_tel = #{member_tel}
+	</select>
+	
 
 </mapper>

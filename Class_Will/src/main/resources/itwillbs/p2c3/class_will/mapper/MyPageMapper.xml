@@ -46,11 +46,14 @@
 		cr.class_review_date,
 		cr.class_review_time,
 		c.class_name,
-		cr.class_review_rating
-		FROM class_review cr
+		cr.class_review_rating,
+		cr.review_reply_status
+		FROM
+		class_review cr
 		LEFT JOIN class
 		c ON cr.class_code = c.class_code
-		WHERE cr.member_code = #{member_code}
+		WHERE
+		cr.member_code = #{member_code}
 	</select>
 
 	<select id="selectReviewByCode">
@@ -64,8 +67,7 @@
 		UPDATE class_review
 		SET class_review_subject = #{class_review_subject},
 		class_review_content = #{class_review_content},
-		class_review_rating =
-		#{class_review_rating}
+		class_review_rating = #{class_review_rating}
 		WHERE class_review_code = #{class_review_code}
 	</update>
 
@@ -83,17 +85,12 @@
 		WHERE member_nickname = #{member_nickname}
 	</select>
 	<update id="updateMemberNormal">
-		<!-- 크리에이터 회원이 일반회원으로 -->
-		<!-- 일반 회원이 크리에이터로 -->
+		<!-- 크리에이터 회원이 일반회원으로 이것만 되겠끔 바꿈 -->
+		<!-- 일반 회원이 크리에이터로 이거 종민이가 구현해서 빼버림!-->
 		UPDATE MEMBER
-		SET member_type =
-		CASE
-		WHEN member_type = 1 THEN 2
-		WHEN
-		member_type = 2 THEN 1
-		ELSE member_type
-		END
-		WHERE member_code =
+		SET member_type = 1
+		WHERE member_type = 2
+		AND member_code =
 		#{member_code}
 	</update>
 
@@ -109,19 +106,49 @@
 	<select id="selectLike">
 		<!-- 멤버코드 좋아요한 클래스 데리고 오기 -->
 		SELECT
-		c.class_name, c.class_location , c.class_price, lc.class_code, lc.member_code
-		FROM
-		class c
-		JOIN
-		like_class lc
-		ON
-		c.class_code = lc.class_code
-		WHERE
-		lc.member_code = ${member_code}
+		c.class_name, c.class_location , c.class_price, lc.class_code,
+		lc.member_code
+		FROM class c
+		JOIN like_class lc
+		ON c.class_code =
+		lc.class_code
+		WHERE lc.member_code = ${member_code}
 		ORDER BY
 		c.class_code
 
 	</select>
+
+	<select id="selectPossibleReview">
+	<!-- 클래스 결제 및 날짜를 기준으로 등록가능한 리뷰 클래스 데리고 오기 -->
+		 <![CDATA[
+		SELECT
+		p.pay_code,
+		p.pay_amount,
+		DATE(p.pay_datetime) as pay_date,
+		p.pay_type,
+		p.pay_status,
+		p.member_code,
+		p.class_schedule_code,
+		p.class_code,
+		p.use_willpay,
+		cs.class_schedule_code,
+		cs.class_code,
+		cs.class_schedule_date,
+		cs.class_round,
+		c.class_name
+		FROM
+		pay p
+		JOIN
+            class_schedule cs ON p.class_schedule_code = cs.class_schedule_code
+        JOIN
+            class c ON cs.class_code = c.class_code
+		WHERE
+		p.pay_status = 'paid'
+		AND p.member_code =  ${member_code}
+		ORDER BY cs.class_schedule_date ASC
+		 ]]>
+	</select>
+
 
 
 </mapper>

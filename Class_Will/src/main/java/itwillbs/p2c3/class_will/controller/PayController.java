@@ -49,7 +49,7 @@ public class PayController {
 	@GetMapping("will-pay-all")
 	public Map<String, String> willPayAll(@RequestParam Map<String, String> map) {
 		Map<String, String> credit = payService.getCredit(map);
-		System.out.println("크레딧!!!:" + credit.get("member_credit"));
+//		System.out.println("크레딧!!!:" + credit.get("member_credit"));
 		
 		return credit;
 	}
@@ -59,16 +59,31 @@ public class PayController {
 	@PostMapping("payment")
 	public String paymentPro(Model model, @RequestParam Map<String, String> map, HttpSession session) {
 		MemberVO member= (MemberVO)session.getAttribute("member");
+		String result = "";
 		if(member == null) {
-			model.addAttribute("msg", "로그인 후 이용바랍니다");
-			return "result_process/fail";
+			result = WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바립니다.", false);
+			return result;
 		}
+		//고객정보 가져오기
+		Map<String, Object> memberInfo = payService.getMemberInfo(member);
+		
+		//형변환
+		Object memberCode = memberInfo.get("member_code");
+		if(memberCode instanceof Integer) {
+			String member_code = Integer.toString((int)memberCode);
+			//payInfo에 쓰일 파라미터
+			map.put("member_code", member_code);
+			//memberInfo에 쓰일 파라미터
+			memberInfo.put("member_code", member_code);
+		}
+		model.addAttribute("memberInfo", memberInfo);
 		
 		
 		String[] splitTime = map.get("select_time").split("~");
 		map.put("class_st_time", splitTime[0]);
 		map.put("class_ed_time", splitTime[1]);
 		Map<String, String> payInfo = payService.getPayInfo(map);
+		System.out.println("payInfo!!!!" + payInfo);
 		
 		
 		if(payInfo == null) {
@@ -79,8 +94,8 @@ public class PayController {
 		payInfo.put("headcount", map.get("selected_headcount"));
 		
 		//고객 멤버코드 
-		String member_code = Integer.toString(member.getMember_code()); 
-		payInfo.put("member_code", member_code);
+//		String member_code = memberInfo.get("member_code"); 
+//		payInfo.put("member_code", member_code);
 		
 		//소계
 		int price = Integer.parseInt(payInfo.get("class_price"));
@@ -96,7 +111,7 @@ public class PayController {
 	@ResponseBody
 	@PostMapping("verify")
 	public Map<String, Object> verify(@RequestBody Map<String, Object> map) {
-		
+		System.out.println(map);
 		Map<String, Object> response = payService.verifyPayment(map);
 		
 		return response;
@@ -256,11 +271,43 @@ public class PayController {
 		if (member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", false, "member-login");
 		}
+		int member_code = member.getMember_code();
+		Map<String, Object> memberCode = new HashMap<String, Object>();
+		memberCode.put("member_code", member_code);
+		List<Map<String, String>> payInfoList = payService.getPayInfoList(memberCode);
+		System.out.println(payInfoList);
 		
 		
-		
-		
+		model.addAttribute("payInfoList", payInfoList);
 		return "mypage/mypage-class";
+	}
+	
+	@ResponseBody
+	@PostMapping("refund")
+	public boolean refund(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
+		System.out.println("refund-map값: " + map);
+		boolean isSuccess = false;
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String result = "";
+		if(member == null) {
+			WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
+		}
+		int memberCode = member.getMember_code();
+		map.put("member_code", memberCode);
+		
+		//결제 날짜를 비교하여 환불금액 결정
+		int refund_amt = payService.getRefundAmt(map);
+		map.put("refund_amt", refund_amt);
+		
+		//환불 요청
+		try {
+			isSuccess = payService.refundPay(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isSuccess;
 	}
 	
 	

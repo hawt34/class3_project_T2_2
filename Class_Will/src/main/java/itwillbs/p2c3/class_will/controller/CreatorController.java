@@ -446,15 +446,66 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
+		List<Map<String, Object>> classList = creatorService.getClassByReview(member);
+		List<Map<String, Object>> classReviewList = creatorService.getReviewInfo(member);
+		
+		List<JSONObject> rw_list = new ArrayList<JSONObject>(); 
+		
+		for(Map<String, Object> clas : classReviewList) {
+            JSONObject cl = new JSONObject(clas);
+            rw_list.add(cl);
+		}
+		
 		model.addAttribute("classList", classList);
+		model.addAttribute("rw_list", rw_list);
 		
 		return "creator/creator-review";
 	}
+	
+	@ResponseBody
+	@GetMapping("getReviewByClass")
+	public List<Map<String, Object>> getReviewByClass(@RequestParam(defaultValue = "0") int classCode, HttpSession session){
+		MemberVO member =  (MemberVO)session.getAttribute("member");
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> reviewListByClass = creatorService.getReviewByClass(classCode, member_code);
+		return reviewListByClass;
+	}
+
+	@ResponseBody
+	@GetMapping("getReviewByType")
+	public List<Map<String, Object>> getReviewByType(@RequestParam(defaultValue = "0") int classCode
+													, @RequestParam(defaultValue = "N") String type, HttpSession session){
+		MemberVO member =  (MemberVO)session.getAttribute("member");
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> reviewListByType = creatorService.getReviewByType(classCode, type, member_code);
+		return reviewListByType;
+	}
+	
 	// creater-review-form으로
 	@GetMapping("creator-review-form")
-	public String createrReviewForm() {
+	public String createrReviewForm(@RequestParam(defaultValue = "0") int class_review_code, Model model) {
+		Map<String, Object> review = creatorService.getReviewByReviewCode(class_review_code);
+		Map<String, Object> reply = creatorService.getReplyByReviewCode(class_review_code);
+		model.addAttribute("review", review);
+		model.addAttribute("reply", reply);
+		
 		return "creator/creator-review-form";
+	}
+	
+	@ResponseBody
+	@GetMapping("insertReviewReply")
+	public void insertReviewReply(@RequestParam(defaultValue = "0") int reviewCode
+								, @RequestParam(defaultValue = "0") String reviewReply
+								, @RequestParam(defaultValue = "0") String reviewStatus) {
+		
+		creatorService.insertReviewReply(reviewCode, reviewReply, reviewStatus);
+	}
+
+	@ResponseBody
+	@GetMapping("deleteReviewReply")
+	public void deleteReviewReply(@RequestParam(defaultValue = "0") int reviewCode) {
+		
+		creatorService.deleteReviewReply(reviewCode);
 	}
 	
 	//======================================================

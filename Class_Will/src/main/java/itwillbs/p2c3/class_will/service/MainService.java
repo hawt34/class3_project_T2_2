@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import itwillbs.p2c3.class_will.mapper.MainMapper;
+import kotlin.collections.ArrayDeque;
 
 @Service
 public class MainService {
@@ -52,6 +54,42 @@ public class MainService {
 		
 		
 	}
+	
+	
+	@Transactional
+	public void insertVisitIp(String ip, String visitDate) {
+		
+		
+		Map<String, String> map = mainMapper.selectVisitIp(ip, visitDate);
+		
+		if(map == null) {
+			mainMapper.insertVisitIp(ip, visitDate);
+			System.out.println(visitDate + "오늘의 방문자수 +1");
+		}
+		System.out.println("[ " + ip + " ] : [ " + visitDate + "] 기존 방문자");
+		
+		
+	}
+	
+//	@Transactional
+//	public List<Map<String, String>> selectTop10() {
+//		List<Map<String, String>> classList = mainMapper.selectTop10Class();
+//		List<Map<String, String>> localList = mainMapper.selectTop10Local();
+//		List<Map<String, String>> top10ClassList = new ArrayList<Map<String,String>>();
+//		
+//		
+//		for(Map<String, String> class1 : classList) {
+//			for(Map<String, String> localList : classList) {
+//				
+//			}
+//			class1.get("class_code");
+//			
+//		}
+//			
+//		
+//		
+//		return top10ClassList;
+//	}
 
 	
 	

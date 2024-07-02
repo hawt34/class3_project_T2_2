@@ -1,6 +1,7 @@
 package itwillbs.p2c3.class_will.service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -10,13 +11,17 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.cj.xdevapi.Result;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
 import itwillbs.p2c3.class_will.handler.BankApi;
+import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.mapper.PayMapper;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class PayService {
@@ -49,6 +54,10 @@ public class PayService {
 	public List<Map<String, Object>> getScheduleTime(String date, int parsedClass_code) {
 		return payMapper.selectScheduleTime(date, parsedClass_code);
 	}
+	//고객 정보 가져오기
+	public Map<String, Object> getMemberInfo(MemberVO member) {
+		return payMapper.selectMemberInfo(member);
+	}
 	
 	//payment 관련 정보 모두 가져오기
 	public Map<String, String> getPayInfo(Map<String, String> map) {
@@ -66,6 +75,7 @@ public class PayService {
 		try {
 			IamportResponse<Payment> paymentResponse = client.paymentByImpUid((String)map.get("imp_uid"));
 			response = new HashMap<String, Object>();
+			//결제 성공 시
 			if(paymentResponse.getResponse() != null && paymentResponse.getResponse().getStatus().equals("paid")) {
 				//use_willpay 처리
 				payMapper.updateCredit(map);
@@ -88,7 +98,7 @@ public class PayService {
 				map.put("pay_datetime", payDate);
 				map.put("class_code", objects.get("class_code"));
 				map.put("class_schedule_code", objects.get("class_schedule_code"));
-				map.put("member_code", objects.get("member_code"));
+				map.put("member_code", map.get("member_code"));
 				map.put("pg_provider", pr.getPgProvider());
 				map.put("card_name", pr.getCardName());
 				payMapper.registPaySuccessInfo(map);
@@ -180,6 +190,53 @@ public class PayService {
 		//return은 크레딧을 선택하는 메서드 호출
 		return payMapper.selectWillpay(map);
 	}
+	
+	//결제성공 리스트 가져오기
+	public List<Map<String, String>> getPayInfoList(Map<String, Object> memberCode) {
+		return payMapper.selectPayInfoList(memberCode);
+	}
+	
+	//환불금액 결정
+	public int getRefundAmt(Map<String, Object> map) {
+		return payMapper.selectRefundAmt(map);
+	}
+	
+	//환불
+	public boolean refundPay(Map<String, Object> map) throws Exception {
+		String imp_uid = (String)map.get("imp_uid");
+		boolean isSuccess = false;
+		
+		
+		Integer value = (Integer) map.get("refund_amt");
+		BigDecimal bigDecimal = BigDecimal.valueOf(value.longValue());
+		System.out.println("imp_uid" + imp_uid + ", bigDecimal" + bigDecimal);
+		
+		CancelData cancelData = new CancelData(imp_uid, true, bigDecimal);
+		
+		try {
+			IamportResponse<Payment> response = client.cancelPaymentByImpUid(cancelData);
+			
+			if(response.getResponse() != null) {
+				System.out.println("Refund successful: " + response.getResponse().getImpUid());
+				payMapper.updatePayStatus(map);
+				payMapper.updateWillpay(map);
+				payMapper.resetHeadcount(map);
+				
+				isSuccess = true;
+			} else {
+				System.out.println("Refund failed: " + response.getResponse());
+			}
+		} catch (IamportResponseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return isSuccess;
+	}
+
+
+	
 
 	
 }

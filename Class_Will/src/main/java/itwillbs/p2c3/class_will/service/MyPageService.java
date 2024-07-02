@@ -76,6 +76,12 @@ public class MyPageService {
 		
 		return myPageMapper.selectLike(member_code);
 	}
+	
+	//리뷰를 작성할 수 있는 클래스(결제하고 수료일까지 지난 상태임)
+	public List<Map<String, String>> getPossibleReview(int member_code) {
+		
+		return myPageMapper.selectPossibleReview(member_code);
+	}
 
 	
 

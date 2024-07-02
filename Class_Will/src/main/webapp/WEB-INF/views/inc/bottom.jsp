@@ -56,17 +56,17 @@
 	    z-index: 999;
 	}
 	
-	.chatbot {
-		position: fixed;
-	    right: 50px;
-	    bottom: 80px;
-	    display: flex;
-	    width: 50px;
-	    height: 50px;
-	    align-items: center;
-	    justify-content: center;
-	    z-index: 999;
-	}
+/* 	.chatbot { */
+/* 		position: fixed; */
+/* 	    right: 50px; */
+/* 	    bottom: 80px; */
+/* 	    display: flex; */
+/* 	    width: 50px; */
+/* 	    height: 50px; */
+/* 	    align-items: center; */
+/* 	    justify-content: center; */
+/* 	    z-index: 999; */
+/* 	} */
 	
 	.customer_service_center {
 		color: white;
@@ -125,11 +125,11 @@
 	
 </style>
 	<!-- Back to Top -->
-	<a href="#" class="btn btn-light focus-ring focus-ring-light border-3 border-light rounded-circle back-to-top"><i class="fa fa-arrow-up text-black"></i></a>  
+	<a href="#" class="btn btn-light focus-ring focus-ring-success  border-3 border-success-subtle rounded-circle back-to-top"><i class="fa fa-arrow-up text-black"></i></a>  
 	
     <!-- Footer Start -->
-    <div class="class-will-bottom mt-5">
-	    <div class="container-fluid text-white-50 footer pt-1 mt-5 pb-3" style="background-color: #191919;">
+    <div class="class-will-bottom mt-3">
+	    <div class="container-fluid text-white-50 footer pt-1 mt-3 pb-3" style="background-color: #191919;">
 	        <div class="container py-3">
 	            <div class="pb-2">
 	                <div class="row g-4" >
@@ -139,7 +139,7 @@
 	                        </a>
 	                    </div>
 	                    <div class="col-lg-6 d-flex justify-content-start align-items-center" >
-	                        <div class="position-relative mx-auto">
+	                        <div class="">
 	                       		 <ul class="bottom-ul">
 									<li class="bottom-menu"><a href="csc">공지사항</a></li>
 									<li class="bottom-menu"><a href="csc-faq">FAQ</a></li>
@@ -160,7 +160,7 @@
 	                    </div>
 	                </div>
 	            </div>
-	            <div class="row g-5 mb-2">
+	            <div class="row g-5 mb-5">
 	                <div class="col-lg-3 d-flex align-items-start justify-content-center">
 	                    <div class="d-flex pt-3 justify-content-center social-icons">
 	                         <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle text-white" ><i class="fab fa-twitter"></i></a>
@@ -187,28 +187,6 @@
 	    </div>
 	    
     
-<!-- 		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center"> -->
-    		
-<!-- 			<ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center"> -->
-			
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="#"  data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a> -->
-<!-- 				</li> -->
-				
-<!-- 			</ul> -->
-<!-- 		</div>	 -->
 
 		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center">
 		    <ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center">
@@ -230,20 +208,6 @@
 		    </ul>
 		</div>
 
-		<!-- Add the searchModal here -->
-<!-- 		<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true"> -->
-<!-- 		    <div class="modal-dialog"> -->
-<!-- 		        <div class="modal-content"> -->
-<!-- 		            <div class="modal-header"> -->
-<!-- 		                <h5 class="modal-title" id="searchModalLabel">Search</h5> -->
-<!-- 		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 		            </div> -->
-<!-- 		            <div class="modal-body"> -->
-<!-- 		                Modal content here -->
-<!-- 		            </div> -->
-<!-- 		        </div> -->
-<!-- 		    </div> -->
-<!-- 		</div> -->
 
 		
 

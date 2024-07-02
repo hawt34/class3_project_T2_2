@@ -309,11 +309,25 @@ body {
 .selectDiv {
 	width : 100px;
 }
-.btnReset {
-	width : 100px;
-    height: 45px; 
+
+.btnReset, .btnSearch {
+	width : 70px;
+    height: 40px; 
+    margin-bottom : 0px;
+    padding-bottom : 0px;
+    bottom : 0px;
 }
 
+/* .btnSearch { */
+/* 	width : 90px; */
+/*     height: 40px;  */
+/*     margin-bottom : 0px; */
+/*     bottom : 0px; */
+/* } */
+
+.btnSearchDiv, .btnResetDiv {
+	padding-bottom : 0px;
+}
 .hashtag {
 	width : 100px;
     margin-right: 15px; /* 요소 간의 가로 간격 */

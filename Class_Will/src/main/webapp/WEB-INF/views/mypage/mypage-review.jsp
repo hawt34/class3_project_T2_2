@@ -145,7 +145,7 @@ th:nth-child(2), td:nth-child(2) {
 									${member.member_name}님</div>
 								<!-- 								여기부터 토스트 ui -->
 								<div class="table-responsive">
-									<h2>후기를 적을 수 있는 클래스가 ? 개 있습니다.</h2>
+									<h2>후기를 적을 수 있는 클래스가 ${totalPossible}개 있습니다.</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
 										<thead>
@@ -153,18 +153,24 @@ th:nth-child(2), td:nth-child(2) {
 												<th>클래스 이름</th>
 												<th>결제 상태</th>
 												<th>교육 일정</th>
+												<th>회차 </th>
+												<th>결제일</th>
 												<th>수료 여부</th>
 												<th>등록하기</th>
 											</tr>
 										</thead>
 										<tbody>
+											<c:forEach var="possibleReview" items="${possibleReview}" 	varStatus="loop">
 											<tr>
-												<td>1</td>
-												<td>2</td>
-												<td>3</td>
-												<td>4</td>
+												<td>${possibleReview.class_name}</td> 
+												<td>결제완료</td>
+												<td>${possibleReview.class_schedule_date}</td>
+												<td>${possibleReview.class_round}</td>
+												<td>${possibleReview.pay_date}</td>
+												<td>수료</td>
 												<td><a href="resist-review" style="">등록하기</a></td>
 											</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

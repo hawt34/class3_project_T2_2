@@ -30,4 +30,7 @@ public interface MyPageMapper {
 
 	List<Map<String, String>> selectLike(int member_code);
 	
+
+	List<Map<String, String>> selectPossibleReview(int member_code);
+	
 }

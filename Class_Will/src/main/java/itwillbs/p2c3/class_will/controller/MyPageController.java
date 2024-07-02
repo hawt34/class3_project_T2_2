@@ -126,12 +126,20 @@ public class MyPageController {
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			//이건 작성 후기들 
 			List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code);
-
 			model.addAttribute("member", member2);
 			model.addAttribute("memberReviews", memberReviews);
 			// System.out.println(memberReviews);
-
+			
+			//이건 내가 결제를 해서 리뷰를 등록할 수 있는 후기들
+			List<Map<String, String>> possibleReview = myPageService.getPossibleReview(member_code);
+			int totalPossible = possibleReview.size();
+			model.addAttribute("totalPossible", totalPossible);
+			model.addAttribute("possibleReview", possibleReview);
+			System.out.println("등록가능한 리뷰" + possibleReview);
+			
+			
 			return "mypage/mypage-review";
 		}
 

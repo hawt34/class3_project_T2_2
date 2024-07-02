@@ -323,7 +323,7 @@
 }
 
 .mini-cate-small-area {
-	display: none;
+/* 	display: none; */
 	
 }
 
@@ -411,7 +411,7 @@
 	
 	                    <!-- 가운데 로고 영역 (큰 화면) -->
 	                    <div class="col-2 d-none d-lg-flex justify-content-center">
-	                        <a class="navbar-brand" href="main">
+	                        <a class="navbar-brand" href="./">
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="200px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
@@ -470,7 +470,7 @@
                     <!-- 로고와 햄버거 버튼 (작은 화면) -->
 					<div class="row w-100 d-flex d-lg-none align-items-end">
 	                    <div class="col-8 d-flex d-lg-none justify-content-start">
-	                        <a class="navbar-brand" href="main">
+	                        <a class="navbar-brand" href="./">
 	                            <img src="${pageContext.request.contextPath}/resources/img/class_will_logo.png" width="150px" alt="Logo" class="d-inline-block align-text-top">
 	                        </a>
 	                    </div>
@@ -550,16 +550,16 @@
 	                <button class="search-btn" type="submit"> <i class="bi bi-search bi-top"></i></button>
 	            </form>
 	        </div>
-	        <div class="recommend my-3 py-3 text-center">
+	        <div class="recommend my-3 py-3 text-center container">
 	            <!-- 추천 검색어 영역 -->
 	            <h5 class="mb-3">추천 검색어</h5>
-	            <ul class="d-flex justify-content-center">
-	            	<li class="btn recommend-keyword"><a href="">추천어1</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어2</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어3</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어4</a></li>
-	            	<li class="btn recommend-keyword"><a href="">추천어5</a></li>
-	            </ul>
+	            <div class="justify-content-center">
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
+	            	<div class="btn recommend-keyword"><a href="">추천어1scas</a></div>
+	            </div>
 	        </div>
 	    </div>
 	</div>

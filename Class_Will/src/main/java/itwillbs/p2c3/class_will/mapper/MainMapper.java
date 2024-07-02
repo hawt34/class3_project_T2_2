@@ -23,6 +23,8 @@ public interface MainMapper {
 	void insertVisitIp(@Param("ip")String ip, @Param("visitDate") String visitDate);
 
 	Map<String, String> selectVisitIp(@Param("ip")String ip, @Param("visitDate") String visitDate);
+
+//	List<Map<String, String>> selectTop10();
 	
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,16 +44,15 @@
     
  	body { 
  		background: black;  
-/*   		font-family: "Nanum Gothic", sans-serif;   */
-/*  		font-family: "Noto Sans KR", sans-serif; */
  	} 
  	
-
- 	
- 	article h1, h2 {
+ 	article h1, h2, {
  		color : white;
  	} 
  	
+ 	.class-price {
+ 		color: black;
+ 	}
  	
 	.vesitable .owl-stage {
 	    margin: 20px 0;
@@ -73,7 +73,7 @@
 	.vesitable .owl-nav .owl-next {
 	    position: absolute;
  	    top: -30px; 
-	    right: 88px;
+	    right: 80px;
 	    color: white;
 	    padding: 5px 25px;
 	    border: 1px solid var(--bs-secondary);
@@ -113,16 +113,16 @@
 					<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 						<div class="carousel-inner ">
 							<div class="carousel-item active ">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main_event1.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="...">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main_event1_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event1.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="..." onclick="location.href='event'">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event1_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="..." onclick="location.href='event'">
 							</div>
 							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main_event2.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="...">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main_event2_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event2.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="..." onclick="location.href='event'">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event2_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="..." onclick="location.href='event'">
 							</div>
 							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main_event3.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="...">
-								<img src="${pageContext.request.contextPath}/resources/images/event/main_event3_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="...">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event3.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" alt="..." onclick="location.href='event'">
+								<img src="${pageContext.request.contextPath}/resources/images/event/main_event3_mini.jpg" class="d-block w-100 d-flex d-lg-none " alt="..." onclick="location.href='event'">
 							</div>
 						</div>
 						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -146,39 +146,44 @@
 	                <h2 class="mb-0 ">클래스윌 TOP10</h2>
 	                
 	                <div class="owl-carousel vegetable-carousel justify-content-center">
-	                
-						<div class="rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;">
-								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">1111테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5>50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
+	                	
+<%-- 	                	<c:forEach var="class" items="${top10List}"> --%>
+	                		
+<!-- 							<div class="rounded position-relative vesitable-item"> -->
+<!-- 								<div class="vesitable-img"> -->
+<%-- 									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
+<!-- 								</div> -->
+<!-- 		                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;"> -->
+<%-- 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1"> --%>
+<!-- 		                        </div> -->
+<!-- 		                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> -->
+<!-- 									<div class="classCategory col-md-10"> -->
+<!-- 										<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
+<!-- 										<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 										<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 									</div> -->
+<!-- 									<div class="createrName d-flex align-items-center py-2"> -->
+<!-- 										<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;"> -->
+<%-- 											<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
+<!-- 										</div>	 -->
+<!-- 										<p class="mb-0 ml-5 px-4">1111테크니컬아티스트 홍상범</p> -->
+<!-- 									</div> -->
+<!-- 									<div class="className"> -->
+<%-- 										<h6>${class.class_name}</h6> --%>
+<!-- 									</div> -->
+<!-- 						            <div class="row classInfo"> -->
+<!-- 										<div class="col-md-6 add"> -->
+<!-- 											<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
+<!-- 										</div> -->
+<!-- 										<div class="col-md-6 price"> -->
+<!-- 											<h5 class="class-price">50,000원</h5> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 		                    </div> -->
+		                    
+<%-- 	                	</c:forEach> --%>
+	                	
 	                    
 	                    <div class="rounded position-relative vesitable-item">
 							<div class="vesitable-img">
@@ -207,7 +212,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5 class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -240,7 +245,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5  class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -273,7 +278,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5  class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -306,7 +311,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5  class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -339,7 +344,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5  class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -372,7 +377,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5  class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -406,7 +411,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5 class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -439,7 +444,7 @@
 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 									</div>
 									<div class="col-md-6 price">
-										<h5>50,000원</h5>
+										<h5 class="class-price">50,000원</h5>
 									</div>
 								</div>
 							</div>
@@ -489,7 +494,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>
@@ -521,7 +526,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>
@@ -553,7 +558,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>
@@ -585,7 +590,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>
@@ -617,7 +622,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>
@@ -649,7 +654,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>
@@ -681,7 +686,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>
@@ -713,7 +718,7 @@
 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5>50,000원</h5>
+							                     <h5 class="class-price">50,000원</h5>
 							                  </div>
 							               </div>
                                          </div>

@@ -187,28 +187,6 @@
 	    </div>
 	    
     
-<!-- 		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center"> -->
-    		
-<!-- 			<ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center"> -->
-			
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-house-door-fill bottom-icon"></i><br>홈</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="#"  data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search bi-top bottom-icon"></i><br>검색</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="./"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a> -->
-<!-- 				</li> -->
-<!-- 				<li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center"> -->
-<!-- 					<a class="nav-link px-0 mx-2" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a> -->
-<!-- 				</li> -->
-				
-<!-- 			</ul> -->
-<!-- 		</div>	 -->
 
 		<div class="container-fluid bottom-nevi-var d-lg-none align-items-center">
 		    <ul class="nav nav-pills nav-justified d-flex align-items-center justify-content-center">
@@ -230,20 +208,6 @@
 		    </ul>
 		</div>
 
-		<!-- Add the searchModal here -->
-<!-- 		<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true"> -->
-<!-- 		    <div class="modal-dialog"> -->
-<!-- 		        <div class="modal-content"> -->
-<!-- 		            <div class="modal-header"> -->
-<!-- 		                <h5 class="modal-title" id="searchModalLabel">Search</h5> -->
-<!-- 		                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-<!-- 		            </div> -->
-<!-- 		            <div class="modal-body"> -->
-<!-- 		                Modal content here -->
-<!-- 		            </div> -->
-<!-- 		        </div> -->
-<!-- 		    </div> -->
-<!-- 		</div> -->
 
 		
 

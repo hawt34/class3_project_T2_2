@@ -69,6 +69,11 @@ public class MainService {
 		
 	}
 
+//	public List<Map<String, String>> selectTop10() {
+//		// TODO Auto-generated method stub
+//		return mainMapper.selectTop10();
+//	}
+
 	
 	
 	

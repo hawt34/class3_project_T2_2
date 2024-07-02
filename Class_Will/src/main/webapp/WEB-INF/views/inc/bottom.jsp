@@ -128,7 +128,7 @@
 	<a href="#" class="btn btn-light focus-ring focus-ring-success  border-3 border-success-subtle rounded-circle back-to-top"><i class="fa fa-arrow-up text-black"></i></a>  
 	
     <!-- Footer Start -->
-    <div class="class-will-bottom mt-3 pb-3">
+    <div class="class-will-bottom mt-3">
 	    <div class="container-fluid text-white-50 footer pt-1 mt-3 pb-3" style="background-color: #191919;">
 	        <div class="container py-3">
 	            <div class="pb-2">

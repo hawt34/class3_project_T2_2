@@ -150,32 +150,34 @@ th:nth-child(2), td:nth-child(2) {
 									</thead>
 									<tbody>
 										<c:forEach var="pay" items="${payInfoList }">
-											<tr>
-												<td>
-													${pay.class_upper }/ ${pay.class_lower }<br>
-													${pay.class_name } 
-												</td>
-												<td>
-													${pay.class_schedule_date }<br>
-													${pay.class_st_time } ~ ${pay.class_ed_time }<br>
-												</td>
-												<td>
-													${pay.pg_provider }(${pay.card_name }) ${pay.pay_amount }원<br>
-													인원수(2)
-												</td>
-												<td>
-													${pay.use_willpay } WILL-PAY
-												</td>
-												<td>
-													${pay.pay_datetime }<br>
-													(${pay.diff_date })
-												</td>
-												<td>
-													<c:if test="${pay.refund_type eq '1' }">
-														<input type="button" value="환불하기" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}')">
-													</c:if>
-												</td>
-											</tr>
+											<c:if test="${pay.pay_status eq 'paid'}">
+												<tr>
+													<td>
+														${pay.class_upper }/ ${pay.class_lower }<br>
+														${pay.class_name } 
+													</td>
+													<td>
+														${pay.class_schedule_date }<br>
+														${pay.class_st_time } ~ ${pay.class_ed_time }<br>
+													</td>
+													<td>
+														${pay.pg_provider }(${pay.card_name }) ${pay.pay_amount }원<br>
+														인원수(${pay.pay_headcount })
+													</td>
+													<td>
+														${pay.use_willpay } WILL-PAY
+													</td>
+													<td>
+														${pay.pay_datetime }<br>
+														(${pay.diff_date })
+													</td>
+													<td>
+														<c:if test="${pay.refund_type eq '1' }">
+															<input type="button" value="환불하기" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }')">
+														</c:if>
+													</td>
+												</tr>
+											</c:if>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -197,11 +199,43 @@ th:nth-child(2), td:nth-child(2) {
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
 <script>
-function refund(param_imp_uid, param_amount, param_willpay, param_pay_code) {
-	let imp_uid = param_imp_uid;
-	let amount = param_amount;
-	let willpay = param_willpay; //
+function refund(param_imp_uid, param_amount, param_willpay, param_pay_code, param_pay_headcount, param_class_schedule_code) {
+	let imp_uid = param_imp_uid; //imp_uid
+	let amount = param_amount; //결제금액
+	let willpay = param_willpay; // 윌페이
 	let pay_code = param_pay_code; //페이코드
+	let headcount = param_pay_headcount; //인원수
+	let class_schedule_code = param_class_schedule_code; 
+	
+	let data = {
+			imp_uid : imp_uid,
+			amount : amount,
+			member_credit : willpay,
+			pay_code : pay_code,
+			pay_headcount : headcount,
+			class_schedule_code : class_schedule_code
+	};
+	
+	if(confirm("환불하시겠습니까?")) {
+		$.ajax({
+			url: "refund",
+			type: "POST",
+			data: JSON.stringify(data),
+			contentType: "application/json",
+			dataType: "json",
+			success: function(res) {
+	// 			boolean successRefund = res;
+				if(res) {
+					alert("환불되었습니다.");
+		            location.reload();
+				}
+			},
+			error: function() {
+				alert("호출 실패");
+			}
+		});
+	}
+	
 }
 	
 </script>

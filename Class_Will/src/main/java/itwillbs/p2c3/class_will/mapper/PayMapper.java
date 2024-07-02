@@ -64,8 +64,18 @@ public interface PayMapper {
 
 	int selectWillpay(Map<String, Object> map);
 	
+	//환불 금액 결정
+	int selectRefundAmt(Map<String, Object> map);
+	
 	//결제 성공 List 가져오기
 	List<Map<String, String>> selectPayInfoList(Map<String, Object> memberCode);
+	
+	//결제 상태 갱신
+	void updatePayStatus(Map<String, Object> map);
+	
+	//인원수 상태 갱신
+	void resetHeadcount(Map<String, Object> map);
+
 	
 	
 	

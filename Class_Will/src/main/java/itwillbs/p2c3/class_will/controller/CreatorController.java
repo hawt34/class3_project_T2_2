@@ -70,6 +70,11 @@ public class CreatorController {
 			model.addAttribute("targetURL", "member-login");
 			return "result_process/fail";
 		}
+		if(Integer.parseInt(member.getMember_type()) == 2 && Integer.parseInt(member.getMember_type()) == 3) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "creator-main");
+			return "result_process/fail";
+		}
 		
 		model.addAttribute("bank_info", bank_info);
 		

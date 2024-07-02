@@ -29,8 +29,8 @@ public class ClassService {
 	}
 	
 	// 클래스 리스트
-	public List<Map<String, Object>> getClassList(){
-		return mapper.selectClassList();
+	public List<Map<String, Object>> getClassList(String hashtag){
+		return mapper.selectClassList(hashtag);
 	}
 	
 	// 클래스 리스트

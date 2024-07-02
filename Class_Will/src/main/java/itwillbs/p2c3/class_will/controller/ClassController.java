@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
@@ -41,7 +39,7 @@ public class ClassController {
 	// 클래스 리스트
 	@GetMapping("class-list")
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
-	public String classList(Model model, HttpSession session) {
+	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag) {
 		
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    Integer member_code = null;
@@ -71,13 +69,14 @@ public class ClassController {
 	    model.addAttribute("localList", localList);
 	    
 	    // 클래스 리스트
-	    List<Map<String, Object>> classList = classService.getClassList();
+	    List<Map<String, Object>> classList = classService.getClassList(hashtag);
 	    model.addAttribute("classList", classList);
+//	    System.out.println(">>>classList : " + classList);
 	    
 	    // 해시태그
 	    List<Map<String, Object>> hashtagList = classService.getHashtag();
 	    model.addAttribute("hashtagList", hashtagList);
-	    
+	    	
 	    // 클래스 리스트에 member_code 추가
 	    if (member_code != null) {
 	        for (Map<String, Object> classMap : classList) {

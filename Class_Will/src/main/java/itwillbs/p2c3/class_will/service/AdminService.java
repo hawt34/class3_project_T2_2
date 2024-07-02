@@ -130,7 +130,7 @@ public class AdminService {
 	public List<Integer> getWillpayChart() {
 		return adminMapper.selectWillpayChart();
 	}
-
+	
 	public List<Map<String, Object>> getRewardData() {
 		return adminMapper.selectRewardData();
 	}

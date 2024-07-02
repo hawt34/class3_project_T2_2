@@ -172,7 +172,7 @@ th:nth-child(2), td:nth-child(2) {
 												</td>
 												<td>
 													<c:if test="${pay.refund_type eq '1' }">
-														<input type="button" value="환불하기" id="refundClass" onclick="refund(${pay.imp_uid}, ${pay.pay_amount}, ${pay.use_willpay}, ${pay.pay_code})">
+														<input type="button" value="환불하기" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}')">
 													</c:if>
 												</td>
 											</tr>
@@ -197,28 +197,13 @@ th:nth-child(2), td:nth-child(2) {
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
 <script>
-$(function(imp_uid, amount, willpay, pay_code) {
-	console.log(imp_uid)
-	$.ajax({
-		url: "refund",
-		type: "POST",
-		data: {
-			
-		},
-		dataType: "json",
-		success: function(res) {
-			
-		},
-		error: function() {
-			alert("호출실패!")
-		}
-	});
-
+function refund(param_imp_uid, param_amount, param_willpay, param_pay_code) {
+	let imp_uid = param_imp_uid;
+	let amount = param_amount;
+	let willpay = param_willpay; //
+	let pay_code = param_pay_code; //페이코드
+}
 	
-
-});
-	
-// refund(${pay.imp_uid}, ${pay.pay_amount, ${pay.use_willpay}, ${pay.pay_code }	
 </script>
 <!-- JavaScript Libraries -->
 <script

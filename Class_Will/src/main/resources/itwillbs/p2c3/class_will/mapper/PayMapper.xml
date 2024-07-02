@@ -76,6 +76,12 @@
 		AND cs.class_schedule_date = #{selected_dates}
 	</select>
 	
+	<select id="selectMemberInfo" resultType="map">
+		SELECT *
+		FROM MEMBER
+		WHERE member_code = #{member_code}
+	</select>
+	
 	<select id="selectSchedule" resultType="map">
 		SELECT *
 		FROM class_schedule

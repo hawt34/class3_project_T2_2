@@ -59,10 +59,14 @@ public class PayController {
 	@PostMapping("payment")
 	public String paymentPro(Model model, @RequestParam Map<String, String> map, HttpSession session) {
 		MemberVO member= (MemberVO)session.getAttribute("member");
+		String result = "";
 		if(member == null) {
-			model.addAttribute("msg", "로그인 후 이용바랍니다");
-			return "result_process/fail";
+			result = WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바립니다.", false);
+			return result;
 		}
+		//고객정보 가져오기
+		Map<String, String> memberInfo = payService.getMemberInfo(member);
+		model.addAttribute("memberInfo", memberInfo);
 		
 		
 		String[] splitTime = map.get("select_time").split("~");

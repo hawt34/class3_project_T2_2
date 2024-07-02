@@ -9,6 +9,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
+<script src="${pageContext.request.contextPath }/resources/js/jquery-3.7.1.js" ></script>
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -97,121 +98,144 @@ th:nth-child(2), td:nth-child(2) {
 </head>
 <body>
 
-	<header>
-		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
-	</header>
+<header>
+	<jsp:include page="/WEB-INF/views/inc/top.jsp" />
+</header>
 
-	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
-	<div id="spinner"
-		class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
-		<div class="spinner-grow text-white" role="status"></div>
-	</div>
-	<!-- Spinner End -->
+<!-- Spinner Start (로딩시 뜨는 동그라미)-->
+<div id="spinner"
+	class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
+	<div class="spinner-grow text-white" role="status"></div>
+</div>
+<!-- Spinner End -->
 
-	<!-- Single Page Header start -->
-	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">
-			마이페이지<i class="bi bi-cart-check"></i>내가 신청한 클래스
-		</h1>
-		
-	</div>
+<!-- Single Page Header start -->
+<div class="container-fluid page-header py-5">
+	<h1 class="text-center text-white display-6">
+		마이페이지<i class="bi bi-cart-check"></i>내가 신청한 클래스
+	</h1>
+	
+</div>
 
-	<div class="container-fluid fruite">
-		<div class="container">
-			<div class="row g-4">
-				<div class="col-lg-12">
-					<div class="row g-4">
-						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
+<div class="container-fluid fruite">
+	<div class="container">
+		<div class="row g-4">
+			<div class="col-lg-12">
+				<div class="row g-4">
+					<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
-						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
+					<div class="col-lg-9 creator-body">
+						<!-- 크리에이터 인사 문구 -->
 
-							<!-- 크리에이터 이벤트 -->
-							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">
-								<c:forEach var="name" begin="1" end="1" items="${payInfoList }" >
-									성장해 나가는 ${name.member_name } 님
-								 </c:forEach>
-								</div>
-								<div class="container">
-									<h2>신청한 클래스</h2>
-									<p>클래스 정보</p>
-									<table class="table table-hover">
-										<thead>
-											<tr>
-												<th>신청 클래스</th>
-												<th>클래스 시작 일시</th>
-												<th>결제 상태</th>
-												<th>사용한 will-pay</th>
-												<th>결제 날짜</th>
-												<th>환불</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="pay" items="${payInfoList }">
-												<tr>
-													<td>
-														${pay.upper_value }/ ${pay.lower_value }<br>
-														${pay.class_name } 
-													</td>
-													<td>
-														${pay.class_schedule_date }<br>
-														${pay.class_st_time } ~ ${pay.class_ed_time }<br>
-													</td>
-													<td>
-														${pay.pg_provider }(${pay.card_name }) ${pay.pay_amount }원<br>
-														인원수(2)
-													</td>
-													<td>
-														${pay.use_willpay } WILL-PAY
-													</td>
-													<td>
-														${pay.pay_datetime }<br>
-														(${pay.diff_date })
-													</td>
-													<td>
-														<c:if test="${pay.refund_type eq '1' }">
-															<input type="button" value="환불하기" id="refundClass" onclick="refund()">
-														</c:if>
-													</td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-								</div>
-
+						<!-- 크리에이터 이벤트 -->
+						<div class="creator-event mt-5">
+							<div class="col-md-12 text-center h2 mb-5">
+							<c:forEach var="name" begin="1" end="1" items="${payInfoList }" >
+								성장해 나가는 ${name.member_name } 님
+							 </c:forEach>
 							</div>
-						</div>
+							<div class="container">
+								<h2>신청한 클래스</h2>
+								<p>클래스 정보</p>
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>신청 클래스</th>
+											<th>클래스 시작 일시</th>
+											<th>결제 상태</th>
+											<th>사용한 will-pay</th>
+											<th>결제 날짜</th>
+											<th>환불</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="pay" items="${payInfoList }">
+											<tr>
+												<td>
+													${pay.upper_value }/ ${pay.lower_value }<br>
+													${pay.class_name } 
+												</td>
+												<td>
+													${pay.class_schedule_date }<br>
+													${pay.class_st_time } ~ ${pay.class_ed_time }<br>
+												</td>
+												<td>
+													${pay.pg_provider }(${pay.card_name }) ${pay.pay_amount }원<br>
+													인원수(2)
+												</td>
+												<td>
+													${pay.use_willpay } WILL-PAY
+												</td>
+												<td>
+													${pay.pay_datetime }<br>
+													(${pay.diff_date })
+												</td>
+												<td>
+													<c:if test="${pay.refund_type eq '1' }">
+														<input type="button" value="환불하기" id="refundClass" onclick="refund(${pay.imp_uid}, ${pay.pay_amount}, ${pay.use_willpay}, ${pay.pay_code})">
+													</c:if>
+												</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
 
+						</div>
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Fruits Shop End-->
+</div>
+<!-- Fruits Shop End-->
 
 
 
-	<footer>
-		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
-	</footer>
+<footer>
+	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
+</footer>
+<script>
+$(function(imp_uid, amount, willpay, pay_code) {
+	console.log(imp_uid)
+	$.ajax({
+		url: "refund",
+		type: "POST",
+		data: {
+			
+		},
+		dataType: "json",
+		success: function(res) {
+			
+		},
+		error: function() {
+			alert("호출실패!")
+		}
+	});
 
-	<!-- JavaScript Libraries -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+	
 
-	<!-- Template Javascript -->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+});
+	
+// refund(${pay.imp_uid}, ${pay.pay_amount, ${pay.use_willpay}, ${pay.pay_code }	
+</script>
+<!-- JavaScript Libraries -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 </body>
 </html>

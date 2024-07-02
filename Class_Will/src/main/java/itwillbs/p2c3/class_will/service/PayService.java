@@ -17,6 +17,7 @@ import com.siot.IamportRestClient.response.Payment;
 
 import itwillbs.p2c3.class_will.handler.BankApi;
 import itwillbs.p2c3.class_will.mapper.PayMapper;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class PayService {
@@ -48,6 +49,10 @@ public class PayService {
 	//date로 클래스 스케쥴 타임 가져오기
 	public List<Map<String, Object>> getScheduleTime(String date, int parsedClass_code) {
 		return payMapper.selectScheduleTime(date, parsedClass_code);
+	}
+	//고객 정보 가져오기
+	public Map<String, String> getMemberInfo(MemberVO member) {
+		return payMapper.selectMemberInfo(member);
 	}
 	
 	//payment 관련 정보 모두 가져오기
@@ -185,6 +190,8 @@ public class PayService {
 	public List<Map<String, String>> getPayInfoList(Map<String, Object> memberCode) {
 		return payMapper.selectPayInfoList(memberCode);
 	}
+
+	
 
 	
 }

@@ -112,14 +112,14 @@
 					<div class="card-body">
 						<h5 class="card-title text-success">연락처</h5>
 						<p class="card-text">
-							<c:set var="phoneNumber" value="${payInfo.member_tel }" />
+							<c:set var="phoneNumber" value="${memberInfo.member_tel }" />
 							<c:set var="formatPhoneNumber" value="${phoneNumber.substring(0, 3)}-${phoneNumber.substring(3, 7)}-${phoneNumber.substring(7)}" />
 							${formatPhoneNumber }
 						</p>
 						<h5 class="card-title text-success">이메일</h5>
-						<p class="card-text">${payInfo.member_email }</p>
+						<p class="card-text">${memberInfo.member_email }</p>
 						<h5 class="card-title text-success">이름(닉네임)</h5>
-						<p class="card-text">${payInfo.member_nickname }</p>
+						<p class="card-text">${memberInfo.member_nickname }</p>
 					</div>
 				</div>
 			</div>

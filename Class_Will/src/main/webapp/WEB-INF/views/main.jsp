@@ -151,7 +151,7 @@
 	                	
 	                	<c:forEach var="contents" items="${top10List}">
 	                		
-							<div class="rounded position-relative vesitable-item">
+							<div class="rounded position-relative"  onclick="location.href='class-detail?class_code=${contents.class_code}'">
 								<div class="vesitable-img">
 									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 								</div>
@@ -252,7 +252,7 @@
 							<div class="row g-4">
 							
 								<c:forEach var="contents" items="${newClassList}">
-									<div class="col-md-6 col-lg-4 col-xl-3 ">
+									<div class="col-md-6 col-lg-4 col-xl-3" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 										<div class="rounded position-relative class-item classCard">
 											<div class="">
 												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">

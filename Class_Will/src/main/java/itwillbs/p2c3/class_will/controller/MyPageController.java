@@ -380,7 +380,7 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) { // 실패
-			return "error/error_404";
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);

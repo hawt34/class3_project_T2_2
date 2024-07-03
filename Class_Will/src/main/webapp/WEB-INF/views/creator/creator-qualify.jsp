@@ -33,7 +33,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/css/creator/creator-review.css" rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/css/creator/creator-qualify.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
 	.creator-qualify-info{
@@ -58,7 +58,7 @@
 	border-radius: 10px;
 	}
 	.regist_account{
-		border: 1px solid black;
+/* 		border: 1px solid black; */
 		border-radius: 10px;
 		margin: 0 auto;
 	}
@@ -80,18 +80,24 @@
 		
 		<div class="container col-md-10">
 		
-			<div class="regist_account col-md-6 text-center py-3 mb-5">
+			<div class="regist_account col-md-6 text-center py-3 mb-4">
 				<c:choose>
 					<c:when test="${token eq null}">
-						<h6 class="text-black">계좌 등록</h6>
+						<h5 class="text-black mb-3">🪙 계좌 등록 🪙</h5>
 						<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
 					</c:when>
 					<c:otherwise>
-						<h6 class="text-black">등록 계좌</h6>
-						<p>계좌번호 : ${token.account_num}</p>
+						<h5 class="text-black mb-3">🪙 등록된 계좌 🪙</h5>
+						<table>
+							<tr>
+								<td>계좌번호</td>
+								<td>${token.account_num}</td>
+							</tr>
+						</table>
 					</c:otherwise>
 				</c:choose>
 			</div>
+			
 			
 			<div class="creator-qualify-info col-md-12 mb-5">
 				<h6>◎일정 준수 의무</h6>
@@ -152,9 +158,20 @@
 		}
 	
 		function registCreator() {
-			if($(".checkBox").ischecked){
-				location.href='creator-regist';	
-			}
+			if(!"${token}"){
+				alert("계좌를 등록하여주십시오");
+				return;
+			} 
+			if($(".checkBox").prop("checked")){
+				debugger;
+				if(confirm("크리에이터로 등록하시겠습니까?")){
+					location.href='creator-regist';	
+				}
+			} else if(!$(".checkBox").prop("checked")){
+				alert("약관에 동의하여 주십시오");
+				$(".checkBox").focus();
+				return;
+			} 
 		}
 			
 		

@@ -593,9 +593,8 @@ document.addEventListener('DOMContentLoaded', function() {
         inline: true,
         locale: "ko" // 한글 설정
     };
-    debugger;
     var today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0); // 0시 0분 0초 0밀리초
 
     //오늘 날짜 들어있으면 filter
     enableDates = enableDates.filter(dateStr => {

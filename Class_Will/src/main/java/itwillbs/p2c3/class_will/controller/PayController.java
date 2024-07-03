@@ -161,7 +161,7 @@ public class PayController {
 			logger.info("@@@@ packageInfo:" + packageInfo);
 			
 			model.addAttribute("packageInfo", packageInfo);
-			model.addAttribute("packageInfoJson", jsonArray);
+			model.addAttribute("bankInfoJson", jsonArray);
 			model.addAttribute("bankUserInfo", bankUserInfo);
 		}
 		

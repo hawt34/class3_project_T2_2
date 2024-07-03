@@ -319,18 +319,6 @@ body {
 							</select>
 						</div>
 <!-- 					카테고리바 지역 끝 -->
-							
-<!-- 						<div class="selectDiv col-md-4"> -->
-<!-- 							<div class="row"> -->
-<!-- 								<div class="col"> -->
-<!-- 							    	<label for="customRange3" class="form-label">금액</label> -->
-<!-- 							    </div> -->
-<!-- 							    <div class="classPrice col-2"> -->
-<!-- 							    	<span class="badge bg-light text-dark ">금액</span> -->
-<!-- 							    </div> -->
-<!-- 						    </div> -->
-<!-- 						    <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3"> -->
-<!-- 						</div> -->
 						
 						<!-- 셀렉트 검색 버튼 -->
 						<div class="btnSearchDiv col-md-1">
@@ -584,64 +572,7 @@ function updateLocal() {
 }
 
 //------------------------------------------------------------------------------------
-// 셀렉트 값 셀렉트 컨테이너에 추가
-// function addContainer(value, text) {
-//     const categoryContainer = document.getElementById('categoryContainer');
-//     const div = document.createElement('div');
 
-//     div.className = 'mt-3 col-md-2 position-relative chooseDiv';
-
-//     const input = document.createElement('input');
-//     input.type = 'text';
-//     input.className = 'form-control chooseResult';
-//     input.value = text;
-//     input.readOnly = true;
-
-//     const img = document.createElement('img');
-<%--     img.src = '<%= request.getContextPath() %>/resources/images/class/x.png'; --%>
-//     img.className = 'xicon';
-
-//     div.appendChild(input);
-//     div.appendChild(img);
-//     categoryContainer.appendChild(div);
-
-//     // 카테고리를 삭제하는 기능 추가
-//     img.addEventListener('click', function() {
-//         categoryContainer.removeChild(div);
-//         // 배열에서 값 제거
-//         selectedCategories = selectedCategories.filter(item => item !== value);
-//         selectedSmallCategories = selectedSmallCategories.filter(item => item !== value);
-//         selectedLocals = selectedLocals.filter(item => item !== value);
-//     });
-// }
-
-//------------------------------------------------------------------------------------
-// // 검색 버튼 (카테고리 셀렉트)
-// function searchCategory() {
-//     var big_category = $("#class_big_category").val();
-// 	var small_category = $("#class_small_category").val();
-// 	var local = $("#class_local").val();
-	
-//     $.ajax({
-//         url: 'class-list',
-//         type: 'GET',
-//         data: {
-//         	big_category : big_category,
-//         	small_category : small_category,
-//         	local : local
-//         },
-//         success: function(response) {
-//             // 요청 성공 시 처리할 코드
-//             console.log('AJAX 요청 성공');
-//             alert("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local);
-// //             alert('AJAX 요청 성공');
-//             updateClassList(response); // response를 이용한 데이터 처리 함수 호출
-//         },
-//         error: function(xhr, status, error) {
-//             console.error('AJAX 요청 실패:', error);
-//         }
-//     });
-// }
 var contextPath = '<%= request.getContextPath() %>';
 $(function() {
 	
@@ -759,82 +690,74 @@ function updateClassList(classList) {
     });
 }
 
-// ---
-//     $.each(classes, function(index, classData) {
-//         var classHtml = `
-//             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-//                 <div class="card shadow-sm border-0 rounded flex-fill mb-4">
-//                     <div class="card-body p-0 position-relative card-body1 position-relative1">
-//                         <a href="class-detail?class_code=${classData.class_code}">
-//                             <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
-//                         </a>
-//                         <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classData.class_code}" data-member-code="${classData.member_code}">
-//                         <div class="card-bodys d-flex flex-column">
-//                             <div class="classCategory col-md-10">
-//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${filterClass.class_big_category}</button>
-//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classData.class_small_category}</button>
-//                             </div>
-//                             <div class="createrName d-flex align-items-center">
-//                                 <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-//                                 <p class="mb-0 ml-2">${filterClass.member_nickname}</p>
-//                             </div>
-//                             <div class="className">
-//                                 <a href="class-detail"><h6>${filterClass.class_name}</h6></a>
-//                             </div>
-//                             <div class="row classInfo">
-//                                 <div class="col-md-6 add">
-//                                     <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classData.class_location}</a>
-//                                 </div>
-//                                 <div class="col-md-6 price">
-//                                     <p>${classData.class_price}원</p>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         `;
-
-//         classListContainer.append(classHtml); // 클래스 정보를 컨테이너에 추가
-//     });
-// }
 //------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
 function resetCategory() {
-    // 대 카테고리 선택 초기화
+    // 카테고리 선택 초기화
     document.getElementById('class_big_category').value = 'bigCategoryAll';
-
-    // 소 카테고리 선택 초기화
     document.getElementById('class_small_category').value = 'smallCategoryAll';
-
-    // 지역 카테고리 선택 초기화
     document.getElementById('class_local').value = 'classLocalAll';
 
+    // Ajax 요청을 통해 전체 클래스 목록을 가져옴
+    $.ajax({
+        type: "GET",
+        url: "filter-class",
+        dataType: "json",
+        data: {
+            hash_tag: "" // 필터링 파라미터 초기화
+        },
+        success: function(filterClass) {
+            // Update class count
+            $(".classCount").html('<p>' + filterClass.length + '개의 클래스</p>');
+
+            // 비우기
+            $("#classListContainer").empty();
+
+            // 새로운 데이터로 채우기
+            for (let filter of filterClass) {
+                $("#classListContainer").append(
+                    '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">'
+                    + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">'
+                    + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
+                    + '<a href="class-detail?class_code=' + filter.class_code + '">'
+                    + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">'
+                    + '</a>'
+                    + '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '" data-member-code="' + filter.member_code + '">'
+                    + '<div class="card-bodys d-flex flex-column">'
+                    + '<div class="classCategory col-md-10">'
+                    + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>'
+                    + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>'
+                    + '</div>'
+                    + '<div class="createrName d-flex align-items-center">'
+                    + '<img src="' + contextPath + '/resources/images/class/pic.png">'
+                    + '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>'
+                    + '</div>'
+                    + '<div class="className">'
+                    + '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>'
+                    + '</div>'
+                    + '<div class="row classInfo">'
+                    + '<div class="col-md-6 add">'
+                    + '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>'
+                    + '</div>'
+                    + '<div class="col-md-6 price">'
+                    + '<p>' + filter.class_price + '원</p>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                    + '</div>'
+                );
+            }
+            console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
+        },
+        error: function(xhr, status, error) {
+            console.error("Error details:", xhr, status, error);
+            alert("오류 발생: " + error);
+        }
+    });
 }
 
-//------------------------------------------------------------------------------------
-// 해시태그 셀렉트 
-// function hashtagSelect(tagCode) {
-//     $.ajax({
-//         url: 'class-list',
-//         type: 'GET',
-//         data: {
-//             hashtag: tagCode
-//         },
-//         success: function(response) {
-//             console.log('AJAX 요청 성공');
-//             alert('AJAX 요청 성공');
-//             updateClassList(response); // response를 이용한 데이터 처리 함수 호출
-//         },
-//         error: function(xhr, status, error) {
-//             console.error('AJAX 요청 실패:', error);
-//             alert('AJAX 요청 실패');
-//         }
-//     });
-// }
-// -----------------------------
-
-
+// 해시태그 누른 값
 var contextPath = '<%= request.getContextPath() %>';
 
 $(function() {
@@ -900,41 +823,40 @@ $(function() {
         });
     });
 });
-// -----------------------------
 
-// function updateClassList(classList) {
+// //필터링된 클래스 표시
+// function displayFilteredClasses(classes) {
 //     var classListContainer = $("#classListContainer"); // 클래스 목록을 표시할 컨테이너
 //     classListContainer.empty(); // 기존 클래스 목록 비우기
-
-//     $.each(classList, function(index, classItem) {
-//         var classCard = `
+    
+//     // 각 클래스 정보를 반복하여 HTML에 추가
+//     $.each(classes, function(index, classData) {
+//         var classHtml = `
 //             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 //                 <div class="card shadow-sm border-0 rounded flex-fill mb-4">
 //                     <div class="card-body p-0 position-relative card-body1 position-relative1">
-//                         <a href="class-detail?class_code=${classItem.class_code}">
+//                         <a href="class-detail?class_code=${classData.class_code}">
 //                             <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
 //                         </a>
-//                         <!-- 하트 이미지 -->
-//                         <img src="${pageContext.request.contextPath}/resources/images/profile/${classItem.isLiked ? 'heart_full.png' : 'heart.png'}" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
-//                         <!-- 하트 이미지 -->
+//                         <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classData.class_code}" data-member-code="${classData.member_code}">
 //                         <div class="card-bodys d-flex flex-column">
 //                             <div class="classCategory col-md-10">
-//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classItem.class_big_category}</button>
-//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classItem.class_small_category}</button>
+//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${filterClass.class_big_category}</button>
+//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classData.class_small_category}</button>
 //                             </div>
 //                             <div class="createrName d-flex align-items-center">
 //                                 <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-//                                 <p class="mb-0 ml-2">${classItem.member_nickname}</p>
+//                                 <p class="mb-0 ml-2">${filterClass.member_nickname}</p>
 //                             </div>
 //                             <div class="className">
-//                                 <a href="class-detail"><h6>${classItem.class_name}</h6></a>
+//                                 <a href="class-detail"><h6>${filterClass.class_name}</h6></a>
 //                             </div>
 //                             <div class="row classInfo">
 //                                 <div class="col-md-6 add">
-//                                     <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classItem.local_name}</a>
+//                                     <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classData.local_name}</a>
 //                                 </div>
 //                                 <div class="col-md-6 price">
-//                                     <p>${classItem.class_price}원</p>
+//                                     <p>${classData.class_price}원</p>
 //                                 </div>
 //                             </div>
 //                         </div>
@@ -942,87 +864,10 @@ $(function() {
 //                 </div>
 //             </div>
 //         `;
-//         classListContainer.append(classCard); // 클래스 카드를 컨테이너에 추가
+
+//         classListContainer.append(classHtml); // 클래스 정보를 컨테이너에 추가
 //     });
-// }
-//------------------------------------------------------------------------------------
-// 카테고리 바 높이
-// function categoryBarHeight() {
-//     var categoryBarBox = $(".categoryBarBox");
-//     var additionalHeight = 20; 
-//     var newHeight = categoryBarBox.height() + additionalHeight;
-//     categoryBarBox.css("height", newHeight + "px");
-// }
-
-//------------------------------------------------------------------------------------
-// // 카테고리에 따른 필터링
-// function selectCategory () {
-// 	var obj = {
-//             bigCategories: selectedCategories,
-//             smallCategories: selectedSmallCategories,
-//             locals: selectedLocals
-//     };
-//     $.ajax({
-//         url: "filter-class",
-//         method: "post",
-//         contentType: "application/json",
-//         data: JSON.stringify(obj),
-//         success: function(response) {
-//             console.log(response + "1111");
-//             displayFilteredClasses(response);
-//             alert("성공"); 
-//         },
-//         error: function(xhr, status, error) {
-//             alert("실패ㅏㅏㅏㅏㅏㅏㅏㅏㅏ"); 
-//             console.error('AJAX 요청 중 오류 발생: ' + error); 
-//         }
-//     });
-// }
-
-//필터링된 클래스 표시
-function displayFilteredClasses(classes) {
-    var classListContainer = $("#classListContainer"); // 클래스 목록을 표시할 컨테이너
-    classListContainer.empty(); // 기존 클래스 목록 비우기
-    
-    // 각 클래스 정보를 반복하여 HTML에 추가
-    $.each(classes, function(index, classData) {
-        var classHtml = `
-            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-                <div class="card shadow-sm border-0 rounded flex-fill mb-4">
-                    <div class="card-body p-0 position-relative card-body1 position-relative1">
-                        <a href="class-detail?class_code=${classData.class_code}">
-                            <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
-                        </a>
-                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classData.class_code}" data-member-code="${classData.member_code}">
-                        <div class="card-bodys d-flex flex-column">
-                            <div class="classCategory col-md-10">
-                                <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${filterClass.class_big_category}</button>
-                                <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classData.class_small_category}</button>
-                            </div>
-                            <div class="createrName d-flex align-items-center">
-                                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-                                <p class="mb-0 ml-2">${filterClass.member_nickname}</p>
-                            </div>
-                            <div class="className">
-                                <a href="class-detail"><h6>${filterClass.class_name}</h6></a>
-                            </div>
-                            <div class="row classInfo">
-                                <div class="col-md-6 add">
-                                    <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classData.local_name}</a>
-                                </div>
-                                <div class="col-md-6 price">
-                                    <p>${classData.class_price}원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        classListContainer.append(classHtml); // 클래스 정보를 컨테이너에 추가
-    });
-} // displayFilteredClasses 끝
+// } // displayFilteredClasses 끝
 </script>
 </body>
 </html>

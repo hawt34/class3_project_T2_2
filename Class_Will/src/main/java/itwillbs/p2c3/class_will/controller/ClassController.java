@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -157,6 +158,7 @@ public class ClassController {
 		return smallCategory;
 	}
 	
+	
 //	@ResponseBody
 //	@GetMapping("class-hashtag")
 //	public List<Map<String, Object>> getClassHashtag(@RequestParam String big_category){
@@ -189,6 +191,25 @@ public class ClassController {
 	    model.addAttribute("filterClass", filterClass);
 	    System.out.println(">>>filterClass : " + filterClass);
 	    return filterClass;
+	}
+	
+	@ResponseBody
+	@GetMapping("class-range")
+	public List<Map<String, Object>> getClassRange(Model model, @RequestParam(required = false) String hashtag){
+//		List<Map<String, Object>> lowPriceList = classService.getLowPrice();
+//		System.out.println("smallCategory:@@@@@@ " + lowPriceList);
+
+        Map<String, Object> list = new HashMap<>();
+        list.put("hashtag", hashtag);
+	    List<Map<String, Object>> classList = classService.getClassList(list);
+	    
+	    // class_price 기준으로 오름차순 정렬
+	    classList.sort(Comparator.comparing(classItem -> (Integer) classItem.get("class_price")));
+
+	    model.addAttribute("classList", classList);
+	    System.out.println(">>>classList ::::: " + classList);
+
+	    return classList;
 	}
 	
 	// like_class 상태변경 

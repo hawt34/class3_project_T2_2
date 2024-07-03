@@ -135,11 +135,13 @@
 	</select>
 	
 	<!-- 클래스 리스트 -->
-	<select id="selectClassList" resultType="map" parameterType="string">
+	<select id="selectClassList" resultType="map" parameterType="map">
 		SELECT class_code
 		      ,class_name
 		      ,c2.code_value AS class_big_category
 		      ,c3.code_value AS class_small_category
+		      ,c2.common2_code
+		      ,c3.common3_code
 		      ,class_thumnail
 		      ,class_image
 		      ,class_ex
@@ -164,8 +166,17 @@
 		JOIN MEMBER m
 		ON c.member_code = m.member_code
     <where>
+        <if test="big_category != null and !big_category.isEmpty()">
+           AND c2.common2_code = #{big_category}
+        </if>
+        <if test="small_category != null and !small_category.isEmpty()">
+           AND c3.common3_code = #{small_category}
+        </if>
+        <if test="local != null and !local.isEmpty()">
+           AND c.common2_code = #{local}
+        </if>
         <if test="hashtag != null and !hashtag.isEmpty()">
-           c.class_hashtag LIKE CONCAT('%', #{hashtag}, '%')
+           AND c.class_hashtag LIKE CONCAT('%', #{hashtag}, '%')
         </if>
     </where>
 	</select>

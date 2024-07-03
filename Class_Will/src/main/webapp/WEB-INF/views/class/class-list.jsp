@@ -310,7 +310,7 @@ function showErrorMsg(error) {
    
 body {
     position: relative;
-    padding-top: 50px; /* 내 위치 버튼과 겹치지 않도록 상단 패딩 설정 */
+/*     padding-top: 50px; /* 내 위치 버튼과 겹치지 않도록 상단 패딩 설정 */ */
 }
         
 #mapContainer {
@@ -381,6 +381,7 @@ body {
 								</c:forEach>
 							</select>
 						</div>
+						
 						<div class="col-md-2">
 							<label for="class_small_category" class="h6">상세분류</label> 
 							<select name="class_small_category" id="class_small_category" class="form-control"  onchange="updateSmallCategory()">
@@ -432,25 +433,6 @@ body {
 					</div>
 					<!-- 셀렉트박스 리스트 끝 -->
 					
-					<!-- 카테고리 셀렉트 리스트 -->
-<!-- 					<div class="row mx-5"> -->
-<%-- 						<c:forEach var="smallCategory" items="${smallCategory}" varStatus="status"> --%>
-<!-- 						    <div class="mt-3 col-md-2 position-relative chooseDiv"> -->
-<%-- 						        <input type="text" class="form-control chooseResult" id="exampleFormControlInput1" value="${smallCategory.code_value }"readonly> --%>
-<%-- 						        <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="xicon"> --%>
-<!-- 						    </div> -->
-<%-- 						</c:forEach> --%>
-<!-- 						<hr> -->
-<!-- 					</div> -->
-					<!-- 카테고리 셀렉트 리스트 -->
-					
-					<!-- 카테고리 셀렉트 리스트 -->
-<!-- 					<div class="row mx-5" id="categoryContainer"> -->
-						<!-- 선택된 카테고리 값들이 추가됨 -->
-<!-- 					</div> -->
-
-					<!-- 카테고리 셀렉트 리스트 -->
-					
 					<!-- 해시태그 리스트 -->
 					<div class="row mx-5">
 						<hr>
@@ -464,11 +446,7 @@ body {
 						</div>
 					</div>
 					<!-- 해시태그 리스트 -->
-					
 				</div>
-<!-- 				    <div id="mapContainer"></div>		 -->
-				
-				
 			</div>
 		</div>
 	</div>
@@ -483,19 +461,23 @@ body {
 			</div>
 		</div>
 		<div class="col box11">
-			<p>
-				<a class="btn btn-outline-light btnLocation" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-					내 위치 지도 보기
-				</a>
-			</p>
-			<select class="form-select selectBox1 w-50" aria-label="Default select example">
-				<option selected>인기순</option>
-				<option value="1">후기순</option>
-				<option value="2">별점순</option>
-				<option value="3">낮은 가격순</option>
-				<option value="4">높은 가격순</option>
-				<option value="5">거리순</option>
-			</select>
+			<div class="col-md-5">
+				<p>
+					<a class="btn btn-outline-light btnLocation" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+						내 위치 지도 보기
+					</a>
+				</p>
+			</div>
+			<div class="col-md-5">
+				<select class="form-select selectBox1 w-50" aria-label="Default select example">
+					<option selected>인기순</option>
+					<option value="1">후기순</option>
+					<option value="2">별점순</option>
+					<option value="3">낮은 가격순</option>
+					<option value="4">높은 가격순</option>
+					<option value="5">거리순</option>
+				</select>
+			</div>
 		</div>
 	</div> <!-- row -->
 	<!-- 클래스 개수 끝 -->
@@ -685,35 +667,35 @@ function updateLocal() {
 
 //------------------------------------------------------------------------------------
 // 셀렉트 값 셀렉트 컨테이너에 추가
-function addContainer(value, text) {
-    const categoryContainer = document.getElementById('categoryContainer');
-    const div = document.createElement('div');
+// function addContainer(value, text) {
+//     const categoryContainer = document.getElementById('categoryContainer');
+//     const div = document.createElement('div');
 
-    div.className = 'mt-3 col-md-2 position-relative chooseDiv';
+//     div.className = 'mt-3 col-md-2 position-relative chooseDiv';
 
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.className = 'form-control chooseResult';
-    input.value = text;
-    input.readOnly = true;
+//     const input = document.createElement('input');
+//     input.type = 'text';
+//     input.className = 'form-control chooseResult';
+//     input.value = text;
+//     input.readOnly = true;
 
-    const img = document.createElement('img');
-    img.src = '<%= request.getContextPath() %>/resources/images/class/x.png';
-    img.className = 'xicon';
+//     const img = document.createElement('img');
+<%--     img.src = '<%= request.getContextPath() %>/resources/images/class/x.png'; --%>
+//     img.className = 'xicon';
 
-    div.appendChild(input);
-    div.appendChild(img);
-    categoryContainer.appendChild(div);
+//     div.appendChild(input);
+//     div.appendChild(img);
+//     categoryContainer.appendChild(div);
 
-    // 카테고리를 삭제하는 기능 추가
-    img.addEventListener('click', function() {
-        categoryContainer.removeChild(div);
-        // 배열에서 값 제거
-        selectedCategories = selectedCategories.filter(item => item !== value);
-        selectedSmallCategories = selectedSmallCategories.filter(item => item !== value);
-        selectedLocals = selectedLocals.filter(item => item !== value);
-    });
-}
+//     // 카테고리를 삭제하는 기능 추가
+//     img.addEventListener('click', function() {
+//         categoryContainer.removeChild(div);
+//         // 배열에서 값 제거
+//         selectedCategories = selectedCategories.filter(item => item !== value);
+//         selectedSmallCategories = selectedSmallCategories.filter(item => item !== value);
+//         selectedLocals = selectedLocals.filter(item => item !== value);
+//     });
+// }
 
 //------------------------------------------------------------------------------------
 // 검색 버튼 (카테고리 셀렉트)
@@ -721,18 +703,55 @@ function searchCategory() {
     var big_category = $("#class_big_category").val();
 	var small_category = $("#class_small_category").val();
 	var local = $("#class_local").val();
+	
+    $.ajax({
+        url: 'class-list',
+        type: 'GET',
+        data: {
+        	big_category : big_category,
+        	small_category : small_category,
+        	local : local
+        },
+        success: function(response) {
+            // 요청 성공 시 처리할 코드
+            console.log('AJAX 요청 성공');
+            alert("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local);
+//             alert('AJAX 요청 성공');
+            updateClassList(response); // response를 이용한 데이터 처리 함수 호출
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX 요청 실패:', error);
+        }
+    });
+}
+
+// 클래스 리스트 업데이트 함수
+function updateClassList(classList) {
+    var classListContainer = document.getElementById('classListContainer');
+    classListContainer.innerHTML = ''; // 기존 내용 초기화
+
+    classList.forEach(function(classItem) {
+        var classElement = document.createElement('div');
+        classElement.textContent = classItem.class_name; // 예시로 클래스 이름 표시
+
+        // 필요한 경우 추가 정보도 표시할 수 있음
+        // classElement.textContent += ' - ' + classItem.class_location;
+
+        classListContainer.appendChild(classElement);
+    });
 }
 //------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
 function resetCategory() {
-    const categoryContainer = document.getElementById('categoryContainer');
-    categoryContainer.innerHTML = ''; 
+    // 대 카테고리 선택 초기화
+    document.getElementById('class_big_category').value = 'bigCategoryAll';
 
-    selectedCategories = [];
-    selectedSmallCategories = [];
-    selectedLocals = [];
+    // 소 카테고리 선택 초기화
+    document.getElementById('class_small_category').value = 'smallCategoryAll';
 
-    categoryBarHeight();
+    // 지역 카테고리 선택 초기화
+    document.getElementById('class_local').value = 'classLocalAll';
+
 }
 
 //------------------------------------------------------------------------------------

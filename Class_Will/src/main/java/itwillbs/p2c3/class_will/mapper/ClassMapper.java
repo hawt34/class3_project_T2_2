@@ -48,7 +48,7 @@ public interface ClassMapper {
 	List<Map<String,Object>> selectLikeClassCode(int member_coode);
 	
 	// 클래스 리스트
-	List<Map<String, Object>> selectClassList(@RequestParam("hashtag") String hashtag);
+	List<Map<String, Object>> selectClassList(Map<String, Object> list);
 	
 	// 소 카테고리
 	List<Map<String, Object>> selectListSmallCategory();

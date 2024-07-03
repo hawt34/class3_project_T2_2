@@ -119,20 +119,21 @@ function showLocations(position) {
     var mapContainer = document.getElementById('mapContainer'); // 지도를 표시할 div
     var mapOption = {
         center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표
-        level: 7
+        level: 9
     };
     
     var map = new kakao.maps.Map(mapContainer, mapOption);
     
     // 현재 위치 마커 생성
-    var currentMarkerImage = '${pageContext.request.contextPath}/resources/images/class/map.png'; // 현재 위치 마커 이미지 주소
-    var currentMarkerSize = new kakao.maps.Size(50, 50); // 현재 위치 마커 이미지 크기
-    var currentMarkerImage = new kakao.maps.MarkerImage(currentMarkerImage, currentMarkerSize);
+    var currentMarkerImageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png'; // 현재 위치 마커 이미지 주소
+    var currentMarkerSize = new kakao.maps.Size(80, 80); // 현재 위치 마커 이미지 크기
+    var currentMarkerImage = new kakao.maps.MarkerImage(currentMarkerImageSrc, currentMarkerSize);
     
     var currentMarkerPosition = new kakao.maps.LatLng(userLat, userLng);
     var currentMarker = new kakao.maps.Marker({
         position: currentMarkerPosition,
-        image: currentMarkerImage // 현재 위치 마커 이미지 설정
+        image: currentMarkerImage, // 현재 위치 마커 이미지 설정
+        zIndex: 1000 // 현재 위치 마커의 zIndex 설정
     });
     currentMarker.setMap(map);
     
@@ -146,50 +147,45 @@ function showLocations(position) {
         xAnchor: 0.5, // 수평 방향에서 중앙에 위치
         yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
     });
-	let classList = JSON.parse('${classList}');
-// 	let classList = ${classList};
-	console.log("classList : " +'${classList}');
-	
-// 	let classListString = '[{"class_map_x": "35.0986158", "class_map_y": "129.0287567"}, {"class_map_x": "35.12345", "class_map_y": "129.67890"}]';
-// 	let classList = JSON.parse(classListString);
-    // 클래스 위치들 (예시 데이터)
-//     var classLocations = [];
+    
+    let jsonList = JSON.parse('${jsonList}'); // 서버에서 전달된 jsonList 사용
+    console.log("jsonList : " + JSON.stringify(jsonList));
+    
     var classLocations = [];
     
-	for (var i = 0; i < classList.length; i++) {
-	    var classes = classList[i];
-	    classLocations.push({
-	    	title: 'classwill ' + classes.class_name,
-	        latlng: new kakao.maps.LatLng(classes.class_map_x, classes.class_map_y)
-	    });
-	    console.log("title : " + classes.class_name);
-	    console.log("latlng : " + classes.class_map_x, classes.class_map_y);
-	}
-	
+    for (var i = 0; i < jsonList.length; i++) {
+        var classes = jsonList[i];
+        classLocations.push({
+            title: classes.class_name,
+            latlng: new kakao.maps.LatLng(classes.class_map_y, classes.class_map_x) // 위도와 경도 순서 주의
+        });
+        console.log("title : " + classes.class_name);
+        console.log("latlng : " + classes.class_map_y + ", " + classes.class_map_x);
+    }
+    
     // 클래스 위치 마커와 커스텀 오버레이 생성
     classLocations.forEach(function(location) {
-        var markerImage = '${pageContext.request.contextPath}/resources/images/class/map2.png'; // 클래스 위치 마커 이미지 주소
+        var markerImageSrc = '${pageContext.request.contextPath}/resources/images/class/map2.png'; // 클래스 위치 마커 이미지 주소
         var markerSize = new kakao.maps.Size(50, 50); // 클래스 위치 마커 이미지 크기
-        var markerImage = new kakao.maps.MarkerImage(markerImage, markerSize);
+        var markerImage = new kakao.maps.MarkerImage(markerImageSrc, markerSize);
         
-        var markerPosition = new kakao.maps.LatLng(location.class_map_x, location.class_map_y);
+        var markerPosition = location.latlng;
         var marker = new kakao.maps.Marker({
             position: markerPosition,
             image: markerImage // 클래스 위치 마커 이미지 설정
         });
         marker.setMap(map);
         
-        var content = '<div style="padding:10px; color:blue; font-weight: bold;">' + location.name + '</div>'; // 클래스 위치 커스텀 오버레이 내용
+        var content = '<div style="padding:10px; color:blue; font-size : 0.8em; font-weight: bold;">' + location.title + '</div>'; // 클래스 위치 커스텀 오버레이 내용
         var customOverlay = new kakao.maps.CustomOverlay({
             map: map,
             position: markerPosition,
             content: content,
-			xAnchor: 0.5, // 수평 방향에서 중앙에 위치
-			yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
+            xAnchor: 0.5, // 수평 방향에서 중앙에 위치
+            yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
         });
     });
 }
-
 // 현재 위치를 가져오는 함수
 function getCurrentLocation() {
     if (navigator.geolocation) {

@@ -171,9 +171,18 @@ th:nth-child(2), td:nth-child(2) {
 													<td>${possibleReview.class_schedule_date}</td>
 													<td>${possibleReview.class_round}</td>
 													<td>수료 완료</td>
-													<td>
-													<a href="resist-review?class_code=${possibleReview.class_code}&member_code=${member.member_code}" style="">등록하기</a>
-													</td>
+													<td><c:choose>
+															<c:when test="${possibleReview.review_count == 0}">
+																<!-- 리뷰 작성 가능한 경우 -->
+																<a
+																	href="resist-review?class_code=${possibleReview.class_code}&member_code=${member.member_code}"
+																	class="btn btn-primary">등록하기</a>
+															</c:when>
+															<c:otherwise>
+																<!-- 이미 리뷰를 작성한 경우 -->
+																<button class="btn btn-secondary" disabled>작성	완료</button>
+															</c:otherwise>
+														</c:choose></td>
 												</tr>
 											</c:forEach>
 										</tbody>

@@ -121,6 +121,7 @@
 
 	<select id="selectPossibleReview">
 		<!-- 클래스 결제 및 날짜를 기준으로 등록가능한 리뷰 클래스 데리고 오기 -->
+		<!-- 서브쿼리는 중복리뷰 작성방지를 위해 만듬. -->
 		 <![CDATA[
 		SELECT
 		p.pay_code,
@@ -136,7 +137,8 @@
 		cs.class_code,
 		cs.class_schedule_date,
 		cs.class_round,
-		c.class_name
+		c.class_name,
+		(SELECT COUNT(*) FROM class_review cr WHERE cr.class_code = p.class_code AND cr.member_code = p.member_code) as review_count
 		FROM
 		pay p
 		JOIN

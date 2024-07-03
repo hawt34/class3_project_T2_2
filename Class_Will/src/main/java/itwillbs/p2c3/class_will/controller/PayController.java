@@ -282,5 +282,33 @@ public class PayController {
 		return "mypage/mypage-class";
 	}
 	
+	@ResponseBody
+	@PostMapping("refund")
+	public boolean refund(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
+		System.out.println("refund-map값: " + map);
+		boolean isSuccess = false;
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String result = "";
+		if(member == null) {
+			WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
+		}
+		int memberCode = member.getMember_code();
+		map.put("member_code", memberCode);
+		
+		//결제 날짜를 비교하여 환불금액 결정
+		int refund_amt = payService.getRefundAmt(map);
+		map.put("refund_amt", refund_amt);
+		
+		//환불 요청
+		try {
+			isSuccess = payService.refundPay(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isSuccess;
+	}
+	
 	
 }

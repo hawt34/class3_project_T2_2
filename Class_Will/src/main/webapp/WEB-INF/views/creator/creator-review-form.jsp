@@ -108,7 +108,8 @@
 								"reviewStatus" : reviewStatus
 						},
 						success: function(data) {
-						window.close();
+							window.opener.location.reload(); // 부모창 리로드
+							window.close();
 					}
 				});	
 			}
@@ -124,7 +125,7 @@
 					data: { "reviewCode" : reviewCode,
 					},
 					success: function(data) {
-						$(window.opener).location.reload(); // 부모창 리로드
+						window.opener.location.reload(); // 부모창 리로드
 					    window.close(); 
 					}
 				});	

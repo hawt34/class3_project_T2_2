@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
@@ -41,7 +42,7 @@ public class ClassController {
 	// 클래스 리스트
 	@GetMapping("class-list")
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
-	public String classList(Model model, HttpSession session) {
+	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag) {
 		
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    Integer member_code = null;
@@ -71,13 +72,35 @@ public class ClassController {
 	    model.addAttribute("localList", localList);
 	    
 	    // 클래스 리스트
-	    List<Map<String, Object>> classList = classService.getClassList();
+	    List<Map<String, Object>> classList = classService.getClassList(hashtag);
 	    model.addAttribute("classList", classList);
+	    System.out.println(">>>classList : " + classList);
 	    
+	    
+		JsonArray jsonList = new JsonArray();
+		
+		for(Map<String, Object> class1  : classList) {
+			JsonObject json = new JsonObject();
+			json.addProperty("class_map_x", (String) class1.get("class_map_x"));
+			json.addProperty("class_map_y", (String) class1.get("class_map_y"));
+			json.addProperty("class_name", (String) class1.get("class_name"));
+			jsonList.add(json);
+			System.out.println(json);
+		}
+		
+		model.addAttribute("jsonList", jsonList);
+//		model.addAttribute("class_map_x", class_map_x);
+//		model.addAttribute("class_map_y", class_map_y);
+//		model.addAttribute("class_name", class_name);
+//		System.out.println(">>>!!! class_map_x : " + class_map_x);
+//		System.out.println(">>>!!! class_map_y : " + class_map_y);
+//		System.out.println(">>>!!! class_name : " + class_name);
+		System.out.println(">>>!!! jsonList : " + jsonList);
+		
 	    // 해시태그
 	    List<Map<String, Object>> hashtagList = classService.getHashtag();
 	    model.addAttribute("hashtagList", hashtagList);
-	    
+	    	
 	    // 클래스 리스트에 member_code 추가
 	    if (member_code != null) {
 	        for (Map<String, Object> classMap : classList) {

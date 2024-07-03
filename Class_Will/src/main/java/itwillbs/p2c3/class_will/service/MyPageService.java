@@ -82,6 +82,11 @@ public class MyPageService {
 		
 		return myPageMapper.selectPossibleReview(member_code);
 	}
+	//리뷰 등록
+	public int insertReview(Map<String, String> formData) {
+		
+		return myPageMapper.insertReview(formData);
+	}
 
 	
 

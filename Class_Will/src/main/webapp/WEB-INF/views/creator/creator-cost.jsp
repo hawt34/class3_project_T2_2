@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -88,7 +89,7 @@
 							</div>
 							
 							<div class="creator-event my-3">
-								<h5 class="col-md-8 mt-5 text-white" align="left">상세정산</h5>
+								<h5 class="col-md-8 mt-5 text-white mb-3" align="center">💲 상세정산 💲</h5>
 								<div class="card col-md-8 my-1 card-body">
 <!-- 								    <div class="d-flex justify-content-start card-content"> -->
 <!-- 									    <p class="card-text">상태&nbsp;:</p> -->
@@ -111,15 +112,40 @@
 								
 								<hr class="col-md-8 text-white mt-5">
 								
-								<p class="text-white">계좌변경</p>
-								<div class="regist_account mb-5">
-									<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
+<!-- 								<p class="text-white">계좌변경</p> -->
+<!-- 								<div class="regist_account mb-5"> -->
+<!-- 									<input type="button" class="col-md-3" value="+" onclick="linkAccount()"> -->
+<!-- 								</div> -->
+								<div class="col-md-8">
+									<c:choose>
+										<c:when test="${token eq null}">
+											<h5 class="mb-3 text-white">🪙 계좌 등록 🪙</h5>
+											<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
+										</c:when>
+										<c:otherwise>
+											<h5 class="mb-3 text-white">🪙 등록된 계좌 🪙</h5>
+											<table>
+												<tr>
+													<td>계좌번호</td>
+													<td>${token.account_num}</td>
+												</tr>
+												<tr>
+													<td>
+														계좌변경
+													</td>
+													<td>
+														<input type="button" class="col-md-6" value="+" onclick="linkAccount()">
+													</td>
+												</tr>
+											</table>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								
-								<hr class="col-md-8 text-white">
+								<hr class="col-md-8 text-white mt-5">
 								
-								<h5 class="col-md-8 mt-5 text-white" align="left">총정산금</h5>
-								<div class="card col-md-8 mt-2 mb-5">
+								<h5 class="col-md-8 mt-4 text-white mb-3" align="center">💰 총정산금 💰</h5>
+								<div class="card col-md-8 mb-5">
 								  <div class="card-body">
 								  	<div class="d-flex justify-content-between mb-3">
 									    <p class="card-title h6" align="left">누적 정산금</p>

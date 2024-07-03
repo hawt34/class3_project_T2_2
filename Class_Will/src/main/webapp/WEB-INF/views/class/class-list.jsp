@@ -42,7 +42,7 @@
 
 <script type="text/javascript">
 
-// like-class
+// ------ like-class ------ 
 document.addEventListener("DOMContentLoaded", function() {
     var heartImges = document.querySelectorAll(".heartImg");
     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
@@ -107,84 +107,184 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- JavaScript 코드 -->
 <script>
-// 현재 위치
-function getCurrentLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
-	} else {
-		alert("Geolocation is not supported by this browser.");
-	}
-}
-
-function showYourLocation(position) {
+// ------ 현재 위치 ------ 
+// 현재 위치와 클래스 위치를 표시하는 함수
+function showLocations(position) {
     var userLat = position.coords.latitude; // 현재위치 위도
     var userLng = position.coords.longitude; // 현재위치 경도
     
-	alert("현재 위치는 : " + userLat + ", " + userLng);
+    alert("현재 위치는 : " + userLat + ", " + userLng);
     
-	// 카카오 지도에 현재 위치 표시
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-     mapOption = {
+    // 카카오 지도에 현재 위치 표시
+    var mapContainer = document.getElementById('mapContainer'); // 지도를 표시할 div
+    var mapOption = {
         center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표
-        level: 7
+        level: 9
     };
-	
-    var map = new kakao.maps.Map(document.getElementById('mapContainer'), mapOption);
-//     var mapOption = {
-//         center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표
-//         level: 3
-//     };
-
-	var imageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png', // 마커이미지의 주소입니다    
-	   imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
-// 	   imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-	   imageOption = {offset: new kakao.maps.Point(userLat, userLng)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-    var markerPosition = new kakao.maps.LatLng(userLat, userLng);
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
+    
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    
+    // 현재 위치 마커 생성
+    var currentMarkerImageSrc = '${pageContext.request.contextPath}/resources/images/class/map.png'; // 현재 위치 마커 이미지 주소
+    var currentMarkerSize = new kakao.maps.Size(80, 80); // 현재 위치 마커 이미지 크기
+    var currentMarkerImage = new kakao.maps.MarkerImage(currentMarkerImageSrc, currentMarkerSize);
+    
+    var currentMarkerPosition = new kakao.maps.LatLng(userLat, userLng);
+    var currentMarker = new kakao.maps.Marker({
+        position: currentMarkerPosition,
+        image: currentMarkerImage, // 현재 위치 마커 이미지 설정
+        zIndex: 1000 // 현재 위치 마커의 zIndex 설정
     });
-    marker.setMap(map);
+    currentMarker.setMap(map);
     
+    // 현재 위치 커스텀 오버레이 생성
+    var currentPosition = new kakao.maps.LatLng(userLat, userLng);
+    var currentContent = '<div style="padding:20px; color:red; font-weight: bold;">내 위치</div>'; // 현재 위치 커스텀 오버레이 내용
+    var currentCustomOverlay = new kakao.maps.CustomOverlay({
+        map: map,
+        position: currentPosition,
+        content: currentContent,
+        xAnchor: 0.5, // 수평 방향에서 중앙에 위치
+        yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
+    });
     
-    // ---------
-	
-// 마커 이미지 
-// 	// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-// 	var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-//     	markerPosition = new kakao.maps.LatLng(userLat, userLng); // 마커가 표시될 위치입니다
+    let jsonList = JSON.parse('${jsonList}'); // 서버에서 전달된 jsonList 사용
+    console.log("jsonList : " + JSON.stringify(jsonList));
     
-// 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
- 
-// 	// 마커가 표시될 위치입니다 
-// 	var markerPosition  = new kakao.maps.LatLng(userLat, userLng); 
- 
-// 	// 마커를 생성합니다
-// 	var marker = new kakao.maps.Marker({
-// 		position: markerPosition,
-// 		image: markerImage // 마커이미지 설정 
-// 	});
+    var classLocations = [];
+    
+    for (var i = 0; i < jsonList.length; i++) {
+        var classes = jsonList[i];
+        classLocations.push({
+            title: classes.class_name,
+            latlng: new kakao.maps.LatLng(classes.class_map_y, classes.class_map_x) // 위도와 경도 순서 주의
+        });
+        console.log("title : " + classes.class_name);
+        console.log("latlng : " + classes.class_map_y + ", " + classes.class_map_x);
+    }
+    
+    // 클래스 위치 마커와 커스텀 오버레이 생성
+    classLocations.forEach(function(location) {
+        var markerImageSrc = '${pageContext.request.contextPath}/resources/images/class/map2.png'; // 클래스 위치 마커 이미지 주소
+        var markerSize = new kakao.maps.Size(50, 50); // 클래스 위치 마커 이미지 크기
+        var markerImage = new kakao.maps.MarkerImage(markerImageSrc, markerSize);
+        
+        var markerPosition = location.latlng;
+        var marker = new kakao.maps.Marker({
+            position: markerPosition,
+            image: markerImage // 클래스 위치 마커 이미지 설정
+        });
+        marker.setMap(map);
+        
+        
+        var content = '<div style="padding:10px; color:blue; font-size : 0.8em; font-weight: bold;">' + location.title + '</div>'; // 클래스 위치 커스텀 오버레이 내용
+        var customOverlay = new kakao.maps.CustomOverlay({
+            map: map,
+            position: markerPosition,
+            content: content,
+            xAnchor: 0.5, // 수평 방향에서 중앙에 위치
+            yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
+        });
+    });
+}
+// 현재 위치를 가져오는 함수
+function getCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
+    } else {
+        alert("Geolocation is not supported by this browser.");
+    }
+}
 
-// 	// 마커가 지도 위에 표시되도록 설정합니다
-// 	marker.setMap(map);  
-
-// 	// 커스텀 오버레이가 표시될 위치입니다 
-// 	var position = new kakao.maps.LatLng(userLat, userLng);  
-
-// 	// 커스텀 오버레이를 생성합니다
-// 	var customOverlay = new kakao.maps.CustomOverlay({
-// 	    map: map,
-// 	    position: position,
-// 	    content: content,
-// 	    yAnchor: 1 
-// 	});
-
-} // showYourLocation 끝()
-
+// 위치 가져오기 실패 시 에러 메시지 출력 함수
 function showErrorMsg(error) {
     alert("위치 정보를 가져오지 못했습니다.");
     console.error(error);
 }
+// ---------------------------
+
+// $(function() {
+//  var userLat = position.coords.latitude; // 현재위치 위도
+//  var userLng = position.coords.longitude; // 현재위치 경도
+ 
+// 	alert("현재 위치는 : " + userLat + ", " + userLng);
+ 
+//     var mapContainer = document.getElementById('map'); // 지도를 표시할 div
+//     var mapOption = {
+//         center: new kakao.maps.LatLng(userLat, userLng), // 부산 중심 좌표
+//         level: 9 // 지도의 확대 레벨
+//     };
+    
+//     var map = new kakao.maps.Map(mapContainer, mapOption);
+
+//     // 클래스 위치를 포함할 배열
+//     var positions = [];
+
+//     // 서버에서 가져온 클래스 위치 데이터
+//     var classList = JSON.parse('${classList}');
+// //     var classList = ${classList};
+// 	console.log("classList : " + classList);
+	
+//     for (var i = 0; i < classList.length; i++) {
+//         var classes = classList[i];
+//         positions.push({
+//             title: 'classWill ' + classes.class_name,
+//             latlng: new kakao.maps.LatLng(classes.class_map_x, classes.class_map_y)
+//         });
+//         console.log("title : " + classes.class_name);
+//         console.log("latlng : " + classes.class_map_x, classes.class_map_y);
+//     }
+
+//     // 마커 이미지의 이미지 주소입니다
+//     var imageSrc = "${pageContext.request.contextPath}/resources/images/class/map.png"; 
+    
+//     for (var i = 0; i < positions.length; i++) {
+//         var imageSize = new kakao.maps.Size(52, 69); 
+//         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+        
+//         // 마커를 생성합니다
+//         var marker = new kakao.maps.Marker({
+//             map: map,
+//             position: positions[i].latlng,
+//             title: positions[i].title,
+//             image: markerImage
+//         });
+//     }
+// });
+
+// function getCurrentLocation() {
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
+//     } else {
+//         alert("Geolocation is not supported by this browser.");
+//     }
+// }
+
+// function showYourLocation(position) {
+//     var userLat = position.coords.latitude; // 현재위치 위도
+//     var userLng = position.coords.longitude; // 현재위치 경도
+
+//     // 카카오 지도에 현재 위치 표시
+//     var mapContainer = document.getElementById('map');
+//     var mapOption = {
+//         center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표를 현재 위치로 설정
+//         level: 9 // 지도의 확대 레벨
+//     };
+    
+//     var map = new kakao.maps.Map(mapContainer, mapOption);
+
+//     // 현재 위치 마커 생성
+//     var marker = new kakao.maps.Marker({
+//         position: new kakao.maps.LatLng(userLat, userLng),
+//         map: map
+//     });
+// }
+
+
+// function showErrorMsg(error) {
+//     alert("위치 정보를 가져오지 못했습니다.");
+//     console.error(error);
+// }
 
 </script>
 <style>
@@ -336,7 +436,7 @@ body {
 							<div class="form form1 d-flex flex-wrap">
 								<c:forEach var="hashtag" items="${hashtagList}">
 <!-- 									<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button> -->
-								<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_code}" value="#${hashtag.hash_tag_name}" onclick="hashtagSelect()" readonly>
+									<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_name}" value="#${hashtag.hash_tag_name}" onclick="hashtagSelect('${hashtag.hash_tag_name}')" readonly>
 								</c:forEach>
 							</div>
 						</div>
@@ -436,7 +536,7 @@ body {
 			</div>
 		</c:forEach>
 <!-- 		<div id="classListContainer" class="row pb-4 mx-5 mb-4 d-flex flex-wrap"> -->
-<!-- <!--     필터링된 클래스 목록이 여기에 동적으로 추가됩니다. --> -->
+<!-- <!--     필터링된 클래스 목록이 여기에 동적으로 추가됩니다. --> 
 <!-- 		</div> -->
 		<div class="col-3" id="map"></div>
 	</div>
@@ -591,8 +691,6 @@ function searchCategory() {
     var big_category = $("#class_big_category").val();
 	var small_category = $("#class_small_category").val();
 	var local = $("#class_local").val();
-	
-	
 }
 //------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
@@ -609,11 +707,71 @@ function resetCategory() {
 
 //------------------------------------------------------------------------------------
 // 해시태그 셀렉트 
-function hashtagSelect() {
-	var selectHashtag = $(".hashtag").val();
-	
+function hashtagSelect(tagCode) {
+    $.ajax({
+        url: 'class-list',
+        type: 'GET',
+        data: {
+            hashtag: tagCode
+        },
+        success: function(response) {
+            // 요청 성공 시 처리할 코드
+            console.log('AJAX 요청 성공');
+//             alert('AJAX 요청 성공');
+            updateClassList(response); // response를 이용한 데이터 처리 함수 호출
+        },
+        error: function(xhr, status, error) {
+            // 요청 실패 시 처리할 코드
+            console.error('AJAX 요청 실패:', error);
+//             alert('AJAX 요청 실패');
+        }
+    });
 }
 
+
+function updateClassList(classList) {
+    var classListContainer = $("#classListContainer"); // 클래스 목록을 표시할 컨테이너
+    classListContainer.empty(); // 기존 클래스 목록 비우기
+
+    $.each(classList, function(index, classItem) {
+        var classCard = `
+            <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
+                <div class="card shadow-sm border-0 rounded flex-fill mb-4">
+                    <div class="card-body p-0 position-relative card-body1 position-relative1">
+                        <a href="class-detail?class_code=${classItem.class_code}">
+                            <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
+                        </a>
+                        <!-- 하트 이미지 -->
+                        <img src="${pageContext.request.contextPath}/resources/images/profile/${classItem.isLiked ? 'heart_full.png' : 'heart.png'}" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
+                        <!-- 하트 이미지 -->
+                        <div class="card-bodys d-flex flex-column">
+                            <div class="classCategory col-md-10">
+                                <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classItem.class_big_category}</button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classItem.class_small_category}</button>
+                            </div>
+                            <div class="createrName d-flex align-items-center">
+                                <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+                                <p class="mb-0 ml-2">${classItem.member_nickname}</p>
+                            </div>
+                            <div class="className">
+                                <a href="class-detail"><h6>${classItem.class_name}</h6></a>
+                            </div>
+                            <div class="row classInfo">
+                                <div class="col-md-6 add">
+                                    <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classItem.class_location}</a>
+                                </div>
+                                <div class="col-md-6 price">
+                                    <p>${classItem.class_price}원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        classListContainer.append(classCard); // 클래스 카드를 컨테이너에 추가
+    });
+}
 //------------------------------------------------------------------------------------
 // 카테고리 바 높이
 // function categoryBarHeight() {

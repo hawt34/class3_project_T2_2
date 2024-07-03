@@ -70,16 +70,26 @@ public class CreatorController {
 			model.addAttribute("targetURL", "member-login");
 			return "result_process/fail";
 		}
-		
-		model.addAttribute("bank_info", bank_info);
+		if(Integer.parseInt(member.getMember_type()) == 2 && Integer.parseInt(member.getMember_type()) == 3) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "creator-main");
+			return "result_process/fail";
+		}
+		System.out.println(">>>>>>>token: " + bank_info);
+		model.addAttribute("token", bank_info);
 		
 		return "creator/creator-qualify";
 	}
 
 	// creator-regist PRO 
 	@GetMapping("creator-regist")
-	public String creatorRegist(HttpSession session){
+	public String creatorRegist(HttpSession session, Model model){
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(Integer.parseInt(member.getMember_type()) == 2) {
+			model.addAttribute("msg", "이미 크리에이터로 등록된 회원입니다!");
+			model.addAttribute("targetURL", "creator-main");
+			return "result_process/fail";
+		}
 		creatorService.updateMemberType(member);
 		return "redirect:/creator-main";
 	}
@@ -515,11 +525,20 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		
-		List<Map<String, Object>> classList = creatorService.getinquiryClassInfo(member);
-		model.addAttribute("classList", classList);
+		List<Map<String, Object>> classInquiryList = creatorService.getinquiryClassInfo(member);
+		
+		List<JSONObject> iq_list = new ArrayList<JSONObject>(); 
+		
+		for(Map<String, Object> clas : classInquiryList) {
+            JSONObject cl = new JSONObject(clas);
+            iq_list.add(cl);
+		}
+		model.addAttribute("classList", classInquiryList);
+		model.addAttribute("iq_list", iq_list);
 		
 		return "creator/creator-inquiry";
 	}
+	
 	// creater-inquiry-form으로
 	@GetMapping("creator-inquiry-form")
 	public String createrInquiryForm() {

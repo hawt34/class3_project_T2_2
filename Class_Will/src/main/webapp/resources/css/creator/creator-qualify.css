@@ -1,13 +1,5 @@
 @charset "UTF-8";
-#monthPicker{
-	border: none;
-}
-.card-title{
-	color: black;
-}
-.card-text{
-	color: black;	
-}
+
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
@@ -58,3 +50,13 @@ th:nth-child(2), td:nth-child(2) {
 	width: 70%;
 	text-align: center;
 }
+td > a{
+	display:-webkit-box; 
+    word-wrap:break-word; 
+    -webkit-line-clamp:1; 
+    -webkit-box-orient:vertical; 
+    overflow:hidden; 
+    text-overflow:ellipsis;
+    color: black;
+}
+

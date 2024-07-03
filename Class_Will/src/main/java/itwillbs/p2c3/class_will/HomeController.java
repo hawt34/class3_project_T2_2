@@ -81,10 +81,13 @@ public class HomeController {
         // 방문자 카운트
         mainService.insertVisitIp(ip, visitDate);
         
-//        List<Map<String, String>> top10List = mainService.selectTop10();
+        List<Map<String, Object>> top10List = mainService.selectTop10();
+//        System.out.println("top10List : "+ top10List);
+        List<Map<String, Object>> newClassList = mainService.selectNewClass();
+        System.out.println("newClassList : "+ newClassList);
         
-        
-//        model.addAttribute("top10List", top10List);
+        model.addAttribute("top10List", top10List);
+        model.addAttribute("newClassList", newClassList);
 		
 		return "main";
 	}

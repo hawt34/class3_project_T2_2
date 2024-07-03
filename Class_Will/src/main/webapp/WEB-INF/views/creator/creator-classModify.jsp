@@ -24,8 +24,7 @@
 
 <!-- Customized Bootstrap Stylesheet -->
 <link
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"
-	rel="stylesheet">
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/css/style.css"
@@ -103,16 +102,16 @@
 									</div>
 									<div class="classReg-basic">
 										<div class="h4">클래스 기본정보</div>
-										<div class="h6 d-flex justify-content-start mt-4">
-											<p>작성상태 :</p>
-											<p>&nbsp;작성중</p>
-										</div>
+<!-- 										<div class="h6 d-flex justify-content-start mt-4"> -->
+<!-- 											<p>작성상태 :</p> -->
+<!-- 											<p>&nbsp;작성중</p> -->
+<!-- 										</div> -->
 										<div class="classReg-basic-form">
-											<div class="col-md-6 mt-2 mb-4">
+											<div class="col-md-6 mt-1 mb-4">
 												<label for="class_show" class="h6">공개여부</label> 
 												<select name="class_hide" id="class_show" class="form-control" required>
-													<option value="1">공개</option>
-													<option value="2">비공개</option>
+													<option value="1" <c:if test="${classDetail.class_hide eq 1}">selected</c:if>>공개</option>
+													<option value="2" <c:if test="${classDetail.class_hide eq 2}">selected</c:if>>비공개</option>
 												</select>
 												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
 											</div>
@@ -126,7 +125,7 @@
 													<label for="class_big_category" class="h6">카테고리</label> 
 													<select name="class_big_category" id="class_big_category" class="form-control" required>
 														<c:forEach var="category" items="${categoryList}">
-															<option value="${category.common2_code}">${category.code_value}</option>
+															<option value="${category.common2_code}" <c:if test="${classDetail.class_big_category eq category.common2_code}">selected</c:if>>${category.code_value}</option>
 														</c:forEach>
 													</select>
 													<div class="invalid-feedback">카테고리를 선택해주세요.</div>
@@ -137,15 +136,16 @@
 													<div class="invalid-feedback">카테고리를 입력해주세요.</div>
 												</div>
 											</div>
+											<input type="hidden" id="selected_small_category" value="${classDetail.class_small_category}" />
 											
 											<div class="my-4">
 												<label for="class_hashtag" class="h6">해쉬태그 선택</label>
 												<div id="item-list" class="d-flex">
 													<c:forEach var="hashtag" items="${hashtagList}">
-														<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button>
+														<button type="button" class="hashtag" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button>
 													</c:forEach>
 											    </div>
-											    <input type="hidden" id="selected-items" name="class_hashtag" value=""> 
+											    <input type="hidden" id="selected-items" name="class_hashtag" value="${classDetail.class_hashtag}"> 
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_thumnail" class="h6">커버이미지</label> 
@@ -159,7 +159,7 @@
 											</div>
 											<div class="my-4">
 												<label for="summernote" class="h6">클래스 소개</label> 
-												<textarea name="class_ex" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea>
+												<textarea name="class_ex" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border">${classDetail.class_ex}</textarea>
 												<div class="invalid-feedback">내용을 입력해주세요.</div>
 											</div>
 											<div class="col-md-12 my-4">
@@ -176,7 +176,7 @@
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_price" class="h6">회당 클래스가격(원)</label> 
-												<input type="text" name="class_price" id="class_price" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
+												<input type="text" value="${classDetail.class_price}" name="class_price" id="class_price" class="form-control my-1" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" required />
 												<div class="invalid-feedback">클래스명을 입력해주세요.</div>
 											</div>
 										</div>
@@ -208,7 +208,9 @@
 										<div class="classReg-creator-info-form">
 											<div class="col-md-12 mt-2 mb-5">
 												<label for="class_creator_explain" class="h6">크리에이터 소개</label> 
-												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required />
+												<textarea name="class_creator_explain" class="class_creator_explain" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border">${classDetail.class_creator_explain}</textarea>
+<!-- 												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required /> -->
+												
 												<div class="invalid-feedback">크리에이터 소개를 입력해주세요.</div>
 											</div>
 											<div class="mt-5 mb-3" align="center">
@@ -240,23 +242,40 @@
 	<script type="text/javascript">	
 	
 		$(function() {
+			
+			// 페이지가 로드되면 큰 카테고리에 해당하는 작은 카테고리 목록을 불러옵니다.
+		    loadSmallCategory();
+			
 			// 카테고리 선택시 상세카테
 			$("#class_big_category").change(function() {
+				loadSmallCategory();
+			});
+			
+			function loadSmallCategory() {
 				var big_category = $("#class_big_category").val();
+				var selectedSmallCategory = $('#selected_small_category').val();
 				$.ajax({
 					url: "getCategoryDetail",
 					method: "get",
 					data: { "big_category" : big_category },
 					success: function(data) {
 						$("#class_small_category").empty();
-						$.each(data, function(index, item) {
-							$("#class_small_category").append(
-								$('<option></option>').val(item.common3_code).text(item.code_value)	
-							);
+						$.each(data, function(index, category) {
+							var option = $('<option></option>')
+	                        .attr('value', category.common3_code)
+	                        .text(category.code_value);
+
+		                    // 옵션이 선택된 작은 카테고리라면 선택 상태로
+		                    if (category.common3_code == selectedSmallCategory) {
+		                        option.attr('selected', 'selected');
+		                    }
+		                    $("#class_small_category").append(option);
 						});
 					}
-				});		
-			});
+				});	
+			}
+			
+		
 			
 			// 회차 추가 및 데이터 전달
 			let roundCount = 1;
@@ -342,11 +361,19 @@
 		
 		// 해쉬태그 다중선택
 		document.addEventListener('DOMContentLoaded', () => {
-		    const items = document.querySelectorAll('.item');
+		    const items = document.querySelectorAll('.hashtag');
 		    const form = document.querySelector('.validation-form');
 		    const selectedItemsInput = document.getElementById('selected-items');
-	
+		    const initialSelectedItems = selectedItemsInput.value.split(',');
+			debugger;
 		    items.forEach(item => {
+		    	const dataValue = item.getAttribute('data-value').trim();
+		        console.log('Data Value:', dataValue); // 데이터 값 확인용 로그
+		        if (initialSelectedItems.includes(dataValue)) {
+		            item.classList.add('selected');
+		            console.log('Item Selected:', item); // 선택된 항목 로그
+		        }
+		    	
 		        item.addEventListener('click', () => {
 		            item.classList.toggle('selected');
 		            updateSelectedItems();

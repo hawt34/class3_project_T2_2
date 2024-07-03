@@ -181,11 +181,11 @@
 									<div class="className">
 										<h6>${contents.class_name}</h6>
 									</div>
-						            <div class="row classInfo fixed-bottom p-3">
-										<div class="col-md-6 add float-start ">
+						            <div class="row classInfo d-flex justify-content-between">
+										<div class="col add">
 											<a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
 										</div>
-										<div class="col-md-6 price float-end ">
+										<div class="col price  ">
 											<h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
 										</div>
 									</div>
@@ -280,11 +280,11 @@
 												<div class="className mt-2">
 												   <h6>${contents.class_name}</h6>
 												</div>
-												<div class="row classInfo ">
-												   <div class="col-md-6 add float-start ">
+												<div class="row classInfo d-flex justify-content-between">
+												   <div class="col add float-start ">
 												      <a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
 													</div>
-													<div class="col-md-6 price float-end">
+													<div class="col price float-end">
 												   		<h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
 												   </div>
 												</div>

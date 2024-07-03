@@ -75,8 +75,8 @@ public class CreatorController {
 			model.addAttribute("targetURL", "creator-main");
 			return "result_process/fail";
 		}
-		
-		model.addAttribute("bank_info", bank_info);
+		System.out.println(">>>>>>>token: " + bank_info);
+		model.addAttribute("token", bank_info);
 		
 		return "creator/creator-qualify";
 	}

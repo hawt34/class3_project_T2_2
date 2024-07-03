@@ -77,9 +77,22 @@
 			<h2 class="text-center display-6">Creator 등록</h2>
 			<hr class="text-center text-black">
 		</div>
-		<!-- Single Page Header End -->
-	
+		
 		<div class="container col-md-10">
+		
+			<div class="regist_account col-md-6 text-center py-3 mb-5">
+				<c:choose>
+					<c:when test="${token eq null}">
+						<h6 class="text-black">계좌 등록</h6>
+						<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
+					</c:when>
+					<c:otherwise>
+						<h6 class="text-black">등록 계좌</h6>
+						<p>계좌번호 : ${token.account_num}</p>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			
 			<div class="creator-qualify-info col-md-12 mb-5">
 				<h6>◎일정 준수 의무</h6>
 	
@@ -114,20 +127,8 @@
 			<input type="checkbox" value="여기체크박스" class="checkBox">
 		</div>
 		
-		<div class="regist_account col-md-6 text-center py-4">
-			<h6 class="text-black">계좌 등록</h6>
-			<input type="button" class="col-md-3" value="+" onclick="linkAccount()">
-		</div>
-		
 		<div align="center" class="mt-5 pb-5">
-			<c:choose>
-				<c:when test="${sessionScope.token eq null}">
-					<button onclick="registCreator()" class="btn btn-outline-primary btn-lg">크리에이터 등록</button>
-				</c:when>
-				<c:otherwise>
-				
-				</c:otherwise>
-			</c:choose>
+			<button onclick="registCreator()" class="btn btn-outline-primary btn-lg">크리에이터 등록</button>
 		</div>
 	</div>
 
@@ -138,7 +139,7 @@
 </body>
 	<script type="text/javascript">
 		function linkAccount() {
-			sessionStorage.setItem("redirectUrl", "creator-main");
+			sessionStorage.setItem("redirectUrl", "creator-qualify");
 			// 새 창을 열어 사용자 인증 서비스 요청(금융결제원 오픈뱅킹 API 활용)
 			let authWindow = window.open("about:blank", "authWindow", "width=500, height=700, left=700, top=100");
 			authWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?"

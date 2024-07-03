@@ -225,12 +225,16 @@ public class CreatorService {
 	// 정산하기
 	public void settlementPro(MemberVO member, int total_sum) {
 		String settlementDate = creatorMapper.checkSettlement(member);
-		if(!settlementDate.equals("0")) {
+		if(settlementDate == null) {
 			creatorMapper.insertSettlement(member, total_sum);
 		} else {
 			creatorMapper.updateSettlement(member, total_sum);
 		}
 	}
+
+	public void depositSettlement(MemberVO member, int total_sum) {
+		
+	}	
 	
 	
 	

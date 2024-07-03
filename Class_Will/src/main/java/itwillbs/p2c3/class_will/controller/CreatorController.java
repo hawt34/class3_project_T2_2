@@ -618,7 +618,6 @@ public class CreatorController {
 		
 		String settlementDate = creatorService.getsettlementDate(member);
 		Map<String, String> SumSettlement = creatorService.getSumSettlement(member, settlementDate);
-		
 		model.addAttribute("settlementDate", settlementDate);
 		model.addAttribute("SumSettlement", SumSettlement);
 		
@@ -646,6 +645,8 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		creatorService.settlementPro(member, total_sum);
+		
+		creatorService.depositSettlement(member, total_sum);
 		
 		return WillUtils.checkDeleteSuccess(true, model, "정산 처리 완료", false, "creator-cost");
 	}

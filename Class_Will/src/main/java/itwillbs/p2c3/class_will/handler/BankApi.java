@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 @Component
@@ -147,6 +148,92 @@ public class BankApi {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Map> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Map.class);
 		logger.info(">>>>>>>>>> 출금 이체 요청 결과: " + responseEntity.getBody());
+		
+		return responseEntity.getBody();
+	}
+	
+	public Map requestDeposit(Map<String, Object> map) {
+		// 1. 사용자 정보 조회 API 의 경우 헤더 정보에 엑세스토큰 값을 담아 전송해야하므로
+		//    헤더 정보를 관리할 HttpHeaders 객체 생성 후 정보 추가 및 컨텐츠 타입 JSON 으로 설정
+		HttpHeaders headers = new HttpHeaders();
+		headers.setBearerAuth((String)map.get("access_token"));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		// 2. 요청에 필요한 URI 정보 생성 => 문자열로 바로 생성
+		String url = base_url + "/v2.0/transfer/deposit/fin_num";
+		
+		// 3. 요청 파라미터를 JSON 형식의 데이터로 생성
+		// => org.json.JSONObject 클래스 또는 com.google.code.gson.Gson 클래스 활용
+		// 3-1) JSONObject 클래스 활용 => put() 메서드로 JSON 데이터 추가
+//		JSONObject jo = new JSONObject();
+//		jo.put("bank_tran_id", bankValueGenerator.getBankTranId()); // 거래고유번호(참가기관)
+		// => 이후 JSON 데이터 전달 시 jo.toString() 메서드 호출하여 문자열로 변환하여 전달
+		
+		// 3-2) Gson 클래스와 JsonObject 클래스 활용(JsonObject 클래스명 주의! JSONObject 아님!!)
+		// 1) Gson 클래스 인스턴스 생성
+		Gson gson = new Gson();
+		// 2) JsonObject 클래스 인스턴스 생성
+		// 3) JsonObject 객체의 addProperty() 메서드 호출하여 JSON 데이터 추가
+		JsonObject joReq = new JsonObject();
+		joReq.addProperty("tran_no", 1);
+		joReq.addProperty("bank_tran_id", bankValueGenerator.getBankTranId());
+		
+		
+		joReq.addProperty("fintech_use_num", (String)map.get("deposit_fintech_use_num"));
+		joReq.addProperty("print_content", "아이티윌_입금");
+		joReq.addProperty("tran_amt", (String)map.get("tran_amt"));
+		joReq.addProperty("after_balance_amt", 1);
+		joReq.addProperty("branch_name", 1);
+		
+		
+		joReq.addProperty("req_client_name", (String)map.get("deposit_user_name"));
+		joReq.addProperty("req_client_fintech_use_num", (String)map.get("deposit_fintech_use_num"));
+		joReq.addProperty("req_client_num", ((String)map.get("id")).toUpperCase());
+		joReq.addProperty("transfer_purpose", "TR");
+		
+		JsonArray jaReqList = new JsonArray();
+		jaReqList.add(joReq);
+		
+		JsonObject jo = new JsonObject();
+		jo.addProperty("cntr_account_type", "N"); // 약정 계좌/계정 구분("N" : 계좌)
+		jo.addProperty("cntr_account_num", "23062003999"); // 약정 계좌/계정 번호(핀테크 서비스 기관 계좌)
+		jo.addProperty("wd_pass_phrase", "NONE");
+		jo.addProperty("wd_print_content", "NONE");
+		jo.addProperty("wd_pass_phrase", "NONE");
+		jo.addProperty("tran_dtime", bankValueGenerator.getTranDTime()); // 요청일시
+		
+		// ---------- 핀테크 이용기관 정보 ----------
+		jo.addProperty("bank_tran_id", bankValueGenerator.getBankTranId()); // 거래고유번호(참가기관)
+		jo.addProperty("dps_print_content", map.get("id") + "_출금"); // 입금계좌인자내역(입금되는 계좌에 출력할 메세지)
+		
+		// ---------- 요청 고객(출금 계좌) 정보 ----------
+		jo.addProperty("fintech_use_num", (String)map.get("withdraw_fintech_use_num")); // 출금계좌 핀테크이용번호 
+		jo.addProperty("wd_print_content", (String)map.get("deposit_user_name") + "_송금"); // 출금계좌인자내역(출금되는 계좌에 출력할 메세지)
+		jo.addProperty("name_check_option", "on"); // 거래금액
+		jo.addProperty("tran_dtime", bankValueGenerator.getTranDTime()); // 요청고객성명(출금계좌)
+		jo.addProperty("req_cnt", 1); // 요청고객핀테크이용번호(출금계좌)
+		jo.add("req_list", jaReqList);
+		// => 요청고객 계좌번호 미사용 시 핀테크 이용번호 설정 필수!
+		jo.addProperty("req_client_num", ((String)map.get("id")).toUpperCase()); // 요청고객회원번호(아이디처럼 사용) => 영문자 모두 대문자 변환 
+		jo.addProperty("transfer_purpose", "ST"); // 이체 용도(송금 : TR, 결제 : ST 등) 
+		
+		// 최종 요청 파라미터 확인
+		// => Gson 객체의 toJson() 메서드 호출하여 파라미터로 JsonObject 객체 전달
+		logger.info(">>>>>>>> 입금이체 요청 JSON 데이터 : " + gson.toJson(jo));
+		
+		
+		// 4. 요청에 사용될 데이터를 관리하는 HttpEntity 객체 생성
+		// => 파라미터 데이터(body)로 JsonObject 객체를 문자열로 변환하여 전달, 헤더도 전달
+		HttpEntity<String> httpEntity = new HttpEntity<String>(gson.toJson(jo), headers);
+		logger.info(">>>>>>>> httpEntity.getHeaders() : " + httpEntity.getHeaders());
+		logger.info(">>>>>>>> httpEntity.getBody() : " + httpEntity.getBody());
+		
+		
+		// 5. RESTful API 요청을 위한 RestTemplate 객체의 exchange() 메서드 호출하여
+		//    POST 방식 HTTP 요청 수행
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Map> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Map.class);
+		logger.info(">>>>>>>> 입금 이체 요청 결과 : " + responseEntity.getBody());
 		
 		return responseEntity.getBody();
 	}

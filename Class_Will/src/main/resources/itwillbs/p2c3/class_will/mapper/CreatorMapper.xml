@@ -736,7 +736,7 @@
 				st.member_code = m.member_code 
 			WHERE 
 				c.member_code = #{member.member_code}
-			<if test="!settlementDate == null">
+			<if test="settlementDate != null">
 			AND 
 				DATE_FORMAT(cs.class_schedule_date, '%Y-%m') BETWEEN  DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m')
 															 AND #{settlementDate}
@@ -765,7 +765,7 @@
 	
 	<!-- settlement 테이블에 데이터 조회 -->
 	<select id="checkSettlement" resultType="String">
-		SELECT IFNULL(settlement_date, '0')
+		SELECT settlement_date
 		FROM settlement
 		WHERE member_code = #{member_code}
 		LIMIT 1

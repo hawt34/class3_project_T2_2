@@ -151,7 +151,7 @@
 									    <p class="card-title h6" align="left">누적 정산금</p>
 										<p class="card-text word-break " >정산기간 : ${settlementDate} ~</p>
 									</div> 
-									<form action="creatorSettlement" method="Post">
+									<form action="creator-settlement" method="Post">
 									    <div class="d-flex justify-content-center card-content mb-3">
 										    <input type="text" class="card-text word-break h4 mb-3 form-control col-md-4 total_sum" disabled name="total_sum" value="" pattern="#,###"> 
 									    </div>

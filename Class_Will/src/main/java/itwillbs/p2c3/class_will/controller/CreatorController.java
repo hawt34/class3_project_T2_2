@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.CreatorService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
@@ -605,13 +606,8 @@ public class CreatorController {
 		}
 		creatorService.settlementPro(member, total_sum);
 		
-		return "creator/creator-cost";
+		return WillUtils.checkDeleteSuccess(true, model, "정산 처리 완료", false, "creator-cost");
 	}
 	
-	@PostMapping("creatorSettlement")
-	public String settlementPro() {
-		
-		return "";
-	}
 
 }

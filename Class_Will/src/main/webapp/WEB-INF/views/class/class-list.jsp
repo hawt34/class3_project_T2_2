@@ -113,10 +113,10 @@ function showLocations(position) {
     var userLat = position.coords.latitude; // 현재위치 위도
     var userLng = position.coords.longitude; // 현재위치 경도
     
-    alert("현재 위치는 : " + userLat + ", " + userLng);
+//     alert("현재 위치는 : " + userLat + ", " + userLng);
     
     // 카카오 지도에 현재 위치 표시
-    var mapContainer = document.getElementById('mapContainer'); // 지도를 표시할 div
+    var mapContainer = document.getElementById('collapseMapContainer'); // 지도를 표시할 div
     var mapOption = {
         center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표
         level: 9
@@ -139,7 +139,7 @@ function showLocations(position) {
     
     // 현재 위치 커스텀 오버레이 생성
     var currentPosition = new kakao.maps.LatLng(userLat, userLng);
-    var currentContent = '<div style="padding:20px; color:red; font-weight: bold;">내 위치</div>'; // 현재 위치 커스텀 오버레이 내용
+    var currentContent = '<div style="padding:20px; color:red; font-weight: bold;"></div>'; // 현재 위치 커스텀 오버레이 내용
     var currentCustomOverlay = new kakao.maps.CustomOverlay({
         map: map,
         position: currentPosition,
@@ -157,10 +157,10 @@ function showLocations(position) {
         var classes = jsonList[i];
         classLocations.push({
             title: classes.class_name,
-            latlng: new kakao.maps.LatLng(classes.class_map_y, classes.class_map_x) // 위도와 경도 순서 주의
+            latlng: new kakao.maps.LatLng(classes.class_map_x, classes.class_map_y) // 위도와 경도 순서 주의
         });
         console.log("title : " + classes.class_name);
-        console.log("latlng : " + classes.class_map_y + ", " + classes.class_map_x);
+        console.log("latlng : " + classes.class_map_x + ", " + classes.class_map_y);
     }
     
     // 클래스 위치 마커와 커스텀 오버레이 생성
@@ -184,6 +184,19 @@ function showLocations(position) {
             content: content,
             xAnchor: 0.5, // 수평 방향에서 중앙에 위치
             yAnchor: 0.4 // 수직 방향에서 아래쪽에 위치
+        });
+        
+        // 초기 상태에서 오버레이를 맵에 추가하지 않음
+        customOverlay.setMap(null);
+        
+        // 마커에 마우스 오버 이벤트 추가
+        kakao.maps.event.addListener(marker, 'mouseover', function() {
+            customOverlay.setMap(map);
+        });
+        
+        // 마커에 마우스 아웃 이벤트 추가
+        kakao.maps.event.addListener(marker, 'mouseout', function() {
+            customOverlay.setMap(null);
         });
     });
 }
@@ -303,9 +316,9 @@ body {
 #mapContainer {
 	position: absolute;
 	top: 370px; /* 내 위치 버튼 아래에 표시될 위치 지정 */
-	right: 20px; /* 오른쪽 여백 설정 */
-	width: 370px; /* 지도 컨테이너의 너비 설정 */
-	height: 800px; /* 지도 컨테이너의 높이 설정 */
+	right: 100px; /* 오른쪽 여백 설정 */
+	width: 800px; /* 지도 컨테이너의 너비 설정 */
+	height: 400px; /* 지도 컨테이너의 높이 설정 */
 /*             border: 1px solid #ccc; */
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -326,6 +339,14 @@ body {
 }
 .form-controls {
     border-radius : 30px !important;
+}
+
+.mapPop {
+/* 	text-align : center; */
+	margin: 0 auto; /* 수평 가운데 정렬 */
+	display: flex;
+	justify-content: center;
+	margin-bottom : 20px;
 }
 </style>
 </head>
@@ -424,9 +445,10 @@ body {
 					<!-- 카테고리 셀렉트 리스트 -->
 					
 					<!-- 카테고리 셀렉트 리스트 -->
-					<div class="row mx-5" id="categoryContainer">
+<!-- 					<div class="row mx-5" id="categoryContainer"> -->
 						<!-- 선택된 카테고리 값들이 추가됨 -->
-					</div>
+<!-- 					</div> -->
+
 					<!-- 카테고리 셀렉트 리스트 -->
 					
 					<!-- 해시태그 리스트 -->
@@ -444,6 +466,9 @@ body {
 					<!-- 해시태그 리스트 -->
 					
 				</div>
+<!-- 				    <div id="mapContainer"></div>		 -->
+				
+				
 			</div>
 		</div>
 	</div>
@@ -458,14 +483,11 @@ body {
 			</div>
 		</div>
 		<div class="col box11">
-<!-- 			<button type="button" class="btn btn-outline-light btnLocation" onclick="getCurrentLocation()" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">내 주변 검색</button> -->
-<!-- 			<button type="button" class="btn btn-outline-light btnLocation" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">내 주변 검색</button> -->
-<!--     				<div id="map"></div> -->
-					<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
-    <button type="button" class="btn btn-outline-light" onclick="getCurrentLocation()">내 위치 지도 보기</button>
-    <!-- 지도를 표시할 컨테이너 -->
-    <div id="mapContainer"></div>		
-<!--          <select class="form-select-sm selectBox" aria-label="Default select example"> -->
+			<p>
+				<a class="btn btn-outline-light btnLocation" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+					내 위치 지도 보기
+				</a>
+			</p>
 			<select class="form-select selectBox1 w-50" aria-label="Default select example">
 				<option selected>인기순</option>
 				<option value="1">후기순</option>
@@ -477,6 +499,14 @@ body {
 		</div>
 	</div> <!-- row -->
 	<!-- 클래스 개수 끝 -->
+	
+	<!-- 지도 보이는 영역 -->
+	<div class="collapse" id="collapseExample">
+		<div class="card card-body col-md-10 mapPop">
+	        <div id="collapseMapContainer" style="width:100%;height:400px;"></div> <!-- 이 div에 지도를 표시 -->
+		</div>
+	</div>
+	<!-- 지도 보이는 영역 -->
 	
       <!-- 첫번째 줄 -->
       <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap" id="classListContainer">

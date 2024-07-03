@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>클래스 리스트</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class_list.css">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <!-- Libraries Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -214,90 +215,6 @@ function showErrorMsg(error) {
     alert("위치 정보를 가져오지 못했습니다.");
     console.error(error);
 }
-// ---------------------------
-
-// $(function() {
-//  var userLat = position.coords.latitude; // 현재위치 위도
-//  var userLng = position.coords.longitude; // 현재위치 경도
- 
-// 	alert("현재 위치는 : " + userLat + ", " + userLng);
- 
-//     var mapContainer = document.getElementById('map'); // 지도를 표시할 div
-//     var mapOption = {
-//         center: new kakao.maps.LatLng(userLat, userLng), // 부산 중심 좌표
-//         level: 9 // 지도의 확대 레벨
-//     };
-    
-//     var map = new kakao.maps.Map(mapContainer, mapOption);
-
-//     // 클래스 위치를 포함할 배열
-//     var positions = [];
-
-//     // 서버에서 가져온 클래스 위치 데이터
-//     var classList = JSON.parse('${classList}');
-// //     var classList = ${classList};
-// 	console.log("classList : " + classList);
-	
-//     for (var i = 0; i < classList.length; i++) {
-//         var classes = classList[i];
-//         positions.push({
-//             title: 'classWill ' + classes.class_name,
-//             latlng: new kakao.maps.LatLng(classes.class_map_x, classes.class_map_y)
-//         });
-//         console.log("title : " + classes.class_name);
-//         console.log("latlng : " + classes.class_map_x, classes.class_map_y);
-//     }
-
-//     // 마커 이미지의 이미지 주소입니다
-//     var imageSrc = "${pageContext.request.contextPath}/resources/images/class/map.png"; 
-    
-//     for (var i = 0; i < positions.length; i++) {
-//         var imageSize = new kakao.maps.Size(52, 69); 
-//         var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
-        
-//         // 마커를 생성합니다
-//         var marker = new kakao.maps.Marker({
-//             map: map,
-//             position: positions[i].latlng,
-//             title: positions[i].title,
-//             image: markerImage
-//         });
-//     }
-// });
-
-// function getCurrentLocation() {
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg);
-//     } else {
-//         alert("Geolocation is not supported by this browser.");
-//     }
-// }
-
-// function showYourLocation(position) {
-//     var userLat = position.coords.latitude; // 현재위치 위도
-//     var userLng = position.coords.longitude; // 현재위치 경도
-
-//     // 카카오 지도에 현재 위치 표시
-//     var mapContainer = document.getElementById('map');
-//     var mapOption = {
-//         center: new kakao.maps.LatLng(userLat, userLng), // 지도의 중심좌표를 현재 위치로 설정
-//         level: 9 // 지도의 확대 레벨
-//     };
-    
-//     var map = new kakao.maps.Map(mapContainer, mapOption);
-
-//     // 현재 위치 마커 생성
-//     var marker = new kakao.maps.Marker({
-//         position: new kakao.maps.LatLng(userLat, userLng),
-//         map: map
-//     });
-// }
-
-
-// function showErrorMsg(error) {
-//     alert("위치 정보를 가져오지 못했습니다.");
-//     console.error(error);
-// }
 
 </script>
 <style>
@@ -419,6 +336,7 @@ body {
 						<div class="btnSearchDiv col-md-1">
 <!-- 							<div class="btnSearch w-100"> -->
 								<button type="button" class="btn btn-outline-light btnSearch" onclick="searchCategory()">검색</button>
+<!-- 								<button type="button" class="btn btn-outline-light btnSearch">검색</button> -->
 <!-- 							</div> -->
 						</div>
 						<!-- 셀렉트 검색 버튼 -->
@@ -620,9 +538,9 @@ function updateCategory() {
             selectedCategories.push(selectedValue);
         }
     }
-    addContainer(selectedValue, selectedText);
+//     addContainer(selectedValue, selectedText);
     
-    selectCategory();
+//     selectCategory();
 }
 //------------------------------------------------------------------------------------
 
@@ -640,9 +558,9 @@ function updateSmallCategory() {
             selectedSmallCategories.push(selectedValue);
         }
     }
-    addContainer(selectedValue, selectedText);
+//     addContainer(selectedValue, selectedText);
     
-    selectCategory();
+//     selectCategory();
 }
 
 //------------------------------------------------------------------------------------
@@ -660,9 +578,9 @@ function updateLocal() {
             selectedLocals.push(selectedValue);
         }
     }
-    addContainer(selectedValue, selectedText);
+//     addContainer(selectedValue, selectedText);
     
-    selectCategory();
+//     selectCategory();
 }
 
 //------------------------------------------------------------------------------------
@@ -698,33 +616,98 @@ function updateLocal() {
 // }
 
 //------------------------------------------------------------------------------------
-// 검색 버튼 (카테고리 셀렉트)
-function searchCategory() {
+// // 검색 버튼 (카테고리 셀렉트)
+// function searchCategory() {
+//     var big_category = $("#class_big_category").val();
+// 	var small_category = $("#class_small_category").val();
+// 	var local = $("#class_local").val();
+	
+//     $.ajax({
+//         url: 'class-list',
+//         type: 'GET',
+//         data: {
+//         	big_category : big_category,
+//         	small_category : small_category,
+//         	local : local
+//         },
+//         success: function(response) {
+//             // 요청 성공 시 처리할 코드
+//             console.log('AJAX 요청 성공');
+//             alert("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local);
+// //             alert('AJAX 요청 성공');
+//             updateClassList(response); // response를 이용한 데이터 처리 함수 호출
+//         },
+//         error: function(xhr, status, error) {
+//             console.error('AJAX 요청 실패:', error);
+//         }
+//     });
+// }
+var contextPath = '<%= request.getContextPath() %>';
+$(function() {
+	$(".btnSearch").on("click", function() {
     var big_category = $("#class_big_category").val();
 	var small_category = $("#class_small_category").val();
 	var local = $("#class_local").val();
-	
-    $.ajax({
-        url: 'class-list',
-        type: 'GET',
-        data: {
-        	big_category : big_category,
-        	small_category : small_category,
-        	local : local
-        },
-        success: function(response) {
-            // 요청 성공 시 처리할 코드
-            console.log('AJAX 요청 성공');
-            alert("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local);
-//             alert('AJAX 요청 성공');
-            updateClassList(response); // response를 이용한 데이터 처리 함수 호출
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX 요청 실패:', error);
-        }
+		$.ajax({
+			type : "GET",
+			url : "filter-class",
+			dataType : "json",
+			data : {
+	            big_category: big_category,
+	            small_category: small_category,
+	            local: local,
+			},
+		 	contentType: "application/json",
+		 	success : function(filterClass) {
+		 		
+                $("#classListContainer").html("");
+                for (filter of filterClass) {
+                    console.log("filter.class_name : " + filter.class_name);
+                    console.log("filter.class_big_category : " + filter.class_big_category);
+                    $("#classListContainer").append(
+                        '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">'
+                        + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">'
+                            + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
+                                + '<a href="class-detail?class_code=' + filter.class_code + '">'
+                                    + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">'
+                                + '</a>'
+                                + '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '" data-member-code="' + filter.member_code + '">'
+                                + '<div class="card-bodys d-flex flex-column">'
+                                    + '<div class="classCategory col-md-10">'
+                                        + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>'
+                                        + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>'
+                                    + '</div>'
+                                    + '<div class="createrName d-flex align-items-center">'
+                                        + '<img src="' + contextPath + '/resources/images/class/pic.png">'
+                                        + '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>'
+                                    + '</div>'
+                                    + '<div class="className">'
+                                        + '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>'
+                                    + '</div>'
+                                    + '<div class="row classInfo">'
+                                        + '<div class="col-md-6 add">'
+                                            + '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.class_location + '</a>'
+                                        + '</div>'
+                                        + '<div class="col-md-6 price">'
+                                            + '<p>' + filter.class_price + '원</p>'
+                                        + '</div>'
+                                    + '</div>'
+                                + '</div>'
+                            + '</div>'
+                        + '</div>'
+                    + '</div>');
+                }
+                console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
+            },
+            error: function(xhr, status, error) {
+                console.error("Error details:", xhr, status, error);
+                alert("오류 발생: " + error);
+            }
+        });
     });
-}
+});
 
+//------------------------------------------------------------------------------------
 // 클래스 리스트 업데이트 함수
 function updateClassList(classList) {
     var classListContainer = document.getElementById('classListContainer');
@@ -740,6 +723,46 @@ function updateClassList(classList) {
         classListContainer.appendChild(classElement);
     });
 }
+
+// ---
+//     $.each(classes, function(index, classData) {
+//         var classHtml = `
+//             <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
+//                 <div class="card shadow-sm border-0 rounded flex-fill mb-4">
+//                     <div class="card-body p-0 position-relative card-body1 position-relative1">
+//                         <a href="class-detail?class_code=${classData.class_code}">
+//                             <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">
+//                         </a>
+//                         <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classData.class_code}" data-member-code="${classData.member_code}">
+//                         <div class="card-bodys d-flex flex-column">
+//                             <div class="classCategory col-md-10">
+//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${filterClass.class_big_category}</button>
+//                                 <button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classData.class_small_category}</button>
+//                             </div>
+//                             <div class="createrName d-flex align-items-center">
+//                                 <img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+//                                 <p class="mb-0 ml-2">${filterClass.member_nickname}</p>
+//                             </div>
+//                             <div class="className">
+//                                 <a href="class-detail"><h6>${filterClass.class_name}</h6></a>
+//                             </div>
+//                             <div class="row classInfo">
+//                                 <div class="col-md-6 add">
+//                                     <a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classData.class_location}</a>
+//                                 </div>
+//                                 <div class="col-md-6 price">
+//                                     <p>${classData.class_price}원</p>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         `;
+
+//         classListContainer.append(classHtml); // 클래스 정보를 컨테이너에 추가
+//     });
+// }
 //------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
 function resetCategory() {
@@ -831,34 +854,35 @@ function updateClassList(classList) {
 // }
 
 //------------------------------------------------------------------------------------
-// 카테고리에 따른 필터링
-function selectCategory () {
-	var obj = {
-            bigCategories: selectedCategories,
-            smallCategories: selectedSmallCategories,
-            locals: selectedLocals
-    };
-    $.ajax({
-        url: "filter-class",
-        method: "post",
-        contentType: "application/json",
-        data: JSON.stringify(obj),
-        success: function(response) {
-            console.log(response + "1111");
-            displayFilteredClasses(response);
-            alert("성공"); 
-        },
-        error: function(xhr, status, error) {
-            alert("실패ㅏㅏㅏㅏㅏㅏㅏㅏㅏ"); 
-            console.error('AJAX 요청 중 오류 발생: ' + error); 
-        }
-    });
-}
+// // 카테고리에 따른 필터링
+// function selectCategory () {
+// 	var obj = {
+//             bigCategories: selectedCategories,
+//             smallCategories: selectedSmallCategories,
+//             locals: selectedLocals
+//     };
+//     $.ajax({
+//         url: "filter-class",
+//         method: "post",
+//         contentType: "application/json",
+//         data: JSON.stringify(obj),
+//         success: function(response) {
+//             console.log(response + "1111");
+//             displayFilteredClasses(response);
+//             alert("성공"); 
+//         },
+//         error: function(xhr, status, error) {
+//             alert("실패ㅏㅏㅏㅏㅏㅏㅏㅏㅏ"); 
+//             console.error('AJAX 요청 중 오류 발생: ' + error); 
+//         }
+//     });
+// }
 
 //필터링된 클래스 표시
 function displayFilteredClasses(classes) {
     var classListContainer = $("#classListContainer"); // 클래스 목록을 표시할 컨테이너
     classListContainer.empty(); // 기존 클래스 목록 비우기
+    
     // 각 클래스 정보를 반복하여 HTML에 추가
     $.each(classes, function(index, classData) {
         var classHtml = `
@@ -897,7 +921,7 @@ function displayFilteredClasses(classes) {
 
         classListContainer.append(classHtml); // 클래스 정보를 컨테이너에 추가
     });
-}
+} // displayFilteredClasses 끝
 </script>
 </body>
 </html>

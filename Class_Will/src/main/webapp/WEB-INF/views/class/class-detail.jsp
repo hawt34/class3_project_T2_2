@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>클래스 상세</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/class_detail.css">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
 <!-- Libraries Stylesheet -->
 <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">

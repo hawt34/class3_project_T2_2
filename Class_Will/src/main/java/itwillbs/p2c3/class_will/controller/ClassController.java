@@ -82,7 +82,8 @@ public class ClassController {
         list.put("hashtag", hashtag);
         model.addAttribute("list", list);
         System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
-        
+        System.out.println("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local + ", hashtag : " + hashtag);
+
 	    List<Map<String, Object>> classList = classService.getClassList(list);
 	    model.addAttribute("classList", classList);
 	    System.out.println(">>>classList : " + classList);
@@ -137,23 +138,27 @@ public class ClassController {
 	
 	// 카테고리 필터링 ajax
 	@ResponseBody
-	@PostMapping("filter-class")
+	@GetMapping("filter-class")
 //	public List<Map<String, Object>> getFilterClass(@RequestBody(required = false) Map<String, Object> filters, Model model) {
-		public List<Map<String, Object>> getFilterClass(@RequestBody Map<String, Object> filters, Model model) {
-	    System.out.println("filter-class controller");
-	    System.out.println("Filters: " + filters);
-
-//	    new HashMap<String, List<String>>();
+		public List<Map<String, Object>> getFilterClass(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params) {
 	    
-	    List<String> bigCategories = (List<String>)filters.get("bigCategories");
-	    List<String> smallCategories = (List<String>) filters.get("smallCategories");
-	    List<String> locals = (List<String>) filters.get("locals");
-
-	    // Service layer call to fetch filtered classes based on the parameters
-//	    List<Map<String, Object>> filterClass = classService.getFilterClass(bigCategories, smallCategories, locals);
-	    List<Map<String, Object>> filterClass = classService.getFilterClass(filters);
+	    // 클래스 리스트
+		String big_category = params.get("big_category");
+		String small_category = params.get("small_category");
+		String local = params.get("local");
+		
+        Map<String, Object> list = new HashMap<>();
+        list.put("big_category", big_category);
+        list.put("small_category", small_category);
+        list.put("local", local);
+        list.put("hashtag", hashtag);
+        model.addAttribute("list", list);
+        System.out.println("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local + ", hashtag : " + hashtag);
+        System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
+        
+	    List<Map<String, Object>> filterClass = classService.getClassList(list);
 	    model.addAttribute("filterClass", filterClass);
-	    System.out.println("filterClass //////////////" + filterClass);
+	    System.out.println(">>>filterClass : " + filterClass);
 	    return filterClass;
 	}
 	

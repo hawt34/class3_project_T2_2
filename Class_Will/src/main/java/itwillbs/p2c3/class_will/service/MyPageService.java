@@ -88,6 +88,11 @@ public class MyPageService {
 		return myPageMapper.insertReview(formData);
 	}
 
+	public int withdrawMember(MemberVO member) {
+		// TODO Auto-generated method stub
+		return myPageMapper.MemberWithdraw(member);
+	}
+
 	
 
 	

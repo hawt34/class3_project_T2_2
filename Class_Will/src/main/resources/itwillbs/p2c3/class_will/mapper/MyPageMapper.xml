@@ -164,7 +164,8 @@
 		class_code,
 		class_review_rating,
 		review_reply_status
-		) VALUES (
+		) 
+		VALUES (
 		#{class_review_subject},
 		#{class_review_content},
 		CURRENT_DATE,
@@ -176,6 +177,15 @@
 		)
 
 	</insert>
-
+	
+	<update id="MemberWithdraw">
+   		UPDATE  MEMBER
+		SET 
+			member_status = 2
+		WHERE
+			member_code = #{member_code}
+    </update>
+	
+	
 
 </mapper>

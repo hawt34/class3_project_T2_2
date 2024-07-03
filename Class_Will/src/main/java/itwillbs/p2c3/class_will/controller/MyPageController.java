@@ -462,4 +462,63 @@ public class MyPageController {
 			}
 		}
 	}
-}
+
+	// 회원 탈퇴
+	@GetMapping("my-delete")
+	public String deleteMember(Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if (member == null) { // 실패
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		} else {
+			int member_code2 = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code2);
+			model.addAttribute("member", member2);
+			List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code2);
+			model.addAttribute("memberReviews", memberReviews);
+			System.out.println(memberReviews);
+
+			int totalReview = memberReviews.size();
+			model.addAttribute("totalReview", totalReview);
+			return "mypage/mypage-delete";
+		}
+	}
+
+	@PostMapping("member-quit")
+	public String quitMember(Model model, BCryptPasswordEncoder passwordEncoder,@RequestParam("member_pwd") String password) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		if (member == null) { // 실패
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		} 
+			int member_code2 = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code2);
+
+			if (member2 != null && passwordEncoder.matches(password, member2.getMember_pwd())) { // 비번이 같을 때
+
+				int updateCount = myPageService.withdrawMember(member);
+				// 로그인 정보 제거하기 위해 세션 초기화 후 메인페이지로 리다이렉트
+				if (updateCount > 0) { // 탈퇴 성공 시
+					session.invalidate();
+					model.addAttribute("msg", "그 동안 클래스윌을 이용해주셔서 감사합니다.");
+					model.addAttribute("targetURL","./");
+					return "result_process/fail";
+				} else { // 실패시
+					model.addAttribute("msg", "탈퇴에 실패했습니다");
+					model.addAttribute("targetURL", "my-delete");
+					return "result_process/fail";
+				}
+			} else { // 비번이 일치하지 않을 경우
+				model.addAttribute("msg", "비밀번호가 일치하지 않습니다");
+				model.addAttribute("targetURL", "my-delete");
+				return "result_process/fail";
+
+			}
+
+		}
+
+	}
+

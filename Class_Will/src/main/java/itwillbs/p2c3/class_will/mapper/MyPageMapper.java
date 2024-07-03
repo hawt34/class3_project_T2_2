@@ -34,5 +34,7 @@ public interface MyPageMapper {
 	List<Map<String, String>> selectPossibleReview(int member_code);
 
 	int insertReview(Map<String, String> formData);
+
+	int MemberWithdraw(MemberVO member);
 	
 }

@@ -24,9 +24,13 @@ public interface MainMapper {
 
 	Map<String, String> selectVisitIp(@Param("ip")String ip, @Param("visitDate") String visitDate);
 
-	List<Map<String, String>> selectTop10Class();
+	List<Map<String, Object>> selectTop10Class();
 	
-	List<Map<String, String>> selectTop10Local();
+	List<Map<String, Object>> selectTop10Local();
+
+	List<Map<String, Object>> selectNewClass();
+
+	List<Map<String, Object>> selectNewLocal();
 	
 	
 	

@@ -92,6 +92,15 @@ body {
 	padding-bottom : 7px;
 }
 
+.classCategory button {
+	font-size: 12px;
+}
+
+.classCardBtm {
+	height: 220px;
+	
+}
+
 .category1 {
 	font-size : 0.8em !important;
 }
@@ -139,6 +148,12 @@ body {
 /* .classInfo { */
 /* 	margin_bottom : 10px; */
 /* } */
+
+.classInfo {
+	align-items: flex-end;
+	margin: 15px;
+}
+
 .add {
 	text-align : left;
 }

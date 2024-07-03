@@ -649,6 +649,10 @@ public class CreatorController {
 		return "creator/creator-cost";
 	}
 	
-	
+	@PostMapping("creatorSettlement")
+	public String settlementPro() {
+		
+		return "";
+	}
 
 }

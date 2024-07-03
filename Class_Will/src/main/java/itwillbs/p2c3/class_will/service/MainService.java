@@ -71,25 +71,39 @@ public class MainService {
 		
 	}
 	
-//	@Transactional
-//	public List<Map<String, String>> selectTop10() {
-//		List<Map<String, String>> classList = mainMapper.selectTop10Class();
-//		List<Map<String, String>> localList = mainMapper.selectTop10Local();
-//		List<Map<String, String>> top10ClassList = new ArrayList<Map<String,String>>();
-//		
-//		
-//		for(Map<String, String> class1 : classList) {
-//			for(Map<String, String> localList : classList) {
-//				
-//			}
-//			class1.get("class_code");
-//			
-//		}
-//			
-//		
-//		
-//		return top10ClassList;
-//	}
+	@Transactional
+	public List<Map<String, Object>> selectTop10() {
+		List<Map<String, Object>> classList = mainMapper.selectTop10Class();
+		List<Map<String, Object>> localList = mainMapper.selectTop10Local();
+		
+		for(Map<String, Object> contents : classList) {
+			for(Map<String, Object> local : localList) {
+				if(contents.get("class_code") == local.get("class_code")) {
+					contents.put("local_name", local.get("local_name"));
+				}
+			}
+			System.out.println("contents : " + contents);
+		}
+		
+		return classList;
+	}
+	
+	@Transactional
+	public List<Map<String, Object>> selectNewClass() {
+		List<Map<String, Object>> classList = mainMapper.selectNewClass();
+		List<Map<String, Object>> localList = mainMapper.selectNewLocal();
+		
+		for(Map<String, Object> contents : classList) {
+			for(Map<String, Object> local : localList) {
+				if(contents.get("class_code") == local.get("class_code")) {
+					contents.put("local_name", local.get("local_name"));
+				}
+			}
+			System.out.println("contents : " + contents);
+		}
+		
+		return classList;
+	}
 
 	
 	

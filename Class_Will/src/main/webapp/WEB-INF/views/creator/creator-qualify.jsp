@@ -120,19 +120,20 @@
 		</div>
 		
 		<div align="center" class="mt-5 pb-5">
-			<button onclick="location.href='creator-regist'" class="btn btn-outline-primary btn-lg">크리에이터 등록</button>
+			<c:choose>
+				<c:when test="${sessionScope.token eq null}">
+					<button onclick="registCreator()" class="btn btn-outline-primary btn-lg">크리에이터 등록</button>
+				</c:when>
+				<c:otherwise>
+				
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
-
-	<!-- JavaScript Libraries -->
-<!-- 	<script -->
-<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
-
-		
 
 </body>
 	<script type="text/javascript">
@@ -149,5 +150,12 @@
 							+ "&auth_type=0";
 		}
 	
+		function registCreator() {
+			if($(".checkBox").ischecked){
+				location.href='creator-regist';	
+			}
+		}
+			
+		
 	</script>
 </html>

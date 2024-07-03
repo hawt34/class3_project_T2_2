@@ -83,8 +83,13 @@ public class CreatorController {
 
 	// creator-regist PRO 
 	@GetMapping("creator-regist")
-	public String creatorRegist(HttpSession session){
+	public String creatorRegist(HttpSession session, Model model){
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(Integer.parseInt(member.getMember_type()) == 2) {
+			model.addAttribute("msg", "이미 크리에이터로 등록된 회원입니다!");
+			model.addAttribute("targetURL", "creator-main");
+			return "result_process/fail";
+		}
 		creatorService.updateMemberType(member);
 		return "redirect:/creator-main";
 	}

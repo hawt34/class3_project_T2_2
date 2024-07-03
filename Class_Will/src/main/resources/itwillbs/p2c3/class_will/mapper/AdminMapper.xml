@@ -515,4 +515,18 @@
 		SELECT *
 		FROM event
 	</select>
+	
+	<select id="selectBigCategoryClassComplain" resultType="map">
+		SELECT *
+		FROM common2
+		WHERE common1_code = "RPC"
+	</select>
+	
+	<select id="selectSmallCategoryClassComplain" resultType="map">
+		SELECT *
+		FROM common3
+		WHERE common1_code = "RPC"
+		AND   common2_code = #{categoryCode}
+	</select>
+	
 </mapper>

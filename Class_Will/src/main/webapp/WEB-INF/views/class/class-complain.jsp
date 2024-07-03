@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +33,7 @@
 			<div class="input-form col-md-12 mx-auto">
 				<h4 class="mb-4">클래스 신고</h4>
 					<div>
-						<p>작성자 : 김철철</p>
+						<p>작성자 : ${member.member_name }</p>
 					</div>
 					<div class="mb-3">
 						<label for="event_title">신고사유</label>
@@ -39,9 +41,20 @@
 <!-- 						<textarea rows="10" name="event_subject" id="event_title" class="form-control" cols="50"></textarea>  -->
 					</div>
 					<div class="mb-3 checkComplain">
-						<input type="radio">욕설<br>
-						<input type="radio">스팸<br>
-						<input type="radio">사기<br>
+						<select name="category" id="big_category" class="form-control" onchange="loadSubCategories()">
+						    <option value="">대 카테고리</option>
+						    <c:forEach items="${big_category}" var="cat">
+						        <option value="${cat.common2_code}"
+						            ${cat.code_value eq collectCat ? 'selected="selected"' : ''}>
+						            ${cat.code_value}
+						        </option>
+						    </c:forEach>
+						</select>
+					</div>
+					<div class="mb-3 checkComplain">
+						<select name="category" id="small_category" class="form-control">
+						    <option value="">소 카테고리</option>
+						</select>
 					</div>
 					<div class="mb-3">
 						<label for="event_imageFile">첨부이미지</label> 
@@ -67,6 +80,34 @@
 	</div>
 	
 	<script type="text/javascript">
+	
+		function loadSubCategories() {
+			var categoryCode = $("#big_category").val();
+			
+			$.ajax({
+				url: "getSubCategories",
+				type: "GET",
+				data: {
+					categoryCode: categoryCode 
+				},
+				dataType: "json",
+				success: function(data) {
+					if(data == null){
+						return;
+					}
+					var subCategorySelect = $("#small_category");
+					subCategorySelect.empty();
+					subCategorySelect.append('<option value="">소 카테고리</option>');
+					$.each(data, function(index, item) {
+						subCategorySelect.append('<option value="' + item.common2_code + '">' + item.code_value + '</option>');
+					});
+				},
+				error: function(xhr, status, error) {
+					console.error("Error loading subcategories: ", error);
+				}
+			});
+		}
+		
 		function writeReply() {
 			$(".creator-reaply-form").append("<div class='mb-3'>"
 					+ "<label for='creator-review-replyPro'>답글작성</label>"
@@ -87,6 +128,8 @@
 				return false;
 			}
 		}
+		
+		
 	
 	
 	</script>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.map.HashedMap;
+import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -168,5 +169,34 @@ public class EventController {
 	    headers.add("Content-Type", "text/plain; charset=UTF-8");
 	    
 	    return new ResponseEntity<>(responseMessage, headers, HttpStatus.OK);
+	}
+	
+	@GetMapping("class-complain")
+	public String classComplain(Model model, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
+		}
+		
+		// 카테고리 검색
+		List<Map<String, Object>> big_category = adminService.getBigCategoryClassComplain();
+		
+		model.addAttribute("big_category", big_category);
+		model.addAttribute("member", member);
+		
+		return "class/class-complain";
+	}
+	
+	@ResponseBody
+	@GetMapping("getSubCategories")
+	public List<Map<String, Object>> getSubCategory(@RequestParam(value = "categoryCode", required = false) Integer categoryCode) {
+        if (categoryCode == 0) {
+        	return null;
+        }
+		System.out.println("casdgadfsadf : " + categoryCode);
+		
+		List<Map<String, Object>> small_category = adminService.getSmallCategoryClassComplain(categoryCode);
+		
+		return small_category;
 	}
 }

@@ -281,9 +281,9 @@ public class ClassController {
 	}
 	
 	// 신고하기
-	@GetMapping("class-complain")
-	public String classComplain(Model model, @RequestParam int class_code) {
-		System.out.println("class-complain class-code @@@@@@%^%^%^% :" + class_code);
-		return "class/class-complain";
-	}
+//	@GetMapping("class-complain")
+//	public String classComplain(Model model, @RequestParam int class_code) {
+//		System.out.println("class-complain class-code @@@@@@%^%^%^% :" + class_code);
+//		return "class/class-complain";
+//	}
 }

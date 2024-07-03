@@ -31,8 +31,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Libraries Stylesheet -->
-<link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<%-- <link href="${pageContext.request.contextPath}/resources/lib/lightbox/css/lightbox.min.css" rel="stylesheet"> --%>
+<%-- <link href="${pageContext.request.contextPath}/resources/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"> --%>
 
 
 <!-- Customized Bootstrap Stylesheet -->
@@ -139,6 +139,7 @@
 									<span>날짜 별 취소 및 환불 정책</span><br>
 									<ul>
 										<li>클래스 시작 3일 전 취소 : 100% 환불</li>
+										<li>클래스 시작 3일 이내 취소 : 50% 환불</li>
 										<li>클래스 시작 당일 이후 취소 : 환불 불가</li>
 									</ul>
 								</div>
@@ -217,6 +218,9 @@
 </footer>
 <script>
 $(function() {
+	$('.accordion-button').off('mouseenter mouseleave');
+   
+	
 	let subtotalText = $("#subtotal").text().trim(); //trim()으로 앞뒤 공백 제거
 	let subtotal = parseInt(subtotalText.replace(/,/g, ''), 10);
 	$("#total").text(subtotal.toLocaleString());
@@ -427,16 +431,14 @@ function paymentValidation() {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+<!-- <script -->
+<%-- 	src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script> --%>
+<!-- <script -->
+<%-- 	src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script> --%>
+<!-- <script -->
+<%-- 	src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script> --%>
+<!-- <!-- <script -->
+<%-- 	src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script> --%>
 
-<!-- Template Javascript -->
-<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 </html>

@@ -31,6 +31,12 @@ public interface MainMapper {
 	List<Map<String, Object>> selectNewClass();
 
 	List<Map<String, Object>> selectNewLocal();
+
+	Map<String, Object> selectToday(@Param("visitDate")String visitDate);
+
+	void insertDailyVisit(@Param("visitDate")String visitDate);
+
+	void updateDailyVisit(Map<String, Object> dbVisitDate);
 	
 	
 	

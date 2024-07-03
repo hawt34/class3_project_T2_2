@@ -31,11 +31,6 @@
 		VALUES(#{keyword}, #{searchDateTime})
 	</insert>
 	
-	
-<!-- 	<select id="selectKeyword" resultType="map"> -->
-<!-- 		SELECT  -->
-<!-- 	</select> -->
-
 
 	<insert id="insertVisitIp">
 		INSERT INTO visit_logs(visit_date, ip_address)
@@ -131,4 +126,25 @@
 		ORDER BY class_code DESC 
 		LIMIT 8;
 	</select>
+	
+	<select id="selectToday" resultType="map">
+		SELECT *
+		FROM daily_visit
+		WHERE visit_date = #{visitDate}
+	</select>
+	
+	<insert id="insertDailyVisit">
+		INSERT INTO daily_visit(visit_date, visit_count)
+		VALUES (#{visitDate}, 1) 
+	</insert>
+	
+	<update id="updateDailyVisit">
+		<selectKey keyProperty="reply_num" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(reply_num), 0)  -- reply_num 최대값 조회(null 이면 기본값 0 지정) 
+			FROM tiny_reply_board
+		</selectKey> 
+		UPDATE daily_visit
+		SET #{visit_count} + 1
+		WHERE visit_date = #{visit_date}
+	</update>
 </mapper>

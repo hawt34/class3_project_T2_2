@@ -1,6 +1,7 @@
 package itwillbs.p2c3.class_will.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -70,24 +71,44 @@ public class ClassController {
 	    List<Map<String, Object>> localList = classService.getCategoryLocal();
 	    model.addAttribute("localList", localList);
 	    
-	    // 클래스 리스트
-		String big_category = params.get("big_category");
-		String small_category = params.get("small_category");
-		String local = params.get("local");
-		
+//	    // 클래스 리스트
+//		String big_category = params.get("big_category");
+//		String small_category = params.get("small_category");
+//		String local = params.get("local");
+//		
         Map<String, Object> list = new HashMap<>();
-        list.put("big_category", big_category);
-        list.put("small_category", small_category);
-        list.put("local", local);
+//        list.put("big_category", big_category);
+//        list.put("small_category", small_category);
+//        list.put("local", local);
         list.put("hashtag", hashtag);
-        model.addAttribute("list", list);
-        System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
-        System.out.println("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local + ", hashtag : " + hashtag);
+//        model.addAttribute("list", list);
+//        System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
+//        System.out.println("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local + ", hashtag : " + hashtag);
 
 	    List<Map<String, Object>> classList = classService.getClassList(list);
 	    model.addAttribute("classList", classList);
 	    System.out.println(">>>classList : " + classList);
 	    
+//	    for (Map<String, Object> contents : classList) {
+//	    	for (Map<String, Object> local : localList) {
+//				if(contents.get("class_code") == local.get("class_code")) {
+//					contents.put("local_name", local.get("local_name"));
+//				}
+//	    	}
+//			System.out.println("contents : " + contents);
+//	    }
+	 // 각 클래스의 local_name 추가
+	    for (Map<String, Object> contents : classList) {
+	        for (Map<String, Object> local : localList) {
+	            // class_code를 기준으로 local_list의 데이터와 매칭
+	            if (contents.get("class_code").equals(local.get("class_code"))) {
+	            	contents.put("local_name", local.get("local_name"));
+//	                break; // 매칭된 경우 반복문 종료
+	            }
+	        }
+			System.out.println("contents : " + contents);
+
+	    }
 	    // 지도에 표시할 클래스 
 		JsonArray jsonList = new JsonArray();
 		
@@ -135,6 +156,14 @@ public class ClassController {
 		System.out.println("smallCategory:@@@@@@ " + smallCategory);
 		return smallCategory;
 	}
+	
+//	@ResponseBody
+//	@GetMapping("class-hashtag")
+//	public List<Map<String, Object>> getClassHashtag(@RequestParam String big_category){
+//		List<Map<String, Object>> smallCategory = classService.getSmallCategory(big_category);
+//		System.out.println("smallCategory:@@@@@@ " + smallCategory);
+//		return smallCategory;
+//	}
 	
 	// 카테고리 필터링 ajax
 	@ResponseBody

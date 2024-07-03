@@ -59,14 +59,25 @@ public class MainService {
 	@Transactional
 	public void insertVisitIp(String ip, String visitDate) {
 		
+		Map<String, String> visit_logs = mainMapper.selectVisitIp(ip, visitDate);
+		Map<String, Object> dbVisitDate = mainMapper.selectToday(visitDate);
 		
-		Map<String, String> map = mainMapper.selectVisitIp(ip, visitDate);
-		
-		if(map == null) {
+		// visit_logs에 오늘 날짜와 방문한 IP가 일치하는 항목이 없다면 날짜와 IP 추가 
+		if(visit_logs == null) {
 			mainMapper.insertVisitIp(ip, visitDate);
 			System.out.println(visitDate + "오늘의 방문자수 +1");
+			// daily_visit 에 방문한 오늘 날짜(visitDate)가 없으면 오늘 날짜와 카운트 1 인섵
+			if(dbVisitDate == null) {
+				mainMapper.insertDailyVisit(visitDate); 
+				System.out.println("mainMapper.insertDailyVisit() 실행");
+			} else { 
+				// daily_visit 에 방문한 오늘 날짜(visitDate)가 있으면 오늘 날짜에 카운트 +1 업데이트
+				mainMapper.updateDailyVisit(dbVisitDate);
+				System.out.println("mainMapper.updateDailyVisit() 실행");
+			}
+		} else {
+			System.out.println("[ " + ip + " ] : [ " + visitDate + "] 기존 방문자");
 		}
-		System.out.println("[ " + ip + " ] : [ " + visitDate + "] 기존 방문자");
 		
 		
 	}
@@ -84,6 +95,8 @@ public class MainService {
 			}
 			System.out.println("contents : " + contents);
 		}
+		
+		
 		
 		return classList;
 	}

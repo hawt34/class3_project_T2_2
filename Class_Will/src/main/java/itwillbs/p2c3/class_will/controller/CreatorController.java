@@ -525,11 +525,20 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		
-		List<Map<String, Object>> classList = creatorService.getinquiryClassInfo(member);
-		model.addAttribute("classList", classList);
+		List<Map<String, Object>> classInquiryList = creatorService.getinquiryClassInfo(member);
+		
+		List<JSONObject> iq_list = new ArrayList<JSONObject>(); 
+		
+		for(Map<String, Object> clas : classInquiryList) {
+            JSONObject cl = new JSONObject(clas);
+            iq_list.add(cl);
+		}
+		model.addAttribute("classList", classInquiryList);
+		model.addAttribute("iq_list", iq_list);
 		
 		return "creator/creator-inquiry";
 	}
+	
 	// creater-inquiry-form으로
 	@GetMapping("creator-inquiry-form")
 	public String createrInquiryForm() {

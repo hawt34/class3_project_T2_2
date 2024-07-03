@@ -132,7 +132,7 @@
 		
 		const itemsPerPage = 10;
 		let currentPage = 1;
-		const data = ${rw_list};
+		const data = ${iq_list};
 		let grid;
 		let columns;
 		
@@ -140,8 +140,8 @@
 		
 		function initialGrid(data) {
 			columns = [
-				{ header: '후기제목', name: 'class_review_subject', align: 'center'  },
-				{ header: '작성일', name: 'class_review_date', align: 'center', width: 'auto' },
+				{ header: '문의 제목', name: 'class_inquiry_subject', align: 'center'  },
+				{ header: '작성일', name: 'class_inquiry_date', align: 'center', width: 'auto' },
 			];
 
 			grid = new tui.Grid({

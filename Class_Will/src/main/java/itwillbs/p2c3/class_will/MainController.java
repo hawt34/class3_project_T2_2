@@ -94,8 +94,12 @@ public class MainController {
 		
 		
 		for(Map<String, Object> lcm : localCateMap) {
+			Integer common2_code_obj = (Integer) lcm.get("common2_code");
+			int common2_code = (common2_code_obj != null) ? common2_code_obj.intValue() : 0;
 			JsonObject jo = new JsonObject();
 			jo.addProperty("local_name", (String) lcm.get("code_value"));
+			jo.addProperty("local_code", common2_code);
+			
 			System.out.println("jo : " + jo);
 			localCateList.add(jo);
 		}

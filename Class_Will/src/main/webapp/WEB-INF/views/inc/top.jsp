@@ -148,8 +148,12 @@
 }
 
 #top-class-regist {
-    border: 1px solid white;
+	border: 1px solid white;
     border-radius: 5px;
+}
+
+.top-logout {
+	padding-left: 15px;
 }
 
 .collapse-category .col {
@@ -439,7 +443,7 @@
 													<a class="nav-link" href="admin"><i class="bi bi-gear"></i> 관리자</a>
 												</li>
 												<li class="nav-item">
-												    <a class="nav-link" onclick="logout()">로그아웃</a>
+												    <a class="nav-link top-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> 로그아웃</a>
 												</li>
 											</c:when>
 											<c:otherwise>
@@ -447,7 +451,7 @@
 												    <a class="nav-link" href="my-page"><i class="bi bi-person-circle bi-top"></i></a>
 												</li>
 												<li class="nav-item">
-												    <a class="nav-link" onclick="logout()">로그아웃</a>
+												    <a class="nav-link top-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> 로그아웃</a>
 												</li>
 											</c:otherwise>
 										</c:choose>
@@ -482,9 +486,9 @@
 					</div>
 					
 				</div> <!-- container-fluid -->
-				
 	        </nav>
-	           
+
+			<!-- 미니 탑 메뉴창 -->
 			<div class="mini-top-menu">
 				<div class="mini-top-menu-header d-flex justify-content-between mb-3">
 					<div class="">	 
@@ -493,12 +497,12 @@
 								<a class="d-flex align-items-center" href="member-login"><i class="bi bi-person"></i> 로그인<i class="bi bi-chevron-right" style="font-size: 13px;"></i></a>
 							</c:when>
 							<c:when test="${member.member_type eq 3}">
-								<a class="" href="admin"><i class="bi bi-gear"></i> 관리자</a>
-								<a class="" onclick="logout()">로그아웃</a>
+								<a class="" href="admin"><i class="bi bi-gear"></i> 관리자</a>&nbsp;
+								<a class="top-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> 로그아웃</a>
 							</c:when>
 							<c:otherwise>
 								<a class="" href="my-page"><i class="bi bi-person-circle bi-top"></i> 내 정보</a>
-								<a class="" onclick="logout()">로그아웃</a>
+								<a class="top-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> 로그아웃</a>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -511,27 +515,12 @@
 	                    <h5 class="mb-3"><a class="" href="event">✨이벤트</a></h5>
 	                    <h5 class="mb-2 d-flex align-items-center"><i class="bi bi-grid-fill" style="font-size: 15px;"></i>&nbsp;카테고리</h5>
                     	<div class="mx-4" id="mini-cate-field-area">
-<!-- 	                    	<div class="mini-cate-field"> -->
-<!-- 	                    		<h5 class="mini-cate-big"><a href="">드로잉</a></h5> -->
-<!-- 	                    		<ul class="mini-cate-small-area"> -->
-<!-- 	                    			<li class="mini-cate-small"><a href="">소묘</a></li> -->
-<!-- 	                    			<li class="mini-cate-small"><a href="">캘리그라피</a></li> -->
-<!-- 	                    			<li class="mini-cate-small"><a href="">수채화</a></li> -->
-<!-- 	                    			<li class="mini-cate-small"><a href="">동양화</a></li> -->
-<!-- 	                    			<li class="mini-cate-small"><a href="">서양화</a></li> -->
-<!-- 	                    		</ul> -->
-<!-- 	                    	</div> -->
                     	</div><!-- mini-cate-field-area -->
 	                    <h5 class="my-3 d-flex align-items-center"><i class="bi bi-geo-alt-fill"></i>&nbsp;지역별</h5>
 	                    <div class="mx-4" id="mini-cate-local-area">
-<!-- 	                    	<h5 class="mini-cate-local"><a href="">서울</a></h5> -->
-<!-- 	                    	<h5 class="mini-cate-local"><a href="">부산</a></h5> -->
-<!-- 	                    	<h5 class="mini-cate-local"><a href="">인천</a></h5> -->
-<!-- 	                    	<h5 class="mini-cate-local"><a href="">대구</a></h5> -->
 	                    </div><!-- mini-cate-local-area -->
 					</div>
 				</div> <!-- mini-top-menu-body -->
-			
 			</div><!-- mini-top-menu -->
 	            
 	    </div> <!-- top-cate -->
@@ -554,11 +543,11 @@
 	            <!-- 추천 검색어 영역 -->
 	            <h5 class="mb-3">추천 검색어</h5>
 	            <div class="justify-content-center">
-	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
-	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
-	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
-	            	<div class="btn recommend-keyword"><a href="">추천어1</a></div>
-	            	<div class="btn recommend-keyword"><a href="">추천어1scas</a></div>
+	            	<div class="btn recommend-keyword"><a href="">선물용</a></div>
+	            	<div class="btn recommend-keyword"><a href="">데이트</a></div>
+	            	<div class="btn recommend-keyword"><a href="">핸드메이드</a></div>
+	            	<div class="btn recommend-keyword"><a href="">가족</a></div>
+	            	<div class="btn recommend-keyword"><a href="">드로잉</a></div>
 	            </div>
 	        </div>
 	    </div>
@@ -609,7 +598,7 @@ $(function() {
 			 		$("#fieldCategoryArea").append(
 						 ' <div class="col col-2 text-left">'
 	                       + '<div>'
-	                           + '<a href="class-list"><span class="big-category mb-3">'+field.largeCategory+'</span></a>'
+	                           + '<a href="class-list?class_big_category='+field.id+'"><span class="big-category mb-3">'+field.largeCategory+'</span></a>'
 	                           + '<ul class="top-ul mt-3 mb-3" id="'+fieldSmallAreaId+'">'
 	                           + '</ul>'
 	                       + '</div>'
@@ -619,7 +608,7 @@ $(function() {
 			 			console.log("children.id : "+ children.id);
 			 			console.log("children.largeCategory : "+children.largeCategory);
 			 			console.log("children.smallCategory : "+children.smallCategory);
-			 			 $("#" + fieldSmallAreaId).append('<li><a href="">' + children.smallCategory + '</a></li>');
+			 			 $("#" + fieldSmallAreaId).append('<li><a href="class-list?class_small_category='+children.id+'">' + children.smallCategory + '</a></li>');
 			 		
 			 		}
 			 	}
@@ -646,9 +635,11 @@ $(function() {
 		 	success : function(localCategory) {
 		 		$("#localCategoryArea").html("");
 			 	for(local of localCategory) {
+			 		console.log("local.local_name : " + local.local_name);
+			 		console.log("local.local_code : " + local.local_code);
 				 	$("#localCategoryArea").append(
 				 		  '<div class="col col-2 text-left mb-3">'
-						+ 	'<a href="class-list"><span class="big-category">' + local.local_name + '</span></a>'
+						+ 	'<a href="class-list?common2_code='+ local.local_code + '"><span class="big-category">' + local.local_name + '</span></a>'
 						+ '</div>'		
 				 	);
 			 	}
@@ -719,7 +710,7 @@ $(function() {
 			 		
 			 		$("#mini-cate-field-area").append(
 					 		 '<div class="mini-cate-field">'
-			            	+ 	 '<h5 class="mini-cate-big"><a href="">'+field.largeCategory+'</a></h5>'
+			            	+ 	 '<h5 class="mini-cate-big"><a href="class-list">'+field.largeCategory+'</a></h5>'
 			            	+	 '<ul class="mini-cate-small-area" id="'+miniSmallAreaId+'"></ul>'
 			            	+ '</div>'
 			 		);
@@ -727,7 +718,7 @@ $(function() {
 			 			console.log("children.id : "+ children.id);
 			 			console.log("children.largeCategory : "+children.largeCategory);
 			 			console.log("children.smallCategory : "+children.smallCategory);
-						$("#" + miniSmallAreaId).append('<li class="mini-cate-small"><a href="">' + children.smallCategory + '</a></li>');
+						$("#" + miniSmallAreaId).append('<li class="mini-cate-small"><a href="class-list?class_small_category=' + children.id +'">' + children.smallCategory + '</a></li>');
 			 		}
 			 	}
 		 		
@@ -749,8 +740,9 @@ $(function() {
 		 		$("#mini-cate-local-area").html("");
 			 	for(local of localCategory) {
 		 		console.log("local.local_name : " + local.local_name);
+		 		console.log("local.local_code : " + local.local_code);
 				 	$("#mini-cate-local-area").append(
-	                    '<h5 class="mini-cate-local"><a href="class-list">'+ local.local_name +'</a></h5>'
+	                    '<h5 class="mini-cate-local"><a href="class-list?common2_code='+ local.local_code + '">'+ local.local_name +'</a></h5>'
 				 	);
 			 	}
 		 	},

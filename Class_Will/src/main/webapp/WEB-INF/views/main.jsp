@@ -67,7 +67,7 @@
 	    right: 0;
 	    color: white;
 	    padding: 5px 25px;
-	    border: 1px solid var(--bs-secondary);
+	    border: 1px solid #FF4848;
 	    border-radius: 20px;
 	    transition: 0.5s;
 	}
@@ -78,7 +78,7 @@
 	    right: 80px;
 	    color: white;
 	    padding: 5px 25px;
-	    border: 1px solid var(--bs-secondary);
+	    border: 1px solid #FF4848;
 	    border-radius: 20px;
 	    transition: 0.5s;
 	}
@@ -145,20 +145,20 @@
 	      	<!-- Vesitable Shop Start-->
 	        <div class="container-fluid vesitable py-3">
 	            <div class="container py-3">
-	                <h2 class="mb-0 ">클래스윌 TOP10</h2>
+	                <h3 class="mb-0 ">클래스윌 TOP10</h3>
 	                
 	                <div class="owl-carousel vegetable-carousel justify-content-center">
 	                	
 	                	<c:forEach var="contents" items="${top10List}">
 	                		
-							<div class="rounded position-relative"  onclick="location.href='class-detail?class_code=${contents.class_code}'">
+							<div class="rounded position-relative vesitable-item" style="width: 306px;">
 								<div class="vesitable-img">
-									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
+									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 								</div>
 		                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;">
 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
 		                        </div>
-		                        <div class="p-3 rounded-bottom classCardBtm" >
+		                        <div class="p-3 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${contents.class_code}'" >
 									<div class="classCategory w-100 col-md-10">
 										<button type="button" class="btn btn-outline-dark btn-sm category mb-2" >${contents.big_category}</button>
 										<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${contents.small_category}</button>
@@ -166,7 +166,7 @@
 										<button type="button" class="btn btn-outline-secondary btn-sm category mb-2">${hashtags[0]}</button>
 									</div>
 									<div class="createrName d-flex align-items-center py-2">
-										<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+										<div class="px-2 py-2 position-absolute"  style="bottom: 120px; left: 6px;">
 											<c:choose>
 												<c:when test="${empty contents.member_img}">
 													<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
@@ -194,7 +194,7 @@
 		                    
 	                	</c:forEach>
 	                    
-<!-- 	                     <div class=" rounded  vesitable-item"> -->
+<!-- 	                     <div class=" rounded  position-relative vesitable-item"> -->
 <!-- 							<div class="vesitable-img"> -->
 <%-- 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
 <!-- 							</div> -->
@@ -234,16 +234,16 @@
         </div> <!--  main-top10 -->
 	
 
- 		<div class="container-fluid fruite py-3">
+ 		<div class="container-fluid fruite py-3 mb-5">
             <div class="container py-3">
                 <div class="tab-class text-center">
                     <div class="row g-4">
-                        <div class="col-lg-6">
-                            <h2 class="float-start" style="margin-bottom: 20px;">신규 오픈 클래스</h2>
+                        <div class="col-7 pe-0">
+                            <h3 class="float-start" style="margin-bottom: 20px;">신규 오픈 클래스</h3>
                         </div>
-                        <div class="col-lg-6 p-3">
+                        <div class="col-5 ps-0 pt-2">
                             <h5 class="float-end">
-                            	<a href="class-list" style="text-decoration: none; color: #FF4848;" >자세히 보기 <i class="bi bi-arrow-right"></i></a>
+                            	<a href="class-list" style="text-decoration: none; color: #FF4848;">자세히 보기 <i class="bi bi-arrow-right"></i></a>
                             </h5>
                         </div>    
                     </div>
@@ -252,14 +252,14 @@
 							<div class="row g-4">
 							
 								<c:forEach var="contents" items="${newClassList}">
-									<div class="col-md-6 col-lg-4 col-xl-3" onclick="location.href='class-detail?class_code=${contents.class_code}'">
+									<div class="col-md-6 col-lg-4 col-xl-3" style="width: 330px;">
 										<div class="rounded position-relative class-item classCard">
 											<div class="">
-												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
+												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 												<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
 											</div>
 									<!-- 	<div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-											<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm " >
+											<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${contents.class_code}'" >
 												<div class="classCategory w-100 col-md-10">
 													<button type="button" class="btn btn-outline-dark btn-sm category mb-2" >${contents.big_category}</button>
 													<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${contents.small_category}</button>
@@ -331,7 +331,7 @@
                  </div>
              </div>
          </div>      
-        <!-- Fruits Shop End-->
+        
 
 	      
 	    

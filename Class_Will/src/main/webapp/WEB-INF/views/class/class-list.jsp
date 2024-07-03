@@ -335,8 +335,8 @@ body {
 						<!-- 셀렉트 검색 버튼 -->
 						<div class="btnSearchDiv col-md-1">
 <!-- 							<div class="btnSearch w-100"> -->
-								<button type="button" class="btn btn-outline-light btnSearch" onclick="searchCategory()">검색</button>
-<!-- 								<button type="button" class="btn btn-outline-light btnSearch">검색</button> -->
+<!-- 								<button type="button" class="btn btn-outline-light btnSearch" onclick="searchCategory()">검색</button> -->
+								<button type="button" class="btn btn-outline-light btnSearch">검색</button>
 <!-- 							</div> -->
 						</div>
 						<!-- 셀렉트 검색 버튼 -->
@@ -644,10 +644,43 @@ function updateLocal() {
 // }
 var contextPath = '<%= request.getContextPath() %>';
 $(function() {
+	
 	$(".btnSearch").on("click", function() {
-    var big_category = $("#class_big_category").val();
-	var small_category = $("#class_small_category").val();
-	var local = $("#class_local").val();
+		var big_category = $("#class_big_category").val();
+		var small_category = $("#class_small_category").val();
+		var local = $("#class_local").val();
+
+		// big_category "전체"인 경우
+		if (big_category === "bigCategoryAll") {
+		    big_category = [];
+		    $("#class_big_category option").each(function() {
+		        if ($(this).val() !== "bigCategoryAll") {
+		            big_category.push($(this).val());
+		        }
+		    });
+		}
+		
+		// small_category "전체"인 경우
+		if (small_category === "smallCategoryAll") {
+			small_category = [];
+		    $("#class_small_category option").each(function() {
+		        if ($(this).val() !== "smallCategoryAll") {
+		        	small_category.push($(this).val());
+		        }
+		    });
+		}
+		
+		// local "전체"인 경우
+		if (local === "classLocalAll") {
+			local = [];
+		    $("#class_local option").each(function() {
+		        if ($(this).val() !== "classLocalAll") {
+		        	local.push($(this).val());
+		        }
+		    });
+		}
+    
+    
 		$.ajax({
 			type : "GET",
 			url : "filter-class",
@@ -659,7 +692,9 @@ $(function() {
 			},
 		 	contentType: "application/json",
 		 	success : function(filterClass) {
-		 		
+	               // Update class count
+                $(".classCount").html('<p>' + filterClass.length + '개의 클래스</p>');
+                
                 $("#classListContainer").html("");
                 for (filter of filterClass) {
                     console.log("filter.class_name : " + filter.class_name);

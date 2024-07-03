@@ -176,6 +176,7 @@ function showLocations(position) {
         });
         marker.setMap(map);
         
+        
         var content = '<div style="padding:10px; color:blue; font-size : 0.8em; font-weight: bold;">' + location.title + '</div>'; // 클래스 위치 커스텀 오버레이 내용
         var customOverlay = new kakao.maps.CustomOverlay({
             map: map,

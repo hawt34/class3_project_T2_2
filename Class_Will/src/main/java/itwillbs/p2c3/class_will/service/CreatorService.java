@@ -1,8 +1,10 @@
 package itwillbs.p2c3.class_will.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -206,7 +208,25 @@ public class CreatorService {
 	}
 	
 	//==================================================================================================
+
+	// 문의사항 클래스정보 가져오기
+	public List<Map<String, Object>> getAnalyzeClassInfo(MemberVO member){
+		return creatorMapper.getAnalyzeClassInfo(member);
+	}
+
+	// 분석결과 가져오기
+	public Map<String, Object> getAnalyzeList(MemberVO member) {
+		Map<String, Object> map = new HashedMap<String, Object>();
+		Map<String, Object> analyzeList = creatorMapper.getAnalyzeList(member);
+		Map<String, Object> analyzeReviewList = creatorMapper.getAnalyzeReviewList(member);
+		map.put("analyzeList", analyzeList);
+		map.put("analyzeReviewList", analyzeReviewList);
+		
+		return map;
+	}
 	
+	//==================================================================================================
+
 	// 누적 정산금 가져오기
 	public Map<String, String> getSumSettlement(MemberVO member, String settlementDate) {
 		return creatorMapper.getSumSettlement(member, settlementDate);

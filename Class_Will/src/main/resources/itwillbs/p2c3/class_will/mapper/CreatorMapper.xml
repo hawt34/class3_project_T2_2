@@ -412,7 +412,7 @@
 			</choose>
 	</select>
 
-	<!-- 타입에 따른 후기 가져오기 -->
+	<!-- 타입에 따른 문의 가져오기 -->
 	<select id="getInquiryByType" resultType="map">
 		SELECT *
 		FROM 
@@ -431,7 +431,7 @@
 			class_inquiry_status = #{type}
 	</select>
 	
-	<!-- 리뷰코드에 따른 리뷰 -->
+	<!-- 문의코드에 따른 리뷰 -->
 	<select id="getInquiryByInquiryCode" resultType="map">
 		SELECT 
 			ci.*, m.member_nickname, c.class_name
@@ -449,7 +449,7 @@
 			class_inquiry_code = #{inquiry_code}
 	</select>
 
-	<!-- 리뷰코드에 따른 답변 -->
+	<!-- 문의코드에 따른 답변 -->
 	<select id="getReplyByInquiryCode" resultType="map">
 		SELECT cr.*
 		FROM class_reply cr
@@ -460,7 +460,7 @@
 		AND c2.code_hide = 'N'
 	</select>
 	
-	<!-- 후기 상태 변경 -->
+	<!-- 문의 상태 변경 -->
 	<update id="changeInquiryStatus">
 	    UPDATE
 	        class_inquiry
@@ -474,7 +474,7 @@
 	        class_inquiry_code = #{inquiryCode}
 	</update>
 	
-	<!-- 후기 답변 삽입 -->
+	<!-- 문의 답변 삽입 -->
 	<insert id="insertInquiryReply">
 		INSERT INTO 
 			class_reply 
@@ -488,7 +488,7 @@
 		)
 	</insert>
 	
-	<!-- 후기 답변 변경 -->
+	<!-- 문의 답변 변경 -->
 	<update id="updateInquiryReply">
 		UPDATE
 			class_reply
@@ -502,6 +502,7 @@
 			reply_type = 2
 	</update>
 	
+	<!-- 문의답변 삭제 -->
 	<delete id="deleteInquiryReply">
 		DELETE FROM 
 			class_reply
@@ -701,6 +702,53 @@
 		SET member_type = 2
 		WHERE member_email = #{member_email}
 	</update>
+	
+	<!-- =========================================================================================== -->
+	
+	<!-- 후기에 따른 클래스 정보 가져오기 -->
+	<select id="getAnalyzeClassInfo" resultType="map">
+		SELECT  c.class_name
+			 , c.class_code
+		FROM 
+			class c
+		WHERE 
+			c.member_code = #{member_code}
+	</select>
+	
+	<!-- 분석한 데이터 -->
+	<select id="getAnalyzeList" resultType="map">
+		SELECT 
+			count(*) AS classCount
+			, ifnull(sum(cs.class_total_headcount - cs.class_remain_headcount),0) AS attendCount
+			, round(avg(cs.class_total_headcount - cs.class_remain_headcount), 1) AS avgAttendCount
+		FROM 
+			class_schedule cs  
+		JOIN 
+			class c
+		ON 	
+			c.class_code = cs.class_code
+		WHERE 
+			c.member_code = 1079
+		AND 
+			CURDATE() > STR_TO_DATE(cs.class_schedule_date, '%Y-%m-%d')
+		And 
+			cs.class_total_headcount != cs.class_remain_headcount
+	</select>
+
+	<select id="getAnalyzeReviewList" resultType="map">
+		SELECT 
+			count(*) AS reviewCount
+		FROM 
+			class_review cr 
+		JOIN 
+			class c
+		ON 
+			c.class_code = cr.class_code 
+		WHERE 
+			c.member_code = 1079
+	</select>
+	
+	
 	
 	<!-- =========================================================================================== -->
 	<!-- settlement 값 가져오기 -->

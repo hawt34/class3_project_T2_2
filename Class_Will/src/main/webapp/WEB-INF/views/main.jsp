@@ -151,7 +151,7 @@
 	                	
 	                	<c:forEach var="contents" items="${top10List}">
 	                		
-							<div class="rounded position-relative vesitable-item">
+							<div class="rounded position-relative"  onclick="location.href='class-detail?class_code=${contents.class_code}'">
 								<div class="vesitable-img">
 									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
 								</div>
@@ -181,11 +181,11 @@
 									<div class="className">
 										<h6>${contents.class_name}</h6>
 									</div>
-						            <div class="row classInfo fixed-bottom p-3">
-										<div class="col-md-6 add float-start ">
+						            <div class="row classInfo d-flex justify-content-between">
+										<div class="col add">
 											<a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
 										</div>
-										<div class="col-md-6 price float-end ">
+										<div class="col price  ">
 											<h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
 										</div>
 									</div>
@@ -252,7 +252,7 @@
 							<div class="row g-4">
 							
 								<c:forEach var="contents" items="${newClassList}">
-									<div class="col-md-6 col-lg-4 col-xl-3 ">
+									<div class="col-md-6 col-lg-4 col-xl-3" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 										<div class="rounded position-relative class-item classCard">
 											<div class="">
 												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
@@ -280,11 +280,11 @@
 												<div class="className mt-2">
 												   <h6>${contents.class_name}</h6>
 												</div>
-												<div class="row classInfo ">
-												   <div class="col-md-6 add float-start ">
+												<div class="row classInfo d-flex justify-content-between">
+												   <div class="col add float-start ">
 												      <a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
 													</div>
-													<div class="col-md-6 price float-end">
+													<div class="col price float-end">
 												   		<h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
 												   </div>
 												</div>

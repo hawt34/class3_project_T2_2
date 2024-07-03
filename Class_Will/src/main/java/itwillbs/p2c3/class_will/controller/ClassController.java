@@ -42,7 +42,7 @@ public class ClassController {
 	// 클래스 리스트
 	@GetMapping("class-list")
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
-	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag) {
+	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params) {
 		
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    Integer member_code = null;
@@ -61,7 +61,6 @@ public class ClassController {
 	    model.addAttribute("bigCategoryList", bigCategoryList);
 	    System.out.println("bigCategoryList: " + bigCategoryList);
 	    
-	    // ---------------------------------------------------------------
 	    // 소 카테고리
 	    List<Map<String, Object>> smallCategoryList = classService.getListSmallCategory();
 	    model.addAttribute("smallCategoryList", smallCategoryList);
@@ -72,11 +71,23 @@ public class ClassController {
 	    model.addAttribute("localList", localList);
 	    
 	    // 클래스 리스트
-	    List<Map<String, Object>> classList = classService.getClassList(hashtag);
+		String big_category = params.get("big_category");
+		String small_category = params.get("small_category");
+		String local = params.get("local");
+		
+        Map<String, Object> list = new HashMap<>();
+        list.put("big_category", big_category);
+        list.put("small_category", small_category);
+        list.put("local", local);
+        list.put("hashtag", hashtag);
+        model.addAttribute("list", list);
+        System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
+        
+	    List<Map<String, Object>> classList = classService.getClassList(list);
 	    model.addAttribute("classList", classList);
 	    System.out.println(">>>classList : " + classList);
 	    
-	    
+	    // 지도에 표시할 클래스 
 		JsonArray jsonList = new JsonArray();
 		
 		for(Map<String, Object> class1  : classList) {
@@ -89,12 +100,6 @@ public class ClassController {
 		}
 		
 		model.addAttribute("jsonList", jsonList);
-//		model.addAttribute("class_map_x", class_map_x);
-//		model.addAttribute("class_map_y", class_map_y);
-//		model.addAttribute("class_name", class_name);
-//		System.out.println(">>>!!! class_map_x : " + class_map_x);
-//		System.out.println(">>>!!! class_map_y : " + class_map_y);
-//		System.out.println(">>>!!! class_name : " + class_name);
 		System.out.println(">>>!!! jsonList : " + jsonList);
 		
 	    // 해시태그
@@ -171,8 +176,6 @@ public class ClassController {
         System.out.println("heart_status !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + heart_status);
         System.out.println("member_code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + member_code);
         System.out.println("class_code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + class_code);
-        
-		
 		
 	    // heart_status가 true이면 좋아요를 추가, false이면 좋아요를 제거
 	    if (heart_status != null && member_code != null && class_code != null) {

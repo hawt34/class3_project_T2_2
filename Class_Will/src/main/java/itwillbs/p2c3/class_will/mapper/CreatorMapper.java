@@ -142,6 +142,18 @@ public interface CreatorMapper {
 	
 	//=====================================================================================================
 	
+	// 분석 클래스정보 가져오기
+	List<Map<String, Object>> getAnalyzeClassInfo(MemberVO member);
+	
+	// 분석결과 가져오기
+	Map<String, Object> getAnalyzeList(MemberVO member);
+
+	// 리뷰분석결과 가져오기
+	Map<String, Object> getAnalyzeReviewList(MemberVO member);
+	
+	
+	//=====================================================================================================
+
 	// 누적 정산금 가져오기
 	Map<String, String> getSumSettlement(@Param("member")MemberVO member, @Param("settlementDate") String settlementDate);
 	

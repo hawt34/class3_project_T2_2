@@ -17,8 +17,20 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js" ></script>
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-review-form.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<style>
+.custom-confirm-button {
+    background-color: #1E90FF !important; /* 예 버튼 색상 */
+    color: #fff !important;
+}
+.custom-cancel-button {
+    background-color: #FF4500 !important; /* 아니요 버튼 색상 */
+    color: #fff !important;
+}
+</style>
 </head>
 <body>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 		<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
@@ -75,8 +87,23 @@
 			var inquiryStatus = "${inquiry.class_inquiry_status}";
 			var inquiryReply = $("#creator-inquiry-replyPro").val();
 			event.preventDefault(); // 폼 제출을 막음
-			if(confirm("답글을 등록하시겠습니까?")){
-				$.ajax({
+			
+		    Swal.fire({
+		        title: "답글을 등록하시겠습니까?",
+		        icon: "question",
+		        showCancelButton: true,
+		        confirmButtonColor: "green",
+		        cancelButtonColor: "#3085d6",
+		        confirmButtonText: "예",
+		        cancelButtonText: "아니요",
+		        customClass: {
+		            popup: 'swal-wide',
+		            confirmButton: 'custom-confirm-button',
+		            cancelButton: 'custom-cancel-button'
+		        }
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		        	$.ajax({
 						url: "insertInquiryReply",
 						method: "get",
 						data: { "inquiryReply" : inquiryReply,
@@ -84,28 +111,59 @@
 								"inquiryStatus" : inquiryStatus
 						},
 						success: function(data) {
-							window.opener.location.reload(); // 부모창 리로드
-							window.close();
-					}
-				});	
-			}
+							Swal.fire("성공", "답글이 등록 되었습니다.", "success").then(() => {
+		                        window.opener.location.reload(); // 부모창 리로드
+		                        window.close();
+		                    });
+						},
+		                error: function(e) {
+		                    Swal.fire("실패", "답글등록에 실패하였습니다.", "error");
+		                },
+		                timeout: 100000
+					});	
+		        }
+		    });
+				
 		}
 
 		function inquiryDelete() {
 			var inquiryCode = ${inquiry.class_inquiry_code};
 			event.preventDefault(); // 폼 제출을 막음
-			if(confirm("답글을 삭제하시겠습니까?")){
-				$.ajax({
-					url: "deleteInquiryReply",
-					method: "get",
-					data: { "inquiryCode" : inquiryCode,
-					},
-					success: function(data) {
-						window.opener.location.reload(); // 부모창 리로드
-					    window.close(); 
-					}
-				});	
-			}
+		    Swal.fire({
+		        title: "답글을 등록하시겠습니까?",
+		        icon: "question",
+		        showCancelButton: true,
+		        confirmButtonColor: "green",
+		        cancelButtonColor: "#3085d6",
+		        confirmButtonText: "예",
+		        cancelButtonText: "아니요",
+		        customClass: {
+		            popup: 'swal-wide',
+		            confirmButton: 'custom-confirm-button',
+		            cancelButton: 'custom-cancel-button'
+		        }
+		    }).then((result) => {
+		        if (result.isConfirmed) {
+		        	$.ajax({
+		        		url: "deleteInquiryReply",
+						method: "get",
+						data: { "inquiryCode" : inquiryCode,
+						},
+						success: function(data) {
+							Swal.fire("성공", "답글이 등록 되었습니다.", "success").then(() => {
+		                        window.opener.location.reload(); // 부모창 리로드
+		                        window.close();
+		                    });
+						},
+		                error: function(e) {
+		                    Swal.fire("실패", "답글등록에 실패하였습니다.", "error");
+		                },
+		                timeout: 100000
+					});	
+		        }
+		    });				
+				
+				
 		}
 		
 		$(function() {

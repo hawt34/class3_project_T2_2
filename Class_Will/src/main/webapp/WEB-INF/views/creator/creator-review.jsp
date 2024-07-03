@@ -35,6 +35,8 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css">
 <!-- Toast UI Pagination CSS -->
 <link rel="stylesheet"	href="https://uicdn.toast.com/tui.pagination/latest/tui-pagination.css">
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

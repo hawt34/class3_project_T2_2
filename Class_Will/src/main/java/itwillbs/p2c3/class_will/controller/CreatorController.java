@@ -599,9 +599,12 @@ public class CreatorController {
 			model.addAttribute("targetURL", "./");
 			return "result_process/fail";
 		}
+		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member);
+		List<Map<String, Object>> classList = creatorService.getAnalyzeClassInfo(member);
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
+		model.addAttribute("analyzeList", analyzeList.get("analyzeList"));
+		model.addAttribute("analyzeReviewList", analyzeList.get("analyzeReviewList"));
 		
 		return "creator/creator-analyze";
 	}

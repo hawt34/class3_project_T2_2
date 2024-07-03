@@ -67,7 +67,9 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -84,7 +86,9 @@ public class MyPageController {
 		// System.out.println("리뷰쪽 시작"+member.getMember_code());
 
 		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -123,7 +127,9 @@ public class MyPageController {
 		// System.out.println("리뷰쪽 시작"+member.getMember_code());
 
 		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+			model.addAttribute("msg", "로그인이 필요한 페이지 입니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -151,7 +157,9 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			String classCode = params.get("class_code");
 			String memberCode = params.get("member_code");
@@ -173,8 +181,9 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) { // 실패
-
-			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 
 			System.out.println("데이터 확인" + formData);
@@ -195,8 +204,9 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) { // 실패
-
-			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			model.addAttribute("member", member);
 			Map<String, String> review = myPageService.getReviewByCode(reviewCode);
@@ -239,8 +249,9 @@ public class MyPageController {
 	public String deleteReview(Model model, @RequestParam Map<String, String> map) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		if (member == null) { // 실패
-
-			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -363,7 +374,9 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -380,7 +393,9 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) { // 실패
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);

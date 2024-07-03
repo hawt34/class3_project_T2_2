@@ -555,7 +555,7 @@
 			console.log("authSmsCheck - serverAuthNum : " + serverAuthNum);
 			let phone_auth_number = $("#phone_auth_number").val();
 			
-			if(phone_auth_number === serverAuthNum) {
+			if(phone_auth_number == serverAuthNum) {
 				$("#regex-auth").text("인증이 완료되었습니다.");
 	            $("#regex-auth").css("color", "green");
 	            $("#btnSub").prop("disabled", false);

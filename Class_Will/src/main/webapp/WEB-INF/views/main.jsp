@@ -169,10 +169,10 @@
 										<div class="px-2 py-2 position-absolute"  style="bottom: 120px; left: 6px;">
 											<c:choose>
 												<c:when test="${empty contents.member_img}">
-													<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+													<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img">
 												</c:when>	
 												<c:otherwise>
-													<img src="${pageContext.request.contextPath}/resources/images/class/x.png">
+													<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img">
 												</c:otherwise>
 											</c:choose>
 										</div>	
@@ -269,10 +269,10 @@
 												<div class="createrName d-flex align-items-center">
 													<c:choose>
 														<c:when test="${empty contents.member_img}">
-															<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+															<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img">
 														</c:when>	
 														<c:otherwise>
-															<img src="${pageContext.request.contextPath}/resources/images/class/x.png">
+															<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img">
 														</c:otherwise>
 													</c:choose>
 													<p class="mb-0 ml-2">${contents.member_nickname}</p>

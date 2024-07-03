@@ -77,6 +77,12 @@ body {
 	color : black;
 }
 
+
+.member_img {
+	width: 30px;
+	height: 30px;
+}
+
 .createrName img {
 	width: 30px;
 	height: 30px;

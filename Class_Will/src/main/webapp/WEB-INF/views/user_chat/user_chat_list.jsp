@@ -26,7 +26,15 @@
 <!-- 제이쿼리 -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 
+<style type="text/css">
+	
+	.user-chat {
+		margin: 0 auto;
+		background: 
+	}
 
+
+</style>
 
 
 

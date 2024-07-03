@@ -351,9 +351,9 @@
 		AND 
 			c.member_code = #{member_code}
 	</select>
-	
+	<!-- =========================================================================================== -->
 	<!-- 문의사항 클래스 정보 가져오기 -->
-	<select id="getinquiryClassInfo" resultType="map">
+	<select id="getInquiryClassInfo" resultType="map">
 		SELECT 
 			   ci.class_inquiry_code
 			 , ci.class_inquiry_subject
@@ -378,6 +378,141 @@
 			c.member_code = #{member_code}
 	</select>
 	
+	<!-- 문의에 따른 클래스 정보 가져오기 -->
+	<select id="getClassByInquiry" resultType="map">
+		SELECT count(class_inquiry_code) as counter
+			 , c.class_name
+			 , c.class_code
+		FROM 
+			class_inquiry ci
+		RIGHT JOIN 
+			class c
+		ON 
+			c.class_code = ci.class_code 
+		WHERE 
+			c.member_code = #{member_code}
+		GROUP BY c.class_code
+	</select>
+	
+	
+	<!-- 클래스에 따른 문의 가져오기 -->
+	<select id="getInquiryByClass" resultType="map">
+		SELECT *
+		FROM 
+			class_inquiry ci
+			<choose>
+				<when test="!classCode.equals(0)">
+					WHERE class_code = #{classCode}
+				</when>
+				<otherwise>
+					JOIN class c
+					ON c.class_code = ci.class_code
+					WHERE c.member_code = #{member_code}
+				</otherwise>
+			</choose>
+	</select>
+
+	<!-- 타입에 따른 후기 가져오기 -->
+	<select id="getInquiryByType" resultType="map">
+		SELECT *
+		FROM 
+			class_inquiry ci
+			<choose>
+				<when test="!classCode.equals(0)">
+					WHERE class_code = #{classCode}
+				</when>
+				<otherwise>
+					JOIN class c
+					ON c.class_code = ci.class_code
+					WHERE c.member_code = #{member_code}
+				</otherwise>
+			</choose>
+		AND 
+			class_inquiry_status = #{type}
+	</select>
+	
+	<!-- 리뷰코드에 따른 리뷰 -->
+	<select id="getInquiryByInquiryCode" resultType="map">
+		SELECT 
+			ci.*, m.member_nickname, c.class_name
+		FROM 
+			class_inquiry ci
+		JOIN 
+			MEMBER m
+		ON 
+			m.member_code = ci.member_code
+		JOIN 
+			class c
+		ON 
+			c.class_code = ci.class_code
+		WHERE 
+			class_inquiry_code = #{inquiry_code}
+	</select>
+
+	<!-- 리뷰코드에 따른 답변 -->
+	<select id="getReplyByInquiryCode" resultType="map">
+		SELECT cr.*
+		FROM class_reply cr
+		JOIN common2 c2
+		ON c2.common2_code = cr.reply_type
+		AND c2.common1_code = 'RT'
+		WHERE parent_code = #{inquiry_code}
+		AND c2.code_hide = 'N'
+	</select>
+	
+	<!-- 후기 상태 변경 -->
+	<update id="changeInquiryStatus">
+	    UPDATE
+	        class_inquiry
+	    SET
+	        class_inquiry_status = 
+	        CASE
+	            WHEN class_inquiry_status = 'N' THEN 'Y'
+	            WHEN class_inquiry_status = 'Y' THEN 'N'
+	        END
+	    WHERE 
+	        class_inquiry_code = #{inquiryCode}
+	</update>
+	
+	<!-- 후기 답변 삽입 -->
+	<insert id="insertInquiryReply">
+		INSERT INTO 
+			class_reply 
+		VALUES(
+			   NULL
+			 , #{inquiryReply}
+			 , DATE_FORMAT(NOW(), '%Y-%m-%d')
+			 , DATE_FORMAT(NOW(), '%H:%i:%s')
+			 , 2
+			 , #{inquiryCode}
+		)
+	</insert>
+	
+	<!-- 후기 답변 변경 -->
+	<update id="updateInquiryReply">
+		UPDATE
+			class_reply
+		SET
+			class_reply_content = #{reviewReply}
+			, class_reply_date = DATE_FORMAT(NOW(), '%Y-%m-%d')
+			, class_reply_time = DATE_FORMAT(NOW(), '%H:%i:%s')
+		WHERE 
+			parent_code = #{inquiryCode}
+		AND 
+			reply_type = 2
+	</update>
+	
+	<delete id="deleteInquiryReply">
+		DELETE FROM 
+			class_reply
+		WHERE 
+			parent_code = #{inquiryCode}
+		AND 
+			reply_type = 2
+	</delete>
+	
+	
+	<!-- =========================================================================================== -->
 	<!-- 후기정보 가져오기 -->
 	<select id="getReviewInfo" resultType="map">
 		SELECT cr.class_review_code
@@ -485,6 +620,7 @@
 		AND c2.code_hide = 'N'
 	</select>
 	
+	<!-- 후기 상태 변경 -->
 	<update id="changeReviewStatus">
 	    UPDATE
 	        class_review
@@ -498,6 +634,7 @@
 	        class_review_code = #{reviewCode}
 	</update>
 	
+	<!-- 후기 답변 삽입 -->
 	<insert id="insertReviewReply">
 		INSERT INTO 
 			class_reply 
@@ -511,6 +648,7 @@
 		)
 	</insert>
 	
+	<!-- 후기 답변 변경 -->
 	<update id="updateReviewReply">
 		UPDATE
 			class_reply
@@ -533,6 +671,7 @@
 			reply_type = 1
 	</delete>
 	
+	<!-- =========================================================================================== -->
 	<!-- 공개여부 -->
 	<select id="getHide" resultType="map">
 		SELECT 
@@ -563,6 +702,7 @@
 		WHERE member_email = #{member_email}
 	</update>
 	
+	<!-- =========================================================================================== -->
 	<!-- settlement 값 가져오기 -->
 	<select id="getsettlementDate">
 		SELECT settlement_date

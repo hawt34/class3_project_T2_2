@@ -40,6 +40,7 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/resources/css/creator/creator-analyze.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 

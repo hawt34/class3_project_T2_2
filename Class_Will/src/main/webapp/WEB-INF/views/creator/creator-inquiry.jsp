@@ -61,7 +61,7 @@
 		<ol class="breadcrumb justify-content-center mb-0">
 			<li class="breadcrumb-item"><a href="main">Home</a></li>
 			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
-			<li class="breadcrumb-item active text-white">후기관리</li>
+			<li class="breadcrumb-item active text-white">문의관리</li>
 		</ol>
 	</div>
 	<!-- Single Page Header End -->
@@ -81,8 +81,8 @@
 								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 상단 카테고리 -->
 								<div class="mt-5">
-									<button class="category-btn reviewTypeNo" value="N">미응답후기</button>
-									<button class="category-btn reviewTypeYes" value="Y">응답후기</button>
+									<button class="category-btn inquiryTypeNo" value="N">미응답후기</button>
+									<button class="category-btn inquiryTypeYes" value="Y">응답후기</button>
 								</div>
 								<!-- 테이블 -->
 								<div id="scheduleTableContainer" class="col-md-12">
@@ -141,7 +141,8 @@
 		function initialGrid(data) {
 			columns = [
 				{ header: '문의 제목', name: 'class_inquiry_subject', align: 'center'  },
-				{ header: '작성일', name: 'class_inquiry_date', align: 'center', width: 'auto' },
+				{ header: '작성일', name: 'class_inquiry_date', align: 'center', width: '120' },
+				{ header: '답변여부', name: 'class_inquiry_status', align: 'center', width:'100' },
 			];
 
 			grid = new tui.Grid({
@@ -162,7 +163,7 @@
 	            console.log("rowKey: " + rowKey);
 	            console.log("rowData: " + rowData);
 	            debugger;
-	            window.open("creator-review-form?class_review_code=" + rowData.class_review_code, "pop", "width=700, height=700, left=700, top=50");
+	            window.open("creator-inquiry-form?class_inquiry_code=" + rowData.class_inquiry_code, "pop", "width=700, height=700, left=700, top=50");
 	        });
 		}
 		var classCode;
@@ -171,16 +172,16 @@
 			$('.category-btn').removeClass("active");
 			classCode = $('#classSelect').val();
 			$.ajax({
-				url: "getReviewByClass",
+				url: "getInquiryByClass",
 				method: "get",
 				data: { "classCode" : classCode },
 				success: function(data) {
 					// JSON 형태로 파싱
-					var reviewData = JSON.parse(JSON.stringify(data));
+					var inquiryData = JSON.parse(JSON.stringify(data));
 					$('#scheduleTableContainer').empty().append('<div id="scheduleTableContainer" class="col-md-12">'
 					 + '<div id="grid"></div><div id="pagination"></div></div></div>');
 					// 데이터 ToastUI에 넣어서 전환
-					initialGrid(reviewData);
+					initialGrid(inquiryData);
 					
 				}
 			});	
@@ -190,31 +191,24 @@
 			var type = $(this).val();
 			console.log("type: " + type);
 			$.ajax({
-				url: "getReviewByType",
+				url: "getInquiryByType",
 				method: "get",
 				data: { "classCode" : classCode,
 						"type" : type	
 				},
 				success: function(data) {
 					// JSON 형태로 파싱
-					var reviewData = JSON.parse(JSON.stringify(data));
+					var inquiryData = JSON.parse(JSON.stringify(data));
 					$('#scheduleTableContainer').empty().append('<div id="scheduleTableContainer" class="col-md-12">'
 					 + '<div id="grid"></div><div id="pagination"></div></div></div>');
 					// 데이터 ToastUI에 넣어서 전환
-					initialGrid(reviewData);
+					initialGrid(inquiryData);
 				}
 			});	
-		});
-		
-		
-		
+		});	
 		
 	});	// onready 끝	
-	
-	function creatorReview() {
-		
-	}
-		
+
 	</script>
 
 

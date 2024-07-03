@@ -158,12 +158,12 @@
 		                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;">
 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
 		                        </div>
-		                        <div class="p-3 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-									<div class="classCategory col-md-10">
-										<button type="button" class="btn btn-outline-dark btn-sm category" >${contents.big_category}</button>
-										<button type="button" class="btn btn-outline-dark btn-sm category">${contents.small_category}</button>
+		                        <div class="p-3 rounded-bottom classCardBtm" style="background: white; text-align: left; padding: 15px;">
+									<div class="classCategory w-100 col-md-10">
+										<button type="button" class="btn btn-outline-dark btn-sm category mb-2" >${contents.big_category}</button>
+										<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${contents.small_category}</button>
 										<c:set var="hashtags" value="${fn:split(contents.class_hashtag, ',')}" />
-										<button type="button" class="btn btn-outline-dark btn-sm category">${hashtags[0]}</button>
+										<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${hashtags[0]}</button>
 									</div>
 									<div class="createrName d-flex align-items-center py-2">
 										<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
@@ -175,10 +175,10 @@
 										<h6>${contents.class_name}</h6>
 									</div>
 						            <div class="row classInfo">
-										<div class="col-md-6 add">
+										<div class="col-md-6 add float-start">
 											<a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
 										</div>
-										<div class="col-md-6 price">
+										<div class="col-md-6 price float-end">
 											<h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
 										</div>
 									</div>
@@ -231,52 +231,52 @@
             <div class="container py-3">
                 <div class="tab-class text-center">
                     <div class="row g-4">
-                        <div class="col-lg-4 d-flex justify-content-between">
-                            <h2 style="margin-bottom: 20px;">신규 오픈 클래스</h2>
-                            <h4>자세히 보기</h4>
+                        <div class="col-lg-6">
+                            <h2 class="float-start" style="margin-bottom: 20px;">신규 오픈 클래스</h2>
                         </div>
+                        <div class="col-lg-6 p-3">
+                            <h5 class="float-end">
+                            	<a href="class-list" style="text-decoration: none; color: #FF4848;" >자세히 보기 <i class="bi bi-arrow-right"></i></a>
+                            </h5>
+                        </div>    
                     </div>
-                     <div class="row g-4">
-                         <div class="col-lg-12">
-                             <div class="row g-4">
-                             
-                             <c:forEach var="contents" items="${newClassList}">
-                             
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-3 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-			                              		<button type="button" class="btn btn-outline-success btn-sm category" >${contents.big_category}</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">${contents.small_category}</button>
-<%-- 												<button type="button" class="btn btn-outline-dark btn-sm category">${contents.class_hashtag}</button> --%>
-												<c:set var="hashtags" value="${fn:split(contents.class_hashtag, ',')}" />
-												<button type="button" class="btn btn-outline-dark btn-sm category">${hashtags[0]}</button>
-								          </div>
-									       <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">${contents.member_nickname}</p>
-						               		</div>
-							               <div class="className mt-2">
-							                  <h6>${contents.class_name}</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 
-                             </c:forEach>
+					<div class="row g-4">
+						<div class="col-lg-12">
+							<div class="row g-4">
+								<c:forEach var="contents" items="${newClassList}">
+									<div class="col-md-6 col-lg-4 col-xl-3 ">
+										<div class="rounded position-relative class-item classCard">
+											<div class="">
+												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
+												<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
+											</div>
+									<!-- 	<div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
+											<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm " style="background: white; height: 250px; text-align: left; padding: 15px;">
+												<div class="classCategory w-100 col-md-10">
+													<button type="button" class="btn btn-outline-success btn-sm category mb-2" >${contents.big_category}</button>
+													<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${contents.small_category}</button>
+													<c:set var="hashtags" value="${fn:split(contents.class_hashtag, ',')}" />
+													<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${hashtags[0]}</button>
+												</div>
+												<div class="createrName d-flex align-items-center">
+													<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+													<p class="mb-0 ml-2">${contents.member_nickname}</p>
+												</div>
+												<div class="className mt-2">
+												   <h6>${contents.class_name}</h6>
+												</div>
+												<div class="row classInfo d-flex align-items-end">
+												   <div class="col-md-6 add float-start">
+												      <a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
+													</div>
+													<div class="col-md-6 price float-end">
+												   		<h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
+												   </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
                                  
 <!--                                  <div class="col-md-6 col-lg-4 col-xl-3 "> -->
 <!--                                      <div class="rounded position-relative class-item classCard"> -->

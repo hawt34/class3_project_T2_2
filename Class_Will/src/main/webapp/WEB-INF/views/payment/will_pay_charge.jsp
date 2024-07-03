@@ -1,3 +1,5 @@
+<%@page import="com.google.gson.Gson"%>
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
@@ -187,7 +189,7 @@ body{
 							<input type="hidden" name="tran_amt_total" id="form_tran_amt_total">
 							<input type="hidden" name="payAc_type" id="form_payAc_type">
 							<input type="hidden" name="member_code" value="${member_code }">
-							<button type="submit" class="btn btn-success w-100">충전하기</button>
+							<button type="submit" class="btn btn-success w-100" id="chargeBtn">충전하기</button>
 						</form>
 					</div>		
 				</div>			
@@ -195,9 +197,14 @@ body{
 		</div>
 	</div>
 </div>
+<input type="hidden" value="${token }" id="sessionToken">
 <script>
 	// JSON 데이터를 JavaScript 변수에 할당
-	const bankInfoJson = JSON.parse('${bankInfoJson}');
+	let bankInfoJson;
+	let tokenSession = '${token}';
+	if(tokenSession != '') {
+		bankInfoJson = JSON.parse('${bankInfoJson}');
+	}
 </script>
 <script src="${pageContext.request.contextPath }/resources/js/will_pay_charge.js"></script>
 </body>

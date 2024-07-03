@@ -58,6 +58,11 @@ $(function() {
             return false;
         }
     });
+    
+	let token = $("#sessionToken").val();
+	if(token == '') {
+		$("#chargeBtn").prop("disabled", true);
+	}
 });
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -91,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     "</div>" +
                     "<div class='modal-footer'>" +
                         "<button type='button' class='btn btn-dark select-account' data-fintech-use-num='" + info.fintech_use_num + "' data-user-name='" + info.account_holder_name + "'>계좌 선택</button>" +
-                        "<button type='button' class='btn btn-dark'>계좌 추가</button>" +
+                        "<button type='button' class='btn btn-dark' onclick='linkAccount()'>계좌 추가</button>" +
                     "</div>" +
                 "</div>" +
             "</div>";

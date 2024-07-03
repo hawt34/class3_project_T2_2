@@ -3,6 +3,8 @@ package itwillbs.p2c3.class_will.service;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -188,7 +190,17 @@ public class PayService {
 	}
 
 	public Map withdraw(Map<String, Object> map) {
-		return bankApi.requestWithdraw(map);
+		Map withdrawInfo = bankApi.requestWithdraw(map);
+		//날짜 formatting
+		String wdDate = ((String)withdrawInfo.get("api_tran_dtm")).substring(0, 14);
+		DateTimeFormatter parseDate = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+		LocalDateTime ldt = LocalDateTime.parse(wdDate, parseDate);
+		
+		DateTimeFormatter parseStr = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String withDrawDate = ldt.format(parseStr);
+		
+		
+		return withdrawInfo;
 	}
 
 	public void registPayAccountInfo(Map withdrawResult) {

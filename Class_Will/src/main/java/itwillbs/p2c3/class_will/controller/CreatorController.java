@@ -599,9 +599,12 @@ public class CreatorController {
 			model.addAttribute("targetURL", "./");
 			return "result_process/fail";
 		}
+		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member);
+		List<Map<String, Object>> classList = creatorService.getAnalyzeClassInfo(member);
 		
-		List<Map<String, Object>> classList = creatorService.getCertifiedClassInfo(member);
 		model.addAttribute("classList", classList);
+		model.addAttribute("analyzeList", analyzeList.get("analyzeList"));
+		model.addAttribute("analyzeReviewList", analyzeList.get("analyzeReviewList"));
 		
 		return "creator/creator-analyze";
 	}
@@ -618,7 +621,6 @@ public class CreatorController {
 		
 		String settlementDate = creatorService.getsettlementDate(member);
 		Map<String, String> SumSettlement = creatorService.getSumSettlement(member, settlementDate);
-		
 		model.addAttribute("settlementDate", settlementDate);
 		model.addAttribute("SumSettlement", SumSettlement);
 		
@@ -646,6 +648,8 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		creatorService.settlementPro(member, total_sum);
+		
+		creatorService.depositSettlement(member, total_sum);
 		
 		return WillUtils.checkDeleteSuccess(true, model, "정산 처리 완료", false, "creator-cost");
 	}

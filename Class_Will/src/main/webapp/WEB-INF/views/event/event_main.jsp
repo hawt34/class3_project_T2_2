@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>부기무비 이벤트</title>
+<title>클래스윌 이벤트</title>
 <!-- 부트스트랩 CSS, JS -->
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" type="text/css"> --%>
 <%-- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script> --%>
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script> --%>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -40,11 +40,7 @@ body {
   font-family: "Nanum Gothic", sans-serif;
   font-weight: 400;
   font-style: normal;
-  
-  
 }
-
-
 
 main {
 	width: 1400px;
@@ -197,6 +193,7 @@ body {
   background-color: #007bff;
   color: #fff;
 }
+
 </style>
 </head>
 <body>
@@ -301,10 +298,7 @@ body {
 // 			});
 // 		});
 		
-		
-		
 	});
-		
 </script>
 
 </body>

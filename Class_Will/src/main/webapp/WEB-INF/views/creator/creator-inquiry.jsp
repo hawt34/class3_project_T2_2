@@ -81,8 +81,8 @@
 								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 상단 카테고리 -->
 								<div class="mt-5">
-									<button class="category-btn inquiryTypeNo" value="N">미응답후기</button>
-									<button class="category-btn inquiryTypeYes" value="Y">응답후기</button>
+									<button class="category-btn inquiryTypeNo" value="N">미응답문의</button>
+									<button class="category-btn inquiryTypeYes" value="Y">응답문의</button>
 								</div>
 								<!-- 테이블 -->
 								<div id="scheduleTableContainer" class="col-md-12">

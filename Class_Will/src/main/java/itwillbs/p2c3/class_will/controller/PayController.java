@@ -160,9 +160,9 @@ public class PayController {
 			List<Map<String, Integer>> packageInfo = payService.getPackageInfo();
 			logger.info("@@@@ packageInfo:" + packageInfo);
 			
-			model.addAttribute("packageInfo", packageInfo);
 			model.addAttribute("bankInfoJson", jsonArray);
 			model.addAttribute("bankUserInfo", bankUserInfo);
+			model.addAttribute("packageInfo", packageInfo);
 		}
 		
 		return "payment/will_pay_charge";
@@ -179,7 +179,7 @@ public class PayController {
 			return result1;
 		}
 		
-		//토큰 가져와서 넣기
+		//session에서 토큰 가져오기
 		Map<String, String> token = (Map<String, String>)session.getAttribute("token");
 		map.put("access_token", token.get("access_token"));
 		map.put("user_seq_no", token.get("user_seq_no"));
@@ -242,11 +242,11 @@ public class PayController {
 		}
 		map.put("member_code", member_code);
 		
-		Map<String, String> bank_info = new HashMap<String, String>();
-		bank_info.put("access_token", (String)map.get("access_token"));
-		bank_info.put("user_seq_no", (String)map.get("user_seq_no"));
+		Map<String, String> token = new HashMap<String, String>();
+		token.put("access_token", (String)map.get("access_token"));
+		token.put("user_seq_no", (String)map.get("user_seq_no"));
 		// 세션에 엑세스토큰(access_token)과 사용자번호(user_seq_no) 저장
-		session.setAttribute("token", bank_info);
+		session.setAttribute("token", token);
 		
 		// access_token db저장
 		payService.registAccessToken(map);

@@ -111,6 +111,7 @@ public class CreatorService {
 		return creatorMapper.getCertifiedClassInfo(member);
 	}
 
+	//==================================================================================================
 	// 전체 후기 정보 가져오기
 	public List<Map<String, Object>> getReviewInfo(MemberVO member){
 		return creatorMapper.getReviewInfo(member);
@@ -151,16 +152,60 @@ public class CreatorService {
 		}
 	}
 	
+	// 리뷰 답변 삭제
 	public void deleteReviewReply(int reviewCode) {
 		creatorMapper.deleteReviewReply(reviewCode);
 		creatorMapper.changeReviewStatus(reviewCode);
 	}
-	
+	//==================================================================================================
 	
 	// 문의사항 클래스정보 가져오기
-	public List<Map<String, Object>> getinquiryClassInfo(MemberVO member){
-		return creatorMapper.getinquiryClassInfo(member);
+	public List<Map<String, Object>> getInquiryClassInfo(MemberVO member){
+		return creatorMapper.getInquiryClassInfo(member);
 	}
+
+	// 문의에 따른 클래스 정보 가져오기
+	public List<Map<String, Object>> getClassByInquiry(MemberVO member){
+		return creatorMapper.getClassByInquiry(member);
+	}
+	
+	// 클래스에 따른 문의
+	public List<Map<String, Object>> getInquiryByClass(int classCode, int member_code){
+		return creatorMapper.getInquiryByClass(classCode, member_code);
+	}
+
+	// 타입에 따른 문의
+	public List<Map<String, Object>> getInquiryByType(int classCode, String type, int member_code){
+		return creatorMapper.getInquiryByType(classCode, type, member_code);
+	}
+
+	// 문의코드에 따른 리뷰
+	public Map<String, Object> getInquiryByInquiryCode(int inquiryCode){
+		return creatorMapper.getInquiryByInquiryCode(inquiryCode);
+	}
+
+	// 문의코드에 따른 답변
+	public Map<String, Object> getReplyByInquiryCode(int inquiryCode){
+		return creatorMapper.getReplyByInquiryCode(inquiryCode);
+	}
+
+	// 문의답변 저장 
+	public void insertInquiryReply(int inquiryCode, String inquiryReply, String InquiryStatus) {
+		if(InquiryStatus.equals("N")) {
+			creatorMapper.insertInquiryReply(inquiryCode, inquiryReply);
+			creatorMapper.changeInquiryStatus(inquiryCode);
+		} else {
+			creatorMapper.updateReviewReply(inquiryCode, inquiryReply);
+		}
+	}
+	
+	// 문의 답변 삭제
+	public void deleteInquiryReply(int inquiryCode) {
+		creatorMapper.deleteInquiryReply(inquiryCode);
+		creatorMapper.changeInquiryStatus(inquiryCode);
+	}
+	
+	//==================================================================================================
 	
 	// 누적 정산금 가져오기
 	public Map<String, String> getSumSettlement(MemberVO member, String settlementDate) {

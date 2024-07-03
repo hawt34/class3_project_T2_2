@@ -67,6 +67,11 @@ public interface CreatorMapper {
 
 	// 등록완료된 클래스 정보 가져오기
 	List<Map<String, Object>> getCertifiedClassInfo(MemberVO member);
+
+	// 상태에 따른 클래스 리스트
+	List<Map<String, Object>> getClassStatusInfo(@Param("status") int status,@Param("member") MemberVO member);
+	
+	//=====================================================================================================
 	
 	// 전체 후기 정보 가져오기
 	List<Map<String, Object>> getReviewInfo(MemberVO member);
@@ -99,12 +104,43 @@ public interface CreatorMapper {
 
 	// 리뷰답변 삭제
 	void deleteReviewReply(@Param("reviewCode") int reviewCode);
+
+	//=====================================================================================================
 	
 	// 문의사항 클래스 정보 가져오기
-	List<Map<String, Object>> getinquiryClassInfo(MemberVO member);
+	List<Map<String, Object>> getInquiryClassInfo(MemberVO member);
 	
-	// 상태에 따른 클래스 리스트
-	List<Map<String, Object>> getClassStatusInfo(@Param("status") int status,@Param("member") MemberVO member);
+	// 문의에 따른 클래스 정보
+	List<Map<String, Object>> getClassByInquiry(MemberVO member);
+	
+	// 클래스에 따른 문의
+	List<Map<String, Object>> getInquiryByClass(@Param("classCode") int classCode, @Param("member_code") int member_code);
+	
+	// 타입에 따른 문의
+	List<Map<String, Object>> getInquiryByType(@Param("classCode") int classCode, @Param("type") String type, @Param("member_code") int member_code);
+	
+	// 문의코드에 따른 리뷰
+	Map<String, Object> getInquiryByInquiryCode(int inquiry_code);
+
+	// 문의코드에 따른 답변
+	Map<String, Object> getReplyByInquiryCode(int inquiry_code);
+	
+	// 문의status 변환
+	void changeInquiryStatus(int inquiryCode);
+	
+	// 문의답변 저장
+	void insertInquiryReply(@Param("inquiryCode") int inquiryCode
+						 , @Param("inquiryReply") String inquiryReply);
+
+	// 문의답변 수정
+	void updateInquiryReply(@Param("inquiryCode") int inquiryCode
+						 , @Param("inquiryReply") String inquiryReply);
+
+	// 문의답변 삭제
+	void deleteInquiryReply(@Param("inquiryCode") int inquiryCode);
+
+	
+	//=====================================================================================================
 	
 	// 누적 정산금 가져오기
 	Map<String, String> getSumSettlement(@Param("member")MemberVO member, @Param("settlementDate") String settlementDate);

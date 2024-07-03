@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.CreatorService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
@@ -91,7 +92,7 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		creatorService.updateMemberType(member);
-		return "redirect:/creator-main";
+		return "creator-main";
 	}
 	
 	//=================================================================================
@@ -525,24 +526,65 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		
-		List<Map<String, Object>> classInquiryList = creatorService.getinquiryClassInfo(member);
+		List<Map<String, Object>> classList = creatorService.getClassByInquiry(member);
 		
+		List<Map<String, Object>> classInquiryList = creatorService.getInquiryClassInfo(member);
 		List<JSONObject> iq_list = new ArrayList<JSONObject>(); 
 		
 		for(Map<String, Object> clas : classInquiryList) {
             JSONObject cl = new JSONObject(clas);
             iq_list.add(cl);
 		}
-		model.addAttribute("classList", classInquiryList);
+		model.addAttribute("classList", classList);
 		model.addAttribute("iq_list", iq_list);
 		
 		return "creator/creator-inquiry";
 	}
 	
+	@ResponseBody
+	@GetMapping("getInquiryByClass")
+	public List<Map<String, Object>> getInquiryByClass(@RequestParam(defaultValue = "0") int classCode, HttpSession session){
+		MemberVO member =  (MemberVO)session.getAttribute("member");
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> inquiryListByClass = creatorService.getInquiryByClass(classCode, member_code);
+		return inquiryListByClass;
+	}
+
+	@ResponseBody
+	@GetMapping("getInquiryByType")
+	public List<Map<String, Object>> getInquiryByType(@RequestParam(defaultValue = "0") int classCode
+													, @RequestParam(defaultValue = "N") String type, HttpSession session){
+		MemberVO member =  (MemberVO)session.getAttribute("member");
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> inquiryListByType = creatorService.getInquiryByType(classCode, type, member_code);
+		return inquiryListByType;
+	}
+	
 	// creater-inquiry-form으로
 	@GetMapping("creator-inquiry-form")
-	public String createrInquiryForm() {
+	public String createrInquiryForm(@RequestParam(defaultValue = "0") int class_inquiry_code, Model model) {
+		Map<String, Object> inquiry = creatorService.getInquiryByInquiryCode(class_inquiry_code);
+		Map<String, Object> reply = creatorService.getReplyByInquiryCode(class_inquiry_code);
+		model.addAttribute("inquiry", inquiry);
+		model.addAttribute("reply", reply);
+		
 		return "creator/creator-inquiry-form";
+	}
+	
+	@ResponseBody
+	@GetMapping("insertInquiryReply")
+	public void insertInquiryReply(@RequestParam(defaultValue = "0") int inquiryCode
+								, @RequestParam(defaultValue = "0") String inquiryReply
+								, @RequestParam(defaultValue = "0") String inquiryStatus) {
+		
+		creatorService.insertInquiryReply(inquiryCode, inquiryReply, inquiryStatus);
+	}
+
+	@ResponseBody
+	@GetMapping("deleteInquiryReply")
+	public void deleteInquiryReply(@RequestParam(defaultValue = "0") int inquiryCode) {
+		
+		creatorService.deleteInquiryReply(inquiryCode);
 	}
 	
 	
@@ -605,13 +647,8 @@ public class CreatorController {
 		}
 		creatorService.settlementPro(member, total_sum);
 		
-		return "creator/creator-cost";
+		return WillUtils.checkDeleteSuccess(true, model, "정산 처리 완료", false, "creator-cost");
 	}
 	
-	@PostMapping("creatorSettlement")
-	public String settlementPro() {
-		
-		return "";
-	}
 
 }

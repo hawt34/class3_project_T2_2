@@ -141,7 +141,8 @@
 		function initialGrid(data) {
 			columns = [
 				{ header: '후기제목', name: 'class_review_subject', align: 'center'  },
-				{ header: '작성일', name: 'class_review_date', align: 'center', width: 'auto' },
+				{ header: '작성일', name: 'class_review_date', align: 'center', width: '120' },
+				{ header: '답변여부', name: 'review_reply_status', align: 'center', width:'100' }
 			];
 
 			grid = new tui.Grid({
@@ -205,15 +206,9 @@
 				}
 			});	
 		});
-		
-		
-		
+
 		
 	});	// onready 끝	
-	
-	function creatorReview() {
-		
-	}
 		
 	</script>
 

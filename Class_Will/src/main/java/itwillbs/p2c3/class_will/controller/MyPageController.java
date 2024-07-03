@@ -176,16 +176,16 @@ public class MyPageController {
 
 			return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
 		} else {
-			
+
 			System.out.println("데이터 확인" + formData);
 			int insertCount = myPageService.insertReview(formData);
-			  if (insertCount > 0) {
-		            return "redirect:/my-review"; 
-		        } else {
-		            model.addAttribute("msg", "리뷰 등록 실패");
-		            return "result_process/fail"; 
-		        }
-			
+			if (insertCount > 0) {
+				return "redirect:/my-review";
+			} else {
+				model.addAttribute("msg", "리뷰 등록 실패");
+				return "result_process/fail";
+			}
+
 		}
 	}
 
@@ -380,7 +380,7 @@ public class MyPageController {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 
 		if (member == null) { // 실패
-			return "error/error_404";
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
 		} else {
 			int member_code = member.getMember_code();
 			MemberVO member2 = myPageService.selectMemberInfo(member_code);
@@ -429,15 +429,22 @@ public class MyPageController {
 	@PostMapping("change-nomal")
 	@ResponseBody
 	public String changeNomal(Model model, @RequestParam("member_code") String member_code) {
-		try {
-			// 멤버 정보 업데이트
-			myPageService.updateNomal(member_code);
+		MemberVO member = (MemberVO) session.getAttribute("member");
 
-			return "success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "error"; // 실패했을 경우 클라이언트에게 error 반환
+		if (member == null) { // 실패
+			return "error/error_404";
+		} else {
+			try {
+				// 멤버 정보 업데이트
+				myPageService.updateNomal(member_code);
+				int member_code2 = member.getMember_code();
+				MemberVO member2 = myPageService.selectMemberInfo(member_code2);
+				model.addAttribute("member", member2);
+				return "success";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "error"; // 실패했을 경우 클라이언트에게 error 반환
+			}
 		}
 	}
-
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,9 +29,37 @@ public class CoolSMSController {
 	
 	final DefaultMessageService messageService;
 	
-	public CoolSMSController() {
-		this.messageService = NurigoApp.INSTANCE.initialize("NCSESYLSEBAEX3CO", "JGPZQLJ2NMBNH7FH7FNH7VM1J2WQ5H5P", "https://api.coolsms.co.kr");
-	}
+//    @Value("${coolsms_api_key}")
+//    private String apiKey;
+//
+//    @Value("${coolsms_secret_key}")
+//    private String apiSecret;
+//
+//    @Value("${coolsms_url}")
+//    private String apiUrl;
+	
+//	public CoolSMSController() {
+//		this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, apiUrl);
+//	}
+    
+	private String apiKey;
+    private String apiSecret;
+    private String apiUrl;
+
+    @Autowired
+    public CoolSMSController(@Value("${coolsms_api_key}") String apiKey,
+                             @Value("${coolsms_secret_key}") String apiSecret,
+                             @Value("${coolsms_url}") String apiUrl) {
+        this.apiKey = apiKey;
+        this.apiSecret = apiSecret;
+        this.apiUrl = apiUrl;
+        
+        this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, apiUrl);
+
+        // 초기화 로직 작성
+        // apiKey, apiSecret, apiUrl 등의 초기화 작업 수행
+    }
+
 	
 	
 	@ResponseBody

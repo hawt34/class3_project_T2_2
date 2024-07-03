@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,8 +48,8 @@
  		background: black;  
  	} 
  	
- 	article h1, h2, {
- 		color : white;
+ 	article h1, h2 {
+ 		color: white;
  	} 
  	
  	.class-price {
@@ -147,308 +149,76 @@
 	                
 	                <div class="owl-carousel vegetable-carousel justify-content-center">
 	                	
-<%-- 	                	<c:forEach var="class" items="${top10List}"> --%>
+	                	<c:forEach var="contents" items="${top10List}">
 	                		
-<!-- 							<div class="rounded position-relative vesitable-item"> -->
-<!-- 								<div class="vesitable-img"> -->
-<%-- 									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
-<!-- 								</div> -->
-<!-- 		                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;"> -->
-<%-- 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1"> --%>
-<!-- 		                        </div> -->
-<!-- 		                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> -->
-<!-- 									<div class="classCategory col-md-10"> -->
-<!-- 										<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
-<!-- 										<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 										<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 									</div> -->
-<!-- 									<div class="createrName d-flex align-items-center py-2"> -->
-<!-- 										<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;"> -->
-<%-- 											<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-<!-- 										</div>	 -->
-<!-- 										<p class="mb-0 ml-5 px-4">1111테크니컬아티스트 홍상범</p> -->
-<!-- 									</div> -->
-<!-- 									<div class="className"> -->
-<%-- 										<h6>${class.class_name}</h6> --%>
-<!-- 									</div> -->
-<!-- 						            <div class="row classInfo"> -->
-<!-- 										<div class="col-md-6 add"> -->
-<!-- 											<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
-<!-- 										</div> -->
-<!-- 										<div class="col-md-6 price"> -->
-<!-- 											<h5 class="class-price">50,000원</h5> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 		                    </div> -->
+							<div class="rounded position-relative vesitable-item">
+								<div class="vesitable-img">
+									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
+								</div>
+		                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;">
+									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
+		                        </div>
+		                        <div class="p-3 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+									<div class="classCategory col-md-10">
+										<button type="button" class="btn btn-outline-dark btn-sm category" >${contents.big_category}</button>
+										<button type="button" class="btn btn-outline-dark btn-sm category">${contents.small_category}</button>
+										<c:set var="hashtags" value="${fn:split(contents.class_hashtag, ',')}" />
+										<button type="button" class="btn btn-outline-dark btn-sm category">${hashtags[0]}</button>
+									</div>
+									<div class="createrName d-flex align-items-center py-2">
+										<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
+											<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
+										</div>	
+										<p class="mb-0 ml-5 px-4">${contents.member_nickname}</p>
+									</div>
+									<div class="className">
+										<h6>${contents.class_name}</h6>
+									</div>
+						            <div class="row classInfo">
+										<div class="col-md-6 add">
+											<a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
+										</div>
+										<div class="col-md-6 price">
+											<h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
+										</div>
+									</div>
+								</div>
+		                    </div>
 		                    
-<%-- 	                	</c:forEach> --%>
-	                	
+	                	</c:forEach>
 	                    
-	                    <div class="rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5 class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
-	                    
-	                    <div class="rounded position-relative vesitable-item">
-							<div class="position-relative position-relative1">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                     	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
-							</div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5  class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
-	                    
-	                    <div class="rounded position-relative vesitable-item">
-							<div class="position-relative position-relative1">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
-		                    </div>    
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5  class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
-	                    
-	                    <div class="rounded position-relative vesitable-item">
-							<div class="position-relative position-relative1">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-2 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1" >
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5  class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
-	                    
-	                    <div class="rounded position-relative vesitable-item">
-							<div class="position-relative1">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-2 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                    	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" width="25px">
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5  class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
-	                    
-	                    <div class="rounded position-relative vesitable-item">
-							<div class="vesitable-img">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-	                        	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" width="25px">
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5  class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
-	                    
-	                    
-		                <div class="rounded  vesitable-item">
-							<div class="vesitable-img">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" >
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5 class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
-	                    
-	                     <div class=" rounded  vesitable-item">
-							<div class="vesitable-img">
-								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-							</div>
-	                        <div class="bg-tertiary px-3 py-1 position-absolute" style="top: 8px; right: 10px;">
-		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" >
-	                        </div>
-	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								</div>
-								<div class="createrName d-flex align-items-center py-2">
-									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;">
-										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;">
-									</div>	
-									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p>
-								</div>
-								<div class="className">
-									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-								</div>
-					            <div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-									</div>
-									<div class="col-md-6 price">
-										<h5 class="class-price">50,000원</h5>
-									</div>
-								</div>
-							</div>
-	                    </div>
+<!-- 	                     <div class=" rounded  vesitable-item"> -->
+<!-- 							<div class="vesitable-img"> -->
+<%-- 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
+<!-- 							</div> -->
+<!-- 	                        <div class="bg-tertiary px-3 py-1 position-absolute" style="top: 8px; right: 10px;"> -->
+<%-- 		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" > --%>
+<!-- 	                        </div> -->
+<!-- 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> -->
+<!-- 								<div class="classCategory col-md-10"> -->
+<!-- 									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
+<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 								</div> -->
+<!-- 								<div class="createrName d-flex align-items-center py-2"> -->
+<!-- 									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;"> -->
+<%-- 										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
+<!-- 									</div>	 -->
+<!-- 									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p> -->
+<!-- 								</div> -->
+<!-- 								<div class="className"> -->
+<!-- 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6> -->
+<!-- 								</div> -->
+<!-- 					            <div class="row classInfo"> -->
+<!-- 									<div class="col-md-6 add"> -->
+<!-- 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-md-6 price"> -->
+<!-- 										<h5 class="class-price">50,000원</h5> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 	                    </div> -->
 		                    
 	                </div> <!--  owl-carousel -->
 	            </div>
@@ -461,13 +231,16 @@
             <div class="container py-3">
                 <div class="tab-class text-center">
                     <div class="row g-4">
-                        <div class="col-lg-4 text-start">
+                        <div class="col-lg-4 d-flex justify-content-between">
                             <h2 style="margin-bottom: 20px;">신규 오픈 클래스</h2>
+                            <h4>자세히 보기</h4>
                         </div>
                     </div>
                      <div class="row g-4">
                          <div class="col-lg-12">
                              <div class="row g-4">
+                             
+                             <c:forEach var="contents" items="${newClassList}">
                              
                                  <div class="col-md-6 col-lg-4 col-xl-3 ">
                                      <div class="rounded position-relative class-item classCard">
@@ -476,254 +249,66 @@
                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
                                          </div>
 <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
+                                         <div class="p-3 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
 			                              	<div class="classCategory col-md-10">
-			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
+			                              		<button type="button" class="btn btn-outline-success btn-sm category" >${contents.big_category}</button>
+												<button type="button" class="btn btn-outline-dark btn-sm category">${contents.small_category}</button>
+<%-- 												<button type="button" class="btn btn-outline-dark btn-sm category">${contents.class_hashtag}</button> --%>
+												<c:set var="hashtags" value="${fn:split(contents.class_hashtag, ',')}" />
+												<button type="button" class="btn btn-outline-dark btn-sm category">${hashtags[0]}</button>
 								          </div>
 									       <div class="createrName d-flex align-items-center">
 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">UI 디자이너 리제</p>
+						                 		<p class="mb-0 ml-2">${contents.member_nickname}</p>
 						               		</div>
-							               <div class="className">
-							                  <h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6>
+							               <div class="className mt-2">
+							                  <h6>${contents.class_name}</h6>
 							               </div>
 							               <div class="row classInfo">
 							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
+							                     <a href="" class="btn btn-outline-dark btn-sm disabled">${contents.local_name}</a>
 							                  </div>
 							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
+							                     <h5 class="class-price"><fmt:formatNumber value="${contents.class_price}" pattern="#,###" />원</h5>
 							                  </div>
 							               </div>
                                          </div>
                                      </div>
                                  </div>
                                  
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-											<div class="classCategory col-md-10">
-			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-											</div>
-									       <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
-						               		</div>
-							               <div class="className">
-							                  <h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
+                             </c:forEach>
                                  
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-								             	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								          </div>
-									       <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
-						               		</div>
-							               <div class="className">
-							                  <h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-								            	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								          </div>
-									       <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
-						               		</div>
-							               <div class="className">
-							                  <h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-								          		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								          </div>
-									       <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
-						               		</div>
-							               <div class="className">
-							                  <h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-								            	<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								          </div>
-									       <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">UI 디자이너 리제</p>
-						               		</div>
-							               <div class="className">
-							                  <h6>디자인과 연출을 모두 잡는 언리얼 게임 UI FX 포트폴리오</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s5.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-								           		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-								          </div>
-									       <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">게임그래픽 전문학원 지지스쿨</p>
-						               		</div>
-							               <div class="className">
-							                  <h6>툴 기초 완벽 정복, 게임 그래픽 입문 100강사전</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                                 
-                                 <div class="col-md-6 col-lg-4 col-xl-3 ">
-                                     <div class="rounded position-relative class-item classCard">
-                                         <div class="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt="">
-                                             <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
-                                         </div>
-<!--                                          <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
-                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;">
-			                              	<div class="classCategory col-md-10">
-												<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>
-												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button>			
-								          </div>
-									      <div class="createrName d-flex align-items-center">
-						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-						                 		<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p>
-						               		</div>
-							               <div class="className">
-							                  <h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6>
-							               </div>
-							               <div class="row classInfo">
-							                  <div class="col-md-6 add">
-							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a>
-							                  </div>
-							                  <div class="col-md-6 price">
-							                     <h5 class="class-price">50,000원</h5>
-							                  </div>
-							               </div>
-                                         </div>
-                                     </div>
-                                 </div>
+<!--                                  <div class="col-md-6 col-lg-4 col-xl-3 "> -->
+<!--                                      <div class="rounded position-relative class-item classCard"> -->
+<!--                                          <div class=""> -->
+<%--                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
+<%--                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg"> --%>
+<!--                                          </div> -->
+<!-- <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> --> 
+<!--                                           <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> --> 
+<!-- 											<div class="classCategory col-md-10"> -->
+<!-- 			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
+<!-- 												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
+<!-- 											</div> -->
+<!-- 									       <div class="createrName d-flex align-items-center"> -->
+<%-- 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<!-- 						                 		<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p> -->
+<!-- 						               		</div> -->
+<!-- 							               <div class="className"> -->
+<!-- 							                  <h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6> -->
+<!-- 							               </div> -->
+<!-- 							               <div class="row classInfo"> -->
+<!-- 							                  <div class="col-md-6 add"> -->
+<!-- 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
+<!-- 							                  </div> -->
+<!-- 							                  <div class="col-md-6 price"> -->
+<!-- 							                     <h5 class="class-price">50,000원</h5> -->
+<!-- 							                  </div> -->
+<!-- 							               </div> -->
+<!--                                          </div> -->
+<!--                                      </div> -->
+<!--                                  </div> -->
                                  
                              </div><!-- row -->
                          </div>

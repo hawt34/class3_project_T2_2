@@ -3,10 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ page import="java.time.LocalDate"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>mypage</title>
+<title>나의 성장</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -44,10 +45,17 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css" />
+<script
+	src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
+<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 body {
 	
 }
+
 table {
 	border-collapse: collapse;
 	box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.1);
@@ -55,6 +63,8 @@ table {
 	width: 100%;
 	border-radius: 10px;
 	font-size: 15px;
+	table-layout: fixed; /* 테이블 레이아웃 고정 */
+	word-wrap: break-word; /* 단어를 셀 내에서 줄바꿈 */
 }
 
 /* 테이블 행 */
@@ -94,13 +104,22 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+
+@media ( max-width : 768px) {
+	.table-responsive {
+		overflow-x: auto; /* 가로 스크롤 가능하도록 설정 */
+	}
+	.table {
+		min-width: 600px; /* 테이블 최소 너비 설정 */
+	}
+}
 </style>
 </head>
 <body>
-
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 	</header>
+
 
 	<!-- Spinner Start (로딩시 뜨는 동그라미)-->
 	<div id="spinner"
@@ -111,10 +130,9 @@ th:nth-child(2), td:nth-child(2) {
 
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">마이페이지</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
-		</ol>
+		<h1 class="text-center text-white display-6">
+			마이페이지<i class="bi bi-sunrise-fill"></i>나의 성장
+		</h1>
 	</div>
 
 	<div class="container-fluid fruite">
@@ -125,75 +143,10 @@ th:nth-child(2), td:nth-child(2) {
 						<jsp:include page="/WEB-INF/views/mypage/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body">
-							<!-- 크리에이터 인사 문구 -->
-
-							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">반가워요 ${member.member_name}님</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-emoji-heart-eyes"></i>&nbsp;관심 클래스</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;">내가 관심있는 클래스 입니다.</p>
-											<a href="my-wish" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-wallet"></i>&nbsp;윌페이</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
-											<a href="my-credit" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-cart-check"></i>&nbsp;내가 신청한 클래스</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;" >내가 신청한 클래스 입니다.</p>
-											<a href="my-class" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-pencil-square"></i>&nbsp;나의 클래스 후기</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;">클래스 후기를 적을 수 있는 곳 입니다.</p>
-											<a href="my-review" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-sunrise-fill"></i>&nbsp;나의 성장 확인 </h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;" >나는 이렇게 성장했어요!</p>
-											<a href="my-powerup" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-gear"></i>&nbsp;회원정보변경</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;" >회원 정보를 변경할 수 있는 곳 입니다.</p>
-											<a href="my-modify" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								<div class="card col-md-10 my-2">
-									<div class="card-body">
-										<h6 class="card-title"><i class="bi bi-person-x-fill"></i>&nbsp;회원탈퇴</h6>
-										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;">회원 탈퇴를 할 수 있는 곳입니다.</p>
-											<a href="my-delete" class="btn btn-primary">상세보기</a>
-										</div>
-									</div>
-								</div>
-								
+								<div class="col-md-12 text-center h2 mb-5">항상 고마운	${member.member_name}님</div>
+								<p>여기 반응형 되남??</p>
+													
 							</div>
 						</div>
 					</div>
@@ -201,10 +154,6 @@ th:nth-child(2), td:nth-child(2) {
 			</div>
 		</div>
 	</div>
-	<!-- Fruits Shop End-->
-
-
-
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
@@ -225,6 +174,9 @@ th:nth-child(2), td:nth-child(2) {
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	<script>
+	  
+	</script>
 
 </body>
 </html>

@@ -230,16 +230,16 @@ public class MemberController {
 	 
 
 	
-	@GetMapping("user-chat")
-	public String userChat(MemberVO member, Model model, HttpSession session) {
+	@GetMapping("user-chat-list")
+	public String userChatList(MemberVO member, Model model, HttpSession session) {
 		
 		
 		
 		
 		model.addAttribute("member", member);
-		return "member/wake_up_form";
+		return "user_chat/user_chat_list";
 		
-	} // wakeUpForm()
+	} // userChat()
 	
 	
 	

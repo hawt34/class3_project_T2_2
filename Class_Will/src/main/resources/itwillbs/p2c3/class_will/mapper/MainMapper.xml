@@ -31,20 +31,6 @@
 		VALUES(#{keyword}, #{searchDateTime})
 	</insert>
 	
-
-	<insert id="insertVisitIp">
-		INSERT INTO visit_logs(visit_date, ip_address)
-		VALUES (#{visitDate}, #{ip})
-	</insert>
-	
-	
-	<select id="selectVisitIp" resultType="map">
-		SELECT visit_date, ip_address
-		FROM   visit_logs
-		WHERE  visit_date = #{visitDate}
-          AND  ip_address = #{ip}
-	</select>
-	
 	<select id="selectTop10Class">
 		SELECT 
 			c.class_code,
@@ -126,6 +112,19 @@
 		ORDER BY class_code DESC 
 		LIMIT 8;
 	</select>
+	
+	<select id="selectVisitIp" resultType="map">
+		SELECT visit_date, ip_address
+		FROM   visit_logs
+		WHERE  visit_date = #{visitDate}
+          AND  ip_address = #{ip}
+	</select>
+
+	<insert id="insertVisitIp">
+		INSERT INTO visit_logs(visit_date, ip_address)
+		VALUES (#{visitDate}, #{ip})
+	</insert>
+	
 	
 	<select id="selectToday" resultType="map">
 		SELECT *

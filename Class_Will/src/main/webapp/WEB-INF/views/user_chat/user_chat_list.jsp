@@ -30,7 +30,7 @@
 	
 	.user-chat {
 		margin: 0 auto;
-		background: 
+		background: pink;
 	}
 
 
@@ -45,7 +45,7 @@
 		
 		
 		
-		
+		<h1>채팅방 리스트</h1>
 		
 	
 	

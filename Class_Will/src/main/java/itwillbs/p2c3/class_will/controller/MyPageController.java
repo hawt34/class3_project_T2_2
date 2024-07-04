@@ -521,7 +521,9 @@ public class MyPageController {
 		}
 		int member_code2 = member.getMember_code();
 		MemberVO member2 = myPageService.selectMemberInfo(member_code2);
-	
+		List<Map<String, String>> memberMaster = myPageService.getMemberMaster(member_code2);
+		System.out.println("멤버가 마스터한 클래스" + memberMaster);
+		
 		return "mypage/mypage-power";
 	}
 

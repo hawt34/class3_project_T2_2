@@ -93,6 +93,11 @@ public class MyPageService {
 		return myPageMapper.MemberWithdraw(member);
 	}
 
+	public List<Map<String, String>> getMemberMaster(int member_code2) {
+	
+		return myPageMapper.selectMemberMaster(member_code2);
+	}
+
 	
 
 	

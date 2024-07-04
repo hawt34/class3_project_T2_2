@@ -157,7 +157,7 @@
 	</select>
 
 	<insert id="insertReview">
-	<!-- 리뷰 등록 -->
+		<!-- 리뷰 등록 -->
 		INSERT INTO class_review (
 		class_review_subject,
 		class_review_content,
@@ -168,7 +168,7 @@
 		class_review_rating,
 		review_reply_status,
 		class_schedule_code
-		) 
+		)
 		VALUES (
 		#{class_review_subject},
 		#{class_review_content},
@@ -182,15 +182,36 @@
 		)
 
 	</insert>
-	
+
 	<update id="MemberWithdraw">
-   		UPDATE  MEMBER
-		SET 
-			member_status = 2
+		UPDATE MEMBER
+		SET
+		member_status = 2
 		WHERE
-			member_code = #{member_code}
-    </update>
-	
-	
+		member_code = #{member_code}
+	</update>
+
+	<select id="selectMemberMaster">
+		 <![CDATA[
+		SELECT
+		DATE_FORMAT(cs.class_schedule_date, '%Y-%m') as month,
+		COUNT(*) as class_count
+		FROM
+		pay p
+		JOIN
+		class_schedule cs ON p.class_schedule_code = cs.class_schedule_code
+		WHERE
+		p.pay_status = 'paid'
+		AND p.member_code = ${member_code}
+		AND cs.class_schedule_date < CURRENT_DATE
+		GROUP BY
+		DATE_FORMAT(cs.class_schedule_date, '%Y-%m')
+		ORDER BY
+		DATE_FORMAT(cs.class_schedule_date, '%Y-%m') ASC
+		 ]]>
+
+	</select>
+
+
 
 </mapper>

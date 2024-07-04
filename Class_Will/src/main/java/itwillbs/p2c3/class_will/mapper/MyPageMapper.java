@@ -36,5 +36,7 @@ public interface MyPageMapper {
 	int insertReview(Map<String, String> formData);
 
 	int MemberWithdraw(MemberVO member);
+
+	List<Map<String, String>> selectMemberMaster(int member_code2);
 	
 }

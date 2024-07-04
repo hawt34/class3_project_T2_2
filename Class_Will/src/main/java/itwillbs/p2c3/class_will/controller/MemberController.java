@@ -234,12 +234,19 @@ public class MemberController {
 	public String userChatList(MemberVO member, Model model, HttpSession session) {
 		
 		
-		
-		
 		model.addAttribute("member", member);
 		return "user_chat/user_chat_list";
 		
-	} // userChat()
+	} // userChatList()
+	
+	@GetMapping("user-chat-room")
+	public String userChatRoom(MemberVO member, Model model, HttpSession session) {
+		
+		
+		model.addAttribute("member", member);
+		return "user_chat/user_chat_room";
+		
+	} // userChatList()
 	
 	
 	

@@ -122,6 +122,17 @@
 	   font-size: 23px;
 	}
 	
+	.badge-position-bt {
+		top: 15px; /* 위로 이동 */ 
+		right: 20px; /* 오른쪽으로 이동 */ 
+	    transform: translate(50%, -50%); /* 적절한 위치로 조정 */
+	    width: 15px !important;
+	    height: 15px !important;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+		font-size: 8px;
+	}
 	
 </style>
 	<!-- Back to Top -->
@@ -200,14 +211,18 @@
 		            <a class="nav-link bottom-nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
 		        </li>
 		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-		            <a class="nav-link bottom-nav-link px-0 mx-2" href="./"><i class="bi bi-envelope bi-top bottom-icon"></i><br>메시지</a>
+		            <a class="nav-link bottom-nav-link px-0 mx-2 position-relative" href="#" id="openChatModal">
+		            	<i class="bi bi-envelope bi-top bottom-icon"></i>
+		            	<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle">
+							<span class="visually-hidden">New alerts</span>
+						</span><br>메시지
+					</a>
 		        </li>
 		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
 		            <a class="nav-link bottom-nav-link px-0 mx-2" href="my-page"><i class="bi bi-person-circle bi-top bottom-icon"></i><br>내 정보</a>
 		        </li>
 		    </ul>
 		</div>
-
 
 		
 

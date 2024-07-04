@@ -56,9 +56,9 @@ public class ClassService {
 	}
 	
 	// 클래스 낮으낙격순 정렬
-	public List<Map<String, Object>> getLowPrice(Map<String, Object> map){
-		return mapper.select
-	}
+//	public List<Map<String, Object>> getLowPrice(Map<String, Object> map){
+//		return mapper.select
+//	}
 	
 	// 클래스 좋아요 추가
 	public int insertLikeClass(Map<String, Object> map){

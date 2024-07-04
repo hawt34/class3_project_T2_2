@@ -163,14 +163,15 @@ public class MyPageController {
 		} else {
 			String classCode = params.get("class_code");
 			String memberCode = params.get("member_code");
+			String class_schedule_code = params.get("class_schedule_code");
 			Integer classCode2 = Integer.parseInt(classCode);
 			// 클래스 코드와 멤버 코드를 모델에 추가
 			model.addAttribute("class_code", classCode);
 			model.addAttribute("member_code", memberCode);
-
+			model.addAttribute("class_schedule_code", class_schedule_code);
 			Map<String, Object> classInfo = creatorService.getClassDetail(classCode2);
 			model.addAttribute("classInfo", classInfo);
-			System.out.println(classInfo);
+			System.out.println("클래스 정보임" + classInfo);
 			return "mypage/mypage-review-form";
 		}
 
@@ -271,21 +272,21 @@ public class MyPageController {
 		}
 	}
 
-	// 크레딧관련
-	@GetMapping("my-credit")
-	public String myCredit(Model model) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-
-		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
-		} else {
-			int member_code = member.getMember_code();
-			MemberVO member2 = myPageService.selectMemberInfo(member_code);
-			model.addAttribute("member", member2);
-			return "mypage/mypage-credit";
-		}
-
-	}
+//	// 크레딧관련
+//	@GetMapping("my-credit")
+//	public String myCredit(Model model) {
+//		MemberVO member = (MemberVO) session.getAttribute("member");
+//
+//		if (member == null) {
+//			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+//		} else {
+//			int member_code = member.getMember_code();
+//			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+//			model.addAttribute("member", member2);
+//			return "mypage/mypage-credit";
+//		}
+//
+//	}
 
 	// 이미지 업로드 관련
 	@RequestMapping("upload_image")

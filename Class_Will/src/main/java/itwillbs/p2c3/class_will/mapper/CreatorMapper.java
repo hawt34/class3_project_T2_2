@@ -151,6 +151,9 @@ public interface CreatorMapper {
 	// 리뷰분석결과 가져오기
 	Map<String, Object> getAnalyzeReviewList(MemberVO member);
 	
+	// 전체 값에 대한 그래프 데이터
+	List<Map<String, Object>> getGraphDataList(MemberVO member);
+	
 	
 	//=====================================================================================================
 

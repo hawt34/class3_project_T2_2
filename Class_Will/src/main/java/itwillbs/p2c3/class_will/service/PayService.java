@@ -2,16 +2,17 @@ package itwillbs.p2c3.class_will.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mysql.cj.xdevapi.Result;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.request.CancelData;
@@ -19,12 +20,13 @@ import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
 import itwillbs.p2c3.class_will.handler.BankApi;
-import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.mapper.PayMapper;
 import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class PayService {
+//	private static final int Map = 0;
+
 	@Autowired
 	private PayMapper payMapper;
 	
@@ -188,12 +190,39 @@ public class PayService {
 	}
 
 	public Map withdraw(Map<String, Object> map) {
-		return bankApi.requestWithdraw(map);
+		Map withdraw = bankApi.requestWithdraw(map);
+		
+		//update willpay
+		updateWillPay(map);
+		//날짜 formatting
+		String wdDate = ((String)withdraw.get("api_tran_dtm")).substring(0, 14);
+		DateTimeFormatter parseDate = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+		LocalDateTime ldt = LocalDateTime.parse(wdDate, parseDate);
+		
+		DateTimeFormatter parseStr = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String withDrawDate = ldt.format(parseStr);
+		//----------------------------------------
+		//will-pay 충전(결제) 정보 저장
+		Map<String, Object> withdrawParameter = new HashMap<String, Object>();
+		withdrawParameter.put("will_pay_date", withDrawDate);
+		withdrawParameter.put("will_pay_amount", withdraw.get("tran_amt"));
+		withdrawParameter.put("will_pay_bank_name", withdraw.get("bank_name"));
+		withdrawParameter.put("will_pay_get_pay", map.get("tran_amt_total"));
+		withdrawParameter.put("will_pay_account", withdraw.get("account_num_masked"));
+		withdrawParameter.put("member_code", map.get("member_code"));
+		payMapper.registWithdrawInfo(withdrawParameter);
+		
+		BigInteger will_pay_code = (BigInteger)withdrawParameter.get("will_pay_code");
+		System.out.println("will_pay_code: " + will_pay_code);
+		
+		Map<String, Object> withdrawInfo = payMapper.selectWithdrawInfo(will_pay_code);
+		System.out.println("withdrawInfo: " + withdrawInfo);
+		return withdrawInfo;
 	}
 
-	public void registPayAccountInfo(Map withdrawResult) {
-		payMapper.insertPayAccountInfo(withdrawResult);
-	}
+//	public void registPayAccountInfo(Map withdrawResult) {
+//		payMapper.insertPayAccountInfo(withdrawResult);
+//	}
 	
 	//will-pay 충전 성공 시 member_credit update
 	public int updateWillPay(Map<String, Object> map) {
@@ -208,8 +237,8 @@ public class PayService {
 			amt = Integer.parseInt(stringAmt);
 		}
 		map.put("member_credit", amt);
-		System.out.println("vslfsd" + map.get("member_credit"));
-		System.out.println(map);
+//		System.out.println("vslfsd" + map.get("member_credit"));
+//		System.out.println(map);
 		payMapper.updateWillpay(map);
 		//return은 크레딧을 선택하는 메서드 호출
 		return payMapper.selectWillpay(map);
@@ -257,6 +286,24 @@ public class PayService {
 		}
 		
 		return isSuccess;
+	}
+	
+	//충전 성공한 willpayChargeList 가져오기
+	public List<Map<String, Object>> getWillpayChargeList(int member_code) {
+		return payMapper.selectWillpayChargeList(member_code);
+	}
+
+	public Map getAdminAccessToken() {
+		return bankApi.requestAdminAccessToken();
+	}
+	
+	//adminAccessToken 저장
+	public void registAdminToken(Map adminToken) {
+		if(payMapper.selectAdminToken() == null) {
+			payMapper.insertAdminToken(adminToken);
+		} else {
+			payMapper.updateAdminToken(adminToken);
+		}
 	}
 
 

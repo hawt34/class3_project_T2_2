@@ -31,20 +31,6 @@
 		VALUES(#{keyword}, #{searchDateTime})
 	</insert>
 	
-
-	<insert id="insertVisitIp">
-		INSERT INTO visit_logs(visit_date, ip_address)
-		VALUES (#{visitDate}, #{ip})
-	</insert>
-	
-	
-	<select id="selectVisitIp" resultType="map">
-		SELECT visit_date, ip_address
-		FROM   visit_logs
-		WHERE  visit_date = #{visitDate}
-          AND  ip_address = #{ip}
-	</select>
-	
 	<select id="selectTop10Class">
 		SELECT 
 			c.class_code,
@@ -62,7 +48,7 @@
 		        COUNT(*) AS count
 		    FROM pay p
 		    JOIN class c ON p.class_code = c.class_code
-		    WHERE c.class_active = 'N'
+		    WHERE c.class_active = 'Y'
 		      AND c.class_regist_status = '2'
 		    GROUP BY p.class_code
 		    ORDER BY count DESC
@@ -84,8 +70,9 @@
 		        COUNT(*) AS count
 		    FROM pay p
 		    JOIN class c ON p.class_code = c.class_code
-		    WHERE c.class_active = 'N'
+		    WHERE c.class_active = 'Y'
 		      AND c.class_regist_status = '2'
+		      AND c.class_hide = '1'
 		    GROUP BY p.class_code
 		    ORDER BY count DESC
 		    LIMIT 10
@@ -109,8 +96,9 @@
 		JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
 		JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
 		JOIN MEMBER m ON c.member_code = m.member_code
-		WHERE c.class_active = 'N'
+		WHERE c.class_active = 'Y'
 		AND c.class_regist_status = '2'
+		AND c.class_hide = '1'
 		ORDER BY class_code DESC 
 		LIMIT 8;
 	</select>
@@ -121,11 +109,25 @@
 		    c2.code_value AS local_name 
 		FROM class c  
 		JOIN common2 c2 ON c.common2_code = c2.common2_code AND c2.common1_code = 'LC'
-		WHERE c.class_active = 'N'
+		WHERE c.class_active = 'Y'
 		AND c.class_regist_status = '2'
+		AND c.class_hide = '1'
 		ORDER BY class_code DESC 
 		LIMIT 8;
 	</select>
+	
+	<select id="selectVisitIp" resultType="map">
+		SELECT visit_date, ip_address
+		FROM   visit_logs
+		WHERE  visit_date = #{visitDate}
+          AND  ip_address = #{ip}
+	</select>
+
+	<insert id="insertVisitIp">
+		INSERT INTO visit_logs(visit_date, ip_address)
+		VALUES (#{visitDate}, #{ip})
+	</insert>
+	
 	
 	<select id="selectToday" resultType="map">
 		SELECT *
@@ -139,12 +141,13 @@
 	</insert>
 	
 	<update id="updateDailyVisit">
-		<selectKey keyProperty="reply_num" resultType="int" order="BEFORE">
-			SELECT IFNULL(MAX(reply_num), 0)  -- reply_num 최대값 조회(null 이면 기본값 0 지정) 
-			FROM tiny_reply_board
+		<selectKey keyProperty="visit_count" resultType="int" order="BEFORE">
+			SELECT IFNULL(visit_count, 0)  -- visit_count 최대값 조회(null 이면 기본값 0 지정) 
+			FROM daily_visit
+			WHERE visit_date = #{visit_date}
 		</selectKey> 
 		UPDATE daily_visit
-		SET #{visit_count} + 1
+		SET visit_count = #{visit_count} + 1
 		WHERE visit_date = #{visit_date}
 	</update>
 </mapper>

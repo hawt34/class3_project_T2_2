@@ -175,7 +175,7 @@ th:nth-child(2), td:nth-child(2) {
 															<c:when test="${possibleReview.review_count == 0}">
 																<!-- 리뷰 작성 가능한 경우 -->
 																<a
-																	href="resist-review?class_code=${possibleReview.class_code}&member_code=${member.member_code}"
+																	href="resist-review?class_code=${possibleReview.class_code}&member_code=${member.member_code}&class_schedule_code=${possibleReview.class_schedule_code}"
 																	class="btn btn-primary">등록하기</a>
 															</c:when>
 															<c:otherwise>

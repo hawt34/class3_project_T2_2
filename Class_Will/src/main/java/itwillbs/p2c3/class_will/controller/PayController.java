@@ -179,14 +179,14 @@ public class PayController {
 			return result1;
 		}
 		
+		//member_code - put()
+		int member_code = member.getMember_code();
+		map.put("member_code", member_code);
+		
 		//session에서 토큰 가져오기
 		Map<String, String> token = (Map<String, String>)session.getAttribute("token");
 		map.put("access_token", token.get("access_token"));
 		map.put("user_seq_no", token.get("user_seq_no"));
-		
-		String stringMemberCode = Integer.toString(member.getMember_code());
-		int member_code = Integer.parseInt(stringMemberCode);
-		map.put("member_code", member_code);
 		
 		Map withdrawResult = payService.withdraw(map);
 		
@@ -195,28 +195,6 @@ public class PayController {
 			result2 = WillUtils.checkDeleteSuccess(false, model, "충전에 실패하였습니다", false);
 			return result2;
 		}
-		
-		//willpay 결제 성공 시 member_credit - update -> select
-		int member_credit = payService.updateWillPay(map);
-		
-		String date = ((String)withdrawResult.get("api_tran_dtm")).substring(0, 14);
-		DateTimeFormatter parsedDate = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-		LocalDateTime datetime = LocalDateTime.parse(date, parsedDate);
-		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		String payAc_date = datetime.format(dtf);
-		
-		
-		withdrawResult.put("member_credit", member_credit);
-		withdrawResult.put("payAc_amount", withdrawResult.get("tran_amt"));
-		withdrawResult.put("tran_amt_total", map.get("tran_amt_total"));
-		withdrawResult.put("payAc_fintech_use_num", withdrawResult.get("fintech_use_num"));
-		withdrawResult.put("payAc_bank_name", withdrawResult.get("bank_name"));
-		withdrawResult.put("member_code", member_code);
-		withdrawResult.put("payAc_date", payAc_date);
-		withdrawResult.put("payAc_product_type", map.get("payAc_type"));
-		
-		payService.registPayAccountInfo(withdrawResult);
 		
 		model.addAttribute("withdrawResult", withdrawResult);
 		
@@ -310,5 +288,21 @@ public class PayController {
 		return isSuccess;
 	}
 	
+	// 크레딧관련
+	@GetMapping("my-credit")
+	public String myCredit(Model model, HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String result = "";
+		if (member == null) {
+			result = WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", false, "member-login");
+			return result;
+		}
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> willpayChargeInfoList = payService.getWillpayChargeList(member_code);
+		System.out.println("!willpayChargeInfoList: " + willpayChargeInfoList);
+		
+		model.addAttribute("willpayChargeInfoList", willpayChargeInfoList);
+		return "mypage/mypage-credit";
+	}
 	
 }

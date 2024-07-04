@@ -3,6 +3,35 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.PayMapper">
+	<!-- === admin관련 sql === -->
+	<select id="selectAdminToken">
+		SELECT access_token
+		FROM bank_user_info
+		WHERE member_code = 1067
+	</select>
+	<insert id="insertAdminToken">
+		INSERT INTO bank_user_info(
+			access_token
+			, user_seq_no
+			, fintech_use_num
+			, account_num
+			, member_code
+		) 
+		VALUES (
+			#{access_token}
+			, null
+			, null
+			, null
+			, 1067
+		)
+	</insert>
+	<update id="updateAdminToken">
+		UPDATE bank_user_info
+		SET access_token = #{access_token}
+		WHERE member_code = 1067
+	</update>
+	
+	<!-- ======= pay 관련 sql ======== -->
 	<!-- 임시 select -->
 	<select id="selectClassInfo" resultType="map">
 		SELECT c.class_name
@@ -235,21 +264,6 @@
 		WHERE access_token = #{access_token}
 	</update>
 	
-	<insert id="insertPayAccountInfo">
-		INSERT 
-		INTO pay_account
-		VALUES (
-			null
-			, #{tran_amt}
-			, #{payAc_bank_name}
-			, #{payAc_fintech_use_num}
-			, #{payAc_date}
-			, #{payAc_product_type}
-			, #{member_code}
-			, 2
-			, 'paid'
-		)
-	</insert>
 	<!-- member_credit 업데이트 이후 조회  -->
 	<update id="updateWillpay">
 		UPDATE MEMBER
@@ -339,4 +353,59 @@
 		SET class_remain_headcount = class_remain_headcount + #{pay_headcount}
 		WHERE class_schedule_code = #{class_schedule_code}
 	</update>
+	
+	<!-- willpay 충전 성공 등록 -->
+	<insert id="registWithdrawInfo" useGeneratedKeys="true" keyProperty="will_pay_code" >
+		INSERT INTO will_pay
+		VALUES (
+			null
+			, #{will_pay_date}
+			, #{will_pay_amount}
+			<choose>
+				<when test="will_pay_get_pay == '' or will_pay_get_pay == null">
+					, #{will_pay_amount}
+				</when>
+				<otherwise>
+					, #{will_pay_get_pay}
+				</otherwise>
+			</choose>
+			, #{will_pay_bank_name}
+			, #{will_pay_account}
+			, 'paid'
+			, 2
+			, #{member_code}
+		)
+	</insert>
+	
+	<select id="selectWithdrawInfo" resultType="map">
+		SELECT wp.will_pay_date
+		   , wp.will_pay_amount
+		   , wp.will_pay_get_pay
+		   , wp.will_pay_bank_name
+		   , m.member_credit
+	FROM will_pay wp
+	JOIN MEMBER m
+	ON wp.member_code = m.member_code
+	WHERE will_pay_code = #{will_pay_code}
+	</select>
+	
+	<select id="selectWillpayChargeList" resultType="map">
+		SELECT wp.will_pay_code
+			   , wp.will_pay_date
+			   , wp.will_pay_amount
+			   , wp.will_pay_get_pay
+			   , wp.will_pay_bank_name
+			   , wp.will_pay_account
+			   , c2.code_value AS pay_type
+			   , wp.member_code
+		FROM will_pay wp
+		JOIN common2 c2
+		ON wp.will_pay_type = c2.common2_code
+		AND c2.common1_code = 'PT'
+		WHERE member_code = #{member_code}
+		ORDER BY will_pay_code DESC
+	</select>
+	
+	
+	
 </mapper>

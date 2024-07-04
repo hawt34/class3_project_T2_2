@@ -138,7 +138,10 @@
 		cs.class_schedule_date,
 		cs.class_round,
 		c.class_name,
-		(SELECT COUNT(*) FROM class_review cr WHERE cr.class_code = p.class_code AND cr.member_code = p.member_code) as review_count
+		(SELECT COUNT(*) FROM class_review cr
+     	WHERE cr.class_code = p.class_code
+        AND cr.member_code = p.member_code
+        AND cr.class_schedule_code = p.class_schedule_code) as review_count		
 		FROM
 		pay p
 		JOIN
@@ -163,7 +166,8 @@
 		member_code,
 		class_code,
 		class_review_rating,
-		review_reply_status
+		review_reply_status,
+		class_schedule_code
 		) 
 		VALUES (
 		#{class_review_subject},
@@ -173,7 +177,8 @@
 		#{member_code},
 		#{class_code},
 		#{class_review_rating},
-		'N'
+		'N',
+		#{class_schedule_code}
 		)
 
 	</insert>

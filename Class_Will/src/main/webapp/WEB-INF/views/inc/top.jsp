@@ -331,6 +331,12 @@
 	
 }
 
+#chatListModal {
+	width: 500px;
+	height: 500px; 
+	
+}
+
 /*** Top Navbar End ***/
 
 </style>
@@ -429,8 +435,18 @@
 									        <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
 									    </li>
 									    <li class="nav-item">
-									        <a class="nav-link" href="main-test"><i class="bi bi-envelope bi-top"></i></a>
-									    </li>
+											<!-- 클릭 시 모달 창을 열기 위한 링크 -->
+											<a class="nav-link" href="#" id="openChatModal"><i class="bi bi-envelope bi-top"></i></a>
+											<!-- 모달 창 -->
+											<div id="chatListModal" class="modal" style="display:none;">
+												<div class="modal-content">
+													<!-- 모달 창 안에 닫기 버튼 -->
+													<span id="chatModalClose">&times;</span>
+													<!-- 모달 창 내용 -->
+													<iframe id="chatListContent" width="100%" height="100%" frameborder="0"></iframe>
+												</div>
+											</div>
+										</li>
 									    
 									    <c:choose>
 											<c:when test="${empty member.member_email}">
@@ -479,7 +495,7 @@
 	                        </a>
 	                    </div>
 	                    <div class="col-4 d-flex d-lg-none justify-content-end align-items-center mb-3 mx-0">
-	                         <button class="navbar-toggler py-2" type="button" id="mini-menu-toggle" >
+	                         <button class="navbar-toggler" type="button" id="mini-menu-toggle" >
 		                        <span class="fa fa-bars text-white"></span>
 		                    </button>
 	                    </div>
@@ -760,7 +776,28 @@ $(function() {
 		$(".mini-top-menu").toggle();
 	});
 	
-	
+    
+    
+    // 모달 창 열기
+    $("#openChatModal").on("click", function() {
+        // 모달 창에 링크를 열도록 설정
+        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
+        
+        // 모달 창 보이기
+        $("#chatListModal").css("display", "block");
+    });
+    
+    // 모달 창 닫기
+    $("#chatModalClose").on("click", function() {
+        $("#chatListModal").css("display", "none");
+    });
+    
+    // 사용자가 모달 외부를 클릭하면 모달 닫기
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("chatListModal")) {
+            $("#chatListModal").css("display", "none");
+        }
+    }
     
 
 	

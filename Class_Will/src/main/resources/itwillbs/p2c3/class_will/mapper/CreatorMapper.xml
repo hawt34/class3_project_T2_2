@@ -722,13 +722,13 @@
 			, ifnull(sum(cs.class_total_headcount - cs.class_remain_headcount),0) AS attendCount
 			, round(avg(cs.class_total_headcount - cs.class_remain_headcount), 1) AS avgAttendCount
 		FROM 
-			class_schedule cs  
-		JOIN 
 			class c
+		LEFT JOIN 
+			class_schedule cs  
 		ON 	
 			c.class_code = cs.class_code
 		WHERE 
-			c.member_code = 1079
+			c.member_code = #{member_code}
 		AND 
 			CURDATE() > STR_TO_DATE(cs.class_schedule_date, '%Y-%m-%d')
 		And 
@@ -748,6 +748,53 @@
 			c.member_code = 1079
 	</select>
 	
+	<select id="getGraphDataList" resultType="map">
+		WITH RECURSIVE months AS (
+		    SELECT 
+		    	DATE_FORMAT(CURDATE(), '%Y-%m-01') AS month_date
+		    UNION ALL
+		    SELECT 
+		    	DATE_SUB(month_date, INTERVAL 1 MONTH)
+		    FROM 
+		    	months
+		    WHERE 
+		    	month_date > DATE_SUB(CURDATE(), INTERVAL 11 MONTH)
+		)
+		SELECT 
+		    DATE_FORMAT(m.month_date, '%Y-%m') AS month,
+		    CONVERT(IFNULL(SUM(total_amount), 0), SIGNED) AS total_sum
+		FROM 
+		    months m
+		LEFT JOIN (
+		    SELECT 
+		        (IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount,
+		        cs.class_schedule_date,
+		        DATE_FORMAT(cs.class_schedule_date, '%Y-%m') AS date_range
+		    FROM 
+		        class c
+		    LEFT JOIN 
+		        class_schedule cs 
+		    ON 
+		        cs.class_code = c.class_code 
+		    LEFT JOIN 
+		        pay p
+		    ON 
+		        p.class_schedule_code  = cs.class_schedule_code 
+		    WHERE 
+		        c.member_code = #{member_code}
+		        AND 
+		        	cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
+		        AND 
+		        	DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date
+		) AS subquery
+		ON 
+			DATE_FORMAT(m.month_date, '%Y-%m') = subquery.date_range
+		GROUP BY 
+		    m.month_date
+		ORDER BY 
+		    m.month_date asc;
+	</select>
+	
 	
 	
 	<!-- =========================================================================================== -->
@@ -765,11 +812,7 @@
 			SELECT 
 				(IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount
 			FROM 
-				MEMBER m
-			LEFT JOIN 
 				class c
-			ON 
-				m.member_code = c.member_code
 			LEFT JOIN 
 				class_schedule cs 
 			ON 
@@ -781,7 +824,7 @@
 			left JOIN 
 				settlement st
 			ON 
-				st.member_code = m.member_code 
+				st.member_code = c.member_code 
 			WHERE 
 				c.member_code = #{member.member_code}
 			<if test="settlementDate != null">
@@ -796,18 +839,25 @@
 	
 	<!-- 한달 정산금 -->
 	<select id="getMonthSettlement" resultType="map">
-		SELECT CONVERT(IFNULL(SUM(total_amount), 0), SIGNED) AS total_sum
+		SELECT 
+			CONVERT(IFNULL(SUM(total_amount), 0), SIGNED) AS total_sum
 		FROM(
-			SELECT (IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount
-			FROM MEMBER m
-			LEFT JOIN class c
-			ON m.member_code = c.member_code
-			LEFT JOIN class_schedule cs 
-			ON cs.class_code = c.class_code 
-			JOIN pay p
-			ON p.class_schedule_code  = cs.class_schedule_code 
-			WHERE c.member_code = #{member.member_code}
-			AND cs.class_schedule_date LIKE CONCAT(#{monthPicker}, '%')
+			SELECT 
+				(IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount
+			FROM 
+				class c
+			LEFT JOIN 
+				class_schedule cs 
+			ON 
+				cs.class_code = c.class_code 
+			LEFT JOIN 
+				pay p
+			ON 
+				p.class_schedule_code  = cs.class_schedule_code 
+			WHERE 
+				c.member_code = 1079
+			AND 
+				cs.class_schedule_date LIKE CONCAT('2024-05', '%')
 		) AS subquery;
 	</select>
 	

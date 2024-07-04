@@ -47,8 +47,14 @@ public interface ClassMapper {
 	// 클래스 리스트
 	List<Map<String, Object>> selectClassList(Map<String, Object> paramMap);
 	
+	// 클래스 가격순
+	List<Map<String, Object>> selectPriceList(Map<String, Object> list);
+	
 //	// 클래스 리스트
 //	List<Map<String, Object>> selectStarClassList(Map<String, Object> paramMap);
+	
+	// 리뷰 많은 순
+	List<Map<String, Object>> selectReviewCount();
 	
 	// 소 카테고리
 	List<Map<String, Object>> selectListSmallCategory();
@@ -61,6 +67,9 @@ public interface ClassMapper {
 	
 	// 클래스 커리큘럼 
 	List<Map<String, Object>> selectClassCurri(int class_code);
+	
+	// 클래스 해시태그 
+	List<Map<String, Object>> selectClassHashtag(int class_code);
 	
 //    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
 	boolean insertClassComplain(Map<String, Object> params);

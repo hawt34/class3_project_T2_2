@@ -52,8 +52,6 @@ public class ClassController {
 	    
 	    if (member != null) {
 	        member_code = member.getMember_code();
-	        System.out.println("mmmmmmmmmmmmmmmmmmmemberCode: " + member.getMember_code());
-	        System.out.println("mmmmmmmmmmmmmmmmmmmember: " + member);
 	    } else {
 	        System.out.println("Member is null");
 	    }
@@ -62,17 +60,14 @@ public class ClassController {
 	    // 대 카테고리
 	    List<Map<String, Object>> bigCategoryList = classService.getBigCategoryList();
 	    model.addAttribute("bigCategoryList", bigCategoryList);
-	    System.out.println("bigCategoryList: " + bigCategoryList);
 	    
 	    // 소 카테고리
 	    List<Map<String, Object>> smallCategoryList = classService.getListSmallCategory();
 	    model.addAttribute("smallCategoryList", smallCategoryList);
-	    System.out.println("class-list: smallCategory: " + smallCategoryList);
 	    
 	    // 지역
 	    List<Map<String, Object>> localList = classService.getCategoryLocal();
 	    model.addAttribute("localList", localList);
-	    
 	    
 //	    // 클래스 리스트
 //		String big_category = params.get("big_category");
@@ -83,7 +78,6 @@ public class ClassController {
         map.put("hashtag", hashtag);
 	    List<Map<String, Object>> classList = classService.getClassList(map);
 	    model.addAttribute("classList", classList);
-	    System.out.println(">>>classList : " + classList);
 	    
 	    // 지도에 표시할 클래스 
 		JsonArray jsonList = new JsonArray();
@@ -94,11 +88,10 @@ public class ClassController {
 			json.addProperty("class_map_y", (String) class1.get("class_map_y"));
 			json.addProperty("class_name", (String) class1.get("class_name"));
 			jsonList.add(json);
-			System.out.println(json);
+//			System.out.println(json);
 		}
 		
 		model.addAttribute("jsonList", jsonList);
-		System.out.println(">>>!!! jsonList : " + jsonList);
 		
 	    // 해시태그
 	    List<Map<String, Object>> hashtagList = classService.getHashtag();
@@ -126,14 +119,12 @@ public class ClassController {
 	@GetMapping("small-category")
 	public List<Map<String, Object>> getCategoryDetail(@RequestParam String big_category){
 		List<Map<String, Object>> smallCategory = classService.getSmallCategory(big_category);
-//		System.out.println("smallCategory:@@@@@@ " + smallCategory);
 		return smallCategory;
 	}
 	
 	// 카테고리 필터링 ajax
 	@ResponseBody
 	@GetMapping("filter-class")
-//	public List<Map<String, Object>> getFilterClass(@RequestBody(required = false) Map<String, Object> filters, Model model) {
 		public List<Map<String, Object>> getFilterClass(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params) {
 	    
 	    // 클래스 리스트
@@ -150,7 +141,6 @@ public class ClassController {
         
 	    List<Map<String, Object>> filterClass = classService.getClassList(list);
 	    model.addAttribute("filterClass", filterClass);
-//	    System.out.println(">>>filterClass : " + filterClass);
 	    return filterClass;
 	}
 	
@@ -160,12 +150,8 @@ public class ClassController {
 	public List<Map<String, Object>> getClassLowPrice(Model model,@RequestParam(required = false) String classListSelect){
 
         Map<String, Object> list = new HashMap<>();
-        list.put("classListSelect", classListSelect);
-	    List<Map<String, Object>> listSelect = classService.getClassList(list);
-	    
-	    // class_price 기준으로 오름차순 정렬
-	    listSelect.sort(Comparator.comparing(classItem -> (Integer) classItem.get("class_price")));
-
+        list.put("classListSelect", "lowPrice");
+	    List<Map<String, Object>> listSelect = classService.getPriceList(list);
 	    model.addAttribute("listSelect", listSelect);
 	    System.out.println(">>>listSelect ::::: " + listSelect);
 
@@ -175,16 +161,10 @@ public class ClassController {
 	@ResponseBody
 	@GetMapping("class-high-price")
 	public List<Map<String, Object>> getClassHighPrice(Model model,@RequestParam(required = false) String classListSelect){
-//		List<Map<String, Object>> lowPriceList = classService.getLowPrice();
-//		System.out.println("smallCategory:@@@@@@ " + lowPriceList);
 		
 		Map<String, Object> list = new HashMap<>();
-		list.put("classListSelect", classListSelect);
-		List<Map<String, Object>> listSelect = classService.getClassList(list);
-		
-		// class_price 기준으로 오름차순 정렬
-		listSelect.sort(Comparator.comparing(classItem -> (Integer) classItem.get("class_price")));
-		
+		list.put("classListSelect", "highPrice");
+		List<Map<String, Object>> listSelect = classService.getPriceList(list);
 		model.addAttribute("listSelect", listSelect);
 		System.out.println(">>>listSelect ::::: " + listSelect);
 		
@@ -213,29 +193,21 @@ public class ClassController {
 	    // 필터링 메소드 호출을 위한 파라미터 설정
 	    Map<String, Object> paramMap = new HashMap<>();
 	    paramMap.put("class_codes", classCodes);
-	    System.out.println("class_codes: " + classCodes);
 
 	    // 필터링 메소드 호출 및 결과 받아오기
 	    List<Map<String, Object>> filter = classService.getClassList(paramMap);
-	    System.out.println("filteredResult: " + filter);
 
 	    // 필터링된 결과 반환
 	    return filter;
 	}
 	
+	// 리뷰많은 순
 	@ResponseBody
 	@GetMapping("class-review-list")
 	public List<Map<String, Object>> getClassReviewlist(Model model,@RequestParam(required = false) String classListSelect){
 		
-		Map<String, Object> list = new HashMap<>();
-		list.put("classListSelect", classListSelect);
-		System.out.println(">>>classListSelect : " + classListSelect);
-		
-		List<Map<String, Object>> listSelect = classService.getClassList(list);
-		
-		
+		List<Map<String, Object>> listSelect = classService.getReviewCount();
 		model.addAttribute("listSelect", listSelect);
-		System.out.println(">>>listSelect ::::: " + listSelect);
 		
 		return listSelect;
 	}
@@ -264,7 +236,6 @@ public class ClassController {
 		            if (insertLikeClass > 0) {
 		            	List<Map<String, Object>> likeClassList = classService.getLikeClassList(map);
 		            	model.addAttribute("likeClassList", likeClassList);
-		            	System.out.println(">>>>>>>>>>>> likeClassList : " + likeClassList);
 		            }
 	        } else {
 	            // 클래스 좋아요 제거
@@ -288,8 +259,6 @@ public class ClassController {
 	// 클래스 디테일
 	@GetMapping("class-detail")
 	public String classDetail(Model model, @RequestParam int class_code) {
-//	public String classDetail(Model model, HttpSession session, @RequestParam String class_code) {
-		System.out.println("class_code @@@@@@@@@@@@@@@@@@@@@@@@@@" + class_code);
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("class_code", class_code);
@@ -311,9 +280,22 @@ public class ClassController {
 		classCode.put("class_code", class_code);
 		
 		Map<String, Object> classInfo = payService.getClassInfo(classCode);
-		System.out.println("$$$$$$classInfo: " + classInfo);
 		model.addAttribute("classInfo", classInfo);
 		
+		// 클래스 해시태그 
+		List<Map<String, Object>> classHashtagList = classService.getClassHashtag(class_code);
+		List<String> hashtagStrings = new ArrayList<>();
+
+//		for (Map<String, Object> classHashtag : classHashtagList) {
+//		    String hashtags = (String)classHashtag.get("hashtag"); // 해시태그 문자열을 가져온다고 가정
+//		    String[] hashtagsArray = hashtags.split(","); // 쉼표를 기준으로 문자열 분리
+//		    for (String hashtag : hashtagsArray) {
+//		        hashtagStrings.add(hashtag.trim()); // 분리된 해시태그를 리스트에 추가, trim()으로 공백 제거
+//		    }
+//		    System.out.println(">> hashtagStrings : " + hashtagStrings);
+//		}
+//		model.addAttribute("hashtagStrings", hashtagStrings);
+		System.out.println(">>>>hashtagStrings : " + hashtagStrings);
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)
 		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(class_code);

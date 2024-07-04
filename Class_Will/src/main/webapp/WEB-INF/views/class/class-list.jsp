@@ -620,7 +620,7 @@ $(function() {
             data: data,
             contentType: "application/json",
             success: function(filter) {
-            	alert("낮은가격 순 ajax 성공");
+            	console.log("ajax 성공");
                 updateClassList(filter);
             },
             error: function(xhr, status, error) {

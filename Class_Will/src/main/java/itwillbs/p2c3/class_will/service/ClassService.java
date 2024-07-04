@@ -63,13 +63,18 @@ public class ClassService {
 	}
 	
 	// 클래스 낮으낙격순 정렬
-//	public List<Map<String, Object>> getLowPrice(Map<String, Object> map){
-//		return mapper.select
-//	}
+	public List<Map<String, Object>> getPriceList(Map<String, Object> list){
+		return mapper.selectPriceList(list);
+	}
 	
 	// 클래스 리뷰 별점 순 정렬
 	public List<Map<String, Object>> getStarList(){
 		return mapper.selectStarList();
+	}
+	
+	// 리뷰 많은 순
+	public List<Map<String, Object>> getReviewCount(){
+		return mapper.selectReviewCount();
 	}
 	
 	// 클래스 좋아요 추가
@@ -108,6 +113,11 @@ public class ClassService {
 	// 클래스 커리큘럼
 	public List<Map<String, Object>> getClassCurri(int class_code){
 		return mapper.selectClassCurri(class_code);
+	}
+	
+	// 클래스 해시태그
+	public List<Map<String, Object>> getClassHashtag(int class_code){
+		return mapper.selectClassHashtag(class_code);
 	}
 
 	public boolean insertClassComplain(Map<String, Object> params) {

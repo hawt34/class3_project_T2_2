@@ -77,6 +77,68 @@
 		</if>
 	</select>
 	
+	<!-- 클래스 가격 순  -->
+	<select id="selectPriceList" resultType="map">
+		SELECT c.class_code
+			,class_name
+			,c2.code_value AS class_big_category
+			,c3.code_value AS class_small_category
+			,lc.code_value AS local_name
+			,c2.common2_code
+			,c3.common3_code
+			,class_thumnail
+			,class_hide
+			,class_price
+			,class_hashtag
+			,m.member_name
+			,m.member_nickname
+		FROM class c
+		LEFT JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
+		LEFT JOIN common2 lc ON c.common2_code = lc.common2_code AND lc.common1_code = 'LC'
+		LEFT JOIN common2 crs ON c.class_regist_status = crs.common2_code AND crs.common1_code = 'CRS'
+		LEFT JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
+		JOIN MEMBER m ON c.member_code = m.member_code
+		WHERE c.class_regist_status = 2 AND c.class_active = 'Y'
+		ORDER BY 
+		<if test="classListSelect == 'lowPrice'">
+		  c.class_price ASC
+		</if>
+		<if test="classListSelect == 'highPrice'">
+		  c.class_price DESC
+		</if>
+	</select>
+	
+	<!-- 리뷰 많은 순 -->
+	<select id="selectReviewCount" resultType="map">
+		SELECT c.class_code,
+			c.class_name,
+			c2.code_value AS class_big_category,
+			c3.code_value AS class_small_category,
+			lc.code_value AS local_name,
+			c2.common2_code,
+			c3.common3_code,
+			c.class_thumnail,
+			c.class_hide,
+			c.class_price,
+			c.class_hashtag,
+			m.member_name,
+			m.member_nickname,
+			COALESCE(cr.review_count, 0) AS review_count
+		FROM class c
+		LEFT JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
+		LEFT JOIN common2 lc ON c.common2_code = lc.common2_code AND lc.common1_code = 'LC'
+		LEFT JOIN common2 crs ON c.class_regist_status = crs.common2_code AND crs.common1_code = 'CRS'
+		LEFT JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
+		JOIN MEMBER m ON c.member_code = m.member_code
+		LEFT JOIN (
+			SELECT class_code, COUNT(class_review_code) AS review_count
+			FROM class_review
+			GROUP BY class_code
+		) cr ON c.class_code = cr.class_code
+		WHERE c.class_regist_status = 2 AND c.class_active = 'Y'
+		ORDER BY review_count DESC
+	</select>
+	
 	<!-- 리뷰 별점 순 정렬 -->
 	<select id="selectStarList">
 		SELECT 
@@ -169,7 +231,6 @@
 		</where>
 	</select>
 
-	
 	<!-- 클래스 리뷰 -->
 	<select id="selectClassReview" resultType="map">
 		SELECT class_review_subject
@@ -212,8 +273,17 @@
 			curri_content
 		FROM
 			curri
-		WHERE
+		WHERE 
 			class_code = #{class_code}
+	</select>
+	
+	<!-- 클래스 해시태그 -->
+	<select id="selectClassHashtag" resultType="map">
+		SELECT	
+			class_code
+			, class_hashtag
+		FROM class
+		WHERE class_code = #{class_code}
 	</select>
 	
 	<!-- 클래스 신고 -->
@@ -222,13 +292,6 @@
 		(class_report_code, class_report_big_category, class_report_small_category, class_report_content, class_report_status, class_code, member_code)
 		VALUES
 		(null, #{big_category}, #{small_category}, #{content}, '처리중', #{class_code}, #{member_code})
-	
 	</insert>
-	
-<!--     <select id="selectSmallCategories" parameterType="String" resultType="map"> -->
-<!--         SELECT * -->
-<!--         FROM common3 -->
-<!--         WHERE common1_code = 'CLC' AND common2_code = #{bigCategoryCode} -->
-<!--     </select> -->
 </mapper>
 	

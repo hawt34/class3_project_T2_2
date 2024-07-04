@@ -109,67 +109,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
-// -------------------------------------------------------------
-// // like-class
-// document.addEventListener("DOMContentLoaded", function() {
-//     var heartImges = document.querySelectorAll(".heartImg");
-//     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
-//     var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
-
-//     heartImges.forEach(function(heartOverlay) {
-//         heartOverlay.addEventListener("click", function() {
-//             var img = this;
-//             var member_code = img.getAttribute("data-member-code");
-//             var class_code = img.getAttribute("data-class-code");
-//             var isFullHeart = img.src.includes("heart_full.png");
-
-//             var heart_status = !isFullHeart;
-			
-// 			// 로그인 해야만 이용 가능
-// 			if(member_code == null || member_code == ""){ 
-// 	            alert("로그인이 필요한 페이지 입니다.");
-// 	            window.location.href = "member-login";
-// 	            return;
-// 			}
-			
-//             if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
-//                 img.src = changeSrc;
-//  				alert("관심 클래스에 추가되었습니다.");
-//             } else { // heart_status가 false일 때 (like-class 삭제 시)
-//                 img.src = originalSrc;
-//  				alert("관심 클래스에서 삭제되었습니다.");
-//             }
-            
-//             // AJAX 요청을 통해 서버로 업데이트 요청 전송
-//             var data = JSON.stringify({
-//                 heart_status: heart_status,
-//                 member_code: member_code,
-//                 class_code: class_code
-//             });
-            
-//             updateHeartStatus(data);
-//         });
-//     });
-    
-//     function updateHeartStatus(data) {
-    	
-//         var xhr = new XMLHttpRequest();
-        
-//         xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
-//         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-//         xhr.onreadystatechange = function() {
-//             if (xhr.readyState === 4) {
-//                 if (xhr.status === 200) {
-//                     console.log("Heart status updated successfully");
-//                 } else {
-//                     console.error("Error updating heartStatus");
-//                 }
-//             }
-//         };
-        
-//         xhr.send(data);
-//     }
-// });
 
 </script>
 <!-- 카카오 지도 api -->
@@ -211,11 +150,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map);  
 
-		// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-// 		var content = '<div class="customoverlay">' +
-// 		    '    <span class="title">${classInfo.class_name}위치' + '</span>' +
-// 		    '</div>';
-
 		// 커스텀 오버레이가 표시될 위치입니다 
 		var position = new kakao.maps.LatLng(class_map_x, class_map_y);  
 
@@ -229,22 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		
     };
 
- // ------------------------------------------------------------------------
- 
 </script>
-<!-- <script type="text/javascript"> -->
-<%-- // 	var class_map_x = ${classInfo.class_map_x}; --%>
-<%-- // 	var class_map_y = ${classInfo.class_map_y}; --%>
-	
-<!-- // 	var mapContainer = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스 -->
-<!-- // 	var mapOption = { //지도를 생성할 때 필요한 기본 옵션 -->
-<!-- // 		center: new kakao.maps.LatLng(class_map_x, class_map_y), //지도의 중심좌표. -->
-<!-- // 		level: 3 //지도의 레벨(확대, 축소 정도) -->
-<!-- // 	}; -->
-
-<!-- // 	var map = new kakao.maps.Map(mapContainer, mapOption); //지도 생성 및 객체 리턴 -->
-	
-<!-- </script> -->
 </head>
 <body>
 <header>
@@ -330,8 +249,6 @@ document.addEventListener("DOMContentLoaded", function() {
 				<div class="location">${classInfo.class_location}</div>
                 <div id="map" style="width: 500px; height: 400px;"></div>
 				
-<!-- 				<div id="map" style="width:350px; height:350px;"></div> -->
-
             </div>
             <div id="section2">
             	<div class="mt-3">
@@ -365,21 +282,12 @@ document.addEventListener("DOMContentLoaded", function() {
 							                    <c:if test="${map.class_review_subject != null}">
 							                        <tr>
 							                            <td class="creator-review-subject">
-<!-- 							                                <a onclick="creatorReview()"> -->
-<%-- 							                                    ${map.class_review_subject} --%>
-<!-- 							                                </a> -->
                                                     		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.class_review_subject}</a>
 							                            </td>
 							                            <td>
-<!-- 							                                <a onclick="creatorReview()"> -->
-<%-- 							                                    ${map.class_review_date} --%>
-<!-- 							                                </a> -->
                                                     		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.class_review_date}</a>
 							                            </td>
 							                            <td>
-<!-- 							                                <a onclick="creatorReview()"> -->
-<%-- 							                                    ${map.member_nickname} --%>
-<!-- 							                                </a> -->
                                                     		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.member_nickname}</a>
 							                            </td>
 							                            <td>
@@ -431,7 +339,6 @@ document.addEventListener("DOMContentLoaded", function() {
                                 </tr>
                             </thead>
                             <tbody>
-<!-- <<<<<<< HEAD -->
 								<c:choose>
 						            <c:when test="${empty classInquiry}">
 						                <tr>
@@ -444,19 +351,13 @@ document.addEventListener("DOMContentLoaded", function() {
 										<c:forEach var="map" items="${classInquiry}">
 			                                <tr>
 			                                    <td class="creator-review-subject">
-<%-- 			                                        <a onclick="creatorInquiry()">${map.class_inquiry_subject}</a> --%>
                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.class_inquiry_subject}</a>
 			                                    </td>
 			                                    <td>
-<%-- 			                                        <a onclick="creatorInquiry()">${map.class_inquiry_date}</a> --%>
                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.class_inquiry_date}</a>
 			                                    </td>
 			                                    <td>
-<%-- 			                                        <a onclick="creatorInquiry()">${map.member_nickname}</a> --%>
-<%-- 		                                            <a href="#" onclick="creatorInquiry(event)" data-class-code="${map.class_code}">${map.member_nickname}</a> --%>
                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.member_nickname}</a>
-                                                    
-		                                            
 			                                    </td>
 			                                </tr>
 		                                </c:forEach>
@@ -516,39 +417,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         </div>
                     </div>
 
-                    <div class="row"> <!-- 해시태그 시작 -->
+                    <div class="row classHashtag"> <!-- 해시태그 시작 -->
                         <div class="col-md-4">
                             <b><a href="#">#원데이</a></b>
                         </div>
-                        <div class="col-md-4">
-                            <b><a href="#">#클래스</a></b>
-                        </div>
-                        <div class="col-md-4">
-                            <b><a href="#">#관련</a></b>
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <b><a href="#">#키워드</a></b>
-                        </div>
-                        <div class="col-md-4">
-                            <b><a href="#">#크리에이터가</a></b>
-                        </div>
-                        <div class="col-md-4">
-                            <b><a href="#">#지정가능</a></b>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <b><a href="#">#키워드</a></b>
-                        </div>
-                        <div class="col-md-4">
-                            <b><a href="#">#크리에이터가</a></b>
-                        </div>
-                        <div class="col-md-4">
-                            <b><a href="#">#지정가능</a></b>
-                        </div>
-                    </div> <!-- 해시태그 끝 -->
 
                     <div class="box3"> <!-- 좋아요, 공유버튼 -->
                         <div class="row"> 
@@ -561,14 +434,6 @@ document.addEventListener("DOMContentLoaded", function() {
                                     </div>
                                 </button>
                             </div>
-<!--                             <div class="col-md-4 btn mx-auto" style="display: flex; align-items: center;"> -->
-<!--                                 <button type="button" class="btn btn-light w-100 btn-customs"> -->
-<!--                                     <div style="display: flex; align-items: center;"> -->
-<%--                                         <img src="${pageContext.request.contextPath}/resources/images/class/share1.png" class="button-icon"> --%>
-<!--                                         <div class="shareClass"><span>공유하기</span></div> -->
-<!--                                     </div> -->
-<!--                                 </button> -->
-<!--                             </div> -->
                             <div class="col-md-6 btn mx-auto" style="display: flex; align-items: center;">
                                 <button type="button" class="btn btn-light w-100 btn-customs">
                                     <div style="display: flex; align-items: center;" onclick="classComplain(event, '${param.class_code}')">

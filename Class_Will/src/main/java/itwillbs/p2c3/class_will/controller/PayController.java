@@ -305,4 +305,9 @@ public class PayController {
 		return "mypage/mypage-credit";
 	}
 	
+	@GetMapping("refund-agreeTerms")
+	public String agreeTerms() {
+		return "payment/refund_agreeTerms";
+	}
+	
 }

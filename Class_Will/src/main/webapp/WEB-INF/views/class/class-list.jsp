@@ -102,6 +102,29 @@ document.addEventListener("DOMContentLoaded", function() {
         
         xhr.send(data);
     }
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const bigCategory = urlParams.get('class_big_category');
+    const smallCategory = urlParams.get('class_small_category');
+    const local = urlParams.get('common2_code');
+    
+    // 대 카테고리 선택
+    const bigCategorySelect = document.getElementById('class_big_category');
+    if (bigCategory) {
+        bigCategorySelect.value = bigCategory;
+    }
+    
+    // 소 카테고리 선택
+    const smallCategorySelect = document.getElementById('class_small_category');
+    if (smallCategory) {
+        smallCategorySelect.value = smallCategory;
+    }
+    
+    // 지역 선택
+    const localSelect = document.getElementById('class_local');
+    if (local) {
+        localSelect.value = local;
+    }
 });
 
 </script>
@@ -467,7 +490,8 @@ body {
 
 // 대카테고리에 따른 소카테고리 값
 $(function() {
-    // 카테고리 선택시 상세카테
+	
+    // 대 카테고리 선택시 소 카테고리 리스트 나타남
     $("#class_big_category").change(function() {
     	
         var big_category = $("#class_big_category").val();
@@ -496,75 +520,11 @@ $(function() {
         });		
     });
 });
-//------------------------------------------------------------------------------------
-// let selectedCategories = [];
-// let selectedSmallCategories = [];
-// let selectedLocals = [];
-
-// 대카테고리값
-// function updateCategory() {
-	
-//     const selectElement = document.getElementById('class_big_category');
-//     const selectedValue = selectElement.value;
-//     const selectedText = selectElement.options[selectElement.selectedIndex].text;
-
-//     if (selectedValue === 'bigCategoryAll') {
-//         selectedCategories = allCategories.map(category => category.common2_code);
-        
-//     } else {
-//         if (!selectedCategories.includes(selectedValue)) {
-//         	console.log("updateCategory 추가");
-//             selectedCategories.push(selectedValue);
-//         }
-//     }
-// //     addContainer(selectedValue, selectedText);
-    
-// //     selectCategory();
-// }
-//------------------------------------------------------------------------------------
-
-// 소카테고리
-// function updateSmallCategory() {
-//     const selectElement = document.getElementById('class_small_category');
-//     const selectedValue = selectElement.value;
-//     const selectedText = selectElement.options[selectElement.selectedIndex].text;
-
-//     if (selectedText === 'smallCategoryAll') {
-//         selectedSmallCategories = allSmallCategory.map(small => small.common2_code);
-//     } else {
-//         if (!selectedSmallCategories.includes(selectedValue)) {
-//         	console.log("updateSmallCategory 추가");
-//             selectedSmallCategories.push(selectedValue);
-//         }
-//     }
-// //     addContainer(selectedValue, selectedText);
-    
-// //     selectCategory();
-// }
-
-//------------------------------------------------------------------------------------
-// 지역
-// function updateLocal() {
-//     const selectElement = document.getElementById('class_local');
-//     const selectedValue = selectElement.value;
-//     const selectedText = selectElement.options[selectElement.selectedIndex].text;
-
-//     if (selectedValue === 'classLocalAll') {
-//         selectedLocals = allLocals.map(local => local.common2_code);
-//     } else {
-//         if (!selectedLocals.includes(selectedValue)) {
-//         	console.log("updateLocal 추가");
-//             selectedLocals.push(selectedValue);
-//         }
-//     }
-// //     addContainer(selectedValue, selectedText);
-    
-// //     selectCategory();
-// }
 
 // ------------------------------------------------------------------------------------
 
 var contextPath = '<%= request.getContextPath() %>';
+
 $(function() {
 	
 	// -------------- 검색 버튼 클릭 시 -------------- 
@@ -613,9 +573,9 @@ $(function() {
     
 	// -------------- 해시태그 클릭 시 -------------- 
     $(".hashtag").on("click", function() {
-        var hashtag = $(this).val(); // 클릭한 요소의 값 가져오기
+        var hashtag = $(this).val(); 
 	    fetchClassList({
-           	hashtag: hashtag // 변수명을 맞춤
+           	hashtag: hashtag 
 	    });
     }); // hashtag 해시태그 끝
     
@@ -691,7 +651,7 @@ function fetchClassList(data) {
 }
 
 //------------------------------------------------------------------------------------
-//클래스 목록 갯수 업데이트 함수
+// 클래스 목록 갯수 업데이트 함수
 function updateClassList(filterClass) {
 	 $(".classCount").html('<p>' + filterClass.length + '개의 클래스</p>');
 	 $("#classListContainer").html("");
@@ -705,6 +665,7 @@ function updateClassList(filterClass) {
 
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
+
 function generateClassCardHTML(filter) {
 	
     return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' 
@@ -740,6 +701,7 @@ function generateClassCardHTML(filter) {
     + '</div>' 
     + '</div>';
 }
+
 </script>
 </body>
 </html>

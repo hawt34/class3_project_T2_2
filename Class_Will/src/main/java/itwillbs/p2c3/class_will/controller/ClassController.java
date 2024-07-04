@@ -80,38 +80,11 @@ public class ClassController {
 //		String local = params.get("local");
 //		
         Map<String, Object> map = new HashMap<>();
-//        list.put("big_category", big_category);
-//        list.put("small_category", small_category);
-//        list.put("local", local);
         map.put("hashtag", hashtag);
-//        model.addAttribute("list", list);
-//        System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
-//        System.out.println("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local + ", hashtag : " + hashtag);
-
 	    List<Map<String, Object>> classList = classService.getClassList(map);
 	    model.addAttribute("classList", classList);
 	    System.out.println(">>>classList : " + classList);
 	    
-//	    for (Map<String, Object> contents : classList) {
-//	    	for (Map<String, Object> local : localList) {
-//				if(contents.get("class_code") == local.get("class_code")) {
-//					contents.put("local_name", local.get("local_name"));
-//				}
-//	    	}
-//			System.out.println("contents : " + contents);
-//	    }
-	 // 각 클래스의 local_name 추가
-	    for (Map<String, Object> contents : classList) {
-	        for (Map<String, Object> local : localList) {
-	            // class_code를 기준으로 local_list의 데이터와 매칭
-	            if (contents.get("class_code").equals(local.get("class_code"))) {
-	            	contents.put("local_name", local.get("local_name"));
-//	                break; // 매칭된 경우 반복문 종료
-	            }
-	        }
-			System.out.println("contents : " + contents);
-
-	    }
 	    // 지도에 표시할 클래스 
 		JsonArray jsonList = new JsonArray();
 		
@@ -136,13 +109,10 @@ public class ClassController {
 	        for (Map<String, Object> classMap : classList) {
 	            classMap.put("member_code", member_code);
 	        }
-	        System.out.println("class-list map: " + classList);
-	        System.out.println("memberCode: " + member_code);
 	        
-	        // 좋아하는 클래스 코드
+	        // 라이크 클래스
 	        List<Map<String, Object>> likeClassCode = classService.selectLikeClassCode(member_code);
 	        model.addAttribute("likeClassCode", likeClassCode);
-	        System.out.println("likeClassCode: " + likeClassCode);
 	    } else {
 	        System.out.println("Member code is null, skipping likeClassCode.");
 	    }
@@ -156,18 +126,9 @@ public class ClassController {
 	@GetMapping("small-category")
 	public List<Map<String, Object>> getCategoryDetail(@RequestParam String big_category){
 		List<Map<String, Object>> smallCategory = classService.getSmallCategory(big_category);
-		System.out.println("smallCategory:@@@@@@ " + smallCategory);
+//		System.out.println("smallCategory:@@@@@@ " + smallCategory);
 		return smallCategory;
 	}
-	
-	
-//	@ResponseBody
-//	@GetMapping("class-hashtag")
-//	public List<Map<String, Object>> getClassHashtag(@RequestParam String big_category){
-//		List<Map<String, Object>> smallCategory = classService.getSmallCategory(big_category);
-//		System.out.println("smallCategory:@@@@@@ " + smallCategory);
-//		return smallCategory;
-//	}
 	
 	// 카테고리 필터링 ajax
 	@ResponseBody
@@ -186,12 +147,10 @@ public class ClassController {
         list.put("local", local);
         list.put("hashtag", hashtag);
         model.addAttribute("list", list);
-        System.out.println("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local + ", hashtag : " + hashtag);
-        System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
         
 	    List<Map<String, Object>> filterClass = classService.getClassList(list);
 	    model.addAttribute("filterClass", filterClass);
-	    System.out.println(">>>filterClass : " + filterClass);
+//	    System.out.println(">>>filterClass : " + filterClass);
 	    return filterClass;
 	}
 	
@@ -199,8 +158,6 @@ public class ClassController {
 	@ResponseBody
 	@GetMapping("class-low-price")
 	public List<Map<String, Object>> getClassLowPrice(Model model,@RequestParam(required = false) String classListSelect){
-//		List<Map<String, Object>> lowPriceList = classService.getLowPrice();
-//		System.out.println("smallCategory:@@@@@@ " + lowPriceList);
 
         Map<String, Object> list = new HashMap<>();
         list.put("classListSelect", classListSelect);
@@ -298,10 +255,6 @@ public class ClassController {
         map.put("heart_status", heart_status);
         map.put("member_code", member_code);
         map.put("class_code", class_code);
-        
-        System.out.println("heart_status !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + heart_status);
-        System.out.println("member_code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + member_code);
-        System.out.println("class_code !!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + class_code);
 		
 	    // heart_status가 true이면 좋아요를 추가, false이면 좋아요를 제거
 	    if (heart_status != null && member_code != null && class_code != null) {
@@ -323,12 +276,6 @@ public class ClassController {
 	    }
     }
     
-	
-//    @RequestMapping(value = "updateCategory", method = RequestMethod.GET, produces = "application/json")
-//    @ResponseBody
-//    public List<Map<String, Object>> updateSmallCategory(@RequestParam("category") String category) {
-//        return classService.getChooseBigCategory(category);
-//    }
     // ajax bigCategory
 	@GetMapping("big-category")
 	@ResponseBody

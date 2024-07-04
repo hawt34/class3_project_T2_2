@@ -126,7 +126,7 @@
 	
 	<!-- 클래스 리스트 -->
 	<select id="selectClassList" resultType="map" parameterType="map">
-		SELECT class_code
+		SELECT c.class_code
 			,class_name
 			,c2.code_value AS class_big_category
 			,c3.code_value AS class_small_category
@@ -137,7 +137,6 @@
 			,class_image
 			,class_ex
 			,class_location
-			,class_hashtag
 			,class_creator_explain
 			,class_hide
 			,class_price
@@ -203,11 +202,9 @@
 		JOIN class c
 		ON ci.class_code = c.class_code 
 		WHERE c.class_regist_status = '2'
-		WHERE ci.class_code = #{class_code}
+		AND ci.class_code = #{class_code}
 	</select>
 	
-<<<<<<< HEAD
-=======
 	<insert id="insertClassComplain" parameterType="map">
 		INSERT INTO class_report
 		(class_report_code, class_report_big_category, class_report_small_category, class_report_content, class_report_status, class_code, member_code)
@@ -216,11 +213,5 @@
 	
 	</insert>
 	
-<!--     <select id="selectSmallCategories" parameterType="String" resultType="map"> -->
-<!--         SELECT * -->
-<!--         FROM common3 -->
-<!--         WHERE common1_code = 'CLC' AND common2_code = #{bigCategoryCode} -->
-<!--     </select> -->
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 </mapper>
 	

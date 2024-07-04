@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.mapper;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
@@ -53,9 +54,6 @@ public interface PayMapper {
 
 	List<Map<String, Integer>> selectPackageInfoList();
 	
-	//계좌 결제 정보 저장
-	void insertPayAccountInfo(Map withdrawResult);
-	
 	//fintech_use_num 업데이트
 	void updateFintechUseNum(Map<String, String> fintech);
 	
@@ -75,8 +73,12 @@ public interface PayMapper {
 	
 	//인원수 상태 갱신
 	void resetHeadcount(Map<String, Object> map);
-
 	
+	//윌페이 충전(출금결제) 성공 등록
+	void registWithdrawInfo(Map<String, Object> withdrawParameter);
+	
+	// 윌페이 충전 성공 정보 가져오기
+	Map<String, Object> selectWithdrawInfo(BigInteger will_pay_code);
 	
 	
 

@@ -97,7 +97,7 @@ public class BankApi {
 	}
 
 	public Map requestWithdraw(Map<String, Object> map) {
-		//String으로 형변환
+		//String으로 형변환 - req_client_num
 		String member_code = Integer.toString((int) map.get("member_code"));
 		
 		HttpHeaders headers = new HttpHeaders();

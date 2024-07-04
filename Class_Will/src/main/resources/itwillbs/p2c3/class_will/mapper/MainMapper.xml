@@ -139,9 +139,10 @@
 	</insert>
 	
 	<update id="updateDailyVisit">
-		<selectKey keyProperty="reply_num" resultType="int" order="BEFORE">
-			SELECT IFNULL(MAX(reply_num), 0)  -- reply_num 최대값 조회(null 이면 기본값 0 지정) 
-			FROM tiny_reply_board
+		<selectKey keyProperty="visit_count" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(visit_count), 0)  -- visit_count 최대값 조회(null 이면 기본값 0 지정) 
+			FROM daily_visit
+			WHERE visit_date = #{visit_date}
 		</selectKey> 
 		UPDATE daily_visit
 		SET #{visit_count} + 1

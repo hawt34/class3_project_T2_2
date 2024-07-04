@@ -162,6 +162,7 @@ th:nth-child(2), td:nth-child(2) {
 											value="" required>
 										 <input type="hidden" name="class_code" value="${class_code}">
         								 <input type="hidden" name="member_code" value="${member_code}">	
+        								 <input type="hidden" name="class_schedule_code"  value="${class_schedule_code}">
 									</div>
 									<button type="submit" class="btn btn-primary">등록</button>
 									<button type="button"  class="btn btn-primary" onclick="window.history.back()">뒤로가기</button>

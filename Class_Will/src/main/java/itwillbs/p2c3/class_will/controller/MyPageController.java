@@ -163,14 +163,15 @@ public class MyPageController {
 		} else {
 			String classCode = params.get("class_code");
 			String memberCode = params.get("member_code");
+			String class_schedule_code = params.get("class_schedule_code");
 			Integer classCode2 = Integer.parseInt(classCode);
 			// 클래스 코드와 멤버 코드를 모델에 추가
 			model.addAttribute("class_code", classCode);
 			model.addAttribute("member_code", memberCode);
-
+			model.addAttribute("class_schedule_code", class_schedule_code);
 			Map<String, Object> classInfo = creatorService.getClassDetail(classCode2);
 			model.addAttribute("classInfo", classInfo);
-			System.out.println(classInfo);
+			System.out.println("클래스 정보임" + classInfo);
 			return "mypage/mypage-review-form";
 		}
 

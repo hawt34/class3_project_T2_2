@@ -43,6 +43,7 @@ import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.CscService;
 import itwillbs.p2c3.class_will.service.ExcelService;
+import itwillbs.p2c3.class_will.service.PayService;
 import itwillbs.p2c3.class_will.vo.CategoryData;
 import itwillbs.p2c3.class_will.vo.GroupedData;
 
@@ -64,6 +65,11 @@ public class AdminController {
 	
 	@Autowired
 	private AdminServiceHelper adminServiceHelper;
+	
+	@Autowired
+	private PayService payService;
+	
+	
 	
 	@GetMapping("admin")
 	public String admin(Model model) {
@@ -97,6 +103,13 @@ public class AdminController {
 		if(daily_visit == null) {
 			daily_visit = 0;
 		}
+		
+		//----------------------------------------------------
+		//adminToken 발급
+		Map adminToken = payService.getAdminAccessToken();
+		payService.registAdminToken(adminToken);
+		//----------------------------------------------------
+		
 		//총 방문자
 		Integer total_visit = adminService.getTotalVisit();
 		

@@ -271,21 +271,21 @@ public class MyPageController {
 		}
 	}
 
-	// 크레딧관련
-	@GetMapping("my-credit")
-	public String myCredit(Model model) {
-		MemberVO member = (MemberVO) session.getAttribute("member");
-
-		if (member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
-		} else {
-			int member_code = member.getMember_code();
-			MemberVO member2 = myPageService.selectMemberInfo(member_code);
-			model.addAttribute("member", member2);
-			return "mypage/mypage-credit";
-		}
-
-	}
+//	// 크레딧관련
+//	@GetMapping("my-credit")
+//	public String myCredit(Model model) {
+//		MemberVO member = (MemberVO) session.getAttribute("member");
+//
+//		if (member == null) {
+//			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", true, "member-login");
+//		} else {
+//			int member_code = member.getMember_code();
+//			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+//			model.addAttribute("member", member2);
+//			return "mypage/mypage-credit";
+//		}
+//
+//	}
 
 	// 이미지 업로드 관련
 	@RequestMapping("upload_image")

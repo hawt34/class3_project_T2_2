@@ -141,7 +141,7 @@ th:nth-child(2), td:nth-child(2) {
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<th></th>
+												<th>WILL-PAY</th>
 												<th>결제된 금액</th>
 												<th>충전된 WILL-PAY</th>
 												<th>충전 일시</th>
@@ -149,13 +149,21 @@ th:nth-child(2), td:nth-child(2) {
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>WILL-PAY</td>
-												<td>100000원</td>
-												<td>145000 WILL-PAY</td>
-												<td>2024-07-05</td>
-												<td>산업은행(2024***)</td>
-											</tr>
+											<c:forEach var="chargeInfo" items="${willpayChargeInfoList }">
+												<tr>
+													<td>${chargeInfo.pay_type }</td>
+													<td>
+														<fmt:formatNumber var="amt" value="${chargeInfo.will_pay_amount }"  pattern="#,###"/>
+														${amt}원
+													</td>
+													<td>
+														<fmt:formatNumber var="willpay_amt" value="${chargeInfo.will_pay_get_pay }"  pattern="#,###"/>
+														${willpay_amt} WILL-PAY
+													</td>
+													<td>${chargeInfo.will_pay_date }</td>
+													<td>${chargeInfo.will_pay_bank_name }(${chargeInfo.will_pay_account })</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>

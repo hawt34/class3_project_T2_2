@@ -13,6 +13,15 @@ import itwillbs.p2c3.class_will.vo.MemberVO;
 @Mapper
 public interface PayMapper {
 	
+	//adminAccessToken 찾기
+	Object selectAdminToken();
+	
+	//adminAccessToken 등록
+	void insertAdminToken(Map adminToken);
+	
+	//adminAccessToken 갱신
+	void updateAdminToken(Map adminToken);
+	
 	//class info 가져오기
 	Map<String, Object> selectClassInfo(Map<String, Object> map);
 	
@@ -77,8 +86,12 @@ public interface PayMapper {
 	//윌페이 충전(출금결제) 성공 등록
 	void registWithdrawInfo(Map<String, Object> withdrawParameter);
 	
-	// 윌페이 충전 성공 정보 가져오기
+	//윌페이 충전 정보 가져오기
 	Map<String, Object> selectWithdrawInfo(BigInteger will_pay_code);
+	
+	//윌페이 충전 성공한 목록 가져오기
+	List<Map<String, Object>> selectWillpayChargeList(int member_code);
+	
 	
 	
 

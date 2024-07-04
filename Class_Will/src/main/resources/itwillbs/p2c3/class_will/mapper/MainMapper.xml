@@ -48,7 +48,7 @@
 		        COUNT(*) AS count
 		    FROM pay p
 		    JOIN class c ON p.class_code = c.class_code
-		    WHERE c.class_active = 'N'
+		    WHERE c.class_active = 'Y'
 		      AND c.class_regist_status = '2'
 		    GROUP BY p.class_code
 		    ORDER BY count DESC
@@ -70,8 +70,9 @@
 		        COUNT(*) AS count
 		    FROM pay p
 		    JOIN class c ON p.class_code = c.class_code
-		    WHERE c.class_active = 'N'
+		    WHERE c.class_active = 'Y'
 		      AND c.class_regist_status = '2'
+		      AND c.class_hide = '1'
 		    GROUP BY p.class_code
 		    ORDER BY count DESC
 		    LIMIT 10
@@ -95,8 +96,9 @@
 		JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
 		JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
 		JOIN MEMBER m ON c.member_code = m.member_code
-		WHERE c.class_active = 'N'
+		WHERE c.class_active = 'Y'
 		AND c.class_regist_status = '2'
+		AND c.class_hide = '1'
 		ORDER BY class_code DESC 
 		LIMIT 8;
 	</select>
@@ -107,8 +109,9 @@
 		    c2.code_value AS local_name 
 		FROM class c  
 		JOIN common2 c2 ON c.common2_code = c2.common2_code AND c2.common1_code = 'LC'
-		WHERE c.class_active = 'N'
+		WHERE c.class_active = 'Y'
 		AND c.class_regist_status = '2'
+		AND c.class_hide = '1'
 		ORDER BY class_code DESC 
 		LIMIT 8;
 	</select>

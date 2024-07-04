@@ -143,7 +143,7 @@
 		
 		<div class="main-top10">
 	      	<!-- Vesitable Shop Start-->
-	        <div class="container-fluid vesitable py-3">
+	        <div class="container-fluid vesitable py-3 mt-3">
 	            <div class="container py-3">
 	                <h3 class="mb-0 ">클래스윌 TOP10</h3>
 	                

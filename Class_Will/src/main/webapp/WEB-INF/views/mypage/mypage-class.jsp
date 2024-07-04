@@ -173,7 +173,8 @@ th:nth-child(2), td:nth-child(2) {
 													</td>
 													<td>
 														<c:if test="${pay.refund_type eq '1' }">
-															<input type="button" value="환불하기" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }')">
+<%-- 															<input type="button" value="환불하기" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }')"> --%>
+															<button class="btn btn-dark" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }')">환불하기</button>
 														</c:if>
 													</td>
 												</tr>

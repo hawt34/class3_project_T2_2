@@ -58,6 +58,8 @@ public interface ClassMapper {
 	
 	// 클래스 질문 
 	List<Map<String, Object>> selectClassInquiry(int class_code);
+
+	boolean insertClassComplain(Map<String, Object> params);
 	
 //    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
 }

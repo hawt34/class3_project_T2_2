@@ -87,6 +87,10 @@ public class ClassService {
 	public List<Map<String, Object>> getClassInquiry(int class_code){
 		return mapper.selectClassInquiry(class_code);
 	}
+
+	public boolean insertClassComplain(Map<String, Object> params) {
+		return mapper.insertClassComplain(params);
+	}
 	
 //    public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
 //        return mapper.selectSmallCategories(bigCategoryCode);

@@ -122,7 +122,6 @@
 	</div>
 <script>
 	window.addEventListener('load', () => {
-		console.log("${registType}");
 		const forms = document.getElementsByClassName('validation-form');
 	
 		Array.prototype.filter.call(forms, (form) => {

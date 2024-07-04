@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import itwillbs.p2c3.class_will.handler.GenerateRandomCode;
 import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
+import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.CscService;
 import itwillbs.p2c3.class_will.service.MailService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
+import retrofit2.http.POST;
 
 @Controller
 public class EventController {
@@ -41,6 +43,8 @@ public class EventController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private ClassService classService;
 	
 	@GetMapping("event")
 	public String eventMain(Model model) {
@@ -199,4 +203,22 @@ public class EventController {
 		
 		return small_category;
 	}
+	
+	@PostMapping("complain-class-pro")
+	public String complainClassPro(@RequestParam Map<String, Object> params, HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
+		}
+		params.put("member_code", member.getMember_code());
+		
+		boolean isSuccess = classService.insertClassComplain(params);
+		
+		if(!isSuccess) {
+			return WillUtils.checkDeleteSuccess(false, model, "신고 등록 실패", true);
+		}
+		
+		return WillUtils.checkDeleteSuccess(true, model, "신고 등록 완료", true);
+	}
+	
 }

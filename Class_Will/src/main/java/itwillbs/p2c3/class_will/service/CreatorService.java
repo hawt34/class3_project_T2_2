@@ -209,7 +209,7 @@ public class CreatorService {
 	
 	//==================================================================================================
 
-	// 문의사항 클래스정보 가져오기
+	// 분석페이지의 클래스 리스트
 	public List<Map<String, Object>> getAnalyzeClassInfo(MemberVO member){
 		return creatorMapper.getAnalyzeClassInfo(member);
 	}
@@ -225,6 +225,11 @@ public class CreatorService {
 		return map;
 	}
 	
+	// 전체 값에 대한 그래프 데이터
+	public List<Map<String, Object>> getGraphDataList(MemberVO member){
+		return creatorMapper.getGraphDataList(member);
+	}
+
 	//==================================================================================================
 
 	// 누적 정산금 가져오기

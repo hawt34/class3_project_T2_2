@@ -601,14 +601,26 @@ public class CreatorController {
 		}
 		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member);
 		List<Map<String, Object>> classList = creatorService.getAnalyzeClassInfo(member);
+		List<Map<String, Object>> GraphDataList = creatorService.getGraphDataList(member);
+		
 		
 		model.addAttribute("classList", classList);
 		model.addAttribute("analyzeList", analyzeList.get("analyzeList"));
 		model.addAttribute("analyzeReviewList", analyzeList.get("analyzeReviewList"));
+		model.addAttribute("GraphDataList", GraphDataList);
 		
 		return "creator/creator-analyze";
 	}
 	
+	@ResponseBody
+	@GetMapping
+	public String graphByClass() {
+		return "";
+	}
+	
+	
+	
+	//======================================================
 	// creater-cost로
 	@GetMapping("creator-cost")
 	public String createrCost(HttpSession session, Model model) {

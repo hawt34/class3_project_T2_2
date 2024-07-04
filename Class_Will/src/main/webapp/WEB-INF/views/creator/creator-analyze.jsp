@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -127,26 +128,13 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/easing/easing.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/waypoints/waypoints.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	
-		<script type="text/javascript">
+	<script type="text/javascript">
 		var ctx = document.getElementById("myChart").getContext('2d');
-		/*
-		- Chart를 생성하면서, 
-		- ctx를 첫번째 argument로 넘겨주고, 
-		- 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다. 
-		 */
 		
 		// 랜덤색상 생성 
 		function getRandomColor() {
@@ -155,21 +143,49 @@
 		    const bColor = Math.floor(Math.random() * 128 + 128);
 		    return 'rgba(' + rColor + ',' + gColor + ',' + bColor + ', 1)';
 		}
-
+	
 		var chartColors = function() {
 		    return getRandomColor();
 		};
+		
+		// 데이터 변수 선언
+		var MonthList = [
+			 <c:forEach var="monthList" items="${GraphDataList}">
+	         	"${monthList.month}월" ,
+	         </c:forEach>
+		 ];
+		var SumList = [
+			 <c:forEach var="sumList" items="${GraphDataList}">
+	         	"${sumList.total_sum}" ,
+	         </c:forEach>
+		 ];
+		
+		$('#classSelect').change(function() {
+			classCode = $('#classSelect').val();
+			$.ajax({
+				url: "graphByClass",
+				method: "get",
+				data: { "classCode" : classCode },
+				success: function(data) {
+					 var TheaterList = [
+						 <c:forEach var="theater" items="${theaterList}">
+				         	"${theater.theater_name}" ,
+				         </c:forEach>
+					 ];
+				}
+			});	
+		});
 		 
 		var myChart = new Chart(ctx, {
 		    type: 'bar', // 기본적으로 바 차트 설정
 		    data: {
-		        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		        labels: MonthList,
 		        datasets: [{
-		            label: '월간 매출 데이터 (바)',
+		            label: '월간 매출 데이터',
 		            data: [2300, 3000, 2500, 2100, 2500, 3100, 1900, 3000, 2500, 2000, 2500, 3100],
 		            backgroundColor: chartColors,
 		            borderColor: 'rgb(192, 20, 20)',
-		            borderWidth: 1,
+		            borderWidth: 2,
 		            yAxisID: 'bar-y-axis' // 바 차트를 위한 y축 ID
 		        }]
 		    },
@@ -194,17 +210,17 @@
 		        }
 		    }
 		});
-
+	
 		// 라인 차트 추가
 		myChart.data.datasets.push({
-		    label: '월간 매출 데이터 (라인)',
-		    data: [2000, 2500, 2200, 1800, 2300, 2800, 1700, 2500, 2200, 1900, 2200, 2800],
+		    label: '월간 매출 데이터 (전체)',
+		    data: SumList,
 		    borderColor: 'rgb(256, 0, 0)',
 		    borderWidth: 2,
 		    fill: false,
 		    yAxisID: 'line-y-axis' // 라인 차트를 위한 y축 ID
 		});
-
+	
 		// 차트 업데이트
 		myChart.update();
 	</script>

@@ -205,6 +205,14 @@ public class AdminService {
 		return adminMapper.selectEventList();
 	}
 
+	public List<Map<String, Object>> getBigCategoryClassComplain() {
+		return adminMapper.selectBigCategoryClassComplain();
+	}
+
+	public List<Map<String, Object>> getSmallCategoryClassComplain(Integer categoryCode) {
+		return adminMapper.selectSmallCategoryClassComplain(categoryCode);
+	}
+
 	
 	
 }

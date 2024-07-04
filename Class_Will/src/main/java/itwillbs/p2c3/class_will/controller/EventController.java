@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.map.HashedMap;
+import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import itwillbs.p2c3.class_will.handler.GenerateRandomCode;
 import itwillbs.p2c3.class_will.handler.WillUtils;
 import itwillbs.p2c3.class_will.service.AdminService;
+import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.CscService;
 import itwillbs.p2c3.class_will.service.MailService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
+import retrofit2.http.POST;
 
 @Controller
 public class EventController {
@@ -40,6 +43,8 @@ public class EventController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private ClassService classService;
 	
 	@GetMapping("event")
 	public String eventMain(Model model) {
@@ -169,4 +174,51 @@ public class EventController {
 	    
 	    return new ResponseEntity<>(responseMessage, headers, HttpStatus.OK);
 	}
+	
+	@GetMapping("class-complain")
+	public String classComplain(Model model, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
+		}
+		
+		// 카테고리 검색
+		List<Map<String, Object>> big_category = adminService.getBigCategoryClassComplain();
+		
+		model.addAttribute("big_category", big_category);
+		model.addAttribute("member", member);
+		
+		return "class/class-complain";
+	}
+	
+	@ResponseBody
+	@GetMapping("getSubCategories")
+	public List<Map<String, Object>> getSubCategory(@RequestParam(value = "categoryCode", required = false) Integer categoryCode) {
+        if (categoryCode == 0) {
+        	return null;
+        }
+		System.out.println("casdgadfsadf : " + categoryCode);
+		
+		List<Map<String, Object>> small_category = adminService.getSmallCategoryClassComplain(categoryCode);
+		
+		return small_category;
+	}
+	
+	@PostMapping("complain-class-pro")
+	public String complainClassPro(@RequestParam Map<String, Object> params, HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
+		}
+		params.put("member_code", member.getMember_code());
+		
+		boolean isSuccess = classService.insertClassComplain(params);
+		
+		if(!isSuccess) {
+			return WillUtils.checkDeleteSuccess(false, model, "신고 등록 실패", true);
+		}
+		
+		return WillUtils.checkDeleteSuccess(true, model, "신고 등록 완료", true);
+	}
+	
 }

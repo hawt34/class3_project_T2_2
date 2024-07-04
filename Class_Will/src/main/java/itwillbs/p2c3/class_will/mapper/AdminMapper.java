@@ -105,7 +105,9 @@ public interface AdminMapper {
 
 	List<Map<String, String>> selectEventList();
 
+	List<Map<String, Object>> selectBigCategoryClassComplain();
 
+	List<Map<String, Object>> selectSmallCategoryClassComplain(Integer categoryCode);
 	
 
 }

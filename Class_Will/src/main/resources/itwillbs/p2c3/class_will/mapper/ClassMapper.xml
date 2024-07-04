@@ -206,5 +206,21 @@
 		WHERE ci.class_code = #{class_code}
 	</select>
 	
+<<<<<<< HEAD
+=======
+	<insert id="insertClassComplain" parameterType="map">
+		INSERT INTO class_report
+		(class_report_code, class_report_big_category, class_report_small_category, class_report_content, class_report_status, class_code, member_code)
+		VALUES
+		(null, #{big_category}, #{small_category}, #{content}, '처리중', #{class_code}, #{member_code})
+	
+	</insert>
+	
+<!--     <select id="selectSmallCategories" parameterType="String" resultType="map"> -->
+<!--         SELECT * -->
+<!--         FROM common3 -->
+<!--         WHERE common1_code = 'CLC' AND common2_code = #{bigCategoryCode} -->
+<!--     </select> -->
+>>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git
 </mapper>
 	

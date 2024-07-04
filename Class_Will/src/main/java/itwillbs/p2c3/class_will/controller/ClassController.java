@@ -1,5 +1,6 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -72,21 +73,22 @@ public class ClassController {
 	    List<Map<String, Object>> localList = classService.getCategoryLocal();
 	    model.addAttribute("localList", localList);
 	    
+	    
 //	    // 클래스 리스트
 //		String big_category = params.get("big_category");
 //		String small_category = params.get("small_category");
 //		String local = params.get("local");
 //		
-        Map<String, Object> list = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
 //        list.put("big_category", big_category);
 //        list.put("small_category", small_category);
 //        list.put("local", local);
-        list.put("hashtag", hashtag);
+        map.put("hashtag", hashtag);
 //        model.addAttribute("list", list);
 //        System.out.println(">>>>>>>>>>>>>>>llllllist" + list);
 //        System.out.println("big_category : " + big_category + ", small_category : " + small_category + ", local : " + local + ", hashtag : " + hashtag);
 
-	    List<Map<String, Object>> classList = classService.getClassList(list);
+	    List<Map<String, Object>> classList = classService.getClassList(map);
 	    model.addAttribute("classList", classList);
 	    System.out.println(">>>classList : " + classList);
 	    
@@ -193,23 +195,92 @@ public class ClassController {
 	    return filterClass;
 	}
 	
+	// 클래스 낮은가격 순 정렬
 	@ResponseBody
-	@GetMapping("class-range")
-	public List<Map<String, Object>> getClassRange(Model model, @RequestParam(required = false) String hashtag){
+	@GetMapping("class-low-price")
+	public List<Map<String, Object>> getClassLowPrice(Model model,@RequestParam(required = false) String classListSelect){
 //		List<Map<String, Object>> lowPriceList = classService.getLowPrice();
 //		System.out.println("smallCategory:@@@@@@ " + lowPriceList);
 
         Map<String, Object> list = new HashMap<>();
-        list.put("hashtag", hashtag);
-	    List<Map<String, Object>> classList = classService.getClassList(list);
+        list.put("classListSelect", classListSelect);
+	    List<Map<String, Object>> listSelect = classService.getClassList(list);
 	    
 	    // class_price 기준으로 오름차순 정렬
-	    classList.sort(Comparator.comparing(classItem -> (Integer) classItem.get("class_price")));
+	    listSelect.sort(Comparator.comparing(classItem -> (Integer) classItem.get("class_price")));
 
-	    model.addAttribute("classList", classList);
-	    System.out.println(">>>classList ::::: " + classList);
+	    model.addAttribute("listSelect", listSelect);
+	    System.out.println(">>>listSelect ::::: " + listSelect);
 
-	    return classList;
+	    return listSelect;
+	}
+	
+	@ResponseBody
+	@GetMapping("class-high-price")
+	public List<Map<String, Object>> getClassHighPrice(Model model,@RequestParam(required = false) String classListSelect){
+//		List<Map<String, Object>> lowPriceList = classService.getLowPrice();
+//		System.out.println("smallCategory:@@@@@@ " + lowPriceList);
+		
+		Map<String, Object> list = new HashMap<>();
+		list.put("classListSelect", classListSelect);
+		List<Map<String, Object>> listSelect = classService.getClassList(list);
+		
+		// class_price 기준으로 오름차순 정렬
+		listSelect.sort(Comparator.comparing(classItem -> (Integer) classItem.get("class_price")));
+		
+		model.addAttribute("listSelect", listSelect);
+		System.out.println(">>>listSelect ::::: " + listSelect);
+		
+		return listSelect;
+	}
+	
+	@ResponseBody
+	@GetMapping("class-star-list")
+	public List<Map<String, Object>> getClassStarList(@RequestParam(required = false) String classListSelect){
+
+	    // 별점순 조회
+	    List<Map<String, Object>> starList = classService.getStarList();
+
+	    // 클래스 코드들을 저장할 리스트
+	    List<Integer> classCodes = new ArrayList<>();
+
+	    // 각 클래스의 정보에 대해 클래스 코드 수집
+	    for (Map<String, Object> map : starList) {
+	        Integer class_code = (Integer) map.get("class_code");
+	        if (class_code != null) {
+	            classCodes.add(class_code);
+	        }
+	    }
+	    System.out.println("/////classCodes ??!!!" + classCodes);
+
+	    // 필터링 메소드 호출을 위한 파라미터 설정
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("class_codes", classCodes);
+	    System.out.println("class_codes: " + classCodes);
+
+	    // 필터링 메소드 호출 및 결과 받아오기
+	    List<Map<String, Object>> filter = classService.getClassList(paramMap);
+	    System.out.println("filteredResult: " + filter);
+
+	    // 필터링된 결과 반환
+	    return filter;
+	}
+	
+	@ResponseBody
+	@GetMapping("class-review-list")
+	public List<Map<String, Object>> getClassReviewlist(Model model,@RequestParam(required = false) String classListSelect){
+		
+		Map<String, Object> list = new HashMap<>();
+		list.put("classListSelect", classListSelect);
+		System.out.println(">>>classListSelect : " + classListSelect);
+		
+		List<Map<String, Object>> listSelect = classService.getClassList(list);
+		
+		
+		model.addAttribute("listSelect", listSelect);
+		System.out.println(">>>listSelect ::::: " + listSelect);
+		
+		return listSelect;
 	}
 	
 	// like_class 상태변경 

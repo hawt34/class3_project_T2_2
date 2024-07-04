@@ -34,6 +34,8 @@ public interface ClassMapper {
 	// List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
 	List<Map<String, Object>> selectFilterClass(Map<String, Object> map);
 	
+	// 클래스 리뷰 별점 순 정렬
+	List<Map<String, Object>> selectStarList();
 	
 	// 클래스 좋아요 추가
 	int insertLikeClass(Map<String, Object> map);
@@ -48,7 +50,10 @@ public interface ClassMapper {
 	List<Map<String,Object>> selectLikeClassCode(int member_coode);
 	
 	// 클래스 리스트
-	List<Map<String, Object>> selectClassList(Map<String, Object> list);
+	List<Map<String, Object>> selectClassList(Map<String, Object> paramMap);
+	
+//	// 클래스 리스트
+//	List<Map<String, Object>> selectStarClassList(Map<String, Object> paramMap);
 	
 	// 소 카테고리
 	List<Map<String, Object>> selectListSmallCategory();

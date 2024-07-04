@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import itwillbs.p2c3.class_will.mapper.ClassMapper;
@@ -29,14 +30,20 @@ public class ClassService {
 	}
 	
 	// 클래스 리스트
-	public List<Map<String, Object>> getClassList(Map<String, Object> list){
-		return mapper.selectClassList(list);
+	public List<Map<String, Object>> getClassList(Map<String, Object> paramMap){
+		return mapper.selectClassList(paramMap);
 	}
+	
+//	// 클래스 리스트
+//	public List<Map<String, Object>> getStarClassList(Map<String, Object> paramMap){
+//		return mapper.selectStarClassList(paramMap);
+//	}
 	
 	// 클래스 리스트
 	public List<Map<String, Object>> selectLikeClassCode(int member_code){
 		return mapper.selectLikeClassCode(member_code);
 	}
+	
 	// 지역 
 	public List<Map<String, Object>> getCategoryLocal(){
 		return mapper.selectCategoryLocal();
@@ -59,6 +66,11 @@ public class ClassService {
 //	public List<Map<String, Object>> getLowPrice(Map<String, Object> map){
 //		return mapper.select
 //	}
+	
+	// 클래스 리뷰 별점 순 정렬
+	public List<Map<String, Object>> getStarList(){
+		return mapper.selectStarList();
+	}
 	
 	// 클래스 좋아요 추가
 	public int insertLikeClass(Map<String, Object> map){

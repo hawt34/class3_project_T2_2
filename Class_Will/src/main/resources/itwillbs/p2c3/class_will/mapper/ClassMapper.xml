@@ -3,32 +3,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.ClassMapper">
-	
-<!-- 	<select id="selectChooseBigCategory"> -->
-<!-- 		SELECT * -->
-<!-- 		FROM common2 -->
-<!-- 		WHERE common1_code = 'CLC' -->
-<!-- 	</select> -->
-	
 	<!-- 큰 카테고리 -->
 	<select id="selectBigCategoryList">
 		SELECT *
 		FROM common2
-		WHERE common1_code = 'CLC'
+		WHERE common1_code = 'CLC' AND code_hide = 'N'
 	</select>
 	
 	<!-- 소 카테고리 -->
 	<select id="selectSmallCategory" resultType="map">
 		SELECT *
 		FROM common3
-		WHERE common1_code = 'CLC' AND common2_code = #{big_category}
+		WHERE common1_code = 'CLC' AND common2_code = #{big_category} AND code_hide = 'N'
 	</select>
 	
 	<!-- 카테고리 지역 -->
 	<select id="selectCategoryLocal" resultType="map">
 		SELECT *
 		FROM common2
-		WHERE common1_code = 'LC'
+		WHERE common1_code = 'LC' AND code_hide = 'N'
 	</select>
 	
 	<!-- 해시태그 -->
@@ -62,7 +55,8 @@
 		LEFT JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
 		LEFT JOIN common2 crs ON c.class_regist_status = crs.common2_code AND crs.common1_code = 'CRS'
 		JOIN MEMBER m ON c.member_code = m.member_code
-		WHERE 1=1
+		WHERE c.class_active = 'Y'
+		AND c.class_regist_status = '2'
 		<if test="bigCategories != null and bigCategories.size() > 0">
 			AND c2.common2_code IN
 			<foreach item="bigCategory" collection="bigCategories" open="(" separator="," close=")">
@@ -82,22 +76,18 @@
 			</foreach>
 		</if>
 	</select>
-	<!-- =================== -->
-<!-- 	    WHERE 1=1 -->
-<!--     <if test="bigSmallCategories != null and bigSmallCategories.size() > 0"> -->
-<!--         AND ( -->
-<!--             <foreach item="bigSmallCategory" collection="bigSmallCategories" separator=" OR "> -->
-<!--                 (c2.code_value = #{bigSmallCategory.big} AND c3.code_value = #{bigSmallCategory.small}) -->
-<!--             </foreach> -->
-<!--         ) -->
-<!--     </if> -->
-<!--     <if test="locals != null and locals.size() > 0"> -->
-<!--         AND c.class_location IN -->
-<!--         <foreach item="local" collection="locals" open="(" separator="," close=")"> -->
-<!--             #{local} -->
-<!--         </foreach> -->
-<!--     </if> -->
-<!-- </select> -->
+	
+	<!-- 리뷰 별점 순 정렬 -->
+	<select id="selectStarList">
+		SELECT 
+		    AVG(cr.class_review_rating) AS avg_rating,
+		    cr.class_code
+		FROM class_review cr
+		JOIN class c ON cr.class_code = c.class_code 
+		WHERE c.class_regist_status = '2'
+		GROUP BY cr.class_code
+		ORDER BY avg_rating DESC
+	</select>
 	
 	<!-- 클래스 좋아요 추가 -->
 	<insert id="insertLikeClass" parameterType="java.util.Map" >
@@ -131,42 +121,40 @@
 	<select id="selectListSmallCategory" resultType="map">
 		SELECT *
 		FROM common3
-		WHERE common1_code = 'CLC'
+		WHERE common1_code = 'CLC'AND code_hide = 'N'
 	</select>
 	
 	<!-- 클래스 리스트 -->
 	<select id="selectClassList" resultType="map" parameterType="map">
 		SELECT class_code
-		      ,class_name
-		      ,c2.code_value AS class_big_category
-		      ,c3.code_value AS class_small_category
-		      ,c.common2_code AS local_name
-		      ,c2.common2_code
-		      ,c3.common3_code
-		      ,class_thumnail
-		      ,class_image
-		      ,class_ex
-		      ,class_location
-		      ,class_hashtag
-		      ,class_creator_explain
-		      ,class_hide
-		      ,class_price
-		      ,class_map_x
-		      ,class_map_y
-		      ,class_hashtag
-		      ,m.member_name
-		      ,m.member_nickname
+			,class_name
+			,c2.code_value AS class_big_category
+			,c3.code_value AS class_small_category
+			,lc.code_value AS local_name
+			,c2.common2_code
+			,c3.common3_code
+			,class_thumnail
+			,class_image
+			,class_ex
+			,class_location
+			,class_hashtag
+			,class_creator_explain
+			,class_hide
+			,class_price
+			,class_map_x
+			,class_map_y
+			,class_hashtag
+			,m.member_name
+			,m.member_nickname
 		FROM class c
-		LEFT JOIN common2 c2
-		ON c.class_big_category = c2.common2_code
-		AND c2.common1_code = 'CLC'
-		LEFT JOIN common3 c3
-		ON c.class_small_category = c3.common3_code
-		AND c3.common2_code = c2.common2_code
-		AND c3.common1_code = 'CLC'
-		JOIN MEMBER m
-		ON c.member_code = m.member_code
+		LEFT JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
+		LEFT JOIN common2 lc ON c.common2_code = lc.common2_code AND lc.common1_code = 'LC'
+		LEFT JOIN common2 crs ON c.class_regist_status = crs.common2_code AND crs.common1_code = 'CRS'
+		LEFT JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
+		JOIN MEMBER m ON c.member_code = m.member_code
 	    <where>
+			c.class_regist_status = 2
+			AND c.class_active = 'Y'
 	        <if test="big_category != null and !big_category.isEmpty()">
 	           AND c2.common2_code = #{big_category}
 	        </if>
@@ -179,8 +167,9 @@
 	        <if test="hashtag != null and !hashtag.isEmpty()">
 	           AND c.class_hashtag LIKE CONCAT('%', #{hashtag}, '%')
 	        </if>
-	    </where>
+		</where>
 	</select>
+
 	
 	<!-- 클래스 리뷰 -->
 	<select id="selectClassReview" resultType="map">
@@ -194,7 +183,10 @@
 		FROM class_review cr
 		JOIN MEMBER m
 		ON m.member_code = cr.member_code 
-		WHERE cr.class_code = #{class_code}
+		JOIN class c 
+		ON cr.class_code  = c.class_code 
+		WHERE c.class_regist_status = '2'
+		AND cr.class_code = #{class_code} 
 	</select>
 	
 	<!-- 클래스 질문 -->
@@ -208,13 +200,11 @@
 		FROM class_inquiry ci
 		JOIN MEMBER m
 		ON m.member_code = ci.member_code 
+		JOIN class c
+		ON ci.class_code = c.class_code 
+		WHERE c.class_regist_status = '2'
 		WHERE ci.class_code = #{class_code}
 	</select>
 	
-<!--     <select id="selectSmallCategories" parameterType="String" resultType="map"> -->
-<!--         SELECT * -->
-<!--         FROM common3 -->
-<!--         WHERE common1_code = 'CLC' AND common2_code = #{bigCategoryCode} -->
-<!--     </select> -->
 </mapper>
 	

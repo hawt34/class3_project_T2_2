@@ -346,7 +346,7 @@ body {
 							<div class="form form1 d-flex flex-wrap">
 								<c:forEach var="hashtag" items="${hashtagList}">
 <!-- 									<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button> -->
-									<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_name}" value="#${hashtag.hash_tag_name}" onclick="hashtagSelect('${hashtag.hash_tag_name}')" readonly>
+									<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_name}" value="#${hashtag.hash_tag_name}" readonly>
 								</c:forEach>
 							</div>
 						</div>
@@ -375,11 +375,11 @@ body {
 				</p>
 			</div>
 			<div class="col-md-5">
-				<select class="form-select selectBox1 w-50" aria-label="Default select example">
-					<option selected id="lowPrice">낮은 가격순</option>
-					<option value="1" id="highPrice">높은 가격순</option>
-					<option value="2" id="starList">별점순</option>
-					<option value="4" id="reviewList">후기순</option>
+				<select id="classListSelect" class="form-select selectBox1 w-50" aria-label="Default select example">
+					<option value="lowPrice" selected>낮은 가격순</option>
+					<option value="highPrice">높은 가격순</option>
+					<option value="starList">별점순</option>
+					<option value="reviewList">후기순</option>
 				</select>
 			</div>
 		</div>
@@ -620,15 +620,35 @@ $(function() {
     }); // hashtag 해시태그 끝
     
 	// -------------- 낮은 가격 순 -------------- 
-    $("#lowPrice").on("click", function() {
+    $("#classListSelect").on("change", function() {
+    	
+        var selectedOption = $(this).val();
+        
+        var url;
+        if (selectedOption === "lowPrice") {
+            url = "class-low-price";
+        } else if (selectedOption === "highPrice") {
+            url = "class-high-price";
+        } else if (selectedOption === "starList") {
+            url = "class-star-list";
+        } else if (selectedOption === "reviewList") {
+            url = "class-review-list";
+        }
+        
+        // AJAX 요청 데이터 설정
+        var data = {
+       		classListSelect: selectedOption
+        };
+        
         $.ajax({
             type: "GET",
-            url: "class-range",
+            url: url,
             dataType: "json",
             data: data,
             contentType: "application/json",
-            success: function(lowPriceList) {
-                updateClassList(lowPriceList);
+            success: function(filter) {
+            	alert("낮은가격 순 ajax 성공");
+                updateClassList(filter);
             },
             error: function(xhr, status, error) {
                 console.error("Error details:", xhr, status, error);
@@ -660,8 +680,8 @@ function fetchClassList(data) {
         dataType: "json",
         data: data,
         contentType: "application/json",
-        success: function(filterClass) {
-            updateClassList(filterClass);
+        success: function(filter) {
+            updateClassList(filter);
         },
         error: function(xhr, status, error) {
             console.error("Error details:", xhr, status, error);

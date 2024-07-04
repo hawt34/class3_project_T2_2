@@ -129,7 +129,7 @@ public class MainController {
 		mainService.checkKeyword(keyword, searchDateTime);
 		
 		
-		return "redirect:/class-list";
+		return "redirect:/class-list?";
 	} // searchKeyword()
 	
 	

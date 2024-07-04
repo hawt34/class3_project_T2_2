@@ -337,6 +337,20 @@
 	
 }
 
+
+.badge-position {
+	top: 12px; /* 위로 이동 */ 
+	right: 20px; /* 오른쪽으로 이동 */ 
+    transform: translate(50%, -50%); /* 적절한 위치로 조정 */
+    width: 15px !important;
+    height: 15px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	font-size: 8px;
+}
+
+
 /*** Top Navbar End ***/
 
 </style>
@@ -398,7 +412,7 @@
 	                <div class="row w-100 d-lg-flex d-md-none d-none align-items-end top-nev-lg">
 	                    
 	                    <!-- 왼쪽 네비게이션 영역 -->
-		                    <div class="col-5 d-none d-lg-flex justify-content-start  mb-3">
+		                    <div class="col-5 d-none d-lg-flex justify-content-start mb-3">
 		                        <ul class="navbar-nav">
 		                            <li class="nav-item">
 		                                <a href="#" class="nav-link" data-bs-toggle="collapse" id="top-categoty"  data-bs-target="#collapse-category" aria-expanded="false" aria-controls="collapse-category">
@@ -413,9 +427,6 @@
 		                            <li class="nav-item">
 		                                <a class="nav-link" href="event">이벤트</a>
 		                            </li>
-<!-- 				                            <li class="nav-item"> -->
-<!-- 				                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal" href="#"><i class="bi bi-search bi-top"></i></a> -->
-<!-- 				                            </li> -->
 		                        </ul>
 		                    </div> <!-- col-5 -->
 	
@@ -429,14 +440,19 @@
 	                    <!-- 오른쪽 네비게이션 영역 -->
 	                    <div class="col-5 mb-3">
 							<div class="row mb-4">
-		                    	<div class="col d-none d-lg-flex justify-content-end ">
-									<ul class="navbar-nav">
-									    <li class="nav-item px-4">
+		                    	<div class="col d-none d-lg-flex justify-content-end align-items-center">
+									<ul class="navbar-nav ">
+									    <li class="nav-item px-4 d-flex align-items-center">
 									        <a class="nav-link" href="creator-main" id="top-class-regist">클래스등록</a>
 									    </li>
 									    <li class="nav-item">
 											<!-- 클릭 시 모달 창을 열기 위한 링크 -->
-											<a class="nav-link" href="#" id="openChatModal"><i class="bi bi-envelope bi-top"></i></a>
+											<a class="nav-link position-relative" href="#" id="openChatModal">
+												<i class="bi bi-envelope bi-top"  style="font-size: 29px; "></i>
+												<span class="position-absolute badge-position bg-danger border border-light rounded-circle">
+													<span class="visually-hidden">New alerts</span>
+												</span>
+											</a>
 											<!-- 모달 창 -->
 											<div id="chatListModal" class="modal" style="display:none;">
 												<div class="modal-content">
@@ -447,33 +463,32 @@
 												</div>
 											</div>
 										</li>
-									    
 									    <c:choose>
 											<c:when test="${empty member.member_email}">
-												<li class="nav-item"> 
-													<a class="nav-link" href="member-login">로그인</a>
+												<li class="nav-item d-flex align-items-center"> 
+													<a class="nav-link d-flex align-items-center" href="member-login"> 로그인 <i class="bi bi-chevron-right"></i></a>
 												</li>
 											</c:when>
 											<c:when test="${member.member_type eq 3}">
-												<li class="nav-item"> 
+												<li class="nav-item d-flex align-items-center"> 
 													<a class="nav-link" href="admin"><i class="bi bi-gear"></i> 관리자</a>
 												</li>
-												<li class="nav-item">
+												<li class="nav-item d-flex align-items-center">
 												    <a class="nav-link top-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> 로그아웃</a>
 												</li>
 											</c:when>
 											<c:otherwise>
-												<li class="nav-item">
+												<li class="nav-item d-flex align-items-center">
 												    <a class="nav-link" href="my-page"><i class="bi bi-person-circle bi-top"></i></a>
 												</li>
-												<li class="nav-item">
+												<li class="nav-item d-flex align-items-center">
 												    <a class="nav-link top-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> 로그아웃</a>
 												</li>
 											</c:otherwise>
 										</c:choose>
 									</ul>
 			                     </div>  <!--  col -->           
-			            	</div> 
+			            	</div> <!--  row -->
 			            	<!-- top 검색창 -->
 			            	<div class="row">
 								<div class="col d-none d-lg-flex justify-content-end px-4">
@@ -624,7 +639,7 @@ $(function() {
 			 			console.log("children.id : "+ children.id);
 			 			console.log("children.largeCategory : "+children.largeCategory);
 			 			console.log("children.smallCategory : "+children.smallCategory);
-			 			 $("#" + fieldSmallAreaId).append('<li><a href="class-list?class_small_category='+children.id+'">' + children.smallCategory + '</a></li>');
+			 			 $("#" + fieldSmallAreaId).append('<li><a href="class-list?class_big_category='+field.id+'&class_small_category='+children.id+'">' + children.smallCategory + '</a></li>');
 			 		
 			 		}
 			 	}
@@ -734,7 +749,7 @@ $(function() {
 			 			console.log("children.id : "+ children.id);
 			 			console.log("children.largeCategory : "+children.largeCategory);
 			 			console.log("children.smallCategory : "+children.smallCategory);
-						$("#" + miniSmallAreaId).append('<li class="mini-cate-small"><a href="class-list?class_small_category=' + children.id +'">' + children.smallCategory + '</a></li>');
+						$("#" + miniSmallAreaId).append('<li class="mini-cate-small"><a href="class-list?class_big_category='+field.id+'&class_small_category='+children.id+'">' + children.smallCategory + '</a></li>');
 			 		}
 			 	}
 		 		

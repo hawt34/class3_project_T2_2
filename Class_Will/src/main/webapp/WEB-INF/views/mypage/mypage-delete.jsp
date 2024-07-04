@@ -158,37 +158,44 @@ th:nth-child(2), td:nth-child(2) {
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<c:forEach var="memberReviews" items="${memberReviews}"
-													varStatus="loop">
+											<c:forEach var="memberReviews" items="${memberReviews}"
+												varStatus="loop">
+												<tr>
 													<td>${memberReviews.class_name}</td>
 													<td>${memberReviews.class_review_subject}</td>
 													<td><button class="btn btn-danger"
 															onclick="confirmDelete(${memberReviews.class_review_code})">삭제</button></td>
-												</c:forEach>
-											</tr>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
 								<div class="table-responsive">
 									<c:set var="credit" value="${member.member_credit}" />
-									<h3>${member.member_name}님의 남은 윌페이 잔액은<fmt:formatNumber value="${credit}" type="number" pattern="#,##0" />
-										원 입니다.
-									<a href="my-credit" class="btn btn-primary">윌페이 페이지로 이동</a></h3><br>
+									<h3>${member.member_name}님의
+										남은 윌페이 잔액은
+										<fmt:formatNumber value="${credit}" type="number"
+											pattern="#,##0" />
+										원 입니다. <a href="my-credit" class="btn btn-primary">윌페이
+											페이지로 이동</a>
+									</h3>
+									<br>
 									<h3>회원 탈퇴시 남은 윌페이는 환불되지 않습니다. 참고부탁드립니다.</h3>
 									<div class="col-lg-6 col-md-12 ">
 										<h3>회원탈퇴</h3>
 										<form action="member-quit" method="POST">
 											<div class="login-form-input">
-											<h5>비밀번호를 한번 더 입력해주세요</h5>
+												<h5>비밀번호를 한번 더 입력해주세요</h5>
 												<div class="input-group">
-													<input type="password" id="member_pwd" name="member_pwd" class="form-control" placeholder="비밀번호" required
-														maxlength="20"> 
+													<input type="password" id="member_pwd" name="member_pwd"
+														class="form-control" placeholder="비밀번호" required
+														maxlength="20">
 												</div>
 												<div class="regex py-2" id="regex-pwd"></div>
 											</div>
 											<div class="d-grid gap-2 py-2 btnLogin">
-												<input type="submit" id="btnSub" value="회원탈퇴하기" class="btn btn-outline-light btn-lg">
+												<input type="submit" id="btnSub" value="회원탈퇴하기"
+													class="btn btn-outline-light btn-lg">
 											</div>
 										</form>
 									</div>

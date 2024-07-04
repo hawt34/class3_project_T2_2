@@ -95,6 +95,9 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+.refundBtn {
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -132,12 +135,13 @@ th:nth-child(2), td:nth-child(2) {
 							<div class="creator-event mt-5">
 								<div class="col-md-12 text-center h2 mb-5">윌페이 사용 내역</div>
 								<div class="container">
-									<c:set var="credit" value="${member.member_credit}" />
+									<c:forEach begin="1" end="1" var="credit" items="${willpayChargeInfoList }">
+										<h2>윌페이 잔액 <fmt:formatNumber value="${credit.member_credit}" type="number" pattern="#,###" /> 원</h2>
+									</c:forEach>
+									<a href="will-pay-charge" class="btn btn-primary">계좌 등록 및 충전</a>
+									<button class="btn btn-light" onclick="openPopUp()">환불 정책 동의</button>
 									
-									<h2>윌페이 잔액 <fmt:formatNumber value="${credit}" type="number" pattern="#,##0" /> 원</h2>
-									<a href="will-pay-charge" class="btn btn-primary">계좌 등록 및
-										충전</a>
-									<p>충전 내역</p>
+									<p style="margin-top:10px;">충전 내역</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
@@ -146,6 +150,7 @@ th:nth-child(2), td:nth-child(2) {
 												<th>충전된 WILL-PAY</th>
 												<th>충전 일시</th>
 												<th>은행(계좌번호)</th>
+												<th></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -162,6 +167,9 @@ th:nth-child(2), td:nth-child(2) {
 													</td>
 													<td>${chargeInfo.will_pay_date }</td>
 													<td>${chargeInfo.will_pay_bank_name }(${chargeInfo.will_pay_account })</td>
+													<td>
+														<button class="btn btn-dark refundBtn">환불하기</button>
+													</td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -182,6 +190,15 @@ th:nth-child(2), td:nth-child(2) {
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
+	<script>
+		function openPopUp() {
+			window.open("refund-agreeTerms", "agree", "width=544, height=532, top=270, left=700");			
+		}
+		
+		function showRefundBtn() {
+			$('.refundBtn').show();
+		}
+	</script>
 
 	<!-- JavaScript Libraries -->
 	<script

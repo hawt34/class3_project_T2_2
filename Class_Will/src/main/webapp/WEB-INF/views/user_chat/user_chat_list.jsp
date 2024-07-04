@@ -28,12 +28,18 @@
 
 <style type="text/css">
 	
-	.user-chat {
-		margin: 0 auto;
+	body {
 		background: pink;
 	}
+	.user-chat {
+		margin: 0 auto;
+		
+		
+	}
 
-
+	h1 {
+		text-align: center;
+	}
 </style>
 
 

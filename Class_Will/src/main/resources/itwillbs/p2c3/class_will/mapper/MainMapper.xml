@@ -150,4 +150,6 @@
 		SET visit_count = #{visit_count} + 1
 		WHERE visit_date = #{visit_date}
 	</update>
+	
+	
 </mapper>

@@ -398,11 +398,14 @@
 			   , wp.will_pay_account
 			   , c2.code_value AS pay_type
 			   , wp.member_code
+			   , m.member_credit
 		FROM will_pay wp
 		JOIN common2 c2
 		ON wp.will_pay_type = c2.common2_code
 		AND c2.common1_code = 'PT'
-		WHERE member_code = #{member_code}
+		JOIN MEMBER m
+		ON m.member_code = wp.member_code
+		WHERE wp.member_code = #{member_code}
 		ORDER BY will_pay_code DESC
 	</select>
 	

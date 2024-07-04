@@ -96,15 +96,6 @@ tbody tr:hover {
 }
 
 /* 테이블 비율 */
-th:nth-child(1), td:nth-child(1) {
-	padding-left: 20px;
-}
-
-th:nth-child(2), td:nth-child(2) {
-	width: 130px;
-	text-align: center;
-}
-
 @media ( max-width : 768px) {
 	.table-responsive {
 		overflow-x: auto; /* 가로 스크롤 가능하도록 설정 */
@@ -146,15 +137,40 @@ th:nth-child(2), td:nth-child(2) {
 							<div class="creator-event mt-5">
 								<div class="col-md-12 text-center h2 mb-5">항상 고마운
 									${member.member_name}님</div>
-								<p>여기 반응형 되남??</p>
-								<div class="mb-4">
-									<select id="chartSelect" class="form-select">
-										<option value="firstHalf">상반기</option>
-										<option value="secondHalf">하반기</option>
+								<div class="container">
+									<div class="row">
+										<div class="col">
+											<div class="table-responsive">
+												<table class="table table-hover">
+													<thead>
+														<tr>
+															<th>수료한 월</th>
+															<th>수료한 클래스 수</th>
+														</tr>
+													</thead>
+													<tbody>
+														<c:forEach var="item" items="${memberMaster}">
+															<tr>
+																<td>${item.month}</td>
+																<td>${item.class_count}개</td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group mt-3">
+									<label for="chartSelect">월 선택</label> <select id="chartSelect"
+										class="form-control">
+										<!-- 옵션은 JavaScript로 생성될 예정 -->
 									</select>
 								</div>
 							</div>
-							<div style="position: relative; height: 60vh; width: 50vw; margin: auto;">
+
+							<div
+								style="position: relative; height: 60vh; width: 50vw; margin: auto;">
 								<canvas id="myChart"></canvas>
 							</div>
 						</div>
@@ -184,72 +200,8 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-	  $(document).ready(function() {
-		 
-	      
+	
 
-	        var chartData = {
-	            labels: labels,
-	            datasets: [{
-	                label: '월별 클래스 수료',
-	                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-	                borderColor: 'rgba(54, 162, 235, 1)',
-	                data: data
-	            }]
-	        };
-	        var chartData = {
-	            labels: labels,
-	            datasets: [{
-	                label: '월별 클래스 수료',
-	                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-	                borderColor: 'rgba(54, 162, 235, 1)',
-	                data: data
-	            }]
-	        };
-
-	        var chartOptions = {
-	            responsive: true,
-	            maintainAspectRatio: false,
-	            scales: {
-	                x: {
-	                    ticks: {
-	                        autoSkip: false,
-	                        maxRotation: 90,
-	                        minRotation: 0,
-	                        font: {
-	                            size: 12
-	                        }
-	                    }
-	                },
-	                y: {
-	                    beginAtZero: true
-	                }
-	            },
-	            plugins: {
-	                legend: {
-	                    display: true,
-	                    position: 'top'
-	                }
-	            }
-	        };
-
-	        var ctx = document.getElementById('myChart').getContext('2d');
-	        var myChart = new Chart(ctx, {
-	            type: 'line',
-	            data: chartData,
-	            options: chartOptions
-	        });
-
-	        $('#chartSelect').on('change', function() {
-	            var selectedValue = $(this).val();
-	            if (selectedValue === 'firstHalf') {
-	                myChart.data = firstHalfData;
-	            } else {
-	                myChart.data = secondHalfData;
-	            }
-	            myChart.update();
-	        });
-	    });
 	</script>
 
 </body>

@@ -1,12 +1,21 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -20,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import itwillbs.p2c3.class_will.handler.WillUtils;
@@ -155,6 +165,7 @@ public class CreatorController {
 		return "creator/creator-classReg";
 	}
 	
+	// geocode api 코드
     @Value("${vworld.api.key}")
     private String vworldApiKey;
 
@@ -233,6 +244,14 @@ public class CreatorController {
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		Map<String, Object> classDetail = creatorService.getClassDetail(class_code);
 		
+		String[] arrFileNames = {
+               (String) classDetail.get("class_image"),
+               (String) classDetail.get("class_image2"),
+               (String) classDetail.get("class_image3"),
+               (String) classDetail.get("class_thumnail")
+	       };
+	    model.addAttribute("fileNames", arrFileNames);
+		
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("hashtagList", hashtagList);
 		model.addAttribute("classDetail", classDetail);
@@ -251,7 +270,7 @@ public class CreatorController {
 
 	// creater-class 등록
 	@PostMapping("creator-classRegPro")
-	public String createrClassRegPro(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
+	public String createrClassRegPro(@RequestParam Map<String, Object> map,  @RequestParam Map<String, MultipartFile> files, HttpSession session, HttpServletRequest request, Model model) {
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member == null) {
@@ -272,14 +291,51 @@ public class CreatorController {
             	curriList.add(curri);
             }
         }
-		
-		System.out.println(">>>>>>>>>map: " + map);
-		System.out.println(">>>>>>>>>curriList: " + curriList);
-		
-		creatorService.createrClassRegPro(map, curriList);
+
+        String uploadDir = "/resources/upload";
+        String saveDir = request.getServletContext().getRealPath(uploadDir);
+
+        LocalDate today = LocalDate.now();
+        String datePattern = "yyyy/MM/dd";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
+        String subDir = today.format(dtf);
+        saveDir += "/" + subDir;
+
+        Path path = Paths.get(saveDir);
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
+            String paramName = entry.getKey();
+            MultipartFile file = entry.getValue();
+            if (file != null && !file.isEmpty()) {
+                String fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
+                try {
+                    file.transferTo(new File(saveDir, fileName));
+                    // DB에 파일 이름 저장
+                    if (paramName.equals("class_thumbnail")) {
+                        map.put("class_thumbnail", subDir + "/" + fileName);
+                    } else if (paramName.equals("class_image")) {
+                        map.put("class_image", subDir + "/" + fileName);
+                    } else if (paramName.equals("class_image2")) {
+                        map.put("class_image2", subDir + "/" + fileName);
+                    } else if (paramName.equals("class_image3")) {
+                        map.put("class_image3", subDir + "/" + fileName);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        creatorService.createrClassRegPro(map, curriList);
 		
 		return "redirect:/creator-class";
 	}
+	
 	
 	// creater-class 일정등록 페이지로
 	@GetMapping("creator-class-plan")

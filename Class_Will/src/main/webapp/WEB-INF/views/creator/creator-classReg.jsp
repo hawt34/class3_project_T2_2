@@ -90,7 +90,7 @@
 
 						<div class="col-lg-9 creator-body" >
 							<div class="creator-main-table col-xl-8 mb-5 ">
-								<form class="validation-form" novalidate action="creator-classRegPro" name="fr" method="post" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
+								<form class="validation-form" novalidate action="creator-classRegPro" name="fr" method="post" enctype="multipart/form-data" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
 									<!-- 	셀렉트박스 -->
 									<div class="col-md-12 mb-2" align="center">
 										<div class="col-xl-6 mb-5">
@@ -154,7 +154,9 @@
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_image" class="h6">본문이미지</label> 
-												<input type="file" name="class_image" id="class_image" class="form-control" required />
+												<input type="file" name="file1" id="class_image" class="form-control mb-1" required />
+												<input type="file" name="file2" id="class_image" class="form-control" required />
+												<input type="file" name="file3" id="class_image" class="form-control mt-1" required />
 												<div class="invalid-feedback">본문이미지를 입력해주세요.</div>
 											</div>
 											<div class="my-4">
@@ -178,10 +180,10 @@
 												<!-- 주소지의 x y 좌표 -->
 												<div class="d-flex justify-content-between">
 													<div class="col-md-6">
-											    		<input type="text" id="location_x" name="location_x" class="form-control my-1" readonly>
+											    		<input type="text" id="location_x" name="location_x" placeholder="X좌표" class="form-control my-1" readonly>
 													</div>
 													<div class="col-md-6">
-														<input type="text" id="location_y" name="location_y" class="form-control my-1" readonly>
+														<input type="text" id="location_y" name="location_y" placeholder="Y좌표" class="form-control my-1" readonly>
 													</div>
 												</div>
 											</div>

@@ -13,6 +13,8 @@
 				, class_small_category
 				, class_thumnail
 				, class_image
+				, class_image2
+				, class_image3
 				, class_ex
 				, class_location
 				, class_hashtag
@@ -33,6 +35,8 @@
 			, #{class_small_category}
 			, #{class_thumnail}
 			, #{class_image}
+			, #{class_image2}
+			, #{class_image3}
 			, #{class_ex}
 			, #{class_location}
 			, #{class_hashtag}

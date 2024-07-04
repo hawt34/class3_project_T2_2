@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -102,10 +103,6 @@
 									</div>
 									<div class="classReg-basic">
 										<div class="h4">클래스 기본정보</div>
-<!-- 										<div class="h6 d-flex justify-content-start mt-4"> -->
-<!-- 											<p>작성상태 :</p> -->
-<!-- 											<p>&nbsp;작성중</p> -->
-<!-- 										</div> -->
 										<div class="classReg-basic-form">
 											<div class="col-md-6 mt-1 mb-4">
 												<label for="class_show" class="h6">공개여부</label> 
@@ -157,6 +154,26 @@
 												<input type="file" name="class_image" id="class_image" class="form-control" required />
 												<div class="invalid-feedback">본문이미지를 입력해주세요.</div>
 											</div>
+											
+											<c:forEach var="fileName" items="${fileNames}" varStatus="status">
+											<div class="file" id="fileItemArea${status.count}">
+												<c:choose>
+													<c:when test="${not empty fileName}">
+														<c:set var="originalFileName" value="${fn:substringAfter(fileName,'_')}" />
+														${originalFileName}
+														<a href="${pageContext.request.contextPath}/resources/upload/${fileName}" download="${originalFileName}">
+														<input type="button" value="다운로드"></a>
+														<a href="javascript:deleteFile(${board.board_num}, '${fileName}', ${status.count})">
+															<img src = "${pageContext.request.contextPath}/resources/images/delete-icon.png" title="파일삭제" width="15px">
+														</a>
+													</c:when>
+													<c:otherwise>
+														<input type="file" name="file${status.count}">
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</c:forEach>
+											
 											<div class="my-4">
 												<label for="summernote" class="h6">클래스 소개</label> 
 												<textarea name="class_ex" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border">${classDetail.class_ex}</textarea>

@@ -25,7 +25,7 @@ import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class PayService {
-	private static final int Map = 0;
+//	private static final int Map = 0;
 
 	@Autowired
 	private PayMapper payMapper;
@@ -208,6 +208,7 @@ public class PayService {
 		withdrawParameter.put("will_pay_amount", withdraw.get("tran_amt"));
 		withdrawParameter.put("will_pay_bank_name", withdraw.get("bank_name"));
 		withdrawParameter.put("will_pay_get_pay", map.get("tran_amt_total"));
+		withdrawParameter.put("will_pay_account", withdraw.get("account_num_masked"));
 		withdrawParameter.put("member_code", map.get("member_code"));
 		payMapper.registWithdrawInfo(withdrawParameter);
 		
@@ -285,6 +286,24 @@ public class PayService {
 		}
 		
 		return isSuccess;
+	}
+	
+	//충전 성공한 willpayChargeList 가져오기
+	public List<Map<String, Object>> getWillpayChargeList(int member_code) {
+		return payMapper.selectWillpayChargeList(member_code);
+	}
+
+	public Map getAdminAccessToken() {
+		return bankApi.requestAdminAccessToken();
+	}
+	
+	//adminAccessToken 저장
+	public void registAdminToken(Map adminToken) {
+		if(payMapper.selectAdminToken() == null) {
+			payMapper.insertAdminToken(adminToken);
+		} else {
+			payMapper.updateAdminToken(adminToken);
+		}
 	}
 
 

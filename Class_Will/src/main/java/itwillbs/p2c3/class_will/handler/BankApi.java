@@ -237,4 +237,34 @@ public class BankApi {
 		
 		return responseEntity.getBody();
 	}
+	
+	//adminAccessToken 발급
+	public Map requestAdminAccessToken() {
+		URI uri = UriComponentsBuilder
+				.fromUriString("https://testapi.openbanking.or.kr/oauth/2.0/token")
+				.encode() // 주소 인코딩
+				.build() // UriComponents 타입 객체 생성
+				.toUri(); //URI 타입 객체로 변환
+		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
+	//	parameters.add("client_id", "4066d795-aa6e-4720-9383-931d1f60d1a9");
+	//	parameters.add("client_secret", "36b4a668-94ba-426d-a291-771405e498e4");
+		parameters.add("client_id", client_id);
+		parameters.add("client_secret", client_secret);
+		parameters.add("scope", "oob");
+		parameters.add("grant_type", "client_credentials");
+		
+		HttpEntity<LinkedMultiValueMap<String, String>> httpEntity = 
+						new HttpEntity<LinkedMultiValueMap<String,String>>(parameters);
+		
+		
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<Map> responseEntity = 
+				restTemplate.exchange(uri, HttpMethod.POST, httpEntity, Map.class);
+		//응답 정보를 확인을 위해 ResponseEntity 객체의 메서드 활용
+		logger.info("응답 코드: " + responseEntity.getStatusCode());
+		logger.info("응답 헤더: " + responseEntity.getHeaders());
+		logger.info("응답 본문: " + responseEntity.getBody());
+		
+		return responseEntity.getBody();
+	}
 }

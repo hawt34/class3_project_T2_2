@@ -99,7 +99,7 @@
 			<div>
 				<div class="row mt-5">
 					<div class="d-flex justify-content-center bg-secondary-subtle rounded-bottom p-2">
-						<button class="btn btn-dark mx-2" type="button" onclick="location.href='myp_reservation'">결제 내역 확인</button>
+						<button class="btn btn-dark mx-2" type="button" onclick="location.href='my-credit'">결제 내역 확인</button>
 						<button class="btn btn-dark mx-2" type="button" onclick="location.href='./'">클래스윌 메인</button>
 					</div>
 				</div>

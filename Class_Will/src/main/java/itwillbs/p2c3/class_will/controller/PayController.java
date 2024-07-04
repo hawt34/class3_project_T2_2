@@ -288,5 +288,21 @@ public class PayController {
 		return isSuccess;
 	}
 	
+	// 크레딧관련
+	@GetMapping("my-credit")
+	public String myCredit(Model model, HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String result = "";
+		if (member == null) {
+			result = WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", false, "member-login");
+			return result;
+		}
+		int member_code = member.getMember_code();
+		List<Map<String, Object>> willpayChargeInfoList = payService.getWillpayChargeList(member_code);
+		System.out.println("!willpayChargeInfoList: " + willpayChargeInfoList);
+		
+		model.addAttribute("willpayChargeInfoList", willpayChargeInfoList);
+		return "mypage/mypage-credit";
+	}
 	
 }

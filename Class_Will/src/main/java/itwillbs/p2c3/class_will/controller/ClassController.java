@@ -302,6 +302,10 @@ public class ClassController {
 		List<Map<String, Object>> classInquiry = classService.getClassInquiry(class_code); 
 		model.addAttribute("classInquiry", classInquiry);
 	    
+		// 클래스 커리큘럼
+		List<Map<String, Object>> classCurri = classService.getClassCurri(class_code);
+		model.addAttribute("classCurri", classCurri);
+
 		//classInfo 클래스 데이터 가져오기
 		Map<String, Object> classCode = new HashMap<>();
 		classCode.put("class_code", class_code);

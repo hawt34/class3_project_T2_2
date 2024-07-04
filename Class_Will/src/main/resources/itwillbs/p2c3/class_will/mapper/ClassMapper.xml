@@ -205,6 +205,18 @@
 		AND ci.class_code = #{class_code}
 	</select>
 	
+	<!-- 클래스 커리큘럼 -->
+	<select id="selectClassCurri" resultType="map">
+		SELECT
+			curri_round,
+			curri_content
+		FROM
+			curri
+		WHERE
+			class_code = #{class_code}
+	</select>
+	
+	<!-- 클래스 신고 -->
 	<insert id="insertClassComplain" parameterType="map">
 		INSERT INTO class_report
 		(class_report_code, class_report_big_category, class_report_small_category, class_report_content, class_report_status, class_code, member_code)

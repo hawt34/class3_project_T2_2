@@ -3,12 +3,7 @@ package itwillbs.p2c3.class_will.mapper;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
-
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
 public interface ClassMapper {
@@ -63,8 +58,10 @@ public interface ClassMapper {
 	
 	// 클래스 질문 
 	List<Map<String, Object>> selectClassInquiry(int class_code);
-
-	boolean insertClassComplain(Map<String, Object> params);
+	
+	// 클래스 커리큘럼 
+	List<Map<String, Object>> selectClassCurri(int class_code);
 	
 //    List<Map<String, String>> selectSmallCategories(String bigCategoryCode);
+	boolean insertClassComplain(Map<String, Object> params);
 }

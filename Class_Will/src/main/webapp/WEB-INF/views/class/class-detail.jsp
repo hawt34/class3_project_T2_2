@@ -325,14 +325,19 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="content1 col-md-9">
             <div id="section1">
 <%--                 <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg"> --%>
-				<p>클래스 위치 : ${classInfo.class_location}</p>
+<%-- 				<p>클래스 위치 : ${classInfo.class_location}</p> --%>
+				<h4>클래스 위치</h4>
+				<div class="location">${classInfo.class_location}</div>
                 <div id="map" style="width: 500px; height: 400px;"></div>
 				
 <!-- 				<div id="map" style="width:350px; height:350px;"></div> -->
 
             </div>
             <div id="section2">
-                <div class="row reviewInfo my-2">
+            	<div class="mt-3">
+              		<h4>클래스 후기</h4>
+              	</div>
+                <div class="row reviewInfo my-3 mx-1">
                     <!-- 테이블 -->
                     <div class="card text-center">
                         <div class="card-body p-2">
@@ -403,10 +408,17 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <!-- section2 -->
             <div id="section3">
-                <img src="${pageContext.request.contextPath}/resources/images/class/class_curri.png" class="classImg">
+            	<h4>커리큘럼</h4>
+<%--                 <img src="${pageContext.request.contextPath}/resources/images/class/class_curri.png" class="classImg"> --%>
+				<div class="">
+					<c:forEach var="classCurri" items="${classCurri}">
+						${classCurri.curri_round} - ${classCurri.curri_content}<br>
+					</c:forEach>
+				</div>
             </div>
             <div id="section4">
                 <!-- Q&A 내용 -->
+              	<h4>클래스 Q&A</h4>
                 <!-- 테이블 -->
                 <div class="card text-center my-2">
                     <div class="card-body p-2 reviewInfo">

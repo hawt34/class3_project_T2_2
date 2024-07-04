@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 소 카테고리 선택
     const smallCategorySelect = document.getElementById('class_small_category');
     if (smallCategory) {
+        bigCategorySelect.value = bigCategory;
         smallCategorySelect.value = smallCategory;
     }
     
@@ -344,7 +345,7 @@ body {
 <!-- 					카테고리바 지역 끝 -->
 						
 						<!-- 셀렉트 검색 버튼 -->
-						<div class="btnSearchDiv col-md-1">
+						<div class="btnSearchDiv col-md-2">
 <!-- 							<div class="btnSearch w-100"> -->
 <!-- 								<button type="button" class="btn btn-outline-light btnSearch" onclick="searchCategory()">검색</button> -->
 								<button type="button" class="btn btn-outline-light btnSearch">검색</button>
@@ -353,7 +354,7 @@ body {
 						<!-- 셀렉트 검색 버튼 -->
 						
 						<!-- 셀렉트 초기화 버튼 -->
-						<div class="btnResetDiv col-md-1">
+						<div class="btnResetDiv col-md-2">
 <!-- 							<div class="btnReset w-100"> -->
 								<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
 <!-- 							</div> -->
@@ -495,11 +496,16 @@ $(function() {
     $("#class_big_category").change(function() {
     	
         var big_category = $("#class_big_category").val();
+        var urlParams = new URLSearchParams(window.location.search);
+        var small_category = urlParams.get('class_small_category');
         
         $.ajax({
             url: "small-category",
             method: "get",
-            data: { "big_category" : big_category },
+            data: { 
+            	big_category : big_category,
+            	small_category : small_category
+            	},
             success: function(data) {
             	
                 $("#class_small_category").empty();
@@ -519,6 +525,13 @@ $(function() {
             }
         });		
     });
+    
+    // 파라미터로 전달받은 값이 있으면 선택
+    if (smallCategory) {
+        $("#class_small_category").val(smallCategory);
+        $("#class_big_category").val(bigCategory);
+    }
+
 });
 
 // ------------------------------------------------------------------------------------

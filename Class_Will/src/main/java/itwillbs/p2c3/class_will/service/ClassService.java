@@ -104,6 +104,11 @@ public class ClassService {
 	public List<Map<String, Object>> getClassInquiry(int class_code){
 		return mapper.selectClassInquiry(class_code);
 	}
+	
+	// 클래스 커리큘럼
+	public List<Map<String, Object>> getClassCurri(int class_code){
+		return mapper.selectClassCurri(class_code);
+	}
 
 	public boolean insertClassComplain(Map<String, Object> params) {
 		return mapper.insertClassComplain(params);

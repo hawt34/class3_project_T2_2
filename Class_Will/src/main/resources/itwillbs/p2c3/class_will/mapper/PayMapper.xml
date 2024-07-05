@@ -409,6 +409,32 @@
 		ORDER BY will_pay_code DESC
 	</select>
 	
+	<!-- willpay 환불약관 검사 -->
+	<select id="selectWillpayDate" resultType="int">
+		<![CDATA[
+		SELECT 
+			CASE WHEN total_willpay > #{will_pay_amt} * 3/10 THEN total_willpay 
+			ELSE 0 END AS used_willpay
+		FROM (
+		    SELECT SUM(COALESCE(use_willpay, 0)) AS total_willpay
+		    FROM pay p_main
+		    WHERE p_main.use_willpay IN (
+		        SELECT p_sub.use_willpay
+		        FROM pay p_sub
+		        WHERE CAST(p_sub.pay_datetime AS DATE) BETWEEN CAST(#{will_pay_date} AS DATE)
+		                                               AND DATE_ADD(CAST(#{will_pay_date} AS DATE), INTERVAL 6 DAY)
+		        AND p_sub.use_willpay <> 0
+		        AND p_sub.member_code = #{member_code}
+		    )
+		) AS total_sum; 
+		]]>
+	</select>
+	
+	<update id="updateWillpayStatus">
+		UPDATE will_pay
+		SET will_pay_status = 'canceled'
+		WHERE will_pay_code = #{will_pay_code}
+	</update>
 	
 	
 </mapper>

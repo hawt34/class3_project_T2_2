@@ -92,6 +92,11 @@ public interface PayMapper {
 	//윌페이 충전 성공한 목록 가져오기
 	List<Map<String, Object>> selectWillpayChargeList(int member_code);
 	
+	//willpay 환불약관 검사
+	int selectWillpayDate(Map<String, Object> map);
+
+	void updateWillpayStatus(Map<String, Object> map);
+	
 	
 	
 

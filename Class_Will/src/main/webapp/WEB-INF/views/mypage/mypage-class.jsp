@@ -174,7 +174,7 @@ th:nth-child(2), td:nth-child(2) {
 													<td>
 														<c:if test="${pay.refund_type eq '1' }">
 <%-- 															<input type="button" value="환불하기" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }')"> --%>
-															<button class="btn btn-dark" id="refundClass" onclick="refund('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }')">환불하기</button>
+															<button class="btn btn-dark" id="refundClass" onclick="refundPay('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }')">환불하기</button>
 														</c:if>
 													</td>
 												</tr>
@@ -200,7 +200,7 @@ th:nth-child(2), td:nth-child(2) {
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
 <script>
-function refund(param_imp_uid, param_amount, param_willpay, param_pay_code, param_pay_headcount, param_class_schedule_code) {
+function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, param_pay_headcount, param_class_schedule_code) {
 	let imp_uid = param_imp_uid; //imp_uid
 	let amount = param_amount; //결제금액
 	let willpay = param_willpay; // 윌페이
@@ -208,7 +208,7 @@ function refund(param_imp_uid, param_amount, param_willpay, param_pay_code, para
 	let headcount = param_pay_headcount; //인원수
 	let class_schedule_code = param_class_schedule_code; 
 	
-	let data = {
+	let params = {
 			imp_uid : imp_uid,
 			amount : amount,
 			member_credit : willpay,
@@ -221,7 +221,7 @@ function refund(param_imp_uid, param_amount, param_willpay, param_pay_code, para
 		$.ajax({
 			url: "refund",
 			type: "POST",
-			data: JSON.stringify(data),
+			data: JSON.stringify(params),
 			contentType: "application/json",
 			dataType: "json",
 			success: function(res) {

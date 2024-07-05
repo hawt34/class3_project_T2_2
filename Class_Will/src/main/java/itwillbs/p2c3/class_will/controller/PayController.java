@@ -35,6 +35,7 @@ public class PayController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PayController.class);
 	
+	
 	//ajax 호출
 	@ResponseBody
 	@GetMapping("date-changed")
@@ -52,6 +53,12 @@ public class PayController {
 //		System.out.println("크레딧!!!:" + credit.get("member_credit"));
 		
 		return credit;
+	}
+	
+	//popUp - agreeTerms
+	@GetMapping("refund-agreeTerms")
+	public String agreeTerms() {
+		return "payment/refund_agreeTerms";
 	}
 	
 	
@@ -305,9 +312,48 @@ public class PayController {
 		return "mypage/mypage-credit";
 	}
 	
-	@GetMapping("refund-agreeTerms")
-	public String agreeTerms() {
-		return "payment/refund_agreeTerms";
+	@ResponseBody
+	@PostMapping("refund-willpay")
+	public boolean refundWillpay(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
+		boolean isRefund = false;
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		
+		int member_code = member.getMember_code();
+		String user_name = member.getMember_name();
+		
+		System.out.println("refundWillpay: " + map);
+//		Map<String , Object> willpayParams = new HashMap<String, Object>();
+//		willpayParams.put("will_pay_date", map.get("will_pay_date"));
+		map.put("member_code", member_code);
+		map.put("user_name", user_name);
+		
+		int validateWillpay = payService.getWillpayDate(map);
+		System.out.println("validatgWillpay: " + validateWillpay);
+		
+		if(validateWillpay == 0) {
+			return isRefund;
+		} else {
+			Map<String, Object> token = (Map<String, Object>)session.getAttribute("token");
+			//고객의 access_token, fintech_use_num 
+			map.put("fintech_use_num", token.get("fintech_use_num"));
+			map.put("access_token", token.get("access_token"));
+			map.put("used_willpay", validateWillpay);
+			
+			Object result = payService.deposit(map);
+			//사용 willpay 금액이 결제 금액보다 많은 경우
+			if(result instanceof Boolean) {
+				isRefund = (boolean)result;
+				return isRefund;
+			}
+			System.out.println("결과!!!:" + result.toString());
+			
+			isRefund = true;
+		}
+		
+		
+		return isRefund;
 	}
+	
+	
 	
 }

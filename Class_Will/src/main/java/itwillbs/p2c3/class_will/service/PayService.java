@@ -305,6 +305,36 @@ public class PayService {
 			payMapper.updateAdminToken(adminToken);
 		}
 	}
+	
+	//willpay 환불약관 검사
+	public int getWillpayDate(Map<String, Object> map) {
+		return payMapper.selectWillpayDate(map);
+	}
+
+	public Object deposit(Map<String, Object> map) {
+		//admin access_token으로 교체
+		Object adminToken = payMapper.selectAdminToken();
+		map.put("access_token", adminToken);
+//		int will_pay_amt = (Integer)map.get("will_pay_amt");
+		int will_pay_amt = Integer.parseInt((String)map.get("will_pay_amt"));
+		int used_willpay = (Integer)map.get("used_willpay");
+//		int used_willpay = Integer.parseInt((String)map.get("used_willpay"));
+		
+		int tran_amt = will_pay_amt - used_willpay;
+		//사용한 willpay가 기존 결제 금액보다 넘거나 같을 때
+		if(tran_amt <= 0) {
+			return false;
+		}
+		
+		map.put("use_willpay", tran_amt);
+		Map depositResult = bankApi.requestDeposit(map);
+		if(!depositResult.get("rsp_code").equals("A0000")) {
+			payMapper.updateWillpayStatus(map);
+			payMapper.updateCredit(map);
+		}
+		
+		return depositResult;
+	}
 
 
 	

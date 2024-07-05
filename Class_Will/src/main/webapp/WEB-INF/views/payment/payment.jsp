@@ -131,7 +131,7 @@
 						<div class="accordion-item">
 							<h2 class="accordion-header">
 								<button class="accordion-button rounded-bottom" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" >
-									취소 및 환불 안내
+									클래스 취소 및 환불 안내
 								</button>
 							</h2>
 							<div id="collapseOne" class="accordion-collapse collapse " data-bs-parent="#accordionExample">

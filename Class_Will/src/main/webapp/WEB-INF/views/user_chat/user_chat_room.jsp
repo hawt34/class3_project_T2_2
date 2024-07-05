@@ -74,7 +74,7 @@
 	}
 
     .receiver_msg, .my_msg {
-        font-size: 13px;
+        font-size: 14px;
         border-radius: 15px;
         padding: 10px;
         display: inline-block;
@@ -114,7 +114,7 @@
 	    border: none;
 	    outline: none;
 	    padding: 10px;
-	    font-size: 16px;
+	    font-size: 15px;
     }
     
     .chat-icon-area {
@@ -158,7 +158,7 @@
 		<div class="chat-room-top d-flex justify-content-between">
 			<button class="chat-top-icon"><i class="bi bi-chevron-left"></i></button>
 			<span class="receiver_name_top">길동이</span>
-			<button class="chat-top-icon"><i class="bi bi-three-dots-vertical"></i></button>
+			<button class="chat-top-icon pe-5"><i class="bi bi-three-dots-vertical"></i></button>
 		</div>
 		
 		<!-- 채팅 내역 -->

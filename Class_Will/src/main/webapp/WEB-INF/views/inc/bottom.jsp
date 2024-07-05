@@ -45,8 +45,8 @@
     
     .back-to-top {
 	    position: fixed;
-	    right: 30px;
-	    bottom: 200px;
+	    right: 25px;
+	    bottom: 80px;
 	    display: flex;
 	    width: 40px;
 	    height: 40px;

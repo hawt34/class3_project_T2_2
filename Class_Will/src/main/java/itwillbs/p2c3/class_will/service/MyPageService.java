@@ -72,15 +72,15 @@ public class MyPageService {
 	}
 	
 	//멤버가 관심있는 클래스
-	public List<Map<String, String>> getMemberLike(int member_code) {
+	public List<Map<String, String>> getMemberLike(int member_code, int startRow, int listLimit) {
 		
-		return myPageMapper.selectLike(member_code);
+		return myPageMapper.selectLike(member_code,startRow,listLimit);
 	}
 	
 	//리뷰를 작성할 수 있는 클래스(결제하고 수료일까지 지난 상태임)
-	public List<Map<String, String>> getPossibleReview(int member_code) {
+	public List<Map<String, String>> getPossibleReview(int member_code,int startRow, int listLimit) {
 		
-		return myPageMapper.selectPossibleReview(member_code);
+		return myPageMapper.selectPossibleReview(member_code, startRow, listLimit);
 	}
 	//리뷰 등록
 	public int insertReview(Map<String, String> formData) {
@@ -96,6 +96,15 @@ public class MyPageService {
 	public List<Map<String, String>> getMemberMaster(int member_code2) {
 	
 		return myPageMapper.selectMemberMaster(member_code2);
+	}
+
+	public int getMemberLike(int member_code) {
+		return myPageMapper.countLikes(member_code);
+	}
+
+	public int getMemberPoss(int member_code) {
+		// TODO Auto-generated method stub
+		return myPageMapper.countPoss(member_code);
 	}
 
 	

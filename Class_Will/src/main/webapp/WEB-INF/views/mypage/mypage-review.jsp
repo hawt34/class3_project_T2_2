@@ -187,6 +187,24 @@ th:nth-child(2), td:nth-child(2) {
 											</c:forEach>
 										</tbody>
 									</table>
+										<div id="pageList">
+										<input type="button" value="이전"
+											onclick="location.href='my-review?pageNum=${pageNum - 1}'"
+											<c:if test="${pageNum == 1}">disabled</c:if> />
+										<c:forEach var="i" begin="1" end="${maxPage}">
+											<c:choose>
+												<c:when test="${pageNum == i}">
+													<b>${i}</b>
+												</c:when>
+												<c:otherwise>
+													<a href="my-review?pageNum=${i}">${i}</a>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										<input type="button" value="다음"
+											onclick="location.href='my-review?pageNum=${pageNum + 1}'"
+											<c:if test="${pageNum == maxPage or maxPage == 0}">disabled</c:if> />
+									</div>
 								</div>
 								<div class="table-responsive">
 									<h2>클래스 후기</h2>

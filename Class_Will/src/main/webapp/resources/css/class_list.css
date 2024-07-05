@@ -177,11 +177,11 @@ body {
     height: 60px; /* box1의 높이를 100%로 설정 */
 /*     padding-left : 30px; */
 }
-
 .box11 {
     display: flex;
-    align-items: center; /* 수직 중앙 정렬 */
-    height: 60px; /* box1의 높이를 100%로 설정 */
+/*     align-items: center;  */
+	padding-bottom : 20px;
+    height: 60px; 
 	text-align : right;
 }
 
@@ -195,8 +195,10 @@ body {
 .classCount{
 	color : white;
 /* 	margin-left : 60px; */
-	margin : 20px;
+/* 	left : 10px; */
+	margin-top : 20px;
     height: auto; /* 높이 자동 조절 */
+    text-align : left;
 }
 
 .classCount p{

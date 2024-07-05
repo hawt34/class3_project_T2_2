@@ -101,10 +101,10 @@
 		WHERE c.class_regist_status = 2 AND c.class_active = 'Y'
 		ORDER BY 
 		<if test="classListSelect == 'lowPrice'">
-		  c.class_price ASC
+		  CAST(c.class_price AS UNSIGNED) ASC
 		</if>
 		<if test="classListSelect == 'highPrice'">
-		  c.class_price DESC
+		  CAST(c.class_price AS UNSIGNED) DESC
 		</if>
 	</select>
 	

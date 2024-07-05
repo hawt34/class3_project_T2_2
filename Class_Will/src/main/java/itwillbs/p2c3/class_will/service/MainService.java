@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import itwillbs.p2c3.class_will.mapper.MainMapper;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 import kotlin.collections.ArrayDeque;
 
 @Service
@@ -122,6 +123,10 @@ public class MainService {
 		}
 		
 		return classList;
+	}
+
+	public List<Map<String, Object>> selectLikeClass(MemberVO sMember) {
+		return mainMapper.selectLikeClass(sMember);
 	}
 
 	

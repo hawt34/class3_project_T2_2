@@ -862,17 +862,18 @@ $(function() {
 //         $("#chatListModal").css("display", "block");
 //     });
     
-	// 모달 창 닫기
-    $("#chatModalClose").on("click", function() {
-        $("#chatListModal").css("display", "none");
-    });
-    
 	// 사용자가 모달 외부를 클릭하면 모달 닫기
     window.onclick = function(event) {
         if (event.target == document.getElementById("chatListModal")) {
             $("#chatListModal").css("display", "none");
         }
     }
+	
+	// 모달 창 닫기
+    $("#chatModalClose").on("click", function() {
+        $("#chatListModal").css("display", "none");
+    });
+    
     
  	// 모달 창 열기
     $("#openChatModal").on("click", function(e) {

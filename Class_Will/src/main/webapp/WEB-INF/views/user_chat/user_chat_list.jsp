@@ -29,7 +29,7 @@
 <style type="text/css">
 	
 	body {
-		background: #D5D5D5;
+		background:#F6F6F6;
 	}
 	
 	.user-chat {
@@ -46,7 +46,7 @@
 		height: 55px;
 		padding: 10px 10px;
 		border-bottom: 1px solid #A6A6A6;
-		background: #F6F6F6;
+		background:  #D5D5D5;
 		align-items: center;
 	}
 	
@@ -54,7 +54,7 @@
 		font-size: 12px;
 		border-radius: 20px;
 		border: 1px solid gray;
-		padding: 5px;
+		padding: 5px 10px;;
 		margin-left: 10px;
 	}
 	
@@ -74,14 +74,21 @@
 		
 	}
 	
+	.receiver_img_area {
+		padding: 0px;
+		align-content:center;
+		text-align:center;
+	}
+	
 	.receiver_img {
+		
 		width: 40px;
 		height: 40px;
 	}
 	
 	.receiver_name {
 		font-weight: bold;
-		font-size: 18px;
+		font-size: 15px;
 	}
 	
 	.chat-list {
@@ -96,6 +103,10 @@
 	}
 	.send-time {
 		color: gray;
+		font-size: 12px;
+	}
+	
+	.last_msg {
 		font-size: 14px;
 	}
 	
@@ -125,7 +136,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
@@ -138,7 +149,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
@@ -150,7 +161,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0" >
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
@@ -163,7 +174,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
@@ -175,7 +186,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
@@ -188,7 +199,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
@@ -200,7 +211,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
@@ -213,7 +224,7 @@
 				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="d-flex flex-column col-7">
+				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>

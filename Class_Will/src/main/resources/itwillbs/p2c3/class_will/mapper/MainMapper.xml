@@ -151,5 +151,10 @@
 		WHERE visit_date = #{visit_date}
 	</update>
 	
+	<select id="selectLikeClass" resultType="map">
+		SELECT *
+		FROM like_class
+		WHERE member_code = #{member_code}
+	</select>
 	
 </mapper>

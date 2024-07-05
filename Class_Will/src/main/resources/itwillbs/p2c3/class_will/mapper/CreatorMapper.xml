@@ -56,6 +56,65 @@
 			  )
 		)		
 	</insert>
+
+	<!-- 클래스 수정 -->
+	<insert id="createrClassRegPro">
+		INSERT INTO class(  	  
+				  class_code
+				, class_name
+				, class_big_category
+				, class_small_category
+				, class_thumnail
+				, class_image
+				, class_image2
+				, class_image3
+				, class_ex
+				, class_location
+				, class_hashtag
+				, class_creator_explain
+				, class_hide
+				, class_price
+				, class_regist_status
+				, member_code
+				, class_map_x
+				, class_map_y
+				, class_active
+				, common2_code
+		)
+		VALUES (
+			#{class_code}
+			, #{class_name}
+			, #{class_big_category}
+			, #{class_small_category}
+			, #{class_thumnail}
+			, #{class_image}
+			, #{class_image2}
+			, #{class_image3}
+			, #{class_ex}
+			, #{class_location}
+			, #{class_hashtag}
+			, #{class_creator_explain}
+			, #{class_hide}
+			, #{class_price}
+			, #{class_regist_status}
+			, #{member_code}
+			, #{location_x}
+			, #{location_y}
+			, 'Y'
+			, (
+				SELECT common2_code 
+				FROM common2 
+				WHERE code_value = #{sido}
+				AND common1_code = 'LC'
+			  )
+		)		
+	</insert>
+	
+	<!-- 클래스 삭제 -->
+	<delete id="createrClassDelete">
+		DELETE FROM class
+		where class_code = #{class_code}
+	</delete>
 	
 	<!-- 클래스 상세정보 -->
 	<select id="getClassDetail" resultType="map">
@@ -71,6 +130,27 @@
 			SELECT IFNULL(MAX(class_code), 0)
 			FROM class
 		</selectKey>
+			INSERT INTO curri(
+				class_code
+				, curri_round
+				, curri_content
+			)
+			VALUES
+		<foreach collection="params" item="param" separator=",">
+			(
+	         	#{class_code}, #{param.curri_round}, #{param.curri_content}
+	        )
+      	</foreach>
+	</insert>
+	
+	<!-- 커리큘럼 삭제 -->
+	<delete id="">
+		DELETE FROM curri
+		WHERE class_code = #{class_code}
+	</delete>
+	
+	<!-- 커리큘럼 업데이트 -->
+	<insert id="creatorCurriUpdate" parameterType="map">
 			INSERT INTO curri(
 				class_code
 				, curri_round
@@ -355,6 +435,39 @@
 		AND 
 			c.member_code = #{member_code}
 	</select>
+	
+	<!-- 클래스 파일 삭제 -->
+	<update id="removeClassFile">
+		UPDATE 
+			class
+		SET 
+			class_image = 
+				CASE WHEN 
+					class_image = #{class_image} 
+				THEN '' 
+				ELSE 
+					class_image 
+				END,
+			class_image2 = 
+				CASE WHEN 
+					class_image2 = #{class_image1} 
+				THEN '' 
+				ELSE 
+					class_image2 
+				END,
+			class_image3 = 
+				CASE WHEN 
+					class_image3 = #{class_image1} 
+				THEN '' 
+				ELSE 
+					class_image3 
+				END
+		WHERE
+			class_code = #{class_code}
+	</update>
+	
+	
+	
 	<!-- =========================================================================================== -->
 	<!-- 문의사항 클래스 정보 가져오기 -->
 	<select id="getInquiryClassInfo" resultType="map">

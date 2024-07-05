@@ -542,19 +542,19 @@ $(function() {
                     $('<option></option>').val('smallCategoryAll').text('전체')
                 );
 
-                // 데이터 순회하며 옵션 추가
+                // 소 카테고리 옵션 추가
                 $.each(data, function(index, item) {
                     $("#class_small_category").append(
                         $('<option></option>').val(item.common3_code).text(item.code_value)
                     );
                 });
 				
-                // 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"로 선택
+                // 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"
                 if (big_category === 'bigCategoryAll') {
                     $("#class_small_category").val('smallCategoryAll');
                 }
                 
-                // 파라미터로 전달받은 값이 있으면 선택
+                // 파라미터로 전달받은 값이 있으면 선택 (소 카테고리)
                 var urlParams = new URLSearchParams(window.location.search);
                 var small_category = urlParams.get('class_small_category');
 
@@ -568,31 +568,34 @@ $(function() {
         });
     });
 
-    
     // 페이지 로드 시, 파라미터로 전달받은 값에 따라 선택
     $(document).ready(function() {
         var urlParams = new URLSearchParams(window.location.search);
         var bigCategory = urlParams.get('class_big_category');
         var smallCategory = urlParams.get('class_small_category');
+        var big_category = $("#class_big_category").val();
 
         if (smallCategory) {
             $("#class_small_category").val(smallCategory);
         }
 
         if (bigCategory) {
-            $("#class_big_category").val(bigCategory).change(); // 대 카테고리 선택 시 이벤트 강제 발생
-            
-//             // 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"로 선택
-//             if (bigCategory === 'bigCategoryAll') {
-//                 $("#class_small_category").val('smallCategoryAll');
-//             }
-        }
+            $("#class_big_category").val(bigCategory).change(); 
+        } 
         
-        if (bigCategory && smallCategory) {
-            updateParameterClass(bigCategory, smallCategory); // AJAX를 통해 클래스 목록을 업데이트합니다.
-        } else {
-            $(".classListContainer").hide(); // 클래스 목록을 숨깁니다.
-        }
+//         if (bigCategory) {
+//             $("#class_big_category").val(bigCategory);
+
+//             // bigCategory를 먼저 설정한 후 change 이벤트 강제 발생
+//             $("#class_big_category").change();
+//         }
+        
+//         // bigCategory가 "bigCategoryAll"인 경우 소 카테고리도 "전체"로 설정
+//         if (bigCategory === 'bigCategoryAll') {
+//             $("#class_small_category").val('smallCategoryAll');
+//         } else if (smallCategory) {
+//             $("#class_small_category").val(smallCategory);
+//         }
 
     });
 });
@@ -655,7 +658,7 @@ $(function() {
 	    });
     }); // hashtag 해시태그 끝
     
-	// -------------- 낮은 가격 순 -------------- 
+	// -------------- 클래스 정렬 셀렉트 박스 -------------- 
     $("#classListSelect").on("change", function() {
     	
         var selectedOption = $(this).val();
@@ -691,7 +694,7 @@ $(function() {
                 alert("오류 발생: " + error);
             }
         });
-	}); // lowPrice 낮은 가격순 끝
+	}); // classListSelect() 끝
 });
 
 //------------------------------------------------------------------------------------
@@ -739,6 +742,7 @@ function updateClassList(filterClass) {
 	 console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
 }
 
+//------------------------------------------------------------------------------------
 function updateParameterClass(bigCategory, smallCategory) {
     $.ajax({
         url: "update-class-list",

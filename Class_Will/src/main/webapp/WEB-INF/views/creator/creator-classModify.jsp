@@ -252,7 +252,7 @@
 											<div class="mt-5 mb-3" align="center">
 												<button type="submit" value="1" name="class_regist_status" class="btn btn-outline-primary btn-lg">수정하기</button>
 												<input type="button" value="돌아가기" class="btn btn-outline-primary btn-lg" onclick="history.back()">
-												<button type="button" value="삭제" name="delete" class="btn btn-outline-danger btn-lg" >삭제하기</button>
+												<button type="button" value="삭제" name="deleteClass" class="btn btn-outline-danger btn-lg" >삭제하기</button>
 												<hr class="mb-4">
 											</div>
 										</div>

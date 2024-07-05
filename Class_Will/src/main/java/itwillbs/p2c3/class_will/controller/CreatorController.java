@@ -244,6 +244,8 @@ public class CreatorController {
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		Map<String, Object> classDetail = creatorService.getClassDetail(class_code);
 		
+		classDetail.get("class_location");
+		
 		String[] arrFileNames = {
                (String) classDetail.get("class_image"),
                (String) classDetail.get("class_image2"),
@@ -308,7 +310,7 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		map.put("member_code", member.getMember_code());
-		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
+		map.put("class_location", map.get("post_code") + "/" + map.get("address1") + "/" + map.get("address2"));
 		
 		List<CurriVO> curriList = new ArrayList<CurriVO>();
 		
@@ -378,7 +380,7 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		map.put("member_code", member.getMember_code());
-		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
+		map.put("class_location", map.get("post_code") + "/" + map.get("address1") + "/" + map.get("address2"));
 		
 		List<CurriVO> curriList = new ArrayList<CurriVO>();
 		

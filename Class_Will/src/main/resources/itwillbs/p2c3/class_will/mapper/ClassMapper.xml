@@ -279,8 +279,7 @@
 	
 	<!-- 클래스 해시태그 -->
 	<select id="selectClassHashtag" resultType="map">
-		SELECT	
-			class_code
+		SELECT class_code
 			, class_hashtag
 		FROM class
 		WHERE class_code = #{class_code}

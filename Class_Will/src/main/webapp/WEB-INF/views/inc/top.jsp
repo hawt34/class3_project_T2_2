@@ -331,12 +331,6 @@
 	
 }
 
-#chatListModal {
-	width: 500px;
-	height: 500px; 
-	
-}
-
 
 .badge-position {
 	top: 12px; /* 위로 이동 */ 
@@ -349,6 +343,59 @@
     justify-content: center;
 	font-size: 8px;
 }
+
+
+#chatListModal {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    overflow: hidden;
+}
+
+@media (min-width: 600px) {
+    #chatListModal {
+		width: 400px;
+    	height: 700px;
+    }
+}
+
+/* 모바일에서의 스타일 조정 */
+@media (max-width: 600px) {
+    #chatListModal {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+
+.chat-modal-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#chatModalClose {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    cursor: pointer;
+    color: gray;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#chatListContent {
+    width: 100%;
+    height: 100%;
+}
+
 
 
 /*** Top Navbar End ***/
@@ -453,15 +500,7 @@
 													<span class="visually-hidden">New alerts</span>
 												</span>
 											</a>
-											<!-- 모달 창 -->
-											<div id="chatListModal" class="modal" style="display:none;">
-												<div class="modal-content">
-													<!-- 모달 창 안에 닫기 버튼 -->
-													<span id="chatModalClose">&times;</span>
-													<!-- 모달 창 내용 -->
-													<iframe id="chatListContent" width="100%" height="100%" frameborder="0"></iframe>
-												</div>
-											</div>
+											
 										</li>
 									    <c:choose>
 											<c:when test="${empty member.member_email}">
@@ -574,11 +613,21 @@
 	            <!-- 추천 검색어 영역 -->
 	            <h5 class="mb-3">추천 검색어</h5>
 	            <div class="justify-content-center">
-	            	<div class="btn recommend-keyword"><a href="">선물용</a></div>
-	            	<div class="btn recommend-keyword"><a href="">데이트</a></div>
-	            	<div class="btn recommend-keyword"><a href="">핸드메이드</a></div>
-	            	<div class="btn recommend-keyword"><a href="">가족</a></div>
-	            	<div class="btn recommend-keyword"><a href="">드로잉</a></div>
+	            	<div class="btn recommend-keyword">
+	            		<a href="class-list">선물용</a>
+	            	</div>
+	            	<div class="btn recommend-keyword">
+	            		<a href="class-list">데이트</a>
+	            	</div>
+	            	<div class="btn recommend-keyword">
+	            		<a href="class-list" >핸드메이드</a>
+	            	</div>
+	            	<div class="btn recommend-keyword">
+	            		<a href="class-list">가족</a>
+	            	</div>
+	            	<div class="btn recommend-keyword">
+	            		<a href="class-list">드로잉</a>
+	            	</div>
 	            </div>
 	        </div>
 	    </div>
@@ -608,6 +657,17 @@
 			</div>
 		</div>
 	</div>  
+	
+	<!-- 채팅창 모달 창 -->
+	<div id="chatListModal" class="modal" style="display:none;">
+		<div class="chat-modal-content">
+			<!-- 모달 창 안에 닫기 버튼 -->
+			<span id="chatModalClose">&times;</span>
+			<!-- 모달 창 내용 -->
+			<iframe id="chatListContent" width="100%" height="100%" frameborder="0"></iframe>
+		</div>
+	</div>
+											
 </div> <!-- class-will-top -->
 
 <script>
@@ -794,26 +854,35 @@ $(function() {
     
     
     // 모달 창 열기
-    $("#openChatModal").on("click", function() {
-        // 모달 창에 링크를 열도록 설정
-        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
+//     $("#openChatModal").on("click", function() {
+//         // 모달 창에 링크를 열도록 설정
+//         $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
         
-        // 모달 창 보이기
-        $("#chatListModal").css("display", "block");
-    });
+//         // 모달 창 보이기
+//         $("#chatListModal").css("display", "block");
+//     });
     
-    // 모달 창 닫기
+	// 모달 창 닫기
     $("#chatModalClose").on("click", function() {
         $("#chatListModal").css("display", "none");
     });
     
-    // 사용자가 모달 외부를 클릭하면 모달 닫기
+	// 사용자가 모달 외부를 클릭하면 모달 닫기
     window.onclick = function(event) {
         if (event.target == document.getElementById("chatListModal")) {
             $("#chatListModal").css("display", "none");
         }
     }
     
+ 	// 모달 창 열기
+    $("#openChatModal").on("click", function(e) {
+        e.preventDefault(); // 기본 동작 방지
+        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
+        $("#chatListModal").css("display", "block");
+        $(".modal-backdrop").css("display", "block"); // 배경 표시
+    });
+
+   
 
 	
 });

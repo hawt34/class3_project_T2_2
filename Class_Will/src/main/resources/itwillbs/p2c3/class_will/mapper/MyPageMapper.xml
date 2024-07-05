@@ -54,6 +54,13 @@
 		c ON cr.class_code = c.class_code
 		WHERE
 		cr.member_code = #{member_code}
+		LIMIT #{startRow2}, #{listLimit2}
+	</select>
+	<select id="countReview">
+		<!-- 페이징 처리 때문. -->
+		SELECT COUNT(*)
+		FROM class_review cr
+		WHERE member_code =  ${member_code}
 	</select>
 
 	<select id="selectReviewByCode">
@@ -116,8 +123,16 @@
 		WHERE lc.member_code = ${member_code}
 		ORDER BY
 		c.class_code
-
+		LIMIT #{startRow}, #{listLimit}
 	</select>
+
+	<select id="countLikes">
+		<!-- 페이징 처리 때문. -->
+		SELECT COUNT(*)
+		FROM like_class
+		WHERE member_code = #{member_code};
+	</select>
+
 
 	<select id="selectPossibleReview">
 		<!-- 클래스 결제 및 날짜를 기준으로 등록가능한 리뷰 클래스 데리고 오기 -->
@@ -153,7 +168,21 @@
 		AND p.member_code =  ${member_code}
 		AND cs.class_schedule_date < CURRENT_DATE
 		ORDER BY cs.class_schedule_date ASC
+		LIMIT #{startRow}, #{listLimit}
 		 ]]>
+	</select>
+
+	<select id="countPoss">
+		<!-- 페이징처리를 위해 필요 -->
+		<![CDATA[
+		   SELECT COUNT(*)
+		   FROM pay p
+		   JOIN class_schedule cs ON p.class_schedule_code = cs.class_schedule_code
+		   WHERE p.pay_status = 'paid'
+		   AND p.member_code = #{member_code}
+		   AND cs.class_schedule_date < CURRENT_DATE
+		   ]]>
+
 	</select>
 
 	<insert id="insertReview">
@@ -188,7 +217,8 @@
 		SET
 		member_status = 2
 		WHERE
-		member_code = #{member_code}
+		member_code =
+		#{member_code}
 	</update>
 
 	<select id="selectMemberMaster">

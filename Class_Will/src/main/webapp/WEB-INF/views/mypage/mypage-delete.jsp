@@ -169,6 +169,24 @@ th:nth-child(2), td:nth-child(2) {
 											</c:forEach>
 										</tbody>
 									</table>
+										<div id="pageList">
+										<input type="button" value="이전"
+											onclick="location.href='my-delete?pageNum2=${pageNum2 - 1}'"
+											<c:if test="${pageNum2 == 1}">disabled</c:if> />
+										<c:forEach var="i" begin="1" end="${maxPage2}">
+											<c:choose>
+												<c:when test="${pageNum2 == i}">
+													<b>${i}</b>
+												</c:when>
+												<c:otherwise>
+													<a href="my-delete?pageNum2=${i}">${i}</a>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+										<input type="button" value="다음"
+											onclick="location.href='my-delete?pageNum2=${pageNum2 + 1}'"
+											<c:if test="${pageNum2 == maxPage2 or maxPage2 == 0}">disabled</c:if> />
+									</div>
 								</div>
 								<div class="table-responsive">
 									<c:set var="credit" value="${member.member_credit}" />

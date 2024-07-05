@@ -51,7 +51,7 @@
 	}
 	
 	.chat-top-filter {
-		font-size: 11px;
+		font-size: 12px;
 		border-radius: 20px;
 		border: 1px solid gray;
 		padding: 5px;
@@ -70,11 +70,33 @@
 	
 	.chat-list {
 		border-bottom: 1px solid #A6A6A6;
+		margin: 0;
+		
 	}
 	
 	.receiver_img {
-		width: 50px;
-		height: 50px;
+		width: 40px;
+		height: 40px;
+	}
+	
+	.receiver_name {
+		font-weight: bold;
+		font-size: 18px;
+	}
+	
+	.chat-list {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	
+	.send-time-area {
+		padding: 0 10px;
+		text-align:right;
+		
+	}
+	.send-time {
+		color: gray;
+		font-size: 14px;
 	}
 	
 </style>
@@ -92,35 +114,135 @@
 				<button class="btn btn-outline-dark chat-top-filter">전체</button>
 				<button class="btn btn-outline-dark chat-top-filter">안 읽은 메시지</button>
 			</div>
-			<div class="d-flex align-items-center pb-2">
-				<span id="chat-close">&times;</span>
-			</div>	
+<!-- 			<div class="d-flex align-items-center pb-2"> -->
+<!-- 				<span id="chat-close">&times;</span> -->
+<!-- 			</div>	 -->
 		</div>
 		
 		<div class="chat-list-content">
 		
-			<div class="chat-list">
-				<div class="receiver_img_area">
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="">
-					<span class="receiver_name">길동이</span>
-					<span class="last_msg">안녕하세요~ 길동이예요.</span>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">길동이</span>
+					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
-				<div class="send-time-area">
+				<div class="send-time-area col-3">
 					<span class="send-time">오후 5:05</span>
 				</div>
 			</div> <!-- chat-list -->
 			
-			<div class="chat-list">
-				<div class="receiver_img_area">
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
 				</div>
-				<div class="">
-					<span class="receiver_name">호야</span>
-					<span class="last_msg">네네 감사합니다~ </span>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">호야</span>
+					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area">
+				<div class="send-time-area col-3 ">
+					<span class="send-time">오후 5:03</span>
+				</div>
+			</div> <!-- chat-list -->
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">길동이</span>
+					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
+				</div>
+				<div class="send-time-area col-3">
+					<span class="send-time">오후 5:05</span>
+				</div>
+			</div> <!-- chat-list -->
+			
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">호야</span>
+					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
+				</div>
+				<div class="send-time-area col-3 ">
+					<span class="send-time">오후 5:03</span>
+				</div>
+			</div> <!-- chat-list -->
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">길동이</span>
+					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
+				</div>
+				<div class="send-time-area col-3">
+					<span class="send-time">오후 5:05</span>
+				</div>
+			</div> <!-- chat-list -->
+			
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">호야</span>
+					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
+				</div>
+				<div class="send-time-area col-3 ">
+					<span class="send-time">오후 5:03</span>
+				</div>
+			</div> <!-- chat-list -->
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">길동이</span>
+					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
+				</div>
+				<div class="send-time-area col-3">
+					<span class="send-time">오후 5:05</span>
+				</div>
+			</div> <!-- chat-list -->
+			
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">호야</span>
+					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
+				</div>
+				<div class="send-time-area col-3 ">
+					<span class="send-time">오후 5:03</span>
+				</div>
+			</div> <!-- chat-list -->
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">길동이</span>
+					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
+				</div>
+				<div class="send-time-area col-3">
+					<span class="send-time">오후 5:05</span>
+				</div>
+			</div> <!-- chat-list -->
+			
+			<div class="chat-list row">
+				<div class="receiver_img_area col-2">
+					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+				</div>
+				<div class="d-flex flex-column col-7">
+					<span class="receiver_name d-flex flex-row">호야</span>
+					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
+				</div>
+				<div class="send-time-area col-3 ">
 					<span class="send-time">오후 5:03</span>
 				</div>
 			</div> <!-- chat-list -->

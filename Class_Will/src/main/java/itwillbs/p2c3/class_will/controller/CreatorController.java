@@ -45,8 +45,8 @@ public class CreatorController {
 	@Autowired
 	private CreatorService creatorService;
 	
-	@Autowired
-	private MemberService memberService;
+	// 이미지 업로드 디렉토리
+	String uploadDir = "/resources/upload";
 
 	// creator-main으로
 	@GetMapping("creator-main")
@@ -248,15 +248,42 @@ public class CreatorController {
                (String) classDetail.get("class_image"),
                (String) classDetail.get("class_image2"),
                (String) classDetail.get("class_image3"),
-               (String) classDetail.get("class_thumnail")
-	       };
+	    };
+		String thumnailFile = (String) classDetail.get("class_thumnail");
+		
 	    model.addAttribute("fileNames", arrFileNames);
+	    model.addAttribute("thumnailFile", thumnailFile);
 		
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("hashtagList", hashtagList);
 		model.addAttribute("classDetail", classDetail);
 		
 		return "creator/creator-classModify";
+	}
+	
+	@ResponseBody
+	@GetMapping("ClassDeleteFile")
+	public String ClassDeleteFile(@RequestParam Map<String, Object> map, HttpSession session) {
+		System.out.println(">>>map: " + map);
+		int removeCount = creatorService.removeClassFile(map);
+		
+		if(removeCount > 0) {
+			// 서버에 업로드된 파일 삭제
+			String saveDir = session.getServletContext().getRealPath(uploadDir);
+			if(!map.get("class_file1").equals("")) {
+				Path path = Paths.get(saveDir + "/" + map.get("class_file1"));
+				try {
+					Files.deleteIfExists(path);
+					// 삭제성공시 true 값 리턴
+					return "true";
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			}
+		}
+		
+		return "false";
 	}
 	
 	// ajax로 카테고리 처리
@@ -271,6 +298,8 @@ public class CreatorController {
 	// creater-class 등록
 	@PostMapping("creator-classRegPro")
 	public String createrClassRegPro(@RequestParam Map<String, Object> map,  @RequestParam Map<String, MultipartFile> files, HttpSession session, HttpServletRequest request, Model model) {
+		System.out.println(">>>>>>>>regPro map: " + map);
+		System.out.println(">>>>>>>>regPro files: " + files);
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member == null) {
@@ -310,28 +339,98 @@ public class CreatorController {
         
         for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
             String paramName = entry.getKey();
-            MultipartFile file = entry.getValue();
-            if (file != null && !file.isEmpty()) {
+            MultipartFile file = entry.getValue(); // mfile
+            if (file != null && !file.getOriginalFilename().equals("")) {
                 String fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
                 try {
-                    file.transferTo(new File(saveDir, fileName));
                     // DB에 파일 이름 저장
-                    if (paramName.equals("class_thumbnail")) {
-                        map.put("class_thumbnail", subDir + "/" + fileName);
-                    } else if (paramName.equals("class_image")) {
+                    if (paramName.equals("class_thumnail")) {
+                        map.put("class_thumnail", subDir + "/" + fileName);
+                    } else if (paramName.equals("file1")) {
                         map.put("class_image", subDir + "/" + fileName);
-                    } else if (paramName.equals("class_image2")) {
+                    } else if (paramName.equals("file2")) {
                         map.put("class_image2", subDir + "/" + fileName);
-                    } else if (paramName.equals("class_image3")) {
+                    } else if (paramName.equals("file3")) {
                         map.put("class_image3", subDir + "/" + fileName);
                     }
+                    file.transferTo(new File(saveDir, fileName));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-        
+        System.out.println(">>>>> map 파일저장 이후 " + map);
         creatorService.createrClassRegPro(map, curriList);
+		
+		return "redirect:/creator-class";
+	}
+	
+	// creater-class 등록
+	@PostMapping("ClassModifyPro")
+	public String ClassModifyPro(@RequestParam Map<String, Object> map,  @RequestParam Map<String, MultipartFile> files, HttpSession session, HttpServletRequest request, Model model) {
+		System.out.println(">>>>>>>modifyPro map: " + map);
+		System.out.println(">>>>>>>>modifyPro files: " + files);
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			model.addAttribute("msg", "잘못된 접근입니다!");
+			model.addAttribute("targetURL", "./");
+			return "result_process/fail";
+		}
+		map.put("member_code", member.getMember_code());
+		map.put("class_location", "" + map.get("post_code") + map.get("address1") + map.get("address2"));
+		
+		List<CurriVO> curriList = new ArrayList<CurriVO>();
+		
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			CurriVO curri = new CurriVO();
+			if (entry.getKey().contains("차시")) {
+				curri.setCurri_round(entry.getKey());
+				curri.setCurri_content((String)entry.getValue());
+				curriList.add(curri);
+			}
+		}
+		
+//		String uploadDir = "/resources/upload";
+		String saveDir = request.getServletContext().getRealPath(uploadDir);
+		
+		LocalDate today = LocalDate.now();
+		String datePattern = "yyyy/MM/dd";
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
+		String subDir = today.format(dtf);
+		saveDir += "/" + subDir;
+		
+		Path path = Paths.get(saveDir);
+		try {
+			Files.createDirectories(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		for (Map.Entry<String, MultipartFile> entry : files.entrySet()) {
+			String paramName = entry.getKey();
+			MultipartFile file = entry.getValue(); // mfile
+			if (file != null && !file.getOriginalFilename().equals("")) {
+				String fileName = UUID.randomUUID().toString().substring(0, 8) + "_" + file.getOriginalFilename();
+				try {
+					// DB에 파일 이름 저장
+					if (paramName.equals("class_thumnail")) {
+						map.put("class_thumnail", subDir + "/" + fileName);
+					} else if (paramName.equals("file1")) {
+						map.put("class_image", subDir + "/" + fileName);
+					} else if (paramName.equals("file2")) {
+						map.put("class_image2", subDir + "/" + fileName);
+					} else if (paramName.equals("file3")) {
+						map.put("class_image3", subDir + "/" + fileName);
+					}
+					file.transferTo(new File(saveDir, fileName));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println(">>>>> map 파일저장 이후 " + map);
+		creatorService.createrClassModifyPro(map, curriList);
 		
 		return "redirect:/creator-class";
 	}

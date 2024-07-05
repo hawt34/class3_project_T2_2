@@ -50,6 +50,9 @@
 <script
 	src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
 <script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
+<link rel="stylesheet"
+	href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
+<script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 body {
@@ -161,17 +164,11 @@ tbody tr:hover {
 										</div>
 									</div>
 								</div>
-								<div class="form-group mt-3">
-									<label for="chartSelect">월 선택</label> <select id="chartSelect"
-										class="form-control">
-										<!-- 옵션은 JavaScript로 생성될 예정 -->
-									</select>
-								</div>
+
 							</div>
 
-							<div
-								style="position: relative; height: 60vh; width: 50vw; margin: auto;">
-								<canvas id="myChart"></canvas>
+							<div class="mt-5">
+								<canvas id="chart" style="width: 100%; height: 400px;"></canvas>
 							</div>
 						</div>
 					</div>
@@ -200,8 +197,56 @@ tbody tr:hover {
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-	
+	$(document).ready(function() {
+	    // 데이터 준비
+	    var labels = [];
+	    var data = [];
 
+	    // ${memberMaster}에서 데이터 추출하여 배열에 추가
+	    <c:forEach var="item" items="${memberMaster}">
+	      labels.push("${item.month}");
+	      data.push(${item.class_count});
+	    </c:forEach>;
+
+	    // Chart.js를 이용한 그래프 생성
+	    var ctx = document.getElementById('chart');
+	    if (ctx) {
+	      ctx = ctx.getContext('2d');
+	      var myChart = new Chart(ctx, {
+	        type: 'bar', // 막대 그래프로 설정
+	        data: {
+	          labels: labels,
+	          datasets: [{
+	            label: '수료한 클래스 수',
+	            data: data,
+	            backgroundColor: 'rgba(54, 162, 235, 0.5)', // 막대 색상 설정
+	            borderColor: 'rgba(54, 162, 235, 1)',
+	            borderWidth: 1
+	          }]
+	        },
+	        options: {
+	          scales: {
+	            y: {
+	              beginAtZero: true,
+	              title: {
+	                display: true,
+	                text: '수료한 클래스 수'
+	              }
+	            },
+	            x: {
+	              title: {
+	                display: true,
+	                text: '월'
+	              }
+	            }
+	          }
+	        }
+	      });
+	    } else {
+	      console.error("Cannot find canvas element with id 'chart'");
+	    }
+	  });
+	
 	</script>
 
 </body>

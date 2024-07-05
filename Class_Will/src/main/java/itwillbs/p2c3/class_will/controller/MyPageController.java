@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -523,7 +524,7 @@ public class MyPageController {
 		MemberVO member2 = myPageService.selectMemberInfo(member_code2);
 		List<Map<String, String>> memberMaster = myPageService.getMemberMaster(member_code2);
 		model.addAttribute("memberMaster", memberMaster);
-		
+	
 		System.out.println("멤버가 마스터한 클래스" + memberMaster);
 		
 		return "mypage/mypage-power";

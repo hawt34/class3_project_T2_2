@@ -45,14 +45,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-main.css"
 	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/tui.grid/latest/tui-grid.css" />
-<script
-	src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
-<script src="https://uicdn.toast.com/tui.grid/latest/tui-grid.js"></script>
-<link rel="stylesheet"
-	href="https://uicdn.toast.com/chart/latest/toastui-chart.min.css" />
-<script src="https://uicdn.toast.com/chart/latest/toastui-chart.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 body {
@@ -219,29 +212,57 @@ tbody tr:hover {
 	          datasets: [{
 	            label: '수료한 클래스 수',
 	            data: data,
-	            backgroundColor: 'rgba(54, 162, 235, 0.5)', // 막대 색상 설정
+	            backgroundColor: 'rgba(54, 162, 235, 1)', // 막대 색상 설정
 	            borderColor: 'rgba(54, 162, 235, 1)',
 	            borderWidth: 1
 	          }]
 	        },
 	        options: {
-	          scales: {
-	            y: {
-	              beginAtZero: true,
-	              title: {
-	                display: true,
-	                text: '수료한 클래스 수'
-	              }
+	            scales: {
+	                y: {
+	                    beginAtZero: true,
+	                    title: {
+	                        display: true,
+	                        text: '수료한 클래스 수',
+	                        font: {
+	                            size: 16 // 폰트 크기 설정
+	                        }
+	                    },
+	                    ticks: {
+	                        stepSize: 1, // 세로 축 간격 설정
+	                        font: {
+	                            size: 14 // 폰트 크기 설정
+	                        }
+	                    }
+	                },
+	                x: {
+	                    title: {
+	                        display: true,
+	                        text: '월',
+	                        font: {
+	                            size: 16 // 폰트 크기 설정
+	                        }
+	                    }
+	                }
 	            },
-	            x: {
-	              title: {
-	                display: true,
-	                text: '월'
-	              }
-	            }
-	          }
+	            plugins: {
+	                legend: {
+	                    display: true,
+	                    position: 'top'
+	                },
+	                tooltip: {
+	                    callbacks: {
+	                        label: function(tooltipItem) {
+	                            return tooltipItem.dataset.label + ': ' + tooltipItem.raw + ' 개'; // 데이터 값 뒤에 " 개" 추가
+	                        }
+	                    }
+	                }
+	            },
+	            responsive: true,
+	            maintainAspectRatio: false,
+	            barPercentage: 0.4 // 막대 너비 설정
 	        }
-	      });
+	        });
 	    } else {
 	      console.error("Cannot find canvas element with id 'chart'");
 	    }

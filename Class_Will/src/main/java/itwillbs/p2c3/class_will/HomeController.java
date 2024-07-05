@@ -94,7 +94,9 @@ public class HomeController {
         
         if(sMember != null) {
         	List<Map<String, Object>> likeClassList = mainService.selectLikeClass(sMember);
-        	model.addAttribute("likeClassList", likeClassList);
+        	if(likeClassList != null) {
+        		model.addAttribute("likeClassList", likeClassList);
+        	}
         }
         
 		

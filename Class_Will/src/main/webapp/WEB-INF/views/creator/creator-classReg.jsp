@@ -220,8 +220,9 @@
 										</div>
 										<div class="classReg-creator-info-form">
 											<div class="col-md-12 mt-2 mb-5">
-												<label for="class_creator_explain" class="h6">크리에이터 소개</label> 
-												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required />
+												<label for="class_creator_explain" class="h6">크리에이터 소개</label>
+												<textarea name="class_creator_explain" class="class_creator_explain" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border"></textarea> 
+<!-- 												<input type="text" name="class_creator_explain" class="class_creator_explain" class="form-control" required /> -->
 												<div class="invalid-feedback">크리에이터 소개를 입력해주세요.</div>
 											</div>
 											<div class="mt-5 mb-3" align="center">
@@ -311,7 +312,7 @@
 // 	            debugger;
 	        }
 			
-		});
+		
 		
 		// 썸머노트 설정
 		$('#summernote').summernote({
@@ -361,7 +362,7 @@
 // 				 }
 // 			  }
 		});
-		
+		});
 		
 		// 해쉬태그 다중선택
 		document.addEventListener('DOMContentLoaded', () => {
@@ -421,8 +422,6 @@
         		            var xmlDoc = parser.parseFromString(response, "text/xml");
         		            var x = xmlDoc.getElementsByTagName("x")[0].childNodes[0].nodeValue;
         		            var y = xmlDoc.getElementsByTagName("y")[0].childNodes[0].nodeValue;
-//         		            console.log('Longitude:', x);
-//         		            console.log('Latitude:', y);
 							$("#location_x").val(y);
 							$("#location_y").val(x);
         		        },

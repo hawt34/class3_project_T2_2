@@ -244,7 +244,13 @@ public class CreatorController {
 		List<Map<String, String>> hashtagList = creatorService.getHashtag();
 		Map<String, Object> classDetail = creatorService.getClassDetail(class_code);
 		
-		classDetail.get("class_location");
+		String location = (String)classDetail.get("class_location");
+		if(location.contains("/")) {
+			String[] locationArr = location.split("/");
+			classDetail.put("post_code", locationArr[0]);
+			classDetail.put("address1", locationArr[1]);
+			classDetail.put("address2", locationArr[2]);
+		}
 		
 		String[] arrFileNames = {
                (String) classDetail.get("class_image"),

@@ -35,7 +35,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-classReg.css" rel="stylesheet">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!-- 썸머노트 cdn -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
@@ -202,13 +202,23 @@
 												<label for="postCode" class="h6">주소</label><br>
 												<div class="d-flex justify-content-between">
 													<div class="col-md-3">
-											    		<input type="text" id="post_code" name="post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
+											    		<input type="text" value="${classDetail.post_code}" id="post_code" name="post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
 													</div>
 													<div class="col-md-9">
-														<input type="text" id="address1" name="address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
+														<input type="text" value="${classDetail.address1}" id="address1" name="address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
 													</div>
 												</div>
-												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+												<input type="text" value="${classDetail.address2}" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+												
+												<!-- 주소지의 x y 좌표 -->
+												<div class="d-flex justify-content-between">
+													<div class="col-md-6">
+											    		<input type="text" id="location_x" name="location_x" placeholder="X좌표" class="form-control my-1" readonly>
+													</div>
+													<div class="col-md-6">
+														<input type="text" id="location_y" name="location_y" placeholder="Y좌표" class="form-control my-1" readonly>
+													</div>
+												</div>
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_price" class="h6">회당 클래스가격(원)</label> 
@@ -406,7 +416,7 @@
 	            });
 	        }
 			
-		});
+			});
 		
 		// 썸머노트 설정
 		$('#summernote').summernote({
@@ -447,6 +457,7 @@
 					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		          
 		});
+	
 		
 		// 해쉬태그 다중선택
 		document.addEventListener('DOMContentLoaded', () => {
@@ -491,14 +502,35 @@
 	            oncomplete: function(data) {
 	                console.log(data);
 	                document.fr.post_code.value = data.zonecode;
-	        		let address = data.address; // 기본주소 변수에 저장
+	        		let address = data.roadAddress; // 기본주소 변수에 저장
 	        		if(data.buildingName != "") {
 	        			address += " (" + data.buildingName + ")";
 	        		}
+	        		document.fr.sido.value = data.sido;
 	        		// 기본주소 출력
 	        		document.fr.address1.value = address;
 	        		// 상세주소 입력 항목에 커서 요청
 	        		document.fr.address2.focus();
+	        		let location = address.replace(/\s+/g, '');// 공백 제거
+	        		
+	        		 $.ajax({
+	    		        url: 'geocode',
+	    		        type: 'GET',
+	    		        data: { address: address },
+	    		        success: function(response) {
+	    		            console.log('Coordinates:', response);
+	    		            // XML 파싱 및 좌표 추출
+	    		            var parser = new DOMParser();
+	    		            var xmlDoc = parser.parseFromString(response, "text/xml");
+	    		            var x = xmlDoc.getElementsByTagName("x")[0].childNodes[0].nodeValue;
+	    		            var y = xmlDoc.getElementsByTagName("y")[0].childNodes[0].nodeValue;
+							$("#location_x").val(y);
+							$("#location_y").val(x);
+	    		        },
+	    		        error: function(error) {
+	    		            console.log('Error:', error);
+	    		        }
+	    		    });
 	            }
 	        }).open();
 	    }

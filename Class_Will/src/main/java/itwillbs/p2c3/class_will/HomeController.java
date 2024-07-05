@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import itwillbs.p2c3.class_will.service.MainService;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 /**
  * Handles requests for the application home page.
@@ -88,6 +89,16 @@ public class HomeController {
         
         model.addAttribute("top10List", top10List);
         model.addAttribute("newClassList", newClassList);
+        
+        MemberVO sMember = (MemberVO)session.getAttribute("member");
+        
+        if(sMember != null) {
+        	List<Map<String, Object>> likeClassList = mainService.selectLikeClass(sMember);
+        	if(likeClassList != null) {
+        		model.addAttribute("likeClassList", likeClassList);
+        	}
+        }
+        
 		
 		return "main";
 	}

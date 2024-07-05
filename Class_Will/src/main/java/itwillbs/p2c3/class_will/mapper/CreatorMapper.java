@@ -18,12 +18,22 @@ public interface CreatorMapper {
 
 	// 클래스 등록
 	void createrClassRegPro(Map<String, Object> map);
+
+	// 클래스 삭제
+	void createrClassDelete(Map<String, Object> map);
 	
 	// 클래스 상세정보
 	Map<String, Object> getClassDetail(int class_code);
 	
 	// 커리큘럼 등록
 	void creatorCurriInsert(@Param("params") List<CurriVO> params);
+
+	// 커리큘럼 삭제
+	void creatorCurriDelete(int class_code);
+
+	// 커리큘럼 등록
+	void creatorCurriUpdate(@Param("params") List<CurriVO> params, @Param("class_code") int class_code);
+
 	
 	// 클래스일정 등록
 	int insertClassPlan(@Param("map") Map<String, Object> map
@@ -70,6 +80,9 @@ public interface CreatorMapper {
 
 	// 상태에 따른 클래스 리스트
 	List<Map<String, Object>> getClassStatusInfo(@Param("status") int status,@Param("member") MemberVO member);
+	
+	// 클래스 이미지 파일 삭제
+	int removeClassFile(Map<String, Object> map);
 	
 	//=====================================================================================================
 	

@@ -32,6 +32,16 @@ public class CreatorService {
 		System.out.println(">>>>>>>>params: " + params);
 		creatorMapper.creatorCurriInsert(params);
 	}
+
+	// 클래스 수정
+	public void createrClassModifyPro(Map<String, Object> map, List<CurriVO> params) {
+		creatorMapper.createrClassDelete(map);
+		creatorMapper.createrClassRegPro(map);
+//		System.out.println(">>>>>>>>params: " + params);
+		int class_code = (int)map.get("class_code");
+		creatorMapper.creatorCurriDelete(class_code);
+		creatorMapper.creatorCurriUpdate(params, class_code);
+	}
 	
 	// 클래스 상세
 	public Map<String, Object> getClassDetail(int class_code) {
@@ -111,6 +121,11 @@ public class CreatorService {
 	// 등록완료된 클래스정보 가져오기
 	public List<Map<String, Object>> getCertifiedClassInfo(MemberVO member){
 		return creatorMapper.getCertifiedClassInfo(member);
+	}
+	
+	// 클래스 이미지 파일 삭제
+	public int removeClassFile(Map<String, Object> map) {
+		return creatorMapper.removeClassFile(map);
 	}
 
 	//==================================================================================================

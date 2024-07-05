@@ -278,6 +278,9 @@ body {
     cursor: pointer;
     border-radius : 30px !important;
 }
+.classList{
+/*         margin-right: 50px; /* 오른쪽 여백을 auto로 설정하여 왼쪽으로 이동 */ */
+}
 .form-controls {
     border-radius : 30px !important;
 }
@@ -306,14 +309,14 @@ body {
 	<div class="row">
 		<div class="categoryBar">
 			<div class="row justify-content-center"> <!-- 가운데 정렬 -->
-				<div class="categoryBarBox col-md-11">
+				<div class="categoryBarBox col-md-12">
 				
 					<!-- 셀렉트박스 리스트 -->
-					<div class="row mx-5 rowCenter">
+					<div class="row rowCenter">
 
 					<!-- 카테고리바 카테고리 시작 -->
 	<!-- 							<div class="row">  -->
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<label for="class_big_category" class="h6">카테고리</label> 
 							<select name="class_big_category" id="class_big_category" class="form-control"  onchange="updateCategory()">
 									<option value="bigCategoryAll" id="class_big_category_all">전체</option>
@@ -323,7 +326,7 @@ body {
 							</select>
 						</div>
 						
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<label for="class_small_category" class="h6">상세분류</label> 
 							<select name="class_small_category" id="class_small_category" class="form-control"  onchange="updateSmallCategory()">
 								<option value="smallCategoryAll" id="class_small_category_all">전체</option>
@@ -333,7 +336,7 @@ body {
 					<!-- 카테고리바 카테고리 끝 -->
 					
 					<!-- 카테고리바 지역 시작 -->
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<label for="class_local" class="h6">지역</label> 
 							<select name="class_local" id="class_local" class="form-control" onchange="updateLocal()">
 								<option value="classLocalAll" id="class_local_all">전체</option>
@@ -345,26 +348,25 @@ body {
 <!-- 					카테고리바 지역 끝 -->
 						
 						<!-- 셀렉트 검색 버튼 -->
-						<div class="btnSearchDiv col-md-2">
-<!-- 							<div class="btnSearch w-100"> -->
-<!-- 								<button type="button" class="btn btn-outline-light btnSearch" onclick="searchCategory()">검색</button> -->
+						<div class="btnSearchDiv col mt-4">
+							<div class="w-100 btnDiv">
 								<button type="button" class="btn btn-outline-light btnSearch">검색</button>
-<!-- 							</div> -->
+							</div>
 						</div>
 						<!-- 셀렉트 검색 버튼 -->
 						
 						<!-- 셀렉트 초기화 버튼 -->
-						<div class="btnResetDiv col-md-2">
-<!-- 							<div class="btnReset w-100"> -->
+						<div class="btnResetDiv col mt-4">
+							<div class="w-100 btnDiv">
 								<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
-<!-- 							</div> -->
+							</div>
 						</div>
 						<!-- 셀렉트 초기화 버튼 -->
 					</div>
 					<!-- 셀렉트박스 리스트 끝 -->
 					
 					<!-- 해시태그 리스트 -->
-					<div class="row mx-5">
+					<div class="row">
 						<hr>
 						<div class="col hashtagDiv">
 							<div class="form form1 d-flex flex-wrap">
@@ -384,22 +386,51 @@ body {
 	
 	<!-- 클래스 개수 시작 -->
 	<c:set var="classCount" value="${fn:length(classList)}" />
+<!-- 	<div class="row"> -->
+<!-- 		<div class="col-6"> -->
+<!-- 			<div class="classCount"> -->
+<%-- 				<p>${classCount}개의 클래스</p> --%>
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 		<div class="col-6 box11"> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-6"> -->
+<!-- 					<p> -->
+<!-- 						<a class="btn btn-outline-light btnLocation mt-3 mr-0" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> -->
+<!-- 							내 위치 지도 보기 -->
+<!-- 						</a> -->
+<!-- 					</p> -->
+<!-- 				</div> -->
+<!-- 	<!-- 			<div class="col-md-5 w-75 classList ml-2"> -->
+<!-- 				<div class="col-6 classList mr-0 mt-3"> -->
+<!-- 	<!-- 			<div class="pl-1"> --> 
+<!-- 					<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example"> -->
+<!-- 						<option value="lowPrice" selected>낮은 가격순</option> -->
+<!-- 						<option value="highPrice">높은 가격순</option> -->
+<!-- 						<option value="starList">별점순</option> -->
+<!-- 						<option value="reviewList">후기순</option> -->
+<!-- 					</select> -->
+<!-- 	<!-- 			</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> row -->
 	<div class="row">
-		<div class="col">
+		<div class="col-6">
 			<div class="classCount">
-				<p>${classCount}개의 클래스</p>
+				<h5>${classCount}개의 클래스</h5>
 			</div>
 		</div>
-		<div class="col box11">
-			<div class="col-md-5">
+		<div class="col-6 box11">
+			<div class="col-6">
 				<p>
-					<a class="btn btn-outline-light btnLocation" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+					<a class="btn btn-outline-light btnLocation mt-3 mr-0" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 						내 위치 지도 보기
 					</a>
 				</p>
 			</div>
-			<div class="col-md-5">
-				<select id="classListSelect" class="form-select selectBox1 w-50" aria-label="Default select example">
+			<div class="col-6 classList mr-0 mt-3">
+				<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example">
 					<option value="lowPrice" selected>낮은 가격순</option>
 					<option value="highPrice">높은 가격순</option>
 					<option value="starList">별점순</option>
@@ -419,7 +450,7 @@ body {
 	<!-- 지도 보이는 영역 -->
 	
       <!-- 첫번째 줄 -->
-      <div class="row pb-4 mx-5 mb-4 d-flex flex-wrap" id="classListContainer">
+      <div class="row pb-4 mb-4 d-flex flex-wrap" id="classListContainer">
 	      <c:forEach var="classList" items="${classList}">
 	         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
 	            <div class="card shadow-sm border-0 rounded flex-fill mb-4">
@@ -494,44 +525,76 @@ $(function() {
 	
     // 대 카테고리 선택시 소 카테고리 리스트 나타남
     $("#class_big_category").change(function() {
-    	
         var big_category = $("#class_big_category").val();
-        var urlParams = new URLSearchParams(window.location.search);
-        var small_category = urlParams.get('class_small_category');
-        
+
+        // AJAX 요청을 통해 소 카테고리 리스트를 업데이트
         $.ajax({
             url: "small-category",
             method: "get",
             data: { 
-            	big_category : big_category,
-            	small_category : small_category
-            	},
+                big_category: big_category
+            },
             success: function(data) {
-            	
                 $("#class_small_category").empty();
-                
-                // 데이터에 이미 전체 옵션이 포함되어 있으면 추가하지 않음
-                if (data.length > 0 && data[0].common3_code !== 'smallCategoryAll') {
-                    $("#class_small_category").append(
-                        $('<option></option>').val('smallCategoryAll').text('전체')
-                    );
-                }
-                
+
+                // 전체 옵션 추가
+                $("#class_small_category").append(
+                    $('<option></option>').val('smallCategoryAll').text('전체')
+                );
+
+                // 데이터 순회하며 옵션 추가
                 $.each(data, function(index, item) {
                     $("#class_small_category").append(
-                        $('<option></option>').val(item.common3_code).text(item.code_value)	
+                        $('<option></option>').val(item.common3_code).text(item.code_value)
                     );
                 });
-            }
-        });		
-    });
-    
-    // 파라미터로 전달받은 값이 있으면 선택
-    if (smallCategory) {
-        $("#class_small_category").val(smallCategory);
-        $("#class_big_category").val(bigCategory);
-    }
+				
+                // 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"로 선택
+                if (big_category === 'bigCategoryAll') {
+                    $("#class_small_category").val('smallCategoryAll');
+                }
+                
+                // 파라미터로 전달받은 값이 있으면 선택
+                var urlParams = new URLSearchParams(window.location.search);
+                var small_category = urlParams.get('class_small_category');
 
+                if (small_category) {
+                    $("#class_small_category").val(small_category);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error: ', error);
+            }
+        });
+    });
+
+    
+    // 페이지 로드 시, 파라미터로 전달받은 값에 따라 선택
+    $(document).ready(function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var bigCategory = urlParams.get('class_big_category');
+        var smallCategory = urlParams.get('class_small_category');
+
+        if (smallCategory) {
+            $("#class_small_category").val(smallCategory);
+        }
+
+        if (bigCategory) {
+            $("#class_big_category").val(bigCategory).change(); // 대 카테고리 선택 시 이벤트 강제 발생
+            
+//             // 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"로 선택
+//             if (bigCategory === 'bigCategoryAll') {
+//                 $("#class_small_category").val('smallCategoryAll');
+//             }
+        }
+        
+        if (bigCategory && smallCategory) {
+            updateParameterClass(bigCategory, smallCategory); // AJAX를 통해 클래스 목록을 업데이트합니다.
+        } else {
+            $(".classListContainer").hide(); // 클래스 목록을 숨깁니다.
+        }
+
+    });
 });
 
 // ------------------------------------------------------------------------------------
@@ -676,6 +739,35 @@ function updateClassList(filterClass) {
 	 console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
 }
 
+function updateParameterClass(bigCategory, smallCategory) {
+    $.ajax({
+        url: "update-class-list",
+        method: "get",
+        data: { 
+            bigCategory: bigCategory,
+            smallCategory: smallCategory
+        },
+        success: function(data) {
+            var classListContainer = $(".classListContainer");
+            classListContainer.empty(); // 기존 클래스 목록을 비웁니다.
+
+            if (data.length > 0) {
+                // 클래스 목록을 생성하여 추가합니다.
+                $.each(data, function(index, item) {
+                    var classCard = generateClassCardHTML(item);
+                    classListContainer.append(classCard);
+                });
+
+                classListContainer.show(); // 클래스 목록을 보여줍니다.
+            } else {
+                classListContainer.hide(); // 데이터가 없으면 목록을 숨깁니다.
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error: ', error);
+        }
+    });
+}
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
 

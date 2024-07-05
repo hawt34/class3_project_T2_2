@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import itwillbs.p2c3.class_will.vo.MemberVO;
+
 @Mapper
 public interface MainMapper {
 
@@ -37,6 +39,8 @@ public interface MainMapper {
 	void insertDailyVisit(@Param("visitDate")String visitDate);
 
 	void updateDailyVisit(Map<String, Object> dbVisitDate);
+
+	List<Map<String, Object>> selectLikeClass(MemberVO sMember);
 	
 	
 	

@@ -35,7 +35,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/creator/creator-classReg.css" rel="stylesheet">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
 <!-- 썸머노트 cdn -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
@@ -90,7 +90,8 @@
 
 						<div class="col-lg-9 creator-body" >
 							<div class="creator-main-table col-xl-8 mb-5 ">
-								<form class="validation-form" novalidate action="creator-classRegPro" name="fr" method="post" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
+								<form class="validation-form" novalidate action="ClassModifyPro" name="fr" method="post" onsubmit="return confirm('클래스를 수정하시겠습니까?');">
+									<input type="hidden" name="class_code" value="${classDetail.class_code}">
 									<!-- 	셀렉트박스 -->
 									<div class="col-md-12 mb-2" align="center">
 										<div class="col-xl-6 mb-5">
@@ -146,33 +147,51 @@
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_thumnail" class="h6">커버이미지</label> 
-												<input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required />
+<!-- 												<input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required /> -->
+												<div class="thumnail" id="thumnailArea">
+													<c:choose>
+														<c:when test="${not empty thumnailFile}">
+<%-- 															<c:set var="thumnailFile" value="${thumnailFile}" /> --%>
+															<c:set var="originalThumnailName" value="${fn:substringAfter(thumnailFile, '_')}" />
+															${originalThumnailName}
+															<a href="${pageContext.request.contextPath}/resources/upload/${thumnailFile}" download="${originalThumnailName}">
+																<input type="button" value="다운로드">
+															</a>
+															<a href="javascript:deleteThumnailFile(${classDetail.class_code}, '${thumnailFile}')">
+																<img src = "${pageContext.request.contextPath}/resources/images/delete-icon.png" title="파일삭제" width="15px">
+															</a>
+														</c:when>
+														<c:otherwise>
+															<input type="file" name="class_thumnail">
+														</c:otherwise>
+													</c:choose>
+												</div>
 												<div class="invalid-feedback">커버이미지 입력해주세요.</div>
 											</div>
+											
 											<div class="col-md-12 my-4">
 												<label for="class_image" class="h6">본문이미지</label> 
-												<input type="file" name="class_image" id="class_image" class="form-control" required />
-												<div class="invalid-feedback">본문이미지를 입력해주세요.</div>
+<!-- 												<input type="file" name="class_image" id="class_image" class="form-control" required /> -->
+												<c:forEach var="fileName" items="${fileNames}" varStatus="status">
+													<div class="file" id="fileItemArea${status.count}">
+														<c:choose>
+															<c:when test="${not empty fileName}">
+																<c:set var="originalFileName" value="${fn:substringAfter(fileName,'_')}" />
+																${originalFileName}
+																<a href="${pageContext.request.contextPath}/resources/upload/${fileName}" download="${originalFileName}">
+																<input type="button" value="다운로드"></a>
+																<a href="javascript:deleteFile(${classDetail.class_code}, '${fileName}', ${status.count})">
+																	<img src = "${pageContext.request.contextPath}/resources/images/delete-icon.png" title="파일삭제" width="15px">
+																</a>
+															</c:when>
+															<c:otherwise>
+																<input type="file" name="file${status.count}">
+															</c:otherwise>
+														</c:choose>
+													</div>
+												</c:forEach>
+<!-- 												<div class="invalid-feedback">본문이미지를 입력해주세요.</div> -->
 											</div>
-											
-											<c:forEach var="fileName" items="${fileNames}" varStatus="status">
-											<div class="file" id="fileItemArea${status.count}">
-												<c:choose>
-													<c:when test="${not empty fileName}">
-														<c:set var="originalFileName" value="${fn:substringAfter(fileName,'_')}" />
-														${originalFileName}
-														<a href="${pageContext.request.contextPath}/resources/upload/${fileName}" download="${originalFileName}">
-														<input type="button" value="다운로드"></a>
-														<a href="javascript:deleteFile(${board.board_num}, '${fileName}', ${status.count})">
-															<img src = "${pageContext.request.contextPath}/resources/images/delete-icon.png" title="파일삭제" width="15px">
-														</a>
-													</c:when>
-													<c:otherwise>
-														<input type="file" name="file${status.count}">
-													</c:otherwise>
-												</c:choose>
-											</div>
-										</c:forEach>
 											
 											<div class="my-4">
 												<label for="summernote" class="h6">클래스 소개</label> 
@@ -183,13 +202,23 @@
 												<label for="postCode" class="h6">주소</label><br>
 												<div class="d-flex justify-content-between">
 													<div class="col-md-3">
-											    		<input type="text" id="post_code" name="post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
+											    		<input type="text" value="${classDetail.post_code}" id="post_code" name="post_code" class="form-control my-1" size="6" readonly onclick="search_address()" placeholder="우편번호">
 													</div>
 													<div class="col-md-9">
-														<input type="text" id="address1" name="address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
+														<input type="text" value="${classDetail.address1}" id="address1" name="address1" class="form-control my-1" placeholder="클릭 시 주소검색" size="25" readonly onclick="search_address()">
 													</div>
 												</div>
-												<input type="text" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+												<input type="text" value="${classDetail.address2}" id="address2" name="address2" class="form-control" placeholder="상세주소" size="25" pattern="^.{2,20}$" maxlength="20">
+												
+												<!-- 주소지의 x y 좌표 -->
+												<div class="d-flex justify-content-between">
+													<div class="col-md-6">
+											    		<input type="text" id="location_x" name="location_x" placeholder="X좌표" class="form-control my-1" readonly>
+													</div>
+													<div class="col-md-6">
+														<input type="text" id="location_y" name="location_y" placeholder="Y좌표" class="form-control my-1" readonly>
+													</div>
+												</div>
 											</div>
 											<div class="col-md-12 my-4">
 												<label for="class_price" class="h6">회당 클래스가격(원)</label> 
@@ -231,9 +260,9 @@
 												<div class="invalid-feedback">크리에이터 소개를 입력해주세요.</div>
 											</div>
 											<div class="mt-5 mb-3" align="center">
-												<button type="submit" value="1" name="class_regist_status" class="btn btn-outline-primary btn-lg">제출하기</button>
-												<button type="submit" value="3" name="class_regist_status" class="btn btn-outline-primary btn-lg" >저장하기</button>
+												<button type="submit" value="1" name="class_regist_status" class="btn btn-outline-primary btn-lg">수정하기</button>
 												<input type="button" value="돌아가기" class="btn btn-outline-primary btn-lg" onclick="history.back()">
+												<button type="button" value="삭제" name="deleteClass" class="btn btn-outline-danger btn-lg" >삭제하기</button>
 												<hr class="mb-4">
 											</div>
 										</div>
@@ -257,41 +286,95 @@
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	
 	<script type="text/javascript">	
-	
-		$(function() {
-			
-			// 페이지가 로드되면 큰 카테고리에 해당하는 작은 카테고리 목록을 불러옵니다.
-		    loadSmallCategory();
-			
-			// 카테고리 선택시 상세카테
-			$("#class_big_category").change(function() {
-				loadSmallCategory();
-			});
-			
-			function loadSmallCategory() {
-				var big_category = $("#class_big_category").val();
-				var selectedSmallCategory = $('#selected_small_category').val();
+		// ajax 로 업로드된 이미지 파일 삭제 
+		function deleteFile(class_code, class_file1, index){
+			if(confirm(index + "번 파일을 삭제하시겠습니까?")){
 				$.ajax({
-					url: "getCategoryDetail",
-					method: "get",
-					data: { "big_category" : big_category },
-					success: function(data) {
-						$("#class_small_category").empty();
-						$.each(data, function(index, category) {
-							var option = $('<option></option>')
-	                        .attr('value', category.common3_code)
-	                        .text(category.code_value);
-
-		                    // 옵션이 선택된 작은 카테고리라면 선택 상태로
-		                    if (category.common3_code == selectedSmallCategory) {
-		                        option.attr('selected', 'selected');
-		                    }
-		                    $("#class_small_category").append(option);
-						});
+					type: "GET",
+					url: "ClassDeleteFile",
+					dataType: "JSON",
+					data: {
+						class_code : class_code,
+						class_file1: class_file1
+					},
+					success: function(result) {
+						if(result){ // 성공
+	 						console.log($(".file").eq(index-1).html())
+	 						console.log($("#fileItemArea" + index).html())
+							$(".file").eq(index-1).html(
+									'<input type="file" name="file' + index + '">'
+							);
+						} else {
+							console.log("삭제 실패");
+						} 
+						
+					},
+					error: function() {
 					}
-				});	
+				});
+			}	
+		}
+		// 썸네일 이미지파일 삭제
+			function deleteThumnailFile(class_code, class_file1){
+				if(confirm("썸네일 파일을 삭제하시겠습니까?")){
+					$.ajax({
+						type: "GET",
+						url: "ClassDeleteFile",
+						dataType: "JSON",
+						data: {
+							class_code : class_code,
+							class_file1: class_file1
+						},
+						success: function(result) {
+							if(result){ // 성공
+								$(".thumnail").html(
+										'<input type="file" name="class_thumnail">'
+								);
+							} else {
+								console.log("삭제 실패");
+							} 
+							
+						},
+						error: function() {
+						}
+					});
+				}	
 			}
-			
+		
+			$(function() {
+				
+				// 페이지가 로드되면 큰 카테고리에 해당하는 작은 카테고리 목록을 불러옵니다.
+			    loadSmallCategory();
+				
+				// 카테고리 선택시 상세카테
+				$("#class_big_category").change(function() {
+					loadSmallCategory();
+				});
+				
+				function loadSmallCategory() {
+					var big_category = $("#class_big_category").val();
+					var selectedSmallCategory = $('#selected_small_category').val();
+					$.ajax({
+						url: "getCategoryDetail",
+						method: "get",
+						data: { "big_category" : big_category },
+						success: function(data) {
+							$("#class_small_category").empty();
+							$.each(data, function(index, category) {
+								var option = $('<option></option>')
+		                        .attr('value', category.common3_code)
+		                        .text(category.code_value);
+	
+			                    // 옵션이 선택된 작은 카테고리라면 선택 상태로
+			                    if (category.common3_code == selectedSmallCategory) {
+			                        option.attr('selected', 'selected');
+			                    }
+			                    $("#class_small_category").append(option);
+							});
+						}
+					});	
+				}
+				
 		
 			
 			// 회차 추가 및 데이터 전달
@@ -331,10 +414,9 @@
 	                    $(this).find('td:first').html(index + '차시 <span class="delete-btn">&times;</span>');
 	                }
 	            });
-// 	            debugger;
 	        }
 			
-		});
+			});
 		
 		// 썸머노트 설정
 		$('#summernote').summernote({
@@ -375,6 +457,7 @@
 					fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 		          
 		});
+	
 		
 		// 해쉬태그 다중선택
 		document.addEventListener('DOMContentLoaded', () => {
@@ -407,7 +490,6 @@
 		            .map(item => item.getAttribute('data-value'));
 	
 		        selectedItemsInput.value = selectedItems.join(',');
-		        debugger;
 		    }
 		    
 		});
@@ -420,14 +502,35 @@
 	            oncomplete: function(data) {
 	                console.log(data);
 	                document.fr.post_code.value = data.zonecode;
-	        		let address = data.address; // 기본주소 변수에 저장
+	        		let address = data.roadAddress; // 기본주소 변수에 저장
 	        		if(data.buildingName != "") {
 	        			address += " (" + data.buildingName + ")";
 	        		}
+	        		document.fr.sido.value = data.sido;
 	        		// 기본주소 출력
 	        		document.fr.address1.value = address;
 	        		// 상세주소 입력 항목에 커서 요청
 	        		document.fr.address2.focus();
+	        		let location = address.replace(/\s+/g, '');// 공백 제거
+	        		
+	        		 $.ajax({
+	    		        url: 'geocode',
+	    		        type: 'GET',
+	    		        data: { address: address },
+	    		        success: function(response) {
+	    		            console.log('Coordinates:', response);
+	    		            // XML 파싱 및 좌표 추출
+	    		            var parser = new DOMParser();
+	    		            var xmlDoc = parser.parseFromString(response, "text/xml");
+	    		            var x = xmlDoc.getElementsByTagName("x")[0].childNodes[0].nodeValue;
+	    		            var y = xmlDoc.getElementsByTagName("y")[0].childNodes[0].nodeValue;
+							$("#location_x").val(y);
+							$("#location_y").val(x);
+	    		        },
+	    		        error: function(error) {
+	    		            console.log('Error:', error);
+	    		        }
+	    		    });
 	            }
 	        }).open();
 	    }

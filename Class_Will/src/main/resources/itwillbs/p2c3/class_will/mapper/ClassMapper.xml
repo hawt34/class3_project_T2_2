@@ -101,10 +101,10 @@
 		WHERE c.class_regist_status = 2 AND c.class_active = 'Y'
 		ORDER BY 
 		<if test="classListSelect == 'lowPrice'">
-		  c.class_price ASC
+		  CAST(c.class_price AS UNSIGNED) ASC
 		</if>
 		<if test="classListSelect == 'highPrice'">
-		  c.class_price DESC
+		  CAST(c.class_price AS UNSIGNED) DESC
 		</if>
 	</select>
 	
@@ -279,8 +279,7 @@
 	
 	<!-- 클래스 해시태그 -->
 	<select id="selectClassHashtag" resultType="map">
-		SELECT	
-			class_code
+		SELECT class_code
 			, class_hashtag
 		FROM class
 		WHERE class_code = #{class_code}

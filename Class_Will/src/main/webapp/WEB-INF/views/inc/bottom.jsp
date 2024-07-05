@@ -45,8 +45,8 @@
     
     .back-to-top {
 	    position: fixed;
-	    right: 30px;
-	    bottom: 200px;
+	    right: 25px;
+	    bottom: 80px;
 	    display: flex;
 	    width: 40px;
 	    height: 40px;
@@ -211,7 +211,8 @@
 		            <a class="nav-link bottom-nav-link px-0 mx-2" href="creator-main"><i class="bi bi-plus-circle bottom-icon"></i><br>클래스 등록</a>
 		        </li>
 		        <li class="nav-item bottom-nevi-item d-flex justify-content-center align-items-center">
-		            <a class="nav-link bottom-nav-link px-0 mx-2 position-relative" href="#" id="openChatModal">
+		        
+		            <a class="nav-link bottom-nav-link px-0 mx-2 position-relative" href="#" id="openChatModal2">
 		            	<i class="bi bi-envelope bi-top bottom-icon"></i>
 		            	<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle">
 							<span class="visually-hidden">New alerts</span>
@@ -223,17 +224,16 @@
 		        </li>
 		    </ul>
 		</div>
-
-		
+				
 
 	</div>
     <!-- Footer End -->
     
-    
+    <!-- 제이쿼리 -->
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 	<script>
+		// 챗봇
 		(function(){
-			
-			// 챗봇
 			var w=window;
 			if(w.ChannelIO){
 				return w.console.error("ChannelIO script included twice.");
@@ -255,12 +255,22 @@
 			if(document.readyState==="complete"){l();}
 			else{w.addEventListener("DOMContentLoaded",l);
 			w.addEventListener("load",l);}})();
-			ChannelIO('boot', {
+		ChannelIO('boot', {
 			"pluginKey": "e4e4b39e-51da-4d32-b93f-b4e5dcacd689" // fill your plugin key
+		});
+		
+		
+		$(function() {
 			
-			
-			
+			// 모달 창 열기
+		    $("#openChatModal2").on("click", function(e) {
+		        e.preventDefault(); // 기본 동작 방지
+		        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
+		        $("#chatListModal").css("display", "block");
+		        $(".modal-backdrop").css("display", "block"); // 배경 표시
+		    });
 			
 		});
+		
 		
 	</script>

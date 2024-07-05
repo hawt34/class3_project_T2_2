@@ -81,7 +81,7 @@ public class MyPageController {
 
 	// 관심 클래스
 	@GetMapping("my-wish")
-	public String myWish(Model model) {
+	public String myWish(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
 
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		// System.out.println("리뷰쪽 시작"+member.getMember_code());
@@ -93,11 +93,20 @@ public class MyPageController {
 		}
 		int member_code = member.getMember_code();
 		MemberVO member2 = myPageService.selectMemberInfo(member_code);
-		List<Map<String, String>> memberLike = myPageService.getMemberLike(member.getMember_code());
-		int totalLikes = memberLike.size();
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
 		model.addAttribute("member", member2);
-		model.addAttribute("memberLike", memberLike);
+		List<Map<String, String>> memberLike = myPageService.getMemberLike(member.getMember_code(), startRow, listLimit);
+		int totalLikes = myPageService.getMemberLike(member_code);
 		model.addAttribute("total_likes", totalLikes);
+		//System.out.println("전체 관심클래스 수 " + totalLikes);
+		
+		int maxPage = (int) Math.ceil((double) totalLikes / listLimit);
+		
+		//System.out.println("최대 페이지수 " + maxPage);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("memberLike", memberLike);
 		return "mypage/mypage-wish";
 
 	}
@@ -121,7 +130,7 @@ public class MyPageController {
 
 	// 내가 쓴 리뷰
 	@GetMapping("my-review")
-	public String myReview(Model model) {
+	public String myReview(Model model,@RequestParam(value = "pageNum", defaultValue = "1") int pageNum , @RequestParam(value = "pageNum2", defaultValue = "1") int pageNum2) {
 
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		// System.out.println("리뷰쪽 시작"+member.getMember_code());
@@ -134,18 +143,30 @@ public class MyPageController {
 		int member_code = member.getMember_code();
 		MemberVO member2 = myPageService.selectMemberInfo(member_code);
 		// 이건 작성 후기들
-		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code);
 		model.addAttribute("member", member2);
+		int listLimit2 = 5;
+		int startRow2 = (pageNum2 - 1) * listLimit2;
+		int totalPossible2 = myPageService.getMemberReviewCount(member_code);
+		int maxPage2 = (int) Math.ceil((double) totalPossible2 / listLimit2);
+		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code,startRow2, listLimit2);
 		model.addAttribute("memberReviews", memberReviews);
+		model.addAttribute("maxPage2", maxPage2);
+		model.addAttribute("pageNum2", pageNum2);
+		model.addAttribute("totalPossible2", totalPossible2);
 		// System.out.println(memberReviews);
 
 		// 이건 내가 결제를 해서 리뷰를 등록할 수 있는 후기들
-		List<Map<String, String>> possibleReview = myPageService.getPossibleReview(member_code);
-		int totalPossible = possibleReview.size();
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
+		int totalPossible = myPageService.getMemberPoss(member_code);
+		int maxPage = (int) Math.ceil((double) totalPossible / listLimit);
+		List<Map<String, String>> possibleReview = myPageService.getPossibleReview(member_code,startRow, listLimit);
 		model.addAttribute("totalPossible", totalPossible);
 		model.addAttribute("possibleReview", possibleReview);
 		System.out.println("등록가능한 리뷰" + possibleReview);
-
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("pageNum", pageNum);
+		//여기까지 1번 페이징 처리완 - 페이지 상 이게 먼저 있어서 1번임.
 		return "mypage/mypage-review";
 
 	}
@@ -456,7 +477,7 @@ public class MyPageController {
 
 	// 회원 탈퇴
 	@GetMapping("my-delete")
-	public String deleteMember(Model model) {
+	public String deleteMember(Model model,@RequestParam(value = "pageNum2", defaultValue = "1") int pageNum2) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		if (member == null) { // 실패
 			model.addAttribute("msg", "권한이 없습니다.");
@@ -466,12 +487,19 @@ public class MyPageController {
 		int member_code2 = member.getMember_code();
 		MemberVO member2 = myPageService.selectMemberInfo(member_code2);
 		model.addAttribute("member", member2);
-		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code2);
-		model.addAttribute("memberReviews", memberReviews);
-		System.out.println(memberReviews);
 
-		int totalReview = memberReviews.size();
+		int listLimit2 = 5;
+		int startRow2 = (pageNum2 - 1) * listLimit2;
+		int totalReview = myPageService.getMemberReviewCount(member_code2);
+		int maxPage2 = (int) Math.ceil((double) totalReview / listLimit2);
+		List<Map<String, String>> memberReviews = myPageService.getMemberReviews(member_code2,startRow2, listLimit2);
+		model.addAttribute("memberReviews", memberReviews);
+		model.addAttribute("maxPage2", maxPage2);
+		model.addAttribute("pageNum2", pageNum2);
 		model.addAttribute("totalReview", totalReview);
+		
+		
+		
 		return "mypage/mypage-delete";
 
 	}

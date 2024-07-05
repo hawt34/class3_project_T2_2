@@ -1,6 +1,7 @@
 package itwillbs.p2c3.class_will.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -153,11 +154,10 @@ public class ClassController {
         list.put("classListSelect", "lowPrice");
 	    List<Map<String, Object>> listSelect = classService.getPriceList(list);
 	    model.addAttribute("listSelect", listSelect);
-	    System.out.println(">>>listSelect ::::: " + listSelect);
-
 	    return listSelect;
 	}
 	
+	// 클래스 높은가격 순 정렬
 	@ResponseBody
 	@GetMapping("class-high-price")
 	public List<Map<String, Object>> getClassHighPrice(Model model,@RequestParam(required = false) String classListSelect){
@@ -166,8 +166,6 @@ public class ClassController {
 		list.put("classListSelect", "highPrice");
 		List<Map<String, Object>> listSelect = classService.getPriceList(list);
 		model.addAttribute("listSelect", listSelect);
-		System.out.println(">>>listSelect ::::: " + listSelect);
-		
 		return listSelect;
 	}
 	
@@ -258,7 +256,7 @@ public class ClassController {
 	
 	// 클래스 디테일
 	@GetMapping("class-detail")
-	public String classDetail(Model model, @RequestParam int class_code) {
+	public String classDetail(Model model, @RequestParam(name = "class_code") int class_code) {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("class_code", class_code);
@@ -285,16 +283,7 @@ public class ClassController {
 		// 클래스 해시태그 
 		List<Map<String, Object>> classHashtagList = classService.getClassHashtag(class_code);
 		List<String> hashtagStrings = new ArrayList<>();
-
-//		for (Map<String, Object> classHashtag : classHashtagList) {
-//		    String hashtags = (String)classHashtag.get("hashtag"); // 해시태그 문자열을 가져온다고 가정
-//		    String[] hashtagsArray = hashtags.split(","); // 쉼표를 기준으로 문자열 분리
-//		    for (String hashtag : hashtagsArray) {
-//		        hashtagStrings.add(hashtag.trim()); // 분리된 해시태그를 리스트에 추가, trim()으로 공백 제거
-//		    }
-//		    System.out.println(">> hashtagStrings : " + hashtagStrings);
-//		}
-//		model.addAttribute("hashtagStrings", hashtagStrings);
+		model.addAttribute("hashtagStrings", hashtagStrings);
 		System.out.println(">>>>hashtagStrings : " + hashtagStrings);
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)

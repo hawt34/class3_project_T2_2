@@ -568,6 +568,7 @@ $(function() {
         });
     });
 
+    
     // 페이지 로드 시, 파라미터로 전달받은 값에 따라 선택
     $(document).ready(function() {
         var urlParams = new URLSearchParams(window.location.search);

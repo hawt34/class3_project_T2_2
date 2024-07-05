@@ -419,7 +419,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     <div class="row classHashtag"> <!-- 해시태그 시작 -->
                         <div class="col-md-4">
-                            <b><a href="#">#원데이</a></b>
                         </div>
                     </div>
 

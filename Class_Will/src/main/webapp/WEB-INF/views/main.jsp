@@ -155,8 +155,21 @@
 								<div class="vesitable-img">
 									<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 								</div>
-		                        <div class="text-white bg-tertiary  px-3 py-2 rounded position-absolute" style="top: 8px; right: 10px;">
-									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg ratio ratio-1x1">
+		                        <div class="text-white bg-tertiary rounded position-absolute" style="top: 5px; right: 5px;">
+									<!-- like class 하트 여부-->
+									<c:choose>
+										<c:when test="${not empty likeClassList and not empty sessionScope.member}">
+											<c:forEach var="likeClass" items="${likeClassList}">
+												<c:if test="${likeClass.class_code eq contents.class_code}">
+													<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" style="width: 25px; height: 25px;">
+												</c:if>
+												<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" style="width: 25px; height: 25px;">
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" style="width: 25px; height: 25px;">
+										</c:otherwise>
+									</c:choose>
 		                        </div>
 		                        <div class="p-3 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${contents.class_code}'" >
 									<div class="classCategory w-100 col-md-10">
@@ -255,8 +268,22 @@
 									<div class="col-md-6 col-lg-4 col-xl-3" style="width: 330px;">
 										<div class="rounded position-relative class-item classCard">
 											<div class="">
+												<!-- ${contents.class_thumnail} 썸네일 이미지  -->
 												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${contents.class_code}'">
-												<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg">
+												<!-- like class 하트 여부-->
+												<c:choose>
+													<c:when test="${not empty likeClassList and not empty sessionScope.member}">
+														<c:forEach var="likeClass" items="${likeClassList}">
+															<c:if test="${likeClass.class_code eq contents.class_code}">
+																<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${contents.class_code}" data-member-code="${likeClass.member_code}">
+															</c:if>
+															<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${contents.class_code}" data-member-code="${likeClass.member_code}">
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${contents.class_code}" data-member-code="${likeClass.member_code}">
+													</c:otherwise>
+												</c:choose>
 											</div>
 									<!-- 	<div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> -->
 											<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${contents.class_code}'" >
@@ -355,23 +382,42 @@
 	
 	<script type="text/javascript">
 		document.addEventListener("DOMContentLoaded", function() {
-		    var heartImges = document.querySelectorAll(".heartImg");
-		    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
-		    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
-		
+			var heartImges = document.querySelectorAll(".heartImg");
+		    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
+		    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
+
 		    heartImges.forEach(function(heartOverlay) {
 		        heartOverlay.addEventListener("click", function() {
 		            var img = this;
-		            img.classList.add("fade");
-		
-		            setTimeout(function() {
-		                if (img.src.includes("heart_full.png")) {
-		                    img.src = originalSrc;
-		                } else {
-		                    img.src = changeSrc;
-		                }
-		                img.classList.remove("fade");
-		            }, 300); 
+		            var member_code = img.getAttribute("data-member-code");
+		            var class_code = img.getAttribute("data-class-code");
+		            var isFullHeart = img.src.includes("heart_full.png");
+
+		            var heart_status = !isFullHeart;
+					
+					// 로그인 해야만 이용 가능
+					if(member_code == null || member_code == ""){ 
+			            alert("로그인이 필요한 페이지 입니다.");
+			            window.location.href = "member-login";
+			            return;
+					}
+					
+		            if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
+		                img.src = changeSrc;
+		 				alert("관심 클래스에 추가되었습니다.");
+		            } else { // heart_status가 false일 때 (like-class 삭제 시)
+		                img.src = originalSrc;
+		 				alert("관심 클래스에서 삭제되었습니다.");
+		            }
+		            
+		            // AJAX 요청을 통해 서버로 업데이트 요청 전송
+		            var data = JSON.stringify({
+		                heart_status: heart_status,
+		                member_code: member_code,
+		                class_code: class_code
+		            });
+		            
+		            updateHeartStatus(data);
 		        });
 		    });
 		    

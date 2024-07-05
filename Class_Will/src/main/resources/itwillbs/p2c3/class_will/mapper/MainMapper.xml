@@ -50,6 +50,7 @@
 		    JOIN class c ON p.class_code = c.class_code
 		    WHERE c.class_active = 'Y'
 		      AND c.class_regist_status = '2'
+		      AND c.class_hide = '1'
 		    GROUP BY p.class_code
 		    ORDER BY count DESC
 		    LIMIT 10

@@ -91,7 +91,7 @@ public class HomeController {
         model.addAttribute("newClassList", newClassList);
         
         MemberVO sMember = (MemberVO)session.getAttribute("member");
-        
+        System.out.println("/////////////////////////////////////////// sMember : " + sMember);
         if(sMember != null) {
         	List<Map<String, Object>> likeClassList = mainService.selectLikeClass(sMember);
         	if(likeClassList != null) {

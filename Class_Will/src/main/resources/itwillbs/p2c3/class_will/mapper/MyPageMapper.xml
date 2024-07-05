@@ -54,6 +54,13 @@
 		c ON cr.class_code = c.class_code
 		WHERE
 		cr.member_code = #{member_code}
+		LIMIT #{startRow2}, #{listLimit2}
+	</select>
+	<select id="countReview">
+		<!-- 페이징 처리 때문. -->
+		SELECT COUNT(*)
+		FROM class_review cr
+		WHERE member_code =  ${member_code}
 	</select>
 
 	<select id="selectReviewByCode">

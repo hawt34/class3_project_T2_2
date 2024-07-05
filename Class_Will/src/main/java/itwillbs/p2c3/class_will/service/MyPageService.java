@@ -30,8 +30,8 @@ public class MyPageService {
 	
 	
 	//멤버가 작성한 리뷰들 가지고 오기 (리스트임)
-	public List<Map<String, String>> getMemberReviews(int member_code) {
-		return  myPageMapper.selectMemberReview(member_code);
+	public List<Map<String, String>> getMemberReviews(int member_code,int startRow2, int listLimit2) {
+		return  myPageMapper.selectMemberReview(member_code,startRow2, listLimit2);
 	}
 	
 	//멤버가 작성한 특성리뷰 1개 가지고 오기
@@ -105,6 +105,11 @@ public class MyPageService {
 	public int getMemberPoss(int member_code) {
 		// TODO Auto-generated method stub
 		return myPageMapper.countPoss(member_code);
+	}
+
+	public int getMemberReviewCount(int member_code) {
+		
+		return myPageMapper.countReview(member_code);
 	}
 
 	

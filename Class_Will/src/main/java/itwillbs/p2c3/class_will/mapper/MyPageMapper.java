@@ -13,7 +13,7 @@ public interface MyPageMapper {
 
 	int updateMemberImg(MemberVO member);
 
-	List<Map<String, String>> selectMemberReview(int member_code);
+	List<Map<String, String>> selectMemberReview(@Param("member_code")int member_code, @Param("startRow2")int startRow2 , @Param("listLimit2")int listLimit2);
 
 	Map<String, String> selectReviewByCode(String reviewCode);
 
@@ -43,5 +43,7 @@ public interface MyPageMapper {
 	int countLikes(int member_code);
 
 	int countPoss(int member_code);
+
+	int countReview(int member_code);
 	
 }

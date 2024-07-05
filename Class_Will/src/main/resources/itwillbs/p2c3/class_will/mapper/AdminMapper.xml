@@ -461,9 +461,8 @@
 	</select>
 	
 	<select id="selectDailyVisit" resultType="Integer">
-		SELECT IFNULL(visit_count , 0)
-		FROM daily_visit
-		WHERE DATE_FORMAT(STR_TO_DATE(visit_date, '%Y%m%d'), '%Y-%m-%d') = CURDATE()
+		SELECT count(*) 
+		FROM visit_logs
 	</select>
 	
 	<select id="selectTotalVisit" resultType="Integer">
@@ -528,5 +527,9 @@
 		WHERE common1_code = "RPC"
 		AND   common2_code = #{categoryCode}
 	</select>
+	
+	<delete id="deleteVisitLogs">
+		DELETE FROM visit_logs
+	</delete>
 	
 </mapper>

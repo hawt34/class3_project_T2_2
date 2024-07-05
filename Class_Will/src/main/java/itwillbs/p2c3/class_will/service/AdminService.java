@@ -213,6 +213,10 @@ public class AdminService {
 		return adminMapper.selectSmallCategoryClassComplain(categoryCode);
 	}
 
+	public void deleteVisitLogs() {
+		adminMapper.deleteVisitLogs();
+	}
+
 	
 	
 }

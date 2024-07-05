@@ -108,6 +108,8 @@ public interface AdminMapper {
 	List<Map<String, Object>> selectBigCategoryClassComplain();
 
 	List<Map<String, Object>> selectSmallCategoryClassComplain(Integer categoryCode);
+
+	void deleteVisitLogs();
 	
 
 }

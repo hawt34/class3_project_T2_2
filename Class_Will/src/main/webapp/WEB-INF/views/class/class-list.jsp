@@ -303,212 +303,175 @@ body {
 </header>
 
 <div class="container1">
-<!--    <div class="col-md-2"> -->
-
-<!--    </div> -->
    <div class="col-md-12">
 	<!-- 카테고리 바 -->   
-	<div class="row">
-		<div class="categoryBar">
-			<div class="row justify-content-center"> <!-- 가운데 정렬 -->
-				<div class="categoryBarBox col-md-12">
-				
-					<!-- 셀렉트박스 리스트 -->
-					<div class="row rowCenter">
-
-					<!-- 카테고리바 카테고리 시작 -->
-	<!-- 							<div class="row">  -->
-						<div class="col-md-3">
-							<label for="class_big_category" class="h6">카테고리</label> 
-							<select name="class_big_category" id="class_big_category" class="form-control"  onchange="updateCategory()">
-									<option value="bigCategoryAll" id="class_big_category_all">전체</option>
-								<c:forEach var="bigCategoryList" items="${bigCategoryList}">
-									<option value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</option>
-								</c:forEach>
-							</select>
-						</div>
+		<div class="row">
+			<div class="categoryBar">
+				<div class="row justify-content-center"> <!-- 가운데 정렬 -->
+					<div class="categoryBarBox col-md-12">
+						<!-- 셀렉트박스 리스트 -->
+						<div class="row rowCenter">
+						<!-- 카테고리바 카테고리 시작 -->
+							<div class="col-md-3">
+								<label for="class_big_category" class="h6">카테고리</label> 
+								<select name="class_big_category" id="class_big_category" class="form-control"  onchange="updateCategory()">
+										<option value="bigCategoryAll" id="class_big_category_all">전체</option>
+									<c:forEach var="bigCategoryList" items="${bigCategoryList}">
+										<option value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</option>
+									</c:forEach>
+								</select>
+							</div>
+							
+							<div class="col-md-3">
+								<label for="class_small_category" class="h6">상세분류</label> 
+								<select name="class_small_category" id="class_small_category" class="form-control"  onchange="updateSmallCategory()">
+									<option value="smallCategoryAll" id="class_small_category_all">전체</option>
+								</select>
+							</div>
+						<!-- 카테고리바 카테고리 끝 -->
 						
-						<div class="col-md-3">
-							<label for="class_small_category" class="h6">상세분류</label> 
-							<select name="class_small_category" id="class_small_category" class="form-control"  onchange="updateSmallCategory()">
-								<option value="smallCategoryAll" id="class_small_category_all">전체</option>
-							</select>
+						<!-- 카테고리바 지역 시작 -->
+							<div class="col-md-3">
+								<label for="class_local" class="h6">지역</label> 
+								<select name="class_local" id="class_local" class="form-control" onchange="updateLocal()">
+									<option value="classLocalAll" id="class_local_all">전체</option>
+									<c:forEach var="localList" items="${localList}">
+										<option value="${localList.common2_code}">${localList.code_value}</option>
+									</c:forEach>
+								</select>
+							</div>
+	<!-- 					카테고리바 지역 끝 -->
+							
+							<!-- 셀렉트 검색 버튼 -->
+							<div class="btnSearchDiv col mt-4">
+								<div class="w-100 btnDiv">
+									<button type="button" class="btn btn-outline-light btnSearch">검색</button>
+								</div>
+							</div>
+							<!-- 셀렉트 검색 버튼 -->
+							
+							<!-- 셀렉트 초기화 버튼 -->
+							<div class="btnResetDiv col mt-4">
+								<div class="w-100 btnDiv">
+									<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
+								</div>
+							</div>
+							<!-- 셀렉트 초기화 버튼 -->
 						</div>
-	<!-- 							</div> -->
-					<!-- 카테고리바 카테고리 끝 -->
-					
-					<!-- 카테고리바 지역 시작 -->
-						<div class="col-md-3">
-							<label for="class_local" class="h6">지역</label> 
-							<select name="class_local" id="class_local" class="form-control" onchange="updateLocal()">
-								<option value="classLocalAll" id="class_local_all">전체</option>
-								<c:forEach var="localList" items="${localList}">
-									<option value="${localList.common2_code}">${localList.code_value}</option>
-								</c:forEach>
-							</select>
-						</div>
-<!-- 					카테고리바 지역 끝 -->
+						<!-- 셀렉트박스 리스트 끝 -->
 						
-						<!-- 셀렉트 검색 버튼 -->
-						<div class="btnSearchDiv col mt-4">
-							<div class="w-100 btnDiv">
-								<button type="button" class="btn btn-outline-light btnSearch">검색</button>
+						<!-- 해시태그 리스트 -->
+						<div class="row">
+							<hr>
+							<div class="col hashtagDiv">
+								<div class="form form1 d-flex flex-wrap">
+									<c:forEach var="hashtag" items="${hashtagList}">
+	<!-- 									<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button> -->
+										<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_name}" value="#${hashtag.hash_tag_name}" readonly>
+									</c:forEach>
+								</div>
 							</div>
 						</div>
-						<!-- 셀렉트 검색 버튼 -->
-						
-						<!-- 셀렉트 초기화 버튼 -->
-						<div class="btnResetDiv col mt-4">
-							<div class="w-100 btnDiv">
-								<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
-							</div>
-						</div>
-						<!-- 셀렉트 초기화 버튼 -->
+						<!-- 해시태그 리스트 -->
 					</div>
-					<!-- 셀렉트박스 리스트 끝 -->
-					
-					<!-- 해시태그 리스트 -->
-					<div class="row">
-						<hr>
-						<div class="col hashtagDiv">
-							<div class="form form1 d-flex flex-wrap">
-								<c:forEach var="hashtag" items="${hashtagList}">
-<!-- 									<button type="button" class="item" data-value="#${hashtag.hash_tag_name}">#${hashtag.hash_tag_name}</button> -->
-									<input type="text" class="form-control form-inputs hashtag" data-value="#${hashtag.hash_tag_name}" value="#${hashtag.hash_tag_name}" readonly>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
-					<!-- 해시태그 리스트 -->
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- 카테고리 바 -->
+		<!-- 카테고리 바 -->
 	
-	<!-- 클래스 개수 시작 -->
-	<c:set var="classCount" value="${fn:length(classList)}" />
-<!-- 	<div class="row"> -->
-<!-- 		<div class="col-6"> -->
-<!-- 			<div class="classCount"> -->
-<%-- 				<p>${classCount}개의 클래스</p> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<div class="col-6 box11"> -->
-<!-- 			<div class="row"> -->
-<!-- 				<div class="col-6"> -->
-<!-- 					<p> -->
-<!-- 						<a class="btn btn-outline-light btnLocation mt-3 mr-0" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> -->
-<!-- 							내 위치 지도 보기 -->
-<!-- 						</a> -->
-<!-- 					</p> -->
-<!-- 				</div> -->
-<!-- 	<!-- 			<div class="col-md-5 w-75 classList ml-2"> -->
-<!-- 				<div class="col-6 classList mr-0 mt-3"> -->
-<!-- 	<!-- 			<div class="pl-1"> --> 
-<!-- 					<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example"> -->
-<!-- 						<option value="lowPrice" selected>낮은 가격순</option> -->
-<!-- 						<option value="highPrice">높은 가격순</option> -->
-<!-- 						<option value="starList">별점순</option> -->
-<!-- 						<option value="reviewList">후기순</option> -->
-<!-- 					</select> -->
-<!-- 	<!-- 			</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> row -->
-	<div class="row">
-		<div class="col-6">
-			<div class="classCount">
-				<h5>${classCount}개의 클래스</h5>
-			</div>
-		</div>
-		<div class="col-6 box11">
+		<!-- 클래스 개수 시작 -->
+		<c:set var="classCount" value="${fn:length(classList)}" />
+		<div class="row">
 			<div class="col-6">
-				<p>
-					<a class="btn btn-outline-light btnLocation mt-3 mr-0" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-						내 위치 지도 보기
-					</a>
-				</p>
+				<div class="classCount">
+					<h5>${classCount}개의 클래스</h5>
+				</div>
 			</div>
-			<div class="col-6 classList mr-0 mt-3">
-				<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example">
-					<option value="lowPrice" selected>낮은 가격순</option>
-					<option value="highPrice">높은 가격순</option>
-					<option value="starList">별점순</option>
-					<option value="reviewList">후기순</option>
-				</select>
+			<div class="col-6 box11">
+				<div class="col-6">
+					<p>
+						<a class="btn btn-outline-light btnLocation mt-3 mr-0" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+							내 위치 주변 클래스 찾기
+						</a>
+					</p>
+				</div>
+				<div class="col-6 classList mr-0 mt-3">
+					<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example">
+						<option value="lowPrice" selected>낮은 가격순</option>
+						<option value="highPrice">높은 가격순</option>
+						<option value="starList">별점순</option>
+						<option value="reviewList">후기순</option>
+					</select>
+				</div>
+			</div>
+		</div> <!-- row -->
+		<!-- 클래스 개수 끝 -->
+	
+		<!-- 지도 보이는 영역 -->
+		<div class="collapse" id="collapseExample">
+			<div class="card card-body col-md-10 mapPop">
+		        <div id="collapseMapContainer" style="width:100%;height:400px;"></div> <!-- 이 div에 지도를 표시 -->
 			</div>
 		</div>
-	</div> <!-- row -->
-	<!-- 클래스 개수 끝 -->
+		<!-- 지도 보이는 영역 -->
 	
-	<!-- 지도 보이는 영역 -->
-	<div class="collapse" id="collapseExample">
-		<div class="card card-body col-md-10 mapPop">
-	        <div id="collapseMapContainer" style="width:100%;height:400px;"></div> <!-- 이 div에 지도를 표시 -->
-		</div>
-	</div>
-	<!-- 지도 보이는 영역 -->
-	
-      <!-- 첫번째 줄 -->
-      <div class="row pb-4 mb-4 d-flex flex-wrap" id="classListContainer">
-	      <c:forEach var="classList" items="${classList}">
-	         <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-	            <div class="card shadow-sm border-0 rounded flex-fill mb-4">
-	               <div class="card-body p-0 position-relative card-body1 position-relative1">
-						<a href="class-detail?class_code=${classList.class_code}">
-						<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a>
-<%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-						
-						<!-- 라이크 클래스 하트 이미지 변경-->
-						<c:choose>
-							<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
-								<c:set var="isLiked" value="false"/> <!-- 삭제 -->
-								<c:forEach var="likeClassCode" items="${likeClassCode}">
-									<c:if test="${likeClassCode.class_code == classList.class_code}">
-										<c:set var="isLiked" value="true"/> <!-- 추가 -->
-									</c:if>
-								</c:forEach>
-								<c:if test="${isLiked}">
+		<!-- 첫번째 줄 -->
+		<div class="row pb-4 mb-4 d-flex flex-wrap" id="classListContainer">
+			<c:forEach var="classList" items="${classList}">
+				<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
+					<div class="card shadow-sm border-0 rounded flex-fill mb-4">
+						<div class="card-body p-0 position-relative card-body1 position-relative1">
+							<a href="class-detail?class_code=${classList.class_code}">
+							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a>
+	<%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+							<!-- 라이크 클래스 하트 이미지 변경-->
+							<c:choose>
+								<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
+									<c:set var="isLiked" value="false"/> <!-- 삭제 -->
+									<c:forEach var="likeClassCode" items="${likeClassCode}">
+										<c:if test="${likeClassCode.class_code == classList.class_code}">
+											<c:set var="isLiked" value="true"/> <!-- 추가 -->
+										</c:if>
+									</c:forEach>
+									<c:if test="${isLiked}">
 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-								</c:if>
-								<c:if test="${not isLiked}">
+									</c:if>
+									<c:if test="${not isLiked}">
 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-								</c:if>
-							</c:when>
-							<c:otherwise> <!-- likeClassList 존재 X -->
-								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-							</c:otherwise>
-						</c:choose>
-						<!-- 라이크 클래스 하트 이미지 변경 -->
-						
-						<div class="card-bodys d-flex flex-column">
-							<div class="classCategory col-md-10">
-								<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button>
-								<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button>
-							</div>
-							<div class="createrName d-flex align-items-center">
-								<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-								<p class="mb-0 ml-2">${classList.member_nickname}</p>
-							</div>
-							<div class="className">
-							   <a href="class-detail"><h6>${classList.class_name}</h6></a>
-							</div>
-							<div class="row classInfo">
-								<div class="col-md-6 add">
-									<a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.local_name}</a>
+									</c:if>
+								</c:when>
+								<c:otherwise> <!-- likeClassList 존재 X -->
+									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+								</c:otherwise>
+							</c:choose>
+							<!-- 라이크 클래스 하트 이미지 변경 -->
+							
+							<div class="card-bodys d-flex flex-column">
+								<div class="classCategory col-md-10">
+									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button>
+									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button>
 								</div>
-								<div class="col-md-6 price">
-									<p><fmt:formatNumber value="${classList.class_price}" pattern="#,###" />원</p>
+								<div class="createrName d-flex align-items-center">
+									<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
+									<p class="mb-0 ml-2">${classList.member_nickname}</p>
+								</div>
+								<div class="className">
+								   <a href="class-detail?class_code=${classList.class_code}"><h6>${classList.class_name}</h6></a>
+								</div>
+								<div class="row classInfo">
+									<div class="col-md-6 add">
+										<a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.local_name}</a>
+									</div>
+									<div class="col-md-6 price">
+										<p><fmt:formatNumber value="${classList.class_price}" pattern="#,###" />원</p>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</c:forEach>
-	</div>
+			</c:forEach>
+		</div>
    </div> <!-- col-md-12 -->
 </div> <!-- container -->
 

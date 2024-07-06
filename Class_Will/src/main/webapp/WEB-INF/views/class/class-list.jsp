@@ -488,65 +488,65 @@ body {
 // 대카테고리에 따른 소카테고리 값
 $(function() {
 	
-    // 대 카테고리 선택시 소 카테고리 리스트 나타남
-    $("#class_big_category").change(function() {
-        var big_category = $("#class_big_category").val();
+	// 대 카테고리 선택시 소 카테고리 리스트 나타남
+	$("#class_big_category").change(function() {
+		var big_category = $("#class_big_category").val();
 
-        // AJAX 요청을 통해 소 카테고리 리스트를 업데이트
-        $.ajax({
-            url: "small-category",
-            method: "get",
-            data: { 
-                big_category: big_category
-            },
-            success: function(data) {
-                $("#class_small_category").empty();
+		// AJAX 요청을 통해 소 카테고리 리스트를 업데이트
+		$.ajax({
+			url: "small-category",
+			method: "get",
+			data: { 
+			    big_category: big_category
+			},
+			success: function(data) {
+			    $("#class_small_category").empty();
 
-                // 전체 옵션 추가
-                $("#class_small_category").append(
-                    $('<option></option>').val('smallCategoryAll').text('전체')
-                );
+				// 전체 옵션 추가
+				$("#class_small_category").append(
+				    $('<option></option>').val('smallCategoryAll').text('전체')
+				);
 
-                // 소 카테고리 옵션 추가
-                $.each(data, function(index, item) {
-                    $("#class_small_category").append(
-                        $('<option></option>').val(item.common3_code).text(item.code_value)
-                    );
-                });
+				// 소 카테고리 옵션 추가
+				$.each(data, function(index, item) {
+				    $("#class_small_category").append(
+						$('<option></option>').val(item.common3_code).text(item.code_value)
+					);
+				});
 				
-                // 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"
-                if (big_category === 'bigCategoryAll') {
-                    $("#class_small_category").val('smallCategoryAll');
-                }
+				// 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"
+				if (big_category === 'bigCategoryAll') {
+			    	$("#class_small_category").val('smallCategoryAll');
+				}
                 
-                // 파라미터로 전달받은 값이 있으면 선택 (소 카테고리)
-                var urlParams = new URLSearchParams(window.location.search);
-                var small_category = urlParams.get('class_small_category');
+				// 파라미터로 전달받은 값이 있으면 선택 (소 카테고리)
+				var urlParams = new URLSearchParams(window.location.search);
+				var small_category = urlParams.get('class_small_category');
 
-                if (small_category) {
-                    $("#class_small_category").val(small_category);
-                }
+				if (small_category) {
+			    	$("#class_small_category").val(small_category);
+				}
             },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error: ', error);
-            }
-        });
-    });
+				error: function(xhr, status, error) {
+				console.error('AJAX Error: ', error);
+			}
+		});
+	});
 
-    // 페이지 로드 시, 파라미터로 전달받은 값에 따라 선택
-    $(document).ready(function() {
-        var urlParams = new URLSearchParams(window.location.search);
-        var bigCategory = urlParams.get('class_big_category');
-        var smallCategory = urlParams.get('class_small_category');
-        var big_category = $("#class_big_category").val();
+	// 페이지 로드 시, 파라미터로 전달받은 값에 따라 선택
+	$(document).ready(function() {
+		var urlParams = new URLSearchParams(window.location.search);
+		var bigCategory = urlParams.get('class_big_category');
+		var smallCategory = urlParams.get('class_small_category');
+		var big_category = $("#class_big_category").val();
 
-        if (smallCategory) {
-            $("#class_small_category").val(smallCategory);
-        }
+		if (smallCategory) {
+	    	$("#class_small_category").val(smallCategory);
+		}
 
-        if (bigCategory) {
-            $("#class_big_category").val(bigCategory).change(); 
-        } 
+		if (bigCategory) {
+	    	$("#class_big_category").val(bigCategory).change(); 
+		} 
         
 //         if (bigCategory) {
 //             $("#class_big_category").val(bigCategory);
@@ -562,7 +562,7 @@ $(function() {
 //             $("#class_small_category").val(smallCategory);
 //         }
 
-    });
+	});
 });
 
 // ------------------------------------------------------------------------------------
@@ -579,86 +579,86 @@ $(function() {
 
 	    // big_category "전체"인 경우
 	    if (big_category === "bigCategoryAll") {
-	        big_category = [];
-	        $("#class_big_category option").each(function() {
-	            if ($(this).val() !== "bigCategoryAll") {
-	                big_category.push($(this).val());
-	            }
-	        });
-	    }
+			big_category = [];
+			$("#class_big_category option").each(function() {
+				if ($(this).val() !== "bigCategoryAll") {
+					big_category.push($(this).val());
+				}
+			});
+		}
 	    
-	    // small_category "전체"인 경우
-	    if (small_category === "smallCategoryAll") {
-	        small_category = [];
-	        $("#class_small_category option").each(function() {
-	            if ($(this).val() !== "smallCategoryAll") {
-	                small_category.push($(this).val());
-	            }
-	        });
-	    }
+		// small_category "전체"인 경우
+		if (small_category === "smallCategoryAll") {
+			small_category = [];
+			$("#class_small_category option").each(function() {
+				if ($(this).val() !== "smallCategoryAll") {
+					small_category.push($(this).val());
+				}
+			});
+		}
 	    
-	    // local "전체"인 경우
-	    if (local === "classLocalAll") {
-	        local = [];
-	        $("#class_local option").each(function() {
-	            if ($(this).val() !== "classLocalAll") {
-	                local.push($(this).val());
-	            }
-	        });
-	    }
+		// local "전체"인 경우
+		if (local === "classLocalAll") {
+			local = [];
+			$("#class_local option").each(function() {
+				if ($(this).val() !== "classLocalAll") {
+					local.push($(this).val());
+				}
+			});
+		}
 	    
-	    // Ajax 요청을 통해 필터링된 클래스 목록을 가져옴
-	    fetchClassList({
-	        big_category: big_category,
-	        small_category: small_category,
-	        local: local,
-	    });
-	}); // btnSearch 끝
+		// Ajax 요청을 통해 필터링된 클래스 목록을 가져옴
+		fetchClassList({
+			big_category: big_category,
+			small_category: small_category,
+			local: local,
+		});
+	});	// btnSearch 끝
     
 	// -------------- 해시태그 클릭 시 -------------- 
     $(".hashtag").on("click", function() {
-        var hashtag = $(this).val(); 
-	    fetchClassList({
-           	hashtag: hashtag 
-	    });
-    }); // hashtag 해시태그 끝
+		var hashtag = $(this).val(); 
+		fetchClassList({
+			hashtag: hashtag 
+		});
+	}); // hashtag 해시태그 끝
     
 	// -------------- 클래스 정렬 셀렉트 박스 -------------- 
-    $("#classListSelect").on("change", function() {
+	$("#classListSelect").on("change", function() {
     	
-        var selectedOption = $(this).val();
+		var selectedOption = $(this).val();
         
-        var url;
-        if (selectedOption === "lowPrice") {
-            url = "class-low-price";
-        } else if (selectedOption === "highPrice") {
-            url = "class-high-price";
-        } else if (selectedOption === "starList") {
-            url = "class-star-list";
-        } else if (selectedOption === "reviewList") {
-            url = "class-review-list";
-        }
+		var url;
+		if (selectedOption === "lowPrice") {
+			url = "class-low-price";
+		} else if (selectedOption === "highPrice") {
+			url = "class-high-price";
+		} else if (selectedOption === "starList") {
+			url = "class-star-list";
+		} else if (selectedOption === "reviewList") {
+			url = "class-review-list";
+		}
         
-        // AJAX 요청 데이터 설정
-        var data = {
-       		classListSelect: selectedOption
-        };
+		// AJAX 요청 데이터 설정
+		var data = {
+			classListSelect: selectedOption
+		};
         
-        $.ajax({
-            type: "GET",
-            url: url,
-            dataType: "json",
-            data: data,
-            contentType: "application/json",
-            success: function(filter) {
-            	console.log("ajax 성공");
-                updateClassList(filter);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error details:", xhr, status, error);
+		$.ajax({
+			type: "GET",
+			url: url,
+			dataType: "json",
+			data: data,
+			contentType: "application/json",
+			success: function(filter) {
+				console.log("ajax 성공");
+				updateClassList(filter);
+			},
+			error: function(xhr, status, error) {
+				console.error("Error details:", xhr, status, error);
                 alert("오류 발생: " + error);
-            }
-        });
+			}
+		});
 	}); // classListSelect() 끝
 });
 
@@ -666,127 +666,131 @@ $(function() {
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
 function resetCategory() {
 	
-    // 카테고리 선택 초기화
-    document.getElementById('class_big_category').value = 'bigCategoryAll';
-    document.getElementById('class_small_category').value = 'smallCategoryAll';
-    document.getElementById('class_local').value = 'classLocalAll';
+	// 카테고리 선택 초기화
+	document.getElementById('class_big_category').value = 'bigCategoryAll';
+	document.getElementById('class_small_category').value = 'smallCategoryAll';
+	document.getElementById('class_local').value = 'classLocalAll';
 
-    fetchClassList({
+	fetchClassList({
 		hash_tag: "" // 필터링 파라미터 초기화
-    });
+	});
     
-    // 콜랩스 닫기
-    var collapseElement = document.getElementById('collapseExample');
-    var collapse = new bootstrap.Collapse(collapseElement, {
-        toggle: false
-    });
-    collapse.hide();
+	// 콜랩스 닫기
+	var collapseElement = document.getElementById('collapseExample');
+	var collapse = new bootstrap.Collapse(collapseElement, {
+		toggle: false
+	});
+	collapse.hide();
     
-    // classListSelect 선택 초기화
-    document.getElementById('classListSelect').value = 'lowPrice';
+	// classListSelect 선택 초기화
+	document.getElementById('classListSelect').value = 'lowPrice';
     
 } // resetCategory 끝
 
 //------------------------------------------------------------------------------------
 //AJAX 요청 함수
 function fetchClassList(data) {
-    $.ajax({
-        type: "GET",
-        url: "filter-class",
-        dataType: "json",
-        data: data,
-        contentType: "application/json",
-        success: function(filter) {
-            updateClassList(filter);
-        },
-        error: function(xhr, status, error) {
-            console.error("Error details:", xhr, status, error);
-            alert("오류 발생: " + error);
-        }
-    });
+	$.ajax({
+		type: "GET",
+		url: "filter-class",
+		dataType: "json",
+		data: data,
+		contentType: "application/json",
+		success: function(filter) {
+			updateClassList(filter);
+		},
+		error: function(xhr, status, error) {
+			console.error("Error details:", xhr, status, error);
+			alert("오류 발생: " + error);
+		}
+	});
 }
 
 //------------------------------------------------------------------------------------
 // 클래스 목록 갯수 업데이트 함수
 function updateClassList(filterClass) {
-	 $(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
+		$(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
+		
+		$("#classListContainer").html("");
+		
+		for (let filter of filterClass) {
+			$("#classListContainer").append(generateClassCardHTML(filter));
+		}
 	 
-	 $("#classListContainer").html("");
-
-	 for (let filter of filterClass) {
-	     $("#classListContainer").append(generateClassCardHTML(filter));
-	 }
-	 
-	 console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
+	    if (filterClass.length == 0) {
+	        $("#classListContainer").html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
+	    }
+	    
+		console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
 }
 
 //------------------------------------------------------------------------------------
 function updateParameterClass(bigCategory, smallCategory) {
-    $.ajax({
-        url: "update-class-list",
-        method: "get",
-        data: { 
-            bigCategory: bigCategory,
-            smallCategory: smallCategory
-        },
+	$.ajax({
+		url: "update-class-list",
+		method: "get",
+		data: { 
+			bigCategory: bigCategory,
+			smallCategory: smallCategory
+		},
         success: function(data) {
-            var classListContainer = $(".classListContainer");
-            classListContainer.empty(); // 기존 클래스 목록을 비웁니다.
+			var classListContainer = $(".classListContainer");
+			classListContainer.empty(); // 기존 클래스 목록을 비웁니다.
 
             if (data.length > 0) {
-                // 클래스 목록을 생성하여 추가합니다.
-                $.each(data, function(index, item) {
-                    var classCard = generateClassCardHTML(item);
-                    classListContainer.append(classCard);
-                });
+				// 클래스 목록을 생성하여 추가합니다.
+				$.each(data, function(index, item) {
+					var classCard = generateClassCardHTML(item);
+					classListContainer.append(classCard);
+				});
 
-                classListContainer.show(); // 클래스 목록을 보여줍니다.
-            } else {
-                classListContainer.hide(); // 데이터가 없으면 목록을 숨깁니다.
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error: ', error);
-        }
-    });
+				classListContainer.show(); // 클래스 목록을 보여줍니다.
+			} else {
+				classListContainer.hide(); // 데이터가 없으면 목록을 숨깁니다.
+			}
+		},
+		error: function(xhr, status, error) {
+			console.error('AJAX Error: ', error);
+		}
+	});
 }
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
 
 function generateClassCardHTML(filter) {
 	
-    return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' 
-    + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' 
-    + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
-    + '<a href="class-detail?class_code=' + filter.class_code + '">'
-    + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">' 
-    + '</a>' 
-    + '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="'
-    + filter.class_code + '" data-member-code="' + filter.member_code + '">' 
-    + '<div class="card-bodys d-flex flex-column">'
-    + '<div class="classCategory col-md-10">'
-    + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' 
-    + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' 
-    + '</div>' 
-    + '<div class="createrName d-flex align-items-center">' 
-    + '<img src="' + contextPath + '/resources/images/class/pic.png">' 
-    + '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' 
-    + '</div>' 
-    +'<div class="className">'
-    + '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' 
-    + '</div>'
-    + '<div class="row classInfo">' 
-    + '<div class="col-md-6 add">' 
-    + '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' 
-    + '</div>' 
-    + '<div class="col-md-6 price">' 
-    + '<p>' + filter.class_price + '원</p>' 
-    + '</div>' 
-    + '</div>' 
-    + '</div>' 
-    + '</div>' 
-    + '</div>' 
-    + '</div>';
+	return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' 
+	+ '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' 
+	+ '<div class="card-body p-0 position-relative card-body1 position-relative1">'
+	+ '<a href="class-detail?class_code=' + filter.class_code + '">'
+	+ '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">' 
+	+ '</a>' 
+	+ '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="'
+	+ filter.class_code + '" data-member-code="' + filter.member_code + '">' 
+	+ '<div class="card-bodys d-flex flex-column">'
+	+ '<div class="classCategory col-md-10">'
+	+ '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' 
+	+ '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' 
+	+ '</div>' 
+	+ '<div class="createrName d-flex align-items-center">' 
+	+ '<img src="' + contextPath + '/resources/images/class/pic.png">' 
+	+ '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' 
+	+ '</div>' 
+	+'<div class="className">'
+	+ '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' 
+	+ '</div>'
+	+ '<div class="row classInfo">' 
+	+ '<div class="col-md-6 add">' 
+	+ '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' 
+	+ '</div>' 
+	+ '<div class="col-md-6 price">' 
+	+ '<p>' + filter.class_price + '원</p>' 
+	+ '</div>' 
+	+ '</div>' 
+	+ '</div>' 
+	+ '</div>' 
+	+ '</div>' 
+	+ '</div>';
 }
 
 </script>

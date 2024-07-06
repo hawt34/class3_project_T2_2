@@ -702,6 +702,7 @@ $(function() {
 //------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
 function resetCategory() {
+	
     // 카테고리 선택 초기화
     document.getElementById('class_big_category').value = 'bigCategoryAll';
     document.getElementById('class_small_category').value = 'smallCategoryAll';
@@ -710,6 +711,17 @@ function resetCategory() {
     fetchClassList({
 		hash_tag: "" // 필터링 파라미터 초기화
     });
+    
+    // 콜랩스 닫기
+    var collapseElement = document.getElementById('collapseExample');
+    var collapse = new bootstrap.Collapse(collapseElement, {
+        toggle: false
+    });
+    collapse.hide();
+    
+    // classListSelect 선택 초기화
+    document.getElementById('classListSelect').value = 'lowPrice';
+    
 } // resetCategory 끝
 
 //------------------------------------------------------------------------------------
@@ -734,7 +746,8 @@ function fetchClassList(data) {
 //------------------------------------------------------------------------------------
 // 클래스 목록 갯수 업데이트 함수
 function updateClassList(filterClass) {
-	 $(".classCount").html('<p>' + filterClass.length + '개의 클래스</p>');
+	 $(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
+	 
 	 $("#classListContainer").html("");
 
 	 for (let filter of filterClass) {

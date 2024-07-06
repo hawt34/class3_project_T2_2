@@ -161,13 +161,16 @@
 										<c:when test="${not empty likeClassList and not empty sessionScope.member}">
 											<c:forEach var="likeClass" items="${likeClassList}">
 												<c:if test="${likeClass.class_code eq contents.class_code}">
-													<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" style="width: 25px; height: 25px;">
+													<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" 
+														data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}" style="width: 25px; height: 25px;">
 												</c:if>
-												<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" style="width: 25px; height: 25px;">
+												<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" 
+													data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}" style="width: 25px; height: 25px;" style="width: 25px; height: 25px;">
 											</c:forEach>
 										</c:when>
 										<c:otherwise>
-											<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" style="width: 25px; height: 25px;">
+											<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" 
+												data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}" style="width: 25px; height: 25px;">
 										</c:otherwise>
 									</c:choose>
 		                        </div>
@@ -269,19 +272,24 @@
 										<div class="rounded position-relative class-item classCard">
 											<div class="">
 												<!-- ${contents.class_thumnail} 썸네일 이미지  -->
-												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${contents.class_code}'">
+												<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" 
+													alt="" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 												<!-- like class 하트 여부-->
 												<c:choose>
 													<c:when test="${not empty likeClassList and not empty sessionScope.member}">
+														
 														<c:forEach var="likeClass" items="${likeClassList}">
 															<c:if test="${likeClass.class_code eq contents.class_code}">
-																<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${contents.class_code}" data-member-code="${likeClass.member_code}">
+																<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" 
+																	class="heartImg" data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">
 															</c:if>
-															<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${contents.class_code}" data-member-code="${likeClass.member_code}">
+															<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" 
+																class="heartImg" data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">
 														</c:forEach>
 													</c:when>
 													<c:otherwise>
-														<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${contents.class_code}" data-member-code="${likeClass.member_code}">
+														<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" 
+															data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">
 													</c:otherwise>
 												</c:choose>
 											</div>
@@ -420,6 +428,25 @@
 		            updateHeartStatus(data);
 		        });
 		    });
+		    
+		    function updateHeartStatus(data) {
+		    	
+		        var xhr = new XMLHttpRequest();
+		        
+		        xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
+		        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		        xhr.onreadystatechange = function() {
+		            if (xhr.readyState === 4) {
+		                if (xhr.status === 200) {
+		                    console.log("Heart status updated successfully");
+		                } else {
+		                    console.error("Error updating heartStatus");
+		                }
+		            }
+		        };
+		        
+		        xhr.send(data);
+		    }
 		    
 		    
 		}); // addEventListener

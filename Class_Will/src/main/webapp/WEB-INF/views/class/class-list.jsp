@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -498,7 +500,7 @@ body {
 									<a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.local_name}</a>
 								</div>
 								<div class="col-md-6 price">
-									<p>${classList.class_price}원</p>
+									<p><fmt:formatNumber value="${classList.class_price}" pattern="#,###" />원</p>
 								</div>
 							</div>
 						</div>

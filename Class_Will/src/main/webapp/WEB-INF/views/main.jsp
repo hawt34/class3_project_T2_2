@@ -209,39 +209,6 @@
 		                    </div>
 		                    
 	                	</c:forEach>
-	                    
-<!-- 	                     <div class=" rounded  position-relative vesitable-item"> -->
-<!-- 							<div class="vesitable-img"> -->
-<%-- 								<img src="${pageContext.request.contextPath}/resources/images/products/s11.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
-<!-- 							</div> -->
-<!-- 	                        <div class="bg-tertiary px-3 py-1 position-absolute" style="top: 8px; right: 10px;"> -->
-<%-- 		                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" > --%>
-<!-- 	                        </div> -->
-<!-- 	                        <div class="p-4 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> -->
-<!-- 								<div class="classCategory col-md-10"> -->
-<!-- 									<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
-<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 									<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 								</div> -->
-<!-- 								<div class="createrName d-flex align-items-center py-2"> -->
-<!-- 									<div class="px-3 py-1 position-absolute"  style="bottom: 120px; left: 6px;"> -->
-<%-- 										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" width="15px;"> --%>
-<!-- 									</div>	 -->
-<!-- 									<p class="mb-0 ml-5 px-4">테크니컬아티스트 홍상범</p> -->
-<!-- 								</div> -->
-<!-- 								<div class="className"> -->
-<!-- 									<h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6> -->
-<!-- 								</div> -->
-<!-- 					            <div class="row classInfo"> -->
-<!-- 									<div class="col-md-6 add"> -->
-<!-- 										<a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
-<!-- 									</div> -->
-<!-- 									<div class="col-md-6 price"> -->
-<!-- 										<h5 class="class-price">50,000원</h5> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 	                    </div> -->
 		                    
 	                </div> <!--  owl-carousel -->
 	            </div>
@@ -276,16 +243,21 @@
 													alt="" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 												<!-- like class 하트 여부-->
 												<c:choose>
-													<c:when test="${not empty likeClassList and not empty sessionScope.member}">
-														
+													<c:when test="${not empty likeClassList and not empty sessionScope.member}">  <!-- likeClassList 존재 -->
+														<c:set var="isLiked" value="false"/> <!-- 삭제 -->
 														<c:forEach var="likeClass" items="${likeClassList}">
 															<c:if test="${likeClass.class_code eq contents.class_code}">
-																<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" 
-																	class="heartImg" data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">
+																<c:set var="isLiked" value="true"/> 
 															</c:if>
+														</c:forEach>
+														<c:if test="${isLiked}">
+															<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" 
+																class="heartImg" data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">
+														</c:if>w
+														<c:if test="${not isLiked}">
 															<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" 
 																class="heartImg" data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">
-														</c:forEach>
+														</c:if>
 													</c:when>
 													<c:otherwise>
 														<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" 
@@ -327,38 +299,6 @@
 										</div>
 									</div>
 								</c:forEach>
-                                 
-<!--                                  <div class="col-md-6 col-lg-4 col-xl-3 "> -->
-<!--                                      <div class="rounded position-relative class-item classCard"> -->
-<!--                                          <div class=""> -->
-<%--                                              <img src="${pageContext.request.contextPath}/resources/images/products/s7.jpg" class="img-fluid w-100 rounded-top classPic" alt=""> --%>
-<%--                                              <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg"> --%>
-<!--                                          </div> -->
-<!-- <!--                                          <div class="text-white bg-tertiary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">원데이</div> --> 
-<!--                                           <div class="p-4 border border-secondary border-top-0 rounded-bottom " style="background: white; text-align: left; padding: 15px;"> --> 
-<!-- 											<div class="classCategory col-md-10"> -->
-<!-- 			                              		<button type="button" class="btn btn-outline-success btn-sm category" >원데이</button> -->
-<!-- 												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 												<button type="button" class="btn btn-outline-dark btn-sm category">카테고리</button> -->
-<!-- 											</div> -->
-<!-- 									       <div class="createrName d-flex align-items-center"> -->
-<%-- 						            			<img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
-<!-- 						                 		<p class="mb-0 ml-2">테크니컬아티스트 홍상범</p> -->
-<!-- 						               		</div> -->
-<!-- 							               <div class="className"> -->
-<!-- 							                  <h6>왕초보에서 이모티콘 마스터로! 클립스튜디오로 만드는 카카오톡 이모티콘</h6> -->
-<!-- 							               </div> -->
-<!-- 							               <div class="row classInfo"> -->
-<!-- 							                  <div class="col-md-6 add"> -->
-<!-- 							                     <a href="" class="btn btn-outline-dark btn-sm disabled">부산 사상구</a> -->
-<!-- 							                  </div> -->
-<!-- 							                  <div class="col-md-6 price"> -->
-<!-- 							                     <h5 class="class-price">50,000원</h5> -->
-<!-- 							                  </div> -->
-<!-- 							               </div> -->
-<!--                                          </div> -->
-<!--                                      </div> -->
-<!--                                  </div> -->
                                  
                              </div><!-- row -->
                          </div>
@@ -405,9 +345,11 @@
 					
 					// 로그인 해야만 이용 가능
 					if(member_code == null || member_code == ""){ 
-			            alert("로그인이 필요한 페이지 입니다.");
-			            window.location.href = "member-login";
-			            return;
+						if(confirm("로그인 후 이용가능합니다.\n로그인하시겠습니까?")){
+				            window.location.href = "member-login";
+				            return;
+						}
+						return;
 					}
 					
 		            if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)

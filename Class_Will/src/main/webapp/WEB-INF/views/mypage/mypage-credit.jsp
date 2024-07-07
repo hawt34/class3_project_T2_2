@@ -210,7 +210,6 @@ th:nth-child(2), td:nth-child(2) {
 	
 	function showRefundBtn() {
 		$('.refundBtn').show();
-// 		$("#refundAgreeBtn").hide();
 	}
 	
 	function refundWillpay(param_pay_amt, param_get_willpay, param_willpay_code, param_willpay_date) {

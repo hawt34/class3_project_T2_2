@@ -333,7 +333,8 @@ a {
 						<!-- 카테고리바 카테고리 시작 -->
 							<div class="col-md-3">
 								<label for="class_big_category" class="h6">카테고리</label> 
-								<select name="class_big_category" id="class_big_category" class="form-control"  onchange="updateCategory()">
+<!-- 								<select name="class_big_category" id="class_big_category" class="form-control"  onchange="updateCategory()"> -->
+								<select name="class_big_category" id="class_big_category" class="form-control">
 										<option value="bigCategoryAll" id="class_big_category_all">전체</option>
 									<c:forEach var="bigCategoryList" items="${bigCategoryList}">
 										<option value="${bigCategoryList.common2_code}">${bigCategoryList.code_value}</option>

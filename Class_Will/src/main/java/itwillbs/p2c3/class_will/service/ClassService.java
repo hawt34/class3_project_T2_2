@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import itwillbs.p2c3.class_will.mapper.ClassMapper;
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Service
 public class ClassService {
@@ -119,6 +120,12 @@ public class ClassService {
 	public int getLikeClassCount(int class_code) {
 		return mapper.selectLikeClassCount(class_code);
 	}
+	
+	// 디테일 클래스 좋아요
+	public Map<String, Object> getLikeClass(Map<String, Object> map){
+		return mapper.selectLikeClass(map);
+	}
+	
 	// 클래스 해시태그
 	public List<Map<String, Object>> getClassHashtag(int class_code){
 		return mapper.selectClassHashtag(class_code);

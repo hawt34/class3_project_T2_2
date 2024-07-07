@@ -37,8 +37,13 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7ie2koOHD8y5Lx5ujD6nco4k5RfF7UoE6G7" crossorigin="anonymous">
     
 <!-- 현재위치 -->
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 지오로케이션 -->
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+
+<!-- 구글 -->
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDQ_lPnUSpeqbiQ4llaizf1rL5lfYbBP4A&callback=initMap"></script>
+
 
 <!-- 카카오 지도 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
@@ -136,9 +141,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <script>
 // ------ 현재 위치 ------ 
 // 현재 위치와 클래스 위치를 표시하는 함수
-function showLocations(position) {
-    var userLat = position.coords.latitude; // 현재위치 위도
-    var userLng = position.coords.longitude; // 현재위치 경도
+function showLocations(data) {
+	
+    var loc = data.loc.split(",");
+    console.log("loc[0] : " + loc[0]);
+    var userLat = parseFloat(loc[0]); // 현재위치 위도
+    var userLng = parseFloat(loc[1]); // 현재위치 경도
+
+    var locationInfo = "나라: " + data.country + "<br>지역: " + data.region + "<br>도시: " + data.city + "<br>위도: " + userLat + "<br>경도: " + userLng;
+    $("#location").html(locationInfo);
+    
+    
+//     var userLat = position.lat; // 현재위치 위도
+//     var userLng = position.lon; // 현재위치 경도
     
 //     alert("현재 위치는 : " + userLat + ", " + userLng);
     
@@ -227,15 +242,21 @@ function showLocations(position) {
         });
     });
 }
+//--
 // 현재 위치를 가져오는 함수
 function getCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
+//     } else {
+//         alert("Geolocation is not supported by this browser.");
+//     }
+// ipinfo
+$.getJSON("http://ipinfo.io?token=d272291f523605", function(data){
+	console.log(data);
+// 	$("#cty").text(data.country);
+	showLocations(data);
+});
 }
-
 // 위치 가져오기 실패 시 에러 메시지 출력 함수
 function showErrorMsg(error) {
     alert("위치 정보를 가져오지 못했습니다.");

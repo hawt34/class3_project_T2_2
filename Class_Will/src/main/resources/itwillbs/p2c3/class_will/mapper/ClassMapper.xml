@@ -299,6 +299,14 @@
 		FROM like_class
 		WHERE class_code = #{class_code}
 	</select>
+	
+	<!-- 클래스 디테일 좋아요 -->
+	<select id="selectLikeClass" resultType="Map">
+		SELECT *
+		FROM like_class
+		WHERE member_code = #{member_code} AND class_code = #{class_code}
+	</select>
+
 	<!-- 클래스 신고 -->
 	<insert id="insertClassComplain" parameterType="map">
 		INSERT INTO class_report

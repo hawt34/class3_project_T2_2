@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import itwillbs.p2c3.class_will.vo.MemberVO;
 
 @Mapper
 public interface ClassMapper {
@@ -71,6 +74,8 @@ public interface ClassMapper {
 	// 클래스 코드 별 좋아요 갯수
 	int selectLikeClassCount(int class_code);
 	
+	// 디테일 클래스 좋아요
+	Map<String, Object> selectLikeClass(Map<String, Object> map);
 	// 클래스 해시태그 
 	List<Map<String, Object>> selectClassHashtag(int class_code);
 	

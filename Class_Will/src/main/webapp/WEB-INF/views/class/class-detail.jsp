@@ -413,8 +413,18 @@
                                     <%-- <img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
                                     <div style="display: flex; align-items: center;">
                                     	<div class="col-md-3" style="text-align : center;">
-                                        	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heartImg">
+<%--                                         	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heartImg"> --%>
 <%--                                         <div class="heartCount"><span>${likeClassCount}</span></div> --%>
+											<!-- 라이크 클래스 하트 이미지 변경-->
+											<c:choose>
+												<c:when test="${not empty likeClass}"> <!-- likeClassList 존재 -->
+													<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+												</c:when>
+												<c:otherwise> <!-- likeClassList 존재 X -->
+													<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+												</c:otherwise>
+											</c:choose>
+											<!-- 라이크 클래스 하트 이미지 변경 -->
                                         </div>
                                         <div class="heartCount col-7">${likeClassCount}</div>
                                     </div>
@@ -430,6 +440,7 @@
                             </div>
                         </div> <!-- row -->
                     </div> 
+                    
                     <!-- 좋아요, 공유버튼 -->
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-light w-100">신청하기</button>
@@ -444,25 +455,84 @@
 <!-- container1 -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
-    var heartOverlays = document.querySelectorAll(".heartImg");
-    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
-    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+//     var heartOverlays = document.querySelectorAll(".heartImg");
+//     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+//     var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
 
-    heartOverlays.forEach(function(heartOverlay) {
+//     heartOverlays.forEach(function(heartOverlay) {
+//         heartOverlay.addEventListener("click", function() {
+//             var img = this;
+//             img.classList.add("fade");
+
+//             setTimeout(function() {
+//                 if (img.src.includes("heart_full.png")) {
+//                     img.src = originalSrc;
+//                 } else {
+//                     img.src = changeSrc;
+//                 }
+//                 img.classList.remove("fade");
+//             }, 300); 
+//         });
+//     });
+    
+    //--
+	var heartImges = document.querySelectorAll(".heartImg");
+    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
+    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
+
+    heartImges.forEach(function(heartOverlay) {
         heartOverlay.addEventListener("click", function() {
             var img = this;
-            img.classList.add("fade");
+            var member_code = img.getAttribute("data-member-code");
+            var class_code = img.getAttribute("data-class-code");
+            var isFullHeart = img.src.includes("heart_full.png");
 
-            setTimeout(function() {
-                if (img.src.includes("heart_full.png")) {
-                    img.src = originalSrc;
-                } else {
-                    img.src = changeSrc;
-                }
-                img.classList.remove("fade");
-            }, 300); 
+            var heart_status = !isFullHeart;
+			
+			// 로그인 해야만 이용 가능
+			if(member_code == null || member_code == ""){ 
+	            alert("로그인이 필요한 페이지 입니다.");
+	            window.location.href = "member-login";
+	            return;
+			}
+			
+            if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
+                img.src = changeSrc;
+ 				alert("관심 클래스에 추가되었습니다.");
+            } else { // heart_status가 false일 때 (like-class 삭제 시)
+                img.src = originalSrc;
+ 				alert("관심 클래스에서 삭제되었습니다.");
+            }
+            
+            // AJAX 요청을 통해 서버로 업데이트 요청 전송
+            var data = JSON.stringify({
+                heart_status: heart_status,
+                member_code: member_code,
+                class_code: class_code
+            });
+            
+            updateHeartStatus(data);
         });
     });
+    
+    function updateHeartStatus(data) {
+    	
+        var xhr = new XMLHttpRequest();
+        
+        xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    console.log("Heart status updated successfully");
+                } else {
+                    console.error("Error updating heartStatus");
+                }
+            }
+        };
+        
+        xhr.send(data);
+    }
 });
 
 </script>

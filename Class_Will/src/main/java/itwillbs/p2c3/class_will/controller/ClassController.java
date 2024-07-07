@@ -310,10 +310,23 @@ public class ClassController {
 	
 	// 클래스 디테일
 	@GetMapping("class-detail")
-	public String classDetail(Model model, @RequestParam(name = "class_code") int class_code) {
-		Map<String, Object> map = new HashMap<>();
+	public String classDetail(Model model, HttpSession session, @RequestParam(name = "class_code") int class_code) {
 		
-		map.put("class_code", class_code);
+//	    MemberVO member = (MemberVO) session.getAttribute("member");
+//	    Integer member_code = null;
+	    
+	    Map<String, Object> map = new HashMap<>();
+//	    
+//	    if (member != null) {
+//	        member_code = member.getMember_code();
+//	        map.put("member_code", member_code);
+//	        System.out.println(">>>> member_code : " + member_code);
+//	    } else {
+//	        System.out.println("Member is null");
+//	    }
+//		
+//	    map.put("class_code", class_code);
+//		System.out.println(">> class_code :: " + map.get("class_code"));
 		
 		// 클래스 후기
 		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
@@ -333,6 +346,23 @@ public class ClassController {
 		model.addAttribute("likeClassCount", likeClassCount);
 		System.out.println(">> likeClassCount : " + likeClassCount);
 		
+////	    List<Map<String, Object>> classList = classService.getClassList(list);
+////	    model.addAttribute("classList", classList);
+//	    
+//	    // 클래스 리스트에 member_code 추가
+//	    if (member_code != null) { // member_code가 존재하면 
+////	        for (Map<String, Object> classMap : classList) {
+//	    	map.put("member_code", member_code);
+//	            System.out.println(">> member_code : " + member_code);
+////	        }
+//	        // 라이크 클래스
+//	        Map<String, Object> likeClass = classService.getLikeClass(map);
+//	        model.addAttribute("likeClass", likeClass);
+//	        System.out.println(">> likeClass : " + likeClass);
+//	    } else {
+//	    	return "class/class-detail";
+//	    }
+//	    
 		//classInfo 클래스 데이터 가져오기
 		Map<String, Object> classCode = new HashMap<>();
 		classCode.put("class_code", class_code);

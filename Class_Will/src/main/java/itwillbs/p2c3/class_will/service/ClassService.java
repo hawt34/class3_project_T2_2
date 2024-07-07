@@ -58,9 +58,9 @@ public class ClassService {
 //	public List<Map<String, Object>> getFilterClass(List<String> bigCategories, List<String> smallCategories, List<String> locals){
 //		return mapper.selectFilterClass(bigCategories, smallCategories, locals);
 //	}
-	public List<Map<String, Object>> getFilterClass(Map<String, Object> map){
-		return mapper.selectFilterClass(map);
-	}
+//	public List<Map<String, Object>> getFilterClass(Map<String, Object> map){
+//		return mapper.selectFilterClass(map);
+//	}
 	
 	// 클래스 낮으낙격순 정렬
 	public List<Map<String, Object>> getPriceList(Map<String, Object> list){
@@ -115,6 +115,10 @@ public class ClassService {
 		return mapper.selectClassCurri(class_code);
 	}
 	
+	// 클래스 코드 별 좋아요 갯수
+	public int getLikeClassCount(int class_code) {
+		return mapper.selectLikeClassCount(class_code);
+	}
 	// 클래스 해시태그
 	public List<Map<String, Object>> getClassHashtag(int class_code){
 		return mapper.selectClassHashtag(class_code);

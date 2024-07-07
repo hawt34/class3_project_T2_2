@@ -244,12 +244,6 @@ function showErrorMsg(error) {
 
 </script>
 <style>
-/*    #map { */
-/*        width: 200px; */
-/*        height: 600px; */
-/*        right : 0px; */
-/*        top : 300px; */
-/*    } */
    
 body {
     position: relative;
@@ -293,6 +287,10 @@ body {
 	display: flex;
 	justify-content: center;
 	margin-bottom : 20px;
+}
+a {
+    text-decoration: none;
+    color: black; /* 원하는 색상으로 변경 */
 }
 </style>
 </head>
@@ -434,10 +432,10 @@ body {
 										</c:if>
 									</c:forEach>
 									<c:if test="${isLiked}">
-									<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+										<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
 									</c:if>
 									<c:if test="${not isLiked}">
-									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
+										<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
 									</c:if>
 								</c:when>
 								<c:otherwise> <!-- likeClassList 존재 X -->
@@ -536,18 +534,25 @@ $(function() {
 	// 페이지 로드 시, 파라미터로 전달받은 값에 따라 선택
 	$(document).ready(function() {
 		var urlParams = new URLSearchParams(window.location.search);
-		var bigCategory = urlParams.get('class_big_category');
-		var smallCategory = urlParams.get('class_small_category');
-		var big_category = $("#class_big_category").val();
+		var big_category = urlParams.get('class_big_category');
+		var small_category = urlParams.get('class_small_category');
+		var common2_code = urlParams.get('common2_code');
+// 		var big_category = $("#class_big_category").val();
 
-		if (smallCategory) {
-	    	$("#class_small_category").val(smallCategory);
+    console.log("Sending AJAX request with paramsss11: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
+		if (small_category) {
+	    	$("#class_small_category").val(small_category);
 		}
+    console.log("Sending AJAX request with paramsss22: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
 
-		if (bigCategory) {
-	    	$("#class_big_category").val(bigCategory).change(); 
+		if (big_category) {
+	    	$("#class_big_category").val(big_category).change(); 
+    console.log("Sending AJAX request with paramsss33: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
 		} 
         
+	    // 클래스 목록 업데이트 함수 호출
+	    updateParameterClass(big_category, small_category,common2_code);
+	    
 //         if (bigCategory) {
 //             $("#class_big_category").val(bigCategory);
 
@@ -564,7 +569,28 @@ $(function() {
 
 	});
 });
+function updateParameterClass(big_category, small_category, common2_code) {
+    console.log("Sending AJAX request with params: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
 
+    $.ajax({
+        url: "update-class-list",
+        method: "get",
+        data: { 
+        	big_category: big_category,
+        	small_category: small_category,
+            common2_code : common2_code
+            
+        },
+        success: function(data) {
+            updateClassList(data);
+//             alert("updateParameterClass 성공");
+            console.log("updateParameterClass 성공");
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX Error: ', error);
+        }
+    });
+}
 // ------------------------------------------------------------------------------------
 
 var contextPath = '<%= request.getContextPath() %>';
@@ -707,90 +733,105 @@ function fetchClassList(data) {
 }
 
 //------------------------------------------------------------------------------------
-// 클래스 목록 갯수 업데이트 함수
-function updateClassList(filterClass) {
-		$(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
+// // 클래스 목록 갯수 업데이트 함수
+// function updateClassList(filterClass) {
+// 		$(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
 		
-		$("#classListContainer").html("");
+// 		$("#classListContainer").html("");
 		
-		for (let filter of filterClass) {
-			$("#classListContainer").append(generateClassCardHTML(filter));
-		}
+// 		for (let filter of filterClass) {
+// 			$("#classListContainer").append(generateClassCardHTML(filter));
+// 		}
 	 
-	    if (filterClass.length == 0) {
-	        $("#classListContainer").html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
-	    }
+// 	    if (filterClass.length == 0) {
+// 	        $("#classListContainer").html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
+// 	    }
 	    
-		console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
+// 		console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
+// }
+
+function updateClassList(filterClass) {
+    var classListContainer = $("#classListContainer");
+    classListContainer.empty();
+
+    if (filterClass.length > 0) {
+        for (let filter of filterClass) {
+            classListContainer.append(generateClassCardHTML(filter));
+        }
+    } else {
+        classListContainer.html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
+    }
+    $(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
 }
 
 //------------------------------------------------------------------------------------
-function updateParameterClass(bigCategory, smallCategory) {
-	$.ajax({
-		url: "update-class-list",
-		method: "get",
-		data: { 
-			bigCategory: bigCategory,
-			smallCategory: smallCategory
-		},
-        success: function(data) {
-			var classListContainer = $(".classListContainer");
-			classListContainer.empty(); // 기존 클래스 목록을 비웁니다.
+// function updateParameterClass(big_category, small_category, common2_code) {
+// 	$.ajax({
+// 		url: "update-class-list",
+// 		method: "get",
+// 		data: { 
+// 			big_category: big_category,
+// 			small_category: small_category,
+// 			common2_code : common2_code
+// 		},
+//         success: function(data) {
+// 			var classListContainer = $(".classListContainer");
+// 			classListContainer.empty();
 
-            if (data.length > 0) {
-				// 클래스 목록을 생성하여 추가합니다.
-				$.each(data, function(index, item) {
-					var classCard = generateClassCardHTML(item);
-					classListContainer.append(classCard);
-				});
+//             if (data.length > 0) {
+// 				$.each(data, function(index, item) {
+// 					var classCard = generateClassCardHTML(item);
+// 					classListContainer.append(classCard);
+// 				});
 
-				classListContainer.show(); // 클래스 목록을 보여줍니다.
-			} else {
-				classListContainer.hide(); // 데이터가 없으면 목록을 숨깁니다.
-			}
-		},
-		error: function(xhr, status, error) {
-			console.error('AJAX Error: ', error);
-		}
-	});
-}
+// 				classListContainer.show(); 
+// 			} else {
+// 				classListContainer.hide(); // 데이터가 없으면 목록을 숨김
+// 			}
+            
+// 		},
+// 		error: function(xhr, status, error) {
+// 			console.error('AJAX Error: ', error);
+// 		}
+// 	});
+// }
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
 
 function generateClassCardHTML(filter) {
 	
 	return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' 
-	+ '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' 
-	+ '<div class="card-body p-0 position-relative card-body1 position-relative1">'
-	+ '<a href="class-detail?class_code=' + filter.class_code + '">'
-	+ '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">' 
-	+ '</a>' 
-	+ '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="'
-	+ filter.class_code + '" data-member-code="' + filter.member_code + '">' 
-	+ '<div class="card-bodys d-flex flex-column">'
-	+ '<div class="classCategory col-md-10">'
-	+ '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' 
-	+ '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' 
-	+ '</div>' 
-	+ '<div class="createrName d-flex align-items-center">' 
-	+ '<img src="' + contextPath + '/resources/images/class/pic.png">' 
-	+ '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' 
-	+ '</div>' 
-	+'<div class="className">'
-	+ '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' 
-	+ '</div>'
-	+ '<div class="row classInfo">' 
-	+ '<div class="col-md-6 add">' 
-	+ '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' 
-	+ '</div>' 
-	+ '<div class="col-md-6 price">' 
-	+ '<p>' + filter.class_price + '원</p>' 
-	+ '</div>' 
-	+ '</div>' 
-	+ '</div>' 
-	+ '</div>' 
-	+ '</div>' 
-	+ '</div>';
+ + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' 
+ + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
+ + '<a href="class-detail?class_code=' + filter.class_code + '">'
+ + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">' 
+ + '</a>' 
+ + '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="'
+ + filter.class_code + '" data-member-code="' + filter.member_code + '">' 
+ + '<div class="card-bodys d-flex flex-column">'
+ + '<div class="classCategory col-md-10">'
+ + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' 
+ + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' 
+ + '</div>' 
+ + '<div class="createrName d-flex align-items-center">' 
+ + '<img src="' + contextPath + '/resources/images/class/pic.png">' 
+ + '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' 
+ + '</div>' 
+ +'<div class="className">'
+ + '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' 
+ + '</div>'
+ + '<div class="row classInfo">' 
+ + '<div class="col-md-6 add">' 
+ + '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' 
+ + '</div>' 
+ + '<div class="col-md-6 price">' 
+ + '<p>' + filter.class_price + '원</p>' 
+ + '</div>' 
+ + '</div>' 
+ + '</div>' 
+ + '</div>' 
+ + '</div>' 
+ + '</div>';
 }
 
 </script>

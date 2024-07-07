@@ -131,8 +131,8 @@ public class ClassController {
 		public List<Map<String, Object>> getFilterClass(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params) {
 	    
 	    // 클래스 리스트
-		String big_category = params.get("big_category");
-		String small_category = params.get("small_category");
+		String big_category = params.get("class_big_category");
+		String small_category = params.get("class_small_category");
 		String local = params.get("local");
 		
         Map<String, Object> list = new HashMap<>();
@@ -147,6 +147,37 @@ public class ClassController {
 	    return filterClass;
 	}
 	
+	// 메인 카테고리에서 넘어올 때 클래스 리스트 업데이트
+	@ResponseBody
+	@GetMapping("update-class-list")
+	public List<Map<String, Object>> updateClassList(Model model,@RequestParam Map<String, String> requestBody){
+		
+		// 클래스 리스트
+	    String big_category = (String) requestBody.get("big_category"); // Integer로 받지 않고 String으로 받음
+	    String small_category = (String) requestBody.get("small_category"); // Integer로 받지 않고 String으로 받음
+	    String local = (String) requestBody.get("common2_code"); // Integer로 받지 않고 String으로 받음
+
+//		String big_category = params.get("class_big_category");
+//		String small_category = params.get("class_small_category");
+//		String local = params.get("common2_code");
+		System.out.println(">> big_category : " + big_category + ", small_category : " + small_category + ", local : " + local );
+		Map<String, Object> list = new HashMap<>();
+		list.put("big_category", big_category);
+		list.put("small_category", small_category);
+		list.put("local", local);
+		model.addAttribute("list", list);
+		
+		List<Map<String, Object>> filterClass = classService.getClassList(list);
+		model.addAttribute("filterClass", filterClass);
+		System.out.println(">>update-class-list :" + filterClass);
+		return filterClass;
+	    // filterClass는 원하는 조건에 맞게 데이터를 필터링하는 로직을 포함해야 합니다.
+//	    List<Map<String, Object>> list = new ArrayList<>();
+	    
+	    // 예시: 데이터베이스에서 데이터를 가져와서 필터링하는 로직 추가
+	    // filterClass = classService.getFilteredClasses(bigCategory, smallCategory, common2_code);
+
+	}
 	// 클래스 낮은가격 순 정렬
 	@ResponseBody
 	@GetMapping("class-low-price")
@@ -295,7 +326,13 @@ public class ClassController {
 		// 클래스 커리큘럼
 		List<Map<String, Object>> classCurri = classService.getClassCurri(class_code);
 		model.addAttribute("classCurri", classCurri);
-
+		System.out.println(">> classCurri : " + classCurri);
+		
+		// 클래스 코드 별 좋아요 갯수
+		int likeClassCount = classService.getLikeClassCount(class_code);
+		model.addAttribute("likeClassCount", likeClassCount);
+		System.out.println(">> likeClassCount : " + likeClassCount);
+		
 		//classInfo 클래스 데이터 가져오기
 		Map<String, Object> classCode = new HashMap<>();
 		classCode.put("class_code", class_code);

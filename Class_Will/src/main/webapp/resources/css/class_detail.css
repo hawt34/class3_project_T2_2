@@ -8,6 +8,10 @@
 /* 	margin-top : 50px; */
 }
 
+.a {
+    text-decoration: none;
+    color: black; /* 원하는 색상으로 변경 */
+}
 .sticky-nav1 {
     position: -webkit-sticky;
     position: sticky;
@@ -16,6 +20,21 @@
     z-index: 1000;
 }
 
+.classCurri {
+	margin-top : 10px;
+	margin-bottom : 10px;
+}
+.classCurriRound {
+/* 	margin-top : 10px; */
+	margin-bottom : 10px;
+	font-size : 1.2em;
+	font-weight : bold;
+}
+.classCurriContent {
+	margin-bottom : 10px;
+	font-size : 1em;
+	
+}
 .classImg {
 	width : 900px;
 	height : 1300px;
@@ -220,7 +239,8 @@
 	width: 150px; /* 원하는 너비 값 */
 	height: 50px; /* 원하는 높이 값 */
 	color : black !important;
-	    padding: 0; /* 불필요한 여백 제거 */
+	padding: 0; /* 불필요한 여백 제거 */
+	text-align : center !important; 
 }
 
 .button-icon {
@@ -231,6 +251,7 @@
 
 .heartCount span, .shareClass span {
     margin: 0;
+    text-align:center;
 }
 
 /* ====== 후기 ======*/

@@ -25,9 +25,9 @@ public interface ClassMapper {
 	// 해시태그
 	List<Map<String, Object>> selectHashtag();
 	
-	// 카테고리바 필터링된 클래스
-	// List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
-	List<Map<String, Object>> selectFilterClass(Map<String, Object> map);
+//	// 카테고리바 필터링된 클래스
+//	// List<Map<String, Object>> selectFilterClass(@RequestParam("bigCategories") List<String> bigCategories, @RequestParam("smallCategories") List<String> smallCategories, @RequestParam("locals")List<String> locals);
+//	List<Map<String, Object>> selectFilterClass(Map<String, Object> map);
 	
 	// 클래스 리뷰 별점 순 정렬
 	List<Map<String, Object>> selectStarList();
@@ -67,6 +67,9 @@ public interface ClassMapper {
 	
 	// 클래스 커리큘럼 
 	List<Map<String, Object>> selectClassCurri(int class_code);
+	
+	// 클래스 코드 별 좋아요 갯수
+	int selectLikeClassCount(int class_code);
 	
 	// 클래스 해시태그 
 	List<Map<String, Object>> selectClassHashtag(int class_code);

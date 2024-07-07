@@ -84,33 +84,12 @@
     .headcount {
         color: white;
     }
-    
+    .heartCount span{
+    	text-align : center;
+    }
     
 </style>
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-    var heartOverlays = document.querySelectorAll(".heartImg");
-    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
-    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
 
-    heartOverlays.forEach(function(heartOverlay) {
-        heartOverlay.addEventListener("click", function() {
-            var img = this;
-            img.classList.add("fade");
-
-            setTimeout(function() {
-                if (img.src.includes("heart_full.png")) {
-                    img.src = originalSrc;
-                } else {
-                    img.src = changeSrc;
-                }
-                img.classList.remove("fade");
-            }, 300); 
-        });
-    });
-});
-
-</script>
 <!-- 카카오 지도 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
 <style>
@@ -157,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		var customOverlay = new kakao.maps.CustomOverlay({
 		    map: map,
 		    position: position,
-		    content: content,
+// 		    content: content,
 		    yAnchor: 1 
 		});
 		
@@ -318,9 +297,14 @@ document.addEventListener("DOMContentLoaded", function() {
             <div id="section3">
             	<h4>커리큘럼</h4>
 <%--                 <img src="${pageContext.request.contextPath}/resources/images/class/class_curri.png" class="classImg"> --%>
-				<div class="">
+				<div class="classCurri">
 					<c:forEach var="classCurri" items="${classCurri}">
-						${classCurri.curri_round} - ${classCurri.curri_content}<br>
+						<div class="classCurriRound">
+							${classCurri.curri_round}<br>
+						</div>
+						<div class="classCurriContent">
+							&nbsp;&nbsp;&nbsp;&nbsp;${classCurri.curri_content}
+						</div>
 					</c:forEach>
 				</div>
             </div>
@@ -428,8 +412,11 @@ document.addEventListener("DOMContentLoaded", function() {
                                 <button type="button" class="btn btn-light w-100 btn-customs">
                                     <%-- <img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
                                     <div style="display: flex; align-items: center;">
-                                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heartImg">
-                                        <div class="heartCount"><span>5124</span></div>
+                                    	<div class="col-md-3" style="text-align : center;">
+                                        	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heartImg">
+<%--                                         <div class="heartCount"><span>${likeClassCount}</span></div> --%>
+                                        </div>
+                                        <div class="heartCount col-7">${likeClassCount}</div>
                                     </div>
                                 </button>
                             </div>
@@ -455,6 +442,30 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </div>
 <!-- container1 -->
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    var heartOverlays = document.querySelectorAll(".heartImg");
+    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+
+    heartOverlays.forEach(function(heartOverlay) {
+        heartOverlay.addEventListener("click", function() {
+            var img = this;
+            img.classList.add("fade");
+
+            setTimeout(function() {
+                if (img.src.includes("heart_full.png")) {
+                    img.src = originalSrc;
+                } else {
+                    img.src = changeSrc;
+                }
+                img.classList.remove("fade");
+            }, 300); 
+        });
+    });
+});
+
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let classScheduleArray = ${class_schedule_date};

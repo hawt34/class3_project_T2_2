@@ -177,7 +177,7 @@ public class PayController {
 	
 	@PostMapping("account-withdraw")
 	public String accountWithdraw(@RequestParam Map<String, Object> map, HttpSession session, Model model)	{
-		System.out.println("withdraw-map: " + map);
+		System.out.println("충전버튼: " + map);
 		MemberVO member= (MemberVO)session.getAttribute("member");
 		
 		String result1 = "";

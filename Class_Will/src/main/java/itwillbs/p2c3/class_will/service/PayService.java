@@ -210,6 +210,14 @@ public class PayService {
 		withdrawParameter.put("will_pay_get_pay", map.get("tran_amt_total"));
 		withdrawParameter.put("will_pay_account", withdraw.get("account_num_masked"));
 		withdrawParameter.put("member_code", map.get("member_code"));
+		
+		String chargeType = (String)map.get("will_pay_chargeType");
+		if(chargeType.equals("normal")) {
+			withdrawParameter.put("will_pay_chargeType", 1);
+		} else {
+			withdrawParameter.put("will_pay_chargeType", 2);
+		}
+		//충전(출금) 정보 저장 메서드
 		payMapper.registWithdrawInfo(withdrawParameter);
 		
 		BigInteger will_pay_code = (BigInteger)withdrawParameter.get("will_pay_code");

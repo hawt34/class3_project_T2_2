@@ -335,7 +335,8 @@
 										<c:forEach var="map" items="${classInquiry}">
 			                                <tr>
 			                                    <td class="creator-review-subject">
-                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.class_inquiry_subject}</a>
+<%--                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')" data-class-inquiry-code="${classInquiry.class_inquiry_code}">${map.class_inquiry_subject}</a> --%>
+                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')" >${map.class_inquiry_subject}</a>
 			                                    </td>
 			                                    <td>
                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.class_inquiry_date}</a>
@@ -413,16 +414,8 @@
                                     <%-- <img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="button-icon">5214 --%>
                                     <div style="display: flex; align-items: center;">
                                     	<div class="col-md-3" style="text-align : center;">
-<%--                                         	<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="button-icon heartImg"> --%>
-<%--                                         <div class="heartCount"><span>${likeClassCount}</span></div> --%>
 											<!-- 라이크 클래스 하트 이미지 변경-->
 											<c:choose>
-<%-- 												<c:when test="${not empty likeClass}"> <!-- likeClassList 존재 --> --%>
-<%-- 													<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-<%-- 												</c:when> --%>
-<%-- 												<c:otherwise> <!-- likeClassList 존재 X --> --%>
-<%-- 													<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-<%-- 												</c:otherwise> --%>
 												<c:when test="${isLiked}">
 							                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classInfo.class_code}" data-member-code="${member.member_code}">
 							                    </c:when>
@@ -432,7 +425,9 @@
 											</c:choose>
 											<!-- 라이크 클래스 하트 이미지 변경 -->
                                         </div>
-                                        <div class="heartCount col-7">${likeClassCount}</div>
+                                        <div class="heartCount col-7 " id="heartCountElement">
+                                        ${likeClassCount}
+                                        </div>
                                     </div>
                                 </button>
                             </div>
@@ -482,46 +477,51 @@ document.addEventListener("DOMContentLoaded", function() {
 //     });
     
     //--
+	var btnCustoms = document.querySelector(".btn-customs");
 	var heartImges = document.querySelectorAll(".heartImg");
-    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
-    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
-
-    heartImges.forEach(function(heartOverlay) {
-        heartOverlay.addEventListener("click", function() {
-            var img = this;
-            var member_code = img.getAttribute("data-member-code");
-            var class_code = img.getAttribute("data-class-code");
-            var isFullHeart = img.src.includes("heart_full.png");
-
-            var heart_status = !isFullHeart;
-			
-			// 로그인 해야만 이용 가능
-			if(member_code == null || member_code == ""){ 
-	            alert("로그인이 필요한 페이지 입니다.");
+	var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
+	var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
+	var heartCountElement = document.getElementById("heartCountElement"); // heartCount 요소
+	
+	// btnCustoms 클릭 시의 이벤트 핸들러
+	btnCustoms.addEventListener("click", function() {
+	    // btnCustoms를 클릭했을 때 할 일을 여기에 추가할 수 있습니다.
+	    
+	    // heartImges 리스트의 각 항목에 대해 처리
+	    heartImges.forEach(function(img) {
+	        var member_code = img.getAttribute("data-member-code");
+	        var class_code = img.getAttribute("data-class-code");
+	        var isFullHeart = img.src.includes("heart_full.png");
+	
+	        var heart_status = !isFullHeart;
+	
+	        // 로그인 확인
+	        if (member_code == null || member_code === "") {
+	            alert("로그인이 필요한 페이지입니다.");
 	            window.location.href = "member-login";
 	            return;
-			}
-			
-            if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
-                img.src = changeSrc;
- 				alert("관심 클래스에 추가되었습니다.");
-            } else { // heart_status가 false일 때 (like-class 삭제 시)
-                img.src = originalSrc;
- 				alert("관심 클래스에서 삭제되었습니다.");
-            }
-            
-            // AJAX 요청을 통해 서버로 업데이트 요청 전송
-            var data = JSON.stringify({
-                heart_status: heart_status,
-                member_code: member_code,
-                class_code: class_code
-            });
-            
-            updateHeartStatus(data);
-        });
-    });
+	        }
+	
+	        if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
+	            img.src = changeSrc;
+	            alert("관심 클래스에 추가되었습니다.");
+	        } else { // heart_status가 false일 때 (like-class 삭제 시)
+	            img.src = originalSrc;
+	            alert("관심 클래스에서 삭제되었습니다.");
+	        }
+	
+	        // AJAX 요청
+	        var data = JSON.stringify({
+	            heart_status: heart_status,
+	            member_code: member_code,
+	            class_code: class_code
+	        });
+	
+	        updateHeartStatus(data, class_code);
+	    });
+	});
     
-    function updateHeartStatus(data) {
+    function updateHeartStatus(data, class_code) {
     	
         var xhr = new XMLHttpRequest();
         
@@ -530,6 +530,7 @@ document.addEventListener("DOMContentLoaded", function() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
+                    updateHeartCount(class_code);
                     console.log("Heart status updated successfully");
                 } else {
                     console.error("Error updating heartStatus");
@@ -538,10 +539,44 @@ document.addEventListener("DOMContentLoaded", function() {
         };
         
         xhr.send(data);
-    }
+//         xhr.send(JSON.stringify(data));
+    } // updateHeartStatus()끝
+    
+    function updateHeartCount(class_code) {
+    	$.ajax({
+    		type : "get",
+    		data : {
+    			class_code : class_code
+    		},
+    		url : "like-class-count",
+            success: function(likeClassCount) {
+            	$("#heartCountElement").empty();
+                $("#heartCountElement").text(likeClassCount); // heartCount 업데이트
+            },
+            error: function() {
+                console.error("Error fetching heartCount");
+            }
+    		
+    	});
+//         // 새로운 AJAX 요청을 사용하여 heartCount 업데이트
+//         var xhr = new XMLHttpRequest();
+//         xhr.open("GET", "${pageContext.request.contextPath}/get-heart-count", true); // 예시: heartCount를 가져오는 URL
+//         xhr.onreadystatechange = function() {
+//             if (xhr.readyState === 4) {
+//                 if (xhr.status === 200) {
+//                     var newHeartCount = xhr.responseText;
+//                     heartCountElement.textContent = newHeartCount; // heartCount 업데이트
+//                 } else {
+//                     console.error("Error fetching heartCount");
+//                 }
+//             }
+//         };
+//         xhr.send();
+	}
 });
 
 </script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let classScheduleArray = ${class_schedule_date};
@@ -723,7 +758,7 @@ function creatorReview(event, class_code) {
 
 function creatorInquiry(event, class_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
-    window.open("creator-inquiry-form2?class_code=" + class_code, "pop", "width=700, height=800, left=700, top=50");
+    window.open("creator-inquiry-form2?class_code=" + class_code + "&class_inquiry_code=" + class_inquiry_code, "pop", "width=700, height=800, left=700, top=50");
 }
 
 function classComplain(event, class_code) {

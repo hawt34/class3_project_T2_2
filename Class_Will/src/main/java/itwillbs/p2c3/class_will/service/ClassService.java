@@ -107,8 +107,8 @@ public class ClassService {
 	}
 	
 	// 클래스 질문
-	public List<Map<String, Object>> getClassInquiry(int class_code){
-		return mapper.selectClassInquiry(class_code);
+	public List<Map<String, Object>> getClassInquiry(Map<String, Object> map){
+		return mapper.selectClassInquiry(map);
 	}
 	
 	// 클래스 커리큘럼

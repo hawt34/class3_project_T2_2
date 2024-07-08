@@ -66,7 +66,7 @@ public interface ClassMapper {
 	List<Map<String, Object>> selectClassReview(int class_code);
 	
 	// 클래스 질문 
-	List<Map<String, Object>> selectClassInquiry(int class_code);
+	List<Map<String, Object>> selectClassInquiry(Map<String, Object> map);
 	
 	// 클래스 커리큘럼 
 	List<Map<String, Object>> selectClassCurri(int class_code);

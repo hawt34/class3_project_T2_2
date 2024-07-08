@@ -23,20 +23,19 @@
 		<div class="container">
 		<div class="input-form-backgroud row">
 			<div class="input-form col-md-12 mx-auto">
-<%-- 			<c:set var="map" value="${classInquiry}"/> --%>
 				<c:forEach var="map" items="${classInquiry}">
-<%-- 					<c:if test="${classInquiry.member_code eq map.member_code}"> --%>
 						<h4 class="mb-4">클래스문의</h4>
 							<div>
-								<p>작성자 : ${map.member_nickname}</p>
+								<p>🔸참여클래스 : ${map.class_name}</p>
+								<p>🔸작성자 : ${map.member_nickname}</p>
+								<p>🔸작성일 : ${map.class_inquiry_date} ${map.class_inquiry_time}</p>
 							</div>
 							<div class="mb-3">
-								<label for="inquiry-subject">문의제목</label>
+								<label for="inquiry-subject">제목</label>
 								<input type="text" class="form-control" id="inquiry-content" value="${map.class_inquiry_subject}" readonly>
-		<%-- 						${map.class_inquiry_subject} --%>
 							</div>
 							<div class="mb-3">
-								<label for="inquiry-content">문의내용</label>
+								<label for="inquiry-content">내용</label>
 								<textarea rows="10" name="inquiry-content" id="inquiry-content" class="form-control" cols="50" readonly>
 									${map.class_inquiry_content}
 								</textarea> 
@@ -47,10 +46,6 @@
 							<div class="mb-4 creator-review-form-btn" align="center">
 								<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 							</div>
-					
-<!-- 					<form class="validation-form creator-reaply-form" novalidate action="creator-review-replyPro" method="post" onsubmit="reviewSubmit()"> -->
-					
-<!-- 					</form> -->
 <%-- 					</c:if> --%>
 				</c:forEach>
 			</div>

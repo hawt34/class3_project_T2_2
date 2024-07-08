@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -307,6 +308,13 @@ public class ClassController {
         return ResponseEntity.ok().body(bigCategoryList);
     }
 	
+	@GetMapping("like-class-count")
+	@ResponseBody
+	public ResponseEntity<Integer> getLikeClassCount(@RequestParam(name = "class_code") int class_code) {
+	    int likeClassCount = classService.getLikeClassCount(class_code);
+	    System.out.println(">> like-class-count : " + likeClassCount);
+	    return ResponseEntity.ok(likeClassCount);
+	}
 	
 	// 클래스 디테일
 	@GetMapping("class-detail")
@@ -330,7 +338,7 @@ public class ClassController {
 		model.addAttribute("classReview", classReview);
 	    
 		// 클래스 질문
-		List<Map<String, Object>> classInquiry = classService.getClassInquiry(class_code); 
+		List<Map<String, Object>> classInquiry = classService.getClassInquiry(map); 
 		model.addAttribute("classInquiry", classInquiry);
 	    
 		// 클래스 커리큘럼
@@ -414,8 +422,12 @@ public class ClassController {
 	
 	// 클래스 상세 질문
 	@GetMapping("creator-inquiry-form2")
-	public String creatorInquiryForm2(Model model, @RequestParam int class_code){
-		List<Map<String, Object>> classInquiry = classService.getClassInquiry( class_code ); 
+	public String creatorInquiryForm2(Model model, @RequestParam int class_code, @RequestParam int class_inquiry_code){
+		System.out.println(">> class_inquiry_code : " + class_inquiry_code);
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("class_inquiry_code", class_inquiry_code);
+	    map.put("class_code", class_code);
+		List<Map<String, Object>> classInquiry = classService.getClassInquiry(map); 
 		model.addAttribute("classInquiry", classInquiry);
 		return"creator/creator-inquiry-show";
 	}

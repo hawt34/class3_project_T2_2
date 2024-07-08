@@ -413,55 +413,7 @@
 
 </style>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const collapseElements = document.querySelectorAll('[data-bs-toggle="collapse"]');
-
-        let currentOpenCollapse = null;
-
-        const openCollapse = (target) => {
-            if (currentOpenCollapse && currentOpenCollapse !== target) {
-                currentOpenCollapse.classList.remove('show');
-            }
-            target.classList.add('show');
-            currentOpenCollapse = target;
-        };
-
-        const closeCollapse = (target) => {
-            target.classList.remove('show');
-            if (currentOpenCollapse === target) {
-                currentOpenCollapse = null;
-            }
-        };
-
-        collapseElements.forEach(function (elem) {
-            const target = document.querySelector(elem.getAttribute('data-bs-target'));
-
-            elem.addEventListener('mouseenter', () => openCollapse(target));
-            
-            target.addEventListener('mouseenter', () => openCollapse(target));
-            target.addEventListener('mouseleave', () => closeCollapse(target));
-        });
-        
-        
-       
-    });
-    
-    function logout() {
-		
-    	if(confirm("로그아웃하시겠습니까?")) {
-    		location.href = "member-logout";
-    	}
-    } 
-    
-    
-</script>
-
-
-
-
-<!-- 본문 시작 -->
-<!-- Navbar start -->
+<!-- top Navbar start -->
 <div class="class-will-top">
 	<div class="container-fluid ">
 	    <div class="container px-0 top-cate">
@@ -666,8 +618,19 @@
 	<div id="modalBackdrop" class="modal-backdrop"></div>
 											
 </div> <!-- class-will-top -->
+<!-- top Navbar end -->
 
 <script>
+
+//=================================== top script start =====================================================
+
+
+function logout() {
+	
+	if(confirm("로그아웃하시겠습니까?")) {
+		location.href = "member-logout";
+	}
+} 
 $(function() {
 	
 	// 탑 분야 카테고리 
@@ -842,13 +805,11 @@ $(function() {
         
     });
     
+    // 추천 키워드 클릭 시 해당 키워드로 검색됨
     $(document).on('click', '.recommend-link', function(event) {
     	 event.preventDefault(); // 기본 동작을 막습니다.
-         
          let keyword = $(this).data('keyword');
-         
          $("#keyword").val(keyword);
-         
          $("form.search-box").submit();
     });
     
@@ -858,7 +819,9 @@ $(function() {
         $('#searchModal').fadeOut();
     });
 	
-    const collapseElements = $('[data-bs-toggle="collapse"]');
+    // ===================================================================================================
+    // 카테고리, 지역 콜렙스 호버
+     const collapseElements = $('#top-categoty, #top-local');
 
     let currentOpenCollapse = null;
 
@@ -885,7 +848,6 @@ $(function() {
         target.on('mouseenter', () => openCollapse(target));
         target.on('mouseleave', () => closeCollapse(target));
     });
-	
     	
     // ===================================================================================================
  	// 채팅 모달 창 열기
@@ -922,7 +884,7 @@ $(function() {
     // ===================================================================================================
     // 채팅창 웹소켓
 	// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
-	connect();
+// 	connect();
 	
     	
     	
@@ -932,6 +894,6 @@ $(function() {
 	
 });
 
-
+//=================================== top script end =====================================================
 
 </script>

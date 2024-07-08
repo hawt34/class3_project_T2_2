@@ -256,7 +256,13 @@
 		WHERE member_code = #{member_code}
 		GROUP BY member_code
 	</select>
-
+	<select id="findMoney">
+		SELECT * FROM pay
+		WHERE member_code = #{member_code}
+		AND YEAR(pay_datetime) = #{year}
+		AND MONTH(pay_datetime) = #{month}
+	
+	</select>
 
 
 

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -562,7 +564,24 @@ public class MyPageController {
 		Map<String, String> memberMoney = myPageService.getMemberMoney(member_code2);
 		model.addAttribute("memberMoney", memberMoney);
 		System.out.println("특정 멤버의 여태 사용한 금액" + memberMoney);
+		
 		return "mypage/mypage-power";
 	}
+	
+	@RequestMapping(value = "fetchPayData", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> fetchPayData(@RequestBody Map<String, String> request) {
+        String year = request.get("year");
+        String month = request.get("month");
+        String member_code = request.get("member_code");
 
+        // 여기서 payService를 사용하여 데이터를 가져오는 로직을 구현해야 합니다.
+        List<Map<String, String>> payList = myPageService.getPayData(year, month, member_code);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("data", payList);
+
+        return response;
+    }
+	
 }

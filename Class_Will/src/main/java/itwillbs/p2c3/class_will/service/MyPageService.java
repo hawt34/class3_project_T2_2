@@ -121,6 +121,11 @@ public class MyPageService {
 		return myPageMapper.countMoney(member_code2);
 	}
 
+	public List<Map<String, String>> getPayData(String year, String month, String member_code) {
+		
+		return myPageMapper.findMoney(year,month,member_code);
+	}
+
 	
 
 	

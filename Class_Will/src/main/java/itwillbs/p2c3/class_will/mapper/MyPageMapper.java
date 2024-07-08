@@ -49,5 +49,7 @@ public interface MyPageMapper {
 	Map<String, String> calDate(int member_code2);
 
 	Map<String, String> countMoney(int member_code2);
+
+	List<Map<String, String>> findMoney(@Param("year")String year,@Param("month") String month,@Param("member_code")String member_code);
 	
 }

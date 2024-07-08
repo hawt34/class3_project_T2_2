@@ -834,6 +834,7 @@ function updateParameterClass(big_category, small_category, common2_code) {
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
 function generateClassCardHTML(filter, contextPath, isLiked) {
+	var contextPath = "${pageContext.request.contextPath}"; 
     var heartImgSrc = isLiked ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
 
     return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' +

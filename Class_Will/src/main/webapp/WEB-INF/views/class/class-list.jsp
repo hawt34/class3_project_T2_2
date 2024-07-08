@@ -390,58 +390,6 @@ a {
 	
 		<!-- 첫번째 줄 -->
 		<div class="row pb-4 mb-4 d-flex flex-wrap" id="classListContainer">
-<%-- 			<c:forEach var="classList" items="${classList}"> --%>
-<!-- 				<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
-<!-- 					<div class="card shadow-sm border-0 rounded flex-fill mb-4"> -->
-<!-- 						<div class="card-body p-0 position-relative card-body1 position-relative1"> -->
-<%-- <%-- 							<a href="class-detail?class_code=${classList.class_code}"> --%> --%>
-<%-- <%-- 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a> --%> --%>
-<%-- 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classList.class_code}'"> --%>
-<%-- 							<c:choose> --%>
-<%-- 								<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 --> --%>
-<%-- 									<c:set var="isLiked" value="false"/> <!-- 삭제 --> --%>
-<%-- 									<c:forEach var="likeClassCode" items="${likeClassCode}"> --%>
-<%-- 										<c:if test="${likeClassCode.class_code == classList.class_code}"> --%>
-<%-- 											<c:set var="isLiked" value="true"/> <!-- 추가 --> --%>
-<%-- 										</c:if> --%>
-<%-- 									</c:forEach> --%>
-<%-- 									<c:if test="${isLiked}"> --%>
-<%-- 										<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-<%-- 									</c:if> --%>
-<%-- 									<c:if test="${not isLiked}"> --%>
-<%-- 										<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-<%-- 									</c:if> --%>
-<%-- 								</c:when> --%>
-<%-- 								<c:otherwise> <!-- likeClassList 존재 X --> --%>
-<%-- 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-<%-- 								</c:otherwise> --%>
-<%-- 							</c:choose> --%>
-							
-<!-- 							<div class="card-bodys d-flex flex-column"> -->
-<!-- 								<div class="classCategory col-md-10"> -->
-<%-- 									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button> --%>
-<%-- 									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button> --%>
-<!-- 								</div> -->
-<!-- 								<div class="createrName d-flex align-items-center"> -->
-<%-- 									<img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
-<%-- 									<p class="mb-0 ml-2">${classList.member_nickname}</p> --%>
-<!-- 								</div> -->
-<!-- 								<div class="className"> -->
-<%-- 								   <a href="class-detail?class_code=${classList.class_code}"><h6>${classList.class_name}</h6></a> --%>
-<!-- 								</div> -->
-<!-- 								<div class="row classInfo"> -->
-<!-- 									<div class="col-md-6 add"> -->
-<%-- 										<a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.local_name}</a> --%>
-<!-- 									</div> -->
-<!-- 									<div class="col-md-6 price"> -->
-<%-- 										<p><fmt:formatNumber value="${classList.class_price}" pattern="#,###" />원</p> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<%-- 			</c:forEach> --%>
 		</div>
    </div> <!-- col-md-12 -->
 </div> <!-- container -->

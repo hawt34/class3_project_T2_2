@@ -47,62 +47,13 @@
 
 <!-- 카카오 지도 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b60a9d61c7090ce24f1b5bfa7ab26622"></script>
-
+    <script type="text/javascript">
+        // 서버에서 컨텍스트 경로를 받아와 JavaScript 변수로 설정
+        var contextPath = "${pageContext.request.contextPath}";
+        console.log("contextPath: " + contextPath); // contextPath 값 확인
+    </script>
 <script type="text/javascript">
 
-// ------ like-class ------ 
-    $(document).on('click', '.heartImg', function() {
-        var img = this;
-        var member_code = img.getAttribute("data-member-code");
-        var class_code = img.getAttribute("data-class-code");
-        var isFullHeart = img.src.includes("heart_full.png");
-        var heart_status = !isFullHeart;
-
-        // 로그인 확인
-        if (member_code == null || member_code === "") { 
-            alert("로그인이 필요한 페이지 입니다.");
-            window.location.href = "member-login";
-            return;
-        }
-
-        // 이미지 변경
-        if (heart_status) {
-            img.src = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
-            alert("관심 클래스에 추가되었습니다.");
-        } else {
-            img.src = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
-            alert("관심 클래스에서 삭제되었습니다.");
-        }
-
-        // AJAX 요청
-        var data = JSON.stringify({
-            heart_status: heart_status,
-            member_code: member_code,
-            class_code: class_code
-        });
-        
-        updateHeartStatus(data);
-    });
-    
-    function updateHeartStatus(data) {
-    	
-        var xhr = new XMLHttpRequest();
-        
-        xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    console.log("Heart status updated successfully");
-                } else {
-                    console.error("Error updating heartStatus");
-                }
-            }
-        };
-        
-        xhr.send(data);
-    }
-    
     const urlParams = new URLSearchParams(window.location.search);
     const bigCategory = urlParams.get('class_big_category');
     const smallCategory = urlParams.get('class_small_category');
@@ -110,14 +61,14 @@
     
     // 대 카테고리 선택
     const bigCategorySelect = document.getElementById('class_big_category');
-    if (bigCategory) {
+    if (bigCategorySelect && bigCategory) {
     	console.log("bigCategorySelect");
         bigCategorySelect.value = bigCategory;
     }
     
     // 소 카테고리 선택
     const smallCategorySelect = document.getElementById('class_small_category');
-    if (smallCategory) {
+    if (smallCategorySelect && smallCategory) {
         bigCategorySelect.value = bigCategory;
     	console.log("smallCategorySelect");
         smallCategorySelect.value = smallCategory;
@@ -125,7 +76,7 @@
     
     // 지역 선택
     const localSelect = document.getElementById('class_local');
-    if (local) {
+    if (localSelect && local) {
     	console.log("localSelect");
         localSelect.value = local;
     }
@@ -504,6 +455,61 @@ a {
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 <script type="text/javascript">
+//------ like-class ------ 
+$(document).on('click', '.heartImg', function() {
+    var img = this;
+    var member_code = img.getAttribute("data-member-code");
+    var class_code = img.getAttribute("data-class-code");
+    var isFullHeart = img.src.includes("heart_full.png");
+    var heart_status = !isFullHeart;
+	
+    console.log("member_code :" + member_code + ", class_code : " + class_code + ", heart_status :" + heart_status);
+    
+    // 로그인 확인
+    if (member_code == null || member_code === "") { 
+        alert("로그인이 필요한 페이지 입니다.");
+        window.location.href = "member-login";
+        return;
+    }
+
+    // 이미지 변경
+    if (heart_status) {
+        img.src = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+        
+        alert("관심 클래스에 추가되었습니다.");
+    } else {
+        img.src = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+        alert("관심 클래스에서 삭제되었습니다.");
+    }
+
+    // AJAX 요청
+    var data = JSON.stringify({
+        heart_status: heart_status,
+        member_code: member_code,
+        class_code: class_code
+    });
+    
+    updateHeartStatus(data);
+}); // heartImg click
+
+function updateHeartStatus(data) {
+	
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open("POST", "${pageContext.request.contextPath}/update-heart-status", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                console.log("Heart status updated successfully");
+            } else {
+                console.error("Error updating heartStatus");
+            }
+        }
+    };
+    
+    xhr.send(data);
+} //updateHeartStatus
 
 // 대카테고리에 따른 소카테고리 값
 $(function() {
@@ -578,49 +584,47 @@ $(function() {
 		if (big_category || small_category || common2_code) {
        		updateParameterClass(big_category, small_category, common2_code);
 		}
-// 	    updateParameterClass(big_category, small_category,common2_code);
-	    
-//         if (big_category) {
-//             $("#class_big_category").val(big_category);
-
-//             // bigCategory를 먼저 설정한 후 change 이벤트 강제 발생
-//             $("#class_big_category").change();
-//         }
-        
-//         // bigCategory가 "bigCategoryAll"인 경우 소 카테고리도 "전체"로 설정
-//         if (big_category === 'bigCategoryAll') {
-//             $("#class_small_category").val('smallCategoryAll');
-//         } else if (small_category) {
-//             $("#class_small_category").val(small_category);
-//         }
 
 	});
-});
+}); // 끝
 
-/*
+//------------------------------------------------------------------------------------
 function updateParameterClass(big_category, small_category, common2_code) {
-    console.log("Sending AJAX request with params: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
+	console.log("updateParameterClass : big_category : " + big_category + ", small_category : " + small_category + ", common2_code : " + common2_code);
+	$.ajax({
+		url: "update-class-list",
+		method: "get",
+		data: { 
+			big_category: big_category,
+			small_category: small_category,
+			common2_code : common2_code
+		},
+		
+      success: function(filterClass) {
+			var classListContainer = $("#classListContainer");
+			classListContainer.empty();
+		
+          if (filterClass.length > 0) {
+				$.each(filterClass, function(index, item) {
+//					var classCard = generateClassCardHTML(item);
+//					classListContainer.append(classCard);
+					updateClassList(filterClass);
+					
+				});
 
-    $.ajax({
-        url: "update-class-list",
-        method: "get",
-        data: { 
-        	big_category: big_category,
-        	small_category: small_category,
-            common2_code : common2_code
-            
-        },
-        success: function(filterClass) {
-            updateClassList(filterClass);
-//             alert("updateParameterClass 성공");
-            console.log("updateParameterClass 성공");
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX Error: ', error);
-        }
-    });
-}
-*/
+//				classListContainer.show(); 
+			} else {
+//				classListContainer.hide(); // 데이터가 없으면 목록을 숨김
+		        classListContainer.html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
+          	$(".classCount").html('<h5>0개의 클래스</h5>');
+			}
+          
+		},
+		error: function(xhr, status, error) {
+			console.error('AJAX Error: ', error);
+		}
+	});
+} // updateParameterClass
 // ------------------------------------------------------------------------------------
 
 var contextPath = '<%= request.getContextPath() %>';
@@ -716,7 +720,7 @@ $(function() {
 			}
 		});
 	}); // classListSelect() 끝
-});
+}); // 
 
 //------------------------------------------------------------------------------------
 // 초기화 버튼 (셀렉트 컨테이너 값 초기화)
@@ -760,25 +764,7 @@ function fetchClassList(data) {
 			alert("오류 발생: " + error);
 		}
 	});
-}
-
-//------------------------------------------------------------------------------------
-// // 클래스 목록 갯수 업데이트 함수
-// function updateClassList(filterClass) {
-// 		$(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
-		
-// 		$("#classListContainer").html("");
-		
-// 		for (let filter of filterClass) {
-// 			$("#classListContainer").append(generateClassCardHTML(filter));
-// 		}
-	 
-// 	    if (filterClass.length == 0) {
-// 	        $("#classListContainer").html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
-// 	    }
-	    
-// 		console.log("ajax 성공ㅇㅇㅇㅇㅇㅇ");
-// }
+} // fetchClassList
 
 function updateClassList(filterClass) {
     var classListContainer = $("#classListContainer");
@@ -793,45 +779,10 @@ function updateClassList(filterClass) {
     }
 	classListContainer.show();
     $(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
-}
+} // updateClassList
 
 //------------------------------------------------------------------------------------
-function updateParameterClass(big_category, small_category, common2_code) {
-	console.log("updateParameterClass : big_category : " + big_category + ", small_category : " + small_category + ", common2_code : " + common2_code);
-	$.ajax({
-		url: "update-class-list",
-		method: "get",
-		data: { 
-			big_category: big_category,
-			small_category: small_category,
-			common2_code : common2_code
-		},
-        success: function(data) {
-			var classListContainer = $("#classListContainer");
-			classListContainer.empty();
-		
-            if (data.length > 0) {
-				$.each(data, function(index, item) {
-// 					var classCard = generateClassCardHTML(item);
-// 					classListContainer.append(classCard);
-					updateClassList(data);
-					
-				});
 
-// 				classListContainer.show(); 
-			} else {
-// 				classListContainer.hide(); // 데이터가 없으면 목록을 숨김
-		        classListContainer.html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
-            	$(".classCount").html('<h5>0개의 클래스</h5>');
-			}
-            
-		},
-		error: function(xhr, status, error) {
-			console.error('AJAX Error: ', error);
-		}
-	});
-}
-//------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
 function generateClassCardHTML(filter, contextPath, isLiked) {
 	var contextPath = "${pageContext.request.contextPath}"; 
@@ -868,7 +819,7 @@ function generateClassCardHTML(filter, contextPath, isLiked) {
         '</div>' +
         '</div>' +
         '</div>';
-}
+} // 
 
 
 </script>

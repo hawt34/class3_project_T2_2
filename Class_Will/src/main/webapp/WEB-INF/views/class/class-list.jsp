@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 대 카테고리 선택
     const bigCategorySelect = document.getElementById('class_big_category');
     if (bigCategory) {
+    	console.log("bigCategorySelect");
         bigCategorySelect.value = bigCategory;
     }
     
@@ -125,12 +126,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const smallCategorySelect = document.getElementById('class_small_category');
     if (smallCategory) {
         bigCategorySelect.value = bigCategory;
+    	console.log("smallCategorySelect");
         smallCategorySelect.value = smallCategory;
     }
     
     // 지역 선택
     const localSelect = document.getElementById('class_local');
     if (local) {
+    	console.log("localSelect");
         localSelect.value = local;
     }
 });
@@ -251,7 +254,11 @@ function getCurrentLocation() {
 //         alert("Geolocation is not supported by this browser.");
 //     }
 // ipinfo
-$.getJSON("http://ipinfo.io?token=d272291f523605", function(data){
+
+
+// http://ipinfo.io?token=d272291f523605
+$.getJSON("http://ipinfo.io/json", function(data){
+	debugger;
 	console.log(data);
 // 	$("#cty").text(data.country);
 	showLocations(data);
@@ -344,7 +351,8 @@ a {
 							
 							<div class="col-md-3">
 								<label for="class_small_category" class="h6">상세분류</label> 
-								<select name="class_small_category" id="class_small_category" class="form-control"  onchange="updateSmallCategory()">
+<!-- 								<select name="class_small_category" id="class_small_category" class="form-control"  onchange="updateSmallCategory()"> -->
+								<select name="class_small_category" id="class_small_category" class="form-control">
 									<option value="smallCategoryAll" id="class_small_category_all">전체</option>
 								</select>
 							</div>
@@ -353,7 +361,8 @@ a {
 						<!-- 카테고리바 지역 시작 -->
 							<div class="col-md-3">
 								<label for="class_local" class="h6">지역</label> 
-								<select name="class_local" id="class_local" class="form-control" onchange="updateLocal()">
+<!-- 								<select name="class_local" id="class_local" class="form-control" onchange="updateLocal()"> -->
+								<select name="class_local" id="class_local" class="form-control">
 									<option value="classLocalAll" id="class_local_all">전체</option>
 									<c:forEach var="localList" items="${localList}">
 										<option value="${localList.common2_code}">${localList.code_value}</option>
@@ -404,7 +413,7 @@ a {
 		<div class="row">
 			<div class="col-6">
 				<div class="classCount">
-					<h5>${classCount}개의 클래스</h5>
+<%-- 					<h5>${classCount}개의 클래스</h5> --%>
 				</div>
 			</div>
 			<div class="col-6 box11">
@@ -437,60 +446,60 @@ a {
 	
 		<!-- 첫번째 줄 -->
 		<div class="row pb-4 mb-4 d-flex flex-wrap" id="classListContainer">
-			<c:forEach var="classList" items="${classList}">
-				<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">
-					<div class="card shadow-sm border-0 rounded flex-fill mb-4">
-						<div class="card-body p-0 position-relative card-body1 position-relative1">
-							<a href="class-detail?class_code=${classList.class_code}">
-							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a>
-	<%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
-							<!-- 라이크 클래스 하트 이미지 변경-->
-							<c:choose>
-								<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
-									<c:set var="isLiked" value="false"/> <!-- 삭제 -->
-									<c:forEach var="likeClassCode" items="${likeClassCode}">
-										<c:if test="${likeClassCode.class_code == classList.class_code}">
-											<c:set var="isLiked" value="true"/> <!-- 추가 -->
-										</c:if>
-									</c:forEach>
-									<c:if test="${isLiked}">
-										<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-									</c:if>
-									<c:if test="${not isLiked}">
-										<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-									</c:if>
-								</c:when>
-								<c:otherwise> <!-- likeClassList 존재 X -->
-									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-								</c:otherwise>
-							</c:choose>
-							<!-- 라이크 클래스 하트 이미지 변경 -->
+<%-- 			<c:forEach var="classList" items="${classList}"> --%>
+<!-- 				<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
+<!-- 					<div class="card shadow-sm border-0 rounded flex-fill mb-4"> -->
+<!-- 						<div class="card-body p-0 position-relative card-body1 position-relative1"> -->
+<%-- 							<a href="class-detail?class_code=${classList.class_code}"> --%>
+<%-- 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a> --%>
+<%-- 	<%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%> 
+<!-- 							라이크 클래스 하트 이미지 변경 -->
+<%-- 							<c:choose> --%>
+<%-- 								<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 --> --%>
+<%-- 									<c:set var="isLiked" value="false"/> <!-- 삭제 --> --%>
+<%-- 									<c:forEach var="likeClassCode" items="${likeClassCode}"> --%>
+<%-- 										<c:if test="${likeClassCode.class_code == classList.class_code}"> --%>
+<%-- 											<c:set var="isLiked" value="true"/> <!-- 추가 --> --%>
+<%-- 										</c:if> --%>
+<%-- 									</c:forEach> --%>
+<%-- 									<c:if test="${isLiked}"> --%>
+<%-- 										<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+<%-- 									</c:if> --%>
+<%-- 									<c:if test="${not isLiked}"> --%>
+<%-- 										<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+<%-- 									</c:if> --%>
+<%-- 								</c:when> --%>
+<%-- 								<c:otherwise> <!-- likeClassList 존재 X --> --%>
+<%-- 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+<%-- 								</c:otherwise> --%>
+<%-- 							</c:choose> --%>
+<!-- 							라이크 클래스 하트 이미지 변경 -->
 							
-							<div class="card-bodys d-flex flex-column">
-								<div class="classCategory col-md-10">
-									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button>
-									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button>
-								</div>
-								<div class="createrName d-flex align-items-center">
-									<img src="${pageContext.request.contextPath}/resources/images/class/pic.png">
-									<p class="mb-0 ml-2">${classList.member_nickname}</p>
-								</div>
-								<div class="className">
-								   <a href="class-detail?class_code=${classList.class_code}"><h6>${classList.class_name}</h6></a>
-								</div>
-								<div class="row classInfo">
-									<div class="col-md-6 add">
-										<a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.local_name}</a>
-									</div>
-									<div class="col-md-6 price">
-										<p><fmt:formatNumber value="${classList.class_price}" pattern="#,###" />원</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
+<!-- 							<div class="card-bodys d-flex flex-column"> -->
+<!-- 								<div class="classCategory col-md-10"> -->
+<%-- 									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_big_category}</button> --%>
+<%-- 									<button type="button" class="btn btn-outline-secondary btn-sm category btn1">${classList.class_small_category}</button> --%>
+<!-- 								</div> -->
+<!-- 								<div class="createrName d-flex align-items-center"> -->
+<%-- 									<img src="${pageContext.request.contextPath}/resources/images/class/pic.png"> --%>
+<%-- 									<p class="mb-0 ml-2">${classList.member_nickname}</p> --%>
+<!-- 								</div> -->
+<!-- 								<div class="className"> -->
+<%-- 								   <a href="class-detail?class_code=${classList.class_code}"><h6>${classList.class_name}</h6></a> --%>
+<!-- 								</div> -->
+<!-- 								<div class="row classInfo"> -->
+<!-- 									<div class="col-md-6 add"> -->
+<%-- 										<a href="" class="btn btn-outline-dark btn-sm disabled btn1">${classList.local_name}</a> --%>
+<!-- 									</div> -->
+<!-- 									<div class="col-md-6 price"> -->
+<%-- 										<p><fmt:formatNumber value="${classList.class_price}" pattern="#,###" />원</p> --%>
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<%-- 			</c:forEach> --%>
 		</div>
    </div> <!-- col-md-12 -->
 </div> <!-- container -->
@@ -535,16 +544,16 @@ $(function() {
 				});
 				
 				// 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"
-				if (big_category === 'bigCategoryAll') {
+				if (bigCategory === 'bigCategoryAll') {
 			    	$("#class_small_category").val('smallCategoryAll');
 				}
                 
 				// 파라미터로 전달받은 값이 있으면 선택 (소 카테고리)
 				var urlParams = new URLSearchParams(window.location.search);
-				var small_category = urlParams.get('class_small_category');
+				var smallCategory = urlParams.get('class_small_category');
 
-				if (small_category) {
-			    	$("#class_small_category").val(small_category);
+				if (smallCategory) {
+			    	$("#class_small_category").val(smallCategory);
 				}
             },
 				error: function(xhr, status, error) {
@@ -561,36 +570,40 @@ $(function() {
 		var common2_code = urlParams.get('common2_code');
 // 		var big_category = $("#class_big_category").val();
 
-    console.log("Sending AJAX request with paramsss11: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
+   		console.log("Sending AJAX request with paramsss11: ", big_category, small_category, common2_code); 
 		if (small_category) {
 	    	$("#class_small_category").val(small_category);
 		}
-    console.log("Sending AJAX request with paramsss22: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
+		
+    	console.log("Sending AJAX request with paramsss22: ", big_category, small_category, common2_code); 
 
 		if (big_category) {
 	    	$("#class_big_category").val(big_category).change(); 
-    console.log("Sending AJAX request with paramsss33: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
+    		console.log("Sending AJAX request with paramsss33: ", big_category, small_category, common2_code); 
 		} 
         
+    
 	    // 클래스 목록 업데이트 함수 호출
 	    updateParameterClass(big_category, small_category,common2_code);
 	    
-//         if (bigCategory) {
-//             $("#class_big_category").val(bigCategory);
+//         if (big_category) {
+//             $("#class_big_category").val(big_category);
 
 //             // bigCategory를 먼저 설정한 후 change 이벤트 강제 발생
 //             $("#class_big_category").change();
 //         }
         
 //         // bigCategory가 "bigCategoryAll"인 경우 소 카테고리도 "전체"로 설정
-//         if (bigCategory === 'bigCategoryAll') {
+//         if (big_category === 'bigCategoryAll') {
 //             $("#class_small_category").val('smallCategoryAll');
-//         } else if (smallCategory) {
-//             $("#class_small_category").val(smallCategory);
+//         } else if (small_category) {
+//             $("#class_small_category").val(small_category);
 //         }
 
 	});
 });
+
+/*
 function updateParameterClass(big_category, small_category, common2_code) {
     console.log("Sending AJAX request with params: ", big_category, small_category, common2_code); // 디버그용 콘솔 출력
 
@@ -603,8 +616,8 @@ function updateParameterClass(big_category, small_category, common2_code) {
             common2_code : common2_code
             
         },
-        success: function(data) {
-            updateClassList(data);
+        success: function(filterClass) {
+            updateClassList(filterClass);
 //             alert("updateParameterClass 성공");
             console.log("updateParameterClass 성공");
         },
@@ -613,6 +626,7 @@ function updateParameterClass(big_category, small_category, common2_code) {
         }
     });
 }
+*/
 // ------------------------------------------------------------------------------------
 
 var contextPath = '<%= request.getContextPath() %>';
@@ -698,9 +712,9 @@ $(function() {
 			dataType: "json",
 			data: data,
 			contentType: "application/json",
-			success: function(filter) {
+			success: function(filterClass) {
 				console.log("ajax 성공");
-				updateClassList(filter);
+				updateClassList(filterClass);
 			},
 			error: function(xhr, status, error) {
 				console.error("Error details:", xhr, status, error);
@@ -744,8 +758,8 @@ function fetchClassList(data) {
 		dataType: "json",
 		data: data,
 		contentType: "application/json",
-		success: function(filter) {
-			updateClassList(filter);
+		success: function(filterClass) {
+			updateClassList(filterClass);
 		},
 		error: function(xhr, status, error) {
 			console.error("Error details:", xhr, status, error);
@@ -783,79 +797,84 @@ function updateClassList(filterClass) {
     } else {
         classListContainer.html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
     }
+	classListContainer.show();
     $(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
 }
 
 //------------------------------------------------------------------------------------
-// function updateParameterClass(big_category, small_category, common2_code) {
-// 	$.ajax({
-// 		url: "update-class-list",
-// 		method: "get",
-// 		data: { 
-// 			big_category: big_category,
-// 			small_category: small_category,
-// 			common2_code : common2_code
-// 		},
-//         success: function(data) {
-// 			var classListContainer = $(".classListContainer");
-// 			classListContainer.empty();
+function updateParameterClass(big_category, small_category, common2_code) {
+	$.ajax({
+		url: "update-class-list",
+		method: "get",
+		data: { 
+			big_category: big_category,
+			small_category: small_category,
+			common2_code : common2_code
+		},
+        success: function(data) {
+			var classListContainer = $("#classListContainer");
+			classListContainer.empty();
+		
+            if (data.length > 0) {
+				$.each(data, function(index, item) {
+					var classCard = generateClassCardHTML(item);
+					classListContainer.append(classCard);
+					updateClassList(data);
+					
+				});
 
-//             if (data.length > 0) {
-// 				$.each(data, function(index, item) {
-// 					var classCard = generateClassCardHTML(item);
-// 					classListContainer.append(classCard);
-// 				});
-
-// 				classListContainer.show(); 
-// 			} else {
-// 				classListContainer.hide(); // 데이터가 없으면 목록을 숨김
-// 			}
+				classListContainer.show(); 
+			} else {
+				classListContainer.hide(); // 데이터가 없으면 목록을 숨김
+		        classListContainer.html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
+            	$(".classCount").html('<h5>0개의 클래스</h5>');
+			}
             
-// 		},
-// 		error: function(xhr, status, error) {
-// 			console.error('AJAX Error: ', error);
-// 		}
-// 	});
-// }
+		},
+		error: function(xhr, status, error) {
+			console.error('AJAX Error: ', error);
+		}
+	});
+}
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
 
 function generateClassCardHTML(filter) {
 	
 	return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' 
- + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' 
- + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
- + '<a href="class-detail?class_code=' + filter.class_code + '">'
- + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">' 
- + '</a>' 
- + '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="'
- + filter.class_code + '" data-member-code="' + filter.member_code + '">' 
- + '<div class="card-bodys d-flex flex-column">'
- + '<div class="classCategory col-md-10">'
- + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' 
- + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' 
- + '</div>' 
- + '<div class="createrName d-flex align-items-center">' 
- + '<img src="' + contextPath + '/resources/images/class/pic.png">' 
- + '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' 
- + '</div>' 
- +'<div class="className">'
- + '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' 
- + '</div>'
- + '<div class="row classInfo">' 
- + '<div class="col-md-6 add">' 
- + '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' 
- + '</div>' 
- + '<div class="col-md-6 price">' 
- + '<p>' + filter.class_price + '원</p>' 
- + '</div>' 
- + '</div>' 
- + '</div>' 
- + '</div>' 
- + '</div>' 
- + '</div>';
+	 + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' 
+	 + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
+	 + '<a href="class-detail?class_code=' + filter.class_code + '">'
+	 + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">' 
+	 + '</a>' 
+	 + '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="'
+	 + filter.class_code + '" data-member-code="' + filter.member_code + '">' 
+	 + '<div class="card-bodys d-flex flex-column">'
+	 + '<div class="classCategory col-md-10">'
+	 + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' 
+	 + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' 
+	 + '</div>' 
+	 + '<div class="createrName d-flex align-items-center">' 
+	 + '<img src="' + contextPath + '/resources/images/class/pic.png">' 
+	 + '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' 
+	 + '</div>' 
+	 +'<div class="className">'
+	 + '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' 
+	 + '</div>'
+	 + '<div class="row classInfo">' 
+	 + '<div class="col-md-6 add">' 
+	 + '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' 
+	 + '</div>' 
+	 + '<div class="col-md-6 price">' 
+	 + '<p>' + filter.class_price + '원</p>' 
+	 + '</div>' 
+	 + '</div>' 
+	 + '</div>' 
+	 + '</div>' 
+	 + '</div>' 
+	 + '</div>';
 }
-// });
+
 </script>
 </body>
 </html>

@@ -232,11 +232,11 @@ public class ClassController {
 	    list.put("class_codes", classCodes);
 
 	    // 필터링 메소드 호출 및 결과 받아오기
-	    List<Map<String, Object>> filter = classService.getClassList(list);
-	    System.out.println(">> filter : " + filter);
+	    List<Map<String, Object>> filterClass = classService.getClassList(list);
+	    System.out.println(">> filterClass : " + filterClass);
 	    
 	    // 결과를 classCodes 순서대로 정렬
-	    Map<Integer, Map<String, Object>> filterMap = filter.stream()
+	    Map<Integer, Map<String, Object>> filterMap = filterClass.stream()
 	        .collect(Collectors.toMap(
 	            item -> (Integer) item.get("class_code"),
 	            item -> item
@@ -251,7 +251,7 @@ public class ClassController {
 	    
 	    System.out.println("sortedFilter" + sortedFilter);
 	    // 필터링된 결과 반환
-	    return filter;
+	    return filterClass;
 	}
 	
 	// 클래스 리뷰순 정렬
@@ -423,12 +423,12 @@ public class ClassController {
 	// 클래스 상세 질문
 	@GetMapping("creator-inquiry-form2")
 	public String creatorInquiryForm2(Model model, @RequestParam int class_code, @RequestParam int class_inquiry_code){
-		System.out.println(">> class_inquiry_code : " + class_inquiry_code);
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("class_inquiry_code", class_inquiry_code);
-	    map.put("class_code", class_code);
-		List<Map<String, Object>> classInquiry = classService.getClassInquiry(map); 
-		model.addAttribute("classInquiry", classInquiry);
+//		System.out.println(">> class_inquiry_code : " + class_inquiry_code);
+//	    Map<String, Object> map = new HashMap<>();
+//	    map.put("class_inquiry_code", class_inquiry_code);
+//	    map.put("class_code", class_code);
+//		List<Map<String, Object>> classInquiry = classService.getClassInquiry(map); 
+//		model.addAttribute("classInquiry", classInquiry);
 		return"creator/creator-inquiry-show";
 	}
 	

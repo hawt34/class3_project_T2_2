@@ -140,10 +140,9 @@ th:nth-child(2), td:nth-child(2) {
 								</c:forEach>
 								<a href="will-pay-charge" class="btn btn-primary">계좌 등록 및 충전</a>
 								<button class="btn btn-light w-25" id="refundAgreeBtn" onclick="openPopUp()">환불 정책 동의</button>
-<!-- 								<button class="btn btn-light w-25 refundBtn" id="refundBtn" -->
-<%-- 									onclick="refundWillpay('${chargeInfo.will_pay_amount}', '${chargeInfo.will_pay_get_pay}', '${chargeInfo.will_pay_code}', '${chargeInfo.will_pay_date}')"> --%>
-<!-- 									환불하기 -->
-<!-- 								</button> -->
+								<button class="btn btn-light w-25 refundBtn" id="refundInputBtn" onclick="openPopUpRefund()">
+									환불하기
+								</button>
 								<p style="margin-top:10px;">충전 내역</p>
 								<table class="table table-hover">
 									<thead>
@@ -176,10 +175,7 @@ th:nth-child(2), td:nth-child(2) {
 															환불불가 상품
 														</c:when>
 														<c:otherwise>
-															<button class="btn btn-dark refundBtn" 
-																onclick="refundWillpay('${chargeInfo.will_pay_amount}', '${chargeInfo.will_pay_get_pay}', '${chargeInfo.will_pay_code}', '${chargeInfo.will_pay_date}')">
-																환불하기
-															</button>
+															
 														</c:otherwise>
 													</c:choose>
 												</td>
@@ -209,7 +205,12 @@ th:nth-child(2), td:nth-child(2) {
 	}
 	
 	function showRefundBtn() {
-		$('.refundBtn').show();
+		$('#refundInputBtn').show();
+		$("#refundAgreeBtn").hide();
+	}
+	
+	function openPopUpRefund() {
+		window.open("refund-inputRefund", "agree", "width=544, height=532, top=270, left=700");	
 	}
 	
 	function refundWillpay(param_pay_amt, param_get_willpay, param_willpay_code, param_willpay_date) {

@@ -131,9 +131,33 @@ tbody tr:hover {
 
 						<div class="col-lg-9 creator-body">
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">항상 고마운
-									${member.member_name}님</div>
+							<div class="container">
+								<div class="col-md-12 text-center h2 mb-5">오늘은 ${memberDate.member_name}님이 클래스윌을 만난지
+								${memberDate.days_since_registration} 일 입니다.</div>
+								<div class="row">
+									<div class="col">
+										<div class="table-responsive">
+											<table class="table table-hover">
+												<thead>
+													<tr>
+														<th>회원 이름</th>
+														<th>가입일</th>
+														
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>${memberDate.member_name}</td>
+														<td>${memberDate.member_reg_date}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
 								<div class="container">
+								<div class="col-md-12 text-center h2 mb-5">그 동안 ${member.member_name}님은 클래스윌과 함께 성장하셨습니다.</div>
 									<div class="row">
 										<div class="col">
 											<div class="table-responsive">
@@ -162,6 +186,11 @@ tbody tr:hover {
 
 							<div class="mt-5">
 								<canvas id="chart" style="width: 100%; height: 400px;"></canvas>
+							</div>
+								<div class="container">
+								<div class="col-md-12 text-center h2 mb-5">${memberDate.member_name} 님은 클래스 윌에 합류하신 지
+								${memberDate.days_since_registration} 일 지났습니다.</div>
+								
 							</div>
 						</div>
 					</div>

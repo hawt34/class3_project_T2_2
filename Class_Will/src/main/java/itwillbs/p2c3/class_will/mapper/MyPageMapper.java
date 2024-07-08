@@ -45,5 +45,9 @@ public interface MyPageMapper {
 	int countPoss(int member_code);
 
 	int countReview(int member_code);
+
+	Map<String, String> calDate(int member_code2);
+
+	Map<String, String> countMoney(int member_code2);
 	
 }

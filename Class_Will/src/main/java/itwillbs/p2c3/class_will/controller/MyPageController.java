@@ -554,7 +554,14 @@ public class MyPageController {
 		model.addAttribute("memberMaster", memberMaster);
 	
 		System.out.println("멤버가 마스터한 클래스" + memberMaster);
-		
+		//특정회원의 가입일을 기준으로 하여 몇 일 지났다 출력하는 것 
+		Map<String, String> memberDate = myPageService.getMemberDate(member_code2);
+		model.addAttribute("memberDate", memberDate);
+		System.out.println("특정멤버 회원가입일로 부터 지난 날" + memberDate);
+		//특정회원의 사용금액
+		Map<String, String> memberMoney = myPageService.getMemberMoney(member_code2);
+		model.addAttribute("memberMoney", memberMoney);
+		System.out.println("특정 멤버의 여태 사용한 금액" + memberMoney);
 		return "mypage/mypage-power";
 	}
 

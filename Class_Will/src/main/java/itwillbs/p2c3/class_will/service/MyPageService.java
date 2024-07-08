@@ -112,6 +112,15 @@ public class MyPageService {
 		return myPageMapper.countReview(member_code);
 	}
 
+	public Map<String, String> getMemberDate(int member_code2) {
+		
+		return myPageMapper.calDate(member_code2);
+	}
+
+	public Map<String, String> getMemberMoney(int member_code2) {
+		return myPageMapper.countMoney(member_code2);
+	}
+
 	
 
 	

@@ -1,13 +1,16 @@
 package itwillbs.p2c3.class_will.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.collections4.map.HashedMap;
-import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,7 +30,6 @@ import itwillbs.p2c3.class_will.service.CscService;
 import itwillbs.p2c3.class_will.service.MailService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.MemberVO;
-import retrofit2.http.POST;
 
 @Controller
 public class EventController {
@@ -50,8 +52,6 @@ public class EventController {
 	public String eventMain(Model model) {
 		List<Map<String, String>> list = adminService.getEventList();
 		model.addAttribute("list", list);
-		
-		
 		
 		return "event/event_main";
 	}
@@ -85,11 +85,39 @@ public class EventController {
 			return "event/event_invite_friend";
 		}
 		Map<String, String> event = cscService.getEventDetail(event_code);
-		
+		String event_reg_date = event.get("event_reg_date");
+		String event_start_date = convertDateFormat(event.get("event_start_date"));
+		String event_end_date = convertDateFormat(event.get("event_end_date"));
+        model.addAttribute("eventStartDate", event_start_date);
+        model.addAttribute("eventEndDate", event_end_date);
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+        try {
+            Date regDate = formatter.parse(event_reg_date);
+            model.addAttribute("eventRegDate", regDate);
+
+        } catch (ParseException e) {
+            e.printStackTrace(); // 예외 처리
+        }
+        
 		model.addAttribute("event", event);
 		
 		return "event/event_detail";
 	}
+	
+    public static String convertDateFormat(String inputDate) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH);
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        String formattedDate = null;
+        
+        try {
+            Date date = inputFormat.parse(inputDate);
+            formattedDate = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        
+        return formattedDate;
+    }
 	
 	@ResponseBody
 	@PostMapping("SendingEmail")

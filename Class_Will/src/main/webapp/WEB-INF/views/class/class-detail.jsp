@@ -417,12 +417,18 @@
 <%--                                         <div class="heartCount"><span>${likeClassCount}</span></div> --%>
 											<!-- 라이크 클래스 하트 이미지 변경-->
 											<c:choose>
-												<c:when test="${not empty likeClass}"> <!-- likeClassList 존재 -->
-													<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-												</c:when>
-												<c:otherwise> <!-- likeClassList 존재 X -->
-													<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-												</c:otherwise>
+<%-- 												<c:when test="${not empty likeClass}"> <!-- likeClassList 존재 --> --%>
+<%-- 													<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+<%-- 												</c:when> --%>
+<%-- 												<c:otherwise> <!-- likeClassList 존재 X --> --%>
+<%-- 													<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
+<%-- 												</c:otherwise> --%>
+												<c:when test="${isLiked}">
+							                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classInfo.class_code}" data-member-code="${member.member_code}">
+							                    </c:when>
+							                    <c:otherwise>
+							                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classInfo.class_code}" data-member-code="${member.member_code}">
+							                    </c:otherwise>
 											</c:choose>
 											<!-- 라이크 클래스 하트 이미지 변경 -->
                                         </div>

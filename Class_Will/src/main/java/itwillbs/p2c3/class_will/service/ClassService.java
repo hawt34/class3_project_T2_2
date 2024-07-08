@@ -122,9 +122,12 @@ public class ClassService {
 	}
 	
 	// 디테일 클래스 좋아요
-	public Map<String, Object> getLikeClass(Map<String, Object> map){
+	public boolean getLikeClass(Map<String, Object> map){
 		return mapper.selectLikeClass(map);
 	}
+//	public Map<String, Object> getLikeClass(Map<String, Object> map){
+//		return mapper.selectLikeClass(map);
+//	}
 	
 	// 클래스 해시태그
 	public List<Map<String, Object>> getClassHashtag(int class_code){

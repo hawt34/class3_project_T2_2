@@ -855,7 +855,7 @@ function generateClassCardHTML(filter) {
  + '</div>' 
  + '</div>';
 }
-
+// });
 </script>
 </body>
 </html>

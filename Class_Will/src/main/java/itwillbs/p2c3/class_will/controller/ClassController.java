@@ -312,21 +312,18 @@ public class ClassController {
 	@GetMapping("class-detail")
 	public String classDetail(Model model, HttpSession session, @RequestParam(name = "class_code") int class_code) {
 		
-//	    MemberVO member = (MemberVO) session.getAttribute("member");
+	    MemberVO member = (MemberVO) session.getAttribute("member");
 //	    Integer member_code = null;
 	    
 	    Map<String, Object> map = new HashMap<>();
-//	    
-//	    if (member != null) {
-//	        member_code = member.getMember_code();
-//	        map.put("member_code", member_code);
-//	        System.out.println(">>>> member_code : " + member_code);
-//	    } else {
-//	        System.out.println("Member is null");
-//	    }
-//		
-//	    map.put("class_code", class_code);
-//		System.out.println(">> class_code :: " + map.get("class_code"));
+	    
+	    Integer member_code = null;
+	    if (member != null) {
+	        member_code = member.getMember_code();
+	    }
+		
+	    map.put("class_code", class_code);
+		System.out.println(">> class_code :: " + map.get("class_code"));
 		
 		// 클래스 후기
 		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
@@ -363,6 +360,16 @@ public class ClassController {
 //	    	return "class/class-detail";
 //	    }
 //	    
+	    // 사용자의 클래스 좋아요 여부 가져오기
+	    boolean isLiked = false;
+	    if (member_code != null) {
+//	        Map<String, Object> map = new HashMap<>();
+	        map.put("member_code", member_code);
+	        map.put("class_code", class_code);
+	        isLiked = classService.getLikeClass(map); // isLikedClass 메서드는 좋아요 여부를 확인하는 메서드라 가정
+	    }
+	    model.addAttribute("isLiked", isLiked);
+	    
 		//classInfo 클래스 데이터 가져오기
 		Map<String, Object> classCode = new HashMap<>();
 		classCode.put("class_code", class_code);

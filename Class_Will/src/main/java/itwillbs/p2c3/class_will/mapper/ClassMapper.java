@@ -75,7 +75,8 @@ public interface ClassMapper {
 	int selectLikeClassCount(int class_code);
 	
 	// 디테일 클래스 좋아요
-	Map<String, Object> selectLikeClass(Map<String, Object> map);
+//	Map<String, Object> selectLikeClass(Map<String, Object> map);
+	boolean selectLikeClass(Map<String, Object> map);
 	// 클래스 해시태그 
 	List<Map<String, Object>> selectClassHashtag(int class_code);
 	

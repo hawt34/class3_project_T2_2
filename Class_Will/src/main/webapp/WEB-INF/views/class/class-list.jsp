@@ -18,7 +18,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Template Stylesheet -->
-<%-- <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet"> --%>
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
 
 <!-- Google Web Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,11 +30,11 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <!-- Required JavaScript files -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script> --%>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7ie2koOHD8y5Lx5ujD6nco4k5RfF7UoE6G7" crossorigin="anonymous">
+<!--     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7ie2koOHD8y5Lx5ujD6nco4k5RfF7UoE6G7" crossorigin="anonymous"> -->
     
 <!-- 현재위치 -->
 <!-- 지오로케이션 -->
@@ -42,7 +42,7 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 
 <!-- 구글 -->
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDQ_lPnUSpeqbiQ4llaizf1rL5lfYbBP4A&callback=initMap"></script>
+<!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDQ_lPnUSpeqbiQ4llaizf1rL5lfYbBP4A&callback=initMap"></script> -->
 
 
 <!-- 카카오 지도 api -->
@@ -51,44 +51,37 @@
 <script type="text/javascript">
 
 // ------ like-class ------ 
-document.addEventListener("DOMContentLoaded", function() {
-    var heartImges = document.querySelectorAll(".heartImg");
-    var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
-    var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
+    $(document).on('click', '.heartImg', function() {
+        var img = this;
+        var member_code = img.getAttribute("data-member-code");
+        var class_code = img.getAttribute("data-class-code");
+        var isFullHeart = img.src.includes("heart_full.png");
+        var heart_status = !isFullHeart;
 
-    heartImges.forEach(function(heartOverlay) {
-        heartOverlay.addEventListener("click", function() {
-            var img = this;
-            var member_code = img.getAttribute("data-member-code");
-            var class_code = img.getAttribute("data-class-code");
-            var isFullHeart = img.src.includes("heart_full.png");
+        // 로그인 확인
+        if (member_code == null || member_code === "") { 
+            alert("로그인이 필요한 페이지 입니다.");
+            window.location.href = "member-login";
+            return;
+        }
 
-            var heart_status = !isFullHeart;
-			
-			// 로그인 해야만 이용 가능
-			if(member_code == null || member_code == ""){ 
-	            alert("로그인이 필요한 페이지 입니다.");
-	            window.location.href = "member-login";
-	            return;
-			}
-			
-            if (heart_status) { // heart_status가 true일 때 (like-class 추가 시)
-                img.src = changeSrc;
- 				alert("관심 클래스에 추가되었습니다.");
-            } else { // heart_status가 false일 때 (like-class 삭제 시)
-                img.src = originalSrc;
- 				alert("관심 클래스에서 삭제되었습니다.");
-            }
-            
-            // AJAX 요청을 통해 서버로 업데이트 요청 전송
-            var data = JSON.stringify({
-                heart_status: heart_status,
-                member_code: member_code,
-                class_code: class_code
-            });
-            
-            updateHeartStatus(data);
+        // 이미지 변경
+        if (heart_status) {
+            img.src = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
+            alert("관심 클래스에 추가되었습니다.");
+        } else {
+            img.src = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
+            alert("관심 클래스에서 삭제되었습니다.");
+        }
+
+        // AJAX 요청
+        var data = JSON.stringify({
+            heart_status: heart_status,
+            member_code: member_code,
+            class_code: class_code
         });
+        
+        updateHeartStatus(data);
     });
     
     function updateHeartStatus(data) {
@@ -136,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
     	console.log("localSelect");
         localSelect.value = local;
     }
-});
+// });
 
 </script>
 
@@ -450,10 +443,9 @@ a {
 <!-- 				<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard"> -->
 <!-- 					<div class="card shadow-sm border-0 rounded flex-fill mb-4"> -->
 <!-- 						<div class="card-body p-0 position-relative card-body1 position-relative1"> -->
-<%-- 							<a href="class-detail?class_code=${classList.class_code}"> --%>
-<%-- 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a> --%>
-<%-- 	<%-- 						<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png"  id="heartOverlay" class="heart-overlay" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%> 
-<!-- 							라이크 클래스 하트 이미지 변경 -->
+<%-- <%-- 							<a href="class-detail?class_code=${classList.class_code}"> --%> --%>
+<%-- <%-- 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg"  class="w-100 card-img-top classPic"></a> --%> --%>
+<%-- 							<img src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classList.class_code}'"> --%>
 <%-- 							<c:choose> --%>
 <%-- 								<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 --> --%>
 <%-- 									<c:set var="isLiked" value="false"/> <!-- 삭제 --> --%>
@@ -473,7 +465,6 @@ a {
 <%-- 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}"> --%>
 <%-- 								</c:otherwise> --%>
 <%-- 							</c:choose> --%>
-<!-- 							라이크 클래스 하트 이미지 변경 -->
 							
 <!-- 							<div class="card-bodys d-flex flex-column"> -->
 <!-- 								<div class="classCategory col-md-10"> -->
@@ -842,42 +833,43 @@ function updateParameterClass(big_category, small_category, common2_code) {
 }
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
+function generateClassCardHTML(filter, contextPath, isLiked) {
+	var contextPath = "${pageContext.request.contextPath}"; 
+    var heartImgSrc = isLiked ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
 
-function generateClassCardHTML(filter) {
-	
-	return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' 
-	 + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' 
-	 + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
-	 + '<a href="class-detail?class_code=' + filter.class_code + '">'
-	 + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic">' 
-	 + '</a>' 
-	 + '<img src="' + contextPath + '/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="'
-	 + filter.class_code + '" data-member-code="' + filter.member_code + '">' 
-	 + '<div class="card-bodys d-flex flex-column">'
-	 + '<div class="classCategory col-md-10">'
-	 + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' 
-	 + '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' 
-	 + '</div>' 
-	 + '<div class="createrName d-flex align-items-center">' 
-	 + '<img src="' + contextPath + '/resources/images/class/pic.png">' 
-	 + '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' 
-	 + '</div>' 
-	 +'<div class="className">'
-	 + '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' 
-	 + '</div>'
-	 + '<div class="row classInfo">' 
-	 + '<div class="col-md-6 add">' 
-	 + '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' 
-	 + '</div>' 
-	 + '<div class="col-md-6 price">' 
-	 + '<p>' + filter.class_price + '원</p>' 
-	 + '</div>' 
-	 + '</div>' 
-	 + '</div>' 
-	 + '</div>' 
-	 + '</div>' 
-	 + '</div>';
+    return '<div class="col-lg-3 col-md-6 mb-4 mb-lg-0 d-flex classCard">' +
+        '<div class="card shadow-sm border-0 rounded flex-fill mb-4">' +
+        '<div class="card-body p-0 position-relative card-body1 position-relative1">' +
+        '<a href="class-detail?class_code=' + filter.class_code + '">' +
+        '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic"></a>' +
+        '<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' +
+        filter.class_code + '" data-member-code="' + filter.member_code + '">' +
+        '<div class="card-bodys d-flex flex-column">' +
+        '<div class="classCategory col-md-10">' +
+        '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_big_category + '</button>' +
+        '<button type="button" class="btn btn-outline-secondary btn-sm category btn1">' + filter.class_small_category + '</button>' +
+        '</div>' +
+        '<div class="createrName d-flex align-items-center">' +
+        '<img src="' + contextPath + '/resources/images/class/pic.png">' +
+        '<p class="mb-0 ml-2">' + filter.member_nickname + '</p>' +
+        '</div>' +
+        '<div class="className">' +
+        '<a href="class-detail"><h6>' + filter.class_name + '</h6></a>' +
+        '</div>' +
+        '<div class="row classInfo">' +
+        '<div class="col-md-6 add">' +
+        '<a href="" class="btn btn-outline-dark btn-sm disabled btn1">' + filter.local_name + '</a>' +
+        '</div>' +
+        '<div class="col-md-6 price">' +
+        '<p>' + filter.class_price + '원</p>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
 }
+
 
 </script>
 </body>

@@ -368,9 +368,9 @@ tbody tr:hover {
 	        var month = $('#month').val();
 	        var member_code = $('#member_code').val(); 
 
-	        console.log('Year:', year);
-	        console.log('Month:', month);
-	        console.log('member_code:', member_code);
+	        //console.log('Year:', year);
+	        //console.log('Month:', month);
+	        //console.log('member_code:', member_code);
 	        $.ajax({
 	            url: 'fetchPayData',
 	            method: 'POST',
@@ -381,12 +381,12 @@ tbody tr:hover {
 	                console.log($('#dataBody'));
 	                tbody.empty(); // 기존 데이터 삭제
 
-	                console.log('Response:', response); // 받은 데이터 콘솔 출력
+	                //console.log('Response:', response); // 받은 데이터 콘솔 출력
 
 	                if (Array.isArray(response.data)) {
 	                    response.data.forEach(function(pay) {
-	                        console.log('Pay Code:', pay.pay_code); // 각 pay의 pay_code 출력
-	                        console.log('Pay Amount:', pay.pay_amount); // 각 pay의 pay_amount 출력
+	                        //console.log('Pay Code:', pay.pay_code); // 각 pay의 pay_code 출력
+	                        //console.log('Pay Amount:', pay.pay_amount); // 각 pay의 pay_amount 출력
 	                        // ... 필요한 항목들에 대해 추가적으로 console.log로 확인 가능
 
 	              var row = '<tr>' +

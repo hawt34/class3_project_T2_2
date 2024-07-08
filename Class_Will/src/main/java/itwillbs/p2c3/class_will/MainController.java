@@ -122,14 +122,11 @@ public class MainController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String searchDateTime = currentDateTime.format(formatter);
 		
-//		List<Map<String, Object>> searchClassList = mainService.checkKeyword(keyword, searchDateTime);
-//		System.out.println("searchClassList : " + searchClassList);
-//		model.addAttribute("searchClassList", searchClassList);
+		List<Map<String, Object>> searchClassList = mainService.retrieveKeyword(keyword, searchDateTime);
+		System.out.println("searchClassList : " + searchClassList);
+		model.addAttribute("searchClassList", searchClassList);
 		
-		mainService.checkKeyword(keyword, searchDateTime);
-		
-		
-		return "redirect:/class-list?";
+		return "redirect:/class-list";
 	} // searchKeyword()
 	
 	

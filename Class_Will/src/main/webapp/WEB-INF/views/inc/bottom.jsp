@@ -126,8 +126,8 @@
 		top: 15px; /* 위로 이동 */ 
 		right: 20px; /* 오른쪽으로 이동 */ 
 	    transform: translate(50%, -50%); /* 적절한 위치로 조정 */
-	    width: 15px !important;
-	    height: 15px !important;
+	    width: 12px !important;
+	    height: 12px !important;
 	    display: flex;
 	    align-items: center;
 	    justify-content: center;

@@ -544,7 +544,7 @@ $(function() {
 				});
 				
 				// 대 카테고리가 "전체"일 경우 소 카테고리도 "전체"
-				if (bigCategory === 'bigCategoryAll') {
+				if (big_category === 'bigCategoryAll') {
 			    	$("#class_small_category").val('smallCategoryAll');
 				}
                 
@@ -584,7 +584,10 @@ $(function() {
         
     
 	    // 클래스 목록 업데이트 함수 호출
-	    updateParameterClass(big_category, small_category,common2_code);
+		if (big_category || small_category || common2_code) {
+       		updateParameterClass(big_category, small_category, common2_code);
+		}
+// 	    updateParameterClass(big_category, small_category,common2_code);
 	    
 //         if (big_category) {
 //             $("#class_big_category").val(big_category);
@@ -803,6 +806,7 @@ function updateClassList(filterClass) {
 
 //------------------------------------------------------------------------------------
 function updateParameterClass(big_category, small_category, common2_code) {
+	console.log("updateParameterClass : big_category : " + big_category + ", small_category : " + small_category + ", common2_code : " + common2_code);
 	$.ajax({
 		url: "update-class-list",
 		method: "get",
@@ -817,15 +821,15 @@ function updateParameterClass(big_category, small_category, common2_code) {
 		
             if (data.length > 0) {
 				$.each(data, function(index, item) {
-					var classCard = generateClassCardHTML(item);
-					classListContainer.append(classCard);
+// 					var classCard = generateClassCardHTML(item);
+// 					classListContainer.append(classCard);
 					updateClassList(data);
 					
 				});
 
-				classListContainer.show(); 
+// 				classListContainer.show(); 
 			} else {
-				classListContainer.hide(); // 데이터가 없으면 목록을 숨김
+// 				classListContainer.hide(); // 데이터가 없으면 목록을 숨김
 		        classListContainer.html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
             	$(".classCount").html('<h5>0개의 클래스</h5>');
 			}

@@ -28,6 +28,8 @@ import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import itwillbs.p2c3.class_will.handler.WillUtils;
+import itwillbs.p2c3.class_will.service.AdminService;
 import itwillbs.p2c3.class_will.service.ClassService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.service.PayService;
@@ -42,6 +44,10 @@ public class ClassController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private AdminService adminService;
+	
 	
 	@Autowired
 	private ClassService classService;
@@ -334,7 +340,7 @@ public class ClassController {
 		System.out.println(">> class_code :: " + map.get("class_code"));
 		
 		// 클래스 후기
-		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
+		List<Map<String, Object>> classReview = classService.getClassReview(map); 
 		model.addAttribute("classReview", classReview);
 	    
 		// 클래스 질문
@@ -413,29 +419,70 @@ public class ClassController {
 	
 	// 클래스 상세 리뷰
 	@GetMapping("creator-review-form2")
-	public String creatorReviewForm2(Model model, @RequestParam int class_code){
-		List<Map<String, Object>> classReview = classService.getClassReview(class_code); 
+	public String creatorReviewForm2(Model model, @RequestParam int class_code, @RequestParam int class_review_code){
+		System.out.println(">> class_review_code : " + class_review_code);
+		Map<String, Object> map = new HashMap<>();
+		map.put("class_review_code", class_review_code);
+		map.put("class_code", class_code);
+		List<Map<String, Object>> classReview = classService.getClassReview(map); 
 		model.addAttribute("classReview", classReview);
-		return"creator/creator-review-show";
-		
+		return"class/class-review-show";
 	}
 	
 	// 클래스 상세 질문
 	@GetMapping("creator-inquiry-form2")
 	public String creatorInquiryForm2(Model model, @RequestParam int class_code, @RequestParam int class_inquiry_code){
-//		System.out.println(">> class_inquiry_code : " + class_inquiry_code);
-//	    Map<String, Object> map = new HashMap<>();
-//	    map.put("class_inquiry_code", class_inquiry_code);
-//	    map.put("class_code", class_code);
-//		List<Map<String, Object>> classInquiry = classService.getClassInquiry(map); 
-//		model.addAttribute("classInquiry", classInquiry);
-		return"creator/creator-inquiry-show";
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("class_inquiry_code", class_inquiry_code);
+	    map.put("class_code", class_code);
+		List<Map<String, Object>> classInquiry = classService.getClassInquiry(map); 
+		model.addAttribute("classInquiry", classInquiry);
+		return"class/class-inquiry-show";
 	}
 	
-	// 신고하기
-//	@GetMapping("class-complain")
-//	public String classComplain(Model model, @RequestParam int class_code) {
-//		System.out.println("class-complain class-code @@@@@@%^%^%^% :" + class_code);
-//		return "class/class-complain";
-//	}
+	@GetMapping("class-complain")
+	public String classComplain(Model model, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
+		}
+		
+		// 카테고리 검색
+		List<Map<String, Object>> big_category = adminService.getBigCategoryClassComplain();
+		
+		model.addAttribute("big_category", big_category);
+		model.addAttribute("member", member);
+		
+		return "class/class-complain";
+	}
+	
+	@ResponseBody
+	@GetMapping("getSubCategories")
+	public List<Map<String, Object>> getSubCategory(@RequestParam(value = "categoryCode", required = false) Integer categoryCode) {
+        if (categoryCode == 0) {
+        	return null;
+        }
+		System.out.println("casdgadfsadf : " + categoryCode);
+		
+		List<Map<String, Object>> small_category = adminService.getSmallCategoryClassComplain(categoryCode);
+		
+		return small_category;
+	}
+	
+	@PostMapping("complain-class-pro")
+	public String complainClassPro(@RequestParam Map<String, Object> params, HttpSession session, Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
+		}
+		params.put("member_code", member.getMember_code());
+		
+		boolean isSuccess = classService.insertClassComplain(params);
+		
+		if(!isSuccess) {
+			return WillUtils.checkDeleteSuccess(false, model, "신고 등록 실패", true);
+		}
+		
+		return WillUtils.checkDeleteSuccess(true, model, "신고 등록 완료", true);
+	}
 }

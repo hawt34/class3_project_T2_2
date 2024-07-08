@@ -245,10 +245,14 @@
 		SELECT class_review_subject
 			, class_review_content
 			, class_review_date
+			, class_review_time
 			, class_review_rating
 			, member_name
 			, member_nickname
 			, m.member_code
+			, c.class_code 
+			, c.class_name
+			, cr.class_review_code 
 		FROM class_review cr
 		JOIN MEMBER m
 		ON m.member_code = cr.member_code 
@@ -256,6 +260,10 @@
 		ON cr.class_code  = c.class_code 
 		WHERE c.class_regist_status = '2'
 		AND cr.class_code = #{class_code} 
+		<if test="class_review_code != null">
+			AND cr.class_review_code = #{class_review_code}
+		</if>
+		
 	</select>
 	
 	<!-- 클래스 질문 -->
@@ -275,7 +283,7 @@
 		ON ci.class_code = c.class_code 
 		WHERE c.class_regist_status = '2'
 		AND ci.class_code = #{class_code}
-		<if test="class_inquiry_code != null and class_inquiry_code.empty()">
+		<if test="class_inquiry_code != null">
 			AND ci.class_inquiry_code = #{class_inquiry_code}
 		</if>
 	</select>

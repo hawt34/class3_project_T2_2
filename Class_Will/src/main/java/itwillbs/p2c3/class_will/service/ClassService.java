@@ -102,8 +102,8 @@ public class ClassService {
 	}
 	
 	// 클래스 리뷰
-	public List<Map<String, Object>> getClassReview(int class_code){
-		return mapper.selectClassReview(class_code);
+	public List<Map<String, Object>> getClassReview(Map<String, Object> map){
+		return mapper.selectClassReview(map);
 	}
 	
 	// 클래스 질문

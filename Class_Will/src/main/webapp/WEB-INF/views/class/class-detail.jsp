@@ -261,13 +261,15 @@
 							                    <c:if test="${map.class_review_subject != null}">
 							                        <tr>
 							                            <td class="creator-review-subject">
-                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.class_review_subject}</a>
+                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_subject}</a>
+<%-- 															<a onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.class_inquiry_subject}</a> --%>
+                                                    		
 							                            </td>
 							                            <td>
-                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.class_review_date}</a>
+                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_date}</a>
 							                            </td>
 							                            <td>
-                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}')">${map.member_nickname}</a>
+                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.member_nickname}</a>
 							                            </td>
 							                            <td>
 							                                <div class="reviewStar reviewStar1 col" onclick="creatorReview(event, '${param.class_code}')" style="text-align : left">
@@ -335,14 +337,14 @@
 										<c:forEach var="map" items="${classInquiry}">
 			                                <tr>
 			                                    <td class="creator-review-subject">
-<%--                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')" data-class-inquiry-code="${classInquiry.class_inquiry_code}">${map.class_inquiry_subject}</a> --%>
-                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')" >${map.class_inquiry_subject}</a>
+                                                    <a onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.class_inquiry_subject}</a>
+<%--                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')" >${map.class_inquiry_subject}</a> --%>
 			                                    </td>
 			                                    <td>
-                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.class_inquiry_date}</a>
+                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.class_inquiry_date}</a>
 			                                    </td>
 			                                    <td>
-                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}')">${map.member_nickname}</a>
+                                                    <a href="#" onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.member_nickname}</a>
 			                                    </td>
 			                                </tr>
 		                                </c:forEach>
@@ -751,13 +753,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				
 <script type="text/javascript">
-function creatorReview(event, class_code) {
+function creatorReview(event, class_code, class_review_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
-    window.open("creator-review-form2?class_code=" + class_code, "pop", "width=700, height=800, left=700, top=50");
+    console.log("creatorReview : class_code : " + class_code + ", class_review_code : " + class_review_code);
+    window.open("creator-review-form2?class_code=" + class_code + "&class_review_code=" + class_review_code, "pop", "width=700, height=800, left=700, top=50");
 }
 
-function creatorInquiry(event, class_code) {
+function creatorInquiry(event, class_code, class_inquiry_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+    console.log("creatorInquiry : class_code : " + class_code + ", class_inquiry_code : " + class_inquiry_code);
     window.open("creator-inquiry-form2?class_code=" + class_code + "&class_inquiry_code=" + class_inquiry_code, "pop", "width=700, height=800, left=700, top=50");
 }
 

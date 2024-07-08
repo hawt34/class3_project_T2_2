@@ -95,6 +95,10 @@ public class MainService {
 		return mainMapper.selectLikeClass(sMember);
 	}
 
+	public List<String> selectRecommend() {
+		return mainMapper.selectRecommend();
+	}
+
 	
 	
 	

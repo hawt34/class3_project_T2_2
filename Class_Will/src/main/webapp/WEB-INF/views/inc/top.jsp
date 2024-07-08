@@ -623,22 +623,7 @@
 	        <div class="recommend my-3 py-3 text-center container">
 	            <!-- 추천 검색어 영역 -->
 	            <h5 class="mb-3">추천 검색어</h5>
-	            <div class="justify-content-center">
-	            	<div class="btn recommend-keyword">
-	            		<a href="class-list">선물용</a>
-	            	</div>
-	            	<div class="btn recommend-keyword">
-	            		<a href="class-list">데이트</a>
-	            	</div>
-	            	<div class="btn recommend-keyword">
-	            		<a href="class-list" >핸드메이드</a>
-	            	</div>
-	            	<div class="btn recommend-keyword">
-	            		<a href="class-list">가족</a>
-	            	</div>
-	            	<div class="btn recommend-keyword">
-	            		<a href="class-list">드로잉</a>
-	            	</div>
+	            <div class="justify-content-center" id="recommend-area">
 	            </div>
 	        </div>
 	    </div>
@@ -834,7 +819,39 @@ $(function() {
     $('.search-box, .search-txt, .search-btn, .search-btn2').on('click', function(event) {
         $('#searchModal').fadeIn();
         $("#keyword").focus();
+        
+        $.ajax({
+        	type: "GET",
+	        url: "recommend-keyword",
+		 	dataType : "json",
+		 	contentType: "application/json",
+		 	success : function(keywordList) {
+// 		 		console.log(keywordList);
+		 		$("#recommend-area").html("");
+		 		for(keyword of keywordList) {
+		 			$("#recommend-area").append('<div class="btn recommend-keyword"><a href="#" class="recommend-link" data-keyword="' + keyword + '">' + keyword + '</a></div>');
+		 		}
+            	
+		 	},
+		 	error : function(xhr, status, error) {
+		 		console.error("Error details:", xhr, status, error); // 디버깅 정보 출력
+		        alert("recommend-keyword / ajax 오류 발생 : " + error);
+		    }
+        });
+        
+        
     });
+    
+    $(document).on('click', '.recommend-link', function(event) {
+    	 event.preventDefault(); // 기본 동작을 막습니다.
+         
+         let keyword = $(this).data('keyword');
+         
+         $("#keyword").val(keyword);
+         
+         $("form.search-box").submit();
+    });
+    
 
     // close 버튼 클릭 시 #search-box-area 사라짐
     $('.search-box-area .close').on('click', function() {

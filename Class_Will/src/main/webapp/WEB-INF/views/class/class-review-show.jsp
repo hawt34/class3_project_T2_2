@@ -37,15 +37,14 @@
 				<c:forEach var="map" items="${classReview}">
 <%-- 					<c:if test="${member_code eq map.member_code}"> --%>
 						<h4 class="mb-4">클래스리뷰</h4>
-<!-- 						<div class=""> -->
 							<div>
 								<p>🔸참여클래스 : ${map.class_name}</p>
 								<p>🔸작성자 : ${map.member_nickname}</p>
 								<p>🔸작성일 : ${map.class_review_date} ${map.class_review_time}</p>
 							</div>
-<%-- 							<div class="reviewStar reviewStar1 col" onclick="creatorReview(event, '${param.class_code}')" style="text-align : left"> --%>
+							<div class="reviewStar reviewStar1 col" onclick="creatorReview(event, '${param.class_code}')" style="text-align : left">
 								<ul class="list-inline small">
-									<p style="display: inline-block; margin-right: 10px;">🔸별점 :</p>
+        							<p style="display: inline-block; margin-right: 10px;">🔸별점 :</p>
 									<c:forEach begin="1" end="${map.class_review_rating}">
 										<li class="list-inline-item m-0"><i class="fa fa-star starStyle"></i></li>
 									</c:forEach>
@@ -53,7 +52,7 @@
 										<li class="list-inline-item m-0"><i class="fa fa-star-o starStyle"></i></li>
 									</c:forEach>
 								</ul>
-<!-- 							</div> reviewStar -->
+							</div> <!-- reviewStar -->
 						
 							<div class="mb-3">
 								<label for="inquiry-subject">리뷰제목</label>
@@ -62,9 +61,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="inquiry-content">리뷰내용</label>
-								<textarea rows="10" name="inquiry-content" id="inquiry-content" class="form-control" cols="50" readonly>
-									${map.class_review_content}
-								</textarea> 
+								<textarea rows="10" id="inquiry-content" class="form-control" readonly>${map.class_review_content}</textarea>
 							</div>
 							
 							<hr class="mb-4">

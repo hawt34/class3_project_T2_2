@@ -756,7 +756,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function creatorReview(event, class_code, class_review_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
     console.log("creatorReview : class_code : " + class_code + ", class_review_code : " + class_review_code);
-    window.open("creator-review-form2?class_code=" + class_code + "&class_review_code=" + class_review_code, "pop", "width=700, height=800, left=700, top=50");
+    window.open("creator-review-form2?class_code=" + class_code + "&class_review_code=" + class_review_code, "pop", "width=700, height=700, left=700, top=50");
 }
 
 function creatorInquiry(event, class_code, class_inquiry_code) {

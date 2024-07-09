@@ -398,9 +398,10 @@ public class ClassController {
 		
 		// 클래스 해시태그 
 		List<Map<String, Object>> classHashtagList = classService.getClassHashtag(class_code);
-		List<String> hashtagStrings = new ArrayList<>();
-		model.addAttribute("hashtagStrings", hashtagStrings);
-		System.out.println(">>>>hashtagStrings : " + hashtagStrings);
+//		List<String> hashtagStrings = new ArrayList<>();
+		model.addAttribute("classHashtagList", classHashtagList);
+		System.out.println(">>>>classHashtagList : " + classHashtagList);
+		
 		//========================================================================
 		//스케쥴 select -- 파라미터: 클래스 코드 (임시)
 		List<Map<String, Object>> scheduleInfo = payService.getClassSchedule(class_code);

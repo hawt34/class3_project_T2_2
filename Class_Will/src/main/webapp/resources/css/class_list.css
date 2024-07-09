@@ -8,7 +8,7 @@ body {
 .container1 {
 	background : black;
 	height : auto;
-	width: 1200px;
+/* 	width: 1200px; */
 	margin: auto;
 }
 
@@ -69,6 +69,11 @@ body {
 	
 }
 
+/* #classListContainer{ */
+/* 	margin-left : 10px; */
+/* 	margin-right : 10px; */
+	
+/* } */
 .className h6 {
 	color : black;
 	font-weight: bold;
@@ -174,6 +179,7 @@ body {
 
 .price{
 	text-align : right;
+	color : black;
 }
 
 .box1 {

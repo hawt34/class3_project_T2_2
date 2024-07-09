@@ -272,7 +272,7 @@ a {
 	<jsp:include page="/WEB-INF/views/inc/top.jsp" />
 </header>
 
-<div class="container container1">
+<div class="container1">
    <div class="col-md-12">
 	<!-- 카테고리 바 -->   
 		<div class="row">
@@ -744,39 +744,41 @@ function generateClassCardHTML(filter, contextPath, isLiked) {
     var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 
 
-    return '<div class="col-lg-3 mb-4 classCard rounded position-relative vesitable-item" style="width: 330px;">'	
-		+ '		<div class="rounded position-relative class-item classCard">'
-        + '			<div class="vesitable-img">'
-        + '				<img src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
-        + '			</div>'
-        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="'
-        + 			filter.class_code + '" data-member-code="' + filter.member_code + '">'
-        + '			<div class="p-3 rounded-bottom classCardBtm " onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
-        + '				<div class="classCategory w-100 col-md-10">'
-        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_big_category + '</button>'
-        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_small_category + '</button>'
-        + 					(hashtags.length > 0 ? '<button type="button" class="btn btn-outline-secondary btn-sm category mb-2 mx-1">' + hashtags[0] + '</button>' : '')
-        + '				</div>'
-        + '				<div class="createrName d-flex align-items-center py-2">'
-        + '					<div class="px-2 py-2 position-absolute" style="bottom: 120px; left: 6px;">'
-        + '						<img src="' + memberImgSrc + '" class="member_img">'
-        + '					</div>'
-        + '					<p class="mb-0 ml-5 px-4">' + filter.member_nickname + '</p>'
-        + '				</div>'
-        + '				<div class="className">'
-        + '					<h6>' + filter.class_name + '</h6>'
-        + '				</div>'
-        + '				<div class="row classInfo d-flex justify-content-between">'
-        + '					<div class="col add">'
-        + '						<a href="" class="btn btn-outline-dark btn-sm disabled">' + filter.local_name + '</a>'
-        + '					</div>'
-        + '					<div class="col price">'
-        + '						<h5 class="class-price">' + formattedPrice + '원</h5>'
-        + '					</div>'
-        + '				</div>'
-        + '			</div>'
-        + '		</div>'
-        + '	</div>';
+    return '<div class="col-lg-3 mb-4 d-flex classCard">'
+        + '<div class="card shadow-sm border-0 rounded flex-fill mb-4">'
+        + '<div class="card-body p-0 position-relative card-body1 position-relative1">'
+        + '<a href="class-detail?class_code=' + filter.class_code + '">'
+        + '<img src="' + contextPath + '/resources/images/products/s4.jpg" class="w-100 card-img-top classPic"></a>'
+        + '<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="'
+        + filter.class_code + '" data-member-code="' + filter.member_code + '">'
+//         + '<div class="card-bodys d-flex flex-column">'
+        + '<div class="p-3 rounded-bottom classCardBtm " onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
+        + '<div class="classCategory w-100 col-md-10">'
+        + '<button type="button" class="btn btn-outline-dark btn-sm category mb-2 mx-1">' + filter.class_big_category + '</button>'
+        + '<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_small_category + '</button>'
+        + (hashtags.length > 0 ? '<button type="button" class="btn btn-outline-secondary btn-sm category mb-2 mx-1">' + hashtags[0] + '</button>' : '')
+        + '</div>'
+        + '<div class="createrName d-flex align-items-center py-2">'
+        + '<div class="px-2 py-2 position-absolute" style="bottom: 90px; left: 6px;">'
+        + '<img src="' + memberImgSrc + '" class="member_img">'
+        + '</div>'
+        + '<p class="mb-0 ml-5 px-4">' + filter.member_nickname + '</p>'
+        + '</div>'
+        + '<div class="className">'
+        + '<h6>' + filter.class_name + '</h6>'
+        + '</div>'
+        + '<div class="row classInfo d-flex justify-content-between">'
+        + '<div class="col add">'
+        + '<a href="" class="btn btn-outline-dark btn-sm disabled">' + filter.local_name + '</a>'
+        + '</div>'
+        + '<div class="col price">'
+        + '<h5 class="class-price">' + formattedPrice + '원</h5>'
+        + '</div>'
+        + '</div>'
+        + '</div>'
+        + '</div>'
+        + '</div>'
+        + '</div>';
 } // 
 
 

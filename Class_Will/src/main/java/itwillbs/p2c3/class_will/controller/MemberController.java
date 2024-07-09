@@ -119,7 +119,7 @@ public class MemberController {
 			session.setAttribute("member", dbMember);
 			session.setAttribute("token", bank_info); 
 				
-			session.setMaxInactiveInterval(100000000);
+			session.setMaxInactiveInterval(10000);
 			
 			
 			return "redirect:/";

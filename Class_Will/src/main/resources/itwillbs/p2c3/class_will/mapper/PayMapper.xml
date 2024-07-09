@@ -391,6 +391,7 @@
 	</select>
 	
 	<select id="selectWillpayChargeList" resultType="map">
+		<![CDATA[
 		SELECT wp.will_pay_code
 			   , wp.will_pay_date
 			   , wp.will_pay_amount
@@ -401,6 +402,12 @@
 			   , c2.code_value AS pay_type
 			   , wp.member_code
 			   , m.member_credit
+			   ,CASE 
+			       WHEN TIMESTAMPDIFF(MINUTE, wp.will_pay_date , NOW()) < 1 THEN CONCAT(TIMESTAMPDIFF(SECOND, wp.will_pay_date, NOW()), ' 초전')
+			       WHEN TIMESTAMPDIFF(HOUR, wp.will_pay_date, NOW()) < 1 THEN CONCAT(TIMESTAMPDIFF(MINUTE, wp.will_pay_date, NOW()), ' 분전')
+			       WHEN TIMESTAMPDIFF(HOUR, wp.will_pay_date, NOW()) < 24 THEN CONCAT(TIMESTAMPDIFF(HOUR, wp.will_pay_date, NOW()), ' 시간전')
+			       ELSE CONCAT(TIMESTAMPDIFF(DAY, wp.will_pay_date, NOW()), ' 일전')
+		       END AS diff_date
 		FROM will_pay wp
 		JOIN common2 c2
 		ON wp.will_pay_type = c2.common2_code
@@ -409,28 +416,9 @@
 		ON m.member_code = wp.member_code
 		WHERE wp.member_code = #{member_code}
 		ORDER BY will_pay_code DESC
-	</select>
-	
-	<!-- willpay 환불약관 검사 -->
-	<select id="selectWillpayDate" resultType="int">
-		<![CDATA[
-		SELECT 
-			CASE WHEN total_willpay > #{will_pay_amt} * 3/10 THEN total_willpay 
-			ELSE 0 END AS used_willpay
-		FROM (
-		    SELECT SUM(COALESCE(use_willpay, 0)) AS total_willpay
-		    FROM pay p_main
-		    WHERE p_main.use_willpay IN (
-		        SELECT p_sub.use_willpay
-		        FROM pay p_sub
-		        WHERE CAST(p_sub.pay_datetime AS DATE) BETWEEN CAST(#{will_pay_date} AS DATE)
-		                                               AND DATE_ADD(CAST(#{will_pay_date} AS DATE), INTERVAL 6 DAY)
-		        AND p_sub.use_willpay <> 0
-		        AND p_sub.member_code = #{member_code}
-		    )
-		) AS total_sum; 
 		]]>
 	</select>
+	
 	
 	<select id="selectAbledWillpay" resultType="int">
 		SELECT m.member_credit - bonus_willpay.willpay AS abled_willpay

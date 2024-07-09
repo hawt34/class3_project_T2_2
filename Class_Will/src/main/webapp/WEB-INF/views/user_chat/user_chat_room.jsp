@@ -156,7 +156,7 @@
 	<div class="user-chat container-fluid">
 		<!-- 채팅방 상단 -->
 		<div class="chat-room-top d-flex justify-content-between">
-			<button class="chat-top-icon"><i class="bi bi-chevron-left"></i></button>
+			<button class="chat-top-icon" id="to-chat-list"><i class="bi bi-chevron-left"></i></button>
 			<span class="receiver_name_top">길동이</span>
 			<button class="chat-top-icon pe-5"><i class="bi bi-three-dots-vertical"></i></button>
 		</div>
@@ -276,7 +276,18 @@
 	
 	</div>
 	
+	<script type="text/javascript">
+		$(function() {
+			// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+			$("#to-chat-list").on("click", function() {
+				location.href = "user-chat-list";
+			});
+			
+			
+			
+		});
 	
+	</script>
 
 
 

@@ -233,7 +233,6 @@ public class AdminController {
             switch (type) {
     		case "notice" 	: common1_code = "NTC"; break;
     		case "faq" 		: common1_code = "FQC"; break;
-    		case "event"	: common1_code = ""; break;
             }
             Integer common2_code_int = Integer.parseInt(common2_code);
             // 카테고리 테이블에 기록된 공통코드 값(숫자) 를 벨류값(공통코드 벨류값) 으로 변환
@@ -703,6 +702,13 @@ public class AdminController {
     @GetMapping("admin-event-regist")
     public String adminEventRegist() {
     	
+    	return "admin/admin_event_form";
+    }
+    
+    @GetMapping("admin-event-modify")
+    public String adminEventModify(int event_code, Model model) {
+    	Map<String, Object> event = adminService.getEventDetail(event_code);
+    	model.addAttribute("event", event);
     	
     	return "admin/admin_event_form";
     }

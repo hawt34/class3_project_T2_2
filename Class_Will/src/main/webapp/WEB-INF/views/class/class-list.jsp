@@ -744,7 +744,7 @@ function generateClassCardHTML(filter, contextPath, isLiked) {
     var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 
 
-    return '<div class="col-lg-3 mb-4 classCard rounded position-relative vesitable-item" style="width: 330px;">'	
+    return '<div class="col-lg-4 mb-4 classCard rounded position-relative vesitable-item" style="width: 330px;">'	
 		+ '		<div class="rounded position-relative class-item classCard">'
         + '			<div class="vesitable-img">'
         + '				<img src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
@@ -767,10 +767,10 @@ function generateClassCardHTML(filter, contextPath, isLiked) {
         + '					<h6>' + filter.class_name + '</h6>'
         + '				</div>'
         + '				<div class="row classInfo d-flex justify-content-between">'
-        + '					<div class="col add">'
+        + '					<div class="col add ">'
         + '						<a href="" class="btn btn-outline-dark btn-sm disabled">' + filter.local_name + '</a>'
         + '					</div>'
-        + '					<div class="col price">'
+        + '					<div class="col price float-end">'
         + '						<h5 class="class-price">' + formattedPrice + '원</h5>'
         + '					</div>'
         + '				</div>'

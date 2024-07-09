@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -222,12 +223,9 @@
         <!-- navbar content -->
         <div class="content1 col-md-9">
             <div id="section1">
-<%--                 <img src="${pageContext.request.contextPath}/resources/images/class/class1.png" class="classImg"> --%>
-<%-- 				<p>클래스 위치 : ${classInfo.class_location}</p> --%>
 				<h4>클래스 위치</h4>
 				<div class="location">${classInfo.class_location}</div>
                 <div id="map" style="width: 500px; height: 400px;"></div>
-				
             </div>
             <div id="section2">
             	<div class="mt-3">
@@ -237,7 +235,6 @@
                     <!-- 테이블 -->
                     <div class="card text-center">
                         <div class="card-body p-2">
-                            <%-- <c:forEach var="map" items="${map }"> --%>
                             <table>
                                 <thead>
                                     <tr>
@@ -262,8 +259,6 @@
 							                        <tr>
 							                            <td class="creator-review-subject">
                                                     		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_subject}</a>
-<%-- 															<a onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.class_inquiry_subject}</a> --%>
-                                                    		
 							                            </td>
 							                            <td>
                                                     		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_date}</a>
@@ -290,7 +285,6 @@
 							        </c:choose>
 							    </tbody>
                             </table>
-                            <%-- </c:forEach> --%>
                         </div>
                     </div>
                 </div>
@@ -298,14 +292,13 @@
             <!-- section2 -->
             <div id="section3">
             	<h4>커리큘럼</h4>
-<%--                 <img src="${pageContext.request.contextPath}/resources/images/class/class_curri.png" class="classImg"> --%>
 				<div class="classCurri">
 					<c:forEach var="classCurri" items="${classCurri}">
 						<div class="classCurriRound">
 							${classCurri.curri_round}<br>
 						</div>
 						<div class="classCurriContent">
-							&nbsp;&nbsp;&nbsp;&nbsp;${classCurri.curri_content}
+							&nbsp;&nbsp;${classCurri.curri_content}
 						</div>
 					</c:forEach>
 				</div>
@@ -338,7 +331,6 @@
 			                                <tr>
 			                                    <td class="creator-review-subject">
                                                     <a onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.class_inquiry_subject}</a>
-<%--                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}')" >${map.class_inquiry_subject}</a> --%>
 			                                    </td>
 			                                    <td>
                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.class_inquiry_date}</a>
@@ -405,8 +397,12 @@
                     </div>
 
                     <div class="row classHashtag"> <!-- 해시태그 시작 -->
-                        <div class="col-md-4">
-                        </div>
+						<c:forEach var="hashtagItem" items="${classHashtagList}">
+						<c:set var="hashtags" value="${fn:split(hashtagItem.class_hashtag, ',')}" />
+							<c:forEach var="hashtag" items="${hashtags}">
+								<button type="button" class="btn btn-outline-light btn-sm col hashBtn mt-2 h-75 p-1">${hashtag}</button>
+							</c:forEach>
+						</c:forEach>
                     </div>
 
                     <div class="box3"> <!-- 좋아요, 공유버튼 -->
@@ -427,7 +423,7 @@
 											</c:choose>
 											<!-- 라이크 클래스 하트 이미지 변경 -->
                                         </div>
-                                        <div class="heartCount col-7 " id="heartCountElement">
+                                        <div class="heartCount col-6 " id="heartCountElement">
                                         ${likeClassCount}
                                         </div>
                                     </div>
@@ -458,27 +454,6 @@
 <!-- container1 -->
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function() {
-//     var heartOverlays = document.querySelectorAll(".heartImg");
-//     var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png";
-//     var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png";
-
-//     heartOverlays.forEach(function(heartOverlay) {
-//         heartOverlay.addEventListener("click", function() {
-//             var img = this;
-//             img.classList.add("fade");
-
-//             setTimeout(function() {
-//                 if (img.src.includes("heart_full.png")) {
-//                     img.src = originalSrc;
-//                 } else {
-//                     img.src = changeSrc;
-//                 }
-//                 img.classList.remove("fade");
-//             }, 300); 
-//         });
-//     });
-    
-    //--
 	var btnCustoms = document.querySelector(".btn-customs");
 	var heartImges = document.querySelectorAll(".heartImg");
 	var originalSrc = "${pageContext.request.contextPath}/resources/images/profile/heart.png"; // 라이크 클래스 추가 안했을 시 
@@ -560,20 +535,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
     		
     	});
-//         // 새로운 AJAX 요청을 사용하여 heartCount 업데이트
-//         var xhr = new XMLHttpRequest();
-//         xhr.open("GET", "${pageContext.request.contextPath}/get-heart-count", true); // 예시: heartCount를 가져오는 URL
-//         xhr.onreadystatechange = function() {
-//             if (xhr.readyState === 4) {
-//                 if (xhr.status === 200) {
-//                     var newHeartCount = xhr.responseText;
-//                     heartCountElement.textContent = newHeartCount; // heartCount 업데이트
-//                 } else {
-//                     console.error("Error fetching heartCount");
-//                 }
-//             }
-//         };
-//         xhr.send();
 	}
 });
 

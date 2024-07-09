@@ -314,21 +314,22 @@ a {
 								</select>
 							</div>
 	<!-- 					카테고리바 지역 끝 -->
-							
-							<!-- 셀렉트 검색 버튼 -->
-							<div class="btnSearchDiv col-1 mt-4">
-								<div class="w-100 btnDiv">
-									<button type="button" class="btn btn-outline-light btnSearch">검색</button>
+<!-- 							<div class="d-flex"> -->
+								<!-- 셀렉트 검색 버튼 -->
+								<div class="btnSearchDiv col-md-1 mt-4 mx-1">
+									<div class="w-100 btnDiv">
+										<button type="button" class="btn btn-outline-light btnSearch">검색</button>
+									</div>
 								</div>
-							</div>
-							<!-- 셀렉트 검색 버튼 -->
-							
-							<!-- 셀렉트 초기화 버튼 -->
-							<div class="btnResetDiv col-1 mt-4">
-								<div class="w-100 btnDiv">
-									<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
+								<!-- 셀렉트 검색 버튼 -->
+								
+								<!-- 셀렉트 초기화 버튼 -->
+								<div class="btnResetDiv col-md-1 mt-4">
+									<div class="w-100 btnDiv">
+										<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
+									</div>
 								</div>
-							</div>
+<!-- 							</div> -->
 							<!-- 셀렉트 초기화 버튼 -->
 						</div>
 						<!-- 셀렉트박스 리스트 끝 -->

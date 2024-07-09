@@ -363,6 +363,7 @@
     #chatListModal {
 		width: 400px;
     	height: 700px;
+    	
     }
 }
 
@@ -371,6 +372,7 @@
     #chatListModal {
         width: 100%;
         max-width: 100%;
+        border-radius: 0px;
     }
 }
 
@@ -457,7 +459,7 @@
 									    </li>
 									    <li class="nav-item">
 											<!-- 클릭 시 모달 창을 열기 위한 링크 -->
-											<a class="nav-link position-relative" href="#" id="openChatModal" >
+											<a class="nav-link position-relative openChatModal" href="#" id="openChatModal" >
 												<i class="bi bi-envelope bi-top"  style="font-size: 25px; "></i>
 												<span class="position-absolute badge-position bg-danger border border-light rounded-circle">
 													<span class="visually-hidden">New alerts</span>
@@ -851,7 +853,7 @@ $(function() {
     	
     // ===================================================================================================
  	// 채팅 모달 창 열기
-    $("#openChatModal").on("click", function(e) {
+    $(".openChatModal").on("click", function(e) {
         e.preventDefault(); // 기본 동작 방지
         let member_code = "${sessionScope.member.member_code}";
         if(member_code == null || member_code == "") {

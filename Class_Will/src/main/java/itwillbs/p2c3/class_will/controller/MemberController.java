@@ -228,7 +228,8 @@ public class MemberController {
 		
 	} // wakeUpPro()
 	 
-
+	
+	// =============================================== 채팅  ===================================================== 
 	
 	@GetMapping("user-chat-list")
 	public String userChatList(MemberVO member, Model model, HttpSession session) {

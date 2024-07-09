@@ -182,16 +182,6 @@
 				<span class="send-time">오후 5:04</span>
 				<span class="my_msg">안녕하세요. 둘리예요.</span>
 			</div>		
-<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
-<!-- 				<div class="d-flex flex-row mb-1"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/heart1.png" class="receiver_img"> --%>
-<!-- 					<span class="receiver_name">길동이</span> -->
-<!-- 				</div>	 -->
-<!-- 				<div class="d-flex flex-row"> -->
-<!-- 					<span class="receiver_msg"></span> -->
-<!-- 					<span class="send-time">오후 5:03</span> -->
-<!-- 				</div> -->
-<!-- 			</div>		 -->
 			<div class="d-flex flex-row justify-content-end msg-area">
 				<span class="send-time">오후 5:04</span>
 				<span class="my_msg">준비물이 있을까요?</span>
@@ -206,10 +196,6 @@
 					<span class="send-time">오후 5:05</span>
 				</div>
 			</div>		
-<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
-<!-- 				<span class="send-time">오후 5:04</span> -->
-<!-- 				<span class="my_msg">안녕하세요. 문의드립니다.</span> -->
-<!-- 			</div>		 -->
 			<div class="d-flex flex-row flex-column msg-area">
 				<div class="d-flex flex-row mb-1">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
@@ -279,6 +265,8 @@
 	<script type="text/javascript">
 		$(function() {
 			// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+			connect();
+			
 			$("#to-chat-list").on("click", function() {
 				location.href = "user-chat-list";
 			});
@@ -286,7 +274,32 @@
 			
 			
 		});
-	
+		let ws;
+		let receiver_id = "${param.receiver_id}";
+		console.log("receiver_id : " + receiver_id);
+		
+		if(receiver_id != "") {
+			startChat();
+		}
+		
+		function startChat() {
+			let startChatInterval = setInterval(() => {
+				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
+					console.log("1:1 채팅방 웹소켓 연결 완료");
+					sendMessage("INIT", "", receiver_id, "", "");
+					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
+					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
+					clearInterval(startChatInterval);
+				}
+			}, 1000);
+		}
+		
+		function connect() {
+			
+			
+			
+			
+		}
 	</script>
 
 

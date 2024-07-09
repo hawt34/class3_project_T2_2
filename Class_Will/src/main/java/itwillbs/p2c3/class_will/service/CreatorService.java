@@ -35,8 +35,7 @@ public class CreatorService {
 
 	// 클래스 수정
 	public void createrClassModifyPro(Map<String, Object> map, List<CurriVO> params) {
-		creatorMapper.createrClassDelete(map);
-		creatorMapper.createrClassRegPro(map);
+		creatorMapper.createrClassUpdate(map);
 //		System.out.println(">>>>>>>>params: " + params);
 		int class_code = Integer.parseInt((String)map.get("class_code"));
 		creatorMapper.creatorCurriDelete(class_code);

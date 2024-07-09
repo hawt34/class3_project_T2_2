@@ -19,8 +19,8 @@ public interface CreatorMapper {
 	// 클래스 등록
 	void createrClassRegPro(Map<String, Object> map);
 
-	// 클래스 삭제
-	void createrClassDelete(Map<String, Object> map);
+	// 클래스 업데이트
+	void createrClassUpdate(Map<String, Object> map);
 	
 	// 클래스 상세정보
 	Map<String, Object> getClassDetail(int class_code);

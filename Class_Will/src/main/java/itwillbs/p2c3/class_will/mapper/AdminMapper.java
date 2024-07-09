@@ -110,6 +110,8 @@ public interface AdminMapper {
 	List<Map<String, Object>> selectSmallCategoryClassComplain(Integer categoryCode);
 
 	void deleteVisitLogs();
+
+	Map<String, Object> selectEventDetail(int event_code);
 	
 
 }

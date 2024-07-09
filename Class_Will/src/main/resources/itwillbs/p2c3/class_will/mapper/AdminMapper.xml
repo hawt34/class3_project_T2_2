@@ -532,4 +532,10 @@
 		DELETE FROM visit_logs
 	</delete>
 	
+	<select id="selectEventDetail" resultType="map">
+		SELECT *
+		FROM event
+		WHERE event_code = #{event_code}
+	</select>
+	
 </mapper>

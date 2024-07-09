@@ -217,6 +217,10 @@ public class AdminService {
 		adminMapper.deleteVisitLogs();
 	}
 
+	public Map<String, Object> getEventDetail(int event_code) {
+		return adminMapper.selectEventDetail(event_code);
+	}
+
 	
 	
 }

@@ -183,7 +183,37 @@
     	            this.el.querySelector('input').checked = props.value;
     	        }
     	    }
-            
+    	    // 상세보기 버튼
+    	    class ModifyRenderer {
+    	        constructor(props) {
+    	            const container = document.createElement('div');
+    	            
+    	            const viewButton = document.createElement('button');
+    	            viewButton.className = 'btn btn-danger btn-sm';
+    	            viewButton.innerText = '수정하기';
+					
+					
+    	            // 버튼 클릭 이벤트 추가
+    	            viewButton.addEventListener('click', () => {
+                        const rowKey = props.grid.getIndexOfRow(props.rowKey);
+                        const rowData = props.grid.getRow(rowKey);
+                        let code = rowData.event_code;
+    	                window.open("admin-event-modify?&event_code=" + code, "상세정보", "width=1200px,height=1000px");
+    	            });
+
+    	            container.appendChild(viewButton);
+    	            
+    	            this.el = container;
+    	        }
+    	        getElement() {
+    	            return this.el;
+    	        }
+    	        render(props) {
+    	            this.el.dataset.rowKey = props.rowKey;
+    	            this.el.dataset.columnName = props.columnName;
+    	            this.el.dataset.code = props.value.event_code;
+    	        }
+    	    }
 
     	    // 상세보기 버튼
     	    class ActionRenderer {
@@ -200,7 +230,7 @@
                         const rowKey = props.grid.getIndexOfRow(props.rowKey);
                         const rowData = props.grid.getRow(rowKey);
                         let code = rowData.event_code;
-    	                window.open("admin-event-detail?&code=" + code, "상세정보", "width=1200px,height=1000px");
+    	                window.open("eventDetail?&event_code=" + code, "상세정보", "width=1200px,height=1000px");
     	            });
 
     	            container.appendChild(viewButton);
@@ -230,6 +260,13 @@
                         name: 'action',
                         renderer: {
                             type: ActionRenderer
+                        }
+                    },
+                    {
+                        header: 'Modify',
+                        name: 'modify',
+                        renderer: {
+                            type: ModifyRenderer
                         }
                     },
                     {

@@ -736,49 +736,46 @@ function updateClassList(filterClass) {
 //------------------------------------------------------------------------------------
 
 //클래스 카드 HTML 생성 함수
-function generateClassCardHTML(filter, contextPath, isLiked) {
-	var contextPath = "${pageContext.request.contextPath}"; 
-    var heartImgSrc = isLiked ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
-    var formattedPrice = new Intl.NumberFormat('ko-KR').format(filter.class_price);
-    var memberImgSrc = filter.member_img ? contextPath + "/resources/images/class/x.png" : contextPath + "/resources/images/class/pic.png";
-    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
+	function generateClassCardHTML(filter, contextPath, isLiked) {
+	    var contextPath = "${pageContext.request.contextPath}"; 
+	    var heartImgSrc = isLiked ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
+	    var formattedPrice = new Intl.NumberFormat('ko-KR').format(filter.class_price);
+	    var memberImgSrc = filter.member_img ? contextPath + "/resources/images/class/x.png" : contextPath + "/resources/images/class/pic.png";
+	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 
-
-    return '<div class="col-lg-4 mb-4 classCard rounded position-relative vesitable-item" style="width: 330px;">'	
-		+ '		<div class="rounded position-relative class-item classCard">'
-        + '			<div class="vesitable-img">'
-        + '				<img src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
-        + '			</div>'
-        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="'
-        + 			filter.class_code + '" data-member-code="' + filter.member_code + '">'
-        + '			<div class="p-3 rounded-bottom classCardBtm " onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
-        + '				<div class="classCategory w-100 col-md-10">'
-        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_big_category + '</button>'
-        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_small_category + '</button>'
-        + 					(hashtags.length > 0 ? '<button type="button" class="btn btn-outline-secondary btn-sm category mb-2 mx-1">' + hashtags[0] + '</button>' : '')
-        + '				</div>'
-        + '				<div class="createrName d-flex align-items-center py-2">'
-        + '					<div class="px-2 py-2 position-absolute" style="bottom: 120px; left: 6px;">'
-        + '						<img src="' + memberImgSrc + '" class="member_img">'
-        + '					</div>'
-        + '					<p class="mb-0 ml-5 px-4">' + filter.member_nickname + '</p>'
-        + '				</div>'
-        + '				<div class="className">'
-        + '					<h6>' + filter.class_name + '</h6>'
-        + '				</div>'
-        + '				<div class="row classInfo d-flex justify-content-between">'
-        + '					<div class="col add ">'
-        + '						<a href="" class="btn btn-outline-dark btn-sm disabled">' + filter.local_name + '</a>'
-        + '					</div>'
-        + '					<div class="col price float-end">'
-        + '						<h5 class="class-price">' + formattedPrice + '원</h5>'
-        + '					</div>'
-        + '				</div>'
-        + '			</div>'
-        + '		</div>'
-        + '	</div>';
-} // 
-
+	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3 pt-3" style="width: 330px;">'	
+	        + '    <div class="rounded position-relative class-item classCard">'
+	        + '        <div class="vesitable-img cursor">'
+	        + '            <img style="height : 225px;" src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
+	        + '        </div>'
+	        + '        <img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '" data-member-code="' + filter.member_code + '">'
+	        + '        <div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
+	        + '            <div class="classCategory w-100 col-md-10">'
+	        + '                <button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_big_category + '</button>'
+	        + '                <button type="button" class="btn btn-outline-dark btn-sm category mb-2 me-1">' + filter.class_small_category + '</button>'
+	        +                 (hashtags.length > 0 ? '<button type="button" class="btn btn-outline-secondary btn-sm category mb-2">' + hashtags[0] + '</button>' : '')
+	        + '            </div>'
+	        + '            <div class="createrName d-flex align-items-center mt-1 cursor">'
+	        + '                <div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">'
+	        + '                    <img src="' + memberImgSrc + '" class="member_img">'
+	        + '                </div>'
+	        + '                <p class="mb-0 ml-5 px-4">' + filter.member_nickname + '</p>'
+	        + '            </div>'
+	        + '            <div class="className mt-2 cursor">'
+	        + '                <h6>' + filter.class_name + '</h6>'
+	        + '            </div>'
+	        + '            <div class="row classInfo d-flex justify-content-between mt-5 cursor">'
+	        + '                <div class="col add float-start">'
+	        + '                    <a href="" class="btn btn-outline-dark btn-sm disabled">' + filter.local_name + '</a>'
+	        + '                </div>'
+	        + '                <div class="col price float-end">'
+	        + '                    <h5 class="class-price">' + formattedPrice + '원</h5>'
+	        + '                </div>'
+	        + '            </div>'
+	        + '        </div>'
+	        + '    </div>'
+	        + '</div>';
+	}
 
 </script>
 </body>

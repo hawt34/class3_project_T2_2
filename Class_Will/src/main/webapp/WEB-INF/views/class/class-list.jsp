@@ -316,7 +316,7 @@ a {
 	<!-- 					카테고리바 지역 끝 -->
 							
 							<!-- 셀렉트 검색 버튼 -->
-							<div class="btnSearchDiv col mt-4">
+							<div class="btnSearchDiv col-1 mt-4">
 								<div class="w-100 btnDiv">
 									<button type="button" class="btn btn-outline-light btnSearch">검색</button>
 								</div>
@@ -324,7 +324,7 @@ a {
 							<!-- 셀렉트 검색 버튼 -->
 							
 							<!-- 셀렉트 초기화 버튼 -->
-							<div class="btnResetDiv col mt-4">
+							<div class="btnResetDiv col-1 mt-4">
 								<div class="w-100 btnDiv">
 									<button type="button" class="btn btn-outline-light btnReset" onclick="resetCategory()">초기화</button>
 								</div>
@@ -355,28 +355,32 @@ a {
 		<!-- 클래스 개수 시작 -->
 		<c:set var="classCount" value="${fn:length(classList)}" />
 		<div class="row">
-			<div class="col-6">
+			<div class="col-5">
+<!-- 			<div class="col"> -->
 				<div class="classCount">
-<%-- 					<h5>${classCount}개의 클래스</h5> --%>
 				</div>
 			</div>
-			<div class="col-6 box11">
-				<div class="col-6">
-					<p>
-						<a class="btn btn-outline-light btnLocation mt-3 mr-0" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-							내 위치 주변 클래스 찾기
-						</a>
-					</p>
-				</div>
-				<div class="col-6 classList mr-0 mt-3">
-					<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example">
-						<option value="lowPrice" selected>낮은 가격순</option>
-						<option value="highPrice">높은 가격순</option>
-						<option value="starList">별점순</option>
-						<option value="reviewList">후기순</option>
-					</select>
+<!-- 			<div class="col-6 box11"> -->
+			<div class="col-2"></div>
+			<div class="col-3">
+				<div class="btnLocationDiv">
+				<p>
+					<a class="btn btn-outline-light btnLocation mt-3" data-bs-toggle="collapse"  onclick="getCurrentLocation()" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+						내 위치 주변 클래스 찾기
+					</a>
+				</p>
 				</div>
 			</div>
+<!-- 				<div class="col classList mr-0 mt-3"> -->
+			<div class="col-2 classList mt-3">
+				<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example">
+					<option value="lowPrice" selected>낮은 가격순</option>
+					<option value="highPrice">높은 가격순</option>
+					<option value="starList">별점순</option>
+					<option value="reviewList">후기순</option>
+				</select>
+			</div>
+<!-- 			</div> -->
 		</div> <!-- row -->
 		<!-- 클래스 개수 끝 -->
 	

@@ -26,7 +26,13 @@ body {
 
 .btnLocation {
 	text-align : right;
+	margin-right : 0px;
 }
+
+.btnLocationDiv {
+	margin-left : 90px;
+}
+
 .card-bodys {
     height: 200px; /* 예시로 설정한 높이 */
 	padding : 15px;
@@ -188,7 +194,7 @@ body {
 .selectBox1 {
 /*     margin: 0; 마진 제거 */
     height: auto; /* 높이 자동 조절 */
-    margin-left : 90px;
+/*     margin-left : 90px; */
     opacity : 0.9;
 }
 

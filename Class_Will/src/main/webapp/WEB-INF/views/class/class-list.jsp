@@ -734,7 +734,6 @@ function updateClassList(filterClass) {
 } // updateClassList
 
 //------------------------------------------------------------------------------------
-
 //클래스 카드 HTML 생성 함수
 	function generateClassCardHTML(filter, contextPath, isLiked) {
 	    var contextPath = "${pageContext.request.contextPath}"; 

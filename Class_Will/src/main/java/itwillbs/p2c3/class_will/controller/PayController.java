@@ -101,7 +101,7 @@ public class PayController {
 			//payInfo에 쓰일 파라미터
 			map.put("member_code", member_code);
 			//memberInfo에 쓰일 파라미터
-			memberInfo.put("member_code", member_code);
+//			memberInfo.put("member_code", member_code);
 		}
 		model.addAttribute("memberInfo", memberInfo);
 		
@@ -131,12 +131,27 @@ public class PayController {
 		return "payment/payment";
 	}
 	
+	//포트원 결제 - verify(검증)
 	@ResponseBody
 	@PostMapping("verify")
 	public Map<String, Object> verify(@RequestBody Map<String, Object> map) {
-		System.out.println(map);
+		System.out.println("map");
 		Map<String, Object> response = payService.verifyPayment(map);
 		
+		return response;
+	}
+	
+	//카드결제 - 결제금액: 0 / willpay금액: all
+	@ResponseBody
+	@PostMapping("willpay-all-case")
+	public Map<String, Object> willpayAllCase(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
+		System.out.println("map0일때: " + map);
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member == null) {
+			WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다", false, "member-login");
+		}
+		map.put("member_code", member.getMember_code());
+		Map<String, Object> response = payService.updateWillPayAllCase(map);
 		return response;
 	}
 	
@@ -146,11 +161,63 @@ public class PayController {
 		Map<String, String> paySuccessInfo = payService.getSuccessPayInfo(map);
 		System.out.println("######paySuccessInfo: " + paySuccessInfo);
 		
-		
 		model.addAttribute("paySuccessInfo", paySuccessInfo);
 		return "payment/payment_final";
 	}
-	//===============================================================
+	
+	@ResponseBody
+	@PostMapping("refund")
+	public boolean refund(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
+		System.out.println("refund-map값: " + map);
+		boolean isSuccess = false;
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String result = "";
+		if(member == null) {
+			WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
+		}
+		int memberCode = member.getMember_code();
+		map.put("member_code", memberCode);
+		
+		//결제 날짜를 비교하여 환불금액 결정
+		int refund_amt = payService.getRefundAmt(map);
+		map.put("refund_amt", refund_amt);
+		
+		//환불 요청
+		try {
+			isSuccess = payService.refundPay(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return isSuccess;
+	}
+	@ResponseBody
+	@PostMapping("refund-willpay")
+	public boolean refundWillpayAllCase(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
+		System.out.println("refundWillpayAllCase-map값: " + map);
+		boolean isSuccess = false;
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		String result = "";
+		if(member == null) {
+			WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
+		}
+		int member_code = member.getMember_code();
+		map.put("member_code", member_code);
+		
+		//결제 날짜를 비교하여 환불금액 결정
+		int refund_amt = payService.getRefundAmt(map);
+//		map.put("refund_amt", refund_amt);
+		if(refund_amt == 0) {
+			payService.refundWillPayAllCase(map);
+			isSuccess = true;
+		}
+		
+		
+		return isSuccess;
+	}
+	//====================================================================
 	//윌페이 충전 페이지로 이동
 	@GetMapping("will-pay-charge")
 	public String willPayCharging(Model model, HttpSession session) {
@@ -252,8 +319,6 @@ public class PayController {
 		// access_token db저장
 		payService.registAccessToken(map);
 		
-			
-		
 		//session에 저장한 redirectUrl
 		String redirectUrl = (String)session.getAttribute("redirectUrl");
 		
@@ -283,35 +348,8 @@ public class PayController {
 		return "mypage/mypage-class";
 	}
 	
-	@ResponseBody
-	@PostMapping("refund")
-	public boolean refund(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
-		System.out.println("refund-map값: " + map);
-		boolean isSuccess = false;
-		
-		MemberVO member = (MemberVO)session.getAttribute("member");
-		String result = "";
-		if(member == null) {
-			WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바랍니다.", false);
-		}
-		int memberCode = member.getMember_code();
-		map.put("member_code", memberCode);
-		
-		//결제 날짜를 비교하여 환불금액 결정
-		int refund_amt = payService.getRefundAmt(map);
-		map.put("refund_amt", refund_amt);
-		
-		//환불 요청
-		try {
-			isSuccess = payService.refundPay(map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return isSuccess;
-	}
 	
-	//----------------------------------- will-pay ------------------------------
+	
 	// 크레딧관련
 	@GetMapping("my-credit")
 	public String myCredit(Model model, HttpSession session) {

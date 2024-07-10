@@ -385,7 +385,7 @@ a {
 	
 		<!-- 지도 보이는 영역 -->
 		<div class="collapse" id="collapseExample">
-			<div class="card card-body col-md-10 mapPop">
+			<div class="card card-body col-md-12 mapPop">
 		        <div id="collapseMapContainer" style="width:100%;height:400px;"></div> <!-- 이 div에 지도를 표시 -->
 			</div>
 		</div>
@@ -429,8 +429,7 @@ a {
 								<c:set var="hashtags" value="${fn:split(classItem.class_hashtag, ',')}" />
 								<button type="button" class="btn btn-outline-secondary btn-sm category mb-2">${hashtags[0]}</button>
 							</div>
-							<div class="createrName d-flex align-items-center mt-1 cursor">
-						    	<div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">
+							<div class="createrName d-flex align-items-center cursor">
 								<c:choose>
 									<c:when test="${empty classItem.member_img}">
 										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img" style="width: 25px; height: 25px;">
@@ -439,8 +438,7 @@ a {
 										<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img" style="width: 25px; height: 25px;">
 									</c:otherwise>
 								</c:choose>
-								</div>
-								<p class="mb-0 ml-5 px-4">${classItem.member_nickname}</p>
+								<p class="mb-0 ml-2">${classItem.member_nickname}</p>
 							</div>
 							<div class="className mt-2 cursor">
 							    <h6>${classItem.class_name}</h6>
@@ -817,11 +815,11 @@ function updateClassList(filterClass) {
 	        + '                <button type="button" class="btn btn-outline-dark btn-sm category mb-2 me-1">' + filter.class_small_category + '</button>'
 	        +                 (hashtags.length > 0 ? '<button type="button" class="btn btn-outline-secondary btn-sm category mb-2">' + hashtags[0] + '</button>' : '')
 	        + '            </div>'
-	        + '            <div class="createrName d-flex align-items-center mt-1 cursor">'
-	        + '                <div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">'
+	        + '            <div class="createrName d-flex align-items-center cursor">'
+// 	        + '                <div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">'
 	        + '                    <img src="' + memberImgSrc + '" class="member_img">'
-	        + '                </div>'
-	        + '                <p class="mb-0 ml-5 px-4">' + filter.member_nickname + '</p>'
+// 	        + '                </div>'
+	        + '                <p class="mb-0 ml-2">' + filter.member_nickname + '</p>'
 	        + '            </div>'
 	        + '            <div class="className mt-2 cursor">'
 	        + '                <h6>' + filter.class_name + '</h6>'

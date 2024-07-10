@@ -209,9 +209,9 @@
                 </ul>
             </div>
             <div class="col box2">
-                <ul class="nav-container nav-container1">
-                    <li class="nav-item nav-item1">
-                        <a class="navbar-item navbar-item1" href="#section5">채팅문의</a>
+                <ul class="nav-container nav-container1" >
+                    <li class="nav-item nav-item1" id="openUserChat" data-member-code="${classInfo.member.member_code}">
+                        <a class="navbar-item navbar-item1" href="#">1:1 채팅문의</a>
                     </li>
                 </ul>
             </div>
@@ -722,14 +722,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ===================================================================================================
  	// 채팅 모달 창 열기
-    $(".openChatModal").on("click", function(e) {
+    $("#openUserChat").on("click", function(e) {
         e.preventDefault(); // 기본 동작 방지
         let member_code = "${sessionScope.member.member_code}";
         if(member_code == null || member_code == "") {
         	 alert("로그인이 필요한 페이지 입니다.");
-	         window.location.href = "member-login";
+        	 let returnUrl = encodeURIComponent(window.location.href); 
+	         window.location.href = "member-login?returnUrl=" + returnUrl;
         } else {
-	        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
+	        $("#chatListContent").attr("src", "user-chat-room?receiver_id="+${classInfo.member_code}); // 실제로 열고자 하는 URL로 변경
 	        $("#chatListModal").css("display", "block");
 	        $("#modalBackdrop").css("display", "block"); // 배경 표시
 	        $("body").css("overflow", "hidden"); // 배경 스크롤 방지

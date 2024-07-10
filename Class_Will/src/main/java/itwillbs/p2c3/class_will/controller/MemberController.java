@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,8 +90,9 @@ public class MemberController {
 	
 	// 회원 로그인 비즈니스 로직 처리
 	@PostMapping("member-login")
-	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder) {
-		
+	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder, 
+				@RequestParam(required = false) String returnUrl, HttpServletRequest request, HttpServletResponse response) {
+            
 		MemberVO dbMember = memberService.selectMember(member);
 		
 		if(dbMember != null && dbMember.getMember_status().equals("2")) {
@@ -120,6 +123,9 @@ public class MemberController {
 				
 			session.setMaxInactiveInterval(10000);
 			
+			if (returnUrl != null && !returnUrl.isEmpty()) {
+	            return "redirect:" + returnUrl;
+	        } 
 			
 			return "redirect:/";
 		} 
@@ -131,9 +137,11 @@ public class MemberController {
 
 	// 멤버 로그아웃
 	@GetMapping("member-logout")
-	public String memberLogout() {
-		
+	public String memberLogout(@RequestParam(required = false) String returnUrl, HttpServletRequest request, HttpServletResponse response) {
 		session.invalidate();
+		if (returnUrl != null && !returnUrl.isEmpty()) {
+            return "redirect:" + returnUrl;
+        } 
 		return "redirect:/";
 	
 	} // memberLogout()

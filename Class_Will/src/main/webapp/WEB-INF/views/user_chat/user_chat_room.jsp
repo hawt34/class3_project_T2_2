@@ -157,7 +157,7 @@
 		<!-- 채팅방 상단 -->
 		<div class="chat-room-top d-flex justify-content-between">
 			<button class="chat-top-icon" id="to-chat-list"><i class="bi bi-chevron-left"></i></button>
-			<span class="receiver_name_top">길동이</span>
+			<span class="receiver_name_top">${receiverInfo.member_nickname}</span>
 			<button class="chat-top-icon pe-5"><i class="bi bi-three-dots-vertical"></i></button>
 		</div>
 		
@@ -254,7 +254,6 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
 			
 			$("#to-chat-list").on("click", function() {
 				location.href = "user-chat-list";
@@ -263,25 +262,25 @@
 		});
 		
 		
-		let ws;
-		let receiver_id = "${param.receiver_id}";
-		console.log("receiver_id : " + receiver_id);
+// 		let ws;
+// 		let receiver_id = "${param.receiver_id}";
+// 		console.log("receiver_id : " + receiver_id);
 		
-		if(receiver_id != "") {
-			startChat();
-		}
+// 		if(receiver_id != "") {
+// 			startChat();
+// 		}
 		
-		function startChat() {
-			let startChatInterval = setInterval(() => {
-				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
-					console.log("1:1 채팅방 웹소켓 연결 완료");
-					sendMessage("INIT", "", receiver_id, "", "");
-					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
-					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
-					clearInterval(startChatInterval);
-				}
-			}, 1000);
-		}
+// 		function startChat() {
+// 			let startChatInterval = setInterval(() => {
+// 				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
+// 					console.log("1:1 채팅방 웹소켓 연결 완료");
+// 					sendMessage("INIT", "", receiver_id, "", "");
+// 					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
+// 					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
+// 					clearInterval(startChatInterval);
+// 				}
+// 			}, 1000);
+// 		}
 		
 		
 		

@@ -626,13 +626,16 @@
 
 //=================================== top script start =====================================================
 
-
+// 
 function logout() {
 	
+	
 	if(confirm("로그아웃하시겠습니까?")) {
-		location.href = "member-logout";
+		let returnUrl = encodeURIComponent(window.location.href); 
+		location.href = "member-logout?returnUrl=" + returnUrl;
 	}
 } 
+
 $(function() {
 	
 	// 탑 분야 카테고리 
@@ -708,7 +711,6 @@ $(function() {
 	}); // $("#top-local").on("mouseover", function() {}) 끝
 	
 	// ============================================================================================
-   
     // 미니 탑 메뉴 
     $("#mini-menu-toggle").on("click", function() {
 		// 미니 탑 메뉴 분야 카테고리 
@@ -858,7 +860,8 @@ $(function() {
         let member_code = "${sessionScope.member.member_code}";
         if(member_code == null || member_code == "") {
         	 alert("로그인이 필요한 페이지 입니다.");
-	         window.location.href = "member-login";
+        	 let returnUrl = encodeURIComponent(window.location.href); 
+	         window.location.href = "member-login?returnUrl=" + returnUrl;
         } else {
 	        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
 	        $("#chatListModal").css("display", "block");
@@ -892,7 +895,7 @@ $(function() {
 
 	<script type="text/javascript">
 		$(function() {
-			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+// 			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
 		});
 		
 		let ws; // WebSocket 객체가 저장될 변수 선언

@@ -713,6 +713,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
         return true;
     });
+    
+    // ===================================================================================================
+ 	// 채팅 모달 창 열기
+    $(".openChatModal").on("click", function(e) {
+        e.preventDefault(); // 기본 동작 방지
+        let member_code = "${sessionScope.member.member_code}";
+        if(member_code == null || member_code == "") {
+        	 alert("로그인이 필요한 페이지 입니다.");
+	         window.location.href = "member-login";
+        } else {
+	        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
+	        $("#chatListModal").css("display", "block");
+	        $("#modalBackdrop").css("display", "block"); // 배경 표시
+	        $("body").css("overflow", "hidden"); // 배경 스크롤 방지
+        }
+    });
+
+    // 채팅 모달 창 닫기
+    $("#chatModalClose").on("click", function() {
+        $("#chatListModal").css("display", "none");
+        $("#modalBackdrop").css("display", "none");
+        $("body").css("overflow", "auto"); // 배경 스크롤 복구
+    });
+
+    // 채팅 모달 외부를 클릭하면 모달 닫기
+    $(window).on("click", function(event) {
+        if (event.target == document.getElementById("modalBackdrop")) {
+            $("#chatListModal").css("display", "none");
+            $("#modalBackdrop").css("display", "none");
+            $("body").css("overflow", "auto"); // 배경 스크롤 복구
+        }
+    });
 
 });
 </script>

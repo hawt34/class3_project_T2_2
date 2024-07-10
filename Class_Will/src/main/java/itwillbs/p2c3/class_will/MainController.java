@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.boot.model.source.internal.hbm.AbstractEntitySourceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,7 +127,10 @@ public class MainController {
 		
 		List<Map<String, Object>> searchClassList = mainService.retrieveKeyword(keyword, searchDateTime);
 		System.out.println("searchClassList : " + searchClassList);
-		model.addAttribute("searchClassList", searchClassList);
+		if(searchClassList != null) {
+			model.addAttribute("searchClassList", searchClassList);
+			
+		}
 		
 		return "redirect:/class-list";
 		

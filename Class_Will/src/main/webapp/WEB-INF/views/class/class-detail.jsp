@@ -183,7 +183,7 @@
             <div class="col box2">
                 <ul class="nav-container nav-container1">
                     <li class="nav-item nav-item1">
-                        <a class="navbar-item navbar-item1" href="#section1">프로그램 상세</a>
+                        <a class="navbar-item navbar-item1" href="#section1">클래스 소개</a>
                     </li>
                 </ul>
             </div>
@@ -208,6 +208,13 @@
                     </li>
                 </ul>
             </div>
+            <div class="col box2">
+                <ul class="nav-container nav-container1">
+                    <li class="nav-item nav-item1">
+                        <a class="navbar-item navbar-item1" href="#section5">채팅문의</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
     <!-- navbar -->
@@ -215,19 +222,18 @@
     <div class="row">
         <!-- navbar content -->
         <div class="content1 col-md-9">
-            <div id="section col-12">
-				<h4>클래스 위치</h4>
-				<div class="location">${classInfo.class_location}</div>
-                <div id="map" style="width: 875px; height: 400px;"></div>
-            </div>
             <div id="section1 col-12">
             	<div class="mt-3">
-					<h4>프로그램 상세</h4>
+					<h5>클래스 소개</h5>
+		            <div id="section col-12">
+						<div class="location">클래스 위치 : ${classInfo.class_location}</div>
+		                <div id="map" style="width: 875px; height: 400px;"></div>
+		            </div>
 				</div>
-            </div>
+            </div> <!-- section1 -->
             <div id="section2">
             	<div class="mt-3">
-              		<h4>커리큘럼</h4>
+              		<h5>커리큘럼</h5>
 					<div class="classCurri">
 						<c:choose>
 							<c:when test="${not empty classCurri}">
@@ -251,7 +257,7 @@
             </div>
             <!-- section2 -->
             <div id="section3">
-            	<h4>프로그램 후기</h4>
+            	<h5>클래스 후기</h5>
 				<div class="classCurri">
 					<div class="row reviewInfo my-3 mx-1">
 	                    <!-- 테이블 -->
@@ -314,9 +320,9 @@
             </div>
             <div id="section4">
                 <!-- Q&A 내용 -->
-              	<h4>클래스 Q&A</h4>
+              	<h5>클래스 Q&A</h5>
                 <!-- 테이블 -->
-                <div class="card text-center my-2">
+                <div class="card text-center my-3">
                     <div class="card-body p-2 reviewInfo">
                         <table>
                             <thead>

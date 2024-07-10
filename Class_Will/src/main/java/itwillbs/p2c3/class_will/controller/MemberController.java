@@ -2,7 +2,6 @@ package itwillbs.p2c3.class_will.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -229,24 +228,7 @@ public class MemberController {
 	} // wakeUpPro()
 	 
 	
-	// =============================================== 채팅  ===================================================== 
-	
-	@GetMapping("user-chat-list")
-	public String userChatList(MemberVO member, Model model, HttpSession session) {
-		
-		model.addAttribute("member", member);
-		return "user_chat/user_chat_list";
-		
-	} // userChatList()
-	
-	@GetMapping("user-chat-room")
-	public String userChatRoom(MemberVO member, Model model, HttpSession session) {
-		
-		
-		model.addAttribute("member", member);
-		return "user_chat/user_chat_room";
-		
-	} // userChatList()
+
 	
 	
 	

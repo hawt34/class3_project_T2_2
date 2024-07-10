@@ -5,16 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.hibernate.boot.model.source.internal.hbm.AbstractEntitySourceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -130,6 +125,9 @@ public class MainController {
 		if(searchClassList != null) {
 			model.addAttribute("searchClassList", searchClassList);
 			
+		} else {
+			model.addAttribute("msg", "검색 결과가 존재하지 않습니다.");
+			return "result_process/fail";
 		}
 		
 		return "redirect:/class-list";

@@ -250,30 +250,19 @@
 			</div>
 		</div>
 		
-		
-		
-	
-	
-	
-	
-	
-	
-	
-	
 	</div>
 	
 	<script type="text/javascript">
 		$(function() {
 			// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
-			connect();
 			
 			$("#to-chat-list").on("click", function() {
 				location.href = "user-chat-list";
 			});
 			
-			
-			
 		});
+		
+		
 		let ws;
 		let receiver_id = "${param.receiver_id}";
 		console.log("receiver_id : " + receiver_id);
@@ -294,12 +283,12 @@
 			}, 1000);
 		}
 		
-		function connect() {
-			
-			
-			
-			
-		}
+		
+		
+		
+		
+		
+		
 	</script>
 
 

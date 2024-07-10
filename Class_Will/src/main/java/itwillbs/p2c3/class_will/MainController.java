@@ -111,7 +111,7 @@ public class MainController {
 	
 	
 	// top & bottom 검색창
-	@PostMapping("search-keyword")
+	@PostMapping("class-list")
 	public String searchKeyword(@RequestParam String keyword, Model model) {
 		
 		System.out.println("keyword : " + keyword);
@@ -120,7 +120,7 @@ public class MainController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String searchDateTime = currentDateTime.format(formatter);
 		
-		List<Map<String, Object>> searchClassList = mainService.retrieveKeyword(keyword, searchDateTime);
+		List<Map<String, String>> searchClassList = mainService.retrieveKeyword(keyword, searchDateTime);
 		System.out.println("searchClassList : " + searchClassList);
 		if(searchClassList != null) {
 			model.addAttribute("searchClassList", searchClassList);
@@ -130,7 +130,7 @@ public class MainController {
 			return "result_process/fail";
 		}
 		
-		return "redirect:/class-list";
+		return "class/class-list";
 		
 	} // searchKeyword()
 	

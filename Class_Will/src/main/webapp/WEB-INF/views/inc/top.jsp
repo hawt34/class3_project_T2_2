@@ -569,7 +569,7 @@
 	            <span class="close">&times;</span>
 	        </div>
 	        <div class="modal-body">
-	            <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
+	            <form action="class-list" class="search-box d-flex justify-content-center" method="post">
 	                <input class="search-txt align-items-center" id="keyword" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
 	                <button class="search-btn" type="submit"> <i class="bi bi-search bi-top"></i></button>
 	            </form>

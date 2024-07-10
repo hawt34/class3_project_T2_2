@@ -762,9 +762,12 @@ public class CreatorController {
 	}
 	
 	@ResponseBody
-	@GetMapping
-	public String graphByClass() {
-		return "";
+	@GetMapping("graphByClass")
+	public List<Map<String, Object>> graphByClass(@RequestParam int classCode, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		List<Map<String, Object>> GraphDataByClassList = creatorService.getChartDataByClass(classCode, member);
+		
+		return GraphDataByClassList;
 	}
 	
 	

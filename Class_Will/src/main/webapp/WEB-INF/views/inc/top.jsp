@@ -569,7 +569,7 @@
 	            <span class="close">&times;</span>
 	        </div>
 	        <div class="modal-body">
-	            <form action="search-keyword" class="search-box d-flex justify-content-center" method="post">
+	            <form action="class-list" class="search-box d-flex justify-content-center" method="post">
 	                <input class="search-txt align-items-center" id="keyword" type="text" name="keyword" placeholder="관심 주제, 클래스, 크리에이터">
 	                <button class="search-btn" type="submit"> <i class="bi bi-search bi-top"></i></button>
 	            </form>
@@ -626,13 +626,16 @@
 
 //=================================== top script start =====================================================
 
-
+// 
 function logout() {
 	
+	
 	if(confirm("로그아웃하시겠습니까?")) {
-		location.href = "member-logout";
+		let returnUrl = encodeURIComponent(window.location.href); 
+		location.href = "member-logout?returnUrl=" + returnUrl;
 	}
 } 
+
 $(function() {
 	
 	// 탑 분야 카테고리 
@@ -708,7 +711,6 @@ $(function() {
 	}); // $("#top-local").on("mouseover", function() {}) 끝
 	
 	// ============================================================================================
-   
     // 미니 탑 메뉴 
     $("#mini-menu-toggle").on("click", function() {
 		// 미니 탑 메뉴 분야 카테고리 
@@ -858,7 +860,8 @@ $(function() {
         let member_code = "${sessionScope.member.member_code}";
         if(member_code == null || member_code == "") {
         	 alert("로그인이 필요한 페이지 입니다.");
-	         window.location.href = "member-login";
+        	 let returnUrl = encodeURIComponent(window.location.href); 
+	         window.location.href = "member-login?returnUrl=" + returnUrl;
         } else {
 	        $("#chatListContent").attr("src", "user-chat-list"); // 실제로 열고자 하는 URL로 변경
 	        $("#chatListModal").css("display", "block");
@@ -892,12 +895,41 @@ $(function() {
 
 	<script type="text/javascript">
 		$(function() {
-			connect();
-			
-			
-			
-			
+// 			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
 		});
+		
+		let ws; // WebSocket 객체가 저장될 변수 선언
+		
+		// 웹소켓 최초 연결 요청을 수행하는 connect() 메서드 정의
+		function connect() {
+			let ws_base_url = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
+			console.log(ws_base_url);
+			ws = new WebSocket(ws_base_url + "/echo");
+			ws.onopen = onOpen; // 웹소켓 요청에 대한 연결 성공 시
+			ws.onclose = onClose; 
+			ws.onmessage = onMessage;
+			ws.onerror = onError;
+		}
+		
+		function onOpen() {
+			console.log("onOpen()");
+		}
+		
+		function onClose(event) {
+			console.log("onClose() - " + event);
+		}
+		
+		function onMessage(event) {
+			
+		}
+		
+		function onError() {
+			console.log("onError()");
+		}
+		
+		
+		
+		
 	</script>
 
 </c:if>

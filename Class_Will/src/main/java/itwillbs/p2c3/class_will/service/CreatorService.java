@@ -248,6 +248,11 @@ public class CreatorService {
 	public List<Map<String, Object>> getGraphDataList(MemberVO member){
 		return creatorMapper.getGraphDataList(member);
 	}
+	
+	// 클래스에 따른 차트 데이터
+	public List<Map<String, Object>> getChartDataByClass(int classCode, MemberVO member) {
+		return creatorMapper.getChartDataByClass(classCode, member);
+	}
 
 	//==================================================================================================
 

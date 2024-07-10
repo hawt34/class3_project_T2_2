@@ -154,7 +154,7 @@
 		
 			<div class="chat-list row">
 				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+					<img src="${pageContext.request.contextPath}/resources/img/cat.jpg" class="receiver_img">
 				</div>
 				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">길동이</span>
@@ -357,7 +357,6 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
 			$(".chat-list").on("click", function() {
 				location.href = "user-chat-room";
 			});

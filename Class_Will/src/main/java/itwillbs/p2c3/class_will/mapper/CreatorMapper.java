@@ -170,6 +170,8 @@ public interface CreatorMapper {
 	// 전체 값에 대한 그래프 데이터
 	List<Map<String, Object>> getGraphDataList(MemberVO member);
 	
+	// 클래스에 따른 차트 데이터
+	List<Map<String, Object>> getChartDataByClass(@Param("classCode") int classCode, @Param("member") MemberVO member);
 	
 	//=====================================================================================================
 

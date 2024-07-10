@@ -157,7 +157,7 @@
 		<!-- 채팅방 상단 -->
 		<div class="chat-room-top d-flex justify-content-between">
 			<button class="chat-top-icon" id="to-chat-list"><i class="bi bi-chevron-left"></i></button>
-			<span class="receiver_name_top">길동이</span>
+			<span class="receiver_name_top">${receiverInfo.member_nickname}</span>
 			<button class="chat-top-icon pe-5"><i class="bi bi-three-dots-vertical"></i></button>
 		</div>
 		
@@ -171,10 +171,10 @@
 			<div class="d-flex flex-row flex-column msg-area">
 				<div class="d-flex flex-row mb-1">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-					<span class="receiver_name">길동이</span>
+					<span class="receiver_name">${receiverInfo.member_nickname}</span>
 				</div>	
 				<div class="d-flex flex-row">
-					<span class="receiver_msg">안녕하세요~ 길동이예요.</span>
+					<span class="receiver_msg">안녕하세요~ .</span>
 					<span class="send-time">오후 5:03</span>
 				</div>
 			</div>		
@@ -250,56 +250,44 @@
 			</div>
 		</div>
 		
-		
-		
-	
-	
-	
-	
-	
-	
-	
-	
 	</div>
 	
 	<script type="text/javascript">
 		$(function() {
-			// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
-			connect();
 			
 			$("#to-chat-list").on("click", function() {
 				location.href = "user-chat-list";
 			});
 			
-			
-			
 		});
-		let ws;
-		let receiver_id = "${param.receiver_id}";
-		console.log("receiver_id : " + receiver_id);
 		
-		if(receiver_id != "") {
-			startChat();
-		}
 		
-		function startChat() {
-			let startChatInterval = setInterval(() => {
-				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
-					console.log("1:1 채팅방 웹소켓 연결 완료");
-					sendMessage("INIT", "", receiver_id, "", "");
-					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
-					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
-					clearInterval(startChatInterval);
-				}
-			}, 1000);
-		}
+// 		let ws;
+		let receiver_email = "${receiverInfo.member_email}";
+		console.log("receiver_email : " + receiver_email);
 		
-		function connect() {
-			
-			
-			
-			
-		}
+// 		if(receiver_email != "") {
+// 			startChat();
+// 		}
+		
+// 		function startChat() {
+// 			let startChatInterval = setInterval(() => {
+// 				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
+// 					console.log("1:1 채팅방 웹소켓 연결 완료");
+// 					sendMessage("INIT", "", receiver_email, "", "");
+// 					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
+// 					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
+// 					clearInterval(startChatInterval);
+// 				}
+// 			}, 1000);
+// 		}
+		
+		
+		
+		
+		
+		
+		
 	</script>
 
 

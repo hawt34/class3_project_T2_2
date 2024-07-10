@@ -845,51 +845,55 @@
 	</select>
 	
 	<select id="getGraphDataList" resultType="map">
-		WITH RECURSIVE months AS (
-		    SELECT 
-		    	DATE_FORMAT(CURDATE(), '%Y-%m-01') AS month_date
-		    UNION ALL
-		    SELECT 
-		    	DATE_SUB(month_date, INTERVAL 1 MONTH)
-		    FROM 
-		    	months
-		    WHERE 
-		    	month_date > DATE_SUB(CURDATE(), INTERVAL 11 MONTH)
-		)
 		SELECT 
-		    DATE_FORMAT(m.month_date, '%Y-%m') AS month,
-		    CONVERT(IFNULL(SUM(total_amount), 0), SIGNED) AS total_sum
+		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m') AS month,
+		    CONVERT(SUM(IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)), SIGNED) AS total_sum
 		FROM 
-		    months m
-		LEFT JOIN (
-		    SELECT 
-		        (IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)) AS total_amount,
-		        cs.class_schedule_date,
-		        DATE_FORMAT(cs.class_schedule_date, '%Y-%m') AS date_range
-		    FROM 
-		        class c
-		    LEFT JOIN 
-		        class_schedule cs 
-		    ON 
-		        cs.class_code = c.class_code 
-		    LEFT JOIN 
-		        pay p
-		    ON 
-		        p.class_schedule_code  = cs.class_schedule_code 
-		    WHERE 
-		        c.member_code = #{member_code}
-		        AND 
-		        	cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
-		        AND 
-		        	DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date
-		) AS subquery
+		    class c
+		LEFT JOIN 
+		    class_schedule cs 
 		ON 
-			DATE_FORMAT(m.month_date, '%Y-%m') = subquery.date_range
+		    cs.class_code = c.class_code 
+		LEFT JOIN 
+		    pay p
+		ON 
+		    p.class_schedule_code = cs.class_schedule_code 
+		WHERE 
+		    c.member_code = #{member_code}
+		    AND cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
+		    AND DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date 
 		GROUP BY 
-		    m.month_date
+		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m')
 		ORDER BY 
-		    m.month_date asc;
-	</select>
+		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m') ASC
+    </select>
+
+	<select id="getChartDataByClass" resultType="map">
+		SELECT 
+		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m') AS month,
+		    CONVERT(SUM(IFNULL(p.pay_amount, 0) + IFNULL(p.use_willpay, 0)), SIGNED) AS total_sum
+		FROM 
+		    class c
+		LEFT JOIN 
+		    class_schedule cs 
+		ON 
+		    cs.class_code = c.class_code 
+		LEFT JOIN 
+		    pay p
+		ON 
+		    p.class_schedule_code = cs.class_schedule_code 
+		WHERE 
+		    c.member_code = #{member.member_code}
+		    AND cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
+		    AND DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date
+		    AND c.class_code = #{classCode} 
+		GROUP BY 
+		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m')
+		ORDER BY 
+		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m') ASC
+    </select>
+    
+    
 	
 	
 	

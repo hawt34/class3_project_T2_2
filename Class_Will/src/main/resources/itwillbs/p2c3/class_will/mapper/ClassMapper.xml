@@ -51,6 +51,7 @@
 			,class_hashtag
 			,m.member_name
 			,m.member_nickname
+			,m.member_img
 		FROM class c
 		LEFT JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
 		LEFT JOIN common2 lc ON c.common2_code = lc.common2_code AND lc.common1_code = 'LC'

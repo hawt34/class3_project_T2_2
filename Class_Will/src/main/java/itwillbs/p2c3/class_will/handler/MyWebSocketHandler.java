@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import itwillbs.p2c3.class_will.service.ChatService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.ChatMessageVO;
+import itwillbs.p2c3.class_will.vo.ChatRoomVO;
 import itwillbs.p2c3.class_will.vo.MemberVO;
 
 public class MyWebSocketHandler extends TextWebSocketHandler {
@@ -67,19 +68,19 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		System.out.println("chatMessage : " + chatMessage);
 		System.out.println("메세지 수신 시각 : " + getLocalDateTimeForNow());
 		// ---------------------------------------------------------------------------------
-		String sender_id = session.getAttributes().get("sId").toString();
-		String receiver_id = chatMessage.getReceiver_id();
-		System.out.println("송신자 : " + sender_id + ", 수신자 : " + receiver_id);
+		String sender_email = session.getAttributes().get("sId").toString();
+		String receiver_email = chatMessage.getReceiver_email();
+		System.out.println("송신자 : " + sender_email + ", 수신자 : " + receiver_email);
 		
 		// ChatMessage2 객체에 송신자 설정(HttpSession 객체의 세션 아이디 활용)
-		chatMessage.setSender_id(sender_id);
+		chatMessage.setSender_email(sender_email);
 		// ---------------------------------------------------------------------------------
 		// 수신된 메세지 타입 판별
 		if(chatMessage.getType().equals(ChatMessageVO.TYPE_INIT)) { // 채팅 페이지 초기 진입 메세지
 			// DB로부터 기존 채팅방 목록(= 자신의 아이디가 포함된 채팅방) 조회 후 목록 전송
 			// ChatService - getRoomList() 메서드 호출
 			// => 파라미터 : 자신의 아이디(sender_id)   리턴타입 : List<ChatRoom>(roomList)
-			List<ChatRoom> roomList = chatService.getRoomList(sender_id);
+			List<Map<String, Object>> roomList = chatService.getRoomList(sender_email);
 			// 조회 결과를 JSON 형식으로 변환하여 메세지로 설정
 			chatMessage.setMessage(gson.toJson(roomList));
 			// 메세지 타입을 전체 목록 표시를 위한 SHOW_LIST 로 설정
@@ -89,25 +90,25 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 			sendMessage(session, chatMessage, true);
 		} else if(chatMessage.getType().equals(ChatMessageVO.TYPE_INIT_COMPLETE)) { // 채팅페이지
 			// 초기화 완료 메세지에 수신자 포함 여부 판별
-			if(!receiver_id.equals("")) {
+			if(!receiver_email.equals("")) {
 				System.out.println("수신자 있음!");
 				
 				// 메세지를 수신할 상대방 확인
 				// 1) userSession 객체에 상대방 존재 여부 확인(= 현재 접속 여부 확인)
 				//    => Map 객체의 containsKey() 메서드를 통해 HttpSession 아이디(키) 탐색
-				boolean isConnectUser = userSessions.get(receiver_id) == null ? false : true;
-				System.out.println("현재 접속 여부 : " + userSessions.get(receiver_id));
+				boolean isConnectUser = userSessions.get(receiver_email) == null ? false : true;
+				System.out.println("현재 접속 여부 : " + userSessions.get(receiver_email));
 				boolean isExistUser = false;
 				
 				if(!isConnectUser) { // 현재 접속중인 상대방이 아닐 경우
 					// MemberService - getMemberId() 메서드 호출하여 DB 에서 상대방 아이디 검색
 					// => 파라미터 : 수신자 아이디   리턴타입 : String
-					isExistUser = memberService.getMemberId(receiver_id) == null ? false : true;
+					isExistUser = memberService.getMemberEmail(receiver_email) == null ? false : true;
 					System.out.println("아이디 DB 존재 여부 : " + isExistUser);
 					
 					if(!isExistUser) { // DB에도 상대방이 존재하지 않을 경우
 						// 메세지 송신자에게 오류 메세지 전송 후 메서드 종료
-						ChatMessageVO errorMessage = new ChatMessage2(ChatMessage2.TYPE_ERROR, sender_id, receiver_id, "", "사용자가 존재하지 않습니다", "" );
+						ChatMessageVO errorMessage = new ChatMessageVO(ChatMessageVO.TYPE_ERROR, sender_email, receiver_email, "", "사용자가 존재하지 않습니다", "" );
 						sendMessage(session, errorMessage, true);
 						return;
 					}
@@ -118,7 +119,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 //				if(isConnectUser || !isConnectUser && isExistUser) {} // 사용자 존재할 경우(생략)
 				// => 위의 사용자 판별 과정에서 모두 처리 후 오류일 때 return 문 사용했기 때문
 				
-				ChatRoom chatRoom = chatService.getChatRoom(sender_id, receiver_id);
+				ChatRoomVO chatRoom = chatService.getChatRoom(sender_email, receiver_email);
 				
 				// 기존 채팅방 존재 여부 판별
 				if(chatRoom == null) {
@@ -131,18 +132,18 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 					// => 파라미터 : List<ChatRoom> 타입
 					// => 1개 방 정보(룸아이디, 제목, 사용자아이디, 상태)를 갖는 
 					//    ChatRoom 객체를 송신자와 수신자 각각 생성하여 List 객체에 추가
-					List<ChatRoom> chatRoomList = new ArrayList<ChatRoom>();
+					List<ChatRoomVO> chatRoomList = new ArrayList<ChatRoomVO>();
 					
 					// ChatRoom 객체에 데이터 저장 시 sender_id만 활용하므로 receiver_id는 "" 전달
-					chatRoomList.add(new ChatRoom(chatMessage.getRoom_id(), receiver_id + " 님과의 대화", sender_id, "", null));
-					chatRoomList.add(new ChatRoom(chatMessage.getRoom_id(), sender_id + " 님과의 대화", receiver_id, "", null));
+					chatRoomList.add(new ChatRoomVO(chatMessage.getChat_room_code(), receiver_email + " 님과의 대화", sender_email, "", null));
+					chatRoomList.add(new ChatRoomVO(chatMessage.getChat_room_code(), sender_email + " 님과의 대화", receiver_email, "", null));
 					chatService.addChatRoom(chatRoomList);
 					
 					// 채팅 메세지 항목 중 채팅방 제목을 메세지 항목에 설정
 					// => 리스트의 0번 인덱스에 저장된 ChatRoom 객체 활용
 					chatMessage.setMessage(chatRoomList.get(0).getTitle());
 					// 송신자 화면에 새 채팅방 목록 추가를 위한 타입 지정
-					chatMessage.setType(ChatMessage2.TYPE_ADD_LIST);
+					chatMessage.setType(ChatMessageVO.TYPE_ADD_LIST);
 					// 송신자에게 메세지 전송
 					sendMessage(session, chatMessage, true);
 					

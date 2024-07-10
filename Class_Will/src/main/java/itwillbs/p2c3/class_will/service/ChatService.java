@@ -12,8 +12,8 @@ public class ChatService {
 	@Autowired
 	private ChatMapper chatMapper;
 
-	public MemberVO selectMemberEmail(int member_code) {
-		return chatMapper.selectMemberEmail(member_code);
+	public MemberVO selectMemberInfo(int member_code) {
+		return chatMapper.selectMemberInfo(member_code);
 	}
 	
 	

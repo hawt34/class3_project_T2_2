@@ -7,7 +7,7 @@ import itwillbs.p2c3.class_will.vo.MemberVO;
 @Mapper
 public interface ChatMapper {
 
-	MemberVO selectMemberEmail(int member_code);
+	MemberVO selectMemberInfo(int member_code);
 
 
 

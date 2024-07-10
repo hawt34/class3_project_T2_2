@@ -22,6 +22,7 @@ public class ChatController {
 	private ChatService chatservice;
 	
 	
+	
 	@GetMapping("user-chat-list")
 	public String userChatList(MemberVO member, Model model, HttpServletRequest request) {
 		
@@ -30,9 +31,9 @@ public class ChatController {
 	} // userChatList()
 	
 	@GetMapping("user-chat-room")
-	public String userChatRoom(MemberVO member, Model model, @RequestParam int receiver_id, HttpServletRequest request) {
+	public String userChatRoom(MemberVO member, Model model, @RequestParam(defaultValue = "") int receiver_id, HttpServletRequest request) {
 		
-		MemberVO receiverInfo = chatservice.selectMemberEmail(receiver_id);
+		MemberVO receiverInfo = chatservice.selectMemberInfo(receiver_id);
 		
 		model.addAttribute("receiverInfo", receiverInfo);
 		

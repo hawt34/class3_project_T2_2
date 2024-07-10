@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 public class ChatMessageVO {
 	
 	private String type;
-	private String sender_id;
-	private String receiver_id;
-	private String room_id;
+	private String sender_email;
+	private String receiver_email;
+	private String chat_room_code;
 	private String message;
 	private String send_time; // 메세지 전송 시각
 	

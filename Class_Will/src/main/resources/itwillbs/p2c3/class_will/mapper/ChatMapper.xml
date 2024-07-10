@@ -4,7 +4,7 @@
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.ChatMapper">
 	
-	<select id="selectMemberEmail" resultType="member">
+	<select id="selectMemberInfo" resultType="member">
 		SELECT *
 		  FROM MEMBER
 		 WHERE member_code = #{member_code}

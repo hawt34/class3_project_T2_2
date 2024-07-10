@@ -361,7 +361,6 @@ a {
 					<h5>${classCount}개의 클래스</h5>
 				</div>
 			</div>
-<!-- 			<div class="col-6 box11"> -->
 			<div class="col-2"></div>
 			<div class="col-3">
 				<div class="btnLocationDiv">
@@ -372,7 +371,6 @@ a {
 				</p>
 				</div>
 			</div>
-<!-- 				<div class="col classList mr-0 mt-3"> -->
 			<div class="col-2 classList mt-3">
 				<select id="classListSelect" class="form-select selectBox1 w-100" aria-label="Default select example">
 					<option value="lowPrice" selected>낮은 가격순</option>
@@ -394,135 +392,70 @@ a {
 		<!-- 지도 보이는 영역 -->
 	
 		<!-- 첫번째 줄 -->
-		<div class="row pb-4 mb-4 d-flex flex-wrap" id="classListContainer">
-			<!-- 기본 class-list -->
-			<c:choose>
-				<c:when test="${not empty searchClassList}">
-					<c:forEach var="searchClassList" items="${searchClassList}">
-						<div class="col-md-6 col-lg-4 col-xl-3 pb-3 pt-3" style="width: 330px;">
-							<div class="rounded position-relative class-item classCard">
-								<div class="vesitable-img cursor">
-									<img style="height : 225px;" src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${searchClassList.class_code}'">
-								</div>
-								<c:choose>
-									<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
-									<c:set var="isLiked" value="false"/> <!-- 삭제 -->
-										<c:forEach var="likeClassCode" items="${likeClassCode}">
-											<c:if test="${likeClassCode.class_code == classList.class_code}">
-												<c:set var="isLiked" value="true"/> <!-- 추가 -->
-											</c:if>
-										</c:forEach>
-										<c:if test="${isLiked}">
-											<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${searchClassList.class_code}" data-member-code="${searchClassList.member_code}">
-										</c:if>
-										<c:if test="${not isLiked}">
-											<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${searchClassList.class_code}" data-member-code="${searchClassList.member_code}">
-										</c:if>
-									</c:when>
-									<c:otherwise> <!-- likeClassList 존재 X -->
-										<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${searchClassList.class_code}" data-member-code="${searchClassList.member_code}">
-									</c:otherwise>
-								</c:choose>
-								
-								<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${searchClassList.class_code}'">
-									<div class="classCategory w-100 col-md-10">
-										<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${searchClassList.class_big_category}</button>
-										<button type="button" class="btn btn-outline-dark btn-sm category mb-2 me-1">${searchClassList.class_small_category}</button>
-										<c:set var="hashtags" value="${fn:split(searchClassList.class_hashtag, ',')}" />
-									</div>
-									<div class="createrName d-flex align-items-center mt-1 cursor">
-										<div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">
-											<c:choose>
-												<c:when test="${empty searchClassList.member_img}">
-													<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img" style="width: 25px; height: 25px;">
-												</c:when>	
-												<c:otherwise>
-													<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img" style="width: 25px; height: 25px;">
-												</c:otherwise>
-											</c:choose>
-										</div>
-										<p class="mb-0 ml-5 px-4">${searchClassList.member_nickname}</p>
-									</div>
-									<div class="className mt-2 cursor">
-										<h6>${searchClassList.class_name}</h6>
-									</div>
-									<div class="row classInfo d-flex justify-content-between mt-5 cursor">
-										<div class="col add float-start">
-											<a href="" class="btn btn-outline-dark btn-sm disabled">${searchClassList.local_name}</a>
-										</div>
-										<div class="col price float-end">
-											<h5 class="class-price"><fmt:formatNumber value="${searchClassList.class_price}" pattern="#,###" />원</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="classList" items="${classList}">
-						<div class="col-md-6 col-lg-4 col-xl-3 pb-3 pt-3" style="width: 330px;">
-							<div class="rounded position-relative class-item classCard">
-								<div class="vesitable-img cursor">
-									<img style="height : 225px;" src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classList.class_code}'">
-								</div>
-								<c:choose>
-									<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
-									<c:set var="isLiked" value="false"/> <!-- 삭제 -->
-										<c:forEach var="likeClassCode" items="${likeClassCode}">
-											<c:if test="${likeClassCode.class_code == classList.class_code}">
-												<c:set var="isLiked" value="true"/> <!-- 추가 -->
-											</c:if>
-										</c:forEach>
-										<c:if test="${isLiked}">
-											<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-										</c:if>
-										<c:if test="${not isLiked}">
-											<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-										</c:if>
-									</c:when>
-									<c:otherwise> <!-- likeClassList 존재 X -->
-										<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classList.class_code}" data-member-code="${classList.member_code}">
-									</c:otherwise>
-								</c:choose>
-								
-								<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${classList.class_code}'">
-									<div class="classCategory w-100 col-md-10">
-										<button type="button" class="btn btn-outline-dark btn-sm category mb-2">${classList.class_big_category}</button>
-										<button type="button" class="btn btn-outline-dark btn-sm category mb-2 me-1">${classList.class_small_category}</button>
-										<c:set var="hashtags" value="${fn:split(classList.class_hashtag, ',')}" />
-									</div>
-									<div class="createrName d-flex align-items-center mt-1 cursor">
-										<div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">
-											<c:choose>
-												<c:when test="${empty classList.member_img}">
-													<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img" style="width: 25px; height: 25px;">
-												</c:when>	
-												<c:otherwise>
-													<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img" style="width: 25px; height: 25px;">
-												</c:otherwise>
-											</c:choose>
-										</div>
-										<p class="mb-0 ml-5 px-4">${classList.member_nickname}</p>
-									</div>
-									<div class="className mt-2 cursor">
-										<h6>${classList.class_name}</h6>
-									</div>
-									<div class="row classInfo d-flex justify-content-between mt-5 cursor">
-										<div class="col add float-start">
-											<a href="" class="btn btn-outline-dark btn-sm disabled">${classList.local_name}</a>
-										</div>
-										<div class="col price float-end">
-											<h5 class="class-price"><fmt:formatNumber value="${classList.class_price}" pattern="#,###" />원</h5>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</div> <!-- classListContainer -->
+<div class="row pb-4 mb-4 d-flex flex-wrap" id="classListContainer">
+    <!-- 기본 class-list -->
+    <c:set var="currentList" value="${not empty searchClassList ? searchClassList : classList}" />
+    <c:forEach var="classItem" items="${currentList}">
+        <div class="col-md-6 col-lg-4 col-xl-3 pb-3" style="width: 330px;">
+            <div class="rounded position-relative class-item classCard">
+                <div class="vesitable-img cursor">
+                    <img style="height : 225px;" src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
+                </div>
+                <c:choose>
+                    <c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
+                        <c:set var="isLiked" value="false"/> <!-- 삭제 -->
+                        <c:forEach var="likeItem" items="${likeClassCode}">
+                            <c:if test="${likeItem.class_code == classItem.class_code}">
+                                <c:set var="isLiked" value="true"/> <!-- 추가 -->
+                            </c:if>
+                        </c:forEach>
+                        <c:if test="${isLiked}">
+                            <img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
+                        </c:if>
+                        <c:if test="${not isLiked}">
+                            <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
+                        </c:if>
+                    </c:when>
+                    <c:otherwise> <!-- likeClassList 존재 X -->
+                        <img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
+                    </c:otherwise>
+                </c:choose>
+                
+                <div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
+                    <div class="classCategory w-100 col-md-10">
+                        <button type="button" class="btn btn-outline-dark btn-sm category mb-2">${classItem.class_big_category}</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm category mb-2 me-1">${classItem.class_small_category}</button>
+                        <c:set var="hashtags" value="${fn:split(classItem.class_hashtag, ',')}" />
+                    </div>
+                    <div class="createrName d-flex align-items-center mt-1 cursor">
+                        <div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">
+                            <c:choose>
+                                <c:when test="${empty classItem.member_img}">
+                                    <img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img" style="width: 25px; height: 25px;">
+                                </c:when>	
+                                <c:otherwise>
+                                    <img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img" style="width: 25px; height: 25px;">
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <p class="mb-0 ml-5 px-4">${classItem.member_nickname}</p>
+                    </div>
+                    <div class="className mt-2 cursor">
+                        <h6>${classItem.class_name}</h6>
+                    </div>
+                    <div class="row classInfo d-flex justify-content-between mt-5 cursor">
+                        <div class="col add float-start">
+                            <a href="" class="btn btn-outline-dark btn-sm disabled">${classItem.local_name}</a>
+                        </div>
+                        <div class="col price float-end">
+                            <h5 class="class-price"><fmt:formatNumber value="${classItem.class_price}" pattern="#,###" />원</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
+</div> <!-- classListContainer -->
    </div> <!-- col-md-12 -->
 </div> <!-- container -->
 
@@ -870,7 +803,7 @@ function updateClassList(filterClass) {
 	    var memberImgSrc = filter.member_img ? contextPath + "/resources/images/class/x.png" : contextPath + "/resources/images/class/pic.png";
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 
-	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3 pt-3" style="width: 330px;">'	
+	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3" style="width: 330px;">'	
 	        + '    <div class="rounded position-relative class-item classCard">'
 	        + '        <div class="vesitable-img cursor">'
 	        + '            <img style="height : 225px;" src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'

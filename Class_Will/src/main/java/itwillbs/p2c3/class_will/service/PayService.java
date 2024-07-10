@@ -92,7 +92,6 @@ public class PayService {
 		Map<String, Object> response = new HashMap<String, Object>();
 		try {
 			IamportResponse<Payment> paymentResponse = client.paymentByImpUid((String)map.get("imp_uid"));
-//			response = new HashMap<String, Object>();
 			//결제 성공 시
 			if(paymentResponse.getResponse() != null && paymentResponse.getResponse().getStatus().equals("paid")) {
 				//use_willpay 처리
@@ -102,9 +101,6 @@ public class PayService {
 				
 				//-----------------------------------------
 				//DB에 결제 데이터 저장
-				//class_schedule_code, member_code, class_code 가져오기
-//				Map<String, Object> objects = payMapper.selectObjects(map); //delete?
-				
 				Payment pr = paymentResponse.getResponse();
 				//format 메서드
 				String payDate = formatDate(pr.getPaidAt());

@@ -208,7 +208,6 @@ public class PayController {
 		
 		//결제 날짜를 비교하여 환불금액 결정
 		int refund_amt = payService.getRefundAmt(map);
-//		map.put("refund_amt", refund_amt);
 		if(refund_amt == 0) {
 			payService.refundWillPayAllCase(map);
 			isSuccess = true;
@@ -238,7 +237,6 @@ public class PayController {
 			map.put("user_seq_no", token.get("user_seq_no"));
 			Map bankUserInfo = payService.getUserInfo(map);
 			
-//			bankUserInfo.get("res_list");
 			logger.info(">>>>>> bankUserInfo: " + bankUserInfo);
 			Gson gson = new Gson();
 			JsonObject jsonObject = gson.toJsonTree(bankUserInfo).getAsJsonObject();
@@ -381,7 +379,6 @@ public class PayController {
 		map.put("member_code", member_code);
 		map.put("user_name", user_name);
 		
-//		int validateWillpay = payService.getWillpayDate(map);
 		
 		Map<String, Object> token = (Map<String, Object>)session.getAttribute("token");
 		//고객의 access_token, fintech_use_num 
@@ -392,7 +389,6 @@ public class PayController {
 		//사용 willpay 금액이 결제 금액보다 많은 경우
 		if(result instanceof Boolean) {
 			isRefund = (boolean)result;
-//			return isRefund;
 		} else {
 			isRefund = (boolean)result;
 		}

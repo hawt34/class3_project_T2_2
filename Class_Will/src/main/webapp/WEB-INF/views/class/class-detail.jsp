@@ -190,14 +190,14 @@
             <div class="col box2">
                 <ul class="nav-container nav-container1">
                     <li class="nav-item nav-item1">
-                        <a class="navbar-item navbar-item1" href="#section2">후기</a>
+                        <a class="navbar-item navbar-item1" href="#section2">커리큘럼</a>
                     </li>
                 </ul>
             </div>
             <div class="col box2">
                 <ul class="nav-container nav-container1">
                     <li class="nav-item nav-item1">
-                        <a class="navbar-item navbar-item1" href="#section3">커리큘럼</a>
+                        <a class="navbar-item navbar-item1" href="#section3">후기</a>
                     </li>
                 </ul>
             </div>
@@ -208,13 +208,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="col box2">
-                <ul class="nav-container nav-container1">
-                    <li class="nav-item nav-item1">
-                        <a class="navbar-item navbar-item1" href="#section5">1:1 채팅하기</a>
-                    </li>
-                </ul>
-            </div>
         </div>
     </nav>
     <!-- navbar -->
@@ -222,85 +215,101 @@
     <div class="row">
         <!-- navbar content -->
         <div class="content1 col-md-9">
-            <div id="section1">
+            <div id="section col-12">
 				<h4>클래스 위치</h4>
 				<div class="location">${classInfo.class_location}</div>
-                <div id="map" style="width: 500px; height: 400px;"></div>
+                <div id="map" style="width: 875px; height: 400px;"></div>
+            </div>
+            <div id="section1 col-12">
+            	<div class="mt-3">
+					<h4>프로그램 상세</h4>
+				</div>
             </div>
             <div id="section2">
             	<div class="mt-3">
-              		<h4>클래스 후기</h4>
+              		<h4>커리큘럼</h4>
+					<div class="classCurri">
+						<c:choose>
+							<c:when test="${not empty classCurri}">
+								<c:forEach var="classCurri" items="${classCurri}">
+									<div class="classCurriRound">
+										${classCurri.curri_round}<br>
+									</div>
+									<div class="classCurriContent">
+										&nbsp;&nbsp;${classCurri.curri_content}
+									</div>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<div style="text-align: center;">
+									<h7>커리큘럼이 존재하지 않습니다.</h7>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
               	</div>
-                <div class="row reviewInfo my-3 mx-1">
-                    <!-- 테이블 -->
-                    <div class="card text-center">
-                        <div class="card-body p-2">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>후기</th>
-                                        <th>작성일자</th>
-                                        <th>작성자</th>
-                                        <th>별점</th>
-                                    </tr>
-                                </thead>
-							     <tbody>
-							        <c:choose>
-							            <c:when test="${empty classReview}">
-							                <tr>
-							                    <td colspan="4">
-							                        <h6 style="color: black;">리뷰가 존재하지 않습니다</h6>
-							                    </td>
-							                </tr>
-							            </c:when>
-							            <c:otherwise>
-							                <c:forEach var="map" items="${classReview}">
-							                    <c:if test="${map.class_review_subject != null}">
-							                        <tr>
-							                            <td class="creator-review-subject">
-                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_subject}</a>
-							                            </td>
-							                            <td>
-                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_date}</a>
-							                            </td>
-							                            <td>
-                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.member_nickname}</a>
-							                            </td>
-							                            <td>
-							                                <div class="reviewStar reviewStar1 col" onclick="creatorReview(event, '${param.class_code}')" style="text-align : left">
-							                                    <ul class="list-inline small">
-							                                        <c:forEach begin="1" end="${map.class_review_rating}">
-							                                            <li class="list-inline-item m-0"><i class="fa fa-star starStyle"></i></li>
-							                                        </c:forEach>
-							                                        <c:forEach begin="${map.class_review_rating + 1}" end="5">
-							                                            <li class="list-inline-item m-0"><i class="fa fa-star-o starStyle"></i></li>
-							                                        </c:forEach>
-							                                    </ul>
-							                                </div> <!-- reviewStar -->
-							                            </td>
-							                        </tr>
-							                    </c:if>
-							                </c:forEach>
-							            </c:otherwise>
-							        </c:choose>
-							    </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- section2 -->
             <div id="section3">
-            	<h4>커리큘럼</h4>
+            	<h4>프로그램 후기</h4>
 				<div class="classCurri">
-					<c:forEach var="classCurri" items="${classCurri}">
-						<div class="classCurriRound">
-							${classCurri.curri_round}<br>
-						</div>
-						<div class="classCurriContent">
-							&nbsp;&nbsp;${classCurri.curri_content}
-						</div>
-					</c:forEach>
+					<div class="row reviewInfo my-3 mx-1">
+	                    <!-- 테이블 -->
+	                    <div class="card text-center">
+	                        <div class="card-body p-2">
+	                            <table>
+	                                <thead>
+	                                    <tr>
+	                                        <th>후기</th>
+	                                        <th>작성일자</th>
+	                                        <th>작성자</th>
+	                                        <th>별점</th>
+	                                    </tr>
+	                                </thead>
+								     <tbody>
+								        <c:choose>
+								            <c:when test="${empty classReview}">
+								                <tr>
+								                    <td colspan="4">
+								                        <h6 style="color: black;">리뷰가 존재하지 않습니다</h6>
+								                    </td>
+								                </tr>
+								            </c:when>
+								            <c:otherwise>
+								                <c:forEach var="map" items="${classReview}">
+								                    <c:if test="${map.class_review_subject != null}">
+								                        <tr>
+								                            <td class="creator-review-subject">
+	                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_subject}</a>
+								                            </td>
+								                            <td>
+	                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.class_review_date}</a>
+								                            </td>
+								                            <td>
+	                                                    		<a href="#" onclick="creatorReview(event, '${param.class_code}', '${map.class_review_code}')" >${map.member_nickname}</a>
+								                            </td>
+								                            <td>
+								                                <div class="reviewStar reviewStar1 col" onclick="creatorReview(event, '${param.class_code}')" style="text-align : left">
+								                                    <ul class="list-inline small">
+								                                        <c:forEach begin="1" end="${map.class_review_rating}">
+								                                            <li class="list-inline-item m-0"><i class="fa fa-star starStyle"></i></li>
+								                                        </c:forEach>
+								                                        <c:forEach begin="${map.class_review_rating + 1}" end="5">
+								                                            <li class="list-inline-item m-0"><i class="fa fa-star-o starStyle"></i></li>
+								                                        </c:forEach>
+								                                    </ul>
+								                                </div> <!-- reviewStar -->
+								                            </td>
+								                        </tr>
+								                    </c:if>
+								                </c:forEach>
+								            </c:otherwise>
+								        </c:choose>
+								    </tbody>
+	                            </table>
+	                        </div>
+	                    </div>
+	                </div>
 				</div>
             </div>
             <div id="section4">
@@ -346,10 +355,6 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <!-- section4 -->
-            <div id="section5">
-                <p>1:1 채팅하기</p>
             </div>
         </div> 
         <!-- content -->

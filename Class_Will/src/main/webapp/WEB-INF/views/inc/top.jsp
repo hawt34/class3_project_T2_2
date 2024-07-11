@@ -825,7 +825,7 @@ $(function() {
 	
     // ===================================================================================================
     // 카테고리, 지역 콜렙스 호버
-     const collapseElements = $('#top-categoty, #top-local');
+	const collapseElements = $('#top-categoty, #top-local');
 
     let currentOpenCollapse = null;
 
@@ -895,10 +895,11 @@ $(function() {
 
 	<script type="text/javascript">
 		$(function() {
-// 			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
 		});
 		
 		let ws; // WebSocket 객체가 저장될 변수 선언
+		let unreadMsg = 0;
 		
 		// 웹소켓 최초 연결 요청을 수행하는 connect() 메서드 정의
 		function connect() {
@@ -920,6 +921,10 @@ $(function() {
 		}
 		
 		function onMessage(event) {
+			// 전송받은 메세지를 JSON 타입으로 파싱
+			let data = JSON.parse(event.data); // string -> JSON 객체
+			console.log("onMessage() - 수신된 데이터 : " + JSON.stringify(data));
+			
 			
 		}
 		
@@ -927,7 +932,19 @@ $(function() {
 			console.log("onError()");
 		}
 		
+		// 채팅 메세지 입력창 키 입력 감지 함수
+		function checkEnter(event, target) {
+			// 누른 키의 코드값 가져오기
+			let keyCode = event.keyCode;
+			if(keyCode == 13) { // 엔터키 감지하여 send() 함수 호출
+				send(target);
+			}
+		}
 		
+		// 채팅 메세지 전송 준비 함수(태그 요소 객체 전달받음)
+		function send(target) {
+			
+		}
 		
 		
 	</script>

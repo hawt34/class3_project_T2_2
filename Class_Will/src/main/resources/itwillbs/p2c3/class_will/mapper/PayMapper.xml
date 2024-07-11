@@ -41,6 +41,9 @@
 			   , c.class_big_category
 			   , c.class_small_category
 			   , c.class_thumnail
+			   , c.class_image
+			   , c.class_image2
+			   , c.class_image3
 			   , c.class_location
 			   , c.class_price
 			   , c.class_ex

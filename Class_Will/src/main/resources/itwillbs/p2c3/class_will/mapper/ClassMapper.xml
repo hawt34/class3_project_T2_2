@@ -197,8 +197,9 @@
 	<!-- 리뷰 별점 순 정렬 -->
 	<select id="selectStarList">
 		SELECT 
-		    IFNULL(AVG(cr.class_review_rating), 0) AS avg_rating,
-		    c.class_code
+		    IFNULL(AVG(cr.class_review_rating), 0) AS avg_rating
+		    ,c.class_code
+		    ,c.class_thumbnail
 		FROM class c
 		LEFT JOIN class_review cr ON cr.class_code = c.class_code
 		WHERE c.class_regist_status = '2'

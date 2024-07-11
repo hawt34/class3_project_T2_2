@@ -400,7 +400,8 @@ a {
 					<div class="rounded position-relative class-item classCard">
 						<div>
 					    <div class="vesitable-img cursor">
-					        <img style="height : 225px;" src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
+<%-- 					        <img style="height : 225px;" src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'"> --%>
+					        <img style="height : 225px;" src="${pageContext.request.contextPath}/${classItem.class_thumbnail}" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
 						</div>
 						<c:choose>
 							<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
@@ -443,7 +444,7 @@ a {
 							<div class="className mt-2 cursor">
 							    <h6>${classItem.class_name}</h6>
 							</div>
-							<div class="row classInfo d-flex justify-content-between mt-5 cursor">
+							<div class="row classInfo d-flex justify-content-between mt-5 cursor" style="position: absolute; bottom: 15px; width: 100%;">
 						    	<div class="col add float-start">
 						        	<a href="" class="btn btn-outline-dark btn-sm disabled">${classItem.local_name}</a>
 								</div>
@@ -804,36 +805,35 @@ function updateClassList(filterClass) {
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 
 	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3" style="width: 330px;">'	
-	        + '    <div class="rounded position-relative class-item classCard">'
-	        + '        <div class="vesitable-img cursor">'
-	        + '            <img style="height : 225px;" src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
-	        + '        </div>'
-	        + '        <img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '" data-member-code="' + filter.member_code + '">'
-	        + '        <div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
-	        + '            <div class="classCategory w-100 col-md-10">'
-	        + '                <button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_big_category + '</button>'
-	        + '                <button type="button" class="btn btn-outline-dark btn-sm category mb-2 me-1">' + filter.class_small_category + '</button>'
-	        +                 (hashtags.length > 0 ? '<button type="button" class="btn btn-outline-secondary btn-sm category mb-2">' + hashtags[0] + '</button>' : '')
+	        + '		<div class="rounded position-relative class-item classCard">'
+	        + '			<div class="vesitable-img cursor">'
+// 	        + '            <img style="height : 225px;" src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
+   			+ '				<img style="height : 225px;" src="' + contextPath + '"/"' + filter.class_thumbnail + '" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
+	        + '			</div>'
+	        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '" data-member-code="' + filter.member_code + '">'
+	        + '			<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
+	        + '				<div class="classCategory w-100 col-md-10">'
+	        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_big_category + '</button>'
+	        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2 me-1">' + filter.class_small_category + '</button>'
+	        +					(hashtags.length > 0 ? '<button type="button" class="btn btn-outline-secondary btn-sm category mb-2">' + hashtags[0] + '</button>' : '')
+	        + '				</div>'
+	        + '				<div class="createrName d-flex align-items-center cursor">'
+    		+ '					<img src="' + memberImgSrc + '" class="member_img">'
+	        + '					<p class="mb-0 ml-2">' + filter.member_nickname + '</p>'
+	        + '				</div>'
+	        + '				<div class="className mt-2 cursor">'
+	        + '					<h6>' + filter.class_name + '</h6>'
+	        + '				</div>'
+	        + '				<div class="row classInfo d-flex justify-content-between mt-5 cursor" style="position: absolute; bottom: 15px; width: 100%;">'
+	        + '					<div class="col add float-start">'
+	        + '						<a href="" class="btn btn-outline-dark btn-sm disabled">' + filter.local_name + '</a>'
+	        + '					</div>'
+	        + '					<div class="col price float-end">'
+	        + '						<h5 class="class-price">' + formattedPrice + '원</h5>'
+	        + '					</div>'
 	        + '            </div>'
-	        + '            <div class="createrName d-flex align-items-center cursor">'
-// 	        + '                <div class="px-2 py-2 position-absolute" style="bottom: 130px; left: 6px;">'
-	        + '                    <img src="' + memberImgSrc + '" class="member_img">'
-// 	        + '                </div>'
-	        + '                <p class="mb-0 ml-2">' + filter.member_nickname + '</p>'
-	        + '            </div>'
-	        + '            <div class="className mt-2 cursor">'
-	        + '                <h6>' + filter.class_name + '</h6>'
-	        + '            </div>'
-	        + '            <div class="row classInfo d-flex justify-content-between mt-5 cursor">'
-	        + '                <div class="col add float-start">'
-	        + '                    <a href="" class="btn btn-outline-dark btn-sm disabled">' + filter.local_name + '</a>'
-	        + '                </div>'
-	        + '                <div class="col price float-end">'
-	        + '                    <h5 class="class-price">' + formattedPrice + '원</h5>'
-	        + '                </div>'
-	        + '            </div>'
-	        + '        </div>'
-	        + '    </div>'
+	        + '			</div>'
+	        + '		</div>'
 	        + '</div>';
 	}
 

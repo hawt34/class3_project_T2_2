@@ -20,16 +20,6 @@
 	<!-- id 속성은 handler 속성에 지정한 이름, class 속성은 매핑할 클래스명(패키지포함) -->
 	<bean id="wsHandler" class="com.itwillbs.p2c3.class_will.handler.MyWebSocketHandler" />
 	
-	<!-- ========================================================================= -->
-<!-- 	<websocket:handlers> -->
-<!-- 		<websocket:mapping handler="wsHandler2" path="/echo2"/> -->
-<!-- 		<websocket:handshake-interceptors> -->
-<!-- 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean> -->
-<!-- 		</websocket:handshake-interceptors> -->
-<!-- 	</websocket:handlers> -->
-	
-<!-- 	<bean id="wsHandler2" class="com.itwillbs.p2c3.class_will.handler.MyWebSocketHandler" /> -->
-	
 
 </beans>
 

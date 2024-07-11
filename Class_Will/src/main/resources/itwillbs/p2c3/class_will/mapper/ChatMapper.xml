@@ -7,7 +7,7 @@
 	<select id="selectMemberInfo" resultType="member">
 		SELECT *
 		  FROM MEMBER
-		 WHERE member_code = #{member_code}
+		 WHERE member_email = #{member_email}
 	</select>
 		
 	

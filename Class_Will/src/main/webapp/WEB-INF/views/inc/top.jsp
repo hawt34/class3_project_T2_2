@@ -903,7 +903,8 @@ $(function() {
 		
 		// 웹소켓 최초 연결 요청을 수행하는 connect() 메서드 정의
 		function connect() {
-			let ws_base_url = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
+// 			let ws_base_url = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
+			let ws_base_url = "ws://localhost:8081/class_will";
 			console.log(ws_base_url);
 			ws = new WebSocket(ws_base_url + "/echo");
 			ws.onopen = onOpen; // 웹소켓 요청에 대한 연결 성공 시

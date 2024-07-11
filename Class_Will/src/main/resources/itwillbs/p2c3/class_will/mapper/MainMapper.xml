@@ -156,16 +156,25 @@
 			 , m.member_nickname
 			 , m.member_img
 		  FROM class c
-		  JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
-		  JOIN common3 c3 ON c.class_small_category = c3.common3_code AND c3.common2_code = c2.common2_code AND c3.common1_code = 'CLC'
-		  JOIN MEMBER m ON c.member_code = m.member_code
-		  JOIN common2 lc ON c.common2_code = lc.common2_code AND lc.common1_code = 'LC'
+		  JOIN common2 c2 
+		    ON c.class_big_category = c2.common2_code 
+		   AND c2.common1_code = 'CLC'
+		  JOIN common3 c3 
+		    ON c.class_small_category = c3.common3_code 
+		   AND c3.common2_code = c2.common2_code 
+		   AND c3.common1_code = 'CLC'
+		  JOIN MEMBER m
+		    ON c.member_code = m.member_code
+		  JOIN common2 lc 
+		    ON c.common2_code = lc.common2_code 
+		   AND lc.common1_code = 'LC'
 		 WHERE (c.class_name LIKE CONCAT('%', #{keyword}, '%')
 			   OR c.class_ex LIKE CONCAT('%', #{keyword}, '%')
 			   OR c.class_location LIKE CONCAT('%', #{keyword}, '%')
 			   OR c.class_hashtag LIKE CONCAT('%', #{keyword}, '%')
 			   OR c2.code_value LIKE CONCAT('%', #{keyword}, '%')
-			   OR c3.code_value LIKE CONCAT('%', #{keyword}, '%'))
+			   OR c3.code_value LIKE CONCAT('%', #{keyword}, '%')
+			   OR lc.code_value LIKE CONCAT('%', #{keyword}, '%'))
 		   AND c.class_active = 'Y'
 		   AND c.class_regist_status = '2'
 		   AND c.class_hide = '1'; 

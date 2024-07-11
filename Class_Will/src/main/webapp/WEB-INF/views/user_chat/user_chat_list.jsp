@@ -69,10 +69,14 @@
 	}
 	
 	.chat-list {
+		height: 65px;
 		border-bottom: 1px solid #A6A6A6;
 		margin: 0;
+		overflow: hidden;
 		cursor: pointer;
 		position: relative;
+		flex-shrink: 0;
+		
 	}
 	
 	.receiver_img_area {
@@ -82,7 +86,6 @@
 	}
 	
 	.receiver_img {
-		
 		width: 40px;
 		height: 40px;
 	}
@@ -108,17 +111,19 @@
 	}
 	
 	.last_msg {
-		font-size: 14px;
+		font-size: 13px;
+		text-overflow: ellipsis;
+	    overflow: hidden;
+	    white-space: nowrap;
+	    max-width: 100%;
 	}
 	
 	
 	.badge-position-chat {
 		position: absolute; 
-		top:45px; /* 위로 이동 */ 
+		top:43px; /* 위로 이동 */ 
 		right: 40px; /* 오른쪽으로 이동 */ 
 	    transform: translate(50%, -50%); /* 적절한 위치로 조정 */
-/* 	    width: 25px !important; */
-/* 	    height: 15px !important; */
 	    display: flex;
 	    align-items: center;
 	    justify-content: center;
@@ -149,14 +154,18 @@
 		
 			<div class="chat-list row">
 				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
+					<img src="${pageContext.request.contextPath}/resources/img/cat.jpg" class="receiver_img">
 				</div>
 				<div class="d-flex flex-column col-7 p-0">
 					<span class="receiver_name d-flex flex-row">길동이</span>
-					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
+					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요. 어쩌구 저쩌구 솰라솰라봉~~~ㄴㅇㄹㄴㄹ너ㅏㅣㅇ류나어ㅣ류ㅏ너유ㅏㅇ</span>
 				</div>
-				<div class="send-time-area col-3">
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
 					<span class="send-time">오후 5:05</span>
+					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+					    9+
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</div>
 			</div> <!-- chat-list -->
 			
@@ -168,8 +177,12 @@
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area col-3 ">
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
 					<span class="send-time">오후 5:03</span>
+					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+					    99+
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</div>
 			</div> <!-- chat-list -->
 			<div class="chat-list row">
@@ -180,7 +193,7 @@
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
-				<div class="send-time-area col-3">
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
 					<span class="send-time">오후 5:05</span>
 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
 					    99+
@@ -197,9 +210,14 @@
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area col-3 ">
-					<span class="send-time">오후 5:03</span>
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
+					<span class="send-time">오후 5:05</span>
+<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
+<!-- 					    99+ -->
+<!-- 						<span class="visually-hidden">unread messages</span> -->
+<!-- 					</span> -->
 				</div>
+			</div> <!--
 			</div> <!-- chat-list -->
 			<div class="chat-list row">
 				<div class="receiver_img_area col-2">
@@ -209,8 +227,12 @@
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
-				<div class="send-time-area col-3">
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
 					<span class="send-time">오후 5:05</span>
+					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+					    99+
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</div>
 			</div> <!-- chat-list -->
 			
@@ -222,8 +244,12 @@
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area col-3 ">
-					<span class="send-time">오후 5:03</span>
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
+					<span class="send-time">오후 5:05</span>
+					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+					    99+
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</div>
 			</div> <!-- chat-list -->
 			<div class="chat-list row">
@@ -234,8 +260,12 @@
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
-				<div class="send-time-area col-3">
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
 					<span class="send-time">오후 5:05</span>
+					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+					    99+
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</div>
 			</div> <!-- chat-list -->
 			
@@ -247,8 +277,12 @@
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area col-3 ">
-					<span class="send-time">오후 5:03</span>
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
+					<span class="send-time">오후 5:05</span>
+					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+					    99+
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</div>
 			</div> <!-- chat-list -->
 			<div class="chat-list row">
@@ -259,8 +293,12 @@
 					<span class="receiver_name d-flex flex-row">길동이</span>
 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
 				</div>
-				<div class="send-time-area col-3">
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
 					<span class="send-time">오후 5:05</span>
+					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+					    99+
+						<span class="visually-hidden">unread messages</span>
+					</span>
 				</div>
 			</div> <!-- chat-list -->
 			
@@ -272,8 +310,12 @@
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area col-3 ">
-					<span class="send-time">오후 5:03</span>
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
+					<span class="send-time">오후 5:05</span>
+<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
+<!-- 					    99+ -->
+<!-- 						<span class="visually-hidden">unread messages</span> -->
+<!-- 					</span> -->
 				</div>
 			</div> <!-- chat-list -->
 			<div class="chat-list row">
@@ -284,8 +326,12 @@
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area col-3 ">
-					<span class="send-time">오후 5:03</span>
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
+					<span class="send-time">오후 5:05</span>
+<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
+<!-- 					    99+ -->
+<!-- 						<span class="visually-hidden">unread messages</span> -->
+<!-- 					</span> -->
 				</div>
 			</div> <!-- chat-list -->
 			<div class="chat-list row">
@@ -296,8 +342,12 @@
 					<span class="receiver_name d-flex flex-row">호야</span>
 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
 				</div>
-				<div class="send-time-area col-3 ">
-					<span class="send-time">오후 5:03</span>
+				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
+					<span class="send-time">오후 5:05</span>
+<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
+<!-- 					    99+ -->
+<!-- 						<span class="visually-hidden">unread messages</span> -->
+<!-- 					</span> -->
 				</div>
 			</div> <!-- chat-list -->
 			
@@ -307,7 +357,6 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			// 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
 			$(".chat-list").on("click", function() {
 				location.href = "user-chat-room";
 			});

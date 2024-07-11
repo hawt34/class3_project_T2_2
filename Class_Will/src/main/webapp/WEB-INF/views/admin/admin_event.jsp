@@ -108,7 +108,6 @@
     	    const data = ${jo_list};
     	    let type = "event";
     	    
-    	    
     	    // 버튼 색깔 변경
     	    const buttons = document.querySelectorAll('.category-btn');
     	    buttons.forEach(button => {
@@ -119,17 +118,12 @@
     	        }
     	    });
     	    
-    	    
+    	    // 적응버튼 이벤트
     	    $('#btn-apply').on('click', function () {
     	        const modifiedRows = grid.getModifiedRows();
-    	        // modifiedRows가 배열인지 확인하고 배열로 변환
-    	        const rowsArray = Array.isArray(modifiedRows) ? modifiedRows : [modifiedRows];
-
-    	        
-    	        const jsonData = JSON.stringify(rowsArray);
-
+    	        const jsonData = JSON.stringify(modifiedRows);
     	        $.ajax({
-    	            url: 'updateEvent',
+    	            url: 'update-event',
     	            type: 'POST',
     	            contentType: 'application/json',
     	            data: jsonData,
@@ -183,7 +177,7 @@
     	            this.el.querySelector('input').checked = props.value;
     	        }
     	    }
-    	    // 상세보기 버튼
+    	    // 수정하기 버튼
     	    class ModifyRenderer {
     	        constructor(props) {
     	            const container = document.createElement('div');
@@ -251,10 +245,10 @@
                 el: document.getElementById('grid'),
                 data: data,
                 columns: [
-                    { header: '제목', name: 'event_subject' , editor: 'text'},
-                    { header: '작성일', name: 'event_reg_date' , editor: 'text'},
-                    { header: '이벤트 기간', name: 'event_date' , editor: 'text'},
-                    { header: '지급 포인트', name: 'event_point' , editor: 'text'},
+                    { header: '제목', name: 'event_subject'},
+                    { header: '작성일', name: 'event_reg_date'},
+                    { header: '이벤트 기간', name: 'event_date'},
+                    { header: '지급 포인트', name: 'event_point'},
                     {
                         header: 'Action',
                         name: 'action',

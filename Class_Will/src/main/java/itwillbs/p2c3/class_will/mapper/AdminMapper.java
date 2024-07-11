@@ -103,7 +103,7 @@ public interface AdminMapper {
 
 	int insertEvent(@Param("params") Map<String, Object> map);
 
-	List<Map<String, String>> selectEventList();
+	List<Map<String, Object>> selectEventList();
 
 	List<Map<String, Object>> selectBigCategoryClassComplain();
 
@@ -112,6 +112,8 @@ public interface AdminMapper {
 	void deleteVisitLogs();
 
 	Map<String, Object> selectEventDetail(int event_code);
+
+	boolean updateEventHide(@Param("updateRow") Map<String, Object> updateRow);
 	
 
 }

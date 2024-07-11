@@ -256,7 +256,7 @@
 		            </div>
 		            <div class="createrEx mt-3">
 						<h5>크리에이터 소개</h5>
-<%-- 		            	<h7>${classInfo.class_ex }</h7> --%>
+		            	<h7>${classInfo.class_creator_explain}</h7>
 		            </div>
 				</div>
             </div> <!-- section1 -->
@@ -397,8 +397,9 @@
         <div class="col-md-3">
             <form action="payment" method="post" id="class_form">
                 <input type="hidden" name="class_code" value="${classInfo.class_code}">
-                <input type="button" name="class_big_category" value="${classInfo.class_big_category}">
-                <input type="button" name="class_small_category" value="${classInfo.class_small_category}">
+                <input type="button" name="class_big_category" value="${classInfo.class_upper}">
+                <input type="button" name="class_small_category" value="${classInfo.class_lower}">
+                <input type="button" name="class_local" value="${classInfo.common2_code}">
                 <div class="box1">
                     <h6>${classInfo.class_name }</h6>
 <%--                     <h3>${classInfo.class_ex }</h3> --%>

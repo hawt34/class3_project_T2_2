@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChatRoomVO {
-	private String chat_room_code;
+	
+	private int chat_room_code;
+	private int sender_member_code;
+	private int receiver_member_code;
 	private String sender_email;
 	private String receiver_email;
 	private String status;

@@ -50,7 +50,7 @@ public class EventController {
 	
 	@GetMapping("event")
 	public String eventMain(Model model) {
-		List<Map<String, String>> list = adminService.getEventList();
+		List<Map<String, Object>> list = adminService.getEventList();
 		model.addAttribute("list", list);
 		
 		return "event/event_main";

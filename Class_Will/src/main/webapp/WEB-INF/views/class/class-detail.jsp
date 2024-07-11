@@ -161,18 +161,18 @@
             <div class="carousel-inner" role="listbox">
 				<c:if test="${not empty classInfo.class_image}">
 	                <div class="carousel-item active rounded col-12">
-    	                <img src="${pageContext.request.contextPath}/${classInfo.class_image}" class="img-fluid bg-secondary rounded" alt="First slide">
+    	                <img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image}" class="img-fluid bg-secondary rounded" alt="First slide">
 <%-- 	                    <img src="${pageContext.request.contextPath}/resources/img/fruite-item-1.jpg" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
 	                </div>
 				</c:if>
 				<c:if test="${not empty classInfo.class_image2}">
 	                <div class="carousel-item rounded col-12">
-                    	<img src="${pageContext.request.contextPath}/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" alt="Second slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" alt="Second slide">
 					</div>				
 				</c:if>
 				<c:if test="${not empty classInfo.class_image3}">
 	                <div class="carousel-item rounded col-12">
-                    	<img src="${pageContext.request.contextPath}/${classInfo.class_image3}" class="img-fluid bg-secondary rounded" alt="Third slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded" alt="Third slide">
 					</div>				
 				</c:if>
 <!-- 		                <div class="carousel-item active rounded"> -->
@@ -242,12 +242,21 @@
     <div class="row">
         <!-- navbar content -->
         <div class="content1 col-md-9">
-            <div id="section1 col-12">
+<!--             <div id="section1 col-12"> -->
+            <div id="section1">
             	<div class="mt-3">
 					<h5>클래스 소개</h5>
+					<div class="classEx col-11">
+						<h7>${classInfo.class_ex }</h7>
+					</div>
 		            <div id="section col-12">
-						<div class="location">클래스 위치 : ${classInfo.class_location}</div>
+						<h5>클래스 위치</h5>
+						<div class="location">${classInfo.class_location}</div>
 		                <div id="map" style="width: 875px; height: 400px;"></div>
+		            </div>
+		            <div class="createrEx mt-3">
+						<h5>크리에이터 소개</h5>
+<%-- 		            	<h7>${classInfo.class_ex }</h7> --%>
 		            </div>
 				</div>
             </div> <!-- section1 -->
@@ -387,12 +396,12 @@
         <!-- 우측 강의 소개 -->
         <div class="col-md-3">
             <form action="payment" method="post" id="class_form">
-                <input type="hidden" name="class_code" value="${classInfo.class_code }">
-                <input type="hidden" name="class_big_category" value="${classInfo.class_big_category }">
-                <input type="hidden" name="class_small_category" value="${classInfo.class_small_category }">
+                <input type="hidden" name="class_code" value="${classInfo.class_code}">
+                <input type="button" name="class_big_category" value="${classInfo.class_big_category}">
+                <input type="button" name="class_small_category" value="${classInfo.class_small_category}">
                 <div class="box1">
                     <h6>${classInfo.class_name }</h6>
-                    <h3>${classInfo.class_ex }</h3>
+<%--                     <h3>${classInfo.class_ex }</h3> --%>
                     <div class="row">
                         <div id="datePicker"></div>
                         <!-- 선택된 날짜를 저장할 input -->

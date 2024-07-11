@@ -401,7 +401,7 @@ a {
 						<div>
 					    <div class="vesitable-img cursor">
 <%-- 					        <img style="height : 225px;" src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'"> --%>
-					        <img style="height : 225px;" src="${pageContext.request.contextPath}/${classItem.class_thumbnail}" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
+					        <img style="height : 225px;" src="${pageContext.request.contextPath}/resources/upload/${classItem.class_thumnail}" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
 						</div>
 						<c:choose>
 							<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
@@ -807,8 +807,7 @@ function updateClassList(filterClass) {
 	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3" style="width: 330px;">'	
 	        + '		<div class="rounded position-relative class-item classCard">'
 	        + '			<div class="vesitable-img cursor">'
-// 	        + '            <img style="height : 225px;" src="' + contextPath + '/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
-   			+ '				<img style="height : 225px;" src="' + contextPath + '"/"' + filter.class_thumbnail + '" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
+   			+ '				<img style="height : 225px;" src="' + contextPath + '/resources/upload/' + filter.class_thumnail + '" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
 	        + '			</div>'
 	        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '" data-member-code="' + filter.member_code + '">'
 	        + '			<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'

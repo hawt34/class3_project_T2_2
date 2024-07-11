@@ -19,7 +19,9 @@
     background-color: black;
     z-index: 1000;
 }
-
+.classEx {
+	font-color : black;
+}
 .classCurri {
 	margin-top : 10px;
 	margin-bottom : 10px;

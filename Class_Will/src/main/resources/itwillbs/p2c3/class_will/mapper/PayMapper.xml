@@ -7,7 +7,7 @@
 	<select id="selectAdminToken">
 		SELECT access_token
 		FROM bank_user_info
-		WHERE member_code = 1067
+		WHERE member_code = 1091
 	</select>
 	<insert id="insertAdminToken">
 		INSERT INTO bank_user_info(
@@ -22,13 +22,13 @@
 			, null
 			, null
 			, null
-			, 1067
+			, 1091
 		)
 	</insert>
 	<update id="updateAdminToken">
 		UPDATE bank_user_info
 		SET access_token = #{access_token}
-		WHERE member_code = 1067
+		WHERE member_code = 1091
 	</update>
 	
 	<!-- ======= pay 관련 sql ======== -->
@@ -268,7 +268,7 @@
 	
 	<update id="updateFintechUseNum">
 		UPDATE bank_user_info
-		SET fintech_use_num = #{fintech_use_num}
+		SET fintech_use_num = COALESCE(fintech_use_num, #{fintech_use_num})
 		WHERE access_token = #{access_token}
 	</update>
 	

@@ -19,13 +19,15 @@
     background-color: black;
     z-index: 1000;
 }
-
+.classEx {
+	font-color : black;
+}
 .classCurri {
 	margin-top : 10px;
 	margin-bottom : 10px;
 }
 .hashBtn {
-	font-size : 0.4em;
+	font-size : 0.9em;
 	margin-right : 3px;
 }
 .classHashtag {
@@ -36,12 +38,12 @@
 .classCurriRound {
 /* 	margin-top : 10px; */
 	margin-bottom : 10px;
-	font-size : 1.2em;
+	font-size : 1.1em;
 	font-weight : bold;
 }
 .classCurriContent {
 	margin-bottom : 10px;
-	font-size : 1em;
+	font-size : 0.9em;
 	
 }
 .classImg {

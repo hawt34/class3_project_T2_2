@@ -152,18 +152,38 @@
 <div class="container1">
     <!-- 캐러셀 시작 -->
     <div class="row col-md-12">
-        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
+        <div id="carouselId" class="carousel slide position-relative mt-3" data-bs-ride="carousel">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner" role="listbox">
-                <div class="carousel-item active rounded">
-                    <img src="${pageContext.request.contextPath}/resources/img/fruite-item-1.jpg" class="img-fluid bg-secondary rounded" alt="First slide">
-                </div>
-                <div class="carousel-item rounded">
-                    <img src="${pageContext.request.contextPath}/resources/img/fruite-item-2.jpg" class="img-fluid rounded" alt="Second slide">
-                </div>
+				<c:if test="${not empty classInfo.class_image}">
+	                <div class="carousel-item active rounded col-12">
+    	                <img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image}" class="img-fluid bg-secondary rounded" alt="First slide">
+<%-- 	                    <img src="${pageContext.request.contextPath}/resources/img/fruite-item-1.jpg" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
+	                </div>
+				</c:if>
+				<c:if test="${not empty classInfo.class_image2}">
+	                <div class="carousel-item rounded col-12">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" alt="Second slide">
+					</div>				
+				</c:if>
+				<c:if test="${not empty classInfo.class_image3}">
+	                <div class="carousel-item rounded col-12">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded" alt="Third slide">
+					</div>				
+				</c:if>
+<!-- 		                <div class="carousel-item active rounded"> -->
+<%-- 		                    <img src="${pageContext.request.contextPath}/resources/img/fruite-item-1.jpg" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
+<!-- 		                </div> -->
+<!-- 		                <div class="carousel-item rounded"> -->
+<%-- 		                    <img src="${pageContext.request.contextPath}/resources/img/fruite-item-2.jpg" class="img-fluid rounded" alt="Second slide"> --%>
+<!-- 		                </div> -->
+<!-- 		                <div class="carousel-item rounded"> -->
+<%-- 		                    <img src="${pageContext.request.contextPath}/resources/img/fruite-item-3.jpg" class="img-fluid rounded" alt="Third slide"> --%>
+<!-- 		                </div> -->
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -222,12 +242,21 @@
     <div class="row">
         <!-- navbar content -->
         <div class="content1 col-md-9">
-            <div id="section1 col-12">
+<!--             <div id="section1 col-12"> -->
+            <div id="section1">
             	<div class="mt-3">
 					<h5>클래스 소개</h5>
+					<div class="classEx col-11">
+						<h7>${classInfo.class_ex }</h7>
+					</div>
 		            <div id="section col-12">
-						<div class="location">클래스 위치 : ${classInfo.class_location}</div>
+						<h5>클래스 위치</h5>
+						<div class="location">${classInfo.class_location}</div>
 		                <div id="map" style="width: 875px; height: 400px;"></div>
+		            </div>
+		            <div class="createrEx mt-3">
+						<h5>크리에이터 소개</h5>
+		            	<h7>${classInfo.class_creator_explain}</h7>
 		            </div>
 				</div>
             </div> <!-- section1 -->
@@ -242,7 +271,7 @@
 										${classCurri.curri_round}<br>
 									</div>
 									<div class="classCurriContent">
-										&nbsp;&nbsp;${classCurri.curri_content}
+										&nbsp;${classCurri.curri_content}
 									</div>
 								</c:forEach>
 							</c:when>
@@ -262,7 +291,7 @@
 					<div class="row reviewInfo my-3 mx-1">
 	                    <!-- 테이블 -->
 	                    <div class="card text-center">
-	                        <div class="card-body p-2">
+	                        <div class="card-body p-2 ">
 	                            <table>
 	                                <thead>
 	                                    <tr>
@@ -367,12 +396,13 @@
         <!-- 우측 강의 소개 -->
         <div class="col-md-3">
             <form action="payment" method="post" id="class_form">
-                <input type="hidden" name="class_code" value="${classInfo.class_code }">
-                <input type="hidden" name="class_big_category" value="${classInfo.class_big_category }">
-                <input type="hidden" name="class_small_category" value="${classInfo.class_small_category }">
+                <input type="hidden" name="class_code" value="${classInfo.class_code}">
+                <input type="button" name="class_big_category" value="${classInfo.class_upper}">
+                <input type="button" name="class_small_category" value="${classInfo.class_lower}">
+                <input type="button" name="class_local" value="${classInfo.common2_code}">
                 <div class="box1">
                     <h6>${classInfo.class_name }</h6>
-                    <h3>${classInfo.class_ex }</h3>
+<%--                     <h3>${classInfo.class_ex }</h3> --%>
                     <div class="row">
                         <div id="datePicker"></div>
                         <!-- 선택된 날짜를 저장할 input -->
@@ -411,7 +441,7 @@
 						<c:forEach var="hashtagItem" items="${classHashtagList}">
 						<c:set var="hashtags" value="${fn:split(hashtagItem.class_hashtag, ',')}" />
 							<c:forEach var="hashtag" items="${hashtags}">
-								<button type="button" class="btn btn-outline-light btn-sm col hashBtn mt-2 h-75 p-1">${hashtag}</button>
+								<button type="button" class="btn btn-outline-light btn-sm col-6 hashBtn mt-2 h-75 p-1">${hashtag}</button>
 							</c:forEach>
 						</c:forEach>
                     </div>

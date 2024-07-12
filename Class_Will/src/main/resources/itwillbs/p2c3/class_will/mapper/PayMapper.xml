@@ -41,8 +41,12 @@
 			   , c.class_big_category
 			   , c.class_small_category
 			   , c.class_thumnail
+			   , c.class_image
+			   , c.class_image2
+			   , c.class_image3
 			   , c.class_location
 			   , c.class_price
+			   , c.common2_code
 			   , c.class_ex
 			   , c.class_creator_explain 
 			   , c.member_code

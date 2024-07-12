@@ -13,14 +13,13 @@ import lombok.NoArgsConstructor;
 public class ChatMessageVO {
 	
 	private String type;
-	private int sender_member_code;
-	private int receiver_member_code;
-	private String chat_room_code;
-	private String message;
-	private String send_time; // 메세지 전송 시각
-	// ----------------------------------------
 	private String sender_email;
 	private String receiver_email;
+	private String chat_room_id;
+	private String message;
+	private String send_time; // 메세지 전송 시각
+	private boolean is_read;
+	// ----------------------------------------
 	
 	// type 변수에 사용될 값을 상수로 생성
 	public static final String TYPE_INIT = "INIT"; 

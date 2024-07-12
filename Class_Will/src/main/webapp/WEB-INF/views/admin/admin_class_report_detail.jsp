@@ -119,7 +119,7 @@ body {
 					<div class="space"></div>
 					<hr class="mb-4">
 					<div class="mb-4" align="center">
-						<input type="button" value="클래스 상세페이지" class="btn btn-primary btn-lg btn-block" onclick="class_detail">
+						<input type="button" value="클래스 상세페이지" class="btn btn-primary btn-lg btn-block" onclick="classDetail(${report.class_code})">
 						<input type="button" value="처리" class="btn btn-primary btn-lg btn-block" onclick="showModal()">
 						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
@@ -164,6 +164,7 @@ body {
 		 },
 		 dataType : "json",
 		 success : function(response){
+			 console.log("ddddddddddd" + response);
 			 if(response){
 				 alert('클래스가 숨겨졌습니다.');		 
 			 }else{
@@ -172,7 +173,7 @@ body {
 		 }
 	  });
 	  $('#exampleModal').modal('hide'); // 모달 닫기
-	  location.reload();
+// 	  location.reload();
 	}
 	
 	// 신고 취소 함수
@@ -194,6 +195,11 @@ body {
 	  });
 	  $('#exampleModal').modal('hide'); // 모달 닫기
 	  location.reload();
+	}
+	
+	
+	function classDetail(class_code){
+		location.href="class-detail?class_code=" + class_code;
 	}
 </script>
 </body>

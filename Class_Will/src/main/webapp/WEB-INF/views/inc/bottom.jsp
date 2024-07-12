@@ -152,8 +152,8 @@
 	                    <div class="col-lg-6 d-flex justify-content-start align-items-center" >
 	                        <div class="">
 	                       		 <ul class="bottom-ul">
-									<li class="bottom-menu"><a href="csc">공지사항</a></li>
-									<li class="bottom-menu"><a href="csc-faq">FAQ</a></li>
+									<li class="bottom-menu"><a href="csc?type=notice">공지사항</a></li>
+									<li class="bottom-menu"><a href="csc?type=faq">FAQ</a></li>
 									<li class="bottom-menu"><a href="use-info">이용약관</a></li>
 									<li class="bottom-menu"><a href="privacy-info">개인정보처리방침</a></li>
 									<li class="bottom-menu"><a href="refund-info">환불규정</a></li>

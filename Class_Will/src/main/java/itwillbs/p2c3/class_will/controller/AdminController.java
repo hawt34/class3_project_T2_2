@@ -752,14 +752,21 @@ public class AdminController {
     public String classReportDetail(int class_report_code, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		String member_email = member.getMember_email();
-		
+		String category = "";
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
 		}else if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
+		
     	Map<String, String> report = adminService.getClassReportDetail(class_report_code);
-    	String category = report.get("class_report_big_category") + " / " + report.get("class_report_small_category");
+    	if(report.get("class_report_small_category") == null) {
+    		category = report.get("class_report_big_category");
+    	}else {
+    		category = report.get("class_report_big_category") + " / " + report.get("class_report_small_category");
+    	}
+    	
+    	
     	report.put("category", category);
     	
     	model.addAttribute("report", report);

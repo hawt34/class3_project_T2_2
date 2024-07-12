@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package itwillbs.p2c3.class_will.handler;
 
 import java.time.LocalDateTime;
@@ -230,7 +229,6 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 
 
 
-=======
 //package itwillbs.p2c3.class_will.handler;
 //
 //import java.time.LocalDateTime;
@@ -465,4 +463,3 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 //
 //
 //
->>>>>>> branch 'main' of https://github.com/hawt34/class3_project_T2_2.git

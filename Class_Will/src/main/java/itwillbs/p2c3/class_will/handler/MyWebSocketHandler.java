@@ -16,7 +16,6 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.service.ChatService;
-import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.ChatMessageVO;
 import itwillbs.p2c3.class_will.vo.ChatRoomVO;
 import itwillbs.p2c3.class_will.vo.MemberVO;
@@ -76,7 +75,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		chatMessage.setSender_email(sender_email);
 		// ---------------------------------------------------------------------------------
 		// 수신된 메세지 타입 판별
-		if(chatMessage.getType().equals(ChatMessageVO.TYPE_INIT)) { // 채팅 페이지 초기 진입 메세지
+		if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT)) { // 채팅 페이지 초기 진입 메세지
 			// DB로부터 기존 채팅방 목록(= 자신의 아이디가 포함된 채팅방) 조회 후 목록 전송
 			// ChatService - getRoomList() 메서드 호출
 			// => 파라미터 : 자신의 아이디(sender_id)   리턴타입 : List<ChatRoom>(roomList)
@@ -88,7 +87,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 			// 메세지 전송을 위해 sendMessage() 메서드 호출
 			// => 송신자에게 보내기 위해 파라미터 중 isToSender 파라미터 값을 true 로 전달)
 			sendMessage(session, chatMessage, true);
-		} else if(chatMessage.getType().equals(ChatMessageVO.TYPE_INIT_COMPLETE)) { // 채팅페이지
+		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT_COMPLETE)) { // 채팅페이지
 			// 초기화 완료 메세지에 수신자 포함 여부 판별
 			if(!receiver_email.equals("")) {
 				System.out.println("수신자 있음!");
@@ -101,13 +100,13 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 				boolean isExistUser = false;
 				
 				if(!isConnectUser) { // 현재 접속중인 상대방이 아닐 경우
-					isExistUser = chatService.selectMemberInfo(receiver_email) == null ? false : true;
+					isExistUser = chatService.selectMemberEmail(receiver_email) == null ? false : true;
 					System.out.println("아이디 DB 존재 여부 : " + isExistUser);
 					
 					if(!isExistUser) { // DB에도 상대방이 존재하지 않을 경우
 						// 메세지 송신자에게 오류 메세지 전송 후 메서드 종료
-						ChatMessageVO errorMessage = new ChatMessageVO(ChatMessageVO.TYPE_ERROR, sender_email, receiver_email, "", "사용자가 존재하지 않습니다", "", false);
-						sendMessage(session, errorMessage, true);
+//						ChatMessageVO errorMessage = new ChatMessageVO(null, null, ChatMessageVO.TYPE_ERROR, sender_email, receiver_email, "사용자가 존재하지 않습니다", "", false);
+//						sendMessage(session, errorMessage, true);
 						return;
 					}
 				}
@@ -124,14 +123,14 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 					System.out.println("채팅방 없음! - 새로운 채팅방 생성 필요!");
 					
 					// 새 채팅방의 방번호(room_id) 생성 => UUID 클래스 활용
-					chatMessage.setChat_room_id(UUID.randomUUID().toString());
+//					chatMessage.setChat_room_id(UUID.randomUUID().toString());
 					
 					// 새로운 채팅방 DB에 저장
-					ChatRoomVO newChatRoom = new ChatRoomVO(chatMessage.getChat_room_id(), receiver_email, sender_email, "");
+					ChatRoomVO newChatRoom = new ChatRoomVO(chatMessage.getChat_room_code(), receiver_email, sender_email, "");
 					chatService.insertChatRoom(newChatRoom);
 					
 					// 송신자 화면에 새 채팅방 목록 추가를 위한 타입 지정
-					chatMessage.setType(ChatMessageVO.TYPE_ADD_LIST);
+					chatMessage.setMessage_type(receiver_email);
 					
 					// 송신자에게 메세지 전송
 					sendMessage(session, chatMessage, true);
@@ -150,7 +149,8 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 				
 			}
 			
-		} else if(chatMessage.getType().equals(ChatMessageVO.TYPE_TALK)) {
+		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_TALK)) {
+			
 			System.out.println("채팅 메세지 수신됨! - " + chatMessage);
 			
 			// getLocalDateTimeForNow() 메서드 호출하여 현재 시스템 날짜 및 시각 정보 전달받아

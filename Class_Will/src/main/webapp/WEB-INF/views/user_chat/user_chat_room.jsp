@@ -272,11 +272,14 @@
 		function startChat() {
 			console.log("startChat 실행");
 			
+			// setInterval() 함수를 호출하여 1초마다 웹소켓 연결 감지 후
+			// 연결이 됐을 때 초기화 메세지 전송
 			let startChatInterval = setInterval(() => {
+				// 웹소켓 연결 상태 체크
 				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
 					console.log("1:1 채팅방 웹소켓 연결 완료");
 					// 초기화 메세지 전송
-					sendMessage("INIT", "", receiver_email, "", "");
+					sendMessage("INIT", "", receiver_email, "", "", "");
 					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
 					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
 					clearInterval(startChatInterval);

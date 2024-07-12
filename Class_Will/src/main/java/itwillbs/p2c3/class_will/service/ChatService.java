@@ -17,8 +17,8 @@ public class ChatService {
 	@Autowired
 	private ChatMapper chatMapper;
 
-	public MemberVO selectMemberInfo(String member_email) {
-		return chatMapper.selectMemberInfo(member_email);
+	public MemberVO selectMemberInfo(int member_code) {
+		return chatMapper.selectMemberInfo(member_code);
 	}
 
 	public List<Map<String, Object>> getRoomList(String member_email) {
@@ -36,6 +36,10 @@ public class ChatService {
 
 	public void insertChatMessage(ChatMessageVO chatMessage) {
 		chatMapper.insertChatMessage(chatMessage);
+	}
+
+	public String selectMemberEmail(String member_email) {
+		return chatMapper.selectMemberEmail(member_email);
 	}
 	
 	

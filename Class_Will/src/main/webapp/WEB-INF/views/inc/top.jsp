@@ -937,6 +937,8 @@ $(function() {
 			console.log("onMessage() - 수신된 데이터 : " + JSON.stringify(data));
 			
 			
+			
+			
 		}
 		
 		function onError() {
@@ -955,6 +957,11 @@ $(function() {
 		// 채팅 메세지 전송 준비 함수(태그 요소 객체 전달받음)
 		function send(target) {
 			
+		}
+		
+		// 전달받은 메세지를 웹소켓 서버측으로 전송하는 함수
+		function sendMessage(type, sender_email, receiver_email, chat_room_id, message) {
+			ws.send(toJsonString(type, sender_email, receiver_email, chat_room_id, message));
 		}
 		
 		

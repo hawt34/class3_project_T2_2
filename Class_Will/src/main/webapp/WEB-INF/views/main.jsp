@@ -253,7 +253,7 @@
 														<c:if test="${isLiked}">
 															<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" 
 																class="heartImg" data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">
-														</c:if>w
+														</c:if>
 														<c:if test="${not isLiked}">
 															<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" 
 																class="heartImg" data-class-code="${contents.class_code}" data-member-code="${sessionScope.member.member_code}">

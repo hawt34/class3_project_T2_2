@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class ChatMessageVO {
-	
-	private String type;
+	private int message_code;
+	private int chat_room_code;
+	private String message_type;
 	private String sender_email;
 	private String receiver_email;
-	private String chat_room_id;
 	private String message;
 	private String send_time; // 메세지 전송 시각
 	private boolean is_read;

@@ -12,13 +12,15 @@ import itwillbs.p2c3.class_will.vo.MemberVO;
 @Mapper
 public interface ChatMapper {
 
-	MemberVO selectMemberInfo(String member_email);
+	MemberVO selectMemberInfo(int member_code);
 
 	List<Map<String, Object>> selectRoomList(String member_email);
 
 	void insertChatRoom(ChatRoomVO newChatRoom);
 
 	void insertChatMessage(ChatMessageVO chatMessage);
+
+	String selectMemberEmail(String member_email);
 
 
 

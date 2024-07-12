@@ -90,8 +90,18 @@
 	
 	<!-- 클래스 상세정보 -->
 	<select id="getClassDetail" resultType="map">
-		SELECT *
-		FROM class
+		SELECT c.*
+			, (
+				SELECT	
+					code_value
+				FROM 
+					common2
+				WHERE 
+					common2_code = c.common2_code
+				AND 
+					common1_code = 'LC'
+			) as sido
+		FROM class c
 		WHERE
 			class_code = #{class_code}
 	</select>
@@ -137,6 +147,7 @@
 		SELECT curri_round, curri_content
 		FROM curri
 		WHERE class_code = #{class_code}
+		ORDER BY curri_round
 	</select>
 	
 	<!-- 커리큘럼 삭제 -->

@@ -189,6 +189,7 @@ public class CreatorController {
 	public String createrClassModify(HttpSession session
 									, Model model
 									, @RequestParam(defaultValue = "0") int class_code) {
+		
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member == null) {
 			model.addAttribute("msg", "잘못된 접근입니다!");

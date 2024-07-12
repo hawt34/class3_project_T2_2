@@ -258,47 +258,46 @@
 <%-- 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
 	
 	<script type="text/javascript">	
-	
 		window.addEventListener('load', () => {
-	      const forms = document.getElementsByClassName('validation-form');
-	
-	      Array.prototype.filter.call(forms, (form) => {
-	        form.addEventListener('submit', function (event) {
-	          if (form.checkValidity() === false) {
-	            event.preventDefault();
-	            event.stopPropagation();
-	            alert("클래스 정보를 입력하여주세요");
-	            window.scrollTo({ top: 0, behavior: 'smooth' });
-	          }
-	
-	          form.classList.add('was-validated');
-	        }, false);
-	      });
-	    }, false);
-	
+		      const forms = document.getElementsByClassName('validation-form');
+		
+		      Array.prototype.filter.call(forms, (form) => {
+		        form.addEventListener('submit', function (event) {
+		          if (form.checkValidity() === false) {
+		            event.preventDefault();
+		            event.stopPropagation();
+		            window.scrollTo({ top: 0, behavior: 'smooth' });
+		          }
+		
+		          form.classList.add('was-validated');
+		        }, false);
+		      });
+		}, false);
+		
 		$(function() {
+			
 			// 폼 제출시 체크
 			    $('.classReg').on('submit', function(e) {
 			    	
 //             	// 유효성 검사
 //         	        // 선택 상자의 값이 비어 있는지 확인
         	        if ($("#selected-items").val() == "") {
-        	            alert('해쉬태그를 선택해주세요');
+        	        	alert("정보를 입력해주세요!");
         	            $("#item-list").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($("#summernote").val() == "") {
-        	            alert('클래스 설명을 입력해주세요');
+        	        	alert("정보를 입력해주세요!");
         	            $("#summernote").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($("#post_code").val() == "") {
-        	            alert('주소를 입력해주세요');
+        	        	alert("정보를 입력해주세요!");
         	            $("#post_code").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($(".class_creator_explain").val() == "") {
-        	            alert('크리에이터 소개를 입력해주세요');
+        	        	alert("정보를 입력해주세요!");
         	            $(".class_creator_explain").focus();
         	            return false; // 폼 제출을 막음
         	        }

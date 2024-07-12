@@ -43,7 +43,7 @@
 
     <tx:annotation-driven />
 
-    <context:property-placeholder location="classpath:/appdata.properties" />
+    <context:property-placeholder location="classpath:/config/appdata.properties" />
 
     <!-- 스케줄러 활성화 -->
     <task:annotation-driven />

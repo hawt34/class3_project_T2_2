@@ -473,6 +473,7 @@ a {
 $(document).on('click', '.heartImg', function() {
     var img = this;
     var member_code = img.getAttribute("data-member-code");
+//     var member_code = ${sessionScope.member.member_code};
     var class_code = img.getAttribute("data-class-code");
     var isFullHeart = img.src.includes("heart_full.png");
     var heart_status = !isFullHeart;
@@ -480,7 +481,7 @@ $(document).on('click', '.heartImg', function() {
     console.log("member_code :" + member_code + ", class_code : " + class_code + ", heart_status :" + heart_status);
     
     // 로그인 확인
-    if (member_code == null || member_code === "") { 
+    if (!member_code || member_code == null || member_code === "" || member_code == 'undefined') { 
         alert("로그인이 필요한 페이지 입니다.");
         window.location.href = "member-login";
         return;
@@ -786,6 +787,7 @@ function updateClassList(filterClass) {
 
     if (filterClass.length > 0) {
         for (let filter of filterClass) {
+        	
             classListContainer.append(generateClassCardHTML(filter));
         }
     } else {
@@ -809,7 +811,7 @@ function updateClassList(filterClass) {
 	        + '			<div class="vesitable-img cursor">'
    			+ '				<img style="height : 225px;" src="' + contextPath + '/resources/upload/' + filter.class_thumnail + '" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
 	        + '			</div>'
-	        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '" data-member-code="' + filter.member_code + '">'
+	        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '"data-member-code="' + filter.member_code + '">'
 	        + '			<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
 	        + '				<div class="classCategory w-100 col-md-10">'
 	        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_big_category + '</button>'

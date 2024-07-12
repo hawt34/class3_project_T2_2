@@ -96,6 +96,23 @@
 			class_code = #{class_code}
 	</select>
 	
+	<!-- 클래스 스케쥴 체크 -->
+	<select id="CountClassSchedule" resultType="int">
+		SELECT COUNT(*)
+		FROM class_schedule
+		WHERE class_code = #{class_code}
+		AND 
+			STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE() 
+	</select>
+	
+	
+	<!-- 클래스 삭제 -->
+	<update id="deleteClass">
+		UPDATE	class
+		SET class_active = 'N'
+		WHERE class_code = #{class_code}
+	</update>
+	
 	<!-- 커리큘럼 삽입 -->
 	<insert id="creatorCurriInsert" parameterType="map">
 		<selectKey order="BEFORE" keyProperty="class_code" resultType="int">
@@ -320,6 +337,8 @@
 			c222.common1_code = 'HIDE'
 		WHERE
 			c.member_code = #{member_code}
+		AND 
+			c.class_active = 'Y'
 	</select>
 	
 	<!-- 상태에 따른 클래스 정보 가져오기 -->
@@ -354,7 +373,10 @@
 			<if test="!status.equals(0)">
 				AND class_regist_status = #{status}
 			</if>
-		AND c.member_code = #{member.member_code}
+		AND 
+			c.member_code = #{member.member_code}
+		AND 
+			c.class_active = 'Y'
 	</select>
 	
 	<!-- 클래스 정보 가져오기 -->
@@ -413,6 +435,8 @@
 			c.class_regist_status = 2
 		AND 
 			c.member_code = #{member_code}
+		AND 
+			c.class_active = 'Y'
 	</select>
 	
 	<!-- 클래스 파일 삭제 -->
@@ -446,7 +470,6 @@
 	</update>
 	
 	
-	
 	<!-- =========================================================================================== -->
 	<!-- 문의사항 클래스 정보 가져오기 -->
 	<select id="getInquiryClassInfo" resultType="map">
@@ -472,6 +495,8 @@
 			ci.member_code = m.member_code 
 		WHERE 
 			c.member_code = #{member_code}
+		AND 
+			c.class_active = 'Y'
 	</select>
 	
 	<!-- 문의에 따른 클래스 정보 가져오기 -->
@@ -487,6 +512,8 @@
 			c.class_code = ci.class_code 
 		WHERE 
 			c.member_code = #{member_code}
+		AND 
+			c.class_active = 'Y'
 		GROUP BY c.class_code
 	</select>
 	
@@ -634,6 +661,8 @@
 			m.member_code = cr.member_code
 		WHERE 
 			c.member_code = #{member_code}
+		AND 
+			c.class_active = 'Y'
 	</select>
 	
 	<!-- 후기에 따른 클래스 정보 가져오기 -->
@@ -649,6 +678,8 @@
 			c.class_code = cr.class_code 
 		WHERE 
 			c.member_code = #{member_code}
+		AND 
+			c.class_active = 'Y'
 		GROUP BY c.class_code
 	</select>
 
@@ -809,6 +840,8 @@
 			class c
 		WHERE 
 			c.member_code = #{member_code}
+		AND 
+			c.class_active = 'Y'
 	</select>
 	
 	<!-- 분석한 데이터 -->
@@ -829,6 +862,8 @@
 			CURDATE() > STR_TO_DATE(cs.class_schedule_date, '%Y-%m-%d')
 		And 
 			cs.class_total_headcount != cs.class_remain_headcount
+		AND 
+			c.class_active = 'Y'
 	</select>
 
 	<select id="getAnalyzeReviewList" resultType="map">
@@ -842,6 +877,8 @@
 			c.class_code = cr.class_code 
 		WHERE 
 			c.member_code = 1079
+		AND 
+			c.class_active = 'Y'
 	</select>
 	
 	<select id="getGraphDataList" resultType="map">
@@ -860,8 +897,12 @@
 		    p.class_schedule_code = cs.class_schedule_code 
 		WHERE 
 		    c.member_code = #{member_code}
-		    AND cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
-		    AND DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date 
+		    AND 
+				c.class_active = 'Y'
+		    AND 
+		    	cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
+		    AND 
+		    	DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date 
 		GROUP BY 
 		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m')
 		ORDER BY 
@@ -884,18 +925,19 @@
 		    p.class_schedule_code = cs.class_schedule_code 
 		WHERE 
 		    c.member_code = #{member.member_code}
-		    AND cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
-		    AND DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date
-		    AND c.class_code = #{classCode} 
+		    AND 
+				c.class_active = 'Y'
+		    AND 
+		    	cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
+		    AND 
+		    	DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date
+		    AND 
+		    	c.class_code = #{classCode} 
 		GROUP BY 
 		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m')
 		ORDER BY 
 		    DATE_FORMAT(cs.class_schedule_date, '%Y-%m') ASC
     </select>
-    
-    
-	
-	
 	
 	<!-- =========================================================================================== -->
 	<!-- settlement 값 가져오기 -->

@@ -42,6 +42,16 @@ public class CreatorService {
 		creatorMapper.creatorCurriUpdate(params, class_code);
 	}
 	
+	// 클래스 수업 있는지 확인
+	public int CountClassSchedule(int class_code) {
+		return creatorMapper.CountClassSchedule(class_code);
+	}
+
+	// 클래스 삭제
+	public void deleteClass(int class_code) {
+		creatorMapper.deleteClass(class_code);;
+	}
+	
 	// 클래스 상세
 	public Map<String, Object> getClassDetail(int class_code) {
 		return creatorMapper.getClassDetail(class_code);

@@ -25,6 +25,12 @@ public interface CreatorMapper {
 	// 클래스 상세정보
 	Map<String, Object> getClassDetail(int class_code);
 	
+	// 클래스 삭제
+	void deleteClass(int class_code);
+	
+	// 클래스 수업 있는지 확인
+	int CountClassSchedule(int class_code);
+	
 	// 커리큘럼 등록
 	void creatorCurriInsert(@Param("params") List<CurriVO> params);
 	

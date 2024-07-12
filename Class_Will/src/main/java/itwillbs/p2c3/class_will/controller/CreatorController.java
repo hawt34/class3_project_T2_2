@@ -85,9 +85,7 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		if(Integer.parseInt(member.getMember_type()) == 2 && Integer.parseInt(member.getMember_type()) == 3) {
-			model.addAttribute("msg", "잘못된 접근입니다!");
-			model.addAttribute("targetURL", "creator-main");
-			return "result_process/fail";
+			return "creator/creator-main";
 		}
 		System.out.println(">>>>>>>token: " + bank_info);
 		model.addAttribute("token", bank_info);
@@ -105,7 +103,7 @@ public class CreatorController {
 			return "result_process/fail";
 		}
 		creatorService.updateMemberType(member);
-		return "creator-main";
+		return "creator/creator-main";
 	}
 	
 	//=================================================================================
@@ -216,15 +214,6 @@ public class CreatorController {
 	    };
 		String thumnailFile = (String) classDetail.get("class_thumnail");
 		
-//		List<JSONObject> cr_list = new ArrayList<JSONObject>(); 
-		
-//		for(Map<String, String> cls : curriList) {
-//            JSONObject cl = new JSONObject(cls);
-//            cr_list.add(cl);
-//		}
-//		Gson gson = new Gson();
-//		String crListJson = gson.toJson(cr_list);
-		
 	    model.addAttribute("fileNames", arrFileNames);
 	    model.addAttribute("thumnailFile", thumnailFile);
 		
@@ -258,15 +247,6 @@ public class CreatorController {
 		
 		List<CurriVO> curriList = new ArrayList<CurriVO>();
 		
-//		Map<String, MultipartFile> files = new HashMap<String, MultipartFile>();
-//		files.put("class_thumnail", classThumnail);
-//	    files.put("file1", file1);
-//	    files.put("file2", file2);
-//	    files.put("file3", file3);
-	    
-//	    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-//	    Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-	    
 		for (Map.Entry<String, Object> entry : map.entrySet()) {
 			CurriVO curri = new CurriVO();
 			if (entry.getKey().contains("차시")) {
@@ -276,7 +256,6 @@ public class CreatorController {
 			}
 		}
 		
-//			String uploadDir = "/resources/upload";
 		String saveDir = request.getServletContext().getRealPath(uploadDir);
 		
 		LocalDate today = LocalDate.now();
@@ -340,7 +319,6 @@ public class CreatorController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 			}
 		}
 		
@@ -426,8 +404,6 @@ public class CreatorController {
 		
 		return "redirect:/creator-class";
 	}
-	
-	
 	
 	
 	// creater-class 일정등록 페이지로
@@ -538,6 +514,20 @@ public class CreatorController {
 		model.addAttribute("msg", "일정등록 오류");
 		return "result_process/fail";
 	}
+	
+	@GetMapping("DeleteClass")
+	public String DeleteClass(@RequestParam(defaultValue = "0") int class_code, Model model) {
+		int classScheduleCount = creatorService.CountClassSchedule(class_code);
+		if(classScheduleCount > 0) {
+			model.addAttribute("msg", "등록된 일정이 있습니다! 일정을 먼저 삭제해주세요");
+			return "result_process/fail";
+		}
+		creatorService.deleteClass(class_code);
+		model.addAttribute("msg", "정상적으로 삭제 되었습니다");
+		model.addAttribute("targetURL", "creator-class");
+		return "result_process/fail";
+	}
+		
 	
 	// ajax로 날짜 데이터 가져오기
 	@ResponseBody

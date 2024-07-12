@@ -169,25 +169,23 @@
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi</artifactId>
-		    <version>5.2.2</version>
+		    <version>5.3.0</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi-ooxml</artifactId>
-		    <version>5.2.2</version>
+		    <version>5.3.0</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.apache.poi</groupId>
 		    <artifactId>poi-ooxml-schemas</artifactId>
 		    <version>4.1.2</version>
 		</dependency>
-		
 	    <dependency>
 	        <groupId>org.apache.xmlbeans</groupId>
 	        <artifactId>xmlbeans</artifactId>
 	        <version>5.1.1</version>
 	    </dependency>
-	    
 	    <!-- JASON객체 JAVA변환 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

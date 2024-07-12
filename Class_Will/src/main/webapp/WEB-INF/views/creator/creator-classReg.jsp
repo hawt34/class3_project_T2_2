@@ -123,8 +123,8 @@
 												<div class="col-md-6 my-4">
 													<label for="class_big_category" class="h6">카테고리</label> 
 													<select name="class_big_category" id="class_big_category" class="form-control" required>
+														<option value="">선택해주세요</option>
 														<c:forEach var="category" items="${categoryList}">
-															<option value="">선택해주세요</option>
 															<option value="${category.common2_code}">${category.code_value}</option>
 														</c:forEach>
 													</select>

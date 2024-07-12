@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
-    
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.js"></script>
 <style>
     
 /*** Top Navbar Start ***/
@@ -895,18 +895,23 @@ $(function() {
 
 	<script type="text/javascript">
 		$(function() {
-// 			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
 		});
 		
 		let ws; // WebSocket 객체가 저장될 변수 선언
 		let unreadMsg = 0;
 		
+		var serverName = "${pageContext.request.serverName}";
+	    var serverPort = "${pageContext.request.serverPort}";
+	    var contextPath = "${pageContext.request.contextPath}";
+	    
 		// 웹소켓 최초 연결 요청을 수행하는 connect() 메서드 정의
 		function connect() {
-// 			let ws_base_url = "ws://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
-			let ws_base_url = "ws://localhost:8081/class_will";
+// 			let ws_base_url = "ws://${pageContexts.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
+			let ws_base_url = "ws://" + serverName + ":" + serverPort + contextPath;
 			console.log(ws_base_url);
 			ws = new WebSocket(ws_base_url + "/echo");
+			
 			ws.onopen = onOpen; // 웹소켓 요청에 대한 연결 성공 시
 			ws.onclose = onClose; 
 			ws.onmessage = onMessage;

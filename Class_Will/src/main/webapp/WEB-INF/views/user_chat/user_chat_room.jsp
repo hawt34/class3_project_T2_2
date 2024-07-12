@@ -276,7 +276,7 @@
 				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
 					console.log("1:1 채팅방 웹소켓 연결 완료");
 					// 초기화 메세지 전송
-					sendMessage("INIT", "", receiver_member_code, "", "");
+					sendMessage("INIT", "", receiver_email, "", "");
 					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
 					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
 					clearInterval(startChatInterval);

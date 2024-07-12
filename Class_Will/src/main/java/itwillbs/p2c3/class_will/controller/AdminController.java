@@ -75,11 +75,13 @@ public class AdminController {
 	@GetMapping("admin")
 	public String admin(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
-		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		}
+		member = null;
+		String member_email = member.getMember_email();
+		
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		

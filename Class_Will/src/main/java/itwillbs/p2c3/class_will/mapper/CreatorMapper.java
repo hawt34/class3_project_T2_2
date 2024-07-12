@@ -13,6 +13,12 @@ import itwillbs.p2c3.class_will.vo.MemberVO;
 @Mapper
 public interface CreatorMapper {
 	
+	// 크리에이터 이벤트
+	List<Map<String, Object>> getCreatorEvent();
+	
+	// 크리에이터 공지사항
+	List<Map<String, Object>> creatorNoticeList();
+		
 	// 크리에이터 자격 부여
 	void updateMemberType(MemberVO member);
 

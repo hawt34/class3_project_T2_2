@@ -123,7 +123,7 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center text-white h2 mb-5">반가워요 6ellMin 님</div>
+							<div class="col-md-12 text-center text-white h2 mb-5">반가워요 ${member.member_nickname} 님</div>
 							
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5">

@@ -4,6 +4,23 @@
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.CreatorMapper">
 	
+	
+	<!-- 크리에이터 이벤트 -->
+	<select id="getCreatorEvent" resultType="map">
+		SELECT *
+		FROM event
+		Limit 2
+	</select>
+
+	<!-- 크리에이터 공지사항 -->
+	<select id="creatorNoticeList" resultType="map">
+		SELECT * 
+		FROM notice n 
+		WHERE n.notice_category = 
+			(SELECT common2_code FROM common2 WHERE code_value='크리에이터' AND common1_code = 'NTC')
+		Limit 5
+	</select>
+	
 	<!-- 클래스 수정 -->
 	<insert id="createrClassRegPro">
 		INSERT INTO class(  	  
@@ -987,7 +1004,7 @@
 			</if>
 			AND 
 				DATE_FORMAT(CURDATE(), '%Y-%m') > DATE_FORMAT(cs.class_schedule_date, '%Y-%m')  
-		) AS subquery;
+		) AS subquery
 	</select>
 	
 	<!-- 한달 정산금 -->

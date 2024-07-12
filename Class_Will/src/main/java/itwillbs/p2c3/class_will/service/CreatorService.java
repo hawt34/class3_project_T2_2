@@ -21,6 +21,17 @@ public class CreatorService {
 	@Autowired
 	private CreatorMapper creatorMapper;
 	
+	// 크리에이터 이벤트
+	public List<Map<String, Object>> getCreatorEvent(){
+		return creatorMapper.getCreatorEvent();
+	}
+	
+	// 크리에이터 공지사항
+	public List<Map<String, Object>> creatorNoticeList(){
+		return creatorMapper.creatorNoticeList();
+	}
+	
+	
 	// 크리에이터 자격부여
 	public void updateMemberType(MemberVO member) {
 		creatorMapper.updateMemberType(member);

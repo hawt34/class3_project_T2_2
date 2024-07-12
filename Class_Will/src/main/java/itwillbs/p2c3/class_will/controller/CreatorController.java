@@ -69,8 +69,14 @@ public class CreatorController {
 			model.addAttribute("targetURL", "creator-qualify");
 			return "result_process/fail";
 		}
+		List<Map<String, Object>> creatorEventList = creatorService.getCreatorEvent();
+		List<Map<String, Object>> creatorNoticeList = creatorService.creatorNoticeList();
+		
 		
 		session.setMaxInactiveInterval(60*60*60*60*60*60*100);
+		model.addAttribute("member", member);
+		model.addAttribute("creatorEventList", creatorEventList);
+		model.addAttribute("creatorNoticeList", creatorNoticeList);
 		return "creator/creator-main";
 	}
 	

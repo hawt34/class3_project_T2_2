@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         button.className = "btn btn-light text-black m-2 custom-btn";
         button.setAttribute("data-bs-toggle", "modal");
         button.setAttribute("data-bs-target", "#modal-" + info.transfer_agree_dtime);
-        button.textContent = "등록된 계좌";
+        button.textContent = "등록된 계좌 (" + info.bank_name + ")";
         buttonsContainer.appendChild(button);
 
         // Create the modal

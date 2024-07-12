@@ -361,7 +361,6 @@ public class PayController {
 	@GetMapping("refund-willpay")
 	public boolean refundWillpay(@RequestParam Map<String, Object> map, HttpSession session, Model model) {
 		boolean isRefund = false;
-		System.out.println("mappppp:" + map);
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		
 		//금융결제원 파라미터

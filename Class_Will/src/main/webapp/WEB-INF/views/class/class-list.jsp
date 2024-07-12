@@ -500,8 +500,8 @@ $(document).on('click', '.heartImg', function() {
     // AJAX 요청
     var data = JSON.stringify({
         heart_status: heart_status,
-        member_code: member_code,
-        class_code: class_code
+        member_code: parseInt(member_code),
+        class_code: parseInt(class_code)
     });
     
     updateHeartStatus(data);
@@ -582,6 +582,7 @@ $(function() {
 		var common2_code = urlParams.get('common2_code');
 // 		var big_category = $("#class_big_category").val();
 
+
    		console.log("Sending AJAX request with paramsss11: ", big_category, small_category, common2_code); 
 		if (small_category) {
 	    	$("#class_small_category").val(small_category);
@@ -598,6 +599,7 @@ $(function() {
 	    // 클래스 목록 업데이트 함수 호출
 		if (big_category || small_category || common2_code) {
        		updateParameterClass(big_category, small_category, common2_code);
+       		heartChange();
 		}
 
 	});
@@ -799,9 +801,10 @@ function updateClassList(filterClass) {
 
 //------------------------------------------------------------------------------------
 //클래스 카드 HTML 생성 함수
-	function generateClassCardHTML(filter, contextPath, isLiked) {
+	function generateClassCardHTML(filter, contextPath, isLiked, heart_status) {
 	    var contextPath = "${pageContext.request.contextPath}"; 
-	    var heartImgSrc = isLiked ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
+	    var member_code = "${sessionScope.member.member_code}";
+	    var heartImgSrc = heart_status ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
 	    var formattedPrice = new Intl.NumberFormat('ko-KR').format(filter.class_price);
 	    var memberImgSrc = filter.member_img ? contextPath + "/resources/images/class/x.png" : contextPath + "/resources/images/class/pic.png";
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
@@ -811,7 +814,7 @@ function updateClassList(filterClass) {
 	        + '			<div class="vesitable-img cursor">'
    			+ '				<img style="height : 225px;" src="' + contextPath + '/resources/upload/' + filter.class_thumnail + '" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
 	        + '			</div>'
-	        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '"data-member-code="' + filter.member_code + '">'
+	        + '			<img src="' + heartImgSrc + '" id="heartOverlay" class="heartImg" data-class-code="' + filter.class_code + '"data-member-code="' + member_code + '">'
 	        + '			<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
 	        + '				<div class="classCategory w-100 col-md-10">'
 	        + '					<button type="button" class="btn btn-outline-dark btn-sm category mb-2">' + filter.class_big_category + '</button>'
@@ -837,7 +840,10 @@ function updateClassList(filterClass) {
 	        + '		</div>'
 	        + '</div>';
 	}
-
+	function heartChange(){
+		let class_codes = "${likeClassCode}";
+		console.log(class_codes);
+	}
 </script>
 </body>
 </html>

@@ -745,7 +745,8 @@ public class CreatorController {
 			model.addAttribute("targetURL", "./");
 			return "result_process/fail";
 		}
-		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member);
+		int classCode = 0;
+		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member, classCode);
 		List<Map<String, Object>> classList = creatorService.getAnalyzeClassInfo(member);
 		List<Map<String, Object>> GraphDataList = creatorService.getGraphDataList(member);
 		
@@ -763,6 +764,7 @@ public class CreatorController {
 	public List<Map<String, Object>> graphByClass(@RequestParam int classCode, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		List<Map<String, Object>> GraphDataByClassList = creatorService.getChartDataByClass(classCode, member);
+		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member, classCode);
 		
 		return GraphDataByClassList;
 	}

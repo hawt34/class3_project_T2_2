@@ -255,10 +255,10 @@ public class CreatorService {
 	}
 
 	// 분석결과 가져오기
-	public Map<String, Object> getAnalyzeList(MemberVO member) {
+	public Map<String, Object> getAnalyzeList(MemberVO member, int classCode) {
 		Map<String, Object> map = new HashedMap<String, Object>();
-		Map<String, Object> analyzeList = creatorMapper.getAnalyzeList(member);
-		Map<String, Object> analyzeReviewList = creatorMapper.getAnalyzeReviewList(member);
+		Map<String, Object> analyzeList = creatorMapper.getAnalyzeList(member, classCode);
+		Map<String, Object> analyzeReviewList = creatorMapper.getAnalyzeReviewList(member, classCode);
 		map.put("analyzeList", analyzeList);
 		map.put("analyzeReviewList", analyzeReviewList);
 		

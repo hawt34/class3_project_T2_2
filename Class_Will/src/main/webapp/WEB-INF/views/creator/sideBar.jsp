@@ -10,12 +10,15 @@
     	.creator_cate{
     		color: white;
     	}
+    	.sideHr{
+    		color: darkgray;
+    	}
     </style>
 
 						<div class="col-lg-3">
 							<div class="row g-4">
 								<div class="col-lg-12">
-									<hr>
+<!-- 									<hr class="sideHr"> -->
 									<div class="mb-3">
 										<h3 class="text-white">Categories</h3>
 										<ul class="list-unstyled fruite-categorie">
@@ -56,7 +59,7 @@
 											</li>
 										</ul>
 									</div>
-									<hr>
+									<hr class="sideHr">
 								</div>
 							</div>
 						</div>

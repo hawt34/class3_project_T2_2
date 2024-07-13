@@ -66,38 +66,22 @@
 	</div>
 	<!-- Spinner End -->
 
-	<!-- Single Page Header start -->
-	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">Creator</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
-			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
-			<li class="breadcrumb-item active text-white">클래스</li>
-		</ol>
-	</div>
-	<!-- Single Page Header End -->
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4 text-white">Creator Center</h1>
+			<h1 class="mt-4 text-white">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body" >
+							<div class="creator-intro col-md-12">
+								<div class="text-white h2">클래스등록</div>
+								<hr class="text-white mb-5">
+							</div>
 							<div class="creator-main-table col-xl-8 mb-5 ">
 								<form class="validation-form classReg" novalidate action="creator-classRegPro" name="fr" method="post" enctype="multipart/form-data" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
-									<!-- 	셀렉트박스 -->
-									<div class="col-md-12 mb-2" align="center">
-										<div class="col-xl-6 mb-5">
-											<hr style="color:white;">
-											<div>
-												<h3 class="text-white">클래스등록</h3>
-											</div>
-											<hr style="color:white;">
-										</div>
-									</div>
 									<div class="classReg-basic">
 										<div class="h4">클래스 기본정보</div>
 										<div class="h6 d-flex justify-content-start mt-4">

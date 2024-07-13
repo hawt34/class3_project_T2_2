@@ -174,10 +174,10 @@ public interface CreatorMapper {
 	List<Map<String, Object>> getAnalyzeClassInfo(MemberVO member);
 	
 	// 분석결과 가져오기
-	Map<String, Object> getAnalyzeList(MemberVO member);
+	Map<String, Object> getAnalyzeList(@Param("member") MemberVO member,@Param("class_code") int class_code);
 
 	// 리뷰분석결과 가져오기
-	Map<String, Object> getAnalyzeReviewList(MemberVO member);
+	Map<String, Object> getAnalyzeReviewList(@Param("member") MemberVO member, @Param("class_code") int class_code);
 	
 	// 전체 값에 대한 그래프 데이터
 	List<Map<String, Object>> getGraphDataList(MemberVO member);

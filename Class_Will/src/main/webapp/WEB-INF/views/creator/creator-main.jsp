@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Insert title here</title>
+<title>CreatorMain</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -82,6 +82,12 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+/* .creator-intro{ */
+/* 	background: white; */
+/* 	border-radius: 10px; */
+/* 	padding: 10px; */
+	
+/* } */
 </style>
 </head>
 <body>
@@ -97,19 +103,9 @@ th:nth-child(2), td:nth-child(2) {
 	</div>
 	<!-- Spinner End -->
 
-	<!-- Single Page Header start -->
-	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">Creator</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main text-white">Home</a></li>
-			<li class="breadcrumb-item active text-white">크리에이터 페이지</li>
-		</ol>
-	</div>
-	<!-- Single Page Header End -->
-
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4 text-white">Creator Center</h1>
+			<h1 class="mt-4 text-white">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
@@ -117,10 +113,11 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
-							<div class="col-md-12 text-center text-white h2 mb-5">반가워요 ${member.member_nickname} 님</div>
-							
+							<div class="creator-intro col-md-10">
+								<div class="text-center text-white h2 mb-5">🌠 반가워요 Creator ${member.member_nickname} 님 🌠</div>
+							</div>
 							<!-- 크리에이터 이벤트 -->
-							<div class="creator-event mt-5 col-md-10">
+							<div class="creator-event mt-5 my-5 col-md-10">
 								<div align="right">
 									<a href="csc?type=notice">+ 더보기</a>
 								</div>
@@ -138,28 +135,6 @@ th:nth-child(2), td:nth-child(2) {
 								</c:forEach>
 							</div>
 
-<!-- 							<div class="creator-main-table col-md-10 my-5"> -->
-<!-- 								<div class="d-flex justify-content-end md-5"> -->
-									
-<!-- 								</div> -->
-<!-- 								<table> -->
-<!-- 									<thead> -->
-<!-- 										<tr> -->
-<!-- 											<th>공지사항</th> -->
-<!-- 											<th>날짜</th> -->
-<!-- 										</tr> -->
-<!-- 									</thead> -->
-<!-- 									<tbody> -->
-										
-											
-<!-- 											<tr> -->
-<!-- 												<td></td> -->
-<!-- 												<td></td> -->
-<!-- 											</tr> -->
-										
-<!-- 									</tbody> -->
-<!-- 								</table> -->
-<!-- 							</div> -->
 						
 						</div>
 					</div>

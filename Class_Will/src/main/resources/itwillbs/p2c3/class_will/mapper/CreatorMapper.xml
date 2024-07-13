@@ -18,6 +18,7 @@
 		FROM notice n 
 		WHERE n.notice_category = 
 			(SELECT common2_code FROM common2 WHERE code_value='크리에이터' AND common1_code = 'NTC')
+		ORDER BY n.notice_reg_date DESC
 		Limit 5
 	</select>
 	

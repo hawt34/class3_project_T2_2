@@ -417,17 +417,41 @@ public class MyPageController {
 		model.addAttribute("member", member2);
 		// System.out.println("회원정보하는 곳임" + formData);
 		// System.out.println("평문 : " + formData.get("member_pwd"));
-
-		String addr = formData.get("member_post_code") + "/" + formData.get("member_address1") + "/"
-				+ formData.get("member_address2");
-		member.setMember_addr(addr);
-		// System.out.println(addr);
 		member.setMember_nickname(formData.get("member_nickname"));
-		String[] addrArr = member.getMember_addr().split("/");
-		member.setMember_post_code(addrArr[0]);
-		member.setMember_address1(addrArr[1]);
-		member.setMember_address2(addrArr[2]);
 
+//		String addr = formData.get("member_post_code") + "/" + formData.get("member_address1") + "/"
+//				+ formData.get("member_address2");
+//		member.setMember_addr(addr);
+//		// System.out.println(addr);
+//		String[] addrArr = member.getMember_addr().split("/");
+//		member.setMember_post_code(addrArr[0]);
+//		member.setMember_address1(addrArr[1]);
+//		member.setMember_address2(addrArr[2]);
+		// 주소 변경 여부 확인
+	    String postCode = formData.get("member_post_code");
+	    String address1 = formData.get("member_address1");
+	    String address2 = formData.get("member_address2");
+
+	    if (postCode != null && !postCode.isEmpty() &&
+	        address1 != null && !address1.isEmpty() &&
+	        address2 != null && !address2.isEmpty()) {
+	        
+	        String addr = postCode + "/" + address1 + "/" + address2;
+	        member.setMember_addr(addr);
+
+	        String[] addrArr = member.getMember_addr().split("/");
+	        if (addrArr.length == 3) {
+	            member.setMember_post_code(addrArr[0]);
+	            member.setMember_address1(addrArr[1]);
+	            member.setMember_address2(addrArr[2]);
+	        } else {
+	            model.addAttribute("msg", "주소 형식이 잘못되었습니다.");
+	            model.addAttribute("targetURL", "member-modify-form");
+	            return "result_process/fail";
+	        }
+	    }
+		
+		
 		String plainPassword = formData.get("member_pwd");
 		if (plainPassword != null && !plainPassword.isEmpty()) {
 			// 비밀번호가 비어 있지 않으면 암호화하여 설정

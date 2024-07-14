@@ -87,6 +87,25 @@
 <!-- JavaScript 코드 -->
 <script>
 // ------ 현재 위치 ------ 
+
+// 현재 위치를 가져오는 함수
+function getCurrentLocation() {
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
+//     } else {
+//         alert("Geolocation is not supported by this browser.");
+//     }
+// ipinfo
+
+
+// http://ipinfo.io?token=d272291f523605
+	$.getJSON("http://ipinfo.io/json", function(data){
+		console.log(data);
+		$("#cty").text(data.country);
+		showLocations(data);
+	});
+}
+
 // 현재 위치와 클래스 위치를 표시하는 함수
 function showLocations(data) {
 	
@@ -189,25 +208,7 @@ function showLocations(data) {
         });
     });
 }
-//--
-// 현재 위치를 가져오는 함수
-function getCurrentLocation() {
-//     if (navigator.geolocation) {
-//         navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
-//     } else {
-//         alert("Geolocation is not supported by this browser.");
-//     }
-// ipinfo
 
-
-// http://ipinfo.io?token=d272291f523605
-$.getJSON("http://ipinfo.io/json", function(data){
-	debugger;
-	console.log(data);
-// 	$("#cty").text(data.country);
-	showLocations(data);
-});
-}
 // 위치 가져오기 실패 시 에러 메시지 출력 함수
 function showErrorMsg(error) {
     alert("위치 정보를 가져오지 못했습니다.");
@@ -436,7 +437,7 @@ a {
 										<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img" style="width: 25px; height: 25px;">
 									</c:when>	
 									<c:otherwise>
-										<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img" style="width: 25px; height: 25px;">
+										<img src="${pageContext.request.contextPath}/resources/upload/${classItem.member_img}" class="member_img" style="width: 25px; height: 25px;">
 									</c:otherwise>
 								</c:choose>
 								<p class="mb-0 ml-2">${classItem.member_nickname}</p>
@@ -811,7 +812,7 @@ function updateClassList(filterClass) {
 	    var member_code = "${sessionScope.member.member_code}";
 	    var heartImgSrc = heart_status ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
 	    var formattedPrice = new Intl.NumberFormat('ko-KR').format(filter.class_price);
-	    var memberImgSrc = filter.member_img ? contextPath + "/resources/images/class/x.png" : contextPath + "/resources/images/class/pic.png";
+	    var memberImgSrc = filter.member_img ? contextPath + "/resources/upload/${filter.member_img}" : contextPath + "/resources/images/class/pic.png";
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 		
 	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3 class-card" style="width: 330px;"  data-class-code="' +  filter.class_code + '">'	

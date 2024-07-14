@@ -335,6 +335,10 @@
 			});
 			
 			$('#timeTable').on('click', '.delete-btn', function() {
+				if($('#timeTable tr').length - 1 < 2){
+					alert("1차시는 삭제할 수 없습니다");
+					return;
+				}
 			    $(this).closest('tr').remove();
 			    updateTextAreaNames();
 			});

@@ -266,22 +266,22 @@
 //             	// 유효성 검사
 //         	        // 선택 상자의 값이 비어 있는지 확인
         	        if ($("#selected-items").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("해쉬태그를 선택해주세요!");
         	            $("#item-list").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($("#summernote").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("클래스소개를 입력해주세요!");
         	            $("#summernote").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($("#post_code").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("주소를 입력해주세요!");
         	            $("#post_code").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($(".class_creator_explain").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("크리에이터 소개를 입력해주세요!");
         	            $(".class_creator_explain").focus();
         	            return false; // 폼 제출을 막음
         	        }
@@ -349,6 +349,19 @@
 	                }
 	            });
 	        }
+			
+			// 클래스 가격 
+			$("#class_price").on('input', function() {
+		         if ($(this).val() <= 0) {
+		             $(this).val(''); // 값이 0 이하일 경우 비움
+		         }
+		     });
+		
+			$("#class_price").on('keypress', function(e) {
+		         if (e.key === '-' || (e.key === '0' && $(this).val() === '')) {
+		             e.preventDefault(); // '-'나 맨 처음에 '0' 입력을 막음
+		         }
+		     });
 			
 			
 			

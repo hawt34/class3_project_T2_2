@@ -31,4 +31,9 @@ public class ChatMessageVO {
 	public static final String TYPE_TALK = "TALK"; 
 	public static final String TYPE_LEAVE = "LEAVE"; 
 	
+	public static final String TYPE_NEW_MESSAGE = "NEW_MESSAGE"; 
+	public static final String TYPE_SEND_MESSAGE = "SEND_MESSAGE"; 
+	public static final String TYPE_READ_MESSAGE = "READ_MESSAGE"; 
+	
+	
 }

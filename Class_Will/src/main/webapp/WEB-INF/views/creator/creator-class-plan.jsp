@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Multi Datepicker Example</title>
+<title>Multi Datepicker</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -94,7 +94,7 @@ th, td {
 							<div class="text-white h2">일정관리</div>
 							<hr class="text-white mb-5">
 						</div>
-							<form id="dateForm" action="creatorPlanPro" method="POST">
+							<form id="dateForm" action="creatorPlanPro" method="POST" >
 								<jsp:include page="/WEB-INF/views/creator/classSelect.jsp" />
 								<!-- 	셀렉트박스 -->
 								<div class="creator-main-table col-xl-12 mb-5">
@@ -102,7 +102,8 @@ th, td {
 									<div id="scheduleTableContainer" class="col-md-12"></div>
 
 									<div id="datepicker"></div>
-									<input type="hidden" name="selectedDates" id="selectedDates">
+									<input type="hidden" name="selectedDates" id="selectedDates" required>
+									<div class="invalid-feedback">날짜를 선택해주세요.</div>
 
 									<div class="creator-plan-bottom">
 
@@ -111,7 +112,8 @@ th, td {
 												style="width: 150px;">참여 가능 인원 : </label> <input
 												type="number" name="class_total_headcount"
 												id="class_total_headcount" class="form-control my-1" min="1"
-												style="width: 100px;" />
+												style="width: 100px;" required/>
+												<div class="invalid-feedback">참여가능인원을 선택해주세요.</div>
 										</div>
 
 										<div class="container creator-plan-time mt-3 mb-5">
@@ -124,9 +126,9 @@ th, td {
 												<tr>
 													<td>1회차</td>
 													<td><input name="1회차_start" type="time"
-														class="form-control startTime time"></td>
+														class="form-control startTime time" required></td>
 													<td><input name="1회차_end" type="time"
-														class="form-control endTime time"></td>
+														class="form-control endTime time" required></td>
 												</tr>
 											</table>
 											<div class="d-flex justify-content-center mt-3">
@@ -170,6 +172,23 @@ th, td {
 <%-- 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
 
 	<script>
+	
+// 		window.addEventListener('load', () => {
+// 		      const forms = document.getElementsByClassName('validation-form');
+		
+// 		      Array.prototype.filter.call(forms, (form) => {
+// 		        form.addEventListener('submit', function (event) {
+// 		          if (form.checkValidity() === false) {
+// 		            event.preventDefault();
+// 		            event.stopPropagation();
+// 		            window.scrollTo({ top: 0, behavior: 'smooth' });
+// 		          }
+		
+// 		          form.classList.add('was-validated');
+// 		        }, false);
+// 		      });
+// 		}, false);
+		
 		$(document).ready(function() {
 			$("#classSelect").val("");
 			
@@ -193,8 +212,8 @@ th, td {
 		             roundCount++;
 		             let newRow = '<tr>'
 		                     + '<td>' + roundCount + '회차 <span class="delete-btn">&times;</span></td>'
-		                     + '<td><input name="' + roundCount + '회차_start" type="time" class="form-control startTime"></td>'
-		                     + '<td><input name="' + roundCount + '회차_end" type="time" class="form-control endTime"></td>'
+		                     + '<td><input name="' + roundCount + '회차_start" type="time" class="form-control startTime" required></td>'
+		                     + '<td><input name="' + roundCount + '회차_end" type="time" class="form-control endTime" required></td>'
 		                 + '</tr>';
 		             $('#timeTable tbody').append(newRow);
 		  	} else{
@@ -449,6 +468,9 @@ th, td {
 
             // submit 버튼 클릭 시 선택된 날짜를 hidden input에 설정
             $('#dateForm').on('submit', function(e) {
+            	if(!confirm('일정을 등록하시겠습니까?')){
+            		return;
+            	}
                 var selectedDates = $('#datepicker').multiDatesPicker('getDates');
                 $('#selectedDates').val(selectedDates.join(','));
                 
@@ -466,16 +488,13 @@ th, td {
         	            alert('날짜를 선택해주세요');
         	            return false; // 폼 제출을 막음
         	        }
-//         	        if (time == "") {
-//         	            alert('시간을 선택해주세요');
-//         	            return false; // 폼 제출을 막음
-//         	        }
-        	
-        	        // 다른 유효성 검사나 처리 로직을 추가할 수 있음
+        	        if($("#class_total_headcount").val() == ""){
+        	            alert('참여인원을 선택해주세요');
+        	            return false; // 폼 제출을 막음
+        	        }
         	
         	        return true; // 폼 제출을 허용
         	        location.reload();
-//         	        $("#classSelect").trigger("change");
             });
             
         });

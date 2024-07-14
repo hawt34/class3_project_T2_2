@@ -396,32 +396,32 @@ a {
 		    <!-- 기본 class-list -->
 		<c:set var="currentList" value="${not empty searchClassList ? searchClassList : classList}" />
 			<c:forEach var="classItem" items="${currentList}">
-				<div class="col-md-6 col-lg-4 col-xl-3 pb-3" style="width: 330px;">
+				<div class="col-md-6 col-lg-4 col-xl-3 pb-3 class-card" style="width: 330px;" data-class-code="${classItem.class_code }">
 					<div class="rounded position-relative class-item classCard">
 						<div>
 					    <div class="vesitable-img cursor">
 <%-- 					        <img style="height : 225px;" src="${pageContext.request.contextPath}/resources/images/products/s4.jpg" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'"> --%>
 					        <img style="height : 225px;" src="${pageContext.request.contextPath}/resources/upload/${classItem.class_thumnail}" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
 						</div>
-						<c:choose>
-							<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 -->
-							<c:set var="isLiked" value="false"/> <!-- 삭제 -->
-								<c:forEach var="likeItem" items="${likeClassCode}">
-									<c:if test="${likeItem.class_code == classItem.class_code}">
-										<c:set var="isLiked" value="true"/> <!-- 추가 -->
-									</c:if>
-								</c:forEach>
-								<c:if test="${isLiked}">
-									<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
-								</c:if>
-								<c:if test="${not isLiked}">
-									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
-								</c:if>
-							</c:when>
-							<c:otherwise> <!-- likeClassList 존재 X -->
-								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}">
-							</c:otherwise>
-						</c:choose>
+<%-- 						<c:choose> --%>
+<%-- 							<c:when test="${not empty likeClassCode}"> <!-- likeClassList 존재 --> --%>
+<%-- 							<c:set var="isLiked" value="false"/> <!-- 삭제 --> --%>
+<%-- 								<c:forEach var="likeItem" items="${likeClassCode}"> --%>
+<%-- 									<c:if test="${likeItem.class_code == classItem.class_code}"> --%>
+<%-- 										<c:set var="isLiked" value="true"/> <!-- 추가 --> --%>
+<%-- 									</c:if> --%>
+<%-- 								</c:forEach> --%>
+<%-- 								<c:if test="${isLiked}"> --%>
+<%-- 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart_full.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}"> --%>
+<%-- 								</c:if> --%>
+<%-- 								<c:if test="${not isLiked}"> --%>
+<%-- 									<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}"> --%>
+<%-- 								</c:if> --%>
+<%-- 							</c:when> --%>
+<%-- 							<c:otherwise> <!-- likeClassList 존재 X --> --%>
+<%-- 								<img src="${pageContext.request.contextPath}/resources/images/profile/heart.png" id="heartOverlay" class="heartImg" data-class-code="${classItem.class_code}" data-member-code="${classItem.member_code}"> --%>
+<%-- 							</c:otherwise> --%>
+<%-- 						</c:choose> --%>
 						</div>
 						<div class="p-3 border border-secondary border-top-0 rounded-bottom classCardBtm" onclick="location.href='class-detail?class_code=${classItem.class_code}'">
 							<div class="classCategory w-100 col-md-10">
@@ -737,6 +737,8 @@ $(function() {
 			}
 		});
 	}); // classListSelect() 끝
+	
+	heartChange();
 }); // 
 
 //------------------------------------------------------------------------------------
@@ -789,14 +791,17 @@ function updateClassList(filterClass) {
 
     if (filterClass.length > 0) {
         for (let filter of filterClass) {
-        	
             classListContainer.append(generateClassCardHTML(filter));
         }
     } else {
         classListContainer.html('<h5 style="text-align: center; margin-top : 50px;">조건과 일치하는 클래스가 존재하지 않습니다.</h5>');
     }
+   	
 	classListContainer.show();
+	
     $(".classCount").html('<h5>' + filterClass.length + '개의 클래스</h5>');
+    
+    heartChange();
 } // updateClassList
 
 //------------------------------------------------------------------------------------
@@ -808,8 +813,8 @@ function updateClassList(filterClass) {
 	    var formattedPrice = new Intl.NumberFormat('ko-KR').format(filter.class_price);
 	    var memberImgSrc = filter.member_img ? contextPath + "/resources/images/class/x.png" : contextPath + "/resources/images/class/pic.png";
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
-
-	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3" style="width: 330px;">'	
+		
+	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3 class-card" style="width: 330px;"  data-class-code="' +  filter.class_code + '">'	
 	        + '		<div class="rounded position-relative class-item classCard">'
 	        + '			<div class="vesitable-img cursor">'
    			+ '				<img style="height : 225px;" src="' + contextPath + '/resources/upload/' + filter.class_thumnail + '" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
@@ -839,11 +844,33 @@ function updateClassList(filterClass) {
 	        + '			</div>'
 	        + '		</div>'
 	        + '</div>';
+	    
 	}
-	function heartChange(){
-		let class_codes = "${likeClassCode}";
-		console.log(class_codes);
+	
+	function heartChange() {
+		debugger;
+	    let likeClassCodes = "${likeClassCode}";
+	    console.log("likeClassCodes: ", likeClassCodes);
+
+	    // 모든 클래스 카드를 선택
+	    let classItems = document.querySelectorAll('.class-card');
+	    
+	    
+	    classItems.forEach(function(card) {
+	        // 해당 카드의 클래스 코드 가져옴
+	        var classCode = parseInt(card.getAttribute('data-class-code'));
+	        // 하트 이미지 요소 선택
+	        var heartImage = card.querySelector('.heartImg');
+	        
+	            // 하트 이미지 업데이트
+	            if (likeClassCodes.includes(classCode)) {
+	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart_full.png");
+	            } else {
+	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart.png");
+	            }
+	    });
 	}
+
 </script>
 </body>
 </html>

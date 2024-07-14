@@ -115,7 +115,7 @@ public class ClassController {
 	        }
 	        
 	        // 라이크 클래스
-	        List<Map<String, Object>> likeClassCode = classService.selectLikeClassCode(member_code);
+	        List<Integer> likeClassCode = classService.selectLikeClassCode(member_code);
 	        model.addAttribute("likeClassCode", likeClassCode);
 	        System.out.println(">> likeClassCode : " + likeClassCode);
 	    } else {
@@ -169,7 +169,7 @@ public class ClassController {
 	    String big_category = (String) requestBody.get("big_category"); // Integer로 받지 않고 String으로 받음
 	    String small_category = (String) requestBody.get("small_category"); // Integer로 받지 않고 String으로 받음
 	    String local = (String) requestBody.get("common2_code"); // Integer로 받지 않고 String으로 받음
-
+	    
 //		String big_category = params.get("class_big_category");
 //		String small_category = params.get("class_small_category");
 //		String local = params.get("common2_code");

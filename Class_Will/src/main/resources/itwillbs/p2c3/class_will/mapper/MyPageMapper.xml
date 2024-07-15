@@ -69,8 +69,7 @@
 		UPDATE class_review
 		SET class_review_subject = #{class_review_subject},
 		class_review_content = #{class_review_content},
-		class_review_rating =
-		#{class_review_rating}
+		class_review_rating =	#{class_review_rating}
 		WHERE class_review_code = #{class_review_code}
 	</update>
 
@@ -263,6 +262,51 @@
 		pay_status = 'paid'
 	</select>
 
-
+	<select id="countInquiry">
+		<!-- 특정 회원이 적은 문의수 -->
+		SELECT COUNT(*)
+		FROM class_inquiry
+		WHERE member_code = ${member_code}
+	</select>
+	
+	<select id="selectMemberInquiry">
+		<!-- 특정 회원이 적은 모든  문의수 -->	
+		SELECT 
+		ci.class_inquiry_code,
+		ci.class_inquiry_subject,
+		ci.class_inquiry_content,
+		ci.class_inquiry_date,
+		c.class_name,
+		ci.class_inquiry_status
+		FROM
+		class_inquiry ci
+		LEFT JOIN class
+		c ON ci.class_code = c.class_code
+		WHERE
+		ci.member_code = #{member_code}
+		LIMIT #{startRow}, #{listLimit}
+	</select>
+	<delete id="deleteInquiry">
+		<!-- 특정 회원이 적은 리뷰 삭제 -->	
+		DELETE FROM class_inquiry 
+		WHERE class_inquiry_code = #{class_inquiry_code}
+	</delete>
+	
+	<select id="selectInquiry">
+		SELECT * FROM class_inquiry
+		WHERE class_inquiry_code = #{class_inquiry_code}
+	
+	</select>
+	
+	<update id="updateInquiry">
+		<!-- 특정 회원이 적은 문의 업데이트 -->	
+		UPDATE class_inquiry
+		SET class_inquiry_subject = #{class_inquiry_subject},
+		class_inquiry_content = #{class_inquiry_content}
+		WHERE class_inquiry_code = #{class_inquiry_code}
+	
+	</update>
+	
+	
 
 </mapper>

@@ -126,6 +126,31 @@ public class MyPageService {
 		return myPageMapper.findMoney(year,month,member_code);
 	}
 
+	public int getMemberInquiryCount(int member_code) {
+		
+		return myPageMapper.countInquiry(member_code);
+	}
+
+	public List<Map<String, String>> getMemberInquiry(int member_code, int startRow, int listLimit) {
+		// TODO Auto-generated method stub
+		return myPageMapper.selectMemberInquiry(member_code, startRow, listLimit);
+	}
+
+	public int deleteInquiry(String class_inquiry_code) {
+		// TODO Auto-generated method stub
+		return myPageMapper.deleteInquiry(class_inquiry_code);
+	}
+
+	public Map<String, String> getInquiryByCode(String class_inquiry_code) {
+		// TODO Auto-generated method stub
+		return myPageMapper.selectInquiry(class_inquiry_code);
+	}
+
+	public int updateInquiry(Map<String, String> formData) {
+		// TODO Auto-generated method stub
+		return  myPageMapper.updateInquiry(formData);
+	}
+
 	
 
 	

@@ -100,9 +100,10 @@
 	    })
 	    .then(data => {
 	        if (data.success) {
-	            Swal.fire('성공', '문의가 성공적으로 제출되었습니다.', 'success')
-	                .then(() => window.close());
+	            // 성공적으로 데이터가 처리된 후 화면을 업데이트
+	            updateUIWithSuccessMessage(data.message);
 	        } else {
+	            // 오류 발생 시 오류 메시지 표시
 	            Swal.fire('오류', '문의 제출 중 오류가 발생했습니다.', 'error');
 	        }
 	    })
@@ -111,7 +112,14 @@
 	        Swal.fire('오류', '서버 요청 중 오류가 발생했습니다.', 'error');
 	    });
 	}
-		
+	function updateUIWithSuccessMessage(message) {
+	    Swal.fire('성공', message, 'success')
+	        .then(() => {
+	            // 창을 닫고 페이지를 리로드
+	            window.close();
+	            window.opener.location.reload();
+	        });
+	}
 	</script>
 
 </body>

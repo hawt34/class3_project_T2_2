@@ -332,7 +332,6 @@ a {
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
 	
-	
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
@@ -346,12 +345,15 @@ a {
 //	         alert("Geolocation is not supported by this browser.");
 //	     }
 
+
+// =============== 주석 풀기  =============== 
 // 	http://ipinfo.io?token=d272291f523605
-		$.getJSON("http://ipinfo.io/json", function(data){
-			console.log(data);
-			$("#cty").text(data.country);
-			showLocations(data);
-		});
+// 		$.getJSON("http://ipinfo.io/json", function(data){
+// 			console.log(data);
+// 			$("#cty").text(data.country);
+// 			showLocations(data);
+// 		});
+// =============== 주석 풀기  =============== 
 	}
 
 	

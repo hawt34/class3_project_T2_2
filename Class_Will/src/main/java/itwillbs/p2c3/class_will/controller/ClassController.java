@@ -461,6 +461,81 @@ public class ClassController {
 		return"class/class-inquiry-show";
 	}
 	
+	@GetMapping("check-login-status")
+	@ResponseBody
+	public Map<String, Object> checkLoginStatus(HttpSession session) {
+	    Map<String, Object> response = new HashMap<>();
+	    MemberVO member = (MemberVO) session.getAttribute("member");
+
+	    if (member != null) {
+	        response.put("isLoggedIn", true);
+	    } else {
+	        response.put("isLoggedIn", false);
+	    }
+
+	    return response;
+	}
+	
+	// 클래스 상세 질문하기
+	@GetMapping("class-inquiry")
+	public String classInquiry(HttpSession session, Model model, @RequestParam int class_code){
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		Integer member_code = null;
+		
+		if(member == null) {
+			model.addAttribute("msg", "로그인이 필요한 페이지입니다!");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		}
+		
+		
+		Map<String, Object> list = new HashMap<>();
+		list.put("class_code", class_code);
+	    System.out.println(">>>class-inquiry class_code:" + class_code);
+	    if (member != null) {
+	        member_code = member.getMember_code();
+	        list.put("member_code", member_code);
+	        model.addAttribute("list", list);
+	    } else {
+	        System.out.println("Member is null");
+	    }
+	    // 클래스, 회원 정보
+	    Map<String, Object> classInquiryInfo = classService.getClassInquiryInfo(list);
+	    model.addAttribute("classInquiryInfo", classInquiryInfo);
+	    System.out.println(">> class-inquiry classInquiryInfo : " + classInquiryInfo);
+	    
+		
+		return"class/class-inquiry";
+	}
+	
+    @PostMapping("submit-inquiry")
+    @ResponseBody
+    public Map<String, Object> submitInquiry(@RequestParam Map<String, Object> params, HttpSession session, @RequestParam("class_code") int class_code) {
+        MemberVO member = (MemberVO) session.getAttribute("member");
+        Map<String, Object> response = new HashMap<>();
+        
+        if (member == null) {
+        	response.put("success", false);
+        	response.put("message", "로그인이 필요합니다.");
+        	return response;
+        }
+        
+        params.put("member_code", member.getMember_code());
+        params.put("class_code", class_code);
+        System.out.println("class_code ::::: " + class_code);
+
+
+        try {
+            classService.insertClassInquiry(params);
+            response.put("success", true);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", e.getMessage());
+        }
+
+        return response;
+    }
+    
 	@GetMapping("class-complain")
 	public String classComplain(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");

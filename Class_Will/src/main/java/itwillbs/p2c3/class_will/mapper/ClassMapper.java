@@ -68,6 +68,15 @@ public interface ClassMapper {
 	// 클래스 질문 
 	List<Map<String, Object>> selectClassInquiry(Map<String, Object> map);
 	
+	// 클래스 질문하기
+	List<Map<String, Object>> insertClassInquiry(Map<String, Object> list);
+
+	// 클래스 질문하기 멤버 정보 가져오기
+	Map<String, Object> selectInquiryMember(Map<String, Object> list);
+
+	// 클래스 질문하기 클래스 정보 가져오기
+	Map<String, Object> selectInquiryClass(Map<String, Object> list);
+	
 	// 클래스 커리큘럼 
 	List<Map<String, Object>> selectClassCurri(int class_code);
 	
@@ -77,6 +86,7 @@ public interface ClassMapper {
 	// 디테일 클래스 좋아요
 //	Map<String, Object> selectLikeClass(Map<String, Object> map);
 	boolean selectLikeClass(Map<String, Object> map);
+	
 	// 클래스 해시태그 
 	List<Map<String, Object>> selectClassHashtag(int class_code);
 	

@@ -290,6 +290,42 @@
 		</if>
 	</select>
 	
+	<!-- 클래스 질문하기 정보 -->
+	<select id="selectInquiryMember" resultType="map" parameterType="int">
+		SELECT member_nickname 
+		FROM MEMBER
+		WHERE member_code = #{member_code}
+	</select>
+	
+	<!-- 클래스 질문하기 정보 -->
+	<select id="selectInquiryClass" resultType="map" parameterType="map">
+		SELECT class_code, class_name
+		FROM class c
+		WHERE class_code = #{class_code}
+	</select>
+	
+	<!-- 클래스 질문하기 -->
+	<insert id="insertClassInquiry" parameterType="map">
+		INSERT INTO class_inquiry(
+			class_inquiry_subject
+			, class_inquiry_content
+			, class_inquiry_date
+			, class_inquiry_time
+			, class_inquiry_status
+			, member_code
+			, class_code) 
+		values(
+			#{class_inquiry_subject}
+			, #{class_inquiry_content}
+			, now()
+			, now()
+			, 'N'
+			, #{member_code}
+			, #{class_code}
+			)
+	
+	</insert>
+	
 	<!-- 클래스 커리큘럼 -->
 	<select id="selectClassCurri" resultType="map">
 		SELECT curri_round

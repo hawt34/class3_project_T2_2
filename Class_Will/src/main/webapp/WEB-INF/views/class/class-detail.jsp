@@ -24,6 +24,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 <!-- Icon Font Stylesheet -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -38,23 +39,6 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
-      .fixed-button {
-          position: fixed;
-          top: 50%; /* 위에서부터 50% 위치 */
-          right: 20px;
-          background-color: #007BFF;
-          color: white;
-          border: none;
-          border-radius: 50%;
-          width: 60px;
-          height: 60px;
-          font-size: 24px;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-          cursor: pointer;
-          display: none; /* 초기에는 숨김 */
-          transform: translateY(-50%); /* 버튼을 수직 중앙 정렬 */
-	}
-
     .flatpickr-calendar {
         font-size: 24px; /* 기본 글꼴 크기 조정 */
     }
@@ -166,8 +150,6 @@
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
-    <!-- 고정 버튼 -->
-	<button class="fixed-button" id="backButton" onclick="javascript:reportBack()">◀️</button>
 <div class="container1">
     <!-- 캐러셀 시작 -->
     <div class="row col-md-12">
@@ -358,8 +340,17 @@
 				</div>
             </div>
             <div id="section4"class="section">
-                <!-- Q&A 내용 -->
-              	<h4>클래스 Q&A</h4>
+            	<div class="row">
+	            	<div class="col-9">
+	              		<h4>클래스 Q&A</h4>
+	              	</div>
+	            	<div class="col"style="text-align : right; margin-top : 20px;">
+	              		<img src="${pageContext.request.contextPath}/resources/images/class/inq.png"style="width : 35px; height : 35px;" onclick="classInquiry(event, '${param.class_code}')">
+					문의하기
+	              	</div>
+<!-- 	            	<div class="col" style="text-align : right;"> -->
+<!-- 	              	</div> -->
+              	</div>
                 <!-- 테이블 -->
                 <div class="card text-center my-3">
                     <div class="card-body p-2 reviewInfo">
@@ -526,22 +517,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
 	var heartCountElement = document.getElementById("heartCountElement"); // heartCount 요소
 	
-	
-	// 신고에서 온 요청에 대한 버튼 이벤트
-	var fromReport = "${fromReport}";
-	    if (fromReport) {
-			// 고정 버튼 활성화
-			const backButton = document.getElementById('backButton');
-			   backButton.style.display = 'block';
-			console.log(backButton);
-			
-            // 버튼 클릭 이벤트 추가
-            backButton.addEventListener('click', function() {
-                window.history.back();
-            });
-	    }
-	    
-
 	// btnCustoms 클릭 시의 이벤트 핸들러
 	btnCustoms.addEventListener("click", function() {
 	    // btnCustoms를 클릭했을 때 할 일을 여기에 추가할 수 있습니다.
@@ -814,6 +789,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				
 <script type="text/javascript">
+
 function creatorReview(event, class_code, class_review_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
     console.log("creatorReview : class_code : " + class_code + ", class_review_code : " + class_review_code);
@@ -829,6 +805,29 @@ function creatorInquiry(event, class_code, class_inquiry_code) {
 function classComplain(event, class_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
 	window.open("class-complain?class_code=" + class_code, "pop", "width=700, height=600, left=700, top=50");	
+}
+
+
+function classInquiry(event, class_code) {
+    event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+
+    // Ajax를 통해 서버에 로그인 상태를 확인
+    fetch('check-login-status')
+        .then(response => response.json())
+        .then(data => {
+            if (data.isLoggedIn) {
+                // 로그인 상태인 경우 창을 열기
+                window.open("class-inquiry?class_code=" + class_code, "pop", "width=700, height=600, left=700, top=50");
+            } else {
+                // 로그인 상태가 아닌 경우 알림 메시지 표시 후 창 닫기
+                Swal.fire('로그인 필요', '로그인 후 다시 시도해 주세요.', 'warning')
+                    .then(() => window.close());
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('오류', '서버 오류가 발생했습니다.', 'error');
+        });
 }
 </script>
 <!-- Required JavaScript files -->

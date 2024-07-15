@@ -125,9 +125,6 @@ public class ClassService {
 	public boolean getLikeClass(Map<String, Object> map){
 		return mapper.selectLikeClass(map);
 	}
-//	public Map<String, Object> getLikeClass(Map<String, Object> map){
-//		return mapper.selectLikeClass(map);
-//	}
 	
 	// 클래스 해시태그
 	public List<Map<String, Object>> getClassHashtag(int class_code){
@@ -136,6 +133,18 @@ public class ClassService {
 
 	public boolean insertClassComplain(Map<String, Object> params) {
 		return mapper.insertClassComplain(params);
+	}
+	
+	// 클래스 질문 
+	public List<Map<String, Object>> insertClassInquiry(Map<String, Object> list) {
+		return mapper.insertClassInquiry(list);
+	}
+	
+	// 클래스 질문 정보
+	@Transactional
+	public Map<String, Object> getClassInquiryInfo(Map<String, Object> list) {
+//		mapper.selectInquiryMember(list);
+		return mapper.selectInquiryClass(list);
 	}
 	
 //    public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {

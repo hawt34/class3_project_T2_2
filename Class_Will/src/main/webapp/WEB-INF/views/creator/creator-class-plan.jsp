@@ -99,8 +99,6 @@ th, td {
 								<!-- 	셀렉트박스 -->
 								<div class="creator-main-table col-xl-12 mb-5">
 
-									<div id="scheduleTableContainer" class="col-md-12"></div>
-
 									<div id="datepicker"></div>
 									<input type="hidden" name="selectedDates" id="selectedDates" required>
 									<div class="invalid-feedback">날짜를 선택해주세요.</div>
@@ -136,8 +134,8 @@ th, td {
 													type="button" style="width: 100px;">회차 추가</button>
 											</div>
 										</div>
-
-										<div align="center" class="mb-3">
+										
+										<div align="center" class="mb-5">
 											<button type="submit" class="btn btn-outline-primary btn-lg">등록하기</button>
 											<button type="button" class="btn btn-outline-primary btn-lg" 
 												onclick="location.reload()">다시작성</button>
@@ -145,7 +143,7 @@ th, td {
 												onclick="location.href='creator-class'">돌아가기</button>
 										</div>
 									</div>
-
+									<div id="scheduleTableContainer" class="col-md-12 mt-5"></div>
 								</div>
 							</form>
 						</div>
@@ -172,23 +170,48 @@ th, td {
 <%-- 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
 
 	<script>
+		// 일정 추가
+         var today = new Date();
+         today.setHours(0, 0, 0, 0); // 시간 부분을 0으로 설정            
+		 var threeMonthsLater = new Date();
+         threeMonthsLater.setMonth(today.getMonth() + 3); // 오늘 날짜로부터 3달 후 설정
+         threeMonthsLater.setHours(23, 59, 59, 999); // 해당 날짜의 마지막 시간으로 설정
+            
+	    function AddPlan() {
+	    	
+	    	let classCode = $('#classSelect').val();
+	    	$('.creator-plan-bottom').removeClass('hidden');
+			$('#datepicker').removeClass('hidden');
+			$('.addPlan').addClass('hidden');
+// 			$('#scheduleTableContainer').addClass('hidden');
+			
+			$.ajax({
+				url: "getSelectedDates",
+				method: "get",
+				data: { "classCode" : classCode },
+				success: function(data) {
+					// JSON 형태로 파싱
+					var scheduleData = JSON.parse(JSON.stringify(data));
+					// 날짜 배열 생성
+					var selectedDates = [];
+					scheduleData.forEach(function(item) {
+						selectedDates.push(item.class_schedule_date);
+					});
+					$('#datepicker').multiDatesPicker({
+		                beforeShowDay: function(date) {
+		                    var dateString = $.datepicker.formatDate('yy-mm-dd', date);
+		                    if (date <= today || date > threeMonthsLater || selectedDates.includes(dateString)) {
+		                        return [false, 'disabled-date'];
+		                    }
+		                    return [true, ''];
+		                }
+		            });
+					
+				}
+			});
+			
+		}
 	
-// 		window.addEventListener('load', () => {
-// 		      const forms = document.getElementsByClassName('validation-form');
-		
-// 		      Array.prototype.filter.call(forms, (form) => {
-// 		        form.addEventListener('submit', function (event) {
-// 		          if (form.checkValidity() === false) {
-// 		            event.preventDefault();
-// 		            event.stopPropagation();
-// 		            window.scrollTo({ top: 0, behavior: 'smooth' });
-// 		          }
-		
-// 		          form.classList.add('was-validated');
-// 		        }, false);
-// 		      });
-// 		}, false);
-		
 		$(document).ready(function() {
 			$("#classSelect").val("");
 			
@@ -370,8 +393,9 @@ th, td {
 							$('#datepicker').addClass('hidden');
 							$('#scheduleTableContainer').empty().append('<div id="scheduleTableContainer" class="col-md-12"><div id="grid"></div><div id="pagination"></div></div>'
 							 + '<div align="center">'
+							 + '<button type="button" class="btn btn-outline-primary btn-lg mx-2 my-2 addPlan" onclick="AddPlan()">일정추가</button>'
 							 + '<button type="button" class="btn btn-outline-primary btn-lg my-2" onclick="location.href=\'creator-class\'">돌아가기</button>'
-							 + '<button type="button" class="btn btn-outline-danger btn-lg mw-2 mx-2 deleteAllBtn">전체삭제</button>'
+							 + '<button type="button" class="btn btn-outline-danger btn-lg mx-2 deleteAllBtn">전체삭제</button>'
 				 			 + '</div>');
 							initializeGrid(data);
 							
@@ -469,7 +493,7 @@ th, td {
                     }
                 }
             });
-
+            
             // submit 버튼 클릭 시 선택된 날짜를 hidden input에 설정
             $('#dateForm').on('submit', function(e) {
             	if(!confirm('일정을 등록하시겠습니까?')){

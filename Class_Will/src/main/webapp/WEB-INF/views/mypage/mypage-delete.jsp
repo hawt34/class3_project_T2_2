@@ -209,7 +209,7 @@ th:nth-child(2), td:nth-child(2) {
 													<td>${memberInquiry.class_inquiry_subject}</td>
 													<td>
 														<button class="btn btn-danger"
-															onclick="deleteInquiry(${memberInquiry.class_inquiry_code})">삭제</button>
+															onclick="confirmDelete2(${memberInquiry.class_inquiry_code})">삭제</button>
 													</td>
 												</tr>
 											</c:forEach>
@@ -234,7 +234,8 @@ th:nth-child(2), td:nth-child(2) {
 											<c:if test="${pageNum == maxPage or maxPage == 0}">disabled</c:if> />
 									</div>
 								</div>
-								
+								<div class="col-md-12 text-right h2 mb-5">*경고 
+									${member.member_name}님 일괄삭제 기능*<button id="deleteAllButton" class="btn btn-danger">일괄삭제</button></div>
 								
 								
 								
@@ -318,9 +319,13 @@ th:nth-child(2), td:nth-child(2) {
 	            }
 	        });
 	    } 
-	   
+	   function confirmDelete2(class_inquiry_code) {
+		   if (confirm("삭제하시겠습니까?")) {
+               deleteInquiry2(class_inquiry_code);
+           }	
+	   }
 
-	   function deleteInquiry(class_inquiry_code) {
+	   function deleteInquiry2(class_inquiry_code) {
 	        $.ajax({
 	            url: 'delete-inquiry',
 	            type: 'POST',
@@ -335,7 +340,23 @@ th:nth-child(2), td:nth-child(2) {
 	        });
 	    }
 	   $(function() {
-					
+		   $('#deleteAllButton').click(function() {
+	            if (confirm("${member.member_name}님, 정말 모든 데이터를 삭제하시겠습니까?")) {
+	            		            	
+	            	$.ajax({
+	                    url: 'delete-all',
+	                    type: 'POST',
+	                    data: { member_code: '${member.member_code}' },
+	                    success: function(response) {
+	                        alert('성공적으로 모든 데이터를 삭제했습니다.');
+	                        location.reload();
+	                    },
+	                    error: function() {
+	                        alert('데이터 삭제에 실패했습니다.');
+	                    }
+	                });
+	            }
+	        });		
 			// 비밀번호 정규표현식
 			$("#member_pwd").on("input", function() {
 			      let inputPwd = $(this).val();

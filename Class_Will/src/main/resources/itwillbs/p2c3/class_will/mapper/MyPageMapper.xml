@@ -307,6 +307,14 @@
 	
 	</update>
 	
-	
+	<delete id="deleteMemberCode">
+		DELETE FROM class_review 
+		WHERE member_code = #{member_code}
+	</delete>
+	<delete id="deleteMemberCode2">
+		DELETE FROM class_inquiry   
+		WHERE member_code = #{member_code}
+	</delete>
+		
 
 </mapper>

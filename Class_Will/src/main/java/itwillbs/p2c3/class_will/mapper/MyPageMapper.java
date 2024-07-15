@@ -62,4 +62,10 @@ public interface MyPageMapper {
 
 	int updateInquiry(Map<String, String> formData);
 	
+	
+
+	void deleteMemberCode(int member_code);
+
+	void deleteMemberCode2(int member_code);
+	
 }

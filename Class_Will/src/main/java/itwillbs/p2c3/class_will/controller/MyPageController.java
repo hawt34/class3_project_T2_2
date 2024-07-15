@@ -716,5 +716,27 @@ public class MyPageController {
 		
 		return "mypage/mypage-inquiry";
 	}
+	//모든 데이터 삭제
+	@PostMapping("delete-all")
+	@ResponseBody
+	public String deleteDocu(Model model, @RequestParam("member_code") int member_code) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		//System.out.println("모든 데이터 삭제" + member_code);
+		  if (member == null || member.getMember_code() != member_code) {
+		        model.addAttribute("msg", "권한이 없습니다.");
+		        model.addAttribute("targetURL", "member-login");
+		        return "result_process/fail";
+		    }
+
+		MemberVO member2 = myPageService.selectMemberInfo(member_code);
+		model.addAttribute("member", member2);
+		try {
+            myPageService.deleteMemberData(member_code);
+            return "success";
+        } catch (Exception e) {
+            return "error";
+        }
+	}
+	
 	
 }

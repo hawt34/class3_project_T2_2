@@ -64,7 +64,7 @@
 		font-weight: bold;
 	}
 	
-	.chat-list-content{
+	#chat-list-content{
 		overflow-y: auto;
 	}
 	
@@ -150,219 +150,142 @@
 <!-- 			</div>	 -->
 		</div>
 		
-		<div class="chat-list-content">
+		<div id="chat-list-content">
 		
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/img/cat.jpg" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0">
-					<span class="receiver_name d-flex flex-row">길동이</span>
-					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요. 어쩌구 저쩌구 솰라솰라봉~~~ㄴㅇㄹㄴㄹ너ㅏㅣㅇ류나어ㅣ류ㅏ너유ㅏㅇ</span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    9+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
+<!-- 			<div class="chat-list row"> -->
+<!-- 				<div class="receiver_img_area col-2"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/img/cat.jpg" class="receiver_img"> --%>
+<!-- 				</div> -->
+<!-- 				<div class="d-flex flex-column col-7 p-0"> -->
+<!-- 					<span class="receiver_name d-flex flex-row">길동이</span> -->
+<!-- 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요. 어쩌구 저쩌구 솰라솰라봉~~~ㄴㅇㄹㄴㄹ너ㅏㅣㅇ류나어ㅣ류ㅏ너유ㅏㅇ</span> -->
+<!-- 				</div> -->
+<!-- 				<div class="send-time-area col-3 d-flex align-items-start justify-content-end"> -->
+<!-- 					<span class="send-time">오후 5:05</span> -->
+<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
+<!-- 					    9+ -->
+<!-- 						<span class="visually-hidden">unread messages</span> -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+<!-- 			</div> chat-list -->
 			
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0">
-					<span class="receiver_name d-flex flex-row">호야</span>
-					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:03</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    99+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0" >
-					<span class="receiver_name d-flex flex-row">길동이</span>
-					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    99+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
-			
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0">
-					<span class="receiver_name d-flex flex-row">호야</span>
-					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
+<!-- 			<div class="chat-list row"> -->
+<!-- 				<div class="receiver_img_area col-2"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
+<!-- 				</div> -->
+<!-- 				<div class="d-flex flex-column col-7 p-0"> -->
+<!-- 					<span class="receiver_name d-flex flex-row">호야</span> -->
+<!-- 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span> -->
+<!-- 				</div> -->
+<!-- 				<div class="send-time-area col-3 d-flex align-items-start justify-content-end"> -->
+<!-- 					<span class="send-time">오후 5:03</span> -->
 <!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
 <!-- 					    99+ -->
 <!-- 						<span class="visually-hidden">unread messages</span> -->
 <!-- 					</span> -->
-				</div>
-			</div> <!--
-			</div> <!-- chat-list -->
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0">
-					<span class="receiver_name d-flex flex-row">길동이</span>
-					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    99+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
-			
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0">
-					<span class="receiver_name d-flex flex-row">호야</span>
-					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    99+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0">
-					<span class="receiver_name d-flex flex-row">길동이</span>
-					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    99+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
-			
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7 p-0">
-					<span class="receiver_name d-flex flex-row">호야</span>
-					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    99+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7">
-					<span class="receiver_name d-flex flex-row">길동이</span>
-					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-					    99+
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</div>
-			</div> <!-- chat-list -->
-			
-			<div class="chat-list row" >
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7">
-					<span class="receiver_name d-flex flex-row">호야</span>
-					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
+<!-- 				</div> -->
+<!-- 			</div> chat-list -->
+<!-- 			<div class="chat-list row"> -->
+<!-- 				<div class="receiver_img_area col-2"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
+<!-- 				</div> -->
+<!-- 				<div class="d-flex flex-column col-7 p-0" > -->
+<!-- 					<span class="receiver_name d-flex flex-row">길동이</span> -->
+<!-- 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span> -->
+<!-- 				</div> -->
+<!-- 				<div class="send-time-area col-3 d-flex align-items-start justify-content-end"> -->
+<!-- 					<span class="send-time">오후 5:05</span> -->
 <!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
 <!-- 					    99+ -->
 <!-- 						<span class="visually-hidden">unread messages</span> -->
 <!-- 					</span> -->
-				</div>
-			</div> <!-- chat-list -->
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7">
-					<span class="receiver_name d-flex flex-row">호야</span>
-					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
-<!-- 					    99+ -->
-<!-- 						<span class="visually-hidden">unread messages</span> -->
-<!-- 					</span> -->
-				</div>
-			</div> <!-- chat-list -->
-			<div class="chat-list row">
-				<div class="receiver_img_area col-2">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-				</div>
-				<div class="d-flex flex-column col-7">
-					<span class="receiver_name d-flex flex-row">호야</span>
-					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span>
-				</div>
-				<div class="send-time-area col-3 d-flex align-items-start justify-content-end">
-					<span class="send-time">오후 5:05</span>
-<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
-<!-- 					    99+ -->
-<!-- 						<span class="visually-hidden">unread messages</span> -->
-<!-- 					</span> -->
-				</div>
-			</div> <!-- chat-list -->
+<!-- 				</div> -->
+<!-- 			</div> chat-list -->
+			<div class="d-flex justify-content-center m-5">채팅 내역이 존재하지 않습니다.</div>
 			
 		</div> <!-- chat-list-content -->
 
 	</div> <!-- user-chat -->
 	
 	<script type="text/javascript">
+		let member_email = "${sessionScope.member.member_email}";
+		const listmessage = {
+				message_type: "INIT"
+		};
+		window.parent.postMessage(listmessage, '*');
+		
+		
 		$(function() {
-			$(".chat-list").on("click", function() {
-				location.href = "user-chat-room";
+// 			$(".chat-list").on("click", function() {
+// 				location.href = "user-chat-room?receiver_code="+${classInfo.member_code})
+// 			});
+			
+			// 부모창(top.jsp)으로부터 전송된 메시지 수신/처리 후 다시 보내기
+			$(window).on("message", function(event) {
+				const data = event.originalEvent.data;
+				console.log("data : " + data);
+				
+				if(data.message_type == "REQUEST_ROOM_LIST") {
+					$("#chat-list-content").empty();
+					for(let room of JSON.parse(data.chat_message)) {
+					    $("#chat-list-content").append(
+					    		'<div class="chat-list row room_code_'+ room.chat_room_code +'" onclick="location.href = \'user-chat-room?receiver_code=' + room.member_code + '\'">'
+							+		'<div class="receiver_img_area col-2">'
+							+			'<img src="${pageContext.request.contextPath}/resources/upload/'+ room.member_img +'" class="receiver_img">'
+							+		'</div>'
+							+		'<div class="d-flex flex-column col-7 p-0" >'
+							+			'<span class="receiver_name d-flex flex-row">' + room.member_nickname +'</span>'
+							+			'<span class="last_msg d-flex flex-row">' + room.chat_message + '</span>'
+							+		'</div>'
+							+		'<div class="send-time-area col-3 d-flex align-items-start justify-content-end">'
+							+			'<span class="send-time">' + formatSendTime(room.send_time) + '</span>'
+							+		'</div>'
+							+	'</div>'			
+					    );
+					}
+					
+				} else if(data.message_type == "UNREAD_MESSAGE") {
+					
+// 					for(let room of JSON.parse(data.message)) {
+						
+						
+// 					}
+// 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
+// 					    99
+// 						<span class="visually-hidden">unread messages</span>
+// 					</span>
+				} 
+				
 			});
+			
 			
 		});
 		
+		function formatSendTime(send_time) {
+		    // 현재 날짜 구하기 (로컬 시간 기준)
+		    var today = new Date();
+		    var today_date = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+
+		    // send_time에서 날짜 부분과 시간 부분 분리
+		    var send_date = send_time.slice(0, 10);  // yyyy-mm-dd 부분 추출
+		    var send_time_part = send_time.slice(11, 19);  // hh:mm:ss 부분 추출
+
+		    // 오늘 날짜와 비교
+		    if (send_date !== today_date) {
+		        // 오늘이 아닌 경우
+		        return send_date;
+		    } else {
+		        // 오늘인 경우
+		        // 시간 부분을 오전/오후 hh:mm 형식으로 변환
+		        var hour = parseInt(send_time_part.slice(0, 2), 10);
+		        var minute = send_time_part.slice(3, 5);
+		        var period = (hour < 12) ? "오전" : "오후";
+		        hour = (hour % 12) || 12;  // 0시를 12시로 변경
+
+		        return period + " " + hour + ":" + minute;
+		    }
+		}
+
 		
 		
 		

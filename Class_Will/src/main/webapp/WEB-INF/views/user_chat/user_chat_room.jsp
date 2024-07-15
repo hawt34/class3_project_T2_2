@@ -164,84 +164,84 @@
 		<!-- 채팅 내역 -->
 		<div class="d-flex flex-column" id="chat-room-content">
 			<!-- 날짜 -->
-			<div class="d-flex flex-row justify-content-center">
-				<span class="chatDate">2024년 7월 4일 목요일</span>
-			</div>	
-			<!-- 주고 받은 메시지 -->		
-			<div class="d-flex flex-row flex-column msg-area">
-				<div class="d-flex flex-row mb-1">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-					<span class="receiver_name">${receiverInfo.member_nickname}</span>
-				</div>	
-				<div class="d-flex flex-row">
-					<span class="receiver_msg">안녕하세요~ .</span>
-					<span class="send-time">오후 5:03</span>
-				</div>
-			</div>		
+<!-- 			<div class="d-flex flex-row justify-content-center"> -->
+<!-- 				<span class="chatDate">2024년 7월 4일 목요일</span> -->
+<!-- 			</div>	 -->
+<!-- 			<!-- 주고 받은 메시지 -->		 
+<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
+<!-- 				<div class="d-flex flex-row mb-1"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
+<%-- 					<span class="receiver_name">${receiverInfo.member_nickname}</span> --%>
+<!-- 				</div>	 -->
+<!-- 				<div class="d-flex flex-row"> -->
+<!-- 					<span class="receiver_msg">안녕하세요~ .</span> -->
+<!-- 					<span class="send-time">오후 5:03</span> -->
+<!-- 				</div> -->
+<!-- 			</div>		 -->
 			
-			<div class="d-flex flex-row justify-content-end msg-area">
-				<span class="send-time">오후 5:04</span>
-				<span class="my_msg">안녕하세요. 둘리예요.</span>
-			</div>		
+<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
+<!-- 				<span class="send-time">오후 5:04</span> -->
+<!-- 				<span class="my_msg">안녕하세요. 둘리예요.</span> -->
+<!-- 			</div>		 -->
 			
-			<div class="d-flex flex-row justify-content-end msg-area">
-				<span class="send-time">오후 5:04</span>
-				<span class="my_msg">준비물이 있을까요?</span>
-			</div>	
+<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
+<!-- 				<span class="send-time">오후 5:04</span> -->
+<!-- 				<span class="my_msg">준비물이 있을까요?</span> -->
+<!-- 			</div>	 -->
 				
-			<div class="d-flex flex-row flex-column msg-area">
-				<div class="d-flex flex-row mb-1">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-					<span class="receiver_name">길동이</span>
-				</div>	
-				<div class="d-flex flex-row">
-					<span class="receiver_msg">준비해오실 건 없습니다. </span>
-					<span class="send-time">오후 5:05</span>
-				</div>
-			</div>		
+<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
+<!-- 				<div class="d-flex flex-row mb-1"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
+<!-- 					<span class="receiver_name">길동이</span> -->
+<!-- 				</div>	 -->
+<!-- 				<div class="d-flex flex-row"> -->
+<!-- 					<span class="receiver_msg">준비해오실 건 없습니다. </span> -->
+<!-- 					<span class="send-time">오후 5:05</span> -->
+<!-- 				</div> -->
+<!-- 			</div>		 -->
 			
-			<div class="d-flex flex-row flex-column msg-area">
-				<div class="d-flex flex-row mb-1">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-					<span class="receiver_name">길동이</span>
-				</div>	
-				<div class="d-flex flex-row ">
-					<span class="receiver_msg">모두 준비해드립니다.</span>
-					<span class="send-time">오후 5:05</span>
-				</div>
-			</div>		
-			<div class="d-flex flex-row justify-content-end msg-area">
-				<span class="send-time">오후 5:06</span>
-				<span class="my_msg">그렇군요. 감사합니다.</span>
-			</div>		
-			<div class="d-flex flex-row flex-column msg-area">
-				<div class="d-flex flex-row mb-1">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-					<span class="receiver_name">길동이</span>
-				</div>	
-				<div class="d-flex flex-row ">
-					<span class="receiver_msg">또 다른 문의사항 있으신가요?</span>
-					<span class="send-time">오후 5:06</span>
-				</div>
-			</div>		
-			<div class="d-flex flex-row justify-content-end msg-area">
-				<span class="send-time">오후 5:07</span>
-				<span class="my_msg">아뇨 없어요</span>
-			</div>		
-			<div class="d-flex flex-row flex-column msg-area">
-				<div class="d-flex flex-row mb-1">
-					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
-					<span class="receiver_name">길동이</span>
-				</div>	
-				<div class="d-flex flex-row ">
-					<span class="receiver_msg">네 좋은 하루되세요~</span>
-					<span class="send-time">오후 5:09</span>
-				</div>
-			</div>			
-			<div class="d-flex flex-row justify-content-end msg-area">
-				<span class="send-time">오후 5:10</span>
-				<span class="my_msg">감사합니다~ ☺️</span>
-			</div>		
+<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
+<!-- 				<div class="d-flex flex-row mb-1"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
+<!-- 					<span class="receiver_name">길동이</span> -->
+<!-- 				</div>	 -->
+<!-- 				<div class="d-flex flex-row "> -->
+<!-- 					<span class="receiver_msg">모두 준비해드립니다.</span> -->
+<!-- 					<span class="send-time">오후 5:05</span> -->
+<!-- 				</div> -->
+<!-- 			</div>		 -->
+<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
+<!-- 				<span class="send-time">오후 5:06</span> -->
+<!-- 				<span class="my_msg">그렇군요. 감사합니다.</span> -->
+<!-- 			</div>		 -->
+<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
+<!-- 				<div class="d-flex flex-row mb-1"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
+<!-- 					<span class="receiver_name">길동이</span> -->
+<!-- 				</div>	 -->
+<!-- 				<div class="d-flex flex-row "> -->
+<!-- 					<span class="receiver_msg">또 다른 문의사항 있으신가요?</span> -->
+<!-- 					<span class="send-time">오후 5:06</span> -->
+<!-- 				</div> -->
+<!-- 			</div>		 -->
+<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
+<!-- 				<span class="send-time">오후 5:07</span> -->
+<!-- 				<span class="my_msg">아뇨 없어요</span> -->
+<!-- 			</div>		 -->
+<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
+<!-- 				<div class="d-flex flex-row mb-1"> -->
+<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
+<!-- 					<span class="receiver_name">길동이</span> -->
+<!-- 				</div>	 -->
+<!-- 				<div class="d-flex flex-row "> -->
+<!-- 					<span class="receiver_msg">네 좋은 하루되세요~</span> -->
+<!-- 					<span class="send-time">오후 5:09</span> -->
+<!-- 				</div> -->
+<!-- 			</div>			 -->
+<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
+<!-- 				<span class="send-time">오후 5:10</span> -->
+<!-- 				<span class="my_msg">감사합니다~ ☺️</span> -->
+<!-- 			</div>		 -->
 			
 		</div>
 		
@@ -257,14 +257,16 @@
 	</div>
 	
 	<script type="text/javascript">
+		let member_email = "${sessionScope.member.member_email}";
 		let receiver_email = "${receiverInfo.member_email}";
-		let receiver_code =  "${receiverInfo.member_code}";
+		let receiver_img = "${receiverInfo.member_img}";
+		let receiver_nickname = "${receiverInfo.member_nickname}";
+		let chat_room_code;
 		console.log("receiver_email : " + receiver_email);
-		console.log("receiver_code : " + receiver_code);
 		
 		if(receiver_email != "") {
 			const startMessage = {
-					type: "TYPE_INIT_COMPLETE",
+					message_type: "INIT_COMPLETE",
 					receiver_email : receiver_email
 			};
 			window.parent.postMessage(startMessage, '*');
@@ -274,13 +276,13 @@
 		function send(target) {
 			let inputElement = $("#send-msg-input");
 			let inputValue = $("#send-msg-input").val();
-			let room_code = "";
 			
 			const message = {
-				    type: 'SEND_MESSAGE',
-				    chat_room_code: room_code,
-				    sender_code: 'user1',
-				    content: inputValue
+					message_type : "SEND_MESSAGE",
+				    chat_room_code : chat_room_code,
+				    sender_email : member_email,
+				    receiver_email : receiver_email,
+				    chat_message : inputValue
 			};
 			window.parent.postMessage(message, '*');
 			
@@ -304,7 +306,21 @@
 				send(target);
 			}
 		}
-	
+		
+		function formatSendTime(send_time) {
+		    // send_time에서 날짜 부분과 시간 부분 분리
+		    var send_date = send_time.slice(0, 10);  // yyyy-mm-dd 부분 추출
+		    var send_time_part = send_time.slice(11, 19);  // hh:mm:ss 부분 추출
+
+	        // 시간 부분을 오전/오후 hh:mm 형식으로 변환
+	        var hour = parseInt(send_time_part.slice(0, 2), 10);
+	        var minute = send_time_part.slice(3, 5);
+	        var period = (hour < 12) ? "오전" : "오후";
+	        hour = (hour % 12) || 12;  // 0시를 12시로 변경
+
+	        return period + " " + hour + ":" + minute;
+		}
+
 		
 		$(function() {
 			// 뒤로 가기 누르면 채팅 목록으로 가기
@@ -318,18 +334,80 @@
 				const data = event.originalEvent.data;
 				console.log("data : " + data);
 				
-				if (data.type === "NEW_MESSAGE") {
+				if(data.message_type == "REQUEST_CHAT_LIST") {
+// 					$("#chat-room-content").remove();
+					
+					for(let msg of JSON.parse(data.chat_message)) {
+						
+						if(msg.sender_email == member_email) {
+							$("#chat-room-content").append(
+									 '<div class="d-flex flex-row justify-content-end msg-area">'
+									+ 	 '<span class="send-time">'+ formatSendTime(msg.send_time) +'</span>'
+									+ 	 '<span class="my_msg">'+ msg.chat_message +'</span>'
+									+ '</div>'			 
+							);
+							
+						} else {
+							$("#chat-room-content").append(
+									 '<div class="d-flex flex-row flex-column msg-area"> '
+									+	 '<div class="d-flex flex-row mb-1"> '
+									+		 '<img src="${pageContext.request.contextPath}/resources/upload/'+ receiver_img +'" class="receiver_img">'
+									+		 '<span class="receiver_name">'+ receiver_nickname +'</span>'
+									+	 '</div> '	
+									+	 '<div class="d-flex flex-row"> '
+									+		 '<span class="receiver_msg">'+ msg.chat_message +'</span> '
+									+		 '<span class="send-time">'+ formatSendTime(msg.send_time) +'</span> '
+									+	 '</div> '
+									+ '</div> '		
+							);
+						}						
+						
+					}
+					
+				    
+				} else if(data.message_type == "START") {
+					chat_room_code = data.chat_room_code;
+					
+				} else if(data.message_type == "SEND_MESSAGE") {
+					if(data.sender_email == member_email) {
+						$("#chat-room-content").append(
+								 '<div class="d-flex flex-row justify-content-end msg-area">'
+								+ 	 '<span class="send-time">'+ formatSendTime(data.send_time) +'</span>'
+								+ 	 '<span class="my_msg">'+ data.chat_message +'</span>'
+								+ '</div>'			 
+						);
+					}
+					
+			    } else if(data.message_type == "NEW_MESSAGE") {
 					// 채팅방에 메세지 추가
-				    $('#chat-room-content').append(`<p>${data.content}</p>`);
+					let parsedMessage = JSON.parse(data.chat_message);
+					if(data.receiver_email == member_email) {
+						$("#chat-room-content").append(
+								 '<div class="d-flex flex-row flex-column msg-area"> '
+								+	 '<div class="d-flex flex-row mb-1"> '
+								+		 '<img src="${pageContext.request.contextPath}/resources/upload/'+ data.member_img +'" class="receiver_img">'
+								+		 '<span class="receiver_name">'+ data.member_nickname +'</span>'
+								+	 '</div> '	
+								+	 '<div class="d-flex flex-row"> '
+								+		 '<span class="receiver_msg">'+ parsedMessage +'</span> '
+								+		 '<span class="send-time">'+ formatSendTime(data.send_time) +'</span> '
+								+	 '</div> '
+								+ '</div> '		
+						);
+						
+					}
 				    
-				    const readMessage = {
-				        type: "READ_MESSAGE",
-				        chat_room_code: '12345',
-				        message_code: data.message_code // Use message unique code
-				    };
+// 				    const readMessage = {
+// 				    	message_type: "READ_MESSAGE",
+// 				        chat_room_code: data.chat_room_code,
+// 				        message_code: data.message_code 
+// 				    };
 				    
-				    window.parent.postMessage(readMessage, '*');
-				}
+// 				    window.parent.postMessage(readMessage, '*');
+					
+				} 
+				
+				
 			});
 			
 			

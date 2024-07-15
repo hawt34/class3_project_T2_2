@@ -16,7 +16,7 @@ public class ChatMessageVO {
 	private String message_type;
 	private String sender_email;
 	private String receiver_email;
-	private String message;
+	private String chat_message;
 	private String send_time; // 메세지 전송 시각
 	private String is_read;
 	// ----------------------------------------
@@ -36,6 +36,7 @@ public class ChatMessageVO {
 	public static final String TYPE_UNREAD_MESSAGE = "UNREAD_MESSAGE"; 
 	public static final String TYPE_CHECK_UNREAD = "CHECK_UNREAD"; 
 	public static final String TYPE_REQUEST_CHAT_LIST = "REQUEST_CHAT_LIST"; 
+	public static final String TYPE_REQUEST_ROOM_LIST = "REQUEST_ROOM_LIST"; 
 	
 	
 }

@@ -36,6 +36,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 	
 	@Autowired
 	private ChatService chatService;
+	
 	// --------------------------------------------------------------------------------------
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -55,8 +56,9 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		userSessions.put(member.getMember_email(), session.getId());
 		System.out.println("사용자 목록(" + userSessions.keySet().size() + "명) : " + userSessions);
 		
-	}
+	} // afterConnectionEstablished()
 	
+	// ====================================================================================
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		System.out.println("수신된 메세지 : " + message.getPayload());
@@ -76,7 +78,44 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		// ---------------------------------------------------------------------------------
 		// 수신된 메세지 타입 판별
 		
-		if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT_COMPLETE)) {
+		
+		if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_CHECK_UNREAD)) {
+			System.out.println("handleTextMessage - TYPE_CHECK_UNREAD 읽지 않은 메시지 확인 요청");
+			
+			List<Map<String, Object>> unreadMessageList = chatService.selectUnreadMessage(sender_email);
+			System.out.println("unreadMessageList ===== " + unreadMessageList);
+			try {
+				if(unreadMessageList.size() > 0) { // 읽지 않은 메시지가 있으면
+					chatMessage.setMessage_type(ChatMessageVO.TYPE_UNREAD_MESSAGE);
+					chatMessage.setChat_message(gson.toJson(unreadMessageList));
+					sendMessage(session, chatMessage, true);
+				}
+			} catch (Exception e) {
+				System.out.println("읽지 않은 메시지 없음");
+				e.printStackTrace();
+			}
+			
+			
+		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT)) {
+			System.out.println("handleTextMessage - TYPE_INIT 채팅방 리스트 요청");
+			
+			List<Map<String, String>> roomList = chatService.selectRoomList(sender_email);
+			System.out.println("roomList ========== " + roomList);
+			try {
+				if(roomList.size() > 0) {
+					chatMessage.setChat_message(gson.toJson(roomList));
+					chatMessage.setMessage_type(ChatMessageVO.TYPE_REQUEST_ROOM_LIST);
+					sendMessage(session, chatMessage, true);
+				}
+			} catch (Exception e) {
+				System.out.println("채팅 내역 없음");
+				e.printStackTrace();
+			}
+			
+			
+		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT_COMPLETE)) {
+			System.out.println("handleTextMessage - TYPE_INIT_COMPLETE 채팅방 정보 요청");
+			
 			if(!receiver_email.equals("")) {
 				System.out.println("receiver_email (수신자) 있음!");
 				
@@ -86,7 +125,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 				
 				if(!isConnectUser) { // 현재 접속중인 상대방이 아닐 경우
 					isExistUser = chatService.selectMemberEmail(receiver_email) == null ? false : true;
-					System.out.println("아이디 DB 존재 여부 : " + isExistUser);
+					System.out.println("receiver_email(수신자) 계정 정보 DB 존재 여부 : " + isExistUser);
 					
 					if(!isExistUser) { // DB 에도 상대방이 존재하지 않을 경우
 						ChatMessageVO errorMessage = new ChatMessageVO(0, 0, ChatMessageVO.TYPE_ERROR, sender_email, receiver_email, "사용자가 존재하지 않습니다.", "", "");
@@ -95,12 +134,15 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 					}
 				}
 				
-				// 상대방이 존재할 경우 채팅창 조회
+				// 상대방이 존재할 경우 채팅방 조회
 				ChatRoomVO chatRoom = chatService.selectChatRoom(sender_email, receiver_email);
 				
 				if(chatRoom == null) {
 					System.out.println("채팅방 없음! - 새로운 채팅방 생성 필요!");
+					// 새로운 채팅방 생성
 					chatService.insertChatRoom(sender_email, receiver_email);
+					chatRoom = chatService.selectChatRoom(sender_email, receiver_email);
+					// 새로운 채팅방 정보 저장해서 새 채팅방에서 시작하기
 					chatMessage.setChat_room_code(chatRoom.getChat_room_code());
 					chatMessage.setMessage_type(ChatMessageVO.TYPE_START);
 					sendMessage(session, chatMessage, true);
@@ -108,17 +150,20 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 				} else {
 					System.out.println("채팅방 있음! - 기존 채팅 내역 조회 요청됨");
 					chatMessage.setChat_room_code(chatRoom.getChat_room_code());
-					List<ChatMessageVO> chatMessageList = chatService.getChatMessageList(chatRoom.getChat_room_code());
-					chatMessage.setMessage_type(ChatMessageVO.TYPE_START);
+					List<Map<String, String>> chatMessageList = chatService.getChatMessageList(chatRoom.getChat_room_code());
 					
 					// 기존 채팅 내역 판별
 					if(chatMessageList.size() > 0) {
-						chatMessage.setMessage(gson.toJson(chatMessageList));
-						sendMessage(session, chatMessage, true); // 자신의 웹소켓 세션에 전송
+						// 기존 채팅 내역이 있으면 채팅 내용 리스트 보내기
+						chatMessage.setChat_message(gson.toJson(chatMessageList));
 						chatMessage.setMessage_type(ChatMessageVO.TYPE_REQUEST_CHAT_LIST);
+						sendMessage(session, chatMessage, true);
 					}
 					
+					// 기존 채팅 내역이 없으면 조회된 채팅방에서 시작하기
+					chatMessage.setMessage_type(ChatMessageVO.TYPE_START);
 					sendMessage(session, chatMessage, true);
+					
 				}
 				
 				
@@ -126,9 +171,45 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 				System.out.println("receiver_email (수신자) 없음!");
 			}
 				
+		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_SEND_MESSAGE)) {
+			System.out.println("TYPE_SEND_MESSAGE - 보낸 메세지 처리 : " + chatMessage);
+			
+			chatMessage.setSend_time(getLocalDateTimeForNow());
+			chatMessage.setIs_read("false");
+			
+			chatService.insertChatMessage(chatMessage);
+			sendMessage(session, chatMessage, true);
+			
+			System.out.println("수신자의 WebSocketSession 아이디 : " + userSessions.get(receiver_email));
+			if(userSessions.get(receiver_email) != null) {
+				WebSocketSession receiver_ws = users.get(userSessions.get(receiver_email));
+				// sendMessage() 메서드 호출하여 메세지 전송 요청(수신자에게 전송하도록 false 전달)
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_NEW_MESSAGE);
+				Map<String, String> receiveMessage = chatService.selectNewMessage(chatMessage.getMessage_code());
+				chatMessage.setChat_message(gson.toJson(receiveMessage));
+				
+				sendMessage(receiver_ws, chatMessage, false);
+			}
+			
+			
+		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_NEW_MESSAGE)) {
+			System.out.println("TYPE_NEW_MESSAGE -  받은 메시지 처리 : " + chatMessage);
+			
+			
+			
+		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_READ_MESSAGE)) {
+			System.out.println("TYPE_READ_MESSAGE -  읽은 메시지 처리 : " + chatMessage);
+			
+			
 		}
 		
-	}
+		
+		
+		
+		
+	} // handleTextMessage()
+	
+	
 	// ====================================================================================
 	// 현재 시스템 시각 정보를 "yyyy-MM-dd hh:mm:ss" 형식의 문자열로 리턴하는 메서드 정의
 	private String getLocalDateTimeForNow() {
@@ -138,8 +219,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 	
 	// ====================================================================================
 	// 각 웹소켓 세션(사용자)들에게 메세지를 전송하는 메서드 정의
-	public void sendMessage(
-			WebSocketSession session, ChatMessageVO chatMessage, boolean isToSender) throws Exception {
+	public void sendMessage(WebSocketSession session, ChatMessageVO chatMessage, boolean isToSender) throws Exception {
 		// 클라이언트 목록이 저장된 Map 객체(users)에 저장되어 있는 모든 세션에게 수신된 메세지 전송
 		// => Map 객체의 WebSocketSession 객체를 반복문을 통해 얻기 위해
 		//    Map 객체의 values() 메서드 호출하면 Map 객체의 모든 WebSocketSession 객체를 얻을 수 있으며
@@ -149,11 +229,8 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		if(isToSender) { // 송신자에게 전송하는 메세지
 			session.sendMessage(new TextMessage(gson.toJson(chatMessage)));
 		} else { // 수신자에게 전송하는 메세지
-//			for(WebSocketSession ws : users.values()) {
-//				
-//			}
+//			for(WebSocketSession ws : users.values()) {}
 			session.sendMessage(new TextMessage(gson.toJson(chatMessage)));
-			
 		}
 	}
 	
@@ -164,6 +241,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		return member.getMember_email();
 	}
 	
+	// ====================================================================================
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("웹소켓 연결 해제됨(afterConnectionClosed)");
@@ -180,6 +258,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		System.out.println("사용자 목록(" + userSessions.keySet().size() + "명) : " + userSessions);
 	}
 	
+	// ====================================================================================
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 		System.out.println("웹소켓 전송 오류 발생(handleTransportError)");

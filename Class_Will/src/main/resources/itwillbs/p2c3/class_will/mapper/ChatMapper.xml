@@ -33,4 +33,77 @@
 		)
 	</insert>
 	
+	<select id="selectRoomList" resultType="map">
+		SELECT cr.chat_room_code
+			 , cr.member_email1
+			 , cr.member_email2
+			 , cm.message_code
+			 , cm.chat_message
+			 , cm.send_time
+			 , m.member_nickname
+			 , m.member_img
+			 , m.member_code
+			 , m.member_status
+		  FROM chat_rooms cr
+		  JOIN MEMBER m 
+			ON (cr.member_email1 = m.member_email OR cr.member_email2 = m.member_email)  
+		   AND m.member_email &lt;&gt; #{member_email}
+		  JOIN (
+			    SELECT chat_room_code 
+			         , message_code 
+			         , chat_message
+			         , send_time
+			      FROM chat_message
+			     WHERE (chat_room_code, message_code) 
+			     	   IN (
+			            	SELECT chat_room_code, MAX(message_code) AS message_code
+			                  FROM chat_message
+			              GROUP BY chat_room_code
+			        )
+			 ) cm 
+		    ON cr.chat_room_code = cm.chat_room_code 
+	     WHERE cr.member_email1 = #{member_email} OR cr.member_email2 = #{member_email}
+	</select>
+	
+<!-- 	<select id="selectUnreadMessage" resultType=“map"> -->
+<!-- 		SELECT -->
+<!-- 	</select> -->
+
+	<select id="getChatMessageList" resultType="map">
+		SELECT *
+		FROM chat_message
+		WHERE chat_room_code = #{chat_room_code} 
+	</select>
+	
+	<insert id="insertChatMessage"  useGeneratedKeys="true" keyProperty="message_code">
+		INSERT INTO chat_message
+		VALUES (null
+			  , #{chat_room_code}
+			  , #{message_type}
+			  , #{sender_email}
+			  , #{receiver_email}
+			  , #{chat_message}
+			  , #{send_time}
+			  , #{is_read}
+		)
+	</insert>
+	
+	<select id="selectNewMessage" resultType="map" >
+		SELECT cm.message_code
+		     , cm.chat_room_code
+		     , cm.sender_email
+		     , cm.receiver_email
+		     , cm.chat_message
+		     , cm.send_time
+			 , m.member_nickname
+			 , m.member_img
+			 , m.member_code
+			 , m.member_status
+		  FROM chat_message cm
+		  JOIN MEMBER m 
+			ON cm.sender_email = m.member_email
+	     WHERE cm.message_code = #{message_code}
+	</select>
+	
+
 </mapper>

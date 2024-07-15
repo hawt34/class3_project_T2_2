@@ -649,8 +649,8 @@ $(function() {
 		 	success : function(fieldCategory) {
 		 		$("#fieldCategoryArea").html("");
 			 	for(field of fieldCategory) {
-			 		console.log("field.id : " + field.id);
-			 		console.log("field.largeCategory : " + field.largeCategory);
+// 			 		console.log("field.id : " + field.id);
+// 			 		console.log("field.largeCategory : " + field.largeCategory);
 			 		let fieldSmallAreaId = "fieldSmallArea"+field.id;
 			 		
 			 		$("#fieldCategoryArea").append(
@@ -663,9 +663,9 @@ $(function() {
 	                   + '</div>');
 			 		
 			 		for(children of field.children) {
-			 			console.log("children.id : "+ children.id);
-			 			console.log("children.largeCategory : "+children.largeCategory);
-			 			console.log("children.smallCategory : "+children.smallCategory);
+// 			 			console.log("children.id : "+ children.id);
+// 			 			console.log("children.largeCategory : "+children.largeCategory);
+// 			 			console.log("children.smallCategory : "+children.smallCategory);
 			 			 $("#" + fieldSmallAreaId).append('<li><a href="class-list?class_big_category='+field.id+'&class_small_category='+children.id+'">' + children.smallCategory + '</a></li>');
 			 		
 			 		}
@@ -693,8 +693,8 @@ $(function() {
 		 	success : function(localCategory) {
 		 		$("#localCategoryArea").html("");
 			 	for(local of localCategory) {
-			 		console.log("local.local_name : " + local.local_name);
-			 		console.log("local.local_code : " + local.local_code);
+// 			 		console.log("local.local_name : " + local.local_name);
+// 			 		console.log("local.local_code : " + local.local_code);
 				 	$("#localCategoryArea").append(
 				 		  '<div class="col col-2 text-left mb-3">'
 						+ 	'<a href="class-list?common2_code='+ local.local_code + '"><span class="big-category">' + local.local_name + '</span></a>'
@@ -723,8 +723,8 @@ $(function() {
 		 	success : function(fieldCategory) {
 		 		$("#mini-cate-field-area").html("");
 			 	for(field of fieldCategory) {
-			 		console.log("field.id : " + field.id);
-			 		console.log("field.largeCategory : " + field.largeCategory);
+// 			 		console.log("field.id : " + field.id);
+// 			 		console.log("field.largeCategory : " + field.largeCategory);
 			 		let miniSmallAreaId = "mini-cate-small-area"+field.id;
 			 		
 			 		$("#mini-cate-field-area").append(
@@ -734,9 +734,9 @@ $(function() {
 			            	+ '</div>'
 			 		);
 			 		for(children of field.children) {
-			 			console.log("children.id : "+ children.id);
-			 			console.log("children.largeCategory : "+children.largeCategory);
-			 			console.log("children.smallCategory : "+children.smallCategory);
+// 			 			console.log("children.id : "+ children.id);
+// 			 			console.log("children.largeCategory : "+children.largeCategory);
+// 			 			console.log("children.smallCategory : "+children.smallCategory);
 						$("#" + miniSmallAreaId).append('<li class="mini-cate-small"><a href="class-list?class_big_category='+field.id+'&class_small_category='+children.id+'">' + children.smallCategory + '</a></li>');
 			 		}
 			 	}
@@ -759,8 +759,8 @@ $(function() {
 		 	success : function(localCategory) {
 		 		$("#mini-cate-local-area").html("");
 			 	for(local of localCategory) {
-		 		console.log("local.local_name : " + local.local_name);
-		 		console.log("local.local_code : " + local.local_code);
+// 		 		console.log("local.local_name : " + local.local_name);
+// 		 		console.log("local.local_code : " + local.local_code);
 				 	$("#mini-cate-local-area").append(
 	                    '<h5 class="mini-cate-local"><a href="class-list?common2_code='+ local.local_code + '">'+ local.local_name +'</a></h5>'
 				 	);
@@ -894,21 +894,18 @@ $(function() {
 
 	<script type="text/javascript">
 		$(function() {
-			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
-// 			checkUnreadMessages();
+			let member_email = "${sessionScope.member.member_email}";
+			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결 호출
+			checkUnreadMessages(); // 유저 로그인 시 읽지 않은 메시지 요청
 		});
 		
 		let member_code = "${sessionScope.member.member_code}";
-		startChat();
-		
 		let ws; // WebSocket 객체가 저장될 변수 선언
-		let unreadMsg = 0;
 		
 		var serverName = "${pageContext.request.serverName}";
 	    var serverPort = "${pageContext.request.serverPort}";
 	    var contextPath = "${pageContext.request.contextPath}";
 	    
-		// 웹소켓 최초 연결 요청을 수행하는 connect() 메서드 정의
 		function connect() {
 			console.log("serverName: " + serverName);
         	console.log("serverPort: " + serverPort);
@@ -925,48 +922,6 @@ $(function() {
 			ws.onerror = onError;
 		}
 		
-		function startChat() {
-			// setInterval() 함수를 호출하여 1초마다 웹소켓 연결 감지 후
-			// 연결이 됐을 때 초기화 메세지 전송
-			let startChatInterval = setInterval(() => {
-				// 웹소켓 연결 상태 체크
-				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
-// 					console.log("ws.readyState : " + ws.readyState + ", ws.OPEN : " + ws.OPEN);
-					// => ws.readyState : 1, ws.OPEN : 1
-					console.log("1:1 채팅방 웹소켓 연결 완료");
-					
-					// 초기화 메세지 전송(toJsonString() 메서드 호출 부분 제거)
-					ws.send(JSON.stringify({
-					    type: "INIT",
-					    member_code: member_code
-					}));
-					
-					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
-					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
-					clearInterval(startChatInterval);
-				}
-			}, 1000);
-		}
-		
-		// iFrame에서 메시지를 받음
-        $(window).on("message", function(event) {
-            const data = event.originalEvent.data;
-            
-            if (data.type == "TYPE_INIT_COMPLETE") {
-				ws.send(JSON.stringify(data));
-				
-            } else if (data.type == "SEND_MESSAGE") {
-				ws.send(JSON.stringify(data));
-                
-            } else if (data.type == "READ_MESSAGE") {
-                // 메시지가 읽히면 읽지 않은 메시지 수 감소
-                unreadMsg = Math.max(0, unreadMsg - 1);
-                updateAlarm();
-                
-            }  
-            
-        });
-		
 		function onOpen() {
 			console.log("onOpen()");
 		}
@@ -975,70 +930,111 @@ $(function() {
 			console.log("onClose() - " + event);
 		}
 		
-		function onMessage(event) {
-			// 전송받은 메세지를 JSON 타입으로 파싱
-			let data = JSON.parse(event.data); // string -> JSON 객체
-			let iframe = $("#chatListContent");
-			console.log("onMessage() - 수신된 데이터 : " + JSON.stringify(data));
-			
-			
-			if(data.type == "START") {
-				console.log("data.type == START");
-			
-			} else if(data.type == "REQUEST_CHAT_LIST") { 
-				console.log("data.type == REQUEST_CHAT_LIST");
-				
-				
-			
-			} else if (data.type == "NEW_MESSAGE") {
-//                 // 새로운 메시지 처리 및 알림 표시
-//                 unreadMsg++;
-//                 updateAlarm();
-//                 iframe.contentWindow.postMessage(data, '*');
-                
-            } else if (data.type == "UNREAD_MESSAGE") {
-//                 // 로그인 시 읽지 않은 메시지 처리
-//                 unreadMsg = data.count;
-//                 updateAlarm();
-                
-            } else if(data.type == "SEND_MESSAGE") {
-            	
-            } else if(data.type == "CHECK_UNREAD") {
-            	
-            }
-			
-		}
-		
 		function onError() {
 			console.log("onError()");
 		}
+				
+        function checkUnreadMessages() {
+        	// setInterval() 함수를 호출하여 1초마다 웹소켓 연결 감지 후 연결이 됐을 때 초기화 메세지 전송
+        	let startChatInterval = setInterval(() => {
+        		// 웹소켓 연결 상태 체크
+        		if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
+					console.log("ws.readyState : " + ws.readyState + ", ws.OPEN : " + ws.OPEN);
+					// => ws.readyState : 1, ws.OPEN : 1
+					console.log("1:1 채팅방 웹소켓 연결 완료");
+					
+					ws.send(JSON.stringify({
+						message_type: "CHECK_UNREAD"
+					}));
+					
+					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용(파라미터로 반복 인터벌 수행하는 함수 전달)
+					clearInterval(startChatInterval);
+				}
+			}, 1000);
 		
-		function appendChatRoom(chat_room_code, member_email1, member_email2, status) {
+        }
+		 
+		// iFrame에서 받은 메시지 감지하여 처리
+        $(window).on("message", function(event) {
+            const data = event.originalEvent.data;
+            
+            if(data.message_type == "INIT" || data.message_type == "INIT_COMPLETE") {
+				ws.send(JSON.stringify(data));
+            	
+            } else if (data.message_type == "SEND_MESSAGE") {
+				ws.send(JSON.stringify(data));
+                
+            } else if (data.message_type == "READ_MESSAGE") {
+                // 메시지가 읽히면 읽지 않은 메시지 수 감소
+                unreadMsg = Math.max(0, unreadMsg - 1);
+                updateAlarm();
+            } 
+            
+            
+        });
+		
+			
+		function onMessage(event) {
+			// 전송받은 메세지를 JSON 타입으로 파싱
+			let data = JSON.parse(event.data); // string -> JSON 객체
+			let iframe = $("#chatListContent")[0];
+			console.log("onMessage() - 수신된 데이터 : " + JSON.stringify(data));
+			
+			if(data.message_type == "UNREAD_MESSAGE"){  
+				// 로그인 시 읽지 않은 메시지 처리
+				console.log("data.message_type == UNREAD_MESSAGE");
+				alarmOn();
+				iframe.contentWindow.postMessage(data, '*');
+				
+			} else if(data.message_type == "REQUEST_ROOM_LIST") {
+				console.log("data.message_type == REQUEST_ROOM_LIST");
+				iframe.contentWindow.postMessage(data, '*');
+				
+			} else if(data.message_type == "REQUEST_CHAT_LIST") { 
+				console.log("data.message_type == REQUEST_CHAT_LIST");
+				iframe.contentWindow.postMessage(data, '*');
+				
+			} else if(data.message_type == "START") {
+				console.log("data.message_type == START");
+				iframe.contentWindow.postMessage(data, '*');
+			
+            } else if(data.message_type == "SEND_MESSAGE") {
+            	console.log("data.message_type == SEND_MESSAGE");
+				iframe.contentWindow.postMessage(data, '*');
+            	
+			} else if (data.message_type == "NEW_MESSAGE") {
+                // 새로운 메시지 처리 및 알림 표시
+				alarmOn();
+				console.log("NEW_MESSAGE ====" + data);
+                iframe.contentWindow.postMessage(data, '*');
+                
+            } else if(data.message_type == "ERROR") {
+				// 사용자에게 오류 메세지 표시 및 채팅 모달 닫기
+            	alert(data.message);
+            	closeChatModal();
+			}
 			
 		}
-
+		
 		// 알림 업데이트 함수
         function updateAlarm() {
-			
             if (unreadMsg > 0) {
-            	$('#openChatModal > i').after = '<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>';
-            	$('#openChatModal2 > i').after = '<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>';
+            	alarmOn();
                 
             } else {
-            	$('.openChatModal .alerts').remove();
+            	alarmOff();
             }
-            
         }
-
-        // 유저 로그인 시 읽지 않은 메시지 요청
-        function checkUnreadMessages() {
-			ws.send(JSON.stringify({
-			    type: "CHECK_UNREAD",
-			    member_code: member_code
-			}));
+		
+        function alarmOn() {
+        	$('#openChatModal > i').after = '<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>';
+        	$('#openChatModal2 > i').after = '<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>';
         }
         
-        // 
+        function alarmOff() {
+        	$('.openChatModal .alerts').remove();
+        }
+       
        
  
         

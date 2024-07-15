@@ -15,7 +15,7 @@ public interface ChatMapper {
 
 	MemberVO selectMemberInfo(int member_code);
 
-	List<Map<String, Object>> selectRoomList(String member_email);
+	List<Map<String, String>> selectRoomList(String member_email);
 
 	void insertChatRoom(ChatRoomVO newChatRoom);
 
@@ -27,8 +27,16 @@ public interface ChatMapper {
 
 	void insertChatRoom(@Param("sender_email") String sender_email, @Param("receiver_email") String receiver_email);
 
+	List<Map<String, Object>> selectUnreadMessage(String member_email);
+
+	List<Map<String, String>> getChatMessageList(int chat_room_code);
+
+	Map<String, String> selectNewMessage(int message_code);
+
+	ChatMessageVO selectSendMessage(ChatMessageVO chatMessage);
 
 
+	
 	
 	
 	

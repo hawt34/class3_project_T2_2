@@ -21,10 +21,6 @@ public class ChatService {
 		return chatMapper.selectMemberInfo(member_code);
 	}
 
-	public List<Map<String, Object>> getRoomList(String member_email) {
-		return chatMapper.selectRoomList(member_email);
-	}
-
 	public ChatRoomVO selectChatRoom(String sender_email, String receiver_email) {
 		return chatMapper.selectChatRoom(sender_email, receiver_email);
 	}
@@ -45,9 +41,21 @@ public class ChatService {
 		chatMapper.insertChatRoom(sender_email, receiver_email);
 	}
 
-	public List<ChatMessageVO> getChatMessageList(int chat_room_code) {
-		// TODO Auto-generated method stub
+	public List<Map<String, String>> getChatMessageList(int chat_room_code) {
+		return chatMapper.getChatMessageList(chat_room_code);
+	}
+
+	public List<Map<String, Object>> selectUnreadMessage(String sender_email) {
+//		return chatMapper.selectUnreadMessage(sender_email);
 		return null;
+	}
+
+	public List<Map<String, String>> selectRoomList(String sender_email) {
+		return chatMapper.selectRoomList(sender_email);
+	}
+
+	public Map<String, String> selectNewMessage(int message_code) {
+		return chatMapper.selectNewMessage(message_code);
 	}
 
 	

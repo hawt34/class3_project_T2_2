@@ -6,5 +6,7 @@
   	<typeAliases>
 		<!-- <typeAlias type="클래스타입" alias="별칭" /> -->
 		<typeAlias type="itwillbs.p2c3.class_will.vo.MemberVO" alias="member"/>
+		<typeAlias type="itwillbs.p2c3.class_will.vo.ChatMessageVO" alias="chatMessage"/>
+		<typeAlias type="itwillbs.p2c3.class_will.vo.ChatRoomVO" alias="chatRoom"/>
 	</typeAliases>
   </configuration>

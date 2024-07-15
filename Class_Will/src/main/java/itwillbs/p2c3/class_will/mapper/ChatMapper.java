@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import itwillbs.p2c3.class_will.vo.ChatMessageVO;
 import itwillbs.p2c3.class_will.vo.ChatRoomVO;
@@ -21,6 +22,10 @@ public interface ChatMapper {
 	void insertChatMessage(ChatMessageVO chatMessage);
 
 	String selectMemberEmail(String member_email);
+
+	ChatRoomVO selectChatRoom(@Param("sender_email") String sender_email, @Param("receiver_email") String receiver_email);
+
+	void insertChatRoom(@Param("sender_email") String sender_email, @Param("receiver_email") String receiver_email);
 
 
 

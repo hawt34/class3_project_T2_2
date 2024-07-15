@@ -24,7 +24,6 @@ public class ChatMessageVO {
 	// type 변수에 사용될 값을 상수로 생성
 	public static final String TYPE_INIT = "INIT"; 
 	public static final String TYPE_INIT_COMPLETE = "INIT_COMPLETE"; 
-	public static final String TYPE_ADD_LIST = "ADD_LIST"; 
 	public static final String TYPE_START = "START";
 	public static final String TYPE_ERROR = "ERROR";
 	public static final String TYPE_ENTER = "ENTER"; 
@@ -36,6 +35,7 @@ public class ChatMessageVO {
 	public static final String TYPE_READ_MESSAGE = "READ_MESSAGE"; 
 	public static final String TYPE_UNREAD_MESSAGE = "UNREAD_MESSAGE"; 
 	public static final String TYPE_CHECK_UNREAD = "CHECK_UNREAD"; 
+	public static final String TYPE_REQUEST_CHAT_LIST = "REQUEST_CHAT_LIST"; 
 	
 	
 }

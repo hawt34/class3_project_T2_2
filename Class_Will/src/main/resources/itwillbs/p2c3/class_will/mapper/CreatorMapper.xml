@@ -1034,9 +1034,9 @@
 			ON 
 				p.class_schedule_code  = cs.class_schedule_code 
 			WHERE 
-				c.member_code = 1079
+				c.member_code = #{member.member_code}
 			AND 
-				cs.class_schedule_date LIKE CONCAT('2024-05', '%')
+				cs.class_schedule_date LIKE CONCAT('${monthPicker}', '%')
 		) AS subquery;
 	</select>
 	

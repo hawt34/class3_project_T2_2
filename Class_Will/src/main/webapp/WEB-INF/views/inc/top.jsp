@@ -894,10 +894,12 @@ $(function() {
 
 	<script type="text/javascript">
 		$(function() {
-			let member_code = "${sessionScope.member.member_code}";
-// 			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
-// 			checkUnreadMessages(member_code);
+			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+// 			checkUnreadMessages();
 		});
+		
+		let member_code = "${sessionScope.member.member_code}";
+		startChat();
 		
 		let ws; // WebSocket 객체가 저장될 변수 선언
 		let unreadMsg = 0;
@@ -912,7 +914,6 @@ $(function() {
         	console.log("serverPort: " + serverPort);
 			console.log("contextPath: " + contextPath);
 
-// 			let ws_base_url = "ws://${pageContexts.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
 			let ws_base_url = "ws://" + serverName + ":" + serverPort + contextPath;
 			console.log("ws_base_url : " + ws_base_url);
 			
@@ -923,6 +924,48 @@ $(function() {
 			ws.onmessage = onMessage;
 			ws.onerror = onError;
 		}
+		
+		function startChat() {
+			// setInterval() 함수를 호출하여 1초마다 웹소켓 연결 감지 후
+			// 연결이 됐을 때 초기화 메세지 전송
+			let startChatInterval = setInterval(() => {
+				// 웹소켓 연결 상태 체크
+				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
+// 					console.log("ws.readyState : " + ws.readyState + ", ws.OPEN : " + ws.OPEN);
+					// => ws.readyState : 1, ws.OPEN : 1
+					console.log("1:1 채팅방 웹소켓 연결 완료");
+					
+					// 초기화 메세지 전송(toJsonString() 메서드 호출 부분 제거)
+					ws.send(JSON.stringify({
+					    type: "INIT",
+					    member_code: member_code
+					}));
+					
+					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
+					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
+					clearInterval(startChatInterval);
+				}
+			}, 1000);
+		}
+		
+		// iFrame에서 메시지를 받음
+        $(window).on("message", function(event) {
+            const data = event.originalEvent.data;
+            
+            if (data.type == "TYPE_INIT_COMPLETE") {
+				ws.send(JSON.stringify(data));
+				
+            } else if (data.type == "SEND_MESSAGE") {
+				ws.send(JSON.stringify(data));
+                
+            } else if (data.type == "READ_MESSAGE") {
+                // 메시지가 읽히면 읽지 않은 메시지 수 감소
+                unreadMsg = Math.max(0, unreadMsg - 1);
+                updateAlarm();
+                
+            }  
+            
+        });
 		
 		function onOpen() {
 			console.log("onOpen()");
@@ -935,20 +978,33 @@ $(function() {
 		function onMessage(event) {
 			// 전송받은 메세지를 JSON 타입으로 파싱
 			let data = JSON.parse(event.data); // string -> JSON 객체
+			let iframe = $("#chatListContent");
 			console.log("onMessage() - 수신된 데이터 : " + JSON.stringify(data));
 			
 			
-            if (data.type === 'NEW_MESSAGE') {
-                // 새로운 메시지 처리 및 알림 표시
-                unreadMsg++;
-                updateAlarm();
-                const iframe = document.getElementById('chatListContent');
-                iframe.contentWindow.postMessage(data, '*');
+			if(data.type == "START") {
+				console.log("data.type == START");
+			
+			} else if(data.type == "REQUEST_CHAT_LIST") { 
+				console.log("data.type == REQUEST_CHAT_LIST");
+				
+				
+			
+			} else if (data.type == "NEW_MESSAGE") {
+//                 // 새로운 메시지 처리 및 알림 표시
+//                 unreadMsg++;
+//                 updateAlarm();
+//                 iframe.contentWindow.postMessage(data, '*');
                 
-            } else if (data.type === 'UNREAD_MESSAGE') {
-                // 로그인 시 읽지 않은 메시지 처리
-                unreadMsg = data.count;
-                updateAlarm();
+            } else if (data.type == "UNREAD_MESSAGE") {
+//                 // 로그인 시 읽지 않은 메시지 처리
+//                 unreadMsg = data.count;
+//                 updateAlarm();
+                
+            } else if(data.type == "SEND_MESSAGE") {
+            	
+            } else if(data.type == "CHECK_UNREAD") {
+            	
             }
 			
 		}
@@ -957,63 +1013,9 @@ $(function() {
 			console.log("onError()");
 		}
 		
-		// 채팅 메세지 입력창 키 입력 감지 함수
-		function checkEnter(event, target) {
-			// 누른 키의 코드값 가져오기
-			let keyCode = event.keyCode;
-			if(keyCode == 13) { // 엔터키 감지하여 send() 함수 호출
-				send(target);
-			}
-		}
-		
-		// 채팅 메세지 전송 준비 함수(태그 요소 객체 전달받음)
-		function send(target) {
-			
-			
-			if(message == "") {
-				inputElement.focus();
-				return;
-			}
-			
-			sendMessage("TALK", "${sId}", receiver_id, room_id, message);
-			appendMessageToTargetRoom("TALK", "${sId}", receiver_id, room_id, message);
+		function appendChatRoom(chat_room_code, member_email1, member_email2, status) {
 			
 		}
-		
-		// 전달받은 메세지를 웹소켓 서버측으로 전송하는 함수
-		function sendMessage(type, sender_email, receiver_email, chat_room_id, message) {
-			
-			ws.send(toJsonString(type, sender_email, receiver_email, chat_room_id, message));
-		}
-		
-		function toJsonString(type, sender_id, receiver_id, room_id, message) {
-			console.log(type + ", " + sender_id + ", " + receiver_id + ", " + room_id + ", " + message);
-			// 전달받은 파라미터들을 하나의 객체로 묶은 후 JSON 타입 문자열로 변환 후 리턴
-			let data = {
-				type : type,
-				sender_id : sender_id,
-				receiver_id : receiver_id,
-				room_id : room_id,
-				message : message
-			};
-			
-			// JSON.stringify() 메서드 호출하여 객체 -> JSON 문자열로 변환
-			return JSON.stringify(data);
-		}
-		
-		// iFrame에서 메시지를 받음
-        $(window).on('message', function(event) {
-            const data = event.originalEvent.data;
-            
-            if (data.type === 'send_message') {
-                websocket.send(JSON.stringify(data));
-                
-            } else if (data.type === 'read_message') {
-                // 메시지가 읽히면 읽지 않은 메시지 수 감소
-                unreadMsg = Math.max(0, unreadMsg - 1);
-                updateNotification();
-            }
-        });
 
 		// 알림 업데이트 함수
         function updateAlarm() {
@@ -1021,7 +1023,6 @@ $(function() {
             if (unreadMsg > 0) {
             	$('#openChatModal > i').after = '<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>';
             	$('#openChatModal2 > i').after = '<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>';
-//             	$('#openChatModal').innerText = `Unread Messages: ${unreadMsg}`;
                 
             } else {
             	$('.openChatModal .alerts').remove();
@@ -1030,12 +1031,15 @@ $(function() {
         }
 
         // 유저 로그인 시 읽지 않은 메시지 요청
-        function checkUnreadMessages(member_code) {
+        function checkUnreadMessages() {
 			ws.send(JSON.stringify({
-			    type: 'CHECK_UNREAD',
+			    type: "CHECK_UNREAD",
 			    member_code: member_code
 			}));
         }
+        
+        // 
+       
  
         
         

@@ -340,8 +340,7 @@ public class ClassController {
 	
 	// 클래스 디테일
 	@GetMapping("class-detail")
-	public String classDetail(Model model, HttpSession session, @RequestParam(name = "class_code") int class_code) {
-		
+	public String classDetail(Model model, HttpSession session, @RequestParam(name = "class_code") int class_code,@RequestParam(defaultValue = "0") boolean fromReport) {
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 //	    Integer member_code = null;
 	    
@@ -431,6 +430,11 @@ public class ClassController {
 		model.addAttribute("class_schedule_date", jsonString);
         //========================================================================
         
+		//클래스 신고에서 들어온 요청 처리
+		if(fromReport) {
+			model.addAttribute("fromReport", true);
+		}
+		
 		return"class/class-detail";
 	}
 	

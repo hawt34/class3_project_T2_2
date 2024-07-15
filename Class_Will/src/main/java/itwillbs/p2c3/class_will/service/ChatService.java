@@ -26,8 +26,7 @@ public class ChatService {
 	}
 
 	public ChatRoomVO selectChatRoom(String sender_email, String receiver_email) {
-		// TODO Auto-generated method stub
-		return null;
+		return chatMapper.selectChatRoom(sender_email, receiver_email);
 	}
 
 	public void insertChatRoom(ChatRoomVO newChatRoom) {
@@ -41,6 +40,17 @@ public class ChatService {
 	public String selectMemberEmail(String member_email) {
 		return chatMapper.selectMemberEmail(member_email);
 	}
+
+	public void insertChatRoom(String sender_email, String receiver_email) {
+		chatMapper.insertChatRoom(sender_email, receiver_email);
+	}
+
+	public List<ChatMessageVO> getChatMessageList(int chat_room_code) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	
 	
 		

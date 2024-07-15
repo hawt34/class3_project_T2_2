@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>회원 탈퇴</title>
+<title>나의 클래스 문의</title>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
@@ -132,7 +132,7 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Single Page Header start -->
 	<div class="container-fluid page-header py-5">
 		<h1 class="text-center text-white display-6">
-			마이페이지<i class="bi bi-person-x-fill"></i>회원 탈퇴
+			마이페이지<i class="bi bi-patch-question"></i>나의 클래스 문의
 		</h1>
 	</div>
 
@@ -145,59 +145,20 @@ th:nth-child(2), td:nth-child(2) {
 
 						<div class="col-lg-9 creator-body">
 							<div class="creator-event mt-5">
-								<div class="col-md-12 text-center h2 mb-5">또 보고 싶을
+								<div class="col-md-12 text-center h2 mb-5">항상 고마운
 									${member.member_name}님</div>
 								<!-- 								여기부터 토스트 ui -->
 								<div class="table-responsive">
-									<h3>나의 리뷰 흔적이 ${totalReview}개 있습니다.</h3>
-									<p>${member.member_name}님이작성한 리뷰들</p>
-									<table class="table table-hover">
-										<thead>
-											<tr>
-												<th>클래스 이름</th>
-												<th>리뷰제목</th>
-												<th>리뷰삭제</th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach var="memberReviews" items="${memberReviews}"
-												varStatus="loop">
-												<tr>
-													<td>${memberReviews.class_name}</td>
-													<td>${memberReviews.class_review_subject}</td>
-													<td><button class="btn btn-danger"
-															onclick="confirmDelete(${memberReviews.class_review_code})">삭제</button></td>
-												</tr>
-											</c:forEach>
-										</tbody>
-									</table>
-									<div id="pageList">
-										<input type="button" value="이전"
-											onclick="location.href='my-delete?pageNum2=${pageNum2 - 1}'"
-											<c:if test="${pageNum2 == 1}">disabled</c:if> />
-										<c:forEach var="i" begin="1" end="${maxPage2}">
-											<c:choose>
-												<c:when test="${pageNum2 == i}">
-													<b>${i}</b>
-												</c:when>
-												<c:otherwise>
-													<a href="my-delete?pageNum2=${i}">${i}</a>
-												</c:otherwise>
-											</c:choose>
-										</c:forEach>
-										<input type="button" value="다음"
-											onclick="location.href='my-delete?pageNum2=${pageNum2 + 1}'"
-											<c:if test="${pageNum2 == maxPage2 or maxPage2 == 0}">disabled</c:if> />
-									</div>
-								</div>
-								<div class="table-responsive">
-									<h3>내가 적은 클래스 문의 흔적이 ${totalInquiry}개 있습니다.</h3>
+									<h2>내가 적은 클래스 문의가 ${totalInquiry}개 있습니다.</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
 												<th>클래스 이름</th>
 												<th>문의 제목</th>
+												<th>문의 날짜</th>
+												<th>답변 여부</th>
+												<th>수정 하기</th>
 												<th>삭제 하기</th>
 											</tr>
 										</thead>
@@ -206,10 +167,28 @@ th:nth-child(2), td:nth-child(2) {
 												varStatus="loop">
 												<tr>
 													<td>${memberInquiry.class_name}</td>
-													<td>${memberInquiry.class_inquiry_subject}</td>
+													<td><a href="javascript:void(0);"
+														onclick="showInquiryModal('${memberInquiry.class_inquiry_content}')"
+														style="color: black;">${memberInquiry.class_inquiry_subject}</a></td>
+													<td>${memberInquiry.class_inquiry_date}</td>
+													<td><c:choose>
+															<c:when test="${memberInquiry.class_inquiry_status eq 'N'}">
+																<button>미응답</button>
+															</c:when>
+															<c:when test="${memberInquiry.class_inquiry_status eq 'Y'}">
+																<button>응답</button>
+															</c:when>
+															<c:otherwise>
+																<button>상태 불명</button>
+															</c:otherwise>
+														</c:choose>
+													
+													</td>
+													<td><button class="btn btn-primary"
+															onclick="location.href='edit-inquiry-page?class_inquiry_code=${memberInquiry.class_inquiry_code}'">수정</button></td>
 													<td>
 														<button class="btn btn-danger"
-															onclick="confirmDelete2(${memberInquiry.class_inquiry_code})">삭제</button>
+															onclick="confirmDelete(${memberInquiry.class_inquiry_code})">삭제</button>
 													</td>
 												</tr>
 											</c:forEach>
@@ -217,7 +196,7 @@ th:nth-child(2), td:nth-child(2) {
 									</table>
 										<div id="pageList">
 										<input type="button" value="이전"
-											onclick="location.href='my-delete?pageNum=${pageNum - 1}'"
+											onclick="location.href='my-inquiry?pageNum=${pageNum - 1}'"
 											<c:if test="${pageNum == 1}">disabled</c:if> />
 										<c:forEach var="i" begin="1" end="${maxPage}">
 											<c:choose>
@@ -225,53 +204,16 @@ th:nth-child(2), td:nth-child(2) {
 													<b>${i}</b>
 												</c:when>
 												<c:otherwise>
-													<a href="my-delete?pageNum=${i}">${i}</a>
+													<a href="my-inquiry?pageNum=${i}">${i}</a>
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
 										<input type="button" value="다음"
-											onclick="location.href='my-delete?pageNum=${pageNum + 1}'"
+											onclick="location.href='my-inquiry?pageNum=${pageNum + 1}'"
 											<c:if test="${pageNum == maxPage or maxPage == 0}">disabled</c:if> />
 									</div>
 								</div>
-								<div class="col-md-12 text-right h2 mb-5">*경고 
-									${member.member_name}님 일괄삭제 기능*<button id="deleteAllButton" class="btn btn-danger">일괄삭제</button></div>
 								
-								
-								
-								
-								<div class="table-responsive">
-									<c:set var="credit" value="${member.member_credit}" />
-									<h3>${member.member_name}님의
-										남은 윌페이 잔액은
-										<fmt:formatNumber value="${credit}" type="number"
-											pattern="#,##0" />
-										원 입니다. <a href="my-credit" class="btn btn-primary">윌페이
-											페이지로 이동</a>
-									</h3>
-									<br>
-									<h3>회원 탈퇴시 남은 윌페이는 환불되지 않습니다. 참고부탁드립니다.</h3>
-									<div class="col-lg-6 col-md-12 ">
-										<h3>회원탈퇴</h3>
-										<form action="member-quit" method="POST">
-											<div class="login-form-input">
-												<h5>비밀번호를 한번 더 입력해주세요</h5>
-												<div class="input-group">
-													<input type="password" id="member_pwd" name="member_pwd"
-														class="form-control" placeholder="비밀번호" required
-														maxlength="20">
-												</div>
-												<div class="regex py-2" id="regex-pwd"></div>
-											</div>
-											<div class="d-grid gap-2 py-2 btnLogin">
-												<input type="submit" id="btnSub" value="회원탈퇴하기"
-													class="btn btn-outline-light btn-lg">
-											</div>
-										</form>
-									</div>
-								
-								</div>
-
 							</div>
 						</div>
 					</div>
@@ -279,12 +221,28 @@ th:nth-child(2), td:nth-child(2) {
 			</div>
 		</div>
 	</div>
-
+	<div class="modal fade" id="reviewModal" tabindex="-1"
+		aria-labelledby="reviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="reviewModalLabel" style="color: black;">문의
+						내용</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close" style="color: black;"></button>
+				</div>
+				<div class="modal-body">
+					<p id="reviewContent" style="color: black;"></p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<footer>
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
 
 	<!-- JavaScript Libraries -->
+	
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script
@@ -299,33 +257,17 @@ th:nth-child(2), td:nth-child(2) {
 	<!-- Template Javascript -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 	<script>
-	 function confirmDelete(review_code) {
+	   function showInquiryModal(reviewContent) {
+           $('#reviewContent').text(reviewContent); // 리뷰 내용을 모달의 텍스트로 설정
+           $('#reviewModal').modal('show'); // 모달 창 열기
+       }
+	   function confirmDelete(class_inquiry_code) {
 		   if (confirm("삭제하시겠습니까?")) {
-             deleteReview(review_code);
-         }	
-	   }
-	   
-	   function deleteReview(review_code) {
-	        $.ajax({
-	            url: 'delete-review',
-	            type: 'POST',
-	            data: {review_code: review_code},
-	            success: function(response) {
-	                alert('성공적으로 삭제했습니다.');
-	                location.reload(); 
-	            },
-	            error: function() {
-	                alert('리뷰 삭제에 실패하였습니다.');
-	            }
-	        });
-	    } 
-	   function confirmDelete2(class_inquiry_code) {
-		   if (confirm("삭제하시겠습니까?")) {
-               deleteInquiry2(class_inquiry_code);
+               deleteInquiry(class_inquiry_code);
            }	
 	   }
-
-	   function deleteInquiry2(class_inquiry_code) {
+	   
+	   function deleteInquiry(class_inquiry_code) {
 	        $.ajax({
 	            url: 'delete-inquiry',
 	            type: 'POST',
@@ -339,39 +281,6 @@ th:nth-child(2), td:nth-child(2) {
 	            }
 	        });
 	    }
-	   $(function() {
-		   $('#deleteAllButton').click(function() {
-	            if (confirm("${member.member_name}님, 정말 모든 데이터를 삭제하시겠습니까?")) {
-	            		            	
-	            	$.ajax({
-	                    url: 'delete-all',
-	                    type: 'POST',
-	                    data: { member_code: '${member.member_code}' },
-	                    success: function(response) {
-	                        alert('성공적으로 모든 데이터를 삭제했습니다.');
-	                        location.reload();
-	                    },
-	                    error: function() {
-	                        alert('데이터 삭제에 실패했습니다.');
-	                    }
-	                });
-	            }
-	        });		
-			// 비밀번호 정규표현식
-			$("#member_pwd").on("input", function() {
-			      let inputPwd = $(this).val();
-			
-			      let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
-			
-			      if (!regex.test(inputPwd)) {
-			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
-			          $("#regex-pwd").css("color", "#FF4848");
-			      } else {
-			      	 $("#regex-pwd").text("");
-			      }
-			  });
-			
-		}); 
 	</script>
 
 </body>

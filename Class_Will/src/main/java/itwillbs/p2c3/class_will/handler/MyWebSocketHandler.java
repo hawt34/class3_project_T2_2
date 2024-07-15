@@ -47,7 +47,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		System.out.println("클라이언트 목록(" + users.keySet().size() + "명) : " + users);
 		
 		// HttpSession 객체의 정보 확인을 위해 WebSocketSession 객체의 getAttributes() 메서드 호출
-		System.out.println("세션(HttpSession) 아이디 : " + session.getAttributes().get("sId"));
+		System.out.println("세션(HttpSession) 아이디 : " + (MemberVO)session.getAttributes().get("member"));
 		
 		MemberVO member = (MemberVO)session.getAttributes().get("member");
 		
@@ -75,26 +75,11 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		chatMessage.setSender_email(sender_email);
 		// ---------------------------------------------------------------------------------
 		// 수신된 메세지 타입 판별
-		if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT)) { // 채팅 페이지 초기 진입 메세지
-			// DB로부터 기존 채팅방 목록(= 자신의 아이디가 포함된 채팅방) 조회 후 목록 전송
-			// ChatService - getRoomList() 메서드 호출
-			// => 파라미터 : 자신의 아이디(sender_id)   리턴타입 : List<ChatRoom>(roomList)
-			List<Map<String, Object>> roomList = chatService.getRoomList(sender_email);
-			// 조회 결과를 JSON 형식으로 변환하여 메세지로 설정
-			chatMessage.setMessage(gson.toJson(roomList));
-			// 메세지 타입을 전체 목록 표시를 위한 SHOW_LIST 로 설정
-//			chatMessage.setType(ChatMessage2.TYPE_SHOW_LIST); // INIT 타입 그대로 사용
-			// 메세지 전송을 위해 sendMessage() 메서드 호출
-			// => 송신자에게 보내기 위해 파라미터 중 isToSender 파라미터 값을 true 로 전달)
-			sendMessage(session, chatMessage, true);
-		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT_COMPLETE)) { // 채팅페이지
-			// 초기화 완료 메세지에 수신자 포함 여부 판별
+		
+		if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT_COMPLETE)) {
 			if(!receiver_email.equals("")) {
-				System.out.println("수신자 있음!");
+				System.out.println("receiver_email (수신자) 있음!");
 				
-				// 메세지를 수신할 상대방 확인
-				// 1) userSession 객체에 상대방 존재 여부 확인(= 현재 접속 여부 확인)
-				//    => Map 객체의 containsKey() 메서드를 통해 HttpSession 아이디(키) 탐색
 				boolean isConnectUser = userSessions.get(receiver_email) == null ? false : true;
 				System.out.println("현재 접속 여부 : " + userSessions.get(receiver_email));
 				boolean isExistUser = false;
@@ -103,76 +88,45 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 					isExistUser = chatService.selectMemberEmail(receiver_email) == null ? false : true;
 					System.out.println("아이디 DB 존재 여부 : " + isExistUser);
 					
-					if(!isExistUser) { // DB에도 상대방이 존재하지 않을 경우
-						// 메세지 송신자에게 오류 메세지 전송 후 메서드 종료
-//						ChatMessageVO errorMessage = new ChatMessageVO(null, null, ChatMessageVO.TYPE_ERROR, sender_email, receiver_email, "사용자가 존재하지 않습니다", "", false);
-//						sendMessage(session, errorMessage, true);
-						return;
+					if(!isExistUser) { // DB 에도 상대방이 존재하지 않을 경우
+						ChatMessageVO errorMessage = new ChatMessageVO(0, 0, ChatMessageVO.TYPE_ERROR, sender_email, receiver_email, "사용자가 존재하지 않습니다.", "", "");
+						sendMessage(session, errorMessage, true);
+						return; 	// 메세지 송신자에게 오류 메세지 전송 후 메서드 종료
 					}
 				}
-				// ---------------------------------------------------------------------------------------------------------------
-				// 상대방이 존재할 경우 채팅창 표시(신규 or 기존)
-				// 상대방과 기존 채팅 내역 존재 여부 확인
-//				if(isConnectUser || !isConnectUser && isExistUser) {} // 사용자 존재할 경우(생략)
-				// => 위의 사용자 판별 과정에서 모두 처리 후 오류일 때 return 문 사용했기 때문
 				
+				// 상대방이 존재할 경우 채팅창 조회
 				ChatRoomVO chatRoom = chatService.selectChatRoom(sender_email, receiver_email);
 				
-				// 기존 채팅방 존재 여부 판별
 				if(chatRoom == null) {
 					System.out.println("채팅방 없음! - 새로운 채팅방 생성 필요!");
-					
-					// 새 채팅방의 방번호(room_id) 생성 => UUID 클래스 활용
-//					chatMessage.setChat_room_id(UUID.randomUUID().toString());
-					
-					// 새로운 채팅방 DB에 저장
-					ChatRoomVO newChatRoom = new ChatRoomVO(chatMessage.getChat_room_code(), receiver_email, sender_email, "");
-					chatService.insertChatRoom(newChatRoom);
-					
-					// 송신자 화면에 새 채팅방 목록 추가를 위한 타입 지정
-					chatMessage.setMessage_type(receiver_email);
-					
-					// 송신자에게 메세지 전송
+					chatService.insertChatRoom(sender_email, receiver_email);
+					chatMessage.setChat_room_code(chatRoom.getChat_room_code());
+					chatMessage.setMessage_type(ChatMessageVO.TYPE_START);
 					sendMessage(session, chatMessage, true);
 					
 				} else {
-					System.out.println("채팅방 있음! - 새로운 채팅방 생성 불필요!");
+					System.out.println("채팅방 있음! - 기존 채팅 내역 조회 요청됨");
+					chatMessage.setChat_room_code(chatRoom.getChat_room_code());
+					List<ChatMessageVO> chatMessageList = chatService.getChatMessageList(chatRoom.getChat_room_code());
+					chatMessage.setMessage_type(ChatMessageVO.TYPE_START);
 					
+					// 기존 채팅 내역 판별
+					if(chatMessageList.size() > 0) {
+						chatMessage.setMessage(gson.toJson(chatMessageList));
+						sendMessage(session, chatMessage, true); // 자신의 웹소켓 세션에 전송
+						chatMessage.setMessage_type(ChatMessageVO.TYPE_REQUEST_CHAT_LIST);
+					}
+					
+					sendMessage(session, chatMessage, true);
 				}
-						
-					
 				
-			// ---------------------------------------------------------------------------------------------------------------
 				
 			} else {
-				System.out.println("수신자 없음!");
+				System.out.println("receiver_email (수신자) 없음!");
+			}
 				
-			}
-			
-		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_TALK)) {
-			
-			System.out.println("채팅 메세지 수신됨! - " + chatMessage);
-			
-			// getLocalDateTimeForNow() 메서드 호출하여 현재 시스템 날짜 및 시각 정보 전달받아
-			// ChatMessage 객체에 저장
-			chatMessage.setSend_time(getLocalDateTimeForNow());
-			
-			// ChatService - addChatMessage() 메서드 호출하여 채팅 메세지 DB 저장 요청
-			// => 파라미터 : ChatMessage2 객체
-			chatService.insertChatMessage(chatMessage);
-			
-			// 채팅 메세지를 전송할 사용자 확인
-			// 수신자 아이디를 기준으로 userSessions(Map<String, String>) 객체 탐색
-			// => userSessions 의 키는 각 사용자의 HttpSession 객체의 세션아이디
-			// => 일치하는 키가 있을 경우 해당 키의 값은 WebSocketSession 객체의 세션아이디
-			System.out.println("수신자의 WebSocketSession 아이디 : " + userSessions.get(receiver_email));
-			// 탐색된 WebSocketSession 객체 존재 여부 판별하여 접속 중일 경우 메세지 전송
-			if(userSessions.get(receiver_email) != null) {
-				WebSocketSession receiver_ws = users.get(userSessions.get(receiver_email));
-				// sendMessage() 메서드 호출하여 메세지 전송 요청(수신자에게 전송하도록 false 전달)
-				sendMessage(receiver_ws, chatMessage, false);
-			}
-		} 
+		}
 		
 	}
 	// ====================================================================================
@@ -195,9 +149,11 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		if(isToSender) { // 송신자에게 전송하는 메세지
 			session.sendMessage(new TextMessage(gson.toJson(chatMessage)));
 		} else { // 수신자에게 전송하는 메세지
-			for(WebSocketSession ws : users.values()) {
-				
-			}
+//			for(WebSocketSession ws : users.values()) {
+//				
+//			}
+			session.sendMessage(new TextMessage(gson.toJson(chatMessage)));
+			
 		}
 	}
 	

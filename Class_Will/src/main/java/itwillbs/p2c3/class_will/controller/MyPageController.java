@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,7 +287,74 @@ public class MyPageController {
 		}
 
 	}
+	//문의 삭제
+	@PostMapping("delete-inquiry")
+	public String deleteInquiry(Model model, @RequestParam Map<String, String> map) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if (member == null) { // 실패
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		}
+		int member_code = member.getMember_code();
+		MemberVO member2 = myPageService.selectMemberInfo(member_code);
+		model.addAttribute("member", member2);
 
+		String class_inquiry_code = map.get("class_inquiry_code");
+		//System.out.println(class_inquiry_code);
+
+		int deleteCount = myPageService.deleteInquiry(class_inquiry_code);
+		if (deleteCount > 0) {
+
+			return "redirect:/my-inquiry";
+		} else {
+			model.addAttribute("msg", "삭제 실패!");
+			return "result_process/fail";
+		}
+
+	}
+	
+	// 문의 수정
+		@GetMapping("edit-inquiry-page")
+		public String editinquirywPage(@RequestParam("class_inquiry_code") String class_inquiry_code, Model model) {
+			MemberVO member = (MemberVO) session.getAttribute("member");
+
+			if (member == null) { // 실패
+				model.addAttribute("msg", "권한이 없습니다.");
+				model.addAttribute("targetURL", "member-login");
+				return "result_process/fail";
+			}
+			model.addAttribute("member", member);
+			Map<String, String> inquiry = myPageService.getInquiryByCode(class_inquiry_code);
+
+			model.addAttribute("inquiry", inquiry);
+			System.out.println("이건 수정할 때 데리고 오는 특정문의 1건" + inquiry);
+			return "mypage/mypage-inquiry-modify"; // 리뷰 수정 페이지
+
+		}
+		//문의수정하기 진행
+		@PostMapping("edit-inquiry")
+		public String editInquiry(Model model, @RequestParam Map<String, String> formData) {
+			MemberVO member = (MemberVO) session.getAttribute("member");
+
+			if (member == null) { // 실패
+
+				return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
+			}
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
+			System.out.println("여기요 여기!formdata: " + formData);
+			int updateCount = myPageService.updateInquiry(formData);
+			if (updateCount > 0) {
+				return "redirect:/my-inquiry";
+			} else {
+				model.addAttribute("msg", "리뷰수정 실패");
+				return "result_process/fail";
+			}
+
+		}
+	
 //	// 크레딧관련
 //	@GetMapping("my-credit")
 //	public String myCredit(Model model) {
@@ -503,7 +571,7 @@ public class MyPageController {
 
 	// 회원 탈퇴
 	@GetMapping("my-delete")
-	public String deleteMember(Model model,@RequestParam(value = "pageNum2", defaultValue = "1") int pageNum2) {
+	public String deleteMember(Model model,@RequestParam(value = "pageNum2", defaultValue = "1") int pageNum2, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		if (member == null) { // 실패
 			model.addAttribute("msg", "권한이 없습니다.");
@@ -523,6 +591,19 @@ public class MyPageController {
 		model.addAttribute("maxPage2", maxPage2);
 		model.addAttribute("pageNum2", pageNum2);
 		model.addAttribute("totalReview", totalReview);
+		
+		//문의한 글 들..
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
+		int totalInquiry = myPageService.getMemberInquiryCount(member_code2);
+		System.out.println("특정 회원이 적은 문의 수량" + totalInquiry);
+		int maxPage = (int) Math.ceil((double) totalInquiry / listLimit);
+		List<Map<String, String>> memberInquiry = myPageService.getMemberInquiry(member_code2,startRow, listLimit);
+		model.addAttribute("memberInquiry", memberInquiry);
+		System.out.println("특정회원이 적은 문의글들" + memberInquiry);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalInquiry", totalInquiry);
 		
 		
 		
@@ -607,5 +688,55 @@ public class MyPageController {
 
         return response;
     }
+	//문의하기
+	@GetMapping("my-inquiry")
+	public String inquiry(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		if (member == null) {
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		}
+		int member_code = member.getMember_code();
+		MemberVO member2 = myPageService.selectMemberInfo(member_code);
+		model.addAttribute("member", member2);
+		
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
+		int totalInquiry = myPageService.getMemberInquiryCount(member_code);
+		System.out.println("특정 회원이 적은 문의 수량" + totalInquiry);
+		int maxPage = (int) Math.ceil((double) totalInquiry / listLimit);
+		List<Map<String, String>> memberInquiry = myPageService.getMemberInquiry(member_code,startRow, listLimit);
+		model.addAttribute("memberInquiry", memberInquiry);
+		System.out.println("특정회원이 적은 문의글들" + memberInquiry);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalInquiry", totalInquiry);
+		
+		return "mypage/mypage-inquiry";
+	}
+	//모든 데이터 삭제
+	@PostMapping("delete-all")
+	@ResponseBody
+	public String deleteDocu(Model model, @RequestParam("member_code") int member_code) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		//System.out.println("모든 데이터 삭제" + member_code);
+		  if (member == null || member.getMember_code() != member_code) {
+		        model.addAttribute("msg", "권한이 없습니다.");
+		        model.addAttribute("targetURL", "member-login");
+		        return "result_process/fail";
+		    }
+
+		MemberVO member2 = myPageService.selectMemberInfo(member_code);
+		model.addAttribute("member", member2);
+		try {
+            myPageService.deleteMemberData(member_code);
+            return "success";
+        } catch (Exception e) {
+            return "error";
+        }
+	}
+	
 	
 }

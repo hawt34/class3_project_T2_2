@@ -54,6 +54,10 @@
         .addCurri{
         	cursor: pointer;
         }
+        .note-editor.note-frame .note-editing-area .note-editable {
+            background-color: black; /* 배경색을 검정색으로 설정 */
+            color: white;            /* 글씨색을 흰색으로 설정 */
+        }
     </style>
 </head>
 <body>
@@ -90,7 +94,7 @@
 
 						<div class="col-lg-9 creator-body" >
 							<div class="creator-main-table col-xl-8 mb-5 ">
-								<form class="validation-form myForm" novalidate enctype="multipart/form-data" action="ClassModifyPro" name="fr" method="post" onsubmit="return confirm('클래스를 수정하시겠습니까?');">
+								<form class="validation-form myForm classModify" novalidate enctype="multipart/form-data" action="ClassModifyPro" name="fr" method="post" onsubmit="return confirm('클래스를 수정하시겠습니까?');">
 									<input type="hidden" name="class_code" value="${classDetail.class_code}">
 									<!-- 	셀렉트박스 -->
 									<div class="col-md-12 mb-2" align="center">
@@ -310,7 +314,7 @@
 	          if (form.checkValidity() === false) {
 	            event.preventDefault();
 	            event.stopPropagation();
-	            alert("클래스 정보를 입력하여주세요");
+// 	            alert("클래스 정보를 입력하여주세요");
 	            window.scrollTo({ top: 0, behavior: 'smooth' });
 	          }
 	
@@ -321,7 +325,7 @@
 
 		$(function() {
 			// 폼 제출시 체크
-			    $('.classReg').on('submit', function(e) {
+			    $('.classModify').on('submit', function(e) {
 			    	
 //             	// 유효성 검사
 //         	        // 선택 상자의 값이 비어 있는지 확인
@@ -367,7 +371,7 @@
 // 	 						console.log($(".file").eq(index-1).html())
 // 	 						console.log($("#fileItemArea" + index).html())
 							$(".file").eq(index-1).html(
-									'<input type="file" class="form-control" name="file' + index + '">'
+									'<input type="file" class="form-control" required name="file' + index + '">'
 							);
 						} else {
 							console.log("삭제 실패");
@@ -393,7 +397,7 @@
 						success: function(result) {
 							if(result){ // 성공
 								$(".thumnail").html(
-										'<input type="file" class="form-control" name="class_thumnail">'
+										'<input type="file" class="form-control" required name="class_thumnail">'
 								);
 							} else {
 								console.log("삭제 실패");
@@ -452,7 +456,7 @@
 			  		roundCount++;
 		            var newRow = '<tr>'
 				                     + '<td>' + roundCount + '차시 <span class="delete-btn">&times;</span></td>'
-				                     + '<td><textarea name="' + roundCount + '차시" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control"></textarea></td>'
+				                     + '<td><textarea name="' + roundCount + '차시" id="curri_content" maxlength="1000" rows="5" placeholder="내용을 입력해주세요" class="form-control" required></textarea></td>'
 				                 + '</tr>';
 		            $('#timeTable').append(newRow);
 			  	} else{
@@ -469,6 +473,10 @@
 				});
 				
 				$('#timeTable').on('click', '.delete-btn', function() {
+					if($('#timeTable tr').length - 1 < 2){
+						alert("1차시는 삭제할 수 없습니다");
+						return;
+					}
 				    $(this).closest('tr').remove();
 				    updateTextAreaNames();
 				});

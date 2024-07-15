@@ -150,11 +150,10 @@
 	                <div class="owl-carousel vegetable-carousel justify-content-center">
 	                	
 	                	<c:forEach var="contents" items="${top10List}">
-	                		
+	                		 
 							<div class="rounded position-relative vesitable-item" style="width: 306px;">
 								<div class="vesitable-img">
-									<img src="${pageContext.request.contextPath}/resources/upload/${classItem.class_thumnail} class="img-fluid w-100 rounded-top classPic" 
-									onclick="location.href='class-detail?class_code=${contents.class_code}'" style="height : 225px;">
+									<img style="height : 225px;" src="${pageContext.request.contextPath}/resources/upload/${contents.class_thumnail}" class="img-fluid w-100 rounded-top classPic" onclick="location.href='class-detail?class_code=${contents.class_code}'">
 								</div>
 		                        <div class="text-white bg-tertiary rounded position-absolute" style="top: 5px; right: 5px;">
 									<!-- like class 하트 여부-->
@@ -240,8 +239,8 @@
 										<div class="rounded position-relative class-item classCard">
 											<div class="">
 												<!-- ${contents.class_thumnail} 썸네일 이미지  -->
-												<img src="${pageContext.request.contextPath}/resources/upload/${classItem.class_thumnail}" class=""
-												 		onclick="location.href='class-detail?class_code=${contents.class_code}'" style="height: 225px;">
+												<img style="height : 225px;" src="${pageContext.request.contextPath}/resources/upload/${contents.class_thumnail}" class="img-fluid w-100 rounded-top classPic" 
+														onclick="location.href='class-detail?class_code=${contents.class_code}'">
 												<!-- like class 하트 여부-->
 												<c:choose>
 													<c:when test="${not empty likeClassList and not empty sessionScope.member}">  <!-- likeClassList 존재 -->

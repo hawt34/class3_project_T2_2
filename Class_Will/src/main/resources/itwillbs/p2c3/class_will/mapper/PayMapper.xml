@@ -52,6 +52,8 @@
 			   , c.member_code
 			   , c.class_map_x
 			   , c.class_map_y
+			   , m.member_img
+			   , m.member_nickname
 		--	   , cs.class_schedule_date
 		--	   , cs.class_st_time 
 		-- 	   , cs.class_ed_time
@@ -68,6 +70,8 @@
 		AND c3.common1_code = 'CLC'
 		AND c3.common2_code = c.class_big_category 
 		AND c3.common3_code = c.class_small_category
+		JOIN MEMBER m
+		ON m.member_code = c.member_code
 		where c.class_code = #{class_code}
 	</select>
 	

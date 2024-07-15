@@ -69,8 +69,14 @@ public class CreatorController {
 			model.addAttribute("targetURL", "creator-qualify");
 			return "result_process/fail";
 		}
+		List<Map<String, Object>> creatorEventList = creatorService.getCreatorEvent();
+		List<Map<String, Object>> creatorNoticeList = creatorService.creatorNoticeList();
+		
 		
 		session.setMaxInactiveInterval(60*60*60*60*60*60*100);
+		model.addAttribute("member", member);
+		model.addAttribute("creatorEventList", creatorEventList);
+		model.addAttribute("creatorNoticeList", creatorNoticeList);
 		return "creator/creator-main";
 	}
 	
@@ -175,7 +181,13 @@ public class CreatorController {
 	@ResponseBody
 	@GetMapping("geocode")
 	 public ResponseEntity<String> geocode(@RequestParam String address) {
-        String url = String.format("%s?service=address&request=getcoord&version=2.0&crs=epsg:4326&address=%s&refine=true&simple=false&format=xml&type=road&key=%s", VWORLD_API_URL, address, vworldApiKey);
+        String url = String.format("%s?service=address&request=getcoord"
+        					           + "&version=2.0&crs=epsg:4326&address=%s" 
+        					           + "&refine=true&simple=false&format=xml" 
+        					           + "&type=road" + "&key=%s"
+        		                   , VWORLD_API_URL
+        		                   , address
+        		                   , vworldApiKey);
 
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(url, String.class);
@@ -739,7 +751,8 @@ public class CreatorController {
 			model.addAttribute("targetURL", "./");
 			return "result_process/fail";
 		}
-		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member);
+		int classCode = 0;
+		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member, classCode);
 		List<Map<String, Object>> classList = creatorService.getAnalyzeClassInfo(member);
 		List<Map<String, Object>> GraphDataList = creatorService.getGraphDataList(member);
 		
@@ -757,6 +770,7 @@ public class CreatorController {
 	public List<Map<String, Object>> graphByClass(@RequestParam int classCode, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		List<Map<String, Object>> GraphDataByClassList = creatorService.getChartDataByClass(classCode, member);
+		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member, classCode);
 		
 		return GraphDataByClassList;
 	}

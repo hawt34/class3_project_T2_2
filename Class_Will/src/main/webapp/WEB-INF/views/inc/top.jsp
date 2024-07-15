@@ -461,9 +461,7 @@
 											<!-- 클릭 시 모달 창을 열기 위한 링크 -->
 											<a class="nav-link position-relative openChatModal" href="#" id="openChatModal" >
 												<i class="bi bi-envelope bi-top"  style="font-size: 25px; "></i>
-												<span class="position-absolute badge-position bg-danger border border-light rounded-circle">
-													<span class="visually-hidden">New alerts</span>
-												</span>
+												<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>
 											</a>
 											
 										</li>
@@ -623,18 +621,21 @@
 <!-- top Navbar end -->
 
 <script>
-
 //=================================== top script start =====================================================
-
-// 
+// 로그아웃 클릭
 function logout() {
-	
-	
 	if(confirm("로그아웃하시겠습니까?")) {
 		let returnUrl = encodeURIComponent(window.location.href); 
 		location.href = "member-logout?returnUrl=" + returnUrl;
 	}
 } 
+
+// 채팅창 모달 닫는 함수
+function closeChatModal() {
+	$("#chatListModal").css("display", "none");
+	$("#modalBackdrop").css("display", "none");
+	$("body").css("overflow", "auto"); // 배경 스크롤 복구
+}
 
 $(function() {
 	
@@ -872,21 +873,19 @@ $(function() {
 
     // 채팅 모달 창 닫기
     $("#chatModalClose").on("click", function() {
-        $("#chatListModal").css("display", "none");
-        $("#modalBackdrop").css("display", "none");
-        $("body").css("overflow", "auto"); // 배경 스크롤 복구
+    	closeChatModal();
     });
 
     // 채팅 모달 외부를 클릭하면 모달 닫기
     $(window).on("click", function(event) {
         if (event.target == document.getElementById("modalBackdrop")) {
-            $("#chatListModal").css("display", "none");
-            $("#modalBackdrop").css("display", "none");
-            $("body").css("overflow", "auto"); // 배경 스크롤 복구
+        	closeChatModal();
         }
     });
+    
 	
 });
+
 
 </script>
 
@@ -895,7 +894,9 @@ $(function() {
 
 	<script type="text/javascript">
 		$(function() {
-			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+			let member_code = "${sessionScope.member.member_code}";
+// 			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+// 			checkUnreadMessages(member_code);
 		});
 		
 		let ws; // WebSocket 객체가 저장될 변수 선언
@@ -937,7 +938,18 @@ $(function() {
 			console.log("onMessage() - 수신된 데이터 : " + JSON.stringify(data));
 			
 			
-			
+            if (data.type === 'NEW_MESSAGE') {
+                // 새로운 메시지 처리 및 알림 표시
+                unreadMsg++;
+                updateAlarm();
+                const iframe = document.getElementById('chatListContent');
+                iframe.contentWindow.postMessage(data, '*');
+                
+            } else if (data.type === 'UNREAD_MESSAGE') {
+                // 로그인 시 읽지 않은 메시지 처리
+                unreadMsg = data.count;
+                updateAlarm();
+            }
 			
 		}
 		
@@ -957,14 +969,76 @@ $(function() {
 		// 채팅 메세지 전송 준비 함수(태그 요소 객체 전달받음)
 		function send(target) {
 			
+			
+			if(message == "") {
+				inputElement.focus();
+				return;
+			}
+			
+			sendMessage("TALK", "${sId}", receiver_id, room_id, message);
+			appendMessageToTargetRoom("TALK", "${sId}", receiver_id, room_id, message);
+			
 		}
 		
 		// 전달받은 메세지를 웹소켓 서버측으로 전송하는 함수
 		function sendMessage(type, sender_email, receiver_email, chat_room_id, message) {
+			
 			ws.send(toJsonString(type, sender_email, receiver_email, chat_room_id, message));
 		}
 		
+		function toJsonString(type, sender_id, receiver_id, room_id, message) {
+			console.log(type + ", " + sender_id + ", " + receiver_id + ", " + room_id + ", " + message);
+			// 전달받은 파라미터들을 하나의 객체로 묶은 후 JSON 타입 문자열로 변환 후 리턴
+			let data = {
+				type : type,
+				sender_id : sender_id,
+				receiver_id : receiver_id,
+				room_id : room_id,
+				message : message
+			};
+			
+			// JSON.stringify() 메서드 호출하여 객체 -> JSON 문자열로 변환
+			return JSON.stringify(data);
+		}
 		
+		// iFrame에서 메시지를 받음
+        $(window).on('message', function(event) {
+            const data = event.originalEvent.data;
+            
+            if (data.type === 'send_message') {
+                websocket.send(JSON.stringify(data));
+                
+            } else if (data.type === 'read_message') {
+                // 메시지가 읽히면 읽지 않은 메시지 수 감소
+                unreadMsg = Math.max(0, unreadMsg - 1);
+                updateNotification();
+            }
+        });
+
+		// 알림 업데이트 함수
+        function updateAlarm() {
+			
+            if (unreadMsg > 0) {
+            	$('#openChatModal > i').after = '<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>';
+            	$('#openChatModal2 > i').after = '<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>';
+//             	$('#openChatModal').innerText = `Unread Messages: ${unreadMsg}`;
+                
+            } else {
+            	$('.openChatModal .alerts').remove();
+            }
+            
+        }
+
+        // 유저 로그인 시 읽지 않은 메시지 요청
+        function checkUnreadMessages(member_code) {
+			ws.send(JSON.stringify({
+			    type: 'CHECK_UNREAD',
+			    member_code: member_code
+			}));
+        }
+ 
+        
+        
 	</script>
 
 </c:if>

@@ -108,7 +108,7 @@
     	align-items: flex-end; 
     }
     
-    #send-msg-area {
+    #send-msg-input {
 		height: 100%;
 	    width: 100%;
 	    border: none;
@@ -243,25 +243,16 @@
 		
 		<!-- 메시지 입력창 -->
 		<div class="chat-room-text d-flex flex-column">
-			<input type="text" id="send-msg-area" class="d-flex flex-row" placeholder="메시지 보내기">
+			<input type="text" id="send-msg-input" class="d-flex flex-row" placeholder="메시지 보내기">
 			<div class="chat-icon-area flex-row d-flex justify-content-between">
 				<button type="button" class="btn chat-icon-btm p-0" id=""><i class="bi bi-paperclip"></i></button>
-				<button type="button" class="btn" id="msg-send-btn">전송</button>
+				<button type="button" class="btn" id="msg-send-btn"  onclick="send(this)" >전송</button>
 			</div>
 		</div>
 		
 	</div>
 	
 	<script type="text/javascript">
-		$(function() {
-			
-			$("#to-chat-list").on("click", function() {
-				location.href = "user-chat-list";
-			});
-			
-		});
-		
-		
 		let receiver_email = "${receiverInfo.member_email}";
 		console.log("receiver_email : " + receiver_email);
 		
@@ -286,6 +277,42 @@
 				}
 			}, 1000);
 		}
+		
+		$(function() {
+			// 뒤로 가기 누르면 채팅 목록으로 가기
+			$("#to-chat-list").on("click", function() {
+				location.href = "user-chat-list";
+			});
+			
+			// 전송 버튼 눌렀을 시 부모창(top.jsp)으로 보내기
+			$("#msg-send-btn").on("click", function() {
+				const input = $('#send-msg-input').val();
+				const message = {
+				    type: 'SEND_MESSAGE',
+				    chat_room_code: '12345',
+				    sender_code: 'user1',
+				    content: input
+				};
+				window.parent.postMessage(message, '*');
+			});
+			
+			// 부모창(top.jsp)으로부터 전송된 메시지 수신 후 다시 보내기
+			$(window).on("message", function(event) {
+				const data = event.originalEvent.data;
+				if (data.type === "NEW_MESSAGE") {
+				    $('#chat-window').append(`<p>${data.content}</p>`);
+				    const readMessage = {
+				        type: "READ_MESSAGE",
+				        chat_room_code: '12345',
+				        message_code: data.message_code // Use message unique code
+				    };
+				    window.parent.postMessage(readMessage, '*');
+				}
+			});
+			
+		});
+		
+	
 	</script>
 
 

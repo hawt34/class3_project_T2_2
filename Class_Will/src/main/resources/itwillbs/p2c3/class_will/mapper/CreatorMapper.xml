@@ -4,6 +4,24 @@
   
 <mapper namespace="itwillbs.p2c3.class_will.mapper.CreatorMapper">
 	
+	
+	<!-- 크리에이터 이벤트 -->
+	<select id="getCreatorEvent" resultType="map">
+		SELECT *
+		FROM event
+		Limit 2
+	</select>
+
+	<!-- 크리에이터 공지사항 -->
+	<select id="creatorNoticeList" resultType="map">
+		SELECT * 
+		FROM notice n 
+		WHERE n.notice_category = 
+			(SELECT common2_code FROM common2 WHERE code_value='크리에이터' AND common1_code = 'NTC')
+		ORDER BY n.notice_reg_date DESC
+		Limit 5
+	</select>
+	
 	<!-- 클래스 수정 -->
 	<insert id="createrClassRegPro">
 		INSERT INTO class(  	  
@@ -843,7 +861,7 @@
 	
 	<!-- =========================================================================================== -->
 	
-	<!-- 후기에 따른 클래스 정보 가져오기 -->
+	<!-- 클래스 정보 가져오기 -->
 	<select id="getAnalyzeClassInfo" resultType="map">
 		SELECT  c.class_name
 			 , c.class_code
@@ -860,7 +878,7 @@
 		SELECT 
 			count(*) AS classCount
 			, ifnull(sum(cs.class_total_headcount - cs.class_remain_headcount),0) AS attendCount
-			, round(avg(cs.class_total_headcount - cs.class_remain_headcount), 1) AS avgAttendCount
+			, ifnull(round(avg(cs.class_total_headcount - cs.class_remain_headcount), 1),0) AS avgAttendCount
 		FROM 
 			class c
 		LEFT JOIN 
@@ -868,13 +886,17 @@
 		ON 	
 			c.class_code = cs.class_code
 		WHERE 
-			c.member_code = #{member_code}
+			c.member_code = #{member.member_code}
 		AND 
 			CURDATE() > STR_TO_DATE(cs.class_schedule_date, '%Y-%m-%d')
 		And 
 			cs.class_total_headcount != cs.class_remain_headcount
 		AND 
 			c.class_active = 'Y'
+		<if test="class_code != 0">
+			AND
+				c.class_code = #{class_code}
+		</if>
 	</select>
 
 	<select id="getAnalyzeReviewList" resultType="map">
@@ -887,9 +909,13 @@
 		ON 
 			c.class_code = cr.class_code 
 		WHERE 
-			c.member_code = 1079
+			c.member_code = #{member.member_code}
 		AND 
 			c.class_active = 'Y'
+			<if test="class_code != 0">
+				AND
+					c.class_code = #{class_code}
+			</if>
 	</select>
 	
 	<select id="getGraphDataList" resultType="map">
@@ -987,7 +1013,7 @@
 			</if>
 			AND 
 				DATE_FORMAT(CURDATE(), '%Y-%m') > DATE_FORMAT(cs.class_schedule_date, '%Y-%m')  
-		) AS subquery;
+		) AS subquery
 	</select>
 	
 	<!-- 한달 정산금 -->
@@ -1008,9 +1034,9 @@
 			ON 
 				p.class_schedule_code  = cs.class_schedule_code 
 			WHERE 
-				c.member_code = 1079
+				c.member_code = #{member.member_code}
 			AND 
-				cs.class_schedule_date LIKE CONCAT('2024-05', '%')
+				cs.class_schedule_date LIKE CONCAT('${monthPicker}', '%')
 		) AS subquery;
 	</select>
 	

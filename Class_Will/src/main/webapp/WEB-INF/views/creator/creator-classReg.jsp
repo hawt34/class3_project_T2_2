@@ -51,6 +51,10 @@
         .addCurri{
         	cursor: pointer;
         }
+        .note-editor.note-frame .note-editing-area .note-editable {
+            background-color: black; /* 배경색을 검정색으로 설정 */
+            color: white;            /* 글씨색을 흰색으로 설정 */
+        }
     </style>
 </head>
 <body>
@@ -66,38 +70,22 @@
 	</div>
 	<!-- Spinner End -->
 
-	<!-- Single Page Header start -->
-	<div class="container-fluid page-header py-5">
-		<h1 class="text-center text-white display-6">Creator</h1>
-		<ol class="breadcrumb justify-content-center mb-0">
-			<li class="breadcrumb-item"><a href="main">Home</a></li>
-			<li class="breadcrumb-item"><a href="main">크리에이터 페이지</a></li>
-			<li class="breadcrumb-item active text-white">클래스</li>
-		</ol>
-	</div>
-	<!-- Single Page Header End -->
 
 	<div class="container-fluid fruite">
 		<div class="container">
-			<h1 class="mb-4 text-white">Creator Center</h1>
+			<h1 class="mt-4 text-white">Creator Center</h1>
 			<div class="row g-4">
 				<div class="col-lg-12">
 					<div class="row g-4">
 						<jsp:include page="/WEB-INF/views/creator/sideBar.jsp" />
 
 						<div class="col-lg-9 creator-body" >
+							<div class="creator-intro col-md-12">
+								<div class="text-white h2">클래스등록</div>
+								<hr class="text-white mb-5">
+							</div>
 							<div class="creator-main-table col-xl-8 mb-5 ">
 								<form class="validation-form classReg" novalidate action="creator-classRegPro" name="fr" method="post" enctype="multipart/form-data" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
-									<!-- 	셀렉트박스 -->
-									<div class="col-md-12 mb-2" align="center">
-										<div class="col-xl-6 mb-5">
-											<hr style="color:white;">
-											<div>
-												<h3 class="text-white">클래스등록</h3>
-											</div>
-											<hr style="color:white;">
-										</div>
-									</div>
 									<div class="classReg-basic">
 										<div class="h4">클래스 기본정보</div>
 										<div class="h6 d-flex justify-content-start mt-4">
@@ -282,22 +270,22 @@
 //             	// 유효성 검사
 //         	        // 선택 상자의 값이 비어 있는지 확인
         	        if ($("#selected-items").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("해쉬태그를 선택해주세요!");
         	            $("#item-list").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($("#summernote").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("클래스소개를 입력해주세요!");
         	            $("#summernote").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($("#post_code").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("주소를 입력해주세요!");
         	            $("#post_code").focus();
         	            return false; // 폼 제출을 막음
         	        }
         	        if ($(".class_creator_explain").val() == "") {
-        	        	alert("정보를 입력해주세요!");
+        	        	alert("크리에이터 소개를 입력해주세요!");
         	            $(".class_creator_explain").focus();
         	            return false; // 폼 제출을 막음
         	        }
@@ -351,6 +339,10 @@
 			});
 			
 			$('#timeTable').on('click', '.delete-btn', function() {
+				if($('#timeTable tr').length - 1 < 2){
+					alert("1차시는 삭제할 수 없습니다");
+					return;
+				}
 			    $(this).closest('tr').remove();
 			    updateTextAreaNames();
 			});
@@ -365,6 +357,19 @@
 	                }
 	            });
 	        }
+			
+			// 클래스 가격 
+			$("#class_price").on('input', function() {
+		         if ($(this).val() <= 0) {
+		             $(this).val(''); // 값이 0 이하일 경우 비움
+		         }
+		     });
+		
+			$("#class_price").on('keypress', function(e) {
+		         if (e.key === '-' || (e.key === '0' && $(this).val() === '')) {
+		             e.preventDefault(); // '-'나 맨 처음에 '0' 입력을 막음
+		         }
+		     });
 			
 			
 			

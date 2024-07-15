@@ -145,7 +145,7 @@ th:nth-child(2), td:nth-child(2) {
 									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-wallet"></i>&nbsp;윌페이</h6>
 										<div class="d-flex justify-content-between card-content">
-											<p class="card-text" style="color:black;" >신규 서비스, 101 School에 참여하세요!</p>
+											<p class="card-text" style="color:black;" >윌페이 충전을 할 수 있는 곳 입니다.</p>
 											<a href="my-credit" class="btn btn-primary">상세보기</a>
 										</div>
 									</div>

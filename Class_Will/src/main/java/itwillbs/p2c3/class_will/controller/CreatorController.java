@@ -181,7 +181,13 @@ public class CreatorController {
 	@ResponseBody
 	@GetMapping("geocode")
 	 public ResponseEntity<String> geocode(@RequestParam String address) {
-        String url = String.format("%s?service=address&request=getcoord&version=2.0&crs=epsg:4326&address=%s&refine=true&simple=false&format=xml&type=road&key=%s", VWORLD_API_URL, address, vworldApiKey);
+        String url = String.format("%s?service=address&request=getcoord"
+        					           + "&version=2.0&crs=epsg:4326&address=%s" 
+        					           + "&refine=true&simple=false&format=xml" 
+        					           + "&type=road" + "&key=%s"
+        		                   , VWORLD_API_URL
+        		                   , address
+        		                   , vworldApiKey);
 
         RestTemplate restTemplate = new RestTemplate();
         String response = restTemplate.getForObject(url, String.class);

@@ -461,7 +461,7 @@
 											<!-- 클릭 시 모달 창을 열기 위한 링크 -->
 											<a class="nav-link position-relative openChatModal" href="#" id="openChatModal" >
 												<i class="bi bi-envelope bi-top"  style="font-size: 25px; "></i>
-												<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>
+<!-- 												<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span> -->
 											</a>
 											
 										</li>
@@ -912,7 +912,6 @@ $(function() {
         	console.log("serverPort: " + serverPort);
 			console.log("contextPath: " + contextPath);
 
-// 			let ws_base_url = "ws://${pageContexts.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}";
 			let ws_base_url = "ws://" + serverName + ":" + serverPort + contextPath;
 			console.log("ws_base_url : " + ws_base_url);
 			
@@ -923,6 +922,20 @@ $(function() {
 			ws.onmessage = onMessage;
 			ws.onerror = onError;
 		}
+		
+		// iFrame에서 메시지를 받음
+        $(window).on('message', function(event) {
+            const data = event.originalEvent.data;
+            
+            if (data.type === 'SEND_MESSAGE') {
+                ws.send(JSON.stringify(data));
+                
+            } else if (data.type === 'READ_MESSAGE') {
+                // 메시지가 읽히면 읽지 않은 메시지 수 감소
+                unreadMsg = Math.max(0, unreadMsg - 1);
+                updateAlarm();
+            }
+        });
 		
 		function onOpen() {
 			console.log("onOpen()");
@@ -957,63 +970,7 @@ $(function() {
 			console.log("onError()");
 		}
 		
-		// 채팅 메세지 입력창 키 입력 감지 함수
-		function checkEnter(event, target) {
-			// 누른 키의 코드값 가져오기
-			let keyCode = event.keyCode;
-			if(keyCode == 13) { // 엔터키 감지하여 send() 함수 호출
-				send(target);
-			}
-		}
 		
-		// 채팅 메세지 전송 준비 함수(태그 요소 객체 전달받음)
-		function send(target) {
-			
-			
-			if(message == "") {
-				inputElement.focus();
-				return;
-			}
-			
-			sendMessage("TALK", "${sId}", receiver_id, room_id, message);
-			appendMessageToTargetRoom("TALK", "${sId}", receiver_id, room_id, message);
-			
-		}
-		
-		// 전달받은 메세지를 웹소켓 서버측으로 전송하는 함수
-		function sendMessage(type, sender_email, receiver_email, chat_room_id, message) {
-			
-			ws.send(toJsonString(type, sender_email, receiver_email, chat_room_id, message));
-		}
-		
-		function toJsonString(type, sender_id, receiver_id, room_id, message) {
-			console.log(type + ", " + sender_id + ", " + receiver_id + ", " + room_id + ", " + message);
-			// 전달받은 파라미터들을 하나의 객체로 묶은 후 JSON 타입 문자열로 변환 후 리턴
-			let data = {
-				type : type,
-				sender_id : sender_id,
-				receiver_id : receiver_id,
-				room_id : room_id,
-				message : message
-			};
-			
-			// JSON.stringify() 메서드 호출하여 객체 -> JSON 문자열로 변환
-			return JSON.stringify(data);
-		}
-		
-		// iFrame에서 메시지를 받음
-        $(window).on('message', function(event) {
-            const data = event.originalEvent.data;
-            
-            if (data.type === 'send_message') {
-                websocket.send(JSON.stringify(data));
-                
-            } else if (data.type === 'read_message') {
-                // 메시지가 읽히면 읽지 않은 메시지 수 감소
-                unreadMsg = Math.max(0, unreadMsg - 1);
-                updateNotification();
-            }
-        });
 
 		// 알림 업데이트 함수
         function updateAlarm() {
@@ -1021,7 +978,6 @@ $(function() {
             if (unreadMsg > 0) {
             	$('#openChatModal > i').after = '<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>';
             	$('#openChatModal2 > i').after = '<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>';
-//             	$('#openChatModal').innerText = `Unread Messages: ${unreadMsg}`;
                 
             } else {
             	$('.openChatModal .alerts').remove();

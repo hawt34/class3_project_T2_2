@@ -188,7 +188,7 @@
 													<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img" style="width: 25px; height: 25px;">
 												</c:when>	
 												<c:otherwise>
-													<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img" style="width: 25px; height: 25px;">
+													<img src="${pageContext.request.contextPath}/resources/upload/${contents.member_img}" class="member_img" style="width: 25px; height: 25px;">
 												</c:otherwise>
 											</c:choose>
 										</div>	

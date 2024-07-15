@@ -243,7 +243,7 @@
 		
 		<!-- 메시지 입력창 -->
 		<div class="chat-room-text d-flex flex-column">
-			<input type="text" id="send-msg-input" class="d-flex flex-row" placeholder="메시지 보내기">
+			<input type="text" id="send-msg-input" class="d-flex flex-row" placeholder="메시지 보내기" onkeypress="checkEnter(event, this)">
 			<div class="chat-icon-area flex-row d-flex justify-content-between">
 				<button type="button" class="btn chat-icon-btm p-0" id=""><i class="bi bi-paperclip"></i></button>
 				<button type="button" class="btn" id="msg-send-btn"  onclick="send(this)" >전송</button>
@@ -254,10 +254,12 @@
 	
 	<script type="text/javascript">
 		let receiver_email = "${receiverInfo.member_email}";
+		let receiver_code =  "${receiverInfo.member_code}";
 		console.log("receiver_email : " + receiver_email);
+		console.log("receiver_code : " + receiver_code);
 		
 		if(receiver_email != "") {
-			startChat();
+// 			startChat();
 		}
 		
 		function startChat() {
@@ -270,7 +272,12 @@
 				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
 					console.log("1:1 채팅방 웹소켓 연결 완료");
 					// 초기화 메세지 전송
-					sendMessage("INIT", "", receiver_email, "", "", "");
+					const initMessage = {
+							type: "INIT",
+							receiver_code : receiver_code
+					};
+					window.parent.postMessage(initMessage, '*');
+					
 					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
 					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
 					clearInterval(startChatInterval);
@@ -278,41 +285,70 @@
 			}, 1000);
 		}
 		
+		function send(target) {
+			let inputElement = $("#send-msg-input");
+			let inputValue = $("#send-msg-input").val();
+			let room_code = "";
+			const message = {
+				    type: 'SEND_MESSAGE',
+				    chat_room_code: room_code,
+				    sender_code: 'user1',
+				    content: inputValue
+			};
+			window.parent.postMessage(message, '*');
+			
+			// 입력 메세지가 비어있을 경우 작업 종료
+			if(inputValue == "") {
+				inputElement.focus();
+				return;
+			}
+			
+			// 채팅 입력창 초기화
+			inputElement.val("");
+			inputElement.focus();
+			
+		}
+		
+		function checkEnter(event, target) {
+			console.log("checkEnter - event : " + event + ", target : " + target);
+			// 누른 키의 코드값 가져오기
+			let keyCode = event.keyCode;
+			if(keyCode == 13) { // 엔터키 감지하여 send() 함수 호출
+				send(target);
+			}
+		}
+	
+		
 		$(function() {
 			// 뒤로 가기 누르면 채팅 목록으로 가기
 			$("#to-chat-list").on("click", function() {
 				location.href = "user-chat-list";
 			});
 			
-			// 전송 버튼 눌렀을 시 부모창(top.jsp)으로 보내기
-			$("#msg-send-btn").on("click", function() {
-				const input = $('#send-msg-input').val();
-				const message = {
-				    type: 'SEND_MESSAGE',
-				    chat_room_code: '12345',
-				    sender_code: 'user1',
-				    content: input
-				};
-				window.parent.postMessage(message, '*');
-			});
-			
-			// 부모창(top.jsp)으로부터 전송된 메시지 수신 후 다시 보내기
+						
+			// 부모창(top.jsp)으로부터 전송된 메시지 수신/처리 후 다시 보내기
 			$(window).on("message", function(event) {
 				const data = event.originalEvent.data;
+				console.log();
+				
 				if (data.type === "NEW_MESSAGE") {
 				    $('#chat-window').append(`<p>${data.content}</p>`);
+				    
 				    const readMessage = {
 				        type: "READ_MESSAGE",
 				        chat_room_code: '12345',
 				        message_code: data.message_code // Use message unique code
 				    };
+				    
 				    window.parent.postMessage(readMessage, '*');
 				}
 			});
 			
+			
+			
 		});
 		
-	
+		
 	</script>
 
 

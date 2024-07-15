@@ -571,7 +571,7 @@ public class MyPageController {
 
 	// 회원 탈퇴
 	@GetMapping("my-delete")
-	public String deleteMember(Model model,@RequestParam(value = "pageNum2", defaultValue = "1") int pageNum2) {
+	public String deleteMember(Model model,@RequestParam(value = "pageNum2", defaultValue = "1") int pageNum2, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		if (member == null) { // 실패
 			model.addAttribute("msg", "권한이 없습니다.");
@@ -591,6 +591,19 @@ public class MyPageController {
 		model.addAttribute("maxPage2", maxPage2);
 		model.addAttribute("pageNum2", pageNum2);
 		model.addAttribute("totalReview", totalReview);
+		
+		//문의한 글 들..
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
+		int totalInquiry = myPageService.getMemberInquiryCount(member_code2);
+		System.out.println("특정 회원이 적은 문의 수량" + totalInquiry);
+		int maxPage = (int) Math.ceil((double) totalInquiry / listLimit);
+		List<Map<String, String>> memberInquiry = myPageService.getMemberInquiry(member_code2,startRow, listLimit);
+		model.addAttribute("memberInquiry", memberInquiry);
+		System.out.println("특정회원이 적은 문의글들" + memberInquiry);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalInquiry", totalInquiry);
 		
 		
 		
@@ -675,7 +688,7 @@ public class MyPageController {
 
         return response;
     }
-	
+	//문의하기
 	@GetMapping("my-inquiry")
 	public String inquiry(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
 		MemberVO member = (MemberVO) session.getAttribute("member");

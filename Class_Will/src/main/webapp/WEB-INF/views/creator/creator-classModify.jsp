@@ -54,6 +54,10 @@
         .addCurri{
         	cursor: pointer;
         }
+        .note-editor.note-frame .note-editing-area .note-editable {
+            background-color: black; /* 배경색을 검정색으로 설정 */
+            color: white;            /* 글씨색을 흰색으로 설정 */
+        }
     </style>
 </head>
 <body>

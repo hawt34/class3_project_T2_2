@@ -461,7 +461,7 @@
 											<!-- 클릭 시 모달 창을 열기 위한 링크 -->
 											<a class="nav-link position-relative openChatModal" href="#" id="openChatModal" >
 												<i class="bi bi-envelope bi-top"  style="font-size: 25px; "></i>
-												<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>
+<!-- 												<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span> -->
 											</a>
 											
 										</li>

@@ -150,6 +150,11 @@ public class ClassService {
 		return mapper.selectInquiryClass(list);
 	}
 	
+	// 클래스 질문 답변
+	public Map<String, Object> getInquiryAnswer(Map<String, Object> map) {
+		return mapper.selectInquiryAnswer(map);
+	}
+	
 //    public List<Map<String, String>> getSmallCategoriesByBigCategoryCode(String bigCategoryCode) {
 //        return mapper.selectSmallCategories(bigCategoryCode);
 //    }

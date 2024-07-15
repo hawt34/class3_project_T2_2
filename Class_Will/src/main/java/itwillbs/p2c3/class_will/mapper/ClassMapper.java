@@ -71,6 +71,9 @@ public interface ClassMapper {
 	// 클래스 질문하기
 	int insertClassInquiry(Map<String, Object> list);
 
+	// 클래스 질문 답변
+	Map<String, Object> selectInquiryAnswer(Map<String, Object> map);
+	
 	// 클래스 질문하기 멤버 정보 가져오기
 	Map<String, Object> selectInquiryMember(Map<String, Object> list);
 

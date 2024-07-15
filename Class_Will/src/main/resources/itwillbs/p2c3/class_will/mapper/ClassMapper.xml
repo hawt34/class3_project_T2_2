@@ -278,6 +278,7 @@
 			, m.member_code
 			, c.class_name
 			, ci.class_inquiry_code
+			, ci.class_inquiry_status 
 		FROM class_inquiry ci
 		JOIN MEMBER m
 		ON m.member_code = ci.member_code 
@@ -325,6 +326,28 @@
 			)
 	
 	</insert>
+	
+	<!-- 클래스 질문 답변 -->
+	<select id="selectInquiryAnswer" resultType="map">
+		SELECT 
+			cr.class_reply_code
+			, cr.class_reply_content
+			, cr.class_reply_date
+			, cr.class_reply_time
+			, cr.reply_type
+			, cr.parent_code
+			, c.class_name
+			, m.member_name 
+			, m.member_nickname 
+		FROM class_reply cr 
+		JOIN class_inquiry ci 
+		ON ci.class_inquiry_code = cr.parent_code 
+		JOIN class c
+		ON c.class_code = ci.class_code 
+		JOIN `MEMBER` m 
+		ON m.member_code  = c.member_code 
+		WHERE cr.reply_type = 2 AND ci.class_inquiry_code = #{class_inquiry_code}
+	</select>
 	
 	<!-- 클래스 커리큘럼 -->
 	<select id="selectClassCurri" resultType="map">

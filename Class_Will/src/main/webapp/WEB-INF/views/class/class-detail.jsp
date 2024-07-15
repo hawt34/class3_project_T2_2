@@ -360,6 +360,7 @@
                                     <th>제목</th>
                                     <th>작성일자</th>
                                     <th>작성자</th>
+                                    <th>답변상태</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -382,6 +383,19 @@
 			                                    </td>
 			                                    <td>
                                                     <a href="#" onclick="creatorInquiry(event, '${param.class_code}', '${map.class_inquiry_code}')" >${map.member_nickname}</a>
+			                                    </td>
+			                                    <td>
+                                                    <a href="#" onclick="creatorInquiryAnswer(event, '${param.class_code}', '${map.class_inquiry_code}')" >
+                                                    	<c:choose>
+                                                    		<c:when test="${map.class_inquiry_status eq 'N'}">
+                                                    			미답변
+                                                    		</c:when>
+                                                    		<c:otherwise>
+                                                    			답변보기
+                                                    		</c:otherwise>
+                                                    	</c:choose>
+                                                    
+                                                    </a>
 			                                    </td>
 			                                </tr>
 		                                </c:forEach>
@@ -800,6 +814,12 @@ function creatorInquiry(event, class_code, class_inquiry_code) {
     event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
     console.log("creatorInquiry : class_code : " + class_code + ", class_inquiry_code : " + class_inquiry_code);
     window.open("creator-inquiry-form2?class_code=" + class_code + "&class_inquiry_code=" + class_inquiry_code, "pop", "width=700, height=800, left=700, top=50");
+}
+
+function creatorInquiryAnswer(event, class_code, class_inquiry_code) {
+    event.preventDefault(); // 기본 동작 방지 (예: href="#" 의 경우)
+    console.log("creatorInquiry : class_code : " + class_code + ", class_inquiry_code : " + class_inquiry_code);
+    window.open("creator-inquiry-answer?class_code=" + class_code + "&class_inquiry_code=" + class_inquiry_code, "pop", "width=700, height=800, left=700, top=50");
 }
 
 function classComplain(event, class_code) {

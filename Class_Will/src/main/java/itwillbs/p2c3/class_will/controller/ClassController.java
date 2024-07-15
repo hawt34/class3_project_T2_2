@@ -461,6 +461,19 @@ public class ClassController {
 		return"class/class-inquiry-show";
 	}
 	
+	// 클래스 답변
+	@GetMapping("creator-inquiry-answer")
+	public String creatorInquiryAnswer(Model model, @RequestParam int class_code, @RequestParam int class_inquiry_code){
+		Map<String, Object> map = new HashMap<>();
+		map.put("class_inquiry_code", class_inquiry_code);
+//		map.put("class_code", class_code);
+		
+		Map<String, Object> inquiryAnswer = classService.getInquiryAnswer(map); 
+		
+		model.addAttribute("inquiryAnswer", inquiryAnswer);
+		return"class/class-inquiry-answer";
+	}
+	
 	@GetMapping("check-login-status")
 	@ResponseBody
 	public Map<String, Object> checkLoginStatus(HttpSession session) {

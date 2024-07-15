@@ -170,6 +170,16 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="card col-md-10 my-2">
 									<div class="card-body">
+										<h6 class="card-title"><i class="bi bi-patch-question"></i>&nbsp;나의 클래스 문의</h6>
+										<div class="d-flex justify-content-between card-content">
+											<p class="card-text" style="color:black;">내가 적은 클래스 문의를 확인할 수 있는  곳 입니다.</p>
+											<a href="my-inquiry" class="btn btn-primary">상세보기</a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="card col-md-10 my-2">
+									<div class="card-body">
 										<h6 class="card-title"><i class="bi bi-sunrise-fill"></i>&nbsp;나의 성장 확인 </h6>
 										<div class="d-flex justify-content-between card-content">
 											<p class="card-text" style="color:black;" >나는 이렇게 성장했어요!</p>

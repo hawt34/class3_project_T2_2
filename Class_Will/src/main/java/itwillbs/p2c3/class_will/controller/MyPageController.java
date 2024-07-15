@@ -14,6 +14,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,7 +287,36 @@ public class MyPageController {
 		}
 
 	}
+	//문의 삭제
+	@PostMapping("delete-inquiry")
+	public String deleteInquiry(Model model, @RequestParam Map<String, String> map) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if (member == null) { // 실패
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		}
+		int member_code = member.getMember_code();
+		MemberVO member2 = myPageService.selectMemberInfo(member_code);
+		model.addAttribute("member", member2);
 
+		String class_inquiry_code = map.get("class_inquiry_code");
+		//System.out.println(class_inquiry_code);
+
+		int deleteCount = myPageService.deleteInquiry(class_inquiry_code);
+		if (deleteCount > 0) {
+
+			return "redirect:/my-inquiry";
+		} else {
+			model.addAttribute("msg", "삭제 실패!");
+			return "result_process/fail";
+		}
+
+	}
+	
+	
+	
+	
 //	// 크레딧관련
 //	@GetMapping("my-credit")
 //	public String myCredit(Model model) {
@@ -607,5 +637,33 @@ public class MyPageController {
 
         return response;
     }
+	
+	@GetMapping("my-inquiry")
+	public String inquiry(Model model, @RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+		MemberVO member = (MemberVO) session.getAttribute("member");
+
+		if (member == null) {
+			model.addAttribute("msg", "권한이 없습니다.");
+			model.addAttribute("targetURL", "member-login");
+			return "result_process/fail";
+		}
+		int member_code = member.getMember_code();
+		MemberVO member2 = myPageService.selectMemberInfo(member_code);
+		model.addAttribute("member", member2);
+		
+		int listLimit = 5;
+		int startRow = (pageNum - 1) * listLimit;
+		int totalInquiry = myPageService.getMemberInquiryCount(member_code);
+		System.out.println("특정 회원이 적은 문의 수량" + totalInquiry);
+		int maxPage = (int) Math.ceil((double) totalInquiry / listLimit);
+		List<Map<String, String>> memberInquiry = myPageService.getMemberInquiry(member_code,startRow, listLimit);
+		model.addAttribute("memberInquiry", memberInquiry);
+		System.out.println("특정회원이 적은 문의글들" + memberInquiry);
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("totalInquiry", totalInquiry);
+		
+		return "mypage/mypage-inquiry";
+	}
 	
 }

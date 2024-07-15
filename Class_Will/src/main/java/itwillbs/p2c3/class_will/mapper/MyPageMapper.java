@@ -51,5 +51,11 @@ public interface MyPageMapper {
 	Map<String, String> countMoney(int member_code2);
 
 	List<Map<String, String>> findMoney(@Param("year")String year,@Param("month") String month,@Param("member_code")String member_code);
+
+	int countInquiry(int member_code);
+
+	List<Map<String, String>> selectMemberInquiry(@Param("member_code")int member_code,@Param("startRow")int startRow,  @Param("listLimit")int listLimit);
+
+	int deleteInquiry(String class_inquiry_code);
 	
 }

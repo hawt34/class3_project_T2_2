@@ -45,6 +45,13 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate );
 		
+//		관리자 강제로그인
+		
+//		MemberVO mm =  new MemberVO();
+//		mm.setMember_email("admin");
+//		mm.setMember_code(1091);
+//		
+//		session.setAttribute("member", mm);
 		
 		String ip = request.getHeader("X-Forwarded-For");
         

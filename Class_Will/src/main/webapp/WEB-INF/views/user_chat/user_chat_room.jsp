@@ -62,7 +62,7 @@
 		background: none;
 	}
 	
-	.chat-room-content {
+	#chat-room-content {
 		flex: 1;
 		padding: 15px;
 		overflow-y: auto;
@@ -162,7 +162,7 @@
 		</div>
 		
 		<!-- 채팅 내역 -->
-		<div class="chat-room-content d-flex flex-column">
+		<div class="d-flex flex-column" id="chat-room-content">
 			<!-- 날짜 -->
 			<div class="d-flex flex-row justify-content-center">
 				<span class="chatDate">2024년 7월 4일 목요일</span>
@@ -178,14 +178,17 @@
 					<span class="send-time">오후 5:03</span>
 				</div>
 			</div>		
+			
 			<div class="d-flex flex-row justify-content-end msg-area">
 				<span class="send-time">오후 5:04</span>
 				<span class="my_msg">안녕하세요. 둘리예요.</span>
 			</div>		
+			
 			<div class="d-flex flex-row justify-content-end msg-area">
 				<span class="send-time">오후 5:04</span>
 				<span class="my_msg">준비물이 있을까요?</span>
-			</div>		
+			</div>	
+				
 			<div class="d-flex flex-row flex-column msg-area">
 				<div class="d-flex flex-row mb-1">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
@@ -196,6 +199,7 @@
 					<span class="send-time">오후 5:05</span>
 				</div>
 			</div>		
+			
 			<div class="d-flex flex-row flex-column msg-area">
 				<div class="d-flex flex-row mb-1">
 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img">
@@ -259,36 +263,19 @@
 		console.log("receiver_code : " + receiver_code);
 		
 		if(receiver_email != "") {
-// 			startChat();
+			const startMessage = {
+					type: "TYPE_INIT_COMPLETE",
+					receiver_email : receiver_email
+			};
+			window.parent.postMessage(startMessage, '*');
 		}
 		
-		function startChat() {
-			console.log("startChat 실행");
-			
-			// setInterval() 함수를 호출하여 1초마다 웹소켓 연결 감지 후
-			// 연결이 됐을 때 초기화 메세지 전송
-			let startChatInterval = setInterval(() => {
-				// 웹소켓 연결 상태 체크
-				if(ws != null && ws.readyState === ws.OPEN) { // 웹소켓 연결 시
-					console.log("1:1 채팅방 웹소켓 연결 완료");
-					// 초기화 메세지 전송
-					const initMessage = {
-							type: "INIT",
-							receiver_code : receiver_code
-					};
-					window.parent.postMessage(initMessage, '*');
-					
-					// 메세지 전송 후 반복 인터벌 작업 종료 => clearInterval() 함수 활용
-					// => 함수 파라미터로 반복 인터벌 수행하는 함수 전달
-					clearInterval(startChatInterval);
-				}
-			}, 1000);
-		}
 		
 		function send(target) {
 			let inputElement = $("#send-msg-input");
 			let inputValue = $("#send-msg-input").val();
 			let room_code = "";
+			
 			const message = {
 				    type: 'SEND_MESSAGE',
 				    chat_room_code: room_code,
@@ -329,10 +316,11 @@
 			// 부모창(top.jsp)으로부터 전송된 메시지 수신/처리 후 다시 보내기
 			$(window).on("message", function(event) {
 				const data = event.originalEvent.data;
-				console.log();
+				console.log("data : " + data);
 				
 				if (data.type === "NEW_MESSAGE") {
-				    $('#chat-window').append(`<p>${data.content}</p>`);
+					// 채팅방에 메세지 추가
+				    $('#chat-room-content').append(`<p>${data.content}</p>`);
 				    
 				    const readMessage = {
 				        type: "READ_MESSAGE",

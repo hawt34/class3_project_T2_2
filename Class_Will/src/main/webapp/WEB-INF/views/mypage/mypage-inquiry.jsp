@@ -184,7 +184,8 @@ th:nth-child(2), td:nth-child(2) {
 														</c:choose>
 													
 													</td>
-													<td>수정하기 버튼</td>
+													<td><button class="btn btn-primary"
+															onclick="location.href='edit-inquiry-page?class_inquiry_code=${memberInquiry.class_inquiry_code}'">수정</button></td>
 													<td>
 														<button class="btn btn-danger"
 															onclick="confirmDelete(${memberInquiry.class_inquiry_code})">삭제</button>

@@ -57,5 +57,9 @@ public interface MyPageMapper {
 	List<Map<String, String>> selectMemberInquiry(@Param("member_code")int member_code,@Param("startRow")int startRow,  @Param("listLimit")int listLimit);
 
 	int deleteInquiry(String class_inquiry_code);
+
+	Map<String, String> selectInquiry(String class_inquiry_code);
+
+	int updateInquiry(Map<String, String> formData);
 	
 }

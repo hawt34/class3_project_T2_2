@@ -69,8 +69,7 @@
 		UPDATE class_review
 		SET class_review_subject = #{class_review_subject},
 		class_review_content = #{class_review_content},
-		class_review_rating =
-		#{class_review_rating}
+		class_review_rating =	#{class_review_rating}
 		WHERE class_review_code = #{class_review_code}
 	</update>
 
@@ -292,6 +291,22 @@
 		DELETE FROM class_inquiry 
 		WHERE class_inquiry_code = #{class_inquiry_code}
 	</delete>
+	
+	<select id="selectInquiry">
+		SELECT * FROM class_inquiry
+		WHERE class_inquiry_code = #{class_inquiry_code}
+	
+	</select>
+	
+	<update id="updateInquiry">
+		<!-- 특정 회원이 적은 문의 업데이트 -->	
+		UPDATE class_inquiry
+		SET class_inquiry_subject = #{class_inquiry_subject},
+		class_inquiry_content = #{class_inquiry_content}
+		WHERE class_inquiry_code = #{class_inquiry_code}
+	
+	</update>
+	
 	
 
 </mapper>

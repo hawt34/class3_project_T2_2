@@ -141,6 +141,16 @@ public class MyPageService {
 		return myPageMapper.deleteInquiry(class_inquiry_code);
 	}
 
+	public Map<String, String> getInquiryByCode(String class_inquiry_code) {
+		// TODO Auto-generated method stub
+		return myPageMapper.selectInquiry(class_inquiry_code);
+	}
+
+	public int updateInquiry(Map<String, String> formData) {
+		// TODO Auto-generated method stub
+		return  myPageMapper.updateInquiry(formData);
+	}
+
 	
 
 	

@@ -314,8 +314,46 @@ public class MyPageController {
 
 	}
 	
-	
-	
+	// 문의 수정
+		@GetMapping("edit-inquiry-page")
+		public String editinquirywPage(@RequestParam("class_inquiry_code") String class_inquiry_code, Model model) {
+			MemberVO member = (MemberVO) session.getAttribute("member");
+
+			if (member == null) { // 실패
+				model.addAttribute("msg", "권한이 없습니다.");
+				model.addAttribute("targetURL", "member-login");
+				return "result_process/fail";
+			}
+			model.addAttribute("member", member);
+			Map<String, String> inquiry = myPageService.getInquiryByCode(class_inquiry_code);
+
+			model.addAttribute("inquiry", inquiry);
+			System.out.println("이건 수정할 때 데리고 오는 특정문의 1건" + inquiry);
+			return "mypage/mypage-inquiry-modify"; // 리뷰 수정 페이지
+
+		}
+		//문의수정하기 진행
+		@PostMapping("edit-inquiry")
+		public String editInquiry(Model model, @RequestParam Map<String, String> formData) {
+			MemberVO member = (MemberVO) session.getAttribute("member");
+
+			if (member == null) { // 실패
+
+				return WillUtils.checkDeleteSuccess(false, model, "권한이 없습니다.", true, "member-login");
+			}
+			int member_code = member.getMember_code();
+			MemberVO member2 = myPageService.selectMemberInfo(member_code);
+			model.addAttribute("member", member2);
+			System.out.println("여기요 여기!formdata: " + formData);
+			int updateCount = myPageService.updateInquiry(formData);
+			if (updateCount > 0) {
+				return "redirect:/my-inquiry";
+			} else {
+				model.addAttribute("msg", "리뷰수정 실패");
+				return "result_process/fail";
+			}
+
+		}
 	
 //	// 크레딧관련
 //	@GetMapping("my-credit")

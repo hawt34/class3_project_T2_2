@@ -279,7 +279,7 @@
 															<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="member_img">
 														</c:when>	
 														<c:otherwise>
-															<img src="${pageContext.request.contextPath}/resources/images/class/x.png" class="member_img">
+															<img src="${pageContext.request.contextPath}/resources/upload/${contents.member_img}" class="member_img">
 														</c:otherwise>
 													</c:choose>
 													<p class="mb-0 ml-2">${contents.member_nickname}</p>

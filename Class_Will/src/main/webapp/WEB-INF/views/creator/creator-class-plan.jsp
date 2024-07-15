@@ -183,7 +183,6 @@ th, td {
 	    	$('.creator-plan-bottom').removeClass('hidden');
 			$('#datepicker').removeClass('hidden');
 			$('.addPlan').addClass('hidden');
-// 			$('#scheduleTableContainer').addClass('hidden');
 			
 			$.ajax({
 				url: "getSelectedDates",

@@ -99,7 +99,7 @@ public class ClassController {
 			json.addProperty("class_map_y", (String) class1.get("class_map_y"));
 			json.addProperty("class_name", (String) class1.get("class_name"));
 			jsonList.add(json);
-//			System.out.println(json);
+			
 		}
 		
 		model.addAttribute("jsonList", jsonList);

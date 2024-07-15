@@ -895,8 +895,8 @@ $(function() {
 	<script type="text/javascript">
 		$(function() {
 			let member_code = "${sessionScope.member.member_code}";
-			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
-			checkUnreadMessages(member_code);
+// 			connect(); // 페이지 로딩 완료 시 채팅방 입장을 위해 웹소켓을 연결하는 connect() 메서드 호출
+// 			checkUnreadMessages(member_code);
 		});
 		
 		let ws; // WebSocket 객체가 저장될 변수 선언

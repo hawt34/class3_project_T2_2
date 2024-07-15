@@ -305,7 +305,7 @@
 	</select>
 	
 	<!-- 클래스 질문하기 -->
-	<insert id="insertClassInquiry" parameterType="map">
+	<insert id="insertClassInquiry">
 		INSERT INTO class_inquiry(
 			class_inquiry_subject
 			, class_inquiry_content
@@ -317,8 +317,8 @@
 		values(
 			#{class_inquiry_subject}
 			, #{class_inquiry_content}
-			, now()
-			, now()
+			, DATE(now())
+			, TIME(now())
 			, 'N'
 			, #{member_code}
 			, #{class_code}

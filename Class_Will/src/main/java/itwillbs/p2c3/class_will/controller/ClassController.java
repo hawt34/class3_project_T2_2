@@ -524,11 +524,16 @@ public class ClassController {
         params.put("class_code", class_code);
         System.out.println("class_code ::::: " + class_code);
 
-
+//        int insertCount = classService.insertClassInquiry(params);	
+        
         try {
-            classService.insertClassInquiry(params);
+            int result = classService.insertClassInquiry(params);
+            System.out.println("submit-inquiry insert 성공");
             response.put("success", true);
+            response.put("message", "문의가 성공적으로 제출되었습니다.");
         } catch (Exception e) {
+            System.out.println("submit-inquiry insert 실패: " + e.getMessage());
+            e.printStackTrace(); // 예외의 상세 스택 트레이스를 출력
             response.put("success", false);
             response.put("message", e.getMessage());
         }

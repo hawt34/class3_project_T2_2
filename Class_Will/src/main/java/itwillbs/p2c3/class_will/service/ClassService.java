@@ -136,12 +136,15 @@ public class ClassService {
 	}
 	
 	// 클래스 질문 
-	public List<Map<String, Object>> insertClassInquiry(Map<String, Object> list) {
-		return mapper.insertClassInquiry(list);
+	public int insertClassInquiry(Map<String, Object> list) {
+//		List<Map<String, Object>> insertCount = mapper.insertClassInquiry(list);
+		System.out.println("insertClassInquiry 시작");
+		int result = mapper.insertClassInquiry(list);
+		System.out.println("insertClassInquiry 성공");
+		return result;
 	}
 	
 	// 클래스 질문 정보
-	@Transactional
 	public Map<String, Object> getClassInquiryInfo(Map<String, Object> list) {
 //		mapper.selectInquiryMember(list);
 		return mapper.selectInquiryClass(list);

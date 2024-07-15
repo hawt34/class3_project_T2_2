@@ -766,28 +766,13 @@ document.addEventListener('DOMContentLoaded', function() {
         	 let returnUrl = encodeURIComponent(window.location.href); 
 	         window.location.href = "member-login?returnUrl=" + returnUrl;
         } else {
-	        $("#chatListContent").attr("src", "user-chat-room?receiver_code="+${classInfo.member_code}); // 실제로 열고자 하는 URL로 변경
+	        $("#chatListContent").attr("src", "user-chat-room?receiver_code="+${classInfo.member_code});
 	        $("#chatListModal").css("display", "block");
-	        $("#modalBackdrop").css("display", "block"); // 배경 표시
-	        $("body").css("overflow", "hidden"); // 배경 스크롤 방지
+	        $("#modalBackdrop").css("display", "block"); 
+	        $("body").css("overflow", "hidden"); 
         }
     });
 
-    // 채팅 모달 창 닫기
-    $("#chatModalClose").on("click", function() {
-        $("#chatListModal").css("display", "none");
-        $("#modalBackdrop").css("display", "none");
-        $("body").css("overflow", "auto"); // 배경 스크롤 복구
-    });
-
-    // 채팅 모달 외부를 클릭하면 모달 닫기
-    $(window).on("click", function(event) {
-        if (event.target == document.getElementById("modalBackdrop")) {
-            $("#chatListModal").css("display", "none");
-            $("#modalBackdrop").css("display", "none");
-            $("body").css("overflow", "auto"); // 배경 스크롤 복구
-        }
-    });
 
 });
 </script>

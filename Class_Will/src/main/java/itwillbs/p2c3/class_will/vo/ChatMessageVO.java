@@ -18,7 +18,7 @@ public class ChatMessageVO {
 	private String receiver_email;
 	private String message;
 	private String send_time; // 메세지 전송 시각
-	private boolean is_read;
+	private String is_read;
 	// ----------------------------------------
 	
 	// type 변수에 사용될 값을 상수로 생성
@@ -31,9 +31,11 @@ public class ChatMessageVO {
 	public static final String TYPE_TALK = "TALK"; 
 	public static final String TYPE_LEAVE = "LEAVE"; 
 	
-	public static final String TYPE_NEW_MESSAGE = "NEW_MESSAGE"; 
 	public static final String TYPE_SEND_MESSAGE = "SEND_MESSAGE"; 
+	public static final String TYPE_NEW_MESSAGE = "NEW_MESSAGE"; 
 	public static final String TYPE_READ_MESSAGE = "READ_MESSAGE"; 
+	public static final String TYPE_UNREAD_MESSAGE = "UNREAD_MESSAGE"; 
+	public static final String TYPE_CHECK_UNREAD = "CHECK_UNREAD"; 
 	
 	
 }

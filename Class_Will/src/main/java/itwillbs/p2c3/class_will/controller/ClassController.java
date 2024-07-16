@@ -523,7 +523,7 @@ public class ClassController {
 		
 		Map<String, Object> list = new HashMap<>();
 		list.put("class_code", class_code);
-	    System.out.println(">>>class-inquiry class_code:" + class_code);
+	    
 	    if (member != null) {
 	        member_code = member.getMember_code();
 	        list.put("member_code", member_code);
@@ -531,10 +531,10 @@ public class ClassController {
 	    } else {
 	        System.out.println("Member is null");
 	    }
+	    
 	    // 클래스, 회원 정보
 	    Map<String, Object> classInquiryInfo = classService.getClassInquiryInfo(list);
 	    model.addAttribute("classInquiryInfo", classInquiryInfo);
-	    System.out.println(">> class-inquiry classInquiryInfo : " + classInquiryInfo);
 	    
 		
 		return"class/class-inquiry";
@@ -576,6 +576,7 @@ public class ClassController {
 	@GetMapping("class-complain")
 	public String classComplain(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
 		}

@@ -68,6 +68,7 @@
 	</div>
 	
 	<script type="text/javascript">
+	
 	function submitInquiryForm(event, class_code) {
 		
 	    event.preventDefault();
@@ -87,6 +88,12 @@
 	    
 	    console.log("FormData:", formData); // formData에 데이터가 올바르게 추가되었는지 확인
 	    console.log("class_code:", class_code); // formData에 데이터가 올바르게 추가되었는지 확인
+	    
+	    // 폼 데이터의 유효성 검사
+	    if (!classInquirySubject || !classInquiryContent) {
+	        Swal.fire('알림', '문의 제목과 내용을 모두 입력해주세요.', 'warning');
+	        return; // 함수 종료
+	    }
 	    
 	    fetch('submit-inquiry', {
 	        method: 'POST',
@@ -112,6 +119,7 @@
 	        Swal.fire('오류', '서버 요청 중 오류가 발생했습니다.', 'error');
 	    });
 	}
+	
 	function updateUIWithSuccessMessage(message) {
 	    Swal.fire('성공', message, 'success')
 	        .then(() => {

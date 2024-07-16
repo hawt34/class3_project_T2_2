@@ -74,6 +74,7 @@
 	         ) unread
 	        ON cr.chat_room_code = unread.chat_room_code
 	     WHERE cr.member_email1 = #{member_email} OR cr.member_email2 = #{member_email}
+	    
 	</select>
 	
 	<select id="selectUnreadMessage" resultType="map">

@@ -167,81 +167,7 @@
 <!-- 			<div class="d-flex flex-row justify-content-center"> -->
 <!-- 				<span class="chatDate">2024년 7월 4일 목요일</span> -->
 <!-- 			</div>	 -->
-<!-- 			<!-- 주고 받은 메시지 -->		 
-<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
-<!-- 				<div class="d-flex flex-row mb-1"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
-<%-- 					<span class="receiver_name">${receiverInfo.member_nickname}</span> --%>
-<!-- 				</div>	 -->
-<!-- 				<div class="d-flex flex-row"> -->
-<!-- 					<span class="receiver_msg">안녕하세요~ .</span> -->
-<!-- 					<span class="send-time">오후 5:03</span> -->
-<!-- 				</div> -->
-<!-- 			</div>		 -->
-			
-<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
-<!-- 				<span class="send-time">오후 5:04</span> -->
-<!-- 				<span class="my_msg">안녕하세요. 둘리예요.</span> -->
-<!-- 			</div>		 -->
-			
-<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
-<!-- 				<span class="send-time">오후 5:04</span> -->
-<!-- 				<span class="my_msg">준비물이 있을까요?</span> -->
-<!-- 			</div>	 -->
-				
-<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
-<!-- 				<div class="d-flex flex-row mb-1"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
-<!-- 					<span class="receiver_name">길동이</span> -->
-<!-- 				</div>	 -->
-<!-- 				<div class="d-flex flex-row"> -->
-<!-- 					<span class="receiver_msg">준비해오실 건 없습니다. </span> -->
-<!-- 					<span class="send-time">오후 5:05</span> -->
-<!-- 				</div> -->
-<!-- 			</div>		 -->
-			
-<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
-<!-- 				<div class="d-flex flex-row mb-1"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
-<!-- 					<span class="receiver_name">길동이</span> -->
-<!-- 				</div>	 -->
-<!-- 				<div class="d-flex flex-row "> -->
-<!-- 					<span class="receiver_msg">모두 준비해드립니다.</span> -->
-<!-- 					<span class="send-time">오후 5:05</span> -->
-<!-- 				</div> -->
-<!-- 			</div>		 -->
-<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
-<!-- 				<span class="send-time">오후 5:06</span> -->
-<!-- 				<span class="my_msg">그렇군요. 감사합니다.</span> -->
-<!-- 			</div>		 -->
-<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
-<!-- 				<div class="d-flex flex-row mb-1"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
-<!-- 					<span class="receiver_name">길동이</span> -->
-<!-- 				</div>	 -->
-<!-- 				<div class="d-flex flex-row "> -->
-<!-- 					<span class="receiver_msg">또 다른 문의사항 있으신가요?</span> -->
-<!-- 					<span class="send-time">오후 5:06</span> -->
-<!-- 				</div> -->
-<!-- 			</div>		 -->
-<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
-<!-- 				<span class="send-time">오후 5:07</span> -->
-<!-- 				<span class="my_msg">아뇨 없어요</span> -->
-<!-- 			</div>		 -->
-<!-- 			<div class="d-flex flex-row flex-column msg-area"> -->
-<!-- 				<div class="d-flex flex-row mb-1"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
-<!-- 					<span class="receiver_name">길동이</span> -->
-<!-- 				</div>	 -->
-<!-- 				<div class="d-flex flex-row "> -->
-<!-- 					<span class="receiver_msg">네 좋은 하루되세요~</span> -->
-<!-- 					<span class="send-time">오후 5:09</span> -->
-<!-- 				</div> -->
-<!-- 			</div>			 -->
-<!-- 			<div class="d-flex flex-row justify-content-end msg-area"> -->
-<!-- 				<span class="send-time">오후 5:10</span> -->
-<!-- 				<span class="my_msg">감사합니다~ ☺️</span> -->
-<!-- 			</div>		 -->
+<!-- 		<!-- 주고 받은 메시지 -->		 
 			
 		</div>
 		
@@ -276,6 +202,7 @@
 		function send(target) {
 			let inputElement = $("#send-msg-input");
 			let inputValue = $("#send-msg-input").val();
+			console.log("inputValue : " + inputValue);
 			
 			const message = {
 				message_type : "SEND_MESSAGE",
@@ -287,7 +214,7 @@
 			window.parent.postMessage(message, '*');
 			
 			// 입력 메세지가 비어있을 경우 작업 종료
-			if(inputValue == "") {
+			if(inputValue == "" || inputValue == null) {
 				inputElement.focus();
 				return;
 			}

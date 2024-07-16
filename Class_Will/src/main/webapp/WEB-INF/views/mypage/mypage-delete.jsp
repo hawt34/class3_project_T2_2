@@ -150,7 +150,7 @@ th:nth-child(2), td:nth-child(2) {
 								<!-- 								여기부터 토스트 ui -->
 								<div class="table-responsive">
 									<h3>나의 리뷰 흔적이 ${totalReview}개 있습니다.</h3>
-									<p>${member.member_name}님이작성한 리뷰들</p>
+									<p>${member.member_name}님이 작성한 리뷰들</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>
@@ -192,7 +192,7 @@ th:nth-child(2), td:nth-child(2) {
 								</div>
 								<div class="table-responsive">
 									<h3>내가 적은 클래스 문의 흔적이 ${totalInquiry}개 있습니다.</h3>
-									<p>클래스 정보</p>
+									<p>${member.member_name}님이 작성한 문의들</p>
 									<table class="table table-hover">
 										<thead>
 											<tr>

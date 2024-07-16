@@ -204,6 +204,12 @@
 			let inputValue = $("#send-msg-input").val();
 			console.log("inputValue : " + inputValue);
 			
+			// 입력 메세지가 비어있을 경우 작업 종료
+			if(inputValue == "" || inputValue == null) {
+				inputElement.focus();
+				return;
+			}
+			
 			const message = {
 				message_type : "SEND_MESSAGE",
 			    chat_room_code : chat_room_code,
@@ -212,12 +218,6 @@
 			    chat_message : inputValue
 			};
 			window.parent.postMessage(message, '*');
-			
-			// 입력 메세지가 비어있을 경우 작업 종료
-			if(inputValue == "" || inputValue == null) {
-				inputElement.focus();
-				return;
-			}
 			
 			// 채팅 입력창 초기화
 			inputElement.val("");

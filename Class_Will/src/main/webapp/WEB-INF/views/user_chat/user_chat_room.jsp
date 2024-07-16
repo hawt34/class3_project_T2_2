@@ -278,11 +278,11 @@
 			let inputValue = $("#send-msg-input").val();
 			
 			const message = {
-					message_type : "SEND_MESSAGE",
-				    chat_room_code : chat_room_code,
-				    sender_email : member_email,
-				    receiver_email : receiver_email,
-				    chat_message : inputValue
+				message_type : "SEND_MESSAGE",
+			    chat_room_code : chat_room_code,
+			    sender_email : member_email,
+			    receiver_email : receiver_email,
+			    chat_message : inputValue
 			};
 			window.parent.postMessage(message, '*');
 			
@@ -370,8 +370,10 @@
 									+ '</div> '		
 							);
 							scrollToBottom();
-						}						
+						}			
 						
+// 					    window.parent.postMessage(readMessage, '*');
+
 					}
 					
 				    

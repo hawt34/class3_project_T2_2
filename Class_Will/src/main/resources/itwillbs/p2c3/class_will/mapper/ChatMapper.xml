@@ -122,7 +122,20 @@
 	<update id="updateIsRead">
 		UPDATE chat_message
 		   SET is_read = 'true'
-		 WHERE message_code = #{message_code}
+		   <choose>
+				<when test="isMultiRow eq true"> -- isMultiRow 값이 true면 chat_room_code로 검색
+					 WHERE chat_room_code = #{code}
+				</when>
+				<otherwise> -- false면 message_code로 검색
+					 WHERE message_code = #{code}
+				</otherwise>
+		   </choose>
 	</update>
+	
+<!-- 	<update id="updateIsRead"> -->
+<!-- 		UPDATE chat_message -->
+<!-- 		   SET is_read = 'true' -->
+<!-- 		 WHERE message_code = #{message_code} -->
+<!-- 	</update> -->
 
 </mapper>

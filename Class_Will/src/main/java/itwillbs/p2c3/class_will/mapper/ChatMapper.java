@@ -35,7 +35,8 @@ public interface ChatMapper {
 
 	ChatMessageVO selectSendMessage(ChatMessageVO chatMessage);
 
-	void updateIsRead(ChatMessageVO chatMessage);
+	void updateIsRead(@Param("code") int code, @Param("isMultiRow") boolean isMultiRow);
+//	void updateIsRead(ChatMessageVO chatMessage);
 
 
 	

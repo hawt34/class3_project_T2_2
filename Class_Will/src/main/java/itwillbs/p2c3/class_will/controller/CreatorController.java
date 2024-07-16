@@ -767,13 +767,28 @@ public class CreatorController {
 	
 	@ResponseBody
 	@GetMapping("graphByClass")
-	public List<Map<String, Object>> graphByClass(@RequestParam int classCode, HttpSession session) {
+	public Map<String, Object> graphByClass(@RequestParam int classCode, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		List<Map<String, Object>> GraphDataByClassList = creatorService.getChartDataByClass(classCode, member);
 		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member, classCode);
 		
-		return GraphDataByClassList;
+		Map<String, Object> DataList = new HashMap<String, Object>();
+		DataList.put("GraphDataByClassList", GraphDataByClassList);
+		DataList.put("analyzeList", analyzeList);
+		
+		
+		return DataList;
 	}
+
+//	@ResponseBody
+//	@GetMapping("analyzeDataByClass")
+//	public List<Map<String, Object>> analyzeDataByClass(@RequestParam int classCode, HttpSession session) {
+//		MemberVO member = (MemberVO)session.getAttribute("member");
+//		List<Map<String, Object>> GraphDataByClassList = creatorService.getChartDataByClass(classCode, member);
+//		Map<String, Object> analyzeList = creatorService.getAnalyzeList(member, classCode);
+//		
+//		return GraphDataByClassList;
+//	}
 	
 	
 	

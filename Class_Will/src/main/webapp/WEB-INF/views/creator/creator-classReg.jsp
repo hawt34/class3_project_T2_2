@@ -88,10 +88,6 @@
 								<form class="validation-form classReg" novalidate action="creator-classRegPro" name="fr" method="post" enctype="multipart/form-data" onsubmit="return confirm('클래스를 등록하시겠습니까?');">
 									<div class="classReg-basic">
 										<div class="h4">클래스 기본정보</div>
-										<div class="h6 d-flex justify-content-start mt-4">
-											<p>작성상태 :</p>
-											<p>&nbsp;작성중</p>
-										</div>
 										<div class="classReg-basic-form">
 											<div class="col-md-6 mt-2 mb-4">
 												<label for="class_show" class="h6">공개여부</label> 

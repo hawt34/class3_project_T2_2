@@ -117,7 +117,7 @@
                         const rowKey = props.grid.getIndexOfRow(props.rowKey);
                         const rowData = props.grid.getRow(rowKey);
                         const class_report_code = rowData.class_report_code;
-                        window.open("admin-class-report-detail?class_report_code=" + class_report_code, "신고 상세보기", "height=1000px, width=1200px");
+                        window.open("admin-class-report-detail?class_report_code=" + class_report_code + "&status=${param.status}", "신고 상세보기", "height=1000px, width=1200px");
                     });
                     this.el = el;
                 }

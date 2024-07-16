@@ -626,8 +626,9 @@
 // 로그아웃 클릭
 function logout() {
 	if(confirm("로그아웃하시겠습니까?")) {
-		let returnUrl = encodeURIComponent(window.location.href); 
-		location.href = "member-logout?returnUrl=" + returnUrl;
+// 		let returnUrl = encodeURIComponent(window.location.href); 
+// 		location.href = "member-logout?returnUrl=" + returnUrl;
+		location.href = "member-logout";
 	}
 } 
 

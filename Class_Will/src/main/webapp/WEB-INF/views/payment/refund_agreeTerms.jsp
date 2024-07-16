@@ -53,26 +53,26 @@
 </div>
 <script>
 $("#agreeButton").click(function() {
-	if (window.opener && !window.opener.closed) {
 		$.ajax({
 			url: "change-refund-terms",
 			type: "GET",
 			data: {
 				agree : "Y"
 			},
+			dataType: "json",
 			success: function(res) {
 				if(res.success) {
-					
+					if (window.opener && !window.opener.closed) {
+						window.opener.showRefundBtn();  // 부모 창의 함수를 호출하여 버튼을 보이게 합니다.
+						window.opener.location.reload();
+						window.close();  // 팝업창을 닫기
+					}
 				}
 			},
 			error: function() {
 				alert("동의 실패!");
 			}
 		});
-		
-		window.opener.showRefundBtn();  // 부모 창의 함수를 호출하여 버튼을 보이게 합니다.
-		window.close();  // 팝업창을 닫기
-	}
 });	
 </script>
 </body>

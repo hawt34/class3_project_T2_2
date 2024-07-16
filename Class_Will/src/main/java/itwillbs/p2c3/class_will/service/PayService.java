@@ -365,6 +365,19 @@ public class PayService {
 		return payMapper.selectAbledWillpay(map);
 	}
 	
+	//환불정책 동의 
+	public Map<String, Object> updateRefundAgree(String agree, int member_code) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		int updateResult = payMapper.updateRefundAgree(agree, member_code);
+		if(updateResult > 0) {
+			result.put("success", true);
+		} else {
+			result.put("success", false);
+		}
+		
+		return result;
+	}
+	
 	//충전(입금) 환불
 	public boolean deposit(Map<String, Object> map) {
 		//admin access_token으로 교체
@@ -384,9 +397,7 @@ public class PayService {
 		return true;
 	}
 
-	public Map<String, Object> updateRefundAgree(String agree) {
-		return null;
-	}
+	
 
 	
 	

@@ -37,10 +37,23 @@
 	}
 	
 	.reset-form {
-		width: 500px;
 		padding: 30px;
 		margin-top: 50px;
 		margin-bottom: 100px;
+	}
+	
+	@media (min-width: 576px) {
+		.reset-form {
+			padding: 30px 100px;;
+		}
+	    
+	}
+	
+	@media (min-width: 992px) {
+		.reset-form {
+			width: 700px;
+		}
+	    
 	}
 	
 	.btnLogin {
@@ -48,7 +61,7 @@
 	}
 	
 	.regex{ 
-		font-size: 15px;
+		font-size: 13px;
 		color: white;
 	}
 	
@@ -59,6 +72,11 @@
 	fieldset {
 		width: 300px;
 		margin: auto;
+	}
+	
+	#goLogin u {
+		font-style: none;
+		color: white;
 	}
 </style>
 </head>
@@ -87,7 +105,7 @@
 					</div>
 				</fieldset>
 			</form>
-			<div class="mt-3 mb-5">
+			<div class="mt-3 mb-5" id="goLogin">
 				<a href="member-login" class="text-center"><u>로그인하기</u></a>
 			</div>
 		</div>

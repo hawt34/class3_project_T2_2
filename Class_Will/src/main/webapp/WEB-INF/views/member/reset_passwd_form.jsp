@@ -38,10 +38,23 @@
 	}
 	
 	.reset-form {
-		width: 500px;
 		padding: 30px;
 		margin-top: 50px;
 		margin-bottom: 100px;
+	}
+	
+	@media (min-width: 576px) {
+		.reset-form {
+			padding: 30px 100px;;
+		}
+	    
+	}
+	
+	@media (min-width: 992px) {
+		.reset-form {
+			width: 600px;
+		}
+	    
 	}
 	
 	.btnLogin {
@@ -49,7 +62,7 @@
 	}
 	
 	.regex{ 
-		font-size: 15px;
+		font-size: 13px;
 		color: white;
 	}
 	
@@ -61,6 +74,12 @@
 		width: 300px;
 		margin: auto;
 	}
+	
+	#goLogin u {
+		font-style: none;
+		color: white;
+	}
+	
 </style>
 </head>
 <body>
@@ -76,7 +95,7 @@
 				</div>
 				<p>새로운 비밀번호를 설정해 주세요.</p>
 				<fieldset>
-					<div class="login-form-input">
+					<div class="login-form-input mb-3">
 						<input type="hidden" value="${member_email}" name="member_email"> 
 						<div class="input-group">
 							<span class="input-group-text" id="passwd-icon"><i class="bi bi-lock-fill"></i></span>
@@ -90,7 +109,7 @@
 					</div>
 				</fieldset>
 			</form>
-			<div class="mt-3 mb-3">
+			<div class="mt-3 mb-3" id="goLogin">
 				<a href="member-login" class="text-center"><u>기존 비밀번호로 로그인하기</u></a>
 			</div>
 		</div>

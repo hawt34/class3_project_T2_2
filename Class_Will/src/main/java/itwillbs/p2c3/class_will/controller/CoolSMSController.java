@@ -80,7 +80,7 @@ public class CoolSMSController {
                 
                 Message message = new Message();
                 // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
-                message.setFrom("01073034573");
+                message.setFrom("01092518490");
                 message.setTo(member_tel);
                 message.setText("[Class Will] 아래의 인증번호를 입력해 주세요.\n인증번호 : ["+ auth_num + "]");
                 

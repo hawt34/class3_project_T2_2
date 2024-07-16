@@ -63,7 +63,7 @@
 	
 	@media (min-width: 992px) {
 		.login-form {
-			width: 900px;
+			width: 600px;
 		}
 	    
 	}
@@ -73,7 +73,7 @@
 	}
 	
 	.regex {
-		font-size: 15px;
+		font-size: 13px;
 		color: white;
 	}
 	
@@ -111,8 +111,8 @@
 	<article>
 		<div class="container-fluid">
 			<div class="container login-form ">
-				<div class="row gx-5""> 
-					<div class="col-lg-6 col-md-12 ">
+				<div class="row gx-5"> 
+					<div class="col-lg-12 col-md-12 ">
 						<h2 align="center">로그인</h2>
 						<form action="member-login" method="POST">
 							<div class="login-form-input">
@@ -146,13 +146,13 @@
 							클래스윌이 처음이신가요?&nbsp; &nbsp;<a href="member-join" style="color: white;" ><u><b>가입하기</b></u></a>
 						</div>			
 					</div><!-- col -->
-					<div class="col-lg-6 col-md-12 login-social">
-						<div class="container d-flex flex-column mb-3">
-							<input type="button" id="login-google" value="Google로 로그인" class="btn btn-outline-light btn-lg p-2 social">
-							<input type="button" id="login-kakao" value="카카오로 로그인" class="btn btn-outline-light btn-lg p-2 social">
-							<input type="button" id="login-kakao" value="네이버로 로그인" class="btn btn-outline-light btn-lg p-2 social">
-						</div>
-					</div> <!-- col -->
+<!-- 					<div class="col-lg-6 col-md-12 login-social"> -->
+<!-- 						<div class="container d-flex flex-column mb-3"> -->
+<!-- 							<input type="button" id="login-google" value="Google로 로그인" class="btn btn-outline-light btn-lg p-2 social"> -->
+<!-- 							<input type="button" id="login-kakao" value="카카오로 로그인" class="btn btn-outline-light btn-lg p-2 social"> -->
+<!-- 							<input type="button" id="login-kakao" value="네이버로 로그인" class="btn btn-outline-light btn-lg p-2 social"> -->
+<!-- 						</div> -->
+<!-- 					</div> col -->
 				</div>  <!-- row -->
 			</div>
 		</div>

@@ -828,11 +828,11 @@ $(function() {
 	
     // ===================================================================================================
     // 카테고리, 지역 콜렙스 호버
-	const collapseElements = $('#top-categoty, #top-local');
+	let collapseElements = $('#top-categoty, #top-local');
 
     let currentOpenCollapse = null;
 
-    const openCollapse = (target) => {
+    let openCollapse = (target) => {
         if (currentOpenCollapse && currentOpenCollapse !== target) {
             currentOpenCollapse.removeClass('show');
         }
@@ -840,7 +840,7 @@ $(function() {
         currentOpenCollapse = target;
     };
 
-    const closeCollapse = (target) => {
+    let closeCollapse = (target) => {
         target.removeClass('show');
         if (currentOpenCollapse === target) {
             currentOpenCollapse = null;
@@ -848,8 +848,8 @@ $(function() {
     };
 
     collapseElements.each(function() {
-        const elem = $(this);
-        const target = $(elem.attr('data-bs-target'));
+    	let elem = $(this);
+    	let target = $(elem.attr('data-bs-target'));
 
         elem.on('mouseenter', () => openCollapse(target));
         target.on('mouseenter', () => openCollapse(target));

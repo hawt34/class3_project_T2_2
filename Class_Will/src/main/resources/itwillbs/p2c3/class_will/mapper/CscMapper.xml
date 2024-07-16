@@ -128,4 +128,15 @@
 		VALUES
 		(null, #{member_code}, #{event_code})
 	</insert>
+	
+	<select id="selectCscList" resultType="map" parameterType="map">
+		SELECT *
+		FROM ${type}
+		WHERE 1 = 1
+		AND ${type}_hide = 'N'
+		ORDER BY ${type}_code DESC
+		<if test="startRow != null and !startRow.equals('')">
+			LIMIT #{startRow}, #{limit}
+		</if>
+	</select>
 </mapper>

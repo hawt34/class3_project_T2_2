@@ -45,7 +45,7 @@ public class CscController {
 		params.put("type", type);
 		params.put("startRow", startRow);
 		params.put("limit", pageSize);
-		List<Map<String, Object>> data = adminService.getCscList(params);
+		List<Map<String, Object>> data = cscService.getCscList(params);
 		
 		for (Map<String, Object> map : data) {
             for (Map.Entry<String, Object> entry : map.entrySet()) {

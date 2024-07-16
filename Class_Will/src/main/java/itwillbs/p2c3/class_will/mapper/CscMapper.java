@@ -44,5 +44,7 @@ public interface CscMapper {
 	int selectEventLogs(@Param("event_code")int event_code,@Param("member_code") int member_code);
 
 	void insertEventLogs(@Param("event_code")int event_code,@Param("member_code") int member_code);
+
+	List<Map<String, Object>> selectCscList(Map<String, Object> params);
 	
 }

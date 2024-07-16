@@ -116,6 +116,8 @@ public interface AdminMapper {
 	boolean updateEventHide(@Param("updateRow") Map<String, Object> updateRow);
 
 	List<Map<String, Object>> selectPayChart();
+
+	int deleteEvent(String event_code);
 	
 
 }

@@ -90,6 +90,9 @@
 					<hr class="mb-4">
 					<div class="mb-4" align="center">
 						<input type="submit" value="등록하기" class="btn btn-primary btn-lg btn-block">
+						<c:if test="${param.where eq 'modify' }">
+							<input type="button" value="삭제하기" class="btn btn-danger btn-lg btn-block" onclick="deleteEvent('${event.event_code}')">
+						</c:if>
 						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
 					</div>
 				</form>
@@ -100,6 +103,29 @@
 		</footer>
 	</div>
 <script>
+	function deleteEvent(event_code){
+		if(confirm("정말 이벤트를 삭제하시겠습니까?")){
+			$.ajax({
+		        url: 'deleteEvent',
+		        type: 'POST',
+		        data: {
+		        	"event_code":event_code
+		        },
+		        success: function(response) {
+		        	if(response == "true"){
+		        		alert("이벤트 삭제 성공");
+		        		window.close();
+		        		window.opener.location.reload();
+		        	}else{
+		        		alert("이벤트 삭제 실패 데이트 확인 필요");
+		        		window.close();
+		        		window.opener.location.reload();
+		        	}
+		        }
+		    });
+		}
+	}
+	
 	function togglePointInput() {
 		const pointActiveCheckbox = document.getElementById('event_point_active');
 		const pointInput = document.getElementById('event_point');
@@ -172,9 +198,7 @@
 			} else{
 				$("#coupon_type_num").prop('disabled',true);
 			}
-	    	
 		});
-	    
 	});    
 </script>
 </body>

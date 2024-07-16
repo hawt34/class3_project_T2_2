@@ -50,7 +50,7 @@ public interface PayMapper {
 	int registPaySuccessInfo(Map<String, Object> map);
 	
 	//member table의 member_credit 처리
-	void updateCredit(Map<String, Object> map);
+	void decrementWillpay(Map<String, Object> map);
 	
 	//class_schedule 테이블의 class_remain_headcount 처리
 	void updateHeadcount(Map<String, Object> map);
@@ -67,7 +67,7 @@ public interface PayMapper {
 	void updateFintechUseNum(Map<String, String> fintech);
 	
 	//member_credit 업데이트 후 조회
-	void updateWillpay(Map<String, Object> map);
+	void incrementWillpay(Map<String, Object> map);
 
 	int selectWillpay(Map<String, Object> map);
 	

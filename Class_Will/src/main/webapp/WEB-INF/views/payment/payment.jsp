@@ -92,7 +92,7 @@
 					<div class="card-body">
 						<div class="card payment_status_box">
 							<div class="row ">
-								<img src="${pageContext.request.contextPath }/resources/img/${payInfo.class_thumnail}" class="img-fluid" id="class_poster" alt="썸네일" >
+								<img src="${pageContext.request.contextPath }/resources/upload/${payInfo.class_thumnail}" class="img-fluid" id="class_poster" alt="썸네일" >
 							</div> <!-- row -->
 						</div>
 						<h5 class="card-title text-success">클래스 이름</h5>

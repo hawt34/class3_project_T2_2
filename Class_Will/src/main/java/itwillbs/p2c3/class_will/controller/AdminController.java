@@ -979,5 +979,17 @@ public class AdminController {
         result = WillUtils.checkDeleteSuccess(true, model, "이벤트 등록 성공!", true);
     	return result;
     }
+    
+    
+    @ResponseBody
+    @PostMapping("deleteEvent")
+    public String deleteEvent(@RequestParam String event_code) {
+    	System.out.println(event_code);
+    	boolean isSuccess = adminService.deleteEvent(event_code);
+    	if(!isSuccess) {
+    		return "false";
+    	}
+    	return "true";
+    }
 }
 	

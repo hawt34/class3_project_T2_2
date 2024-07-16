@@ -565,4 +565,9 @@
 		WHERE event_code = #{updateRow.event_code}
 	</update>
 	
+	<delete id="deleteEvent">
+		DELETE FROM event
+		WHERE event_code = #{event_code}	
+	</delete>
+	
 </mapper>

@@ -123,7 +123,10 @@ td > img{
 	
 	<script type="text/javascript">
 	
-	var fromAdmin = ${param.fromAdmin};
+	// 클래스 리스트에서 온 요청에 대한 버튼 이벤트
+	var fromAdmin = "${fromAdmin}";
+	
+	fromAdmin = fromAdmin === 'true';
 	
 	if(fromAdmin) {
 		const closeButton = document.getElementById('closeButton');
@@ -134,6 +137,7 @@ td > img{
 			window.close();
 		});
 	}
+	
 		function getPoint(event_point, event_code){
 			// 포인트 AJAX 처리 하기
 			 $.ajax({
@@ -147,7 +151,12 @@ td > img{
 		            alert(response.message);  // 서버 응답 메시지를 알림으로 표시
 		        },
 		        error: function(xhr, status, error) {
-		            alert(xhr.responseText);  // 오류가 발생한 경우의 처리
+		        	 try {
+		                 var response = JSON.parse(xhr.responseText);
+		                 alert(response.message);  // 오류가 발생한 경우의 처리
+		             } catch (e) {
+		                 alert("An error occurred: " + xhr.responseText);
+		             }
 		        }
 			});
 		}
@@ -156,9 +165,6 @@ td > img{
 			location.href="event";
 		}
 		
-		
 	</script>
-
-
 </body>
 </html>

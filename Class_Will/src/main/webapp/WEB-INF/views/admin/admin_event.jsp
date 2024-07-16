@@ -99,7 +99,7 @@
     <script>
     	
 	    function regist(){
-			window.open("admin-event-regist", "등록폼", "width=1200,height=1000");	
+			window.open("admin-event-regist?where=regist", "등록폼", "width=1200,height=1000");	
 	    }
 	    
         document.addEventListener('DOMContentLoaded', function () {
@@ -192,7 +192,7 @@
                         const rowKey = props.grid.getIndexOfRow(props.rowKey);
                         const rowData = props.grid.getRow(rowKey);
                         let code = rowData.event_code;
-    	                window.open("admin-event-modify?&event_code=" + code, "상세정보", "width=1200px,height=1000px");
+    	                window.open("admin-event-modify?&event_code=" + code + "&where=modify", "상세정보", "width=1200px,height=1000px");
     	            });
 
     	            container.appendChild(viewButton);
@@ -263,13 +263,6 @@
                             type: ModifyRenderer
                         }
                     },
-                    {
-                    	header: '숨김',
-    	                name: 'hidden',
-    	                renderer: {
-    	                    type: BootstrapSwitchRenderer
-    	                }
-                    }
                 ],
     	        pageOptions: {
     	            useClient: true,

@@ -115,6 +115,19 @@ body{
 .selected {
     background: #336633 !important; /* 클릭 시 배경 색상 */
 }
+.willpay_label {
+	display: flex;
+	align-items: start;
+}
+
+.willpay_check {
+	display: inline-block;
+	width: 24px; /* 너비 설정 */
+    height: 24px; /* 높이 설정 */
+    background-image: url('${pageContext.request.contextPath}/resources/img/willpay_check.png'); /* 배경 이미지 설정 */
+    background-size: cover; /* 이미지가 컨테이너에 맞게 조정 */
+    background-position: center; /* 이미지의 중심을 컨테이너의 중심에 맞춤 */
+}
 </style>
 </head>
 <body>
@@ -126,7 +139,10 @@ body{
 	<div class="row d-flex justify-content-center align-items-center">
 		<div class="col-md-6  custom-bg">
 			<div class="mx-3 margin_use">
-				<label for="will_pay_charge" class="form-label">Will-pay 충전하기</label>
+				<div class="willpay_label">
+					<span class="willpay_check" ></span>
+					<label for="will_pay_charge" class="form-label">Will-pay 충전하기</label>
+				</div>
 				<input type="text" class="form-control w-75" id="will_pay_charge" placeholder="충전할 금액을 입력해주세요.">
 			</div>
 			<p id="result"></p>
@@ -140,7 +156,7 @@ body{
 				<div class="package_group">
 					<c:forEach var="package1" items="${packageInfo }" varStatus="status">
 						<div class="card border-light mb-3 cutom-card" style="width:180px;">
-							<div class="card-header">PLUS PACKAGE</div>
+							<div class="card-header text-bg-success">PLUS PACKAGE</div>
 							<div class="card-body">
 								<h5 class="card-title">${package1.reward_rate }% 더!</h5>
 								<!-- package 가격정보 -->
@@ -155,7 +171,10 @@ body{
 				</div>
 				<!-- 선택된 package 가격 -->
 				<div class="mx-3">
-					<label for="selected_package" class="form-label">선택된 package</label>
+					<div class="willpay_label">
+						<span class="willpay_check" ></span>
+						<label for="selected_package" class="form-label">선택된 package</label>
+					</div>
 					<input type="text" class="form-control w-50" id="selected_package" readonly>
 				</div>
 				<hr>

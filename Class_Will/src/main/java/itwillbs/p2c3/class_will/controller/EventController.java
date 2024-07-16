@@ -127,12 +127,21 @@ public class EventController {
 	public ResponseEntity<String> sendingEmail(@RequestParam Map<String, Object> map, Model model, HttpSession session) {
 		String responseMessage = "";
 		MemberVO sessionMember = (MemberVO)session.getAttribute("member");
+		if(sessionMember == null) {
+			responseMessage = "로그인 후 응모해주세요";
+			HttpHeaders headers = new HttpHeaders();
+		    headers.add("Content-Type", "text/plain; charset=UTF-8");
+		    return new ResponseEntity<>(responseMessage, headers, HttpStatus.BAD_REQUEST);
+		}
 		int sessionMemberCode = sessionMember.getMember_code();
 		
 		Map<String, Object> validationMemberInfo = cscService.getInviteFriendInfo(sessionMemberCode);
 		System.out.println("validddddddd : " + validationMemberInfo);
 		if(validationMemberInfo != null) {
 			responseMessage = "이벤트에 이미 응모하셨습니다.";
+			HttpHeaders headers = new HttpHeaders();
+		    headers.add("Content-Type", "text/plain; charset=UTF-8");
+		    return new ResponseEntity<>(responseMessage, headers, HttpStatus.BAD_REQUEST);
 		}else {
 			String friend_email = (String)map.get("friend_email");
 			String invite_code = (String)map.get("invite_code");
@@ -141,6 +150,9 @@ public class EventController {
 			MemberVO dbMember =  memberService.selectMember(member);
 			if(dbMember == null) {
 				responseMessage = "존재하지 않는 회원입니다.";
+				HttpHeaders headers = new HttpHeaders();
+			    headers.add("Content-Type", "text/plain; charset=UTF-8");
+			    return new ResponseEntity<>(responseMessage, headers, HttpStatus.BAD_REQUEST);
 			}
 			
 			mailService.sendInviteFriendMail(friend_email, invite_code);
@@ -157,10 +169,8 @@ public class EventController {
 			}
 		}
 		
-		
 		HttpHeaders headers = new HttpHeaders();
 	    headers.add("Content-Type", "text/plain; charset=UTF-8");
-	    
 	    return new ResponseEntity<>(responseMessage, headers, HttpStatus.OK);
 	}
 	

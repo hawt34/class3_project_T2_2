@@ -39,6 +39,24 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
+
+      .fixed-button {
+          position: fixed;
+          top: 50%; /* 위에서부터 50% 위치 */
+          right: 20px;
+          background-color: #007BFF;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+          cursor: pointer;
+          display: none; /* 초기에는 숨김 */
+          transform: translateY(-50%); /* 버튼을 수직 중앙 정렬 */
+	}
+
     .flatpickr-calendar {
         font-size: 24px; /* 기본 글꼴 크기 조정 */
     }
@@ -150,6 +168,9 @@
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
+    <!-- 고정 버튼 -->
+	<button class="fixed-button" id="backButton" onclick="javascript:reportBack()">◀️</button>
+	<button class="fixed-button" id="closeButton" onclick="javascript:closeButton()">❌</button>
 <div class="container1">
     <!-- 캐러셀 시작 -->
     <div class="row col-md-12">
@@ -163,17 +184,19 @@
 				<c:if test="${not empty classInfo.class_image}">
 	                <div class="carousel-item active rounded col-12 classImg">
     	                <img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image}" class="img-fluid bg-secondary rounded" alt="First slide">
-<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/class_2.png" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/class2.png" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
 	                </div>
 				</c:if>
 				<c:if test="${not empty classInfo.class_image2}">
 	                <div class="carousel-item rounded col-12 classImg">
-                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" alt="Second slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" >
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/test.png" class="img-fluid bg-secondary rounded" alt="Second slide"> --%>
 					</div>				
 				</c:if>
 				<c:if test="${not empty classInfo.class_image3}">
 	                <div class="carousel-item rounded col-12 classImg">
-                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded" alt="Third slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded">
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/test1.png" class="img-fluid bg-secondary rounded" alt="Third slide"> --%>
 					</div>				
 				</c:if>
             </div>
@@ -341,15 +364,15 @@
             </div>
             <div id="section4"class="section">
             	<div class="row">
-	            	<div class="col-9">
+	            	<div class="col-9"style="text-align : left; margin-top : 30px;">
 	              		<h4>클래스 Q&A</h4>
 	              	</div>
-	            	<div class="col"style="text-align : right; margin-top : 20px;">
-	              		<img src="${pageContext.request.contextPath}/resources/images/class/inq.png"style="width : 35px; height : 35px;" onclick="classInquiry(event, '${param.class_code}')">
-					문의하기
+	            	<div class="col"style="text-align : right; margin-top : 30px;">
+						<label>
+						    <img src="${pageContext.request.contextPath}/resources/images/class/inq.png" class="question" style="width: 35px; height: 35px;" onclick="classInquiry(event, '${param.class_code}')">
+						    <span onclick="classInquiry(event, '${param.class_code}')" class="question">문의하기</span>
+						</label>
 	              	</div>
-<!-- 	            	<div class="col" style="text-align : right;"> -->
-<!-- 	              	</div> -->
               	</div>
                 <!-- 테이블 -->
                 <div class="card text-center my-3">
@@ -531,6 +554,34 @@ document.addEventListener("DOMContentLoaded", function() {
 	var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
 	var heartCountElement = document.getElementById("heartCountElement"); // heartCount 요소
 	
+	// 클래스 리스트에서 온 요청에 대한 버튼 이벤트
+	var fromAdmin = ${param.fromAdmin};
+	
+	if(fromAdmin) {
+		const closeButton = document.getElementById('closeButton');
+		closeButton.style.display = 'block';
+				
+		// 버튼 클릭 이벤트 추가
+		closeButton.addEventListener('click', function() {
+			window.close();
+		});
+	}
+	
+	// 신고에서 온 요청에 대한 버튼 이벤트
+	var fromReport = "${fromReport}";
+	
+	if (fromReport) {
+		// 고정 버튼 활성화
+		const backButton = document.getElementById('backButton');
+		backButton.style.display = 'block';
+				
+		// 버튼 클릭 이벤트 추가
+		backButton.addEventListener('click', function() {
+			window.history.back();
+		});
+	}
+	    
+
 	// btnCustoms 클릭 시의 이벤트 핸들러
 	btnCustoms.addEventListener("click", function() {
 	    // btnCustoms를 클릭했을 때 할 일을 여기에 추가할 수 있습니다.
@@ -853,7 +904,7 @@ function classInquiry(event, class_code) {
         .then(data => {
             if (data.isLoggedIn) {
                 // 로그인 상태인 경우 창을 열기
-                window.open("class-inquiry?class_code=" + class_code, "pop", "width=700, height=600, left=700, top=50");
+                window.open("class-inquiry?class_code=" + class_code, "pop", "width=700, height=725, left=700, top=50");
             } else {
                 // 로그인 상태가 아닌 경우 알림 메시지 표시 후 창 닫기
                 Swal.fire('로그인 필요', '로그인 후 다시 시도해 주세요.', 'warning')

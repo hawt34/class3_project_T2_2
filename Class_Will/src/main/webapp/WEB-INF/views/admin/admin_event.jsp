@@ -224,7 +224,7 @@
                         const rowKey = props.grid.getIndexOfRow(props.rowKey);
                         const rowData = props.grid.getRow(rowKey);
                         let code = rowData.event_code;
-    	                window.open("eventDetail?&event_code=" + code, "상세정보", "width=1200px,height=1000px");
+    	                window.open("eventDetail?&event_code=" + code + "&fromAdmin=true", "상세정보", "width=1200px,height=1000px");
     	            });
 
     	            container.appendChild(viewButton);

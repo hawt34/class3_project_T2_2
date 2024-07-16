@@ -1,10 +1,7 @@
 package itwillbs.p2c3.class_will.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -55,7 +51,8 @@ public class ClassController {
 	// 클래스 리스트
 	@GetMapping("class-list")
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
-	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params) {
+	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params
+			,@RequestParam(defaultValue = "0") boolean fromReport) {
 		
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    Integer member_code = null;
@@ -121,6 +118,12 @@ public class ClassController {
 	    } else {
 	        System.out.println("Member code is null, skipping likeClassCode.");
 	    }
+	    
+
+		//클래스 신고에서 들어온 요청 처리
+		if(fromReport) {
+			model.addAttribute("fromReport", true);
+		}
 	    
 	    return "class/class-list";
 	}
@@ -283,8 +286,12 @@ public class ClassController {
     public String updateHeartStatus(@RequestBody Map<String, Object> requestBody, HttpSession session, Model model) {
     	
 		Boolean heart_status = (Boolean) requestBody.get("heart_status");
-	    String member_code = (String) requestBody.get("member_code"); // Integer로 받지 않고 String으로 받음
-	    String class_code = (String) requestBody.get("class_code"); // Integer로 받지 않고 String으로 받음
+	    String member_code = (String) requestBody.get("member_code");
+	    String class_code = (String) requestBody.get("class_code");
+
+//	    Integer member_code = null;
+//	    Integer class_code = null;
+	    
         Map<String, Object> map = new HashMap<>();
         map.put("heart_status", heart_status);
         map.put("member_code", member_code);

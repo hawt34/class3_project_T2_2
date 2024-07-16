@@ -108,7 +108,11 @@
             const data = ${jo_list};
     	    const itemsPerPage = 10;
     	    let currentPage = 1;
-
+			
+    	    
+    	    const paramType = ${param.type};
+    	    
+    	    
             // 상세보기 버튼
 	        class ButtonRenderer {
 	            constructor(props) {
@@ -119,7 +123,7 @@
 	                    const rowKey = props.grid.getIndexOfRow(props.rowKey);
 	                    const rowData = props.grid.getRow(rowKey);
 	                    const classCode = rowData.class_code;
-	                    window.open("class-detail?class_code=" + classCode, "클래스 상세보기", "height=1000px, width=1400px");
+	                    window.open("class-detail?class_code=" + classCode + "&fromAdmin=true", "클래스 상세보기", "height=1000px, width=1400px");
 	                });
 	                this.el = el;
 	            }
@@ -133,74 +137,79 @@
 	            }
 	        }
             
-	        class RegistButtonRenderer {
-	            constructor(props) {
-	                const el = document.createElement('button');
-	                el.className = 'btn btn-success btn-sm';
-	                el.innerText = '등록하기';
-	                el.addEventListener('click', () => {
-	                    const rowKey = props.grid.getIndexOfRow(props.rowKey);
-	                    const rowData = props.grid.getRow(rowKey);
-	                    const classCode = rowData.class_code;
-						if(confirm("정말 클래스를 등록처리하시겠습니까?")){
-		                    $.ajax({
-		                        url: 'registClass', // 서버의 엔드포인트 URL
-		                        method: 'POST',
-		                        data: {
-		                            class_code: classCode
-		                        },
-		                        dataType: 'json', // JSON 형식으로 응답 처리
-		                        success: function(response) {
-		                            alert(response.msg);
-		                            location.reload();
-		                        }
-		                    });
-						}
-	                    // jQuery를 사용한 AJAX 요청
+			class RegistButtonRenderer {
+			    constructor(props) {
+			        const el = document.createElement('button');
+			        el.className = 'btn btn-success btn-sm';
+			        el.innerText = '등록하기';
+			        el.addEventListener('click', () => {
+			            const rowKey = props.grid.getIndexOfRow(props.rowKey);
+			            const rowData = props.grid.getRow(rowKey);
+			            const classCode = rowData.class_code;
+			            if (confirm("정말 클래스를 등록처리하시겠습니까?")) {
+			                $.ajax({
+			                    url: 'registClass', // 서버의 엔드포인트 URL
+			                    method: 'POST',
+			                    data: {
+			                        class_code: classCode
+			                    },
+			                    dataType: 'json', // JSON 형식으로 응답 처리
+			                    success: function(response) {
+			                        alert(response.msg);
+			                        location.reload();
+			                    }
+			                });
+			            }
+			        });
+			        this.el = el;
+			    }
+			    getElement() {
+			        return this.el;
+			    }
+			    render(props) {
+			        this.el.dataset.rowKey = props.rowKey;
+			        this.el.dataset.columnName = props.columnName;
+			        this.el.value = props.value;
+			    }
+			}
 
-	                });
-	                this.el = el;
+	        
+	        const columns = [
+	            { header: '클래스이름', name: 'class_name' },
+	            { header: '카테고리', name: 'class_category' },
+	            { header: '강사이름', name: 'member_name' },
+	            { header: '클래스 가격', name: 'class_price' },
+	            { header: '등록상태', name: 'class_regist_status' },
+	            {
+	                header: '상세보기',
+	                name: 'action',
+	                renderer: {
+	                    type: ButtonRenderer
+	                }
 	            }
-	            getElement() {
-	                return this.el;
-	            }
-	            render(props) {
-	                this.el.dataset.rowKey = props.rowKey;
-	                this.el.dataset.columnName = props.columnName;
-	                this.el.value = props.value;
-	            }
+	        ];
+
+	        // param.type이 2가 아닌 경우에만 등록하기 버튼 컬럼 추가
+	        if (paramType != 2) {
+	            columns.push({
+	                header: '등록하기',
+	                name: 'regist',
+	                renderer: {
+	                    type: RegistButtonRenderer
+	                }
+	            });
 	        }
-
-            const grid = new tui.Grid({
-                el: document.getElementById('grid'),
-                data: data,
-                columns: [
-                    { header: '클래스이름', name: 'class_name'},
-                    { header: '카테고리', name: 'class_category'},
-                    { header: '강사이름', name: 'member_name'},
-                    { header: '클래스 가격', name: 'class_price'},
-                    { header: '등록상태', name: 'class_regist_status'},
-                    {
-                        header: '상세보기',
-                        name: 'action',
-                        renderer: {
-                            type: ButtonRenderer
-                        }
-                    },
-                    {
-                        header: '등록하기',
-                        name: 'regist',
-                        renderer: {
-                            type: RegistButtonRenderer
-                        }
-                    }
-                ],
-    	        pageOptions: {
-    	            useClient: true,
-    	            perPage: itemsPerPage
-    	        },
-                bodyHeight: 400
-            });
+	        
+	        const grid = new tui.Grid({
+	            el: document.getElementById('grid'),
+	            data: data,
+	            columns: columns,
+	            pageOptions: {
+	                useClient: true,
+	                perPage: itemsPerPage
+	            },
+	            bodyHeight: 400
+	        });
             
             // 페이지 변경 이벤트
             pagination.on('beforeMove', function (event) {

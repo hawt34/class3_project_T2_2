@@ -154,6 +154,7 @@
 
 .top-logout {
 	padding-left: 15px;
+	cursor : pointer;
 }
 
 .collapse-category .col {

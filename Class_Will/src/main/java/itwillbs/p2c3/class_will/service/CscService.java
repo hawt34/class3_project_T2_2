@@ -85,4 +85,8 @@ public class CscService {
 		cscMapper.insertEventLogs(event_code, member_code);
 	}
 
+	public List<Map<String, Object>> getCscList(Map<String, Object> params) {
+		return cscMapper.selectCscList(params);
+	}
+
 }

@@ -62,9 +62,12 @@ public class PayController {
 	//popUp - agreeTerms(환불정책 동의버튼  클릭 시)
 	@ResponseBody
 	@GetMapping("change-refund-terms")
-	public Map<String, Object> changeRefundTerms(@RequestParam String agree) {
+	public Map<String, Object> changeRefundTerms(@RequestParam String agree, HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		int member_code = member.getMember_code();
 		System.out.println("agree: " + agree);
-		Map<String, Object> map = payService.updateRefundAgree(agree);
+		Map<String, Object> map = payService.updateRefundAgree(agree, member_code);
+		System.out.println("map!!!!!!!!!!!!:" + map);
 		return map;
 	}
 	

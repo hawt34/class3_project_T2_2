@@ -98,7 +98,7 @@ th:nth-child(2), td:nth-child(2) {
 	text-align: center;
 }
 .refundBtn {
-	display: none;
+/* 	display: none; */
 }
 .refund_product {
 	color:green;
@@ -143,13 +143,19 @@ th:nth-child(2), td:nth-child(2) {
 								<c:forEach var="credit" items="${willpayChargeInfoList }" varStatus="status">
 								    <c:if test="${status.index == 0}">
 								        <h2>윌페이 잔액 <fmt:formatNumber value="${credit.member_credit}" type="number" pattern="#,###" /> 원</h2>
+								    	<c:choose>
+								    		<c:when test="${credit.member_refund_agree eq 'N'}">
+												<button class="btn btn-light w-25" id="refundAgreeBtn" onclick="openPopUp()">환불 정책 동의</button>
+								    		</c:when>
+								    		<c:otherwise>
+												<button class="btn btn-light w-25 refundBtn" id="refundInputBtn" onclick="openPopUpRefund()">
+													환불하기
+												</button>
+								    		</c:otherwise>
+								    	</c:choose>
 								    </c:if>
 								</c:forEach>
 								<a href="will-pay-charge" class="btn btn-primary">계좌 등록 및 충전</a>
-								<button class="btn btn-light w-25" id="refundAgreeBtn" onclick="openPopUp()">환불 정책 동의</button>
-								<button class="btn btn-light w-25 refundBtn" id="refundInputBtn" onclick="openPopUpRefund()">
-									환불하기
-								</button>
 								<p style="margin-top:10px;">충전 내역</p>
 								<table class="table table-hover">
 									<thead>
@@ -212,7 +218,7 @@ th:nth-child(2), td:nth-child(2) {
 	}
 	
 	function showRefundBtn() {
-		$('#refundInputBtn').show();
+// 		$('#refundInputBtn').show();
 		$("#refundAgreeBtn").hide();
 	}
 	

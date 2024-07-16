@@ -97,6 +97,9 @@ public interface PayMapper {
 	
 	//환불가능한 금액 가져오기
 	int selectAbledWillpay(Map<String, Object> map);
+	
+	//환불정책 동의
+	int updateRefundAgree(@Param("agree") String agree, @Param("member_code") int member_code);
 
 	
 	

@@ -415,6 +415,7 @@
 			   , c2.code_value AS pay_type
 			   , wp.member_code
 			   , m.member_credit
+			   , m.member_refund_agree
 			   ,CASE 
 			       WHEN TIMESTAMPDIFF(MINUTE, wp.will_pay_date , NOW()) < 1 THEN CONCAT(TIMESTAMPDIFF(SECOND, wp.will_pay_date, NOW()), ' 초전')
 			       WHEN TIMESTAMPDIFF(HOUR, wp.will_pay_date, NOW()) < 1 THEN CONCAT(TIMESTAMPDIFF(MINUTE, wp.will_pay_date, NOW()), ' 분전')
@@ -446,6 +447,12 @@
 		ON m.member_code = bonus_willpay.member_code
 		WHERE m.member_code = #{member_code}
 	</select>
+	
+	<update id="updateRefundAgree">
+		UPDATE MEMBER
+		SET member_refund_agree = #{agree}
+		WHERE member_code = #{member_code}
+	</update>
 	
 	
 	

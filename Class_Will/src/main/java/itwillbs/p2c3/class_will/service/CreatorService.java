@@ -53,6 +53,11 @@ public class CreatorService {
 		creatorMapper.creatorCurriUpdate(params, class_code);
 	}
 	
+	// 클래스 비공개 가능여부 체크
+	public int checkClassShow(Map<String, Object> map) {
+		return creatorMapper.checkClassShow(map);
+	}
+	
 	// 클래스 수업 있는지 확인
 	public int CountClassSchedule(int class_code) {
 		return creatorMapper.CountClassSchedule(class_code);

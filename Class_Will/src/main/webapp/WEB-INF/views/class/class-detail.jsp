@@ -194,17 +194,19 @@
 				<c:if test="${not empty classInfo.class_image}">
 	                <div class="carousel-item active rounded col-12 classImg">
     	                <img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image}" class="img-fluid bg-secondary rounded" alt="First slide">
-<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/class_2.png" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/class2.png" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
 	                </div>
 				</c:if>
 				<c:if test="${not empty classInfo.class_image2}">
 	                <div class="carousel-item rounded col-12 classImg">
-                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" alt="Second slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" >
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/test.png" class="img-fluid bg-secondary rounded" alt="Second slide"> --%>
 					</div>				
 				</c:if>
 				<c:if test="${not empty classInfo.class_image3}">
 	                <div class="carousel-item rounded col-12 classImg">
-                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded" alt="Third slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded">
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/test1.png" class="img-fluid bg-secondary rounded" alt="Third slide"> --%>
 					</div>				
 				</c:if>
             </div>
@@ -372,15 +374,15 @@
             </div>
             <div id="section4"class="section">
             	<div class="row">
-	            	<div class="col-9">
+	            	<div class="col-9"style="text-align : left; margin-top : 30px;">
 	              		<h4>클래스 Q&A</h4>
 	              	</div>
-	            	<div class="col"style="text-align : right; margin-top : 20px;">
-	              		<img src="${pageContext.request.contextPath}/resources/images/class/inq.png"style="width : 35px; height : 35px;" onclick="classInquiry(event, '${param.class_code}')">
-					문의하기
+	            	<div class="col"style="text-align : right; margin-top : 30px;">
+						<label>
+						    <img src="${pageContext.request.contextPath}/resources/images/class/inq.png" class="question" style="width: 35px; height: 35px;" onclick="classInquiry(event, '${param.class_code}')">
+						    <span onclick="classInquiry(event, '${param.class_code}')" class="question">문의하기</span>
+						</label>
 	              	</div>
-<!-- 	            	<div class="col" style="text-align : right;"> -->
-<!-- 	              	</div> -->
               	</div>
                 <!-- 테이블 -->
                 <div class="card text-center my-3">
@@ -915,7 +917,7 @@ function classInquiry(event, class_code) {
         .then(data => {
             if (data.isLoggedIn) {
                 // 로그인 상태인 경우 창을 열기
-                window.open("class-inquiry?class_code=" + class_code, "pop", "width=700, height=600, left=700, top=50");
+                window.open("class-inquiry?class_code=" + class_code, "pop", "width=700, height=725, left=700, top=50");
             } else {
                 // 로그인 상태가 아닌 경우 알림 메시지 표시 후 창 닫기
                 Swal.fire('로그인 필요', '로그인 후 다시 시도해 주세요.', 'warning')

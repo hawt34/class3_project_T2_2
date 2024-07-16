@@ -52,37 +52,7 @@
         var contextPath = "${pageContext.request.contextPath}";
         console.log("contextPath: " + contextPath); // contextPath 값 확인
     </script>
-<script type="text/javascript">
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const bigCategory = urlParams.get('class_big_category');
-    const smallCategory = urlParams.get('class_small_category');
-    const local = urlParams.get('common2_code');
-    
-    // 대 카테고리 선택
-    const bigCategorySelect = document.getElementById('class_big_category');
-    if (bigCategorySelect && bigCategory) {
-    	console.log("bigCategorySelect");
-        bigCategorySelect.value = bigCategory;
-    }
-    
-    // 소 카테고리 선택
-    const smallCategorySelect = document.getElementById('class_small_category');
-    if (smallCategorySelect && smallCategory) {
-        bigCategorySelect.value = bigCategory;
-    	console.log("smallCategorySelect");
-        smallCategorySelect.value = smallCategory;
-    }
-    
-    // 지역 선택
-    const localSelect = document.getElementById('class_local');
-    if (localSelect && local) {
-    	console.log("localSelect");
-        localSelect.value = local;
-    }
-// });
-
-</script>
 <style>
    
 body {
@@ -335,6 +305,39 @@ a {
 <!-- Required JavaScript files -->
 <script src="${pageContext.request.contextPath}/resources/lib/lightbox/js/lightbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
+
+<script type="text/javascript">
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const bigCategory = urlParams.get('class_big_category');
+    const smallCategory = urlParams.get('class_small_category');
+    const local = urlParams.get('common2_code');
+    
+    // 대 카테고리 선택
+    const bigCategorySelect = document.getElementById('class_big_category');
+    if (bigCategorySelect && bigCategory) {
+    	console.log("bigCategorySelect");
+        bigCategorySelect.value = bigCategory;
+    }
+    
+    // 소 카테고리 선택
+    const smallCategorySelect = document.getElementById('class_small_category');
+    if (smallCategorySelect && smallCategory) {
+        bigCategorySelect.value = bigCategory;
+    	console.log("smallCategorySelect");
+        smallCategorySelect.value = smallCategory;
+    }
+    
+    // 지역 선택
+    const localSelect = document.getElementById('class_local');
+    if (localSelect && local) {
+    	console.log("localSelect");
+        localSelect.value = local;
+    }
+// });
+
+</script>
+
 <script type="text/javascript">
 // ------ 현재 위치 ------ 
 // 현재 위치를 가져오는 함수
@@ -348,17 +351,17 @@ a {
 
 // =============== 주석 풀기  =============== 
 // 	http://ipinfo.io?token=d272291f523605
-	let url = 'http://ipinfo.io?token=d272291f523605';	
+// 	let url = 'http://ipinfo.io?token=d272291f523605';	
 	
-	if(window.location.host.includes('localhost')){
-		url = 'http://ipinfo.io/json';	
-	}
+// 	if(window.location.host.includes('localhost')){
+// // 		url = 'http://ipinfo.io/json';	
+// 	}
 	
-	$.getJSON(url, function(data){
-		console.log(data);
-		$("#cty").text(data.country);
-		showLocations(data);
-	});
+// 	$.getJSON(url, function(data){
+// 		console.log(data);
+// 		$("#cty").text(data.country);
+// 		showLocations(data);
+// 	});
 // =============== 주석 풀기  =============== 
 	}
 

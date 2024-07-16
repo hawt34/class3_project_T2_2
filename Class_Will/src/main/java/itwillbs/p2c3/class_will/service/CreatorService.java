@@ -242,7 +242,7 @@ public class CreatorService {
 			creatorMapper.insertInquiryReply(inquiryCode, inquiryReply);
 			creatorMapper.changeInquiryStatus(inquiryCode);
 		} else {
-			creatorMapper.updateReviewReply(inquiryCode, inquiryReply);
+			creatorMapper.updateInquiryReply(inquiryCode, inquiryReply);
 		}
 	}
 	

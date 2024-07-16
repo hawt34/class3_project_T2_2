@@ -194,20 +194,20 @@
             <div class="carousel-inner" role="listbox">
 				<c:if test="${not empty classInfo.class_image}">
 	                <div class="carousel-item active rounded col-12 classImg">
-<%--     	                <img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image}" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
-    	                <img src="${pageContext.request.contextPath}/resources/images/class/test3.png" class="img-fluid bg-secondary rounded" alt="First slide">
+    	                <img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image}" class="img-fluid bg-secondary rounded" alt="First slide">
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/test3.png" class="img-fluid bg-secondary rounded" alt="First slide"> --%>
 	                </div>
 				</c:if>
 				<c:if test="${not empty classInfo.class_image2}">
 	                <div class="carousel-item rounded col-12 classImg">
-<%--                     	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" > --%>
-    	                <img src="${pageContext.request.contextPath}/resources/images/class/test4.png" class="img-fluid bg-secondary rounded" alt="Second slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image2}" class="img-fluid bg-secondary rounded" >
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/test4.png" class="img-fluid bg-secondary rounded" alt="Second slide"> --%>
 					</div>				
 				</c:if>
 				<c:if test="${not empty classInfo.class_image3}">
 	                <div class="carousel-item rounded col-12 classImg">
-<%--                     	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded"> --%>
-    	                <img src="${pageContext.request.contextPath}/resources/images/class/test1.png" class="img-fluid bg-secondary rounded" alt="Third slide">
+                    	<img src="${pageContext.request.contextPath}/resources/upload/${classInfo.class_image3}" class="img-fluid bg-secondary rounded">
+<%--     	                <img src="${pageContext.request.contextPath}/resources/images/class/test1.png" class="img-fluid bg-secondary rounded" alt="Third slide"> --%>
 					</div>				
 				</c:if>
             </div>

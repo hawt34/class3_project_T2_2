@@ -42,6 +42,7 @@ public class ChatService {
 	}
 
 	public List<Map<String, String>> getChatMessageList(int chat_room_code) {
+		chatMapper.updateIsRead(chat_room_code, true); // 기존 채팅내역 불러올 때 전체 읽음 처리를 위해 트루
 		return chatMapper.getChatMessageList(chat_room_code);
 	}
 
@@ -57,9 +58,17 @@ public class ChatService {
 		return chatMapper.selectNewMessage(message_code);
 	}
 
-	public void updateIsRead(ChatMessageVO chatMessage) {
-		chatMapper.updateIsRead(chatMessage);
+//	public void updateIsRead(ChatMessageVO chatMessage) {
+//		System.out.println("========================읽음표시");
+//		chatMapper.updateIsRead(chatMessage, false);
+//	}
+	
+	public void updateIsRead(int message_code) {
+		System.out.println("========================읽음표시");
+		chatMapper.updateIsRead(message_code, false); // 해당 채팅 단일 메세지만 읽음 처리 위해 false
 	}
+	
+	
 
 	
 	

@@ -959,6 +959,7 @@ $(function() {
 		// iFrame에서 받은 메시지 감지하여 처리
         $(window).on("message", function(event) {
             const data = event.originalEvent.data;
+            console.log("-------------------------------"+JSON.stringify(data));
 			ws.send(JSON.stringify(data));
         });
 		

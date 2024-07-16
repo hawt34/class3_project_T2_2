@@ -137,8 +137,9 @@ th, td {
 										
 										<div align="center" class="mb-5">
 											<button type="submit" class="btn btn-outline-primary btn-lg">등록하기</button>
-											<button type="button" class="btn btn-outline-primary btn-lg" 
-												onclick="location.reload()">다시작성</button>
+											<button type="reset" class="btn btn-outline-primary btn-lg" 
+												>다시작성</button>
+<!-- 												onclick="location.reload()">다시작성</button> -->
 											<button type="button" class="btn btn-outline-primary btn-lg" 
 												onclick="location.href='creator-class'">돌아가기</button>
 										</div>
@@ -183,6 +184,7 @@ th, td {
 	    	$('.creator-plan-bottom').removeClass('hidden');
 			$('#datepicker').removeClass('hidden');
 			$('.addPlan').addClass('hidden');
+			$('.backBtn').addClass('hidden');
 			
 			$.ajax({
 				url: "getSelectedDates",
@@ -393,7 +395,7 @@ th, td {
 							$('#scheduleTableContainer').empty().append('<div id="scheduleTableContainer" class="col-md-12"><div id="grid"></div><div id="pagination"></div></div>'
 							 + '<div align="center">'
 							 + '<button type="button" class="btn btn-outline-primary btn-lg mx-2 my-2 addPlan" onclick="AddPlan()">일정추가</button>'
-							 + '<button type="button" class="btn btn-outline-primary btn-lg my-2" onclick="location.href=\'creator-class\'">돌아가기</button>'
+							 + '<button type="button" class="btn btn-outline-primary btn-lg my-2 backBtn" onclick="location.href=\'creator-class\'">돌아가기</button>'
 							 + '<button type="button" class="btn btn-outline-danger btn-lg mx-2 deleteAllBtn">전체삭제</button>'
 				 			 + '</div>');
 							initializeGrid(data);

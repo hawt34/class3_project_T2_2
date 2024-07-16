@@ -189,7 +189,7 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 			
 		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_READ_MESSAGE)) {
 			System.out.println("TYPE_READ_MESSAGE -  읽은 메시지 처리 : " + chatMessage);
-			chatService.updateIsRead(chatMessage);
+			chatService.updateIsRead(chatMessage.getMessage_code());
 			
 			boolean isUnreadMessage = chatService.selectUnreadMessage(sender_email)  == null ? false : true;
 			if(isUnreadMessage) { // 읽지 않은 메시지가 있으면

@@ -836,7 +836,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#openUserChat").on("click", function(e) {
         e.preventDefault(); // 기본 동작 방지
         let member_code = "${sessionScope.member.member_code}";
-        let creator_code = "${classInfo.member_code})";
+        let creator_code = "${classInfo.member_code}";
     
         if(member_code == creator_code) {
         	alert("자기 자신과는 채팅할 수 없습니다.");

@@ -130,7 +130,7 @@
 			var inquiryCode = ${inquiry.class_inquiry_code};
 			event.preventDefault(); // 폼 제출을 막음
 		    Swal.fire({
-		        title: "답글을 등록하시겠습니까?",
+		        title: "답글을 삭제하시겠습니까?",
 		        icon: "question",
 		        showCancelButton: true,
 		        confirmButtonColor: "green",
@@ -150,13 +150,13 @@
 						data: { "inquiryCode" : inquiryCode,
 						},
 						success: function(data) {
-							Swal.fire("성공", "답글이 등록 되었습니다.", "success").then(() => {
+							Swal.fire("성공", "답글이 삭제 되었습니다.", "success").then(() => {
 		                        window.opener.location.reload(); // 부모창 리로드
 		                        window.close();
 		                    });
 						},
 		                error: function(e) {
-		                    Swal.fire("실패", "답글등록에 실패하였습니다.", "error");
+		                    Swal.fire("실패", "답글삭제에 실패하였습니다.", "error");
 		                },
 		                timeout: 100000
 					});	

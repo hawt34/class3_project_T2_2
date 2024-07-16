@@ -73,25 +73,25 @@
 								<div class="admin_main_center_card" onclick="location.href='creator-class-last'">
 									<div class="admin_main_card" align="left">진행한강의</div>
 									<div align="right" class="card_num">
-										<a href="#">${analyzeList.classCount}건</a>
+										<a href="#" class="classCount">${analyzeList.classCount}건</a>
 									</div>
 								</div>
 								<div class="admin_main_center_card" onclick="location.href='creator-class-last'">
 									<div class="admin_main_card" align="left">참여회원수</div>
 									<div align="right" class="card_num">
-										<a href="#">${analyzeList.attendCount}명</a>
+										<a href="#" class="attendCount">${analyzeList.attendCount}명</a>
 									</div>
 								</div>
 								<div class="admin_main_center_card" onclick="location.href='creator-review'">
 									<div class="admin_main_card" align="left">총 후기수</div>
 									<div align="right" class="card_num">
-										<a href="#">${analyzeReviewList.reviewCount}건</a>
+										<a href="#" class="reviewCount">${analyzeReviewList.reviewCount}건</a>
 									</div>
 								</div>
 								<div class="admin_main_center_card" onclick="location.href='creator-class'">
-									<div class="admin_main_card" align="left">회당 평균참여수</div>
+									<div class="admin_main_card" align="left">평균참여인원</div>
 									<div align="right" class="card_num">
-										<a href="#">${analyzeList.avgAttendCount}명</a>
+										<a href="#" class="avgAttendCount">${analyzeList.avgAttendCount}명</a>
 									</div>
 								</div>
 							</div>
@@ -116,14 +116,6 @@
 		<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 	</footer>
 
-	<!-- JavaScript Libraries -->
-<!-- 	<script -->
-<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
-<!-- 	<script -->
-<!-- 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
-
-<!-- 	<!-- Template Javascript --> -->
-<%-- 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> --%>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	
 	<script type="text/javascript">
@@ -153,23 +145,6 @@
 	         </c:forEach>
 		 ];
 		
-// 		$('#classSelect').change(function() {
-// 			classCode = $('#classSelect').val();
-// 			$.ajax({
-// 				url: "graphByClass",
-// 				method: "get",
-// 				data: { "classCode" : classCode },
-// 				success: function(data) {
-// 					debugger;
-// 					 var TheaterList = [
-// 						 <c:forEach var="theater" items="${theaterList}">
-// 				         	"${theater.theater_name}" ,
-// 				         </c:forEach>
-// 					 ];
-// 				}
-// 			});	
-// 		});
-		 
 		var myChart = new Chart(ctx, {
 		    type: 'bar', // 기본적으로 바 차트 설정
 		    data: {
@@ -211,13 +186,22 @@
 				data : {
 					"classCode" : classCode
 				},
-				success : function(result) {
+				success : function(resultList) {
+					var result = resultList.GraphDataByClassList;
+					debugger;
 					var ChartSumList = [];
 					MonthList.forEach(function(e, i){
 						var data = result.filter(v => v.month === e.substring(0, 7))[0];
 						ChartSumList.push(data ? data.total_sum : 0);
 					})
 					ChartChange(ChartSumList);
+					
+					let analyzeList = resultList.analyzeList.analyzeList;
+					let analyzeReviewList = resultList.analyzeList.analyzeReviewList;
+					$('.classCount').text(analyzeList.classCount);
+					$('.attendCount').text(analyzeList.attendCount);
+					$('.reviewCount').text(analyzeReviewList.reviewCount);
+					$('.avgAttendCount').text(analyzeList.avgAttendCount);
 				}
 			});
 		});

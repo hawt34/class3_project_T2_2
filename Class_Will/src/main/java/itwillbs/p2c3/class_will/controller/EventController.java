@@ -133,11 +133,10 @@ public class EventController {
 		    headers.add("Content-Type", "text/plain; charset=UTF-8");
 		    return new ResponseEntity<>(responseMessage, headers, HttpStatus.BAD_REQUEST);
 		}
-		int sessionMemberCode = sessionMember.getMember_code();
 		
+		int sessionMemberCode = sessionMember.getMember_code();
 		Map<String, Object> validationMemberInfo = cscService.getInviteFriendInfo(sessionMemberCode);
-		System.out.println("validddddddd : " + validationMemberInfo);
-		if(validationMemberInfo != null) {
+		if(validationMemberInfo.get("friend_code") != null) {
 			responseMessage = "이벤트에 이미 응모하셨습니다.";
 			HttpHeaders headers = new HttpHeaders();
 		    headers.add("Content-Type", "text/plain; charset=UTF-8");
@@ -179,13 +178,18 @@ public class EventController {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/plain; charset=UTF-8");
 		Map<String, Object> mail_info = cscService.getInviteMailInfo(invite_code, friend_email);
+		
 		if(mail_info == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "잘못된 링크입니다", false);
 		}
+		
 		if(session.getAttribute("member") == null) {
 			MemberVO member = new MemberVO();
 			member.setMember_email(friend_email);
 			MemberVO dbMember = memberService.selectMember(member);
+			if(dbMember == null) {
+				return "rediect://member-login";
+			}
 			session.setAttribute("member", dbMember);
 		}
 		

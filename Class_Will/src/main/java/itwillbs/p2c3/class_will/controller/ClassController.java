@@ -296,10 +296,10 @@ public class ClassController {
 	        if (heart_status) {
 	            // 클래스 좋아요 추가
 	            int insertLikeClass  = classService.insertLikeClass(map);
-		            if (insertLikeClass > 0) {
-		            	List<Map<String, Object>> likeClassList = classService.getLikeClassList(map);
-		            	model.addAttribute("likeClassList", likeClassList);
-		            }
+	            if (insertLikeClass > 0) {
+	            	List<Map<String, Object>> likeClassList = classService.getLikeClassList(map);
+	            	model.addAttribute("likeClassList", likeClassList);
+	            }
 	        } else {
 	            // 클래스 좋아요 제거
 	            classService.deleteLikeClass(map);

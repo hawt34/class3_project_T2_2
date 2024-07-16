@@ -815,7 +815,8 @@ function updateClassList(filterClass) {
 	    var member_code = "${sessionScope.member.member_code}";
 	    var heartImgSrc = heart_status ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
 	    var formattedPrice = new Intl.NumberFormat('ko-KR').format(filter.class_price);
-	    var memberImgSrc = filter.member_img ? contextPath + "/resources/upload/${filter.member_img}" : contextPath + "/resources/images/class/pic.png";
+// 	    var memberImgSrc = filter.member_img ? contextPath + "/resources/upload/${filter.member_img}" : contextPath + "/resources/images/class/pic.png";
+	    var memberImgSrc = filter.member_img ? contextPath + "/resources/upload/" + filter.member_img : contextPath + "/resources/images/class/pic.png";
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 		
 	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3 class-card" style="width: 330px;"  data-class-code="' +  filter.class_code + '">'	

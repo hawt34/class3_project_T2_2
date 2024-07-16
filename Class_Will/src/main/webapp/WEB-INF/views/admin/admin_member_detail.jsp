@@ -167,7 +167,7 @@ body {
 					<div class="space"></div>
 					<hr class="mb-4">
 					<div class="mb-4" align="center">
-						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
+						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
 			</div>
 		</div>

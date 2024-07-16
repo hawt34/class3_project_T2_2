@@ -120,7 +120,9 @@ body {
 					<hr class="mb-4">
 					<div class="mb-4" align="center">
 						<input type="button" value="클래스 상세페이지" class="btn btn-primary btn-lg btn-block" onclick="classDetail(${report.class_code})">
-						<input type="button" value="처리" class="btn btn-primary btn-lg btn-block" onclick="showModal()">
+						<c:if test="${param.status eq '처리중'}">
+							<input type="button" value="처리" class="btn btn-primary btn-lg btn-block" onclick="showModal()">
+						</c:if>
 						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
 			</div>

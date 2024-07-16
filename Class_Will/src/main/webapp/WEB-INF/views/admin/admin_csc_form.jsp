@@ -111,7 +111,7 @@
 					<div class="mb-4" align="center">
 						<input type="submit" value="등록하기" class="btn btn-primary btn-lg btn-block" >
 						<input type="reset" value="다시작성" class="btn btn-primary btn-lg btn-block" >
-						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="history.back()">
+						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
 				</form>
 			</div>

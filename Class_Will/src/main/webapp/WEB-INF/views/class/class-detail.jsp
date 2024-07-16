@@ -39,6 +39,24 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
 <style>
+
+      .fixed-button {
+          position: fixed;
+          top: 50%; /* 위에서부터 50% 위치 */
+          right: 20px;
+          background-color: #007BFF;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+          cursor: pointer;
+          display: none; /* 초기에는 숨김 */
+          transform: translateY(-50%); /* 버튼을 수직 중앙 정렬 */
+	}
+
     .flatpickr-calendar {
         font-size: 24px; /* 기본 글꼴 크기 조정 */
     }
@@ -150,6 +168,9 @@
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
+    <!-- 고정 버튼 -->
+	<button class="fixed-button" id="backButton" onclick="javascript:reportBack()">◀️</button>
+	<button class="fixed-button" id="closeButton" onclick="javascript:closeButton()">❌</button>
 <div class="container1">
     <!-- 캐러셀 시작 -->
     <div class="row col-md-12">
@@ -533,6 +554,34 @@ document.addEventListener("DOMContentLoaded", function() {
 	var changeSrc = "${pageContext.request.contextPath}/resources/images/profile/heart_full.png"; // 라이크 클래스 추가 했을 시 
 	var heartCountElement = document.getElementById("heartCountElement"); // heartCount 요소
 	
+	// 클래스 리스트에서 온 요청에 대한 버튼 이벤트
+	var fromAdmin = ${param.fromAdmin};
+	
+	if(fromAdmin) {
+		const closeButton = document.getElementById('closeButton');
+		closeButton.style.display = 'block';
+				
+		// 버튼 클릭 이벤트 추가
+		closeButton.addEventListener('click', function() {
+			window.close();
+		});
+	}
+	
+	// 신고에서 온 요청에 대한 버튼 이벤트
+	var fromReport = "${fromReport}";
+	
+	if (fromReport) {
+		// 고정 버튼 활성화
+		const backButton = document.getElementById('backButton');
+		backButton.style.display = 'block';
+				
+		// 버튼 클릭 이벤트 추가
+		backButton.addEventListener('click', function() {
+			window.history.back();
+		});
+	}
+	    
+
 	// btnCustoms 클릭 시의 이벤트 핸들러
 	btnCustoms.addEventListener("click", function() {
 	    // btnCustoms를 클릭했을 때 할 일을 여기에 추가할 수 있습니다.

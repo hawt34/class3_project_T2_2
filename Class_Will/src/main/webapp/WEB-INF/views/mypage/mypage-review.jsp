@@ -149,7 +149,7 @@ th:nth-child(2), td:nth-child(2) {
 									${member.member_name}님</div>
 								<!-- 								여기부터 토스트 ui -->
 								<div class="table-responsive">
-									<h2>등록 가능한 클래스 후기가 ${totalPossible}개 있습니다.</h2>
+									<h2>등록 가능한 클래스 후기가 ${totalPossible-totalPossible2} 개 있습니다.</h2>
 									<p>클래스 정보</p>
 									<table class="table table-hover">
 										<thead>

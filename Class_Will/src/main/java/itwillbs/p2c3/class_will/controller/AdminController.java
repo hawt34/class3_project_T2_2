@@ -72,12 +72,11 @@ public class AdminController {
 	@GetMapping("admin")
 	public String admin(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
+		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}
-		
+		} 
 		String member_email = member.getMember_email();
-		
 		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
@@ -137,13 +136,15 @@ public class AdminController {
 	@GetMapping("admin-member")
 	public String adminMain(@RequestParam(defaultValue = "일반회원") String type, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
+		
 		// 공통코드 추출을 위한 변수 선언
 		String code_value = "member_type";
 		String table_name = "MEMBER";
@@ -171,11 +172,12 @@ public class AdminController {
 	@GetMapping("admin-class")
 	public String adminClass(Model model,@RequestParam(defaultValue = "1") String type, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		// 클래스리스트 추출
@@ -223,11 +225,12 @@ public class AdminController {
 	@GetMapping("admin-category")
 	public String adminCategory(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		
@@ -276,11 +279,12 @@ public class AdminController {
 	@GetMapping("admin-csc")
 	public String adminCsc(Model model, String type, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		// type은 notice or faq
@@ -329,11 +333,12 @@ public class AdminController {
 	@GetMapping("admin-csc-detail")
 	public String adminCscDetail(String type,int code, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		List<Map<String, Object>> list = null;
@@ -362,11 +367,12 @@ public class AdminController {
 	@GetMapping("admin-csc-regist")
 	public String adminCscRegist(String type, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		// 동적인 뷰를 위해 type값 전달
@@ -390,11 +396,12 @@ public class AdminController {
 	@GetMapping("admin-csc-modify")
 	public String adminCscModify(String type, Model model, int code, HttpSession session){
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		model.addAttribute("type", type);
@@ -431,11 +438,12 @@ public class AdminController {
 	@GetMapping("admin-csc-delete")
 	public String adminCscDelete(String type, int code, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		String result = "";
@@ -457,11 +465,12 @@ public class AdminController {
 	@GetMapping("admin-member-detail")
 	public String adminMemberDetail(String member_code, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		Map<String, Object> params =  cUtils.commonProcess("MEMBER", member_code);
@@ -475,11 +484,12 @@ public class AdminController {
 	@GetMapping("admin-class-detail")
 	public String adminClassDetail(String class_code, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 		Map<String, String> class1 = adminService.getClassInfo(class_code);
@@ -606,13 +616,14 @@ public class AdminController {
   @GetMapping("admin-pay")
   public String admin_pay(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
-		}  
+		}
 	List<Map<String, Object>> pay_list = adminService.getPayList();
 	
 	List<JSONObject> jo_list = new ArrayList<JSONObject>(); 
@@ -631,11 +642,12 @@ public class AdminController {
   @GetMapping("admin-pay-willpay")
   public String adminPayWillpay(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
 	  List<Map<String, Object>> list = adminService.getRewardData();
@@ -732,11 +744,12 @@ public class AdminController {
     @GetMapping("admin-report")
     public String classReport(@RequestParam(defaultValue = "처리중") String status, Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
     	List<Map<String, String>> list = adminService.getClassReportData(status);
@@ -805,25 +818,6 @@ public class AdminController {
     	return "true";
     }
     
-//    @ResponseBody
-//    @PostMapping(value = "insert", consumes = "application/json", produces = "application/json")
-//    public Map<String, Object> categoryInsert(@RequestBody CategoryData data) {
-//        try {
-//            // Update 작업
-//            adminServiceHelper.processRows(data.getUpdatedRows(), "update");
-//
-//            // Insert 작업
-//            adminServiceHelper.processRows(data.getCreatedRows(), "insert");
-//
-//            // Delete 작업
-//            adminServiceHelper.processRows(data.getDeletedRows(), "delete");
-//
-//            return Map.of("success", true, "message", "변경 사항이 성공적으로 저장되었습니다.");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return Map.of("success", false, "message", "변경 사항 적용 실패: " + e.getMessage());
-//        }
-//    }
     
     @ResponseBody
     @PostMapping("updateCsc")
@@ -878,17 +872,17 @@ public class AdminController {
     @GetMapping("admin-event")
     public String adminEvent(Model model, HttpSession session) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		String member_email = member.getMember_email();
 		
 		if(member == null) {
 			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용해주세요", false);
-		}else if(!member_email.equals("admin")) {
+		} 
+		String member_email = member.getMember_email();
+		if(!member_email.equals("admin")) {
 			return WillUtils.checkDeleteSuccess(false, model, "관리자만 이용 가능합니다", false);
 		}
     	List<Map<String, Object>> list = adminService.getEventList();
     	for(Map<String, Object> event : list) {
     		event.put("event_date", event.get("event_start_date") + " ~ " + event.get("event_end_date"));
-    		event.put("hidden", event.get("event_hide").equals("Y") ? true : false); 
     	}
 		List<JSONObject> jo_list = new ArrayList<JSONObject>();
 		
@@ -937,7 +931,7 @@ public class AdminController {
         String datePattern = "yyyy/MM/dd";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(datePattern);
         String subDir = today.format(dtf);
-
+        
         saveDir += "/" + subDir;
         Path path = Paths.get(saveDir);
 
@@ -979,12 +973,11 @@ public class AdminController {
         String result = "";
         if(!isSuccess) {
         	result = WillUtils.checkDeleteSuccess(false, model, "이벤트 등록 실패!", true);
+        	return result;
         }
         
         result = WillUtils.checkDeleteSuccess(true, model, "이벤트 등록 성공!", true);
-        
     	return result;
     }
-    
 }
 	

@@ -71,9 +71,6 @@
 						<input type="button" value="돌아가기" class="btn btn-primary btn-lg btn-block" onclick="window.close()">
 					</div>
 					</form>
-					<form class="validation-form creator-reaply-form" novalidate action="creator-review-replyPro" method="post" onsubmit="reviewSubmit()">
-						
-					</form>
 			</div>
 		</div>
 		<footer class="my-3 text-center text-small">
@@ -85,7 +82,7 @@
 	
 		function loadSubCategories() {
 			var categoryCode = $("#big_category").val();
-		    
+			
 			$.ajax({
 				url: "getSubCategories",
 				type: "GET",
@@ -110,15 +107,6 @@
 			});
 		}
 		
-		function reviewSubmit() {
-			event.preventDefault(); // 폼 제출을 막음
-			if(confirm("후기를 등록하시겠습니까?")){
-				window.close();
-				return true;
-			} else{
-				return false;
-			}
-		}
 		
 		function confirmSubmit() {
 			if(confirm("신고를 등록하시겠습니까?")) {

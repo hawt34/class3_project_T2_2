@@ -312,7 +312,7 @@ a {
     const urlParams = new URLSearchParams(window.location.search);
     const bigCategory = urlParams.get('class_big_category');
     const smallCategory = urlParams.get('class_small_category');
-    const local = urlParams.get('common2_code');
+    let local = urlParams.get('common2_code');
     
     // 대 카테고리 선택
     const bigCategorySelect = document.getElementById('class_big_category');

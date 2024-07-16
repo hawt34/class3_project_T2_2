@@ -34,6 +34,7 @@ public class PayService {
 	@Autowired
 	private BankApi bankApi;
 	
+	
 	private IamportClient client;
 	
 	
@@ -77,7 +78,17 @@ public class PayService {
 	
 	//payment 관련 정보 모두 가져오기
 	public Map<String, String> getPayInfo(Map<String, String> map) {
-		return payMapper.selectPayInfo(map);
+		Map<String, String> payInfo = payMapper.selectPayInfo(map);
+		//필요한 데이터 map에서 가져오기
+		payInfo.put("headcount", map.get("selected_headcount"));
+		
+		//소계
+		int price = Integer.parseInt(payInfo.get("class_price"));
+		int count = Integer.parseInt(map.get("selected_headcount"));
+		String subtotal = Integer.toString(price * count);
+		payInfo.put("subtotal", subtotal);
+		
+		return payInfo;
 	}
 	
 	//나의 모든 크레딧 조회
@@ -95,7 +106,7 @@ public class PayService {
 			//결제 성공 시
 			if(paymentResponse.getResponse() != null && paymentResponse.getResponse().getStatus().equals("paid")) {
 				//use_willpay 처리
-				payMapper.updateCredit(map); //willpay 증가 메서드
+				payMapper.decrementWillpay(map); //willpay 증가 메서드
 				//class_schedule 테이블의 class_remain_headcount 처리
 				payMapper.updateHeadcount(map);
 				
@@ -143,7 +154,7 @@ public class PayService {
 		map.put("pay_datetime", payDate);
 		int registResult = payMapper.registPaySuccessInfo(map);
 		if(registResult > 0) {
-			payMapper.updateCredit(map);
+			payMapper.decrementWillpay(map);
 			payMapper.updateHeadcount(map);
 			response.put("pay_code", map.get("pay_code"));
 			response.put("success", true);
@@ -256,21 +267,21 @@ public class PayService {
 	}
 
 	
-	//will-pay 충전 성공 시 member_credit update
+	//will-pay 충전 직접입력 또는 패키지 따라 저장되는 파라미터를 바꾸
 	public int updateWillPay(Map<String, Object> map) {
 		int amt = 0;
 		if(map.get("tran_amt_total") != "") {
-			System.out.println("패키지 선택해서 얻는 돈");
-			String stringTotalAmt = (String)map.get("tran_amt_total");
-			amt = Integer.parseInt(stringTotalAmt);
+//			System.out.println("패키지 선택해서 얻는 돈");
+			String stringPackageAmt = (String)map.get("tran_amt_total");
+			amt = Integer.parseInt(stringPackageAmt);
 		} else {
-			System.out.println("적어서 얻는 돈");
+//			System.out.println("적어서 얻는 돈");
 			String stringAmt = (String)map.get("tran_amt");
 			amt = Integer.parseInt(stringAmt);
 		}
 		map.put("member_credit", amt);
 		
-		payMapper.updateWillpay(map);
+		payMapper.incrementWillpay(map);
 		//return은 크레딧을 선택하는 메서드 호출
 		return getWillpay(map);
 	}
@@ -303,8 +314,8 @@ public class PayService {
 			if(response.getResponse() != null) {
 				System.out.println("Refund successful: " + response.getResponse().getImpUid());
 				payMapper.updatePayStatus(map);
-				payMapper.updateWillpay(map);
 				payMapper.resetHeadcount(map);
+				payMapper.incrementWillpay(map);
 				
 				isSuccess = true;
 			} else {
@@ -321,9 +332,9 @@ public class PayService {
 	
 	//포트원 결제 시 - 전액 willpay 결제 환불
 	public void refundWillPayAllCase(Map<String, Object> map) {
-		payMapper.updateWillpay(map);
 		payMapper.updatePayStatus(map);
 		payMapper.resetHeadcount(map);
+		payMapper.incrementWillpay(map);
 	}
 	
 	//충전 성공한 willpayChargeList 가져오기
@@ -365,12 +376,16 @@ public class PayService {
 		if(!depositResult.get("rsp_code").equals("A0000")) {
 			return false;
 		}
-		//updateCredit을 위한 파라미터명 변경
+		//decrementWillpay을 위한 파라미터명 변경
 		int use_willpay = Integer.parseInt((String)map.get("tran_amt"));
 		map.put("use_willpay", use_willpay);
-		payMapper.updateCredit(map);
+		payMapper.decrementWillpay(map);
 		
 		return true;
+	}
+
+	public Map<String, Object> updateRefundAgree(String agree) {
+		return null;
 	}
 
 	

@@ -38,8 +38,8 @@
     
 <!-- 현재위치 -->
 <!-- 지오로케이션 -->
-<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- 구글 -->
 <!-- <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDQ_lPnUSpeqbiQ4llaizf1rL5lfYbBP4A&callback=initMap"></script> -->
@@ -342,14 +342,17 @@ a {
 // ------ 현재 위치 ------ 
 // 현재 위치를 가져오는 함수
 	function getCurrentLocation() {
-//	     if (navigator.geolocation) {
-//	         navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
-//	     } else {
-//	         alert("Geolocation is not supported by this browser.");
-//	     }
+	
+	// ======= geoLocation ======= 
+	     if (navigator.geolocation) {
+	         navigator.geolocation.getCurrentPosition(showLocations, showErrorMsg);
+	     } else {
+	         alert("Geolocation is not supported by this browser.");
+	     }
+	// ======= geoLocation ======= 
 
 
-// =============== 주석 풀기  =============== 
+// =============== ipinfo  =============== 
 // 	http://ipinfo.io?token=d272291f523605
 // 	let url = 'http://ipinfo.io?token=d272291f523605';	
 	
@@ -362,25 +365,36 @@ a {
 // 		$("#cty").text(data.country);
 // 		showLocations(data);
 // 	});
-// =============== 주석 풀기  =============== 
+// =============== ipinfo  =============== 
 	}
 
 	
-	function showLocations(data) {
+	// ======= ipinfo ======= 
+// 	function showLocations(data) {
+	// ======= ipinfo =======
 		
-	    var loc = data.loc.split(",");
-	    console.log("loc[0] : " + loc[0]);
-	    var userLat = parseFloat(loc[0]); // 현재위치 위도
-	    var userLng = parseFloat(loc[1]); // 현재위치 경도
+	// ======= geoLocation ======= 
+	function showLocations(position) {
+	// ======= geoLocation ======= 
 		
-	    var locationInfo = "나라: " + data.country + "<br>지역: " + data.region + "<br>도시: " + data.city + "<br>위도: " + userLat + "<br>경도: " + userLng;
-	    $("#location").html(locationInfo);
+		// ======= ipinfo ======= 
+// 	    var loc = data.loc.split(",");
+// 	    console.log("loc[0] : " + loc[0]);
+// 	    var userLat = parseFloat(loc[0]); // 현재위치 위도
+// 	    var userLng = parseFloat(loc[1]); // 현재위치 경도
+		
+// 	    var locationInfo = "나라: " + data.country + "<br>지역: " + data.region + "<br>도시: " + data.city + "<br>위도: " + userLat + "<br>경도: " + userLng;
+// 	    $("#location").html(locationInfo);
+		// ======= ipinfo ======= 
 	    
-	    
+
+		// ======= geoLocation ======= 
+		var userLat = position.coords.latitude; // 현재위치 위도
+		var userLng = position.coords.longitude; // 현재위치 경도
+		// ======= geoLocation ======= 
+    
 //	     var userLat = position.lat; // 현재위치 위도
 //	     var userLng = position.lon; // 현재위치 경도
-	    
-//	     alert("현재 위치는 : " + userLat + ", " + userLng);
 	    
 	    // 카카오 지도에 현재 위치 표시
 	    var mapContainer = document.getElementById('collapseMapContainer'); // 지도를 표시할 div
@@ -815,7 +829,7 @@ function updateClassList(filterClass) {
 	    var member_code = "${sessionScope.member.member_code}";
 	    var heartImgSrc = heart_status ? contextPath + "/resources/images/profile/heart_full.png" : contextPath + "/resources/images/profile/heart.png";
 	    var formattedPrice = new Intl.NumberFormat('ko-KR').format(filter.class_price);
-// 	    var memberImgSrc = filter.member_img ? contextPath + "/resources/upload/${filter.member_img}" : contextPath + "/resources/images/class/pic.png";
+	    var memberImgSrc = filter.member_img ? contextPath + "/resources/upload/${filter.member_img}" : contextPath + "/resources/images/class/pic.png";
 	    var memberImgSrc = filter.member_img ? contextPath + "/resources/upload/" + filter.member_img : contextPath + "/resources/images/class/pic.png";
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 		

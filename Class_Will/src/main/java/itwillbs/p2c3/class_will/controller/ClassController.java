@@ -279,12 +279,31 @@ public class ClassController {
     public String updateHeartStatus(@RequestBody Map<String, Object> requestBody, HttpSession session, Model model) {
     	
 		Boolean heart_status = (Boolean) requestBody.get("heart_status");
-	    String member_code = (String) requestBody.get("member_code");
-	    String class_code = (String) requestBody.get("class_code");
+//	    String member_code = (String) requestBody.get("member_code");
+//	    String class_code = (String) requestBody.get("class_code");
 
 //	    Integer member_code = null;
 //	    Integer class_code = null;
 	    
+	    Object memberCodeObj = requestBody.get("member_code");
+	    Object classCodeObj = requestBody.get("class_code");
+	    
+	    String member_code = null;
+	    String class_code = null;
+	    
+	    // Integer를 String으로 변환
+	    if (memberCodeObj instanceof Integer) {
+	        member_code = String.valueOf(memberCodeObj);
+	    } else if (memberCodeObj instanceof String) {
+	        member_code = (String) memberCodeObj;
+	    }
+
+	    if (classCodeObj instanceof Integer) {
+	        class_code = String.valueOf(classCodeObj);
+	    } else if (classCodeObj instanceof String) {
+	        class_code = (String) classCodeObj;
+	    }
+
         Map<String, Object> map = new HashMap<>();
         map.put("heart_status", heart_status);
         map.put("member_code", member_code);

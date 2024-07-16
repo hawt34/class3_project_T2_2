@@ -85,7 +85,7 @@
 	
 		function loadSubCategories() {
 			var categoryCode = $("#big_category").val();
-			
+		    
 			$.ajax({
 				url: "getSubCategories",
 				type: "GET",

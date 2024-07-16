@@ -174,8 +174,8 @@
 		<!-- 메시지 입력창 -->
 		<div class="chat-room-text d-flex flex-column">
 			<input type="text" id="send-msg-input" class="d-flex flex-row" placeholder="메시지 보내기" onkeypress="checkEnter(event, this)">
-			<div class="chat-icon-area flex-row d-flex justify-content-between">
-				<button type="button" class="btn chat-icon-btm p-0" id=""><i class="bi bi-paperclip"></i></button>
+			<div class="chat-icon-area flex-row d-flex justify-content-end">
+<!-- 				<button type="button" class="btn chat-icon-btm p-0" id=""><i class="bi bi-paperclip"></i></button> -->
 				<button type="button" class="btn" id="msg-send-btn"  onclick="send(this)" >전송</button>
 			</div>
 		</div>

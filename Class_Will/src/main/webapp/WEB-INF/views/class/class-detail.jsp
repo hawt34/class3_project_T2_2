@@ -558,6 +558,7 @@
 </div>
 <!-- container1 -->
 <script type="text/javascript">
+
 document.addEventListener("DOMContentLoaded", function() {
 	var btnCustoms = document.querySelector(".btn-customs");
 	var heartImges = document.querySelectorAll(".heartImg");

@@ -874,7 +874,6 @@ function updateClassList(filterClass) {
 	    // 모든 클래스 카드를 선택
 	    let classItems = document.querySelectorAll('.class-card');
 	    
-	    
 	    classItems.forEach(function(card) {
 	        // 해당 카드의 클래스 코드 가져옴
 	        var classCode = parseInt(card.getAttribute('data-class-code'));

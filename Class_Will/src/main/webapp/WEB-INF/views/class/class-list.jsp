@@ -867,11 +867,11 @@ function updateClassList(filterClass) {
 	        var heartImage = card.querySelector('.heartImg');
 	        
 	            // 하트 이미지 업데이트
-	            if (likeClassCodes.includes(classCode)) {
-	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart_full.png");
-	            } else {
-	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart.png");
-	            }
+// 	            if (likeClassCodes.includes(classCode)) {
+// 	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart_full.png");
+// 	            } else {
+// 	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart.png");
+// 	            }
 	    });
 	}
 </script>

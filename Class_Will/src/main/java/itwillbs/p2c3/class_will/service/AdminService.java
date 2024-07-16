@@ -229,6 +229,10 @@ public class AdminService {
 		return adminMapper.updateEventHide(updateRow);
 	}
 
+	public boolean deleteEvent(String event_code) {
+		return adminMapper.deleteEvent(event_code) > 0 ? true : false;
+	}
+
 
 
 	

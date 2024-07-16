@@ -116,6 +116,7 @@
         <div class="btnArea">
         	<button type="button" class="btn btn-primary" id="updateBtn">수정</button>
 			<button type="button" class="btn btn-secondary" id="deleteBtn">삭제</button>
+			<button type="button" class="btn btn-secondary" id="closeBtn">돌아가기</button>
         </div>
     </div>
     <!-- Back to Top -->
@@ -143,7 +144,12 @@
 	}
 
 	// 버튼 클릭 이벤트 리스너 설정
-	$(document).ready(function() {
+	$(document).ready(function() {	
+		
+		$("#closeBtn").on("click", function() {
+			window.close();
+		});
+		
 		$("#updateBtn, #deleteBtn").on("click", function() {
 			const action = this.id === "updateBtn" ? "modify" : "delete";
 			if(action === "delete"){

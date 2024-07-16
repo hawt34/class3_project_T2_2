@@ -19,6 +19,24 @@
 	crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-3.7.1.js"></script>
 <style>
+      .fixed-button {
+          position: fixed;
+          top: 50%; /* 위에서부터 50% 위치 */
+          right: 20px;
+          background-color: #007BFF;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 60px;
+          height: 60px;
+          font-size: 24px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+          cursor: pointer;
+          display: none; /* 초기에는 숨김 */
+          transform: translateY(-50%); /* 버튼을 수직 중앙 정렬 */
+	}
+	
+	
 @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&family=Hahmlet:wght@100..900&family=Nanum+Gothic&display=swap');
 
 * {
@@ -61,7 +79,7 @@ td > img{
 </style>
 </head>
 <body>
-
+<button class="fixed-button" id="closeButton" onclick="javascript:closeButton()">❌</button>
 	<header>
 		<jsp:include page="/WEB-INF/views/inc/top.jsp"></jsp:include>
 	</header>
@@ -104,6 +122,18 @@ td > img{
 	</footer>
 	
 	<script type="text/javascript">
+	
+	var fromAdmin = ${param.fromAdmin};
+	
+	if(fromAdmin) {
+		const closeButton = document.getElementById('closeButton');
+		closeButton.style.display = 'block';
+				
+		// 버튼 클릭 이벤트 추가
+		closeButton.addEventListener('click', function() {
+			window.close();
+		});
+	}
 		function getPoint(event_point, event_code){
 			// 포인트 AJAX 처리 하기
 			 $.ajax({

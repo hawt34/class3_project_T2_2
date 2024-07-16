@@ -402,6 +402,7 @@
 				let nickname = $(this).val(); // 입력된 닉네임 가져오기
 				let regex = /^[^\s]{3,15}$/; // 닉네임 유효성을 검사할 정규표현식 (공백 제외 3~15자)
 
+				
 				if (nickname === originalNickname) {
 					// 입력된 닉네임이 기존 닉네임과 동일한 경우
 					$("#checkNickname").empty(); // 메시지 초기화

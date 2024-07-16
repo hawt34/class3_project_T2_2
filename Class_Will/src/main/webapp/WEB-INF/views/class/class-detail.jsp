@@ -165,6 +165,16 @@
 </script>
 </head>
 <body>
+<c:set var="fromAdmin" value="${param.fromAdmin}" />
+<c:set var="fromReport" value="${param.fromReport}" />
+
+<c:if test="${empty fromAdmin}">
+	<c:set var="fromAdmin" value="false" />
+</c:if>
+<c:if test="${empty fromReport}">
+	<c:set var="fromReport" value="false" />
+</c:if>
+
 <header>
     <jsp:include page="../inc/top.jsp" />
 </header>
@@ -553,7 +563,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	var heartCountElement = document.getElementById("heartCountElement"); // heartCount 요소
 	
 	// 클래스 리스트에서 온 요청에 대한 버튼 이벤트
-	var fromAdmin = ${param.fromAdmin};
+	var fromAdmin = "${fromAdmin}";
+	var fromReport = "${fromReport}";
+	
+	// JavaScript에서 불리언으로 처리
+	fromAdmin = fromAdmin === 'true';
+	fromReport = fromReport === 'true';
 	
 	if(fromAdmin) {
 		const closeButton = document.getElementById('closeButton');
@@ -566,8 +581,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	
 	// 신고에서 온 요청에 대한 버튼 이벤트
-	var fromReport = "${fromReport}";
-	
 	if (fromReport) {
 		// 고정 버튼 활성화
 		const backButton = document.getElementById('backButton');

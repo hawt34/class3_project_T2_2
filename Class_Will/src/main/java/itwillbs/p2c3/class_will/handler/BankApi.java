@@ -111,9 +111,6 @@ public class BankApi {
 		String url = base_url + "/v2.0/transfer/withdraw/fin_num";
 		
 		//org.json 패키지의 JSONObject 클래스 또는 com.google.code.gson.Gson 클래스 활용
-//		JSONObject jo = new JSONObject();
-//		jo.put("bank_tran_id", bankValueGenerator.getBankTranId());
-		
 		Gson gson = new Gson();
 		JsonObject jsonObject = new JsonObject();
 		//------- 핀테크 이용기관 정보 --------------

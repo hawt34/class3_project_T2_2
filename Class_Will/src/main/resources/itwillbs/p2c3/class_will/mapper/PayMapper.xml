@@ -159,7 +159,7 @@
 		and cs.class_schedule_date = #{class_schedule_date}
 	</select>
 	
-	<update id="updateCredit">
+	<update id="decrementWillpay">
 		UPDATE MEMBER
 		SET member_credit = member_credit - #{use_willpay}
 		WHERE member_code = #{member_code}
@@ -277,7 +277,7 @@
 	</update>
 	
 	<!-- member_credit 업데이트 이후 조회  -->
-	<update id="updateWillpay">
+	<update id="incrementWillpay">
 		UPDATE MEMBER
 		SET member_credit = COALESCE(member_credit, 0) + #{member_credit}
 		WHERE member_code = #{member_code}

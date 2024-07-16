@@ -1,7 +1,5 @@
 package itwillbs.p2c3.class_will.controller;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +59,15 @@ public class PayController {
 		return "payment/refund_agreeTerms";
 	}
 	
+	//popUp - agreeTerms(환불정책 동의버튼  클릭 시)
+	@ResponseBody
+	@GetMapping("change-refund-terms")
+	public Map<String, Object> changeRefundTerms(@RequestParam String agree) {
+		System.out.println("agree: " + agree);
+		Map<String, Object> map = payService.updateRefundAgree(agree);
+		return map;
+	}
+	
 	//popUp - inputRefund
 	@GetMapping("refund-inputRefund")
 	public String inputRefund(HttpSession session, Model model) {
@@ -86,10 +93,8 @@ public class PayController {
 	@PostMapping("payment")
 	public String paymentPro(Model model, @RequestParam Map<String, String> map, HttpSession session) {
 		MemberVO member= (MemberVO)session.getAttribute("member");
-		String result = "";
 		if(member == null) {
-			result = WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바립니다.", false);
-			return result;
+			return WillUtils.checkDeleteSuccess(false, model, "로그인 후 이용바립니다.", false);
 		}
 		//고객정보 가져오기
 		Map<String, Object> memberInfo = payService.getMemberInfo(member);
@@ -100,31 +105,19 @@ public class PayController {
 			String member_code = Integer.toString((int)memberCode);
 			//payInfo에 쓰일 파라미터
 			map.put("member_code", member_code);
-			//memberInfo에 쓰일 파라미터
-//			memberInfo.put("member_code", member_code);
 		}
 		model.addAttribute("memberInfo", memberInfo);
 		
-		
+		//DB에 쓰일 파라미터 구분
 		String[] splitTime = map.get("select_time").split("~");
 		map.put("class_st_time", splitTime[0]);
 		map.put("class_ed_time", splitTime[1]);
+		//클래스 신청 시 출력될 정보 가져오기
 		Map<String, String> payInfo = payService.getPayInfo(map);
-		System.out.println("payInfo!!!!" + payInfo);
-		
 		
 		if(payInfo == null) {
-			model.addAttribute("msg", "결과가 없습니다.");
-			return "result_process/fail";
+			return WillUtils.checkDeleteSuccess(false, model, "결과가 없습니다.", false);
 		}
-		//필요한 데이터 map에서 가져오기
-		payInfo.put("headcount", map.get("selected_headcount"));
-		
-		//소계
-		int price = Integer.parseInt(payInfo.get("class_price"));
-		int count = Integer.parseInt(map.get("selected_headcount"));
-		String subtotal = Integer.toString(price * count);
-		payInfo.put("subtotal", subtotal);
 		
 		model.addAttribute("payInfo", payInfo);
 		
@@ -301,10 +294,8 @@ public class PayController {
 		Map map = payService.getAccessToken(authResponse);
 		logger.info("엑세스 토큰: " + map.get("access_token"));
 		
-		String resultSuccess = "";
-		String resultFail = "";
 		if(map == null || map.get("access_token") == null) {
-			return resultFail = WillUtils.checkDeleteSuccess(false, model, "토큰 발급 실패! \\n다시 인증을 해주세요!", true);
+			return WillUtils.checkDeleteSuccess(false, model, "토큰 발급 실패! \\n다시 인증을 해주세요!", true);
 		} else {
 			map.put("member_code", member_code);
 			
@@ -317,7 +308,7 @@ public class PayController {
 			// access_token db저장
 			payService.registAccessToken(map);
 			
-			return resultSuccess = WillUtils.checkDeleteSuccess(true, model, "계좌 인증 완료!", true, "will-pay-charge");
+			return WillUtils.checkDeleteSuccess(true, model, "계좌 인증 완료!", true, "will-pay-charge");
 		}
 	}
 	
@@ -344,10 +335,8 @@ public class PayController {
 	@GetMapping("my-credit")
 	public String myCredit(Model model, HttpSession session) {
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		String result = "";
 		if (member == null) {
-			result = WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", false, "member-login");
-			return result;
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지입니다", false, "member-login");
 		}
 		int member_code = member.getMember_code();
 		List<Map<String, Object>> willpayChargeInfoList = payService.getWillpayChargeList(member_code);
@@ -383,8 +372,6 @@ public class PayController {
 		} else {
 			isRefund = (boolean)result;
 		}
-		
-		
 		
 		return isRefund;
 	}

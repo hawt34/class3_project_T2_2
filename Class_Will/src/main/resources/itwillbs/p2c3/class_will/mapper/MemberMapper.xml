@@ -20,6 +20,7 @@
 			, member_addr
 			, member_nickname
 			, member_credit
+			, member_refund_agree
 		)
 		VALUES (
 			  #{member_name}
@@ -36,6 +37,7 @@
 			, #{member_addr}
 			, #{member_name}
 			, 0
+			, 'N'
 		) 
 	</insert>
 	

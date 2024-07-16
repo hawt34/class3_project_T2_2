@@ -145,62 +145,10 @@
 				<button class="btn btn-outline-dark chat-top-filter">전체</button>
 				<button class="btn btn-outline-dark chat-top-filter">안 읽은 메시지</button>
 			</div>
-<!-- 			<div class="d-flex align-items-center pb-2"> -->
-<!-- 				<span id="chat-close">&times;</span> -->
-<!-- 			</div>	 -->
 		</div>
 		
 		<div id="chat-list-content">
 		
-<!-- 			<div class="chat-list row"> -->
-<!-- 				<div class="receiver_img_area col-2"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/img/cat.jpg" class="receiver_img"> --%>
-<!-- 				</div> -->
-<!-- 				<div class="d-flex flex-column col-7 p-0"> -->
-<!-- 					<span class="receiver_name d-flex flex-row">길동이</span> -->
-<!-- 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요. 어쩌구 저쩌구 솰라솰라봉~~~ㄴㅇㄹㄴㄹ너ㅏㅣㅇ류나어ㅣ류ㅏ너유ㅏㅇ</span> -->
-<!-- 				</div> -->
-<!-- 				<div class="send-time-area col-3 d-flex align-items-start justify-content-end"> -->
-<!-- 					<span class="send-time">오후 5:05</span> -->
-<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
-<!-- 					    9+ -->
-<!-- 						<span class="visually-hidden">unread messages</span> -->
-<!-- 					</span> -->
-<!-- 				</div> -->
-<!-- 			</div> chat-list -->
-			
-<!-- 			<div class="chat-list row"> -->
-<!-- 				<div class="receiver_img_area col-2"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
-<!-- 				</div> -->
-<!-- 				<div class="d-flex flex-column col-7 p-0"> -->
-<!-- 					<span class="receiver_name d-flex flex-row">호야</span> -->
-<!-- 					<span class="last_msg d-flex flex-row">네네 감사합니다~ </span> -->
-<!-- 				</div> -->
-<!-- 				<div class="send-time-area col-3 d-flex align-items-start justify-content-end"> -->
-<!-- 					<span class="send-time">오후 5:03</span> -->
-<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
-<!-- 					    99+ -->
-<!-- 						<span class="visually-hidden">unread messages</span> -->
-<!-- 					</span> -->
-<!-- 				</div> -->
-<!-- 			</div> chat-list -->
-<!-- 			<div class="chat-list row"> -->
-<!-- 				<div class="receiver_img_area col-2"> -->
-<%-- 					<img src="${pageContext.request.contextPath}/resources/images/class/pic.png" class="receiver_img"> --%>
-<!-- 				</div> -->
-<!-- 				<div class="d-flex flex-column col-7 p-0" > -->
-<!-- 					<span class="receiver_name d-flex flex-row">길동이</span> -->
-<!-- 					<span class="last_msg d-flex flex-row">안녕하세요~ 길동이예요.</span> -->
-<!-- 				</div> -->
-<!-- 				<div class="send-time-area col-3 d-flex align-items-start justify-content-end"> -->
-<!-- 					<span class="send-time">오후 5:05</span> -->
-<!-- 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> -->
-<!-- 					    99+ -->
-<!-- 						<span class="visually-hidden">unread messages</span> -->
-<!-- 					</span> -->
-<!-- 				</div> -->
-<!-- 			</div> chat-list -->
 			<div class="d-flex justify-content-center m-5">채팅 내역이 존재하지 않습니다.</div>
 			
 		</div> <!-- chat-list-content -->
@@ -216,9 +164,6 @@
 		
 		
 		$(function() {
-// 			$(".chat-list").on("click", function() {
-// 				location.href = "user-chat-room?receiver_code="+${classInfo.member_code})
-// 			});
 			
 			// 부모창(top.jsp)으로부터 전송된 메시지 수신/처리 후 다시 보내기
 			$(window).on("message", function(event) {
@@ -242,18 +187,17 @@
 							+		'</div>'
 							+	'</div>'			
 					    );
+					    if(room.unread_count != null) {
+					    	$('.room_code_' + room.chat_room_code + ' .send-time').after(
+							    		' <span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> '
+							+					room.unread_count+ '<span class="visually-hidden">unread messages</span>'
+							+			'</span>' 
+					    	);
+					    	
+					    }
+					    
 					}
 					
-				} else if(data.message_type == "UNREAD_MESSAGE") {
-					
-// 					for(let room of JSON.parse(data.message)) {
-						
-						
-// 					}
-// 					<span class="position-absolute badge-position-chat badge rounded-pill bg-danger">
-// 					    99
-// 						<span class="visually-hidden">unread messages</span>
-// 					</span>
 				} 
 				
 			});

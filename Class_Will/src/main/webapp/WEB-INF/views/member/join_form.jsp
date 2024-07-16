@@ -182,16 +182,9 @@
 							<div class="regex" id="regex-tel"></div>
 						</div>	
 						
-						
-						
-						<%-- 클래스 넣고 주석 풀기 --%> 
-<!-- 						<div class="d-grid gap-2 col-4  mt-2 pe-3 mb-2 " style="height: 58px; padding: 0"> -->
-<!-- 							<button class="float-start" type="button" id="phone-auth-btn" onclick="authSms()">인증번호 전송</button> -->
-<!-- 						</div>	 -->
-						<%-- 클래스 넣고 주석 풀기 --%> 
-						
-						
-						
+						<div class="d-grid gap-2 col-4  mt-2 pe-3 mb-2 " style="height: 58px; padding: 0">
+							<button class="float-start" type="button" id="phone-auth-btn" onclick="authSms()">인증번호 전송</button>
+						</div>	
 						
 					</div>
 					<div class="row nav-fill" id="sms-auth"> 

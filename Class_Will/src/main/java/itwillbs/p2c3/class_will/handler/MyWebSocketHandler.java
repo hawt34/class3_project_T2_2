@@ -82,19 +82,15 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_CHECK_UNREAD)) {
 			System.out.println("handleTextMessage - TYPE_CHECK_UNREAD 읽지 않은 메시지 확인 요청");
 			
-			List<Map<String, Object>> unreadMessageList = chatService.selectUnreadMessage(sender_email);
-			System.out.println("unreadMessageList ===== " + unreadMessageList);
-			try {
-				if(unreadMessageList.size() > 0) { // 읽지 않은 메시지가 있으면
-					chatMessage.setMessage_type(ChatMessageVO.TYPE_UNREAD_MESSAGE);
-					chatMessage.setChat_message(gson.toJson(unreadMessageList));
-					sendMessage(session, chatMessage, true);
-				}
-			} catch (Exception e) {
-				System.out.println("읽지 않은 메시지 없음");
-				e.printStackTrace();
+			boolean isUnreadMessage = chatService.selectUnreadMessage(sender_email)  == null ? false : true;
+			if(isUnreadMessage) { // 읽지 않은 메시지가 있으면
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_UNREAD_MESSAGE);
+			} else {
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_READ_MESSAGE);
 			}
+			sendMessage(session, chatMessage, true);
 			
+		
 			
 		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT)) {
 			System.out.println("handleTextMessage - TYPE_INIT 채팅방 리스트 요청");
@@ -187,19 +183,21 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 				chatMessage.setMessage_type(ChatMessageVO.TYPE_NEW_MESSAGE);
 				Map<String, String> receiveMessage = chatService.selectNewMessage(chatMessage.getMessage_code());
 				chatMessage.setChat_message(gson.toJson(receiveMessage));
-				
 				sendMessage(receiver_ws, chatMessage, false);
 			}
 			
 			
-		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_NEW_MESSAGE)) {
-			System.out.println("TYPE_NEW_MESSAGE -  받은 메시지 처리 : " + chatMessage);
-			
-			
-			
 		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_READ_MESSAGE)) {
 			System.out.println("TYPE_READ_MESSAGE -  읽은 메시지 처리 : " + chatMessage);
+			chatService.updateIsRead(chatMessage);
 			
+			boolean isUnreadMessage = chatService.selectUnreadMessage(sender_email)  == null ? false : true;
+			if(isUnreadMessage) { // 읽지 않은 메시지가 있으면
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_UNREAD_MESSAGE);
+			} else {
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_READ_MESSAGE);
+			}
+			sendMessage(session, chatMessage, true);
 			
 		}
 		

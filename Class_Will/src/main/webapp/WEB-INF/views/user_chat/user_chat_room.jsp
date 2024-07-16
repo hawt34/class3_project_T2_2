@@ -320,9 +320,17 @@
 
 	        return period + " " + hour + ":" + minute;
 		}
+		
+		function scrollToBottom() {
+		    let chatContent = $("#chat-room-content");
+		    chatContent.scrollTop(chatContent[0].scrollHeight);
+		}
 
 		
 		$(function() {
+			
+			scrollToBottom(); 
+			
 			// 뒤로 가기 누르면 채팅 목록으로 가기
 			$("#to-chat-list").on("click", function() {
 				location.href = "user-chat-list";
@@ -346,6 +354,7 @@
 									+ 	 '<span class="my_msg">'+ msg.chat_message +'</span>'
 									+ '</div>'			 
 							);
+							scrollToBottom();
 							
 						} else {
 							$("#chat-room-content").append(
@@ -360,6 +369,7 @@
 									+	 '</div> '
 									+ '</div> '		
 							);
+							scrollToBottom();
 						}						
 						
 					}
@@ -376,34 +386,38 @@
 								+ 	 '<span class="my_msg">'+ data.chat_message +'</span>'
 								+ '</div>'			 
 						);
+						scrollToBottom();
 					}
 					
 			    } else if(data.message_type == "NEW_MESSAGE") {
 					// 채팅방에 메세지 추가
 					let parsedMessage = JSON.parse(data.chat_message);
+					
 					if(data.receiver_email == member_email) {
 						$("#chat-room-content").append(
 								 '<div class="d-flex flex-row flex-column msg-area"> '
 								+	 '<div class="d-flex flex-row mb-1"> '
-								+		 '<img src="${pageContext.request.contextPath}/resources/upload/'+ data.member_img +'" class="receiver_img">'
-								+		 '<span class="receiver_name">'+ data.member_nickname +'</span>'
+								+		 '<img src="${pageContext.request.contextPath}/resources/upload/'+ parsedMessage.member_img +'" class="receiver_img">'
+								+		 '<span class="receiver_name">'+ parsedMessage.member_nickname +'</span>'
 								+	 '</div> '	
 								+	 '<div class="d-flex flex-row"> '
-								+		 '<span class="receiver_msg">'+ parsedMessage +'</span> '
-								+		 '<span class="send-time">'+ formatSendTime(data.send_time) +'</span> '
+								+		 '<span class="receiver_msg">'+ parsedMessage.chat_message +'</span> '
+								+		 '<span class="send-time">'+ formatSendTime(parsedMessage.send_time) +'</span> '
 								+	 '</div> '
 								+ '</div> '		
 						);
+						scrollToBottom();
 						
 					}
 				    
-// 				    const readMessage = {
-// 				    	message_type: "READ_MESSAGE",
-// 				        chat_room_code: data.chat_room_code,
-// 				        message_code: data.message_code 
-// 				    };
+				    const readMessage = {
+				    	message_type: "READ_MESSAGE",
+				        chat_room_code: parsedMessage.chat_room_code,
+				        message_code: parsedMessage.message_code,
+				        receiver_eamil : member_email
+				    };
 				    
-// 				    window.parent.postMessage(readMessage, '*');
+				    window.parent.postMessage(readMessage, '*');
 					
 				} 
 				

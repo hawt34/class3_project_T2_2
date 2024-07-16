@@ -45,9 +45,8 @@ public class ChatService {
 		return chatMapper.getChatMessageList(chat_room_code);
 	}
 
-	public List<Map<String, Object>> selectUnreadMessage(String sender_email) {
-//		return chatMapper.selectUnreadMessage(sender_email);
-		return null;
+	public List<Map<String, String>> selectUnreadMessage(String sender_email) {
+		return chatMapper.selectUnreadMessage(sender_email);
 	}
 
 	public List<Map<String, String>> selectRoomList(String sender_email) {
@@ -56,6 +55,10 @@ public class ChatService {
 
 	public Map<String, String> selectNewMessage(int message_code) {
 		return chatMapper.selectNewMessage(message_code);
+	}
+
+	public void updateIsRead(ChatMessageVO chatMessage) {
+		chatMapper.updateIsRead(chatMessage);
 	}
 
 	

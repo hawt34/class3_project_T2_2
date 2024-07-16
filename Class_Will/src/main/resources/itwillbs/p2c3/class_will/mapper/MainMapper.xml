@@ -172,6 +172,7 @@
 			   OR c.class_ex LIKE CONCAT('%', #{keyword}, '%')
 			   OR c.class_location LIKE CONCAT('%', #{keyword}, '%')
 			   OR c.class_hashtag LIKE CONCAT('%', #{keyword}, '%')
+			   OR m.member_nickname LIKE CONCAT('%', #{keyword}, '%')
 			   OR c2.code_value LIKE CONCAT('%', #{keyword}, '%')
 			   OR c3.code_value LIKE CONCAT('%', #{keyword}, '%')
 			   OR lc.code_value LIKE CONCAT('%', #{keyword}, '%'))

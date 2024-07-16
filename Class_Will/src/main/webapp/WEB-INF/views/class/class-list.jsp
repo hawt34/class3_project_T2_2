@@ -348,11 +348,17 @@ a {
 
 // =============== 주석 풀기  =============== 
 // 	http://ipinfo.io?token=d272291f523605
-// 		$.getJSON("http://ipinfo.io/json", function(data){
-// 			console.log(data);
-// 			$("#cty").text(data.country);
-// 			showLocations(data);
-// 		});
+	let url = 'http://ipinfo.io?token=d272291f523605';	
+	
+	if(window.location.host.includes('localhost')){
+		url = 'http://ipinfo.io/json';	
+	}
+	
+	$.getJSON(url, function(data){
+		console.log(data);
+		$("#cty").text(data.country);
+		showLocations(data);
+	});
 // =============== 주석 풀기  =============== 
 	}
 
@@ -810,7 +816,7 @@ function updateClassList(filterClass) {
 	    var hashtags = filter.class_hashtag ? filter.class_hashtag.split(',') : [];
 		
 	    return '<div class="col-md-6 col-lg-4 col-xl-3 pb-3 class-card" style="width: 330px;"  data-class-code="' +  filter.class_code + '">'	
-	        + '		<div class="rounded position-relative class-item classCard">'
+	        + '		<div class="rounded position-relative class item classCard">'
 	        + '			<div class="vesitable-img cursor">'
    			+ '				<img style="height : 225px;" src="' + contextPath + '/resources/upload/' + filter.class_thumnail + '" class="img-fluid w-100 rounded-top classPic" alt="" onclick="location.href=\'class-detail?class_code=' + filter.class_code + '\'">'
 	        + '			</div>'
@@ -857,11 +863,11 @@ function updateClassList(filterClass) {
 	        var heartImage = card.querySelector('.heartImg');
 	        
 	            // 하트 이미지 업데이트
-// 	            if (likeClassCodes.includes(classCode)) {
-// 	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart_full.png");
-// 	            } else {
-// 	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart.png");
-// 	            }
+	            if (likeClassCodes.includes(classCode)) {
+	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart_full.png");
+	            } else {
+	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart.png");
+	            }
 	    });
 	}
 </script>

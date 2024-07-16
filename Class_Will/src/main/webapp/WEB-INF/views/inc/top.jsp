@@ -695,8 +695,8 @@ $(function() {
 		 	success : function(localCategory) {
 		 		$("#localCategoryArea").html("");
 			 	for(local of localCategory) {
-// 			 		console.log("local.local_name : " + local.local_name);
-// 			 		console.log("local.local_code : " + local.local_code);
+			 		console.log("local.local_name : " + local.local_name);
+			 		console.log("local.local_code : " + local.local_code);
 				 	$("#localCategoryArea").append(
 				 		  '<div class="col col-2 text-left mb-3">'
 						+ 	'<a href="class-list?common2_code='+ local.local_code + '"><span class="big-category">' + local.local_name + '</span></a>'

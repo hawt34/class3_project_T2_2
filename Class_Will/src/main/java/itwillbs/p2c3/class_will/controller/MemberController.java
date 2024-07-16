@@ -35,7 +35,13 @@ public class MemberController {
 	
 	// 회원가입 폼으로
 	@GetMapping("member-join")
-	public String memberJoinForm() {
+	public String memberJoinForm(Model model) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member != null) {
+			model.addAttribute("msg", "잘못된 접근입니다.");
+			return "result_process/fail";
+		}
 		
 		return "member/join_form";
 		
@@ -82,7 +88,13 @@ public class MemberController {
 	
 	// 회원 로그인 폼으로
 	@GetMapping("member-login")
-	public String memberLoginForm() {
+	public String memberLoginForm(Model model) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("member");
+		if(member != null) {
+			model.addAttribute("msg", "잘못된 접근입니다.");
+			return "result_process/fail";
+		}
 		
 		return "member/login_form";
 		
@@ -92,7 +104,7 @@ public class MemberController {
 	@PostMapping("member-login")
 	public String memberLoginPro(MemberVO member, Model model, BCryptPasswordEncoder passwordEncoder, 
 				@RequestParam(required = false) String returnUrl, HttpServletRequest request, HttpServletResponse response) {
-            
+		
 		MemberVO dbMember = memberService.selectMember(member);
 		
 		if(dbMember != null && dbMember.getMember_status().equals("2")) {

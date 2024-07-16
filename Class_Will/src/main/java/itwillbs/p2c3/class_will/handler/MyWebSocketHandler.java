@@ -209,9 +209,9 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 	
 	
 	// ====================================================================================
-	// 현재 시스템 시각 정보를 "yyyy-MM-dd hh:mm:ss" 형식의 문자열로 리턴하는 메서드 정의
+	// 현재 시스템 시각 정보를 "yyyy-MM-dd HH:mm:ss" 형식의 문자열로 리턴하는 메서드 정의
 	private String getLocalDateTimeForNow() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		return LocalDateTime.now().format(dtf);
 	}
 	

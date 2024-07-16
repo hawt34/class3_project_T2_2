@@ -137,6 +137,7 @@ public class EventController {
 		int sessionMemberCode = sessionMember.getMember_code();
 		Map<String, Object> validationMemberInfo = cscService.getInviteFriendInfo(sessionMemberCode);
 		if(validationMemberInfo.get("friend_code") != null) {
+			System.out.println("여기로오다니");
 			responseMessage = "이벤트에 이미 응모하셨습니다.";
 			HttpHeaders headers = new HttpHeaders();
 		    headers.add("Content-Type", "text/plain; charset=UTF-8");

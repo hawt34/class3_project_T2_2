@@ -72,6 +72,17 @@ td > img{
 	margin-top: 20px;
 }
 
+.nav-tabs .nav-link {
+    color: white; /* 기본 상태의 글자색 */
+}
+.nav-tabs .nav-link.active {
+    color: red; /* 활성화된 탭의 글자색 */
+}
+.nav-tabs .nav-link:hover {
+    color: navy; /* 호버 상태의 글자색 */
+}
+
+
 </style>
 </head>
 <body>
@@ -80,7 +91,7 @@ td > img{
 </header>
 <div class="container">
 	<div class="row margin_use mx-5">
-		<p class="fs-4 text-white"><i class="fa-duotone fa-gift"></i>친구 초대 이벤트</p>	
+		<p class="fs-4 text-white"><i class="fa-duotone fa-gift"></i>&nbsp;&nbsp;&nbsp;&nbsp;친구 초대 이벤트</p>	
 	</div>
 	<div class="row">
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -91,7 +102,7 @@ td > img{
 				<button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">추천 코드 입력</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+				<button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">연결된 친구</button>
 			</li>
 		</ul>
 		
@@ -169,7 +180,12 @@ td > img{
 		 		}			
 			},
 			error: function (xhr, status, error) { 
-				 console.log("error", e, status);
+	        	 try {
+	                 var response = JSON.parse(xhr.responseText);
+	                 alert(response.message);  // 오류가 발생한 경우의 처리
+	             } catch (e) {
+	                 alert(xhr.responseText);
+	             }
 			}
 		 });//end ajax	
 	}
@@ -184,14 +200,15 @@ td > img{
 				},
 			 	dataType: "text", 		
 			 	success: function (response) {
-			 		if(response === "true"){
-			 			alert("메일 발송 완료");
-			 		}else{
-			 			alert(response);
-			 		}			
+					alert("메일 발송 완료");
 				},
 				error: function (xhr, status, error) { 
-					 console.log("error", e, status);
+		        	 try {
+		                 var response = JSON.parse(xhr.responseText);
+		                 alert(response.message);  // 오류가 발생한 경우의 처리
+		             } catch (e) {
+		                 alert(xhr.responseText);
+		             }
 				}
 			 });//end ajax 
 	}

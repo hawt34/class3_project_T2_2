@@ -95,7 +95,7 @@
 						<div class="col-lg-9 creator-body" >
 							<div class="creator-main-table col-xl-8 mb-5 ">
 								<form class="validation-form myForm classModify" novalidate enctype="multipart/form-data" action="ClassModifyPro" name="fr" method="post" onsubmit="return confirm('클래스를 수정하시겠습니까?');">
-									<input type="hidden" name="class_code" value="${classDetail.class_code}">
+									<input type="hidden" name="class_code" value="${classDetail.class_code}" class="class_code">
 									<!-- 	셀렉트박스 -->
 									<div class="col-md-12 mb-2" align="center">
 										<div class="col-xl-6 mb-5">
@@ -115,7 +115,7 @@
 													<option value="1" <c:if test="${classDetail.class_hide eq 1}">selected</c:if>>공개</option>
 													<option value="2" <c:if test="${classDetail.class_hide eq 2}">selected</c:if>>비공개</option>
 												</select>
-												<div class="invalid-feedback">카테고리를 입력해주세요.</div>
+												<div class="invalid-feedback">공개여부를 선택해주세요.</div>
 											</div>
 											<div class="col-md-12 mt-2 my-4">
 												<label for="class_name" class="h6">클래스 제목</label> 
@@ -324,31 +324,56 @@
 	    }, false);
 
 		$(function() {
+			
+			$('#class_show').change(function() {
+				var class_code = $('.class_code').val();
+				$.ajax({
+					type: "GET",
+					url: "CheckClassShow",
+					dataType: "text",
+					data: {
+						class_code : class_code,
+					},
+					success: function(result) {
+						debugger;
+						if(result > 0){
+							alert("등록된 일정이 있어 비공개설정이 불가능합니다");
+						}
+					},
+					error: function(xhr, status, error) {
+						 console.error("AJAX 요청 실패", status, error);
+			             console.error("응답 텍스트:", xhr.responseText);
+					}
+				});
+				
+			});
+			
+			
 			// 폼 제출시 체크
-			    $('.classModify').on('submit', function(e) {
+		    $('.classModify').on('submit', function(e) {
 			    	
-//             	// 유효성 검사
-//         	        // 선택 상자의 값이 비어 있는지 확인
-        	        if ($("#selected-items").val() == "") {
-        	            alert('해쉬태그를 선택해주세요');
-        	            $("#item-list").focus();
-        	            return false; // 폼 제출을 막음
-        	        }
-        	        if ($("#summernote").val() == "") {
-        	            alert('클래스 설명을 입력해주세요');
-        	            $("#summernote").focus();
-        	            return false; // 폼 제출을 막음
-        	        }
-        	        if ($("#post_code").val() == "") {
-        	            alert('주소를 입력해주세요');
-        	            $("#post_code").focus();
-        	            return false; // 폼 제출을 막음
-        	        }
-        	        if ($(".class_creator_explain").val() == "") {
-        	            alert('크리에이터 소개를 입력해주세요');
-        	            $(".class_creator_explain").focus();
-        	            return false; // 폼 제출을 막음
-        	        }
+            	// 유효성 검사
+        	    // 선택 상자의 값이 비어 있는지 확인
+       	        if ($("#selected-items").val() == "") {
+       	            alert('해쉬태그를 선택해주세요');
+       	            $("#item-list").focus();
+       	            return false; // 폼 제출을 막음
+       	        }
+       	        if ($("#summernote").val() == "") {
+       	            alert('클래스 설명을 입력해주세요');
+       	            $("#summernote").focus();
+       	            return false; // 폼 제출을 막음
+       	        }
+       	        if ($("#post_code").val() == "") {
+       	            alert('주소를 입력해주세요');
+       	            $("#post_code").focus();
+       	            return false; // 폼 제출을 막음
+       	        }
+       	        if ($(".class_creator_explain").val() == "") {
+       	            alert('크리에이터 소개를 입력해주세요');
+       	            $(".class_creator_explain").focus();
+       	            return false; // 폼 제출을 막음
+       	        }
         	
         	
         	        return true; // 폼 제출을 허용
@@ -450,7 +475,7 @@
 					roundCount = $("#lastCount").val();
 					console.log(roundCount);
 				}
-				debugger;
+				
 			    $('.addCurri').on('click', function() {
 			  	 if(roundCount < 5){
 			  		roundCount++;

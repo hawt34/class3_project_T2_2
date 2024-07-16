@@ -36,6 +36,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 
 import itwillbs.p2c3.class_will.handler.WillUtils;
+import itwillbs.p2c3.class_will.mapper.CreatorMapper;
 import itwillbs.p2c3.class_will.service.CreatorService;
 import itwillbs.p2c3.class_will.service.MemberService;
 import itwillbs.p2c3.class_will.vo.ClassTimeVO;
@@ -312,6 +313,13 @@ public class CreatorController {
 		creatorService.createrClassModifyPro(map, curriList);
 		
 		return "redirect:/creator-class";
+	}
+	
+	@ResponseBody
+	@GetMapping("CheckClassShow")
+	public int CheckClassShow(@RequestParam Map<String, Object> map, HttpSession session) {
+		int result = creatorService.checkClassShow(map);
+		return result;
 	}
 	
 	@ResponseBody

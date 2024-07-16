@@ -176,9 +176,9 @@
 
 			// 그리드 API를 사용하여 컬럼 숨기기/보이기
 			grid.setColumns(isMobile ? [
-				{ header: '클래스제목', name: 'class_name', width: 'auto', align: 'center' },
-				{ header: '지원상태', name: 'code_value', align: 'center'  },
-				{ header: '공개여부', name: 'hide', align: 'center'  }
+				{ header: '클래스제목', name: 'class_name', align: 'center' },
+				{ header: '지원상태', name: 'code_value', width: '80', align: 'center'  },
+				{ header: '공개여부', name: 'hide', width: '80', align: 'center'  }
 			] : columns);
 		}
 

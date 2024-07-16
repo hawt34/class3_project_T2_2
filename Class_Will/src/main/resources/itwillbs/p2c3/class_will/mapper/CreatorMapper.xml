@@ -498,6 +498,12 @@
 			class_code = #{class_code}
 	</update>
 	
+	<select id="checkClassShow" resultType="int">
+		SELECT count(*)
+		FROM class_schedule cs
+		WHERE cs.class_code = #{class_code}
+		AND STR_TO_DATE(class_schedule_date, '%Y-%m-%d') > CURDATE()
+	</select>
 	
 	<!-- =========================================================================================== -->
 	<!-- 문의사항 클래스 정보 가져오기 -->

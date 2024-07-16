@@ -1018,7 +1018,8 @@ $(function() {
         }
         
         function alarmOff() {
-        	$('.openChatModal .alerts').remove();
+        	$('#openChatModal .alerts').remove();
+        	$('#openChatModal2 .alerts').remove();
         }
        
        

@@ -33,45 +33,47 @@
 		)
 	</insert>
 	
+	
 	<select id="selectRoomList" resultType="map">
-		SELECT cr.chat_room_code
-			 , cr.member_email1
-			 , cr.member_email2
-			 , cm.message_code
-			 , cm.chat_message
-			 , cm.send_time
-			 , m.member_nickname
-			 , m.member_img
-			 , m.member_code
-			 , m.member_status
-			 , unread_count
-		  FROM chat_rooms cr
-		  JOIN MEMBER m 
-			ON (cr.member_email1 = m.member_email OR cr.member_email2 = m.member_email)  
-		   AND m.member_email &lt;&gt; #{member_email}
-		  JOIN (
-			    SELECT chat_room_code 
-                 , message_code 
-                 , chat_message
-                 , send_time
-              FROM chat_message
-             WHERE (chat_room_code, message_code) 
-                   IN (
-                        SELECT chat_room_code, MAX(message_code) AS message_code
-                          FROM chat_message
-                      GROUP BY chat_room_code
-                  )
-             ) cm 
-            ON cr.chat_room_code = cm.chat_room_code 
-     LEFT JOIN (
-                 SELECT chat_room_code
-                      , COUNT(*) AS unread_count
-                   FROM chat_message
-                  WHERE is_read = 'false'
-               GROUP BY chat_room_code
-             ) unread
-		   ON cr.chat_room_code = cm.chat_room_code 
-	    WHERE cr.member_email1 = #{member_email} OR cr.member_email2 = #{member_email}
+	    SELECT cr.chat_room_code
+	         , cr.member_email1
+	         , cr.member_email2
+	         , cm.message_code
+	         , cm.chat_message
+	         , cm.send_time
+	         , m.member_nickname
+	         , m.member_img
+	         , m.member_code
+	         , m.member_status
+	         , unread_count
+	      FROM chat_rooms cr
+	      JOIN MEMBER m 
+	        ON (cr.member_email1 = m.member_email OR cr.member_email2 = m.member_email)  
+	       AND m.member_email &lt;&gt; #{member_email}
+	      JOIN (
+	            SELECT chat_room_code 
+	                 , message_code 
+	                 , chat_message
+	                 , send_time
+	              FROM chat_message
+	             WHERE (chat_room_code, message_code) 
+	                   IN (
+	                        SELECT chat_room_code, MAX(message_code) AS message_code
+	                          FROM chat_message
+	                      GROUP BY chat_room_code
+	                  )
+	         ) cm 
+	        ON cr.chat_room_code = cm.chat_room_code 
+	      LEFT JOIN (
+	            SELECT chat_room_code
+	                 , COUNT(*) AS unread_count
+	              FROM chat_message
+	             WHERE is_read = 'false'
+	               AND receiver_email = #{member_email}
+	          GROUP BY chat_room_code
+	         ) unread
+	        ON cr.chat_room_code = unread.chat_room_code
+	     WHERE cr.member_email1 = #{member_email} OR cr.member_email2 = #{member_email}
 	</select>
 	
 	<select id="selectUnreadMessage" resultType="map">

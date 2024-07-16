@@ -114,7 +114,7 @@ th:nth-child(2), td:nth-child(2) {
 						<div class="col-lg-9 creator-body">
 							<!-- 크리에이터 인사 문구 -->
 							<div class="creator-intro col-md-10">
-								<div class="text-center text-white h2 mb-5">🌠 반가워요 Creator ${member.member_nickname} 님 🌠</div>
+								<div class="text-center text-white h2 mb-5">🌠 반가워요 ${member.member_nickname} 님 🌠</div>
 							</div>
 							<!-- 크리에이터 이벤트 -->
 							<div class="creator-event mt-5 my-5 col-md-10">

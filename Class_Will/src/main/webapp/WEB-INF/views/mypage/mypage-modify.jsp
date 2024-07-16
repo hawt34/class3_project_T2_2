@@ -402,15 +402,18 @@
 				let nickname = $(this).val(); // 입력된 닉네임 가져오기
 				let regex = /^[^\s]{3,15}$/; // 닉네임 유효성을 검사할 정규표현식 (공백 제외 3~15자)
 
+				
 				if (nickname === originalNickname) {
 					// 입력된 닉네임이 기존 닉네임과 동일한 경우
 					$("#checkNickname").empty(); // 메시지 초기화
+					$("button[type='submit']").prop("disabled", false);
 					return; // AJAX 요청을 보내지 않고 함수 종료
 				}
 
 				if (nickname === null || nickname === "") {
 					// 닉네임이 null 또는 빈 문자열인 경우에는 중복 검사하지 않음
 					$("#checkNickname").text("");
+					$("button[type='submit']").prop("disabled", false);
 				} else if (regex.test(nickname)) {
 					// AJAX 요청을 보내어 닉네임의 중복 여부를 확인
 					$.ajax({
@@ -424,9 +427,11 @@
 							if (checkDupNickname) {
 								$("#checkNickname").text("이미 사용중인 닉네임");
 								$("#checkNickname").css("color", "red");
+						     	$("button[type='submit']").prop("disabled", true);
 							} else {
 								$("#checkNickname").text("사용 가능한 닉네임");
 								$("#checkNickname").css("color", "green");
+								$("button[type='submit']").prop("disabled", false);
 							}
 						},
 						error : function() {

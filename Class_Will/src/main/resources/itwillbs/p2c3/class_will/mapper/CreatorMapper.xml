@@ -651,7 +651,7 @@
 		UPDATE
 			class_reply
 		SET
-			class_reply_content = #{reviewReply}
+			class_reply_content = #{inquiryReply}
 			, class_reply_date = DATE_FORMAT(NOW(), '%Y-%m-%d')
 			, class_reply_time = DATE_FORMAT(NOW(), '%H:%i:%s')
 		WHERE 

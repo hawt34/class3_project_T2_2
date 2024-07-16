@@ -96,7 +96,7 @@
 											<div class="col-md-12 mt-2 my-4">
 												<label for="member_nickname" class="h6">닉네임</label> <input
 													type="text" class="form-control" id="member_nickname"
-													name="member_nickname" placeholder="nick-name"
+													name="member_nickname" 
 													value="${member.member_nickname == null ? '닉네임 없음' : member.member_nickname}"
 													maxlength="15">
 												<div id="checkNickname"></div>
@@ -412,8 +412,9 @@
 
 				if (nickname === null || nickname === "") {
 					// 닉네임이 null 또는 빈 문자열인 경우에는 중복 검사하지 않음
-					$("#checkNickname").text("");
-					$("button[type='submit']").prop("disabled", false);
+					$("#checkNickname").text("빈 문자열 입니다.");
+					$("#checkNickname").css("color", "red");
+			     	$("button[type='submit']").prop("disabled", true);
 				} else if (regex.test(nickname)) {
 					// AJAX 요청을 보내어 닉네임의 중복 여부를 확인
 					$.ajax({

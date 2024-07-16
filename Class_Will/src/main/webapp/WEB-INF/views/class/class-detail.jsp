@@ -190,6 +190,7 @@
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
+            
             <div class="carousel-inner" role="listbox">
 				<c:if test="${not empty classInfo.class_image}">
 	                <div class="carousel-item active rounded col-12 classImg">

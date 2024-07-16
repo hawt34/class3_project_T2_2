@@ -187,6 +187,15 @@
 							+		'</div>'
 							+	'</div>'			
 					    );
+					    if(room.unread_count != null) {
+					    	$('.room_code_' + room.chat_room_code + ' .send-time').after(
+							    		' <span class="position-absolute badge-position-chat badge rounded-pill bg-danger"> '
+							+					room.unread_count+ '<span class="visually-hidden">unread messages</span>'
+							+			'</span>' 
+					    	);
+					    	
+					    }
+					    
 					}
 					
 				} 

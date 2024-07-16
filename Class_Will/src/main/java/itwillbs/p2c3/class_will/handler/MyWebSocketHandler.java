@@ -85,10 +85,11 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 			boolean isUnreadMessage = chatService.selectUnreadMessage(sender_email)  == null ? false : true;
 			if(isUnreadMessage) { // 읽지 않은 메시지가 있으면
 				chatMessage.setMessage_type(ChatMessageVO.TYPE_UNREAD_MESSAGE);
-				chatMessage.setChat_message("true");
-				sendMessage(session, chatMessage, true);
+			} else {
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_READ_MESSAGE);
 			}
-			System.out.println("읽지 않은 메시지 없음");
+			sendMessage(session, chatMessage, true);
+			
 		
 			
 		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_INIT)) {
@@ -189,6 +190,14 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 		} else if(chatMessage.getMessage_type().equals(ChatMessageVO.TYPE_READ_MESSAGE)) {
 			System.out.println("TYPE_READ_MESSAGE -  읽은 메시지 처리 : " + chatMessage);
 			chatService.updateIsRead(chatMessage);
+			
+			boolean isUnreadMessage = chatService.selectUnreadMessage(sender_email)  == null ? false : true;
+			if(isUnreadMessage) { // 읽지 않은 메시지가 있으면
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_UNREAD_MESSAGE);
+			} else {
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_READ_MESSAGE);
+			}
+			sendMessage(session, chatMessage, true);
 			
 		}
 		

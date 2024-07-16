@@ -155,7 +155,6 @@ public class PayController {
 	@GetMapping("payment-final")
 	public String paymentFinal(@RequestParam Map<String, String> map, Model model) {
 		Map<String, String> paySuccessInfo = payService.getSuccessPayInfo(map);
-		System.out.println("######paySuccessInfo: " + paySuccessInfo);
 		
 		model.addAttribute("paySuccessInfo", paySuccessInfo);
 		return "payment/payment_final";
@@ -164,7 +163,6 @@ public class PayController {
 	@ResponseBody
 	@PostMapping("refund")
 	public boolean refund(@RequestBody Map<String, Object> map, HttpSession session, Model model) {
-		System.out.println("refund-map값: " + map);
 		boolean isSuccess = false;
 		
 		MemberVO member = (MemberVO)session.getAttribute("member");
@@ -254,7 +252,6 @@ public class PayController {
 	
 	@PostMapping("account-withdraw")
 	public String accountWithdraw(@RequestParam Map<String, Object> map, HttpSession session, Model model)	{
-		System.out.println("충전버튼: " + map);
 		MemberVO member= (MemberVO)session.getAttribute("member");
 		
 		String result1 = "";
@@ -290,7 +287,6 @@ public class PayController {
 		logger.info("authResponse" + authResponse.toString());
 		//----------------------------------------------------------------
 		MemberVO member = (MemberVO)session.getAttribute("member");
-		System.out.println("member:" + member);
 		int member_code = member.getMember_code();
 		
 		//access_token 발급
@@ -343,7 +339,7 @@ public class PayController {
 		}
 		int member_code = member.getMember_code();
 		List<Map<String, Object>> willpayChargeInfoList = payService.getWillpayChargeList(member_code);
-		System.out.println("!willpayChargeInfoList: " + willpayChargeInfoList);
+//		System.out.println("!willpayChargeInfoList: " + willpayChargeInfoList);
 		
 		model.addAttribute("willpayChargeInfoList", willpayChargeInfoList);
 		return "mypage/mypage-credit";

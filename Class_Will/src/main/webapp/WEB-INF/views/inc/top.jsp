@@ -957,20 +957,7 @@ $(function() {
 		// iFrame에서 받은 메시지 감지하여 처리
         $(window).on("message", function(event) {
             const data = event.originalEvent.data;
-            
-            if(data.message_type == "INIT" || data.message_type == "INIT_COMPLETE") {
-				ws.send(JSON.stringify(data));
-            	
-            } else if (data.message_type == "SEND_MESSAGE") {
-				ws.send(JSON.stringify(data));
-                
-            } else if (data.message_type == "READ_MESSAGE") {
-                // 메시지가 읽히면 읽지 않은 메시지 수 감소
-                unreadMsg = Math.max(0, unreadMsg - 1);
-                updateAlarm();
-            } 
-            
-            
+			ws.send(JSON.stringify(data));
         });
 		
 			
@@ -981,10 +968,7 @@ $(function() {
 			console.log("onMessage() - 수신된 데이터 : " + JSON.stringify(data));
 			
 			if(data.message_type == "UNREAD_MESSAGE"){  
-				// 로그인 시 읽지 않은 메시지 처리
-				console.log("data.message_type == UNREAD_MESSAGE");
 				alarmOn();
-				iframe.contentWindow.postMessage(data, '*');
 				
 			} else if(data.message_type == "REQUEST_ROOM_LIST") {
 				console.log("data.message_type == REQUEST_ROOM_LIST");
@@ -1005,10 +989,12 @@ $(function() {
 			} else if (data.message_type == "NEW_MESSAGE") {
                 // 새로운 메시지 처리 및 알림 표시
 				alarmOn();
-				console.log("NEW_MESSAGE ====" + data);
                 iframe.contentWindow.postMessage(data, '*');
                 
-            } else if(data.message_type == "ERROR") {
+			} else if(data.message_type == "READ_MESSAGE") {
+				alarmOff();
+            	
+			} else if(data.message_type == "ERROR") {
 				// 사용자에게 오류 메세지 표시 및 채팅 모달 닫기
             	alert(data.message);
             	closeChatModal();
@@ -1027,8 +1013,8 @@ $(function() {
         }
 		
         function alarmOn() {
-        	$('#openChatModal > i').after = '<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>';
-        	$('#openChatModal2 > i').after = '<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>';
+        	$('#openChatModal > i').after('<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>');
+        	$('#openChatModal2 > i').after('<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>');
         }
         
         function alarmOff() {

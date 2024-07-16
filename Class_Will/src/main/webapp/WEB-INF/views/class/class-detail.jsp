@@ -222,7 +222,7 @@
             </div>
             <div class="col box2">
                 <ul class="nav-container nav-container1" >
-                    <li class="nav-item nav-item1" id="openUserChat" data-member-code="${classInfo.member.member_code}">
+                    <li class="nav-item nav-item1" id="openUserChat" data-member-code="${classInfo.member_code}">
                         <a class="navbar-item navbar-item1" href="#">1:1 채팅문의</a>
                     </li>
                 </ul>
@@ -785,12 +785,17 @@ document.addEventListener('DOMContentLoaded', function() {
     $("#openUserChat").on("click", function(e) {
         e.preventDefault(); // 기본 동작 방지
         let member_code = "${sessionScope.member.member_code}";
-        if(member_code == null || member_code == "") {
+        let creator_code = "${classInfo.member_code})";
+    
+        if(member_code == creator_code) {
+        	alert("자기 자신과는 채팅할 수 없습니다.");
+        	
+        } else if(member_code == null || member_code == "") {
         	 alert("로그인이 필요한 페이지 입니다.");
         	 let returnUrl = encodeURIComponent(window.location.href); 
 	         window.location.href = "member-login?returnUrl=" + returnUrl;
         } else {
-	        $("#chatListContent").attr("src", "user-chat-room?receiver_code="+${classInfo.member_code});
+	        $("#chatListContent").attr("src", "user-chat-room?receiver_code="+creator_code);
 	        $("#chatListModal").css("display", "block");
 	        $("#modalBackdrop").css("display", "block"); 
 	        $("body").css("overflow", "hidden"); 

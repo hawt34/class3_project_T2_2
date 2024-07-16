@@ -51,8 +51,7 @@ public class ClassController {
 	// 클래스 리스트
 	@GetMapping("class-list")
 //	public String classList(Model model, HttpSession session, @RequestParam Map<String, Object> map) {
-	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params
-			,@RequestParam(defaultValue = "0") boolean fromReport) {
+	public String classList(Model model, HttpSession session, @RequestParam(required = false) String hashtag, @RequestParam Map<String, String> params) {
 		
 	    MemberVO member = (MemberVO) session.getAttribute("member");
 	    Integer member_code = null;
@@ -118,12 +117,6 @@ public class ClassController {
 	    } else {
 	        System.out.println("Member code is null, skipping likeClassCode.");
 	    }
-	    
-
-		//클래스 신고에서 들어온 요청 처리
-		if(fromReport) {
-			model.addAttribute("fromReport", true);
-		}
 	    
 	    return "class/class-list";
 	}

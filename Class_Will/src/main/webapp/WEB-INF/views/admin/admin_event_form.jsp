@@ -77,14 +77,14 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label for="event_start_date">포인트 지급유무</label>
-							<input type="checkbox" id="event_point_active" name="event_point_active" value="true" <c:if test="${event.event_point_active eq true}">checked</c:if>>
-							<div class="invalid-feedback">포인트 지급유무를 선택해주세요.</div>
+						    <label for="event_start_date">포인트 지급유무</label>
+						    <input type="checkbox" id="event_point_active" name="event_point_active" value="true" <c:if test="${event.event_point_active eq true}">checked</c:if> onchange="togglePointInput()">
+						    <div class="invalid-feedback">포인트 지급유무를 선택해주세요.</div>
 						</div>
 						<div class="col-md-6 mb-3">
-							<label for="event_end_date">지급 포인트</label>
-							<input type="text" id="event_point" name="event_point" class="form-control" required <c:if test="${not empty event}">value="${event.event_point}"</c:if>>
-							<div class="invalid-feedback">지급포인트를 입력해주세요.</div>
+						    <label for="event_end_date">지급 포인트</label>
+						    <input type="text" id="event_point" name="event_point" class="form-control" required <c:if test="${not empty event}">value="${event.event_point}"</c:if> disabled>
+						    <div class="invalid-feedback">지급포인트를 입력해주세요.</div>
 						</div>
 					</div>
 					<hr class="mb-4">
@@ -99,72 +99,83 @@
 			<p class="mb-1">&copy; Class Will</p>
 		</footer>
 	</div>
-	<script>
-	    window.addEventListener('load', () => {
-	      const forms = document.getElementsByClassName('validation-form');
-	
-	      Array.prototype.filter.call(forms, (form) => {
-	        form.addEventListener('submit', function (event) {
-	          if (form.checkValidity() === false) {
-	            event.preventDefault();
-	            event.stopPropagation();
-	          }
-	
-	          form.classList.add('was-validated');
-	        }, false);
-	      });
+<script>
+	function togglePointInput() {
+		const pointActiveCheckbox = document.getElementById('event_point_active');
+		const pointInput = document.getElementById('event_point');
+		if (pointActiveCheckbox.checked) {
+		    pointInput.disabled = false;
+		} else {
+			pointInput.value = '';
+		    pointInput.disabled = true;
+		}
+	}
+	window.addEventListener('load', () => {
+		togglePointInput();
+      const forms = document.getElementsByClassName('validation-form');
 
-		  // 이벤트 시작일, 종료일 초기값 설정
-		  <c:if test="${not empty event}">
-			const startDate = '${event.event_start_date}'.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-			const endDate = '${event.event_end_date}'.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
-			$("#event_start_date").val(startDate);
-			$("#event_end_date").val(endDate);
-		  </c:if>
-	    }, false);
-	    
-	    function previewImage(event, previewId) {
-	        var reader = new FileReader();
-	        reader.onload = function(){
-	            var output = document.getElementById(previewId);
-	            output.src = reader.result;
-	        };
-	        reader.readAsDataURL(event.target.files[0]);
-	    }
-	    
-	    $(function() {
-	    	// 이벤트 시작일, 종료일 처리
-			$("#event_end_date").change(function() {
-				if($("#event_start_date").val() == ""){
-					alert("이벤트 시작일을 먼저 선택해주세요");
-					$('#event_end_date').val('');
-					$("#event_start_date").focus();
-				} else {
-		            var startDateValue = $("#event_start_date").val();
-		            $('#event_end_date').attr('min', startDateValue);
-		        }
-			});
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      });
+
+	  // 이벤트 시작일, 종료일 초기값 설정
+	  <c:if test="${not empty event}">
+		const startDate = '${event.event_start_date}'.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+		const endDate = '${event.event_end_date}'.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+		$("#event_start_date").val(startDate);
+		$("#event_end_date").val(endDate);
+	  </c:if>
+    }, false);
+    
+    function previewImage(event, previewId) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById(previewId);
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+    
+    $(function() {
+    	// 이벤트 시작일, 종료일 처리
+		$("#event_end_date").change(function() {
+			if($("#event_start_date").val() == ""){
+				alert("이벤트 시작일을 먼저 선택해주세요");
+				$('#event_end_date').val('');
+				$("#event_start_date").focus();
+			} else {
+	            var startDateValue = $("#event_start_date").val();
+	            $('#event_end_date').attr('min', startDateValue);
+	        }
+		});
+    	
+		var today = new Date().toISOString().split('T')[0];
+		$('#event_start_date').attr('min', today);
+		
+	    $('#event_start_date').change(function() {
+	        $('#event_end_date').attr('min', $(this).val());
+	        if($('#event_end_date').val() != '' && $('#event_start_date').val() > $('#event_end_date').val()){
+	        	alert("이벤트 종료일을 체크해주세요");
+	        	$('#event_start_date').val('');
+	        }
+	    });
+	    $("#event_type_num").change(function() {
+			if($("#event_type_num").val() == 3){
+					$("#coupon_type_num").prop('disabled',false).css({"background": "white", "color" : "black"});
+			} else{
+				$("#coupon_type_num").prop('disabled',true);
+			}
 	    	
-			var today = new Date().toISOString().split('T')[0];
-			$('#event_start_date').attr('min', today);
-			
-		    $('#event_start_date').change(function() {
-		        $('#event_end_date').attr('min', $(this).val());
-		        if($('#event_end_date').val() != '' && $('#event_start_date').val() > $('#event_end_date').val()){
-		        	alert("이벤트 종료일을 체크해주세요");
-		        	$('#event_start_date').val('');
-		        }
-		    });
-		    $("#event_type_num").change(function() {
-				if($("#event_type_num").val() == 3){
-						$("#coupon_type_num").prop('disabled',false).css({"background": "white", "color" : "black"});
-				} else{
-					$("#coupon_type_num").prop('disabled',true);
-				}
-		    	
-			});
-		    
-		});    
- 	</script>
+		});
+	    
+	});    
+</script>
 </body>
 </html>

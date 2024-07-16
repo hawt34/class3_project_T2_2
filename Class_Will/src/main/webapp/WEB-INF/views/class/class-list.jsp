@@ -880,12 +880,19 @@ function updateClassList(filterClass) {
 	        // 하트 이미지 요소 선택
 	        var heartImage = card.querySelector('.heartImg');
 	        
+	        if (heartImage) {
 	            // 하트 이미지 업데이트
-	            if (likeClassCodes.includes(classCode)) {
+	            if (heartImage && likeClassCodes.includes(classCode)) {
 	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart_full.png");
 	            } else {
 	                heartImage.setAttribute('src', contextPath + "/resources/images/profile/heart.png");
 	            }
+	        } else {
+	            console.warn('heartImg element not found for class code: ' + classCode);
+	        }
+	        
+	        
+	        
 	    });
 	}
 </script>

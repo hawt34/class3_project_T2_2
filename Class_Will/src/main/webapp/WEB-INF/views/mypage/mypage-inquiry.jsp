@@ -147,7 +147,7 @@ th:nth-child(2), td:nth-child(2) {
 							<div class="creator-event mt-5">
 								<div class="col-md-12 text-center h2 mb-5">항상 고마운
 									${member.member_name}님</div>
-								<!-- 								여기부터 토스트 ui -->
+								
 								<div class="table-responsive">
 									<h2>내가 적은 클래스 문의가 ${totalInquiry}개 있습니다.</h2>
 									<p>클래스 정보</p>
@@ -162,16 +162,17 @@ th:nth-child(2), td:nth-child(2) {
 												<th>삭제 하기</th>
 											</tr>
 										</thead>
+											
 										<tbody>
 											<c:forEach var="memberInquiry" items="${memberInquiry}"
 												varStatus="loop">
 												<tr>
 													<td>${memberInquiry.class_name}</td>
 													<td><a href="javascript:void(0);"
-														onclick="showInquiryModal('${memberInquiry.class_inquiry_content}')"
-														style="color: black;">${memberInquiry.class_inquiry_subject}</a></td>
+														onclick="showInquiryModal(`${memberInquiry.class_inquiry_content}`)" style="color:black;">${memberInquiry.class_inquiry_subject}</a></td>
 													<td>${memberInquiry.class_inquiry_date}</td>
-													<td><c:choose>
+													<td>
+														<c:choose>
 															<c:when test="${memberInquiry.class_inquiry_status eq 'N'}">
 																<button>미응답</button>
 															</c:when>
@@ -182,7 +183,6 @@ th:nth-child(2), td:nth-child(2) {
 																<button>상태 불명</button>
 															</c:otherwise>
 														</c:choose>
-													
 													</td>
 													<td><button class="btn btn-primary"
 															onclick="location.href='edit-inquiry-page?class_inquiry_code=${memberInquiry.class_inquiry_code}'">수정</button></td>

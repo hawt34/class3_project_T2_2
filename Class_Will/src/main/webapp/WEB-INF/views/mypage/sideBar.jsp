@@ -23,12 +23,12 @@ a {
 						<c:when test="${member.member_img != null}">
 							<img
 								src="${pageContext.request.contextPath}/resources/upload/${member.member_img}"
-								style="width: 150px; height: 150px">
+								style="width: 150px; height: 150px;">
 						</c:when>
 						<c:otherwise>
 							<img
 								src="${pageContext.request.contextPath}/resources/img/default.png"
-								style="width: 150px; height: 150px">
+								style="width: 150px; height: 150px;">
 						</c:otherwise>
 					</c:choose>
 				</div>

@@ -199,10 +199,10 @@
 					}
 					
 				} else if(data.message_type == "INIT") { 
-// 					let listmessage = {
-// 							message_type: "INIT"
-// 					};
-// 					window.parent.postMessage(listmessage, '*');
+					let listmessage = {
+							message_type: "INIT"
+					};
+					window.parent.postMessage(listmessage, '*');
 				}
 				
 			});

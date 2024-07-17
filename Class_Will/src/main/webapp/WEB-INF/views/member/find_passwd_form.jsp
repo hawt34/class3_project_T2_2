@@ -93,7 +93,7 @@
 				</div>
 				<span>가입하신 이메일 주소를 입력해 주세요.</span><br>
 				<span>	이메일 주소로 비밀번호를 재설정할 수 있는 이메일을 보내드립니다.</span><br>
-				<span>	발송된 이메일의 비밀번호 재설정은 10분 간 유효합니다.</span><br>
+<!-- 				<span>	발송된 이메일의 비밀번호 재설정은 10분 간 유효합니다.</span><br> -->
 				<fieldset>
 					<div class="input-group mt-5 mb-3">
 					  <span class="input-group-text"><i class="bi bi-person-fill"></i></span>

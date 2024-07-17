@@ -150,7 +150,8 @@
 											    <input type="hidden" id="selected-items" name="class_hashtag" value="${classDetail.class_hashtag}">
 											    <div class="invalid-feedback">해쉬태그를 선택해주세요.</div>  
 											</div>
-											  <div class="col-md-12 my-4">
+											
+											<div class="col-md-12 my-4">
 										        <label for="class_thumnail" class="h6">커버이미지</label>
 										        <div class="thumnail" id="thumnailArea">
 										            <c:choose>
@@ -197,6 +198,58 @@
 										            </div>
 										        </c:forEach>
 										    </div>
+
+<!-- 								<div class="col-md-12 my-4"> -->
+<!-- 						            <label for="class_thumnail" class="h6">커버이미지</label> -->
+<!-- 						            <div class="thumnail" id="thumnailArea"> -->
+<%-- 						                <c:choose> --%>
+<%-- 						                    <c:when test="${not empty thumnailFile}"> --%>
+<%-- 						                        <c:set var="originalThumnailName" value="${fn:substringAfter(thumnailFile, '_')}" /> --%>
+<%-- 						                        ${originalThumnailName} --%>
+<%-- 						                        <input type="hidden" value="${thumnailFile}" name="existing_class_thumnail"> --%>
+<%-- 						                        <a href="${pageContext.request.contextPath}/resources/upload/${thumnailFile}" download="${originalThumnailName}"> --%>
+<!-- 						                            <input type="button" value="다운로드"> -->
+<!-- 						                        </a> -->
+<%-- 						                        <a href="javascript:deleteThumnailFile(${classDetail.class_code}, '${thumnailFile}')"> --%>
+<%-- 						                            <img src="${pageContext.request.contextPath}/resources/images/delete-icon.png" title="파일삭제" width="15px"> --%>
+<!-- 						                        </a> -->
+<%-- 						                    </c:when> --%>
+<%-- 						                    <c:otherwise> --%>
+<!-- 						                        <input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required> -->
+<!-- 						                        <img id="previewThumbnail" src="#" alt="커버이미지 미리보기" style="width: 150px; height: 150px; display: none;" /> -->
+<!-- 						                        <button type="button" id="deleteThumbnail" class="btn btn-danger btn-sm" style="display: none;">삭제</button> -->
+<!-- 						                        <div class="invalid-feedback">커버이미지 선택해주세요.</div> -->
+<%-- 						                    </c:otherwise> --%>
+<%-- 						                </c:choose> --%>
+<!-- 						            </div> -->
+<!-- 						        </div> -->
+						
+<!-- 						        <div class="col-md-12 my-4"> -->
+<!-- 						            <label for="class_image" class="h6">본문이미지</label> -->
+<%-- 						            <c:forEach var="fileName" items="${fileNames}" varStatus="status"> --%>
+<%-- 						                <div class="file" id="fileItemArea${status.count}"> --%>
+<%-- 						                    <c:choose> --%>
+<%-- 						                        <c:when test="${not empty fileName}"> --%>
+<%-- 						                            <c:set var="originalFileName" value="${fn:substringAfter(fileName, '_')}" /> --%>
+<%-- 						                            ${originalFileName} --%>
+<%-- 						                            <input type="hidden" value="${fileName}" name="existing_file${status.count}"> --%>
+<%-- 						                            <a href="${pageContext.request.contextPath}/resources/upload/${fileName}" download="${originalFileName}"> --%>
+<!-- 						                                <input type="button" value="다운로드"> -->
+<!-- 						                            </a> -->
+<%-- 						                            <a href="javascript:deleteFile(${classDetail.class_code}, '${fileName}', ${status.count})"> --%>
+<%-- 						                                <img src="${pageContext.request.contextPath}/resources/images/delete-icon.png" title="파일삭제" width="15px"> --%>
+<!-- 						                            </a> -->
+<%-- 						                        </c:when> --%>
+<%-- 						                        <c:otherwise> --%>
+<%-- 						                            <input type="file" name="file${status.count}" id="file${status.count}" class="form-control"> --%>
+<%-- 						                            <img id="previewImage${status.count}" src="#" alt="본문이미지${status.count} 미리보기" style="width: 150px; height: 150px; display: none;" /> --%>
+<%-- 						                            <button type="button" id="deleteImage${status.count}" class="btn btn-danger btn-sm" style="display: none;">삭제</button> --%>
+<!-- 						                            <div class="invalid-feedback">본문이미지 선택해주세요.</div> -->
+<%-- 						                        </c:otherwise> --%>
+<%-- 						                    </c:choose> --%>
+<!-- 						                </div> -->
+<%-- 						            </c:forEach> --%>
+<!-- 						        </div> -->
 											
 											<div class="my-4">
 												<label for="summernote" class="h6">클래스 소개</label> 

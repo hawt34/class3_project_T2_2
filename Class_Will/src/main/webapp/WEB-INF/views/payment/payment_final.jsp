@@ -109,7 +109,7 @@
 				<h5 class="text-success">클래스 정보</h5>
 				<div class="row" id="reserve_info">
 					<div class="col text-center">
-						<img src="${pageContext.request.contextPath }/resources/img/oh.png" id="class_poster" alt="썸네일" style="width: 250px;" >
+						<img src="${pageContext.request.contextPath }/resources/upload/${paySuccessInfo.class_thumnail}" id="class_poster" alt="썸네일" style="width: 250px;" >
 					</div>
 					<div class="col">
 						<ul class="list-group list-group-flush">

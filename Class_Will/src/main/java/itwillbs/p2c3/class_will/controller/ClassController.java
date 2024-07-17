@@ -607,7 +607,7 @@ public class ClassController {
 	public String complainClassPro(@RequestParam Map<String, Object> params, HttpSession session, Model model) {
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member == null) {
-			return WillUtils.checkDeleteSuccess(false, model, "잘못된 접근입니다.", true);
+			return WillUtils.checkDeleteSuccess(false, model, "로그인이 필요한 페이지 입니다.", true);
 		}
 		params.put("member_code", member.getMember_code());
 		
@@ -617,6 +617,6 @@ public class ClassController {
 			return WillUtils.checkDeleteSuccess(false, model, "신고 등록 실패", true);
 		}
 		
-		return WillUtils.checkDeleteSuccess(true, model, "신고 등록 완료", true);
+		return WillUtils.checkDeleteSuccess(true, model, "신고가 정상적으로 접수되었습니다.", true);
 	}
 }

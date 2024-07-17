@@ -157,7 +157,7 @@
 	
 	<script type="text/javascript">
 		let member_email = "${sessionScope.member.member_email}";
-		let listmessage = {
+		const listmessage = {
 				message_type: "INIT"
 		};
 		window.parent.postMessage(listmessage, '*');
@@ -199,10 +199,10 @@
 					}
 					
 				} else if(data.message_type == "INIT") { 
-					let listmessage = {
-							message_type: "INIT"
-					};
-					window.parent.postMessage(listmessage, '*');
+// 					let listmessage = {
+// 							message_type: "INIT"
+// 					};
+// 					window.parent.postMessage(listmessage, '*');
 				}
 				
 			});

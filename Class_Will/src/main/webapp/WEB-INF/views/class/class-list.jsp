@@ -358,7 +358,7 @@ a {
 // 	let url = 'http://ipinfo.io?token=d272291f523605';	
 	
 // 	if(window.location.host.includes('localhost')){
-// // 		url = 'http://ipinfo.io/json';	
+// 		url = 'http://ipinfo.io/json';	
 // 	}
 	
 // 	$.getJSON(url, function(data){

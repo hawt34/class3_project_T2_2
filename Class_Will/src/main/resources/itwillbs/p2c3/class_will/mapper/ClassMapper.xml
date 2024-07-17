@@ -169,7 +169,7 @@
 	<select id="selectReviewCount" resultType="map">
 		SELECT c.class_code
 			,c.class_name
-			,c2.code_value AS class_big_categor
+			,c2.code_value AS class_big_category
 			,c3.code_value AS class_small_category
 			,lc.code_value AS local_name
 			,c2.common2_code

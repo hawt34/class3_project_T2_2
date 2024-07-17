@@ -38,6 +38,7 @@
 	article {
 		margin: 0 auto;
 		padding: 0 auto;
+		color: white;
 	}
 	
 	.refund-info {

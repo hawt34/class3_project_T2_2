@@ -155,6 +155,7 @@
 	            toggleIcon.classList.add('bi-eye-slash');
 	        }
 	    });
+	    
 		
 	    $(function() {
 			 // 비밀번호 정규표현식

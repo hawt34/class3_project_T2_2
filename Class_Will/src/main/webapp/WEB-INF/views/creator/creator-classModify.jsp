@@ -648,14 +648,14 @@
 		    
 		});
 		
-		$(window).on('beforeunload', function(e) {
-		    // 변경 사항을 저장할 기회를 주는 커스텀 메시지
-		    var confirmationMessage = '저장되지 않은 변경 사항이 있습니다. 이 페이지를 벗어나면 사라집니다. 정말로 이동하시겠습니까?';
+// 		$(window).on('beforeunload', function(e) {
+// 		    // 변경 사항을 저장할 기회를 주는 커스텀 메시지
+// 		    var confirmationMessage = '저장되지 않은 변경 사항이 있습니다. 이 페이지를 벗어나면 사라집니다. 정말로 이동하시겠습니까?';
 		
-		    // 경고 메시지를 브라우저에 설정
-		    e.returnValue = confirmationMessage; // 표준을 위해
-		    return confirmationMessage; // 크로스브라우저 호환을 위해
-		});
+// 		    // 경고 메시지를 브라우저에 설정
+// 		    e.returnValue = confirmationMessage; // 표준을 위해
+// 		    return confirmationMessage; // 크로스브라우저 호환을 위해
+// 		});
 		
 	</script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

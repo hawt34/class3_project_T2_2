@@ -101,7 +101,7 @@
 					</div>
 					<div class="regex mb-3 mt-1" id="regex-email"></div>
 					<div class="d-grid gap-2 btnLogin mt-5">
-						<input type="button" value="전송하기" class="btn btn-outline-light btn-lg" onclick="sendMail()">
+						<input type="button" value="전송하기" class="btn btn-outline-light btn-lg" id="send_mail_btn" onclick="sendMail()">
 					</div>
 				</fieldset>
 			</form>
@@ -139,6 +139,7 @@
 				 if (!regex.test(inputEmail)) {
 			            $("#regex-email").text("올바르지 않은 이메일 형식입니다.");
 			            $("#regex-email").css("color", "#FF4848");
+			            $("#send_mail_btn").prop("disabled", true);
 			        } else {
 			            $("#regex-email").text("");
 			        }

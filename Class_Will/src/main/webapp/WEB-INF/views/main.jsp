@@ -123,7 +123,7 @@
 								<img src="${pageContext.request.contextPath}/resources/images/event/main_event2_mini.jpg" class="d-block w-100 d-flex d-lg-none " onclick="location.href='creator-main'">
 							</div>
 							<div class="carousel-item">
-								<img src="${pageContext.request.contextPath}/resources/images/event/welcome_event.jpg" class="d-block w-100 d-lg-flex d-md-none d-none" onclick="location.href='eventDetail?event_code=0'">
+								<img src="${pageContext.request.contextPath}/resources/images/event/welcome_event_back.png" class="d-block w-100 d-lg-flex d-md-none d-none" onclick="location.href='eventDetail?event_code=0'">
 								<img src="${pageContext.request.contextPath}/resources/images/event/welcome_event.jpg" class="d-block w-100 d-flex d-lg-none "  onclick="location.href='eventDetail?event_code=0'">
 <%-- 								<img src="${pageContext.request.contextPath}/resources/images/event/main_event3_mini.jpg" class="d-block w-100 d-flex d-lg-none "  onclick="location.href='eventDetail?event_code=0'"> --%>
 							</div>

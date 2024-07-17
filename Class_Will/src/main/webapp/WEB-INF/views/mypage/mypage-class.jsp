@@ -175,7 +175,7 @@ th:nth-child(2), td:nth-child(2) {
 													</td>
 													<td>
 														<c:if test="${pay.refund_type eq '1' }">
-															<button class="btn btn-dark" id="refundClass" onclick="refundPay('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }', '${pay.pay_type }')">환불하기</button>
+															<button class="btn btn-dark" id="refundClass" onclick="refundPay('${pay.imp_uid}', '${pay.pay_amount}', '${pay.use_willpay}', '${pay.pay_code}', '${pay.pay_headcount }', '${pay.class_schedule_code }', '${pay.pay_type }', '${pay.pay_datetime}', '${pay.class_schedule_date }')">환불하기</button>
 														</c:if>
 													</td>
 												</tr>
@@ -201,7 +201,7 @@ th:nth-child(2), td:nth-child(2) {
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
 <script>
-function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, param_pay_headcount, param_class_schedule_code, param_pay_type) {
+function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, param_pay_headcount, param_class_schedule_code, param_pay_type, param_pay_datetime, param_class_schedule_date) {
 	let imp_uid = param_imp_uid; //imp_uid
 	let amount = param_amount; //결제금액
 	let willpay = param_willpay; // 윌페이
@@ -209,6 +209,29 @@ function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, p
 	let headcount = param_pay_headcount; //인원수
 	let class_schedule_code = param_class_schedule_code;
 	let pay_type = param_pay_type;
+	let isOver3 = false;
+	
+	// 3일이후 판별
+	let pay_datetime = param_pay_datetime;
+	let class_schedule_date = param_class_schedule_date;
+	
+    // 날짜 문자열을 Date 객체로 변환
+    let pay2_date_time = new Date(pay_datetime);
+    let schedule2_date = new Date(class_schedule_date);
+
+    // 날짜 객체의 타임스탬프를 밀리초 단위로 계산
+    let pay3_date_time = pay2_date_time.getTime();
+    let schedule3_date = schedule2_date.getTime();
+
+    // 하루는 86400000 밀리초 (24 * 60 * 60 * 1000)
+    let threeDaysInMillis = 3 * 24 * 60 * 60 * 1000;
+
+    // 두 번째 날짜가 첫 번째 날짜보다 3일 이후인지 확인
+    if ((pay3_date_time - schedule3_date) === threeDaysInMillis) {
+    	isOver3 = true;
+    } else {
+    	isOver3 = false;
+    }
 	
 	let params = {
 			imp_uid : imp_uid,
@@ -230,7 +253,11 @@ function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, p
 				success: function(res) {
 		// 			boolean successRefund = res;
 					if(res) {
-						alert("환불되었습니다.");
+						if(isOver3){
+							alert("원금이 환불되었습니다.");
+						}else{
+							alert("50%가 환불되었습니다.");
+						}
 			            location.reload();
 					}
 				},
@@ -256,7 +283,11 @@ function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, p
 				success: function(res) {
 		// 			boolean successRefund = res;
 					if(res) {
-						alert("환불되었습니다.");
+						if(isOver3){
+							alert("원금이 환불되었습니다.");
+						}else{
+							alert("50%가 환불되었습니다.");
+						}
 			            location.reload();
 					}
 				},
@@ -266,8 +297,7 @@ function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, p
 			});
 		}
 	}
-	
-}
+}	
 	
 </script>
 <!-- JavaScript Libraries -->

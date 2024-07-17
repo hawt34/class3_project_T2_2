@@ -1020,11 +1020,13 @@ $(function() {
         function alarmOn() {
         	$('#openChatModal > i').after('<span class="position-absolute badge-position bg-danger border border-light rounded-circle alerts"></span>');
         	$('#openChatModal2 > i').after('<span class="position-absolute badge-position-bt bg-danger border border-light rounded-circle alerts"></span>');
+        	location.reload();
         }
         
         function alarmOff() {
         	$('#openChatModal .alerts').remove();
         	$('#openChatModal2 .alerts').remove();
+        	location.reload();
         }
        
        

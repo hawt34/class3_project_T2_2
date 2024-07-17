@@ -132,18 +132,41 @@
 											    <input type="hidden" id="selected-items" name="class_hashtag" value="" >
 											    <div class="invalid-feedback">해쉬태그를 선택해주세요.</div> 
 											</div>
-											<div class="col-md-12 my-4">
-												<label for="class_thumnail" class="h6">커버이미지</label> 
-												<input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required />
-												<div class="invalid-feedback">커버이미지 선택해주세요.</div>
-											</div>
-											<div class="col-md-12 my-4">
-												<label for="class_image" class="h6">본문이미지</label> 
-												<input type="file" name="file1" class="form-control class_image mb-1" required />
-												<input type="file" name="file2" class="form-control class_image"  />
-												<input type="file" name="file3" class="form-control class_image mt-1" />
-												<div class="invalid-feedback">본문이미지 선택해주세요.</div>
-											</div>
+											
+<!-- 											<div class="col-md-12 my-4"> -->
+<!-- 												<label for="class_thumnail" class="h6">커버이미지</label>  -->
+<!-- 												<input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required /> -->
+<!-- 												<div class="invalid-feedback">커버이미지 선택해주세요.</div> -->
+<!-- 											</div> -->
+<!-- 											<div class="col-md-12 my-4"> -->
+<!-- 												<label for="class_image" class="h6">본문이미지</label>  -->
+<!-- 												<input type="file" name="file1" class="form-control class_image mb-1" required /> -->
+<!-- 												<input type="file" name="file2" class="form-control class_image"  /> -->
+<!-- 												<input type="file" name="file3" class="form-control class_image mt-1" /> -->
+<!-- 												<div class="invalid-feedback">본문이미지 선택해주세요.</div> -->
+<!-- 											</div> -->
+
+											 <div class="col-md-12 my-4">
+									            <label for="class_thumnail" class="h6">커버이미지</label> 
+									            <input type="file" name="class_thumnail" id="class_thumnail" class="form-control" required />
+									            <img id="previewThumbnail" src="#" alt="커버이미지 미리보기" style="width: 150px; display: none;" />
+									            <button type="button" id="deleteThumbnail" class="btn btn-danger btn-sm" style="display: none;">삭제</button>
+									            <div class="invalid-feedback">커버이미지 선택해주세요.</div>
+									        </div>
+									        <div class="col-md-12 my-4">
+									            <label for="class_image" class="h6">본문이미지</label> 
+									            <input type="file" name="file1" class="form-control class_image mb-1" required />
+									            <img id="previewImage1" src="#" alt="본문이미지1 미리보기" style="width: 150px; display: none;" />
+									            <button type="button" id="deleteImage1" class="btn btn-danger btn-sm" style="display: none;">삭제</button>
+									            <input type="file" name="file2" class="form-control class_image" />
+									            <img id="previewImage2" src="#" alt="본문이미지2 미리보기" style="width: 150px; display: none;" />
+									            <button type="button" id="deleteImage2" class="btn btn-danger btn-sm" style="display: none;">삭제</button>
+									            <input type="file" name="file3" class="form-control class_image mt-1" />
+									            <img id="previewImage3" src="#" alt="본문이미지3 미리보기" style="width: 150px; display: none;" />
+									            <button type="button" id="deleteImage3" class="btn btn-danger btn-sm" style="display: none;">삭제</button>
+									            <div class="invalid-feedback">본문이미지 선택해주세요.</div>
+									        </div>
+											
 											<div class="my-4">
 												<label for="summernote" class="h6">클래스 소개</label> 
 												<textarea name="class_ex" id="summernote" maxlength="3000" cols="30" rows="5" placeholder="내용을 입력해주세요" class="with-border form-control" required></textarea>
@@ -286,11 +309,8 @@
         	            return false; // 폼 제출을 막음
         	        }
         	
-        	
         	        return true; // 폼 제출을 허용
             });
-			
-			
 			
 			// 카테고리 선택시 상세카테
 			$("#class_big_category").change(function() {
@@ -407,15 +427,6 @@
 						   ],
 				  fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
 				  fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
-				  // callbacks은 이미지 업로드 처리
-	// 			  callbacks : {                                                    
-	// 			  onImageUpload : function(files, editor, welEditable) {   
-			        // 다중 이미지 처리를 위해 for문을 사용
-	// 					for (var i = 0; i < files.length; i++) {
-	// 						imageUploader(files[i], this);
-	// 					}
-	// 				 }
-	// 			  }
 			});
 		});
 		
@@ -486,8 +497,83 @@
 	            }
 	        }).open();
 	    }
-		
-		
+	</script>
+	<script>
+		 // 이미지 미리보기
+		 function previewImage(input, previewElementId, deleteButtonId) {
+            var file = input.files[0];
+
+            // 파일이 선택되지 않은 경우 미리보기 숨김
+            if (!file) {
+                $('#' + previewElementId).hide();
+                $('#' + deleteButtonId).hide();
+                return;
+            }
+
+            // 파일 확장자 검사
+            var fileName = file.name;
+            var validExtensions = ['jpg', 'jpeg', 'png'];
+            var fileExtension = fileName.split('.').pop().toLowerCase();
+
+            if ($.inArray(fileExtension, validExtensions) === -1) {
+                alert('jpg, jpeg, png 파일만 업로드 가능합니다.');
+                $(input).val(''); // 파일 입력 초기화
+                $('#' + previewElementId).hide(); // 미리보기 이미지 숨기기
+                $('#' + deleteButtonId).hide();
+                return;
+            }
+
+            // FileReader를 이용한 미리보기
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#' + previewElementId).attr('src', e.target.result);
+                $('#' + previewElementId).show();
+                $('#' + deleteButtonId).show();
+            };
+            reader.readAsDataURL(file); // 파일을 Data URL로 읽기
+        }
+
+        $(document).ready(function() {
+            $('#class_thumnail').on('change', function() {
+                previewImage(this, 'previewThumbnail', 'deleteThumbnail');
+            });
+
+            $('input[name="file1"]').on('change', function() {
+                previewImage(this, 'previewImage1', 'deleteImage1');
+            });
+
+            $('input[name="file2"]').on('change', function() {
+                previewImage(this, 'previewImage2', 'deleteImage2');
+            });
+
+            $('input[name="file3"]').on('change', function() {
+                previewImage(this, 'previewImage3', 'deleteImage3');
+            });
+
+            $('#deleteThumbnail').on('click', function() {
+                $('#class_thumnail').val('');
+                $('#previewThumbnail').hide();
+                $(this).hide();
+            });
+
+            $('#deleteImage1').on('click', function() {
+                $('input[name="file1"]').val('');
+                $('#previewImage1').hide();
+                $(this).hide();
+            });
+
+            $('#deleteImage2').on('click', function() {
+                $('input[name="file2"]').val('');
+                $('#previewImage2').hide();
+                $(this).hide();
+            });
+
+            $('#deleteImage3').on('click', function() {
+                $('input[name="file3"]').val('');
+                $('#previewImage3').hide();
+                $(this).hide();
+            });
+        });
 	</script>
 
 </body>

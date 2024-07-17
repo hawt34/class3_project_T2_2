@@ -813,7 +813,7 @@ $(function() {
     });
     
     // 추천 키워드 클릭 시 해당 키워드로 검색됨
-    $(document).on('click', '.recommend-keyword', function(event) {
+    $(document).on('click', '.recommend-link', function(event) {
     	 event.preventDefault(); // 기본 동작을 막습니다.
          let keyword = $(this).data('keyword');
          $("#keyword").val(keyword);

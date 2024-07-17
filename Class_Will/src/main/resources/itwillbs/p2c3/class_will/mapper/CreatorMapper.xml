@@ -877,6 +877,8 @@
 			c.member_code = #{member_code}
 		AND 
 			c.class_active = 'Y'
+		AND
+		    c.class_regist_status = 2
 	</select>
 	
 	<!-- 분석한 데이터 -->
@@ -899,6 +901,8 @@
 			cs.class_total_headcount != cs.class_remain_headcount
 		AND 
 			c.class_active = 'Y'
+		AND
+		    c.class_regist_status = 2
 		<if test="class_code != 0">
 			AND
 				c.class_code = #{class_code}
@@ -918,6 +922,8 @@
 			c.member_code = #{member.member_code}
 		AND 
 			c.class_active = 'Y'
+		AND
+		    c.class_regist_status = 2
 			<if test="class_code != 0">
 				AND
 					c.class_code = #{class_code}
@@ -944,6 +950,8 @@
 				c.class_active = 'Y'
 		    AND 
 		    	cs.class_schedule_date >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m-01')
+		    AND
+		    	c.class_regist_status = 2
 		    AND 
 		    	DATE_FORMAT(CURDATE(), '%Y-%m-01') > cs.class_schedule_date 
 		GROUP BY 

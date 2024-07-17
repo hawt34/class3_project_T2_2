@@ -250,7 +250,6 @@ th:nth-child(2), td:nth-child(2) {
 											페이지로 이동</a>
 									</h3>
 									<br>
-									<h3>회원 탈퇴시 남은 윌페이는 환불되지 않습니다. 참고부탁드립니다.</h3>
 									<div class="col-lg-6 col-md-12 ">
 										<h3>회원탈퇴</h3>
 										<form action="member-quit" method="POST">

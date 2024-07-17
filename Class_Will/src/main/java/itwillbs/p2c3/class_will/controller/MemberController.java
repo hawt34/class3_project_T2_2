@@ -108,8 +108,9 @@ public class MemberController {
 		MemberVO dbMember = memberService.selectMember(member);
 		
 		if(dbMember != null && dbMember.getMember_status().equals("2")) {
-			model.addAttribute("msg", "이미 탈퇴한 회원입니다.");
-			return "result_process/fail";
+			model.addAttribute("msg", "이미 탈퇴한 회원입니다.\\n재가입하시겠습니까?");
+			model.addAttribute("targetURL", "member-join");
+			return "result_process/confirm";
 			
 		} else if(dbMember != null && dbMember.getMember_status().equals("3")) {
 			model.addAttribute("msg", "휴면 회원입니다.");

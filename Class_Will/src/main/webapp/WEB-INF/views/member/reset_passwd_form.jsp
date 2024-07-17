@@ -161,6 +161,7 @@
 			          $("#btnSub").prop("disabled", true);
 			      } else {
 			      	 $("#regex-pwd").text("");
+			      	$("#btnSub").prop("disabled", false);
 			      }
 			  });
 			 

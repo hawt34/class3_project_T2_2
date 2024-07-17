@@ -142,6 +142,7 @@
 			            $("#send_mail_btn").prop("disabled", true);
 			        } else {
 			            $("#regex-email").text("");
+			            $("#send_mail_btn").prop("disabled", false);
 			        }
 			});
 		

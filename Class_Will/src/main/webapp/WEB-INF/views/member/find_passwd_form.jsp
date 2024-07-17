@@ -87,7 +87,7 @@
 	
 	<article>
 		<div class="container reset-form text-center">
-			<form action="reset-passwd" method="POST">
+			<form >
 				<div class="my-5">
 					<h2>비밀번호 찾기</h2>
 				</div>

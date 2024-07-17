@@ -980,6 +980,9 @@ $(function() {
 			} else if(data.message_type == "REQUEST_CHAT_LIST") { 
 				console.log("data.message_type == REQUEST_CHAT_LIST");
 				iframe.contentWindow.postMessage(data, '*');
+				ws.send(JSON.stringify({
+					message_type: "CHECK_UNREAD"
+				}));
 				
 			} else if(data.message_type == "START") {
 				console.log("data.message_type == START");
@@ -1002,6 +1005,7 @@ $(function() {
             	alert(data.message);
             	closeChatModal();
 			} else if(data.message_type == "INIT") {
+				alarmOn();
 				iframe.contentWindow.postMessage(data, '*');
 			}
 			

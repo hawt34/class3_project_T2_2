@@ -325,7 +325,8 @@
 												<div class="invalid-feedback">크리에이터 소개를 입력해주세요.</div>
 											</div>
 											<div class="mt-5 mb-3" align="center">
-												<button type="submit" value="1" name="class_regist_status" class="btn btn-outline-primary btn-lg">수정하기</button>
+												<button type="submit" value="1" name="class_regist_status" class="btn btn-outline-primary btn-lg">등록하기</button>
+												<button type="submit" value="3" name="class_regist_status" class="btn btn-outline-primary btn-lg" >임시저장</button>
 												<input type="button" value="돌아가기" class="btn btn-outline-primary btn-lg" onclick="history.back()">
 												<button type="button" value="삭제" name="deleteClass" class="btn btn-outline-danger btn-lg" onclick="DeleteClass(${classDetail.class_code})" >삭제하기</button>
 												<hr class="mb-4">

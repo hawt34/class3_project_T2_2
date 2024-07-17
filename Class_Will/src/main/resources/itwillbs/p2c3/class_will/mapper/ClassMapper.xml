@@ -147,6 +147,7 @@
 			,class_hashtag
 			,m.member_name
 			,m.member_nickname
+			,m.member_img
 		FROM class c
 		LEFT JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
 		LEFT JOIN common2 lc ON c.common2_code = lc.common2_code AND lc.common1_code = 'LC'
@@ -165,20 +166,21 @@
 	
 	<!-- 리뷰 많은 순 -->
 	<select id="selectReviewCount" resultType="map">
-		SELECT c.class_code,
-			c.class_name,
-			c2.code_value AS class_big_category,
-			c3.code_value AS class_small_category,
-			lc.code_value AS local_name,
-			c2.common2_code,
-			c3.common3_code,
-			c.class_thumnail,
-			c.class_hide,
-			c.class_price,
-			c.class_hashtag,
-			m.member_name,
-			m.member_nickname,
-			COALESCE(cr.review_count, 0) AS review_count
+		SELECT c.class_code
+			,c.class_name
+			,c2.code_value AS class_big_categor
+			,c3.code_value AS class_small_category
+			,lc.code_value AS local_name
+			,c2.common2_code
+			,c3.common3_code
+			,c.class_thumnail
+			,c.class_hide
+			,c.class_price
+			,c.class_hashtag
+			,m.member_name
+			,m.member_nickname
+			,m.member_img
+			,COALESCE(cr.review_count, 0) AS review_count
 		FROM class c
 		LEFT JOIN common2 c2 ON c.class_big_category = c2.common2_code AND c2.common1_code = 'CLC'
 		LEFT JOIN common2 lc ON c.common2_code = lc.common2_code AND lc.common1_code = 'LC'
@@ -200,8 +202,10 @@
 		    IFNULL(AVG(cr.class_review_rating), 0) AS avg_rating
 		    ,c.class_code
 		    ,c.class_thumnail
+		    ,m.member_img
 		FROM class c
 		LEFT JOIN class_review cr ON cr.class_code = c.class_code
+		JOIN MEMBER m ON m.member_code = c.member_code
 		WHERE c.class_regist_status = '2'
 		GROUP BY c.class_code
 		ORDER BY avg_rating DESC

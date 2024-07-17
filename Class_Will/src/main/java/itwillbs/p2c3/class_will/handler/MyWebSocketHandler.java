@@ -188,6 +188,10 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 				// sendMessage() 메서드 호출하여 메세지 전송 요청(수신자에게 전송하도록 false 전달)
 				sendMessage(receiver_ws, chatMessage, false);
 				
+				chatMessage.setMessage_type(ChatMessageVO.TYPE_INIT);
+				sendMessage(receiver_ws, chatMessage, false);
+				
+				
 			}
 			
 			

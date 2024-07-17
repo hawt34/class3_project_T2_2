@@ -156,14 +156,15 @@
 	</div> <!-- user-chat -->
 	
 	<script type="text/javascript">
-		let member_email = "${sessionScope.member.member_email}";
-		const listmessage = {
-				message_type: "INIT"
-		};
-		window.parent.postMessage(listmessage, '*');
+		
 		
 		
 		$(function() {
+			let member_email = "${sessionScope.member.member_email}";
+			let listmessage = {
+					message_type: "INIT"
+			};
+			window.parent.postMessage(listmessage, '*');
 			
 			// 부모창(top.jsp)으로부터 전송된 메시지 수신/처리 후 다시 보내기
 			$(window).on("message", function(event) {
@@ -198,8 +199,11 @@
 					    
 					}
 					
-				} else if(data.message_type == "NEW_MESSAGE") {
+				} else if(data.message_type == "INIT") {
 					
+					location.reload();
+
+
 				}
 				
 			});

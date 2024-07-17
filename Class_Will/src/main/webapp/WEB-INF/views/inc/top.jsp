@@ -1001,6 +1001,8 @@ $(function() {
 				// 사용자에게 오류 메세지 표시 및 채팅 모달 닫기
             	alert(data.message);
             	closeChatModal();
+			} else if(data.message_type == "INIT") {
+				iframe.contentWindow.postMessage(data, '*');
 			}
 			
 		}

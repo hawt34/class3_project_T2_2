@@ -135,9 +135,6 @@
                         <h6 class="collapse-header">클래스신고 관리:</h6>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리중">처리중 리스트</a>
                         <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리완료">처리완료 리스트</a>
-                        <h6 class="collapse-header">1:1 채팅 관리:</h6>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리중">처리중 리스트</a>
-                        <a class="collapse-item" href="${pageContext.request.contextPath }/admin-report?status=처리완료">처리완료 리스트</a>
                     </div>
                 </div>
             </li>

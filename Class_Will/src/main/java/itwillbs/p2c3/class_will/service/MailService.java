@@ -29,8 +29,8 @@ public class MailService {
 	public void sendInviteFriendMail(String friend_email, String invite_code) {
 		String subject = "[클래스윌] 친구초대 메일입니다.";
 		String info = "링크를 클릭하여 친구초대에 응해주세요!";
-//		String content = "<a href='http://c3d2401t2.itwillbs.com/class-will/InviteFriend?friend_email=" + friend_email +  "&invite_code=" + invite_code + "'>" + info +"</a>";
-		String content = "<a href='http://localhost:8081/class_will/InviteFriend?friend_email=" + friend_email +  "&invite_code=" + invite_code + "'>" + info +"</a>";
+		String content = "<a href='http://c3d2401t2.itwillbs.com/class-will/InviteFriend?friend_email=" + friend_email +  "&invite_code=" + invite_code + "'>" + info +"</a>";
+//		String content = "<a href='http://localhost:8081/class_will/InviteFriend?friend_email=" + friend_email +  "&invite_code=" + invite_code + "'>" + info +"</a>";
 		SendMailClient mailClient = new SendMailClient();
 		new Thread(new Runnable() {
 			@Override

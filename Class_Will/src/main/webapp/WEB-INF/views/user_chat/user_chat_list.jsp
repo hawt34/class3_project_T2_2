@@ -198,7 +198,9 @@
 					    
 					}
 					
-				} 
+				} else if(data.message_type == "NEW_MESSAGE") {
+					
+				}
 				
 			});
 			

@@ -179,11 +179,15 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
 			System.out.println("수신자의 WebSocketSession 아이디 : " + userSessions.get(receiver_email));
 			if(userSessions.get(receiver_email) != null) {
 				WebSocketSession receiver_ws = users.get(userSessions.get(receiver_email));
-				// sendMessage() 메서드 호출하여 메세지 전송 요청(수신자에게 전송하도록 false 전달)
+				
 				chatMessage.setMessage_type(ChatMessageVO.TYPE_NEW_MESSAGE);
+				System.out.println("TYPE_NEW_MESSAGE : " + chatMessage);
 				Map<String, String> receiveMessage = chatService.selectNewMessage(chatMessage.getMessage_code());
+				System.out.println("receiveMessage : " + receiveMessage);
 				chatMessage.setChat_message(gson.toJson(receiveMessage));
+				// sendMessage() 메서드 호출하여 메세지 전송 요청(수신자에게 전송하도록 false 전달)
 				sendMessage(receiver_ws, chatMessage, false);
+				
 			}
 			
 			

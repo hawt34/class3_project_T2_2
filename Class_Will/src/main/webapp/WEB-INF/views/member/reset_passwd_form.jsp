@@ -158,6 +158,7 @@
 			      if (!regex.test(inputPwd)) {
 			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
 			          $("#regex-pwd").css("color", "#FF4848");
+			          $("#btnSub").prop("disabled", true);
 			      } else {
 			      	 $("#regex-pwd").text("");
 			      }

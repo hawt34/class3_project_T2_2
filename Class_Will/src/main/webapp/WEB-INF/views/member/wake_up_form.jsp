@@ -40,10 +40,23 @@
 	}
 	
 	.reset-form {
-		width: 500px;
 		padding: 30px;
 		margin-top: 50px;
 		margin-bottom: 100px;
+	}
+	
+	@media (min-width: 576px) {
+		.reset-form {
+			padding: 30px 100px;;
+		}
+	    
+	}
+	
+	@media (min-width: 992px) {
+		.reset-form {
+			width: 700px;
+		}
+	    
 	}
 	
 	.btnLogin {
@@ -66,6 +79,11 @@
 	
 	#member_email {
 		color: gray;
+	}
+	
+	#goLogin u {
+		font-style: none;
+		color: white;
 	}
 </style>
 </head>
@@ -99,7 +117,7 @@
 					</div>
 				</fieldset>
 			</form>
-			<div class="mt-3 mb-3">
+			<div class="mt-3 mb-3" id="goLogin">
 				<a href="find-passwd" class="text-center"><u>비밀번호 찾기</u></a>
 			</div>
 		</div>
@@ -148,6 +166,7 @@
 			      if (!regex.test(inputPwd)) {
 			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
 			          $("#regex-pwd").css("color", "#FF4848");
+			          $("#btnSub").prop("disabled", true);
 			      } else {
 			      	 $("#regex-pwd").text("");
 			      }

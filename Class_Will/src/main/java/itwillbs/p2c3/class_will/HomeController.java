@@ -89,7 +89,6 @@ public class HomeController {
         mainService.insertVisitIp(ip, visitDate);
         
         List<Map<String, Object>> top10List = mainService.selectTop10();
-//        System.out.println("top10List : "+ top10List);
         List<Map<String, Object>> newClassList = mainService.selectNewClass();
         System.out.println("newClassList : "+ newClassList);
         

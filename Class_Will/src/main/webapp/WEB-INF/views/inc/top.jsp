@@ -639,6 +639,8 @@ function closeChatModal() {
 	$("body").css("overflow", "auto"); // 배경 스크롤 복구
 }
 
+
+
 $(function() {
 	
 	// 탑 분야 카테고리 

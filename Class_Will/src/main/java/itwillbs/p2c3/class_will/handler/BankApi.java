@@ -187,17 +187,7 @@ public class BankApi {
 		jo.addProperty("tran_dtime", bankValueGenerator.getTranDTime()); // 요청일시
 		jo.addProperty("req_cnt", 1); // 요청고객핀테크이용번호(출금계좌)
 		
-//		jo.addProperty("bank_tran_id", bankValueGenerator.getBankTranId()); // 거래고유번호(참가기관)
-//		jo.addProperty("dps_print_content", "CLASS-WILL" + "_환불"); // 입금계좌인자내역(입금되는 계좌에 출력할 메세지)
-//		
-//		// ---------- 요청 고객(출금 계좌) 정보 ----------
-//		jo.addProperty("fintech_use_num", (String)map.get("fintech_use_num")); // 출금계좌 핀테크이용번호 
-//		jo.addProperty("wd_print_content", (String)map.get("user_name") + "_송금"); // 출금계좌인자내역(출금되는 계좌에 출력할 메세지)
-//		jo.addProperty("tran_dtime", bankValueGenerator.getTranDTime()); // 요청고객성명(출금계좌)
 		jo.add("req_list", jaReqList);
-//		// => 요청고객 계좌번호 미사용 시 핀테크 이용번호 설정 필수!
-//		jo.addProperty("req_client_num", member_code); // 요청고객회원번호(아이디처럼 사용) => 영문자 모두 대문자 변환 
-//		jo.addProperty("transfer_purpose", "ST"); // 이체 용도(송금 : TR, 결제 : ST 등) 
 		
 		// 최종 요청 파라미터 확인
 		logger.info(">>>>>>>> 입금이체 요청 JSON 데이터 : " + gson.toJson(jo));
@@ -225,8 +215,6 @@ public class BankApi {
 				.build() // UriComponents 타입 객체 생성
 				.toUri(); //URI 타입 객체로 변환
 		LinkedMultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-	//	parameters.add("client_id", "4066d795-aa6e-4720-9383-931d1f60d1a9");
-	//	parameters.add("client_secret", "36b4a668-94ba-426d-a291-771405e498e4");
 		parameters.add("client_id", client_id);
 		parameters.add("client_secret", client_secret);
 		parameters.add("scope", "oob");

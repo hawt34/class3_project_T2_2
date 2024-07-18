@@ -40,16 +40,16 @@
 			,c2.common2_code
 			,c3.common3_code
 			,class_thumnail
-			,class_image
-			,class_ex
+<!-- 			,class_image -->
+<!-- 			,class_ex -->
 			,class_location
-			,class_creator_explain
+<!-- 			,class_creator_explain -->
 			,class_hide
 			,class_price
 			,class_map_x
 			,class_map_y
 			,class_hashtag
-			,m.member_name
+<!-- 			,m.member_name -->
 			,m.member_nickname
 			,m.member_img
 		FROM class c
@@ -74,15 +74,17 @@
 	        </if>
 	        <if test="class_codes != null and !class_codes.isEmpty()">
 				AND c.class_code IN
-            <foreach item="classCode" collection="class_codes" open="(" separator="," close=")">
-                #{classCode}
-            </foreach>
+	            <foreach item="classCode" collection="class_codes" open="(" separator="," close=")">
+	                #{classCode}
+	            </foreach>
+	        </if>
+		</where>
+		<if test="class_codes != null and !class_codes.isEmpty()">
             ORDER BY FIELD(c.class_code,
             <foreach item="classCode" collection="class_codes" separator=",">
                 #{classCode}
             </foreach>)
-	        </if>
-		</where>
+        </if>
 	</select>
 	
 	

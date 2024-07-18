@@ -68,16 +68,13 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/format_number.js"></script>
 <script>
 $(function() {
 	//LocaleString() - 포맷팅
-	let remainedWillpay = $("#remainedWillpay").text();
-	let remainWillpay = parseInt(remainedWillpay);
-	$("#remainedWillpay").text(remainWillpay.toLocaleString());
+	formatTolocaleString("#remainedWillpay", "ko-KR");
 	
-	let abledWillpay = $("#abledWillpay").text();
-	let ableWillpay = parseInt(abledWillpay);
-	$("#abledWillpay").text(ableWillpay.toLocaleString());
+	formatTolocaleString("#abledWillpay", "ko-KR");
 });
 
 function refundWillpay() {
@@ -125,6 +122,8 @@ function refundWillpay() {
 		}
 	});
 }
+
+
 	
 </script>
 </body>

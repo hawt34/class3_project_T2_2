@@ -188,7 +188,7 @@
 						</p>
 					<hr>
 						<h6 class="card-title">WILL-PAY</h6>
-						<h6 class="card-title text-end">보유 WILL-PAY &nbsp;<span class="font_color">${payInfo.member_credit }</span>원</h6>
+						<h6 class="card-title text-end">보유 WILL-PAY &nbsp;<span class="font_color" id="remain_willpay">${payInfo.member_credit }</span>원</h6>
 						<div class="col d-flex justify-content-end">
 							<input type="text" placeholder="윌페이" id="will_pay_input">
 							<input type="button" value="전부 사용" id="will_btnCredit">
@@ -216,6 +216,7 @@
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp"></jsp:include>
 </footer>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/format_number.js"></script>
 <script>
 $(function() {
 	$('.accordion-button').off('mouseenter mouseleave');
@@ -224,6 +225,7 @@ $(function() {
 	let subtotalText = $("#subtotal").text().trim(); //trim()으로 앞뒤 공백 제거
 	let subtotal = parseInt(subtotalText.replace(/,/g, ''), 10);
 	$("#total").text(subtotal.toLocaleString());
+// 	formatTolocaleString("#total", "ko-KR");
 	
 	$("#will_pay_input").on("input", function() {
 		let willpay = $(this).val();
@@ -291,9 +293,6 @@ $(function() {
 		if (total < 0) {
             total = 0;
         }
-// 		if(isNaN($("#total")) || $("#will_pay_input").val() === "") {
-// 			$("#total").text("0");
-// 		}
 		
 		//형변환
 		let subtotalS = subtotal.toString();
@@ -338,6 +337,9 @@ $(function() {
             event.preventDefault();
         }
     });
+	//--------------------------------------------------------------------------------------------
+	formatTolocaleString("#remain_willpay", "ko-KR");
+	
 });
 //-------------------------------------------------------------------------------------------------
 function paymentValidation() {

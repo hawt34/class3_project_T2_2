@@ -96,6 +96,9 @@ th:nth-child(2), td:nth-child(2) {
 	width: 130px;
 	text-align: center;
 }
+.pay_amount, .pay_willpay {
+	color: green;
+}
 </style>
 </head>
 <body>
@@ -151,7 +154,7 @@ th:nth-child(2), td:nth-child(2) {
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="pay" items="${payInfoList }">
+										<c:forEach var="pay" items="${payInfoList }" varStatus="status">
 											<c:if test="${pay.pay_status eq 'paid'}">
 												<tr>
 													<td>
@@ -163,11 +166,11 @@ th:nth-child(2), td:nth-child(2) {
 														${pay.class_st_time } ~ ${pay.class_ed_time }<br>
 													</td>
 													<td>
-														${pay.pg_provider }(${pay.card_name }) ${pay.pay_amount }원<br>
+														${pay.pg_provider }(${pay.card_name }) <span id="pay_amount_${status.count }">${pay.pay_amount }</span>원<br>
 														인원수(${pay.pay_headcount })
 													</td>
 													<td>
-														${pay.use_willpay } WILL-PAY
+														<span id="pay_willpay_${status.count }">${pay.use_willpay }</span> WILL-PAY
 													</td>
 													<td>
 														${pay.pay_datetime }<br>
@@ -200,6 +203,13 @@ th:nth-child(2), td:nth-child(2) {
 <footer>
 	<jsp:include page="/WEB-INF/views/inc/bottom.jsp" />
 </footer>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/format_number.js"></script>
+<script>
+$(function() {
+	formatTolocaleString(".pay_amount", "ko-KR");
+	formatTolocaleString(".pay_willpay", "ko-KR");
+})
+</script>
 <script>
 function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, param_pay_headcount, param_class_schedule_code, param_pay_type, param_pay_datetime, param_class_schedule_date) {
 	let imp_uid = param_imp_uid; //imp_uid
@@ -281,13 +291,12 @@ function refundPay(param_imp_uid, param_amount, param_willpay, param_pay_code, p
 				contentType: "application/json",
 				dataType: "json",
 				success: function(res) {
-		// 			boolean successRefund = res;
 					if(res) {
-						if(isOver3){
-							alert("원금이 환불되었습니다.");
-						}else{
-							alert("50%가 환불되었습니다.");
-						}
+// 						if(isOver3){
+// 							alert("원금이 환불되었습니다.");
+// 						}else{
+// 							alert("50%가 환불되었습니다.");
+// 						}
 			            location.reload();
 					}
 				},

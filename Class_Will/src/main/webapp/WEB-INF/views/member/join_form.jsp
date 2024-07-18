@@ -406,8 +406,10 @@
 				 if (!regex.test(inputName)) {
 			            $("#regex-name").text("올바르지 않은 이름입니다.");
 			            $("#regex-name").css("color", "#FF4848");
+			            $("#btnSub").prop("disabled", true);
 			        } else {
 			            $("#regex-name").text("");
+			            $("#btnSub").prop("disabled", false);
 			        }
 
 				
@@ -419,41 +421,76 @@
 				let inputEmail = $(this).val();
 				let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // 이메일 형식
 				
-				 if (!regex.test(inputEmail)) {
-// 			            $(this).val("");
-			            $("#regex-email").text("규칙에 맞는 이메일 주소를 입력해 주세요.");
-			            $("#regex-email").css("color", "#FF4848");
-			        } else {
-			            $("#regex-email").text("");
-			        }
+				
+				if (!regex.test(inputEmail) ) {
+// 		            $(this).val("");
+		            $("#regex-email").text("규칙에 맞는 이메일 주소를 입력해 주세요.");
+		            $("#regex-email").css("color", "#FF4848");
+		            $("#btnSub").prop("disabled", true);
+		            
+				} else {
+					$.ajax({
+						type: "GET",
+				        url: "check-email",
+				    	data : {
+				    		member_email : inputEmail
+					 	},
+					 	dataType : "json",
+					 	success : function(isValid) {
+					 		if(isValid) {
+					 			$("#regex-email").text("사용 가능한 이메일");
+					            $("#regex-email").css("color", "#86E57F");
+					            $("#btnSub").prop("disabled", false);
+					 		} else {
+					 			$("#regex-email").text("이미 사용 중인 이메일입니다.");
+					            $("#regex-email").css("color", "#FF5E00");
+					            $("#btnSub").prop("disabled", true);
+					 		}
+					 	},
+					 	error : function() {
+							alert("이메일 검증 오류");
+						}
+					});
+					
+		        }
+				
+				
+				
 			});
 			
 			// 비밀번호 정규표현식
 			$("#member_pwd").on("input", function() {
-			      let inputPwd = $(this).val();
-			
-			      let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
-			
-			      if (!regex.test(inputPwd)) {
-			          $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
-			          $("#regex-pwd").css("color", "#FF4848");
-			      } else {
-			      	 $("#regex-pwd").text("");
-			      }
-			  });
+				let inputPwd = $(this).val();
+				
+				let regex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,16}$/;
+				
+				if (!regex.test(inputPwd)) {
+				    $("#regex-pwd").text("6자리 이상 영문자, 숫자, 특수문자를 입력하세요.");
+				    $("#regex-pwd").css("color", "#FF4848");
+				    $("#btnSub").prop("disabled", true);
+				} else {
+					$("#regex-pwd").text("");
+					$("#btnSub").prop("disabled", false);
+				}
+			      
+			      
+			      
+			});
 			
 			// 비밀번호 확인
 			$("#member_pwd2").on("input", function() {
-			      let inputPwd2 = $(this).val();
-			      let inputPwd = $("#member_pwd").val();
-			
-			      if (inputPwd != inputPwd2) {
-			          $("#regex-pwd2").text("비밀번호가 일치하지 않습니다.");
-			          $("#regex-pwd2").css("color", "#FF4848");
-			      } else {
-			      	 $("#regex-pwd2").text("");
-			      }
-			  });
+				let inputPwd2 = $(this).val();
+				let inputPwd = $("#member_pwd").val();
+				
+				if (inputPwd != inputPwd2) {
+				    $("#regex-pwd2").text("비밀번호가 일치하지 않습니다.");
+				    $("#regex-pwd2").css("color", "#FF4848");
+				    $("#btnSub").prop("disabled", true);
+				} else {
+					$("#regex-pwd2").text("");
+					$("#btnSub").prop("disabled", false);
+				}
+			});
 			
 // 			핸드폰번호 정규표현식
 			$("#member_tel").on("input", function() {

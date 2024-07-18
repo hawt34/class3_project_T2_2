@@ -250,8 +250,17 @@ public class MemberController {
 	} // wakeUpPro()
 	 
 	
-
-	
+	@ResponseBody
+	@GetMapping("check-email")
+	public boolean checkEmial(MemberVO member) {
+		
+		boolean isValid = memberService.selectMember(member) == null ? true : false;
+		// => isValid true 면 이메일이 null 이면 사용 가능한 이메일
+		
+		System.out.println("join_form - ajax(check-email) - isValid : " + isValid);
+		
+		return isValid;
+	}
 	
 	
 

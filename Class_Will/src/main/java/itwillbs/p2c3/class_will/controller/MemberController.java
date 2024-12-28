@@ -89,7 +89,6 @@ public class MemberController {
 	// 회원 로그인 폼으로
 	@GetMapping("member-login")
 	public String memberLoginForm(Model model) {
-		
 		MemberVO member = (MemberVO)session.getAttribute("member");
 		if(member != null) {
 			model.addAttribute("msg", "잘못된 접근입니다.");
@@ -107,6 +106,11 @@ public class MemberController {
 		
 		MemberVO dbMember = memberService.selectMember(member);
 		
+		if (dbMember == null) { 
+			model.addAttribute("msg", "이메일 또는 비밀번호를 확인해 주세요.");
+			return "result_process/fail";
+		}
+		
 		if(dbMember != null && dbMember.getMember_status().equals("2")) {
 			model.addAttribute("msg", "이미 탈퇴한 회원입니다.\\n재가입하시겠습니까?");
 			model.addAttribute("targetURL", "member-join");
@@ -123,7 +127,7 @@ public class MemberController {
 			session.setMaxInactiveInterval(100000000);
 			return "redirect:/";
 			
-		} else if(dbMember == null || !passwordEncoder.matches(member.getMember_pwd(), dbMember.getMember_pwd()) 
+		} else if(!passwordEncoder.matches(member.getMember_pwd(), dbMember.getMember_pwd()) 
 					|| !member.getMember_email().equals(dbMember.getMember_email())) { // 로그인 실패
 			model.addAttribute("msg", "이메일 또는 비밀번호를 확인해 주세요.");
 			return "result_process/fail";
